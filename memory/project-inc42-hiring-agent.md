@@ -1,0 +1,105 @@
+---
+name: project-inc42-hiring-agent
+description: "AI agent that consumes Keka applicant data, parses/scores candidates, v1 scope is score-only (no hiring-manager notification yet)"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 77d4ec99-d3b3-4edc-983a-6a9cc9839059
+  modified: 2026-08-14T05:08:18.718Z
+---
+
+Building an AI hiring-screen agent: consumes applicant data from Keka (the ATS module, "Keka Hire" — separate product from core Keka HRMS), parses it, and produces a final fit score against the job's rubric/JD.
+
+**Why:** v1 scope is deliberately narrowed to just producing the score — sending it to the hiring manager is a later phase, not part of the current build.
+
+**Status (2026-07-31):** Sent Utkarsh a Keka API access request: OAuth client ID/secret/API key scoped to Keka Hire (not just core HRMS), read access on Candidates/Job Openings/Applications. Researched the rest directly from Keka's public dev docs rather than routing through Utkarsh/Keka support:
+- No documented recruitment/Hire webhook events (only core-HR events like salary/leave/exit exist) → build on **polling**, don't wait on a webhook.
+- Resume file: `GET /v1/hire/jobs/candidate/{candidateId}/resume` returns a `fileUrl` to the raw file — separate from structured candidate fields. Both available, not either/or.
+- Rate limit: 50 requests/min per API key (429 on exceed) — fine for polling.
+- Sandbox: Keka's public sandbox is scoped to App Portal partners (appbuilder.keka.com), likely doesn't apply to us as an internal integration — real open ask to Utkarsh is whether our Keka CSM can provide test data, or we test against a dummy job opening in prod.
+
+**Key finding:** Keka Hire already runs its own resume parser and returns structured fields via API (`name, email, phone, linkedInUrl, location, status, resumeLink, skills, experience, education, workHistory, salary, salaryCurrency`) — may not need a custom resume-parsing layer at all, just score off Keka's structured data unless free-text resume content is needed beyond those fields. Decision pending a sample candidate payload.
+
+**How to apply:** Once Utkarsh confirms access + webhook/rate-limit answers, next step is designing the scoring pipeline (rubric definition, LLM scoring call, storage of score+reasoning). Don't build a custom resume parser until the "do we need it beyond Keka's structured fields" question is resolved.
+
+**Perplexity deep-dive (2026-07-31) — confirmed findings, changes the plan:**
+- Webhooks: confirmed absent for Hire module (corroborated by Merge.dev/Knit third-party integration docs, which all poll rather than subscribe) → polling confirmed as the right design, not just a fallback.
+- **API access is a paid add-on**, not included in standard Keka Hire seats — confirmed via Keka's own "getting started for customers" doc and Marketplace listing. Budget/procurement conversation needed before building, not just an access request.
+- Sandbox: confirmed official path is "contact your CSM" — no self-serve option for non-App-Portal companies. This is the real, actionable ask for Utkarsh (not a support ticket).
+- Job description field: confirmed field name `description` (string) on `GET /v1/hire/jobs` — format (plain text vs HTML) unconfirmed, needs one live test call.
+- Pagination: confirmed offset-based, max 200/page; `lastModified` param on the candidates endpoint is the incremental-polling hook — exact inclusive/exclusive semantics unconfirmed, needs a live test.
+- **DPDP angle (important — ties directly to [[project-dpdp-compliance]]):** sending candidate PII/resumes to a third-party LLM API is legally analogous to the "AI features are undisclosed processing" gap already flagged in the DPDP engagement (no LLM sub-processor named in Privacy Policy §7.1/§8, no DPA, no zero-retention terms). This hiring agent would create the same exposure for a new AI feature before the DPDP engagement even reaches Phase 2 controls. Directionally: cross-border transfer to a US LLM vendor is not currently blocked (DPDP s.16 is a blacklist model, none published yet), but purpose-limitation/consent-scope (does Keka's application-time consent cover "automated third-party AI evaluation"?) is genuinely unresolved and needs actual legal sign-off, not just docs research — flag to Shivang/legal before this ships, don't self-conclude it's fine.
+
+**Yash meeting notes (2026-07-31, "Recruitment Process Review & AI Screening Solution", via Notion AI Meeting Recorder) — read via Notion MCP:**
+
+Yash is the hiring manager actively screening for 5 open roles: EA to Editor-in-Chief (Pooja), Founders Office (**priority #1** — Yash is offloading this as he shifts time to Gryphon), Senior Business Ops (reports to CEO Eber, needs 4-5yr strategy/execution background), Comms (Gryphon), Luxury Partnerships (Gryphon).
+
+- **Volume:** ~90% of applications via Keka, 200-250/week per role, ~50 resumes/day screened across ~2 profiles. Hard per-role filters already exist (experience mins, salary caps e.g. Founders Office ≤10-12 LPA, location, background reqs).
+- **Approach Yash agreed to:** NOT a fixed JD/rubric scorer — train the agent on Yash's own historical accept/reject *patterns* using labeled samples: he'll provide **~100 rejected + ~5x shortlisted resumes per role** (due "next week" from 2026-07-31), and going forward will write brief rejection/shortlist reasons for ~15 rejected + ~5 shortlisted per profile so the model keeps improving. Expected accuracy ~60-70% initially — framed as directionally useful, not a replacement for judgment.
+- **Resolves the open "do we need a custom resume parser" question from the Perplexity dive above: YES.** Yash's actual rejection signals are visual/presentation-level — font consistency, layout, template choice, use of a photo — used as soft-skill/attention-to-detail proxies. None of that is in Keka's structured candidate fields (`name, email, skills, experience,...`). The agent needs to look at the **raw resume file** (via the `/resume` endpoint's `fileUrl`), not just structured API fields.
+- **New scope ideas Yash raised (not yet committed, just floated):** (1) cross-reference shortlisted resumes against LinkedIn to catch discrepancies/embellishment; (2) add an interview note-taker to capture round-2 rejection reasons and link them back to resume red flags, closing the training loop.
+- **Commitment made to Yash:** Ranjith will share the backend/architecture with him for transparency and so he can give domain input — not just hand him a black-box score. Treat this as a deliverable, not a nice-to-have.
+
+**Adjacent same-day Notion note ("AI Tool vs. Existing ATS System - Decision Meeting", 2026-07-31) — flag, don't over-trust:** Garbled/low-quality transcript (tool referred to inconsistently as "The-Hajar"/"Keka"), attendees unclear, may not involve Yash. Content: someone pushed back that the existing ATS "seems to be working... across the company" and asked what pain point justifies a new AI tool, with a decision deadline of 20:00 same day. Worth a direct check with Utkarsh on whether this reflects real pushback on funding/prioritizing this build — the note itself is too noisy to act on alone.
+
+**How to apply:** Next concrete step is on Yash's side (sending the 100+5x labeled resumes per role, starting with Founders Office) — until that lands, don't start building the scoring pipeline logic. But do resolve the resume-file-vs-structured-fields decision now: architecture should ingest the raw file, not just Keka's parsed fields. Also loop back to Utkarsh on the ATS-pushback note before assuming this project has unambiguous buy-in.
+
+**2026-08-10 update (catch-up call) — initial version built and already validated with two stakeholders, ahead of the labeled-data plan above.** Ranjith reported an initial version of the agent is live, screening against **Yash's explicit hard requirements** (not more than 2 font sizes, professional photo, no grammatical mistakes, resume ≤2 pages) — this reads as a rule-based/heuristic first pass, possibly separate from or a precursor to the pattern-learning approach from the 2026-07-31 Yash meeting notes above; **not yet reconciled which approach is actually running — flag and confirm with Ranjith before assuming they're the same thing.** A sample output was shared with **Shweta** (convinced by the output quality) and **Utkarsh** (also fine with it).
+
+**Next steps (as of 2026-08-10):** of the 300-350 resumes received for Founder's Office last week, take **100-150**, screen them, and send to HR. If no discrepancies come back, run another **200** and share final results — this batch is explicitly meant to close out the "solves the purpose of screening" bar for this role.
+
+**Separate, deferred:** Ranjith wants to discuss hosting **Claude on a VM** with Ashish — raised but explicitly not discussed in this call in the interest of time; a direct sync between Ranjith and Ashish still needs to happen.
+
+**2026-08-11 — presentation gate was miscalibrated; measured and fixed.** Ranjith marked 11 already-HR-screened candidates as `Pending` in the sheet and asked the agent to review them blind. Result: the agent agreed with HR on **1 of 11** — it rejected 7 people HR had advanced to Screening/R1/R2. Cause: presentation rules were rejecting on formatting alone (single accent colour read as "multiple colours"; the one-page rule applied to 6-year candidates). Three rules changed in `Build Claude Request Body` (node now carries a `presentationCalibration` block that explicitly supersedes Yash's shorthand): presentation can no longer reject on its own, single accent colour is fine, 2 pages allowed at 3+ years, one isolated typo is a remark not a reject. Also anchored `fit_score` to /100 with verdict bands (70+/45-69/<45), which fixes the "scored 42 but Rejected" contradiction Ranjith flagged.
+
+**Measured impact:** re-ran all 82 rows (71 `Reject` + 11 `Pending`) on gpt-5.6-terra for ₹124.86. **29 of 71 rejections (40%) were formatting, not fit** — incl. two rejected purely on blue heading colour. HR agreement on the 11 went **1/11 → 7/11**. Sheet now: 305 Rejected (hard-filter), 42 Reject, 35 Maybe, 11 Pending, 2 Shortlist.
+
+**2026-08-14 — YASH CALL: he did NOT agree to ₹18L for Founder's Office.** Ranjith relayed Utkarsh's instruction (raise FOA to ₹18L, then re-run the agent). **Yash's position: "not for this profile" — 18L works for other profiles, not FOA.** He didn't hard-refuse ("I'll run with whatever, but 18 is not the…"), but he did not accept it either.
+- **How the ₹18L number arose:** Utkarsh asked which JD the agent was built against; Ranjith showed him the **Founder's Office Associate JD, 3–5 years of experience**. Utkarsh asked what the range was, was told ₹12L, and said they could go up to ₹18L — with the explicit instruction to **sync with Yash, get clarity, and then re-run the agent**.
+- **Yash's counter-proposal, which Ranjith accepted:** rather than answering the 18L question in isolation, Yash will **review the entire JD set and send consolidated feedback in one pass** — salary (18 vs 15 vs other), years of experience, all criteria together — **due that night** — explicitly so Ranjith doesn't have to re-run the agent multiple times.
+- **So the FOA band remains UNRESOLVED and the agent must not be re-run until Yash's consolidated feedback lands.** Do not treat "sync with Yash on 18L" as an outstanding Ranjith action — that sync happened; the ball is with Yash.
+- Yash had **not yet reviewed** the shortlist Shweta sent the previous night — **the sheet stopped working**. He committed to an update by end of day.
+
+**2026-08-14 status (Ranjith):** the **hiring agent for Founder's Office Associate is COMPLETE** — treat that workstream as closed, not in progress. **Ranjith himself held the ₹18L budget-range discussion with Yash on 2026-08-13** (Utkarsh had originally said he would do it). ⚠️ **Outcome not yet captured — the agreed FOA band is still unknown.** Don't change the agent's salary cap, and don't cite 10–12 / 12–14 / 18 as settled, until Ranjith states what Yash agreed.
+
+**2026-08-12 (Utkarsh call) — FOA run completed; VM question settled for now.**
+- **397 Founder's Office Associate resumes screened**, output handed to **Shweta** on 11 Aug. **~30 shortlisted (~10%)**. Shweta's initial feedback positive; she will pass the same set to Akash, then Ranjith optimises on that feedback.
+- **Known defect:** on 2–3 resumes the agent counted **internship experience toward total experience** despite the instruction to exclude it. Ranjith to fix.
+- Setup confirmed to Utkarsh: **n8n workflow + OpenAI credits, not the SDK**. Cost tracked per resume in the sheet (a cost column exists specifically for this); figure quoted on the call was ₹141 — *transcript unclear whether that's cumulative or a sub-total, don't cite it as a unit cost.*
+- **VM decision: keep as-is, monitor cost.** Utkarsh agreed a dedicated VM would cost more than the API credits at current volume. Deferred plan: Ashish is consolidating VMs / optimising server cost first; **after that, a separate session next week to design a shared agent platform** — one or more VMs hosting many agents (incl. future Slack-deployed agents) so cost is amortised. ⚠️ The Fathom action item reads "session w/ Ashish, Abhi" — **"abhi" is almost certainly the Hindi word for "right now", not a person's name.**
+- **Salary logic — Utkarsh probed the programmatic rejection and endorsed the design.** As built: role budget cap (FOA = ₹12L) with **+20% tolerance** (~₹14L). Base is **current CTC, not expected CTC**, because expected asks run 60–358% above budget (candidates asking ₹40–55L against a ₹12L band). Utkarsh restated it as two-step and Ranjith confirmed: first check whether **ECTC** falls in range; if not, check whether **current CTC + a typical 20–30% hike** lands in budget.
+- **Utkarsh's underlying concern, worth keeping in view:** programmatic first-level rejection means a candidate never gets judged on quality on any other dimension. He wasn't objecting to the filter — he was checking that enough flexibility is built into it. The two-step CTC rule is the answer to that concern.
+- ⚠️ **The FOA band is stated three different ways in the same call:** Ranjith says "Yash told me **10 to 12** is what we can give maximum", Utkarsh says "right now they're given **12 to 14**, they cannot go beyond this", and the agent is running a **₹12L** cap. Resolve which is authoritative before touching the config — and Utkarsh's ₹18L proposal sits on top of that unresolved base.
+- **Undefined cases in the salary rule (none of these came up in the call):** candidate states no current CTC (common), states no expected CTC, is a fresher with no current CTC at all, or where the current-CTC path is used — whether that candidate gets flagged as "negotiation required" rather than passing silently. Also unresolved whether the hike multiplier is 20% (as implemented) or the 20–30% Utkarsh quoted as typical.
+- **OPEN — salary band may widen.** Yash's stated ceiling is ₹12–14L ("cannot go beyond"). **Utkarsh wants to expand FOA to up to ₹18L** for better candidate variety, and **will check with Yash himself and revert to Ranjith.** Don't change the cap until that confirmation lands.
+- **Next role: Product Trainee** — ~350 resumes already received; Ranjith to build and run that agent same day (12 Aug).
+- Utkarsh's framing: hiring agent is "done and dusted" — not where Ranjith should spend more time.
+
+**2026-08-11 — open decision: self-host on a VM vs. keep the current SaaS/subscription setup.** Akash/Utkarsh's position: the agent currently runs on a paid OpenAI subscription at roughly **₹1–1.5 per resume** (higher on resumes with heavy formatting), and since Inc42 already owns a VM and a Mac subscription, self-hosting would cut that cost — especially once screening expands to all roles.
+
+**Ranjith's counter (the load-bearing math):** only **20–40% of applicants ever reach the AI at all** — ~60% are hard-filtered on salary mismatch alone (e.g. budget ₹5L, applicant asking ₹8–9L), plus experience and location (people declining Delhi). Tested on ~100–400 profiles. So even at 10,000 applicants, spend covers only ~3,000–4,000 — roughly **₹3,000–4,000**. A VM running 24×7 would likely cost *more* than the API spend it replaces.
+
+**Ritvik's position (against the VM):** HR won't operate a VM — they need a UI. Today the screening criteria live in a **Google Sheet the flow reads at runtime**, so HR can change salary caps, max experience, etc. without any code change; keeping the agentic flow makes it easier to optimise as criteria shift.
+
+**Next step:** 15-minute Ranjith ↔ Ritvik session to weigh pros/cons, then take a call and **inform Akash** of the decision. This supersedes the earlier "discuss hosting Claude on a VM with Ashish" item — same question, now with Ritvik and with real numbers attached.
+
+**How to apply:** the 4 remaining HR disagreements (Shagun Gupta, CHHAVI, Atishay Sethi, Niharika Taluja) are substance not formatting — all low/no full-time experience. That is a conversation with HR about whether the 2-year floor reflects their real bar, NOT another prompt change. Also unresolved: Yash says misspellings are a hard negative, Shweta says a single awkward word is only a remark — the calibration above sided with Shweta; needs Ranjith to settle it. Live workflow `S9IBgvSMZMOVikN7` is currently **inactive** (deliberately, so the 15-min poll doesn't spend). Related: [[project-inc42-open-items]].
+
+**2026-08-17 — agent is going multi-role; CTC logic rewritten with Utkarsh.** Ranjith is now hiring [[project-inc42-product-trainee]] as well, and will keep adding roles. Approved plan: `~/.claude/plans/modular-brewing-toucan.md`.
+
+**Architecture decision — ONE workflow, never clone it.** `S9IBgvSMZMOVikN7` already loops over roles from the `Role configs` sheet, so it is nearly multi-role. What blocked it was three rules hard-coded in JavaScript that are right for FOA and wrong for Product Trainee (internship exclusion, presentation gate, bucket weighting). Fix is to move them into per-role sheet columns — `countInternships`, `presentationMode`, `bucketWeights`, `hardRejects`, `typicalHikePercent`, `resultsTab`, `pilotCap` — not to duplicate 26 nodes. Separate results tab per role (a candidate can apply to both; FOA's tab is already 397 rows and shared with Utkarsh).
+
+**Two-step CTC rule (confirmed with Utkarsh on a call, applies to ALL roles):**
+1. expected CTC within cap+20% → pass
+2. else if current CTC + a typical hike is within cap+20% → pass, treat as negotiable
+3. else reject on salary
+
+Rationale: expected asks are wildly inflated — median **+31% over current**, tail up to +415%. Anchoring on expected alone rejects people who are actually affordable. **Arithmetic point worth repeating to Utkarsh:** testing 30% *then* 20% does not change who passes — 1.20 is the looser test and defines the pass set. The 30% check only separates "comfortable" from "stretch", so implement it as a **tier**, not a gate. On FOA it rescues 28 candidates, incl. MANSI GUPTA (the only AI shortlist among the 11 HR had advanced — asks ₹15L, on ₹10L, affordable at ~₹13L).
+
+**Experience computation was found badly broken (fix written + 10/10 tests, not yet deployed).** Four failure paths across 382 candidates: (a) **38 (9%) fall back to Keka's self-reported figure which includes internships** — 7 of them cleared the 2-year floor on it, four sitting at exactly 2.0; (b) titles that are internships in all but name — Trainee/Articleship/Summer Analyst — were never matched; (c) overlapping roles summed instead of calendar-unioned; (d) 4 candidates with absurd totals (60.27y, 56.6y) auto-rejected as overqualified on garbage data, and 8 *under*counted because dates were unusable. Fix in `<scratchpad>/fix_experience.js`. **The bug is in `Normalize Candidate Fields`, NOT in the request-builder node** — a bug report claimed otherwise; experience is computed in JS from Keka work-history dates and merely *told* to the model.
+
+**Three corrections to numbers Ranjith was quoting to Utkarsh:** hard filters reject **77%** not ~60% (only 22% reach the AI, not 30–40%); **location rejects nobody** — it is ranking-only because Keka captures no relocation field, so if Utkarsh thinks location is filtering he has the wrong picture; tolerance is 20%, not "30–40% over".
+
+**Security flag (not fixed):** Keka client secret, Keka API key and an Anthropic API key sit in **plaintext** in the `Workflow Config` node, readable by anyone with n8n access. Should move to n8n credentials.
+
+**Operational note — how to read/write the sheet at all:** n8n's public API has no execute endpoint (405). The only route is to temporarily PUT a 2-node proxy workflow over `S9IBgvSMZMOVikN7`, call its webhook, then restore. Always back up first and diff node-by-node after. Gotcha: n8n **returns** `settings.binaryMode` and `settings.availableInMCP` on read but **rejects them on write** (400 "must NOT have additional properties") — strip settings to `executionOrder` before restoring.

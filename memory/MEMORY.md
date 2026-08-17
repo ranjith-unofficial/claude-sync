@@ -1,0 +1,58 @@
+## Who he is
+- [User: Ranjith](user-ranjith.md) — Product & AI at INC42, ex-PM Thrillophilia, Delhi/IST, career & expertise
+- [Personal](user-personal.md) — fitness, Oura Ring, diet, interests, buying style
+- [User fitness profile](user_fitness_profile.md) — age 25, male; latest smart scale reading 94.35kg, BMI 35.1, body fat 34.3%
+
+## How to work with him
+- [Communication style](feedback-communication-style.md) — crisp, simple, actionable, bullets/tables, PM lens. NO paragraphs.
+- [Validation approach](feedback-validation-approach.md) — confirm feasibility first; cross-check against independent ground truth, not curated lists
+- [Ask before assuming](feedback-ask-before-assuming.md) — don't state stale plan dates/memory as confirmed current fact; ask, don't build recommendations on assumptions
+- [Document calibration](feedback-document-calibration.md) — state decisions directly; explain only what prevents real confusion; never narrate rejected alternatives or invent unrequested sections
+- [Completeness audits](feedback-completeness-audits.md) — on reviewed docs, audit line-by-line; surface my own misses first; never ship unauthorised changes
+- [PRD completeness](feedback-prd-completeness.md) — every PRD must cover evidence/data, legal/compliance, and an outside reframe-check, not just mechanics — flag gaps explicitly instead of locking unvalidated decisions
+- [Shared system safety](feedback-shared-system-safety.md) — on INC42 n8n/team sheets touch only the named object, and PROVE non-interference with a diff, don't just assert it
+
+## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE, verified 15 Aug — acquisition is the live problem)
+- [Project: INC42 app launch](project-inc42-launch.md) — install base still small (15 vs 50 unreconciled); paid ruled out, banners→store direct, feedback moves in-app; iOS live but listing has only 1 screenshot, fix blocked on build ≥41; + Aug 14 Product & Data call commitments; team: Utkarsh, Ritvik, Animesh, Nityam, Amit
+- [INC42 app acquisition plan](project-inc42-app-acquisition.md) — 5 beta levers (banner, email, mobile-web "read on the go", repeat-reader + 60–70% scroll triggers) → public launch 25–26 Aug on Product Hunt; Nityam blocked by D2C & Retail Summit; sizing/gates/attribution still open
+- [INC42 ways of working](project-inc42-ways-of-working.md) — Asana Product Master/Backlog, daily standup + Techwalla updates, monthly/weekly plan, recurring-audit checklist
+- [Project: INC42 legal & compliance](project-inc42-legal-compliance.md) — T&C + Privacy Policy, Utkarsh's 12 locked decisions, 7-day account-deletion model
+- [Project: INC42 content & personalization](project-inc42-content-personalization.md) — LOCKED ranking formula + brief schedule; 86% of articles have no sector → sector personalization is dead
+- [Project: INC42 app structure](project-inc42-app-structure.md) — CONFIRMED full IA (Figma-verified): 3-tab nav (Brief/Explore/Watchlist), persistent header (streak+profile), brief-end already has a content carousel ("Compass" AI mention was sample content, dismissed)
+- [Project: INC42 AskInc42](project-inc42-askinc42.md) — ships BEFORE Pulse; placement + JTBD + competitor scan (Crunchbase/Robinhood/Bloomberg/Spotify/Arc XP) done Jul 31; v1 = brief-end swap + Watchlist/company page; artifact: https://claude.ai/code/artifact/065326a9-7085-4241-b56d-573b0d49439c
+- [AskInc42 — next week tasks](project-inc42-askinc42-next-week.md) — owner Ritvik Sethi; feature flags HALTED; v2 = 3 stored onboarding Qs, blocked on an API from Anmol (not yet raised with him)
+- [INC42 knowledge repo (VectorDB for IPs)](project-inc42-knowledge-repo.md) — **9 MD docs in ~/Documents/AskInc42_Knowledge/ + a 8-tab Google Doc (DataLabs tab still pending)**; 11 IPs verified live; 33 locked decisions; web search stays ON via Perplexity; live T&C is stale vs the DataLabs product
+- [INC42 app placement ("B2")](project-inc42-app-placement.md) — placing Inc42 editorial content in-app; design owner Satya, relation to unification unconfirmed
+- [INC42 Azure credits](project-inc42-azure-credits.md) — ₹16.84L credits left, burn ~₹8L/mo → dry ~11 Oct 2026; Varun needs credit history from Ashish
+- [Project: INC42 Social Intelligence "Pulse"](project-inc42-social-intelligence.md) — ships AFTER AskInc42; v2.0 combined PRD (Ranjith + Utkarsh, 2026-07-30, draft for review); D1-D15 locked; status/FOMO reframe (D14); 200-voice allowlist; phased cadence
+- [Project: INC42 open items](project-inc42-open-items.md) — what's still unfinished as of Jul 29; incl. the "Read more (30 seconds)" card-copy fix
+- [Project: Utkarsh's "One Inc42" strategy](project-inc42-strategy-utkarsh.md) — **AUTHORITATIVE direction (2026-08-13), supersedes the unification plan**: QIA north star, reach→know→deepen→convene→pay engine, rooms=primary business, membership tiers, hypothesis ledger A1–A13
+- [Project: INC42 unification (web+app+DataLabs)](project-inc42-unification.md) — 5 artifacts (memo/one-pager/vision board/PRD doc/product-plan); now DOWNSTREAM of Utkarsh's strategy & needs re-deriving (wrong metric DAU/MAU vs QIA); webinar candidate added; **NEW Figma vision board v2 built 17 Aug (QIA-based) in a SEPARATE file+account — see v34/v34a**
+- [Project: INC42 brand positioning (outside-in)](project-inc42-brand-positioning.md) — 9-operator feature matrix + archetype quadrant + ranked borrowable ideas; companion to the unification project, different method (external audit, not analytics)
+- [Strategic report structure](feedback-strategic-report-structure.md) — build one narrative argument, not additive tables; research named comparables directly
+- [INC42 vendor stack (verified)](reference-inc42-vendor-stack.md) — Customer.io (web+app, EU), PostHog (EU), MoEngage REMOVED, Singular/Firebase app-only
+- [INC42 market maps (idea from Utkarsh, 17 Aug 2026)](project-inc42-market-maps.md) — indianvcs.com/maps (thin, city-only) + marketmapmaker.app ($490/yr per map); our edge is DataLabs data; intent UNCONFIRMED
+
+## INC42 data warehouse
+- [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026, 328K contacts/75K companies, powers contact_360/company_360 + Customer.io reverse ETL
+
+## Other work
+- [Project: Personal AI ops / morning brief](project-personal-ai-ops.md) — phased daily-brief system: email digest+doc gap-check now, Slack+multi-inbox next, Neo Sapien wearable blocked
+- [Project: Daily Signal briefing](project-daily-signal.md) — separate from above; full 20-section AI/product-decision/geopolitics artifact, calendar-strip UI, cloud-scheduled 9am IST, push-notified
+- [Project: INC42 hiring agent](project-inc42-hiring-agent.md) — AI agent scores Keka applicants; v1 = score-only; Keka API is a paid add-on (confirmed), DPDP consent-scope question unresolved, Notion MCP pending for Yash's meeting notes; now going MULTI-ROLE (one workflow, per-role sheet config) + two-step CTC rule agreed with Utkarsh + experience computation found broken
+- [Project: INC42 Product Trainee hiring](project-inc42-product-trainee.md) — Ranjith's own role, 545 Keka applicants, criteria locked (internships COUNT, cap ₹5L, presentation not a gate); PT Calibration tab awaiting his 20 blind grades before any spend
+- [Project: DPDP compliance](project-dpdp-compliance.md) — 3-phase engagement, tech leads Prapti & Ashish, May 2027 deadline; Aug 11 quote ₹15L→₹10L+GST but all-in ~₹30L w/ consent mgr + security tools — Ranjith stalling until minimum requirement is known; vendor naming (KavachOne/Shivang vs "Mitigator") unresolved
+- [Project: AI agents](project-ai-agents.md) — sales/support/qualification agents, voice AI, consulting
+- [ranjith.tech](reference-ranjith-tech.md) — personal site + security audit findings
+- [Nexloid product](nexloid_product.md) — automated analytics/event-tracking implementation platform, replaces manual agency work
+- [Nexloid competitive landscape](nexloid_competitive_landscape.md) — 21 players mapped Aug 2026: TWO funded direct rivals (JTracking/Bessemer, Flisk/seed); audit layer collapsed to $0; category has almost no inbound traffic
+- [Nexloid GTM strategy](nexloid_gtm_strategy.md) — locked Aug 2026 calls: sell the fix not the audit, UK-first then AU/US, India in INR, agencies as buyer, $0/$49/$199/$499 + $299 Rescue; dossier at ~/nexloid-launch-dossier.html
+- [Nexloid open questions](nexloid_open_questions.md) — ⚠️ unresolved: Google OAuth scope class (could need $5K CASA), the unevidenced "2 hrs saved" that all pricing rests on, false-positive rate, single-source stats
+
+## Reference
+- [Tools & stack](reference-tools-stack.md) — Figma, PostHog, GA4, BigQuery, n8n, Docker, VPS
+- [Figma MCP limits](reference-figma-mcp-limits.md) — Starter+View seat = only 20 tool calls/MONTH; check whoami and budget calls before any Figma build
+- [Doc generation](reference-doc-generation.md) — PDF via headless Chrome; DOCX via python-docx (textutil flattens tables!)
+- [Oura health artifact](reference-oura-health-artifact.md) — Health Signals dashboard + daily 7am refresh routine
+- [Marketing skill install](marketing_skill_install.md) — unified `marketing` skill at ~/.claude/skills/marketing, with vendor-API/chat-privacy guardrails
+- [Aug 8 AI session plan](aug8_ai_session_plan.md) — workshop for 2nd-yr AI&DS students; pre-session survey done (54 responses, dashboard built); remind re: post-session form
