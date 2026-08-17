@@ -56,3 +56,4 @@
 - [Oura health artifact](reference-oura-health-artifact.md) — Health Signals dashboard + daily 7am refresh routine
 - [Marketing skill install](marketing_skill_install.md) — unified `marketing` skill at ~/.claude/skills/marketing, with vendor-API/chat-privacy guardrails
 - [Aug 8 AI session plan](aug8_ai_session_plan.md) — workshop for 2nd-yr AI&DS students; pre-session survey done (54 responses, dashboard built); remind re: post-session form
+- [Claude sync across Macs](reference-claude-sync-setup.md) — memory/skills/settings symlinked into iCloud ClaudeSync + git backup; never run Claude on both Macs at once
