@@ -185,7 +185,11 @@
       "Bash(open \"http://localhost:8791/one-inc42-master-plan.html#figmacapture=1c96d885-cb12-416f-a4ad-3ade94eba834&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F1c96d885-cb12-416f-a4ad-3ade94eba834%2Fsubmit%3FbindVariables%3Dtrue&figmadelay=1500\")",
       "Bash(open \"http://localhost:8791/one-inc42-plan-visual.html#figmacapture=d5cd85f2-e19e-499b-896e-6ca1394bf11b&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2Fd5cd85f2-e19e-499b-896e-6ca1394bf11b%2Fsubmit%3FbindVariables%3Dtrue&figmadelay=1500\")",
       "Bash(pkill -f \"http.server 8791\")",
-      "Bash(open \"http://localhost:8791/one-inc42-board.html#figmacapture=6d833d7f-1ce7-403a-82df-4fd1938a260e&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F6d833d7f-1ce7-403a-82df-4fd1938a260e%2Fsubmit%3FbindVariables%3Dtrue&figmadelay=2000\")"
+      "Bash(open \"http://localhost:8791/one-inc42-board.html#figmacapture=6d833d7f-1ce7-403a-82df-4fd1938a260e&figmaendpoint=https%3A%2F%2Fmcp.figma.com%2Fmcp%2Fcapture%2F6d833d7f-1ce7-403a-82df-4fd1938a260e%2Fsubmit%3FbindVariables%3Dtrue&figmadelay=2000\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(iPhone; CPU iPhone OS 18_5 like Mac OS X\\) AppleWebKit/605.1.15 \\(KHTML, like Gecko\\) Version/18.5 Mobile/15E148 Safari/604.1\" -D - -o /dev/null \"https://inc42.sng.link/Dj9zc/qcq2/hfjb\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(Linux; Android 14; Pixel 8\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/126.0.0.0 Mobile Safari/537.36\" -D - -o /dev/null \"https://inc42.sng.link/Dj9zc/qcq2/hfjb\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/126.0.0.0 Safari/537.36\" -D - -o /dev/null \"https://inc42.sng.link/Dj9zc/qcq2/hfjb\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/126.0.0.0 Safari/537.36\" \"https://inc42.sng.link/Dj9zc/qcq2/hfjb\")"
     ]
   }
 }
