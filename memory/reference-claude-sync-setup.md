@@ -12,7 +12,7 @@ Set up 18 Aug 2026 so Ranjith's two Macs share one Claude Code memory.
 
 **Live store:** `~/Library/Mobile Documents/com~apple~CloudDocs/ClaudeSync/` — iCloud syncs it continuously.
 
-Four symlinks point the local Claude install at it:
+Six symlinks point the local Claude install at it:
 - `~/.claude/projects/<home-slug>/memory` → `ClaudeSync/memory`
 - `~/.claude/skills` → `ClaudeSync/skills`
 - `~/.claude/settings.json` → `ClaudeSync/settings/settings.json`
