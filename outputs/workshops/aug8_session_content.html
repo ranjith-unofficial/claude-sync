@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aug 8 — Teaching Content: AI → LLMs → Prompting → Agents</title>
+<style>
+  :root {
+    --page:      #f6f2e9;
+    --surface:   #fffdf7;
+    --surface-2: #fbf7ee;
+    --ink:       #1c1810;
+    --ink-2:     #554e42;
+    --ink-3:     #8d846f;
+    --border:    rgba(28,24,16,0.12);
+    --rule:      #e2dac8;
+    --blue:      #2a78d6;
+    --orange:    #d9541f;
+    --aqua:      #12855e;
+    --red:       #b83a34;
+    --purple:    #6b4bb8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #15130e; --surface: #201c14; --surface-2: #262117;
+      --ink: #f7f3e9; --ink-2: #c9c0aa; --ink-3: #948c78;
+      --border: rgba(247,243,233,0.13); --rule: #322b1e;
+      --blue: #6ba6f2; --orange: #f0854f; --aqua: #35c08c; --red: #e0716a; --purple: #a790ea;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--page); color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 15.5px; line-height: 1.65; padding-bottom: 80px;
+  }
+  .serif { font-family: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* masthead */
+  .mast { padding: 52px 0 28px; border-bottom: 2px solid var(--ink); margin-bottom: 10px; }
+  .kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+  .mast h1 { font-size: 40px; line-height: 1.1; font-weight: 500; margin: 0 0 14px; letter-spacing: -0.015em; }
+  .mast .standfirst { font-size: 16.5px; color: var(--ink-2); max-width: 64ch; margin: 0; }
+  .mast-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 20px; font-size: 12px; color: var(--ink-3); }
+  .mast-meta b { color: var(--ink-2); }
+
+  /* toc */
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; margin: 26px 0 10px; }
+  .toc h4 { margin: 0 0 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-3); }
+  .toc ol { margin: 0; padding-left: 20px; columns: 2 200px; column-gap: 28px; font-size: 14px; }
+  .toc li { margin-bottom: 5px; break-inside: avoid; }
+  .toc a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .toc a:hover { color: var(--blue); border-color: var(--blue); }
+
+  /* parts */
+  .part { padding-top: 20px; }
+  .part-hdr { margin: 54px 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
+  .part-label { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .part-hdr h2 { font-size: 30px; font-weight: 500; margin: 10px 0 0; letter-spacing: -0.015em; }
+  .part-hdr .goal { font-size: 14.5px; color: var(--ink-2); margin: 10px 0 0; max-width: 66ch; }
+  .time-pill { font-weight: 700; padding: 3px 9px; border-radius: 5px; font-variant-numeric: tabular-nums; letter-spacing: 0.03em; }
+  .p1 .part-label { color: var(--blue); }      .p1 .time-pill { background: color-mix(in srgb, var(--blue) 15%, var(--surface)); color: var(--blue); }
+  .p2 .part-label { color: var(--purple); }    .p2 .time-pill { background: color-mix(in srgb, var(--purple) 15%, var(--surface)); color: var(--purple); }
+  .p3 .part-label { color: var(--orange); }    .p3 .time-pill { background: color-mix(in srgb, var(--orange) 15%, var(--surface)); color: var(--orange); }
+  .p4 .part-label { color: var(--red); }       .p4 .time-pill { background: color-mix(in srgb, var(--red) 15%, var(--surface)); color: var(--red); }
+  .p5 .part-label { color: var(--aqua); }      .p5 .time-pill { background: color-mix(in srgb, var(--aqua) 15%, var(--surface)); color: var(--aqua); }
+  .p6 .part-label { color: var(--aqua); }      .p6 .time-pill { background: color-mix(in srgb, var(--aqua) 15%, var(--surface)); color: var(--aqua); }
+
+  h3 { font-size: 19px; font-weight: 650; margin: 34px 0 8px; letter-spacing: -0.005em; }
+  h4 { font-size: 13px; font-weight: 700; margin: 24px 0 8px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-3); }
+  p { margin: 0 0 14px; max-width: 70ch; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; max-width: 70ch; }
+  li { margin-bottom: 7px; }
+  code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.86em; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+  strong { font-weight: 650; }
+
+  /* say-this block */
+  .say { border-left: 3px solid var(--ink-3); padding: 4px 0 4px 18px; margin: 18px 0; max-width: 70ch; }
+  .say .say-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-3); margin-bottom: 6px; }
+  .say p { font-family: ui-serif, Georgia, serif; font-size: 16.5px; line-height: 1.55; color: var(--ink); margin: 0 0 10px; }
+  .say p:last-child { margin-bottom: 0; }
+
+  /* demo block */
+  .demo { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--orange); border-radius: 0 10px 10px 0; padding: 15px 18px; margin: 18px 0; }
+  .demo .d-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--orange); margin-bottom: 7px; }
+  .demo p { font-size: 14px; color: var(--ink-2); margin: 0 0 8px; }
+  .demo p:last-child { margin-bottom: 0; }
+  .demo .type { font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 9px 12px; margin: 8px 0; color: var(--ink); white-space: pre-wrap; }
+
+  /* boxes */
+  .box { border-radius: 10px; padding: 16px 19px; margin: 20px 0; border: 1px solid var(--border); background: var(--surface); max-width: 72ch; }
+  .box > :last-child { margin-bottom: 0; }
+  .box .box-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 9px; }
+  .box.key    { background: color-mix(in srgb, var(--aqua) 7%, var(--surface));   border-color: color-mix(in srgb, var(--aqua) 26%, var(--border)); }
+  .box.key .box-title { color: var(--aqua); }
+  .box.warn   { background: color-mix(in srgb, var(--red) 7%, var(--surface));    border-color: color-mix(in srgb, var(--red) 26%, var(--border)); }
+  .box.warn .box-title { color: var(--red); }
+  .box.note   { background: color-mix(in srgb, var(--blue) 7%, var(--surface));   border-color: color-mix(in srgb, var(--blue) 26%, var(--border)); }
+  .box.note .box-title { color: var(--blue); }
+
+  /* tables */
+  .t-scroll { overflow-x: auto; margin: 18px 0; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 480px; }
+  th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); font-weight: 700; padding: 11px 14px; border-bottom: 1px solid var(--rule); }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+  tr:last-child td { border-bottom: none; }
+  td.mono, th.mono { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; }
+
+  /* nesting diagram */
+  .nest { margin: 20px 0; max-width: 560px; }
+  .nest-l { border: 2px solid; border-radius: 10px; padding: 13px 16px; }
+  .nest-l .nl-name { font-weight: 700; font-size: 14px; }
+  .nest-l .nl-desc { font-size: 12.5px; color: var(--ink-2); margin-top: 2px; }
+  .nest-1 { border-color: color-mix(in srgb, var(--blue) 45%, transparent); }
+  .nest-2 { border-color: color-mix(in srgb, var(--purple) 45%, transparent); margin-top: 12px; }
+  .nest-3 { border-color: color-mix(in srgb, var(--orange) 45%, transparent); margin-top: 12px; }
+  .nest-4 { border-color: color-mix(in srgb, var(--aqua) 55%, transparent); margin-top: 12px; background: color-mix(in srgb, var(--aqua) 8%, var(--surface)); }
+
+  /* prompt compare */
+  .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+  @media (max-width: 720px) { .cmp { grid-template-columns: 1fr; } }
+  .cmp-col { border-radius: 10px; border: 1px solid var(--border); padding: 15px 17px; background: var(--surface); }
+  .cmp-col.bad { border-color: color-mix(in srgb, var(--red) 30%, var(--border)); }
+  .cmp-col.good { border-color: color-mix(in srgb, var(--aqua) 32%, var(--border)); }
+  .cmp-col h5 { margin: 0 0 9px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .cmp-col.bad h5 { color: var(--red); }
+  .cmp-col.good h5 { color: var(--aqua); }
+  .cmp-col pre { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; line-height: 1.55; white-space: pre-wrap; margin: 0; color: var(--ink); }
+
+  /* build steps */
+  .step { display: grid; grid-template-columns: 38px 1fr; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--rule); }
+  .step:last-child { border-bottom: none; }
+  .step-n { width: 30px; height: 30px; border-radius: 8px; background: color-mix(in srgb, var(--aqua) 15%, var(--surface)); color: var(--aqua); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .step-b h4 { margin: 0 0 5px; font-size: 15px; text-transform: none; letter-spacing: 0; color: var(--ink); font-weight: 650; }
+  .step-b p { font-size: 14px; color: var(--ink-2); margin: 0 0 7px; }
+  .step-b > :last-child { margin-bottom: 0; }
+  .step-time { font-size: 11.5px; color: var(--ink-3); font-weight: 600; float: right; font-variant-numeric: tabular-nums; }
+  .checkpoint { font-size: 12.5px; background: color-mix(in srgb, var(--aqua) 9%, var(--surface)); border: 1px solid color-mix(in srgb, var(--aqua) 25%, var(--border)); border-radius: 7px; padding: 8px 11px; color: var(--ink-2); }
+  .checkpoint b { color: var(--aqua); }
+
+  .codeblock { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; white-space: pre-wrap; color: var(--ink); margin: 8px 0; }
+
+  hr.rule { border: none; border-top: 1px solid var(--rule); margin: 40px 0 0; }
+  footer.note { margin-top: 50px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--ink-3); line-height: 1.65; }
+
+  @media print {
+    body { background: #fff; color: #000; font-size: 10.5pt; }
+    .part-hdr { page-break-after: avoid; }
+    .demo, .box, .step, .cmp { page-break-inside: avoid; }
+    .toc { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mast">
+    <div class="kicker">Teaching content · Aug 8, 2026 · 2nd-year AI &amp; Data Science</div>
+    <h1 class="serif">AI → LLMs → Prompting → Agents</h1>
+    <p class="standfirst">The actual material for a 4-hour session, built from zero. Every section has the explanation, the analogy, the live demo, and the words to say. Ends with 54 students building an agent from an empty n8n canvas.</p>
+    <div class="mast-meta">
+      <span><b>10:00–12:00</b> &nbsp;Parts 1–4</span>
+      <span><b>14:00–16:00</b> &nbsp;Parts 5–6</span>
+      <span>Same cohort both blocks</span>
+      <span>No boilerplate — built from scratch</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h4>Contents</h4>
+    <ol>
+      <li><a href="#p1">What is AI, really</a></li>
+      <li><a href="#p2">What is an LLM</a></li>
+      <li><a href="#p3">How to actually use an LLM</a></li>
+      <li><a href="#p4">Prompt engineering</a></li>
+      <li><a href="#p5">What is an AI agent</a></li>
+      <li><a href="#p6">The build — from an empty canvas</a></li>
+      <li><a href="#timing">Timing sheet</a></li>
+      <li><a href="#prep">Prep checklist</a></li>
+    </ol>
+  </div>
+
+  <div class="box warn">
+    <div class="box-title">Read this before choosing any demo</div>
+    <p>Every famous "watch the AI fail" demo has been fixed. Strawberry letter-counting, basic arithmetic, the classic riddles — they're in training data now, and reasoning models work through them internally.</p>
+    <p style="margin-bottom:0;"><strong>A failure demo that succeeds is worse than no demo</strong> — the room concludes the limitation isn't real and stops trusting you. So this document favours demos that <em>show the mechanism</em> over demos that <em>catch a mistake</em>. Mechanism can't be patched. Where a gamble is worth taking, it's flagged as one, with a fallback.</p>
+  </div>
+
+  <div class="box note">
+    <div class="box-title">How to pitch this to an AI&amp;DS class</div>
+    <p>They're AI majors — they've met neural networks in coursework. So don't teach Part 1 as new information. Teach it as <strong>a map they already half-own</strong>: "you know what ML is; today we place ChatGPT on that map and then go somewhere your syllabus hasn't."</p>
+    <p style="margin-bottom:0;">The survey backs both: <strong>65%</strong> asked for "basics of how AI works," and several wrote "overview of AI" / "AI and its subsets" verbatim. The appetite for fundamentals is real — just don't be condescending about it.</p>
+  </div>
+
+  <!-- ============================= PART 1 ============================= -->
+  <div class="part p1" id="p1">
+    <div class="part-hdr">
+      <div class="part-label"><span class="time-pill">10:10 – 10:35</span><span>Part 1 · 25 min</span></div>
+      <h2 class="serif">What is AI, really</h2>
+      <p class="goal">Goal: every student can draw the AI → ML → Deep Learning → GenAI → LLM nesting from memory, and say what makes generative different.</p>
+    </div>
+
+    <h3>1.1 &nbsp;The one-line definition</h3>
+    <p><strong>AI is any system that performs a task we'd normally say requires human intelligence.</strong> That's deliberately broad — a chess engine is AI, spam filtering is AI, ChatGPT is AI. The interesting question isn't "is it AI" but "how does it get its rules."</p>
+
+    <h3>1.2 &nbsp;The shift that made modern AI possible</h3>
+    <p>This is the single most important idea in Part 1, and it's the hinge everything else swings on.</p>
+
+    <div class="t-scroll">
+      <table>
+        <thead><tr><th></th><th>Traditional programming</th><th>Machine learning</th></tr></thead>
+        <tbody>
+          <tr><td><b>You give it</b></td><td>Rules + data</td><td>Data + answers</td></tr>
+          <tr><td><b>It gives you</b></td><td>Answers</td><td>Rules</td></tr>
+          <tr><td><b>Spam example</b></td><td>You write: <code>if subject contains "lottery" → spam</code></td><td>You show it 100,000 labelled emails; it works out the pattern itself</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="say">
+      <div class="say-label">Say this</div>
+      <p>"In your first-year programming, you wrote the rules. In machine learning you stop writing rules — you show examples and the machine writes the rules for you. Nobody sat down and programmed ChatGPT with grammar rules. It read, and it worked them out."</p>
+    </div>
+
+    <h3>1.3 &nbsp;The nesting — draw this on the board</h3>
+    <div class="nest">
+      <div class="nest-l nest-1">
+        <div class="nl-name">Artificial Intelligence</div>
+        <div class="nl-desc">Any machine doing something "intelligent." 1950s onward.</div>
+        <div class="nest-l nest-2">
+          <div class="nl-name">Machine Learning</div>
+          <div class="nl-desc">Learns rules from data instead of being given them.</div>
+          <div class="nest-l nest-3">
+            <div class="nl-name">Deep Learning</div>
+            <div class="nl-desc">ML using many-layered neural networks. Handles images, audio, text.</div>
+            <div class="nest-l nest-4">
+              <div class="nl-name">Generative AI → LLMs</div>
+              <div class="nl-desc">Creates new content rather than labelling existing content. ChatGPT, Claude, Gemini live here.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>1.4 &nbsp;Discriminative vs generative — the distinction that matters today</h3>
+    <p>Almost everything in their coursework so far has been <strong>discriminative</strong>. Today is about the other kind.</p>
+    <div class="t-scroll">
+      <table>
+        <thead><tr><th></th><th>Discriminative</th><th>Generative</th></tr></thead>
+        <tbody>
+          <tr><td><b>Question it answers</b></td><td>"Which category is this?"</td><td>"What comes next?"</td></tr>
+          <tr><td><b>Output</b></td><td>A label or number</td><td>New content</td></tr>
+          <tr><td><b>Examples</b></td><td>Spam / not-spam · price prediction · face recognition</td><td>ChatGPT · Midjourney · GitHub Copilot</td></tr>
+          <tr><td><b>You've built</b></td><td>This, in your ML lab</td><td>This, by 4 p.m. today</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="demo">
+      <div class="d-label">Live demo · 3 min</div>
+      <p>Open any LLM and run the same input twice, back to back:</p>
+      <div class="type">Classify this review as positive or negative: "The camera is great but the battery dies in 4 hours."</div>
+      <div class="type">Write a 2-line reply to that reviewer as the brand's support team.</div>
+      <p style="margin-bottom:0;">Same model, same box. First is discriminative, second is generative. Point out that an LLM can do both — but the second one is what's new, and it's the reason everyone's talking about this.</p>
+    </div>
+
+    <div class="box key">
+      <div class="box-title">Part 1 landing point</div>
+      <p style="margin-bottom:0;">"ChatGPT is not a new kind of magic. It's deep learning, pointed at text, trained to generate rather than classify. Everything else today follows from <em>how</em> it generates — which is Part 2."</p>
+    </div>
+  </div>
+
+  <!-- ============================= PART 2 ============================= -->
+  <div class="part p2" id="p2">
+    <div class="part-hdr">
+      <div class="part-label"><span class="time-pill">10:35 – 11:05</span><span>Part 2 · 30 min</span></div>
+      <h2 class="serif">What is an LLM</h2>
+      <p class="goal">Goal: every student can explain in their own words why an LLM hallucinates. This is the most-requested topic in the survey — <b>41%</b> said understanding how AI works is what would make them confident.</p>
+    </div>
+
+    <h3>2.1 &nbsp;Read the name backwards</h3>
+    <ul>
+      <li><strong>Model</strong> — a mathematical function. Text in, text out.</li>
+      <li><strong>Language</strong> — trained on text. Books, code, websites, papers.</li>
+      <li><strong>Large</strong> — billions of parameters, trained on trillions of words.</li>
+    </ul>
+
+    <h3>2.2 &nbsp;The entire engine, in one sentence</h3>
+    <div class="box key">
+      <div class="box-title">The core mechanic</div>
+      <p style="font-size:17px; margin-bottom:0;">An LLM does exactly one thing: <strong>given some text, predict the next token.</strong> Then it appends that token and does it again. And again. That's the whole engine.</p>
+    </div>
+
+    <div class="say">
+      <div class="say-label">Say this</div>
+      <p>"It's your phone's autocomplete — except instead of learning from your last 200 messages, it learned from most of the written internet. Everything that feels intelligent about it is a side effect of doing that one trick extremely well, billions of times."</p>
+    </div>
+
+    <h3>2.3 &nbsp;Tokens are not words</h3>
+    <p>A token is roughly 4 characters — sometimes a whole word, sometimes a fragment. <code>"unbelievable"</code> might split into <code>un | believ | able</code>. The model never sees letters. It sees token IDs.</p>
+
+    <div class="box warn">
+      <div class="box-title">Do not use the "count the r's in strawberry" demo</div>
+      <p style="margin-bottom:0;">It became a famous benchmark, so it's in training data, and reasoning models now spell the word out internally before answering. <strong>It gets it right.</strong> Show the mechanism instead — that can't be patched.</p>
+    </div>
+
+    <div class="demo">
+      <div class="d-label">Live demo A · show the tokenizer itself · cannot fail</div>
+      <p>Open a tokenizer visualiser (<code>platform.openai.com/tokenizer</code>) and type words in live. It colours each token and shows the IDs.</p>
+      <p>Good words to try — let them predict the split before you press enter:</p>
+      <div class="type">strawberry
+unbelievable
+antidisestablishmentarianism
+Thiruvananthapuram
+def calculate_gradient(x):</div>
+      <p style="margin-bottom:0;">They'll see common words survive whole, rare words shatter into fragments, and code split in ways that look arbitrary. <strong>The point lands without needing the model to fail:</strong> this is what it reads. Not letters. Not words. These chunks.</p>
+    </div>
+
+    <div class="demo">
+      <div class="d-label">Live demo B · Tamil vs English · cannot fail, and it's local</div>
+      <p>Put the same sentence in both languages into the tokenizer and compare token counts.</p>
+      <p style="margin-bottom:0;">Tamil costs substantially more tokens than English for identical meaning. Real, visible, checkable — with consequences they care about: <strong>Indian-language AI is more expensive to run, slower, and fills the context window faster.</strong> Nothing to do with the language being "harder" — the tokenizer was mostly trained on English. One of the best 90 seconds in the session for this room.</p>
+    </div>
+
+    <div class="box note">
+      <div class="box-title">Optional gamble — test it Thursday before you rely on it</div>
+      <p style="margin-bottom:0;">If you want a live failure, character-count <em>generation</em> is still structurally hard, because the model has no counter for its own output: <code>Write a sentence about databases that is exactly 62 characters long, including spaces.</code> Count it on screen. <strong>Test this on the exact model you'll demo on</strong> — and have Demo A ready as the fallback if it succeeds.</p>
+    </div>
+
+    <h3>2.4 &nbsp;Weights: what it kept, and what it lost</h3>
+    <p>Training compresses trillions of words into billions of numbers. Those numbers — the weights — are frozen when training ends. <strong>The training text is not stored anywhere.</strong></p>
+
+    <div class="say">
+      <div class="say-label">Analogy</div>
+      <p>"You've read 200 textbooks. Ask you about photosynthesis and you'll answer well. Ask you to quote page 143 of book number 7 and you can't — but under viva pressure you might produce something that <em>sounds</em> like a quote. The model is permanently in that viva."</p>
+    </div>
+
+    <h3>2.5 &nbsp;The context window is its entire world</h3>
+    <p>The context window is everything the model can see right now — your prompt, the conversation so far, any file you attached. Outside that window, nothing exists.</p>
+    <ul>
+      <li><strong>It has no memory between chats.</strong> A new chat is a stranger. It doesn't "remember you from yesterday."</li>
+      <li><strong>Attaching a file just pastes text into the window.</strong> There's no filing cabinet.</li>
+      <li><strong>Very long inputs degrade.</strong> Material buried in the middle gets recalled worst.</li>
+    </ul>
+
+    <div class="demo">
+      <div class="d-label">Live demo · 2 min · cannot fail</div>
+      <p>Open a brand-new chat and ask: <code>What did I ask you about earlier?</code></p>
+      <p style="margin-bottom:0;">It has no idea. Obvious once seen — and it kills the "the AI knows me" intuition that quietly wrecks their prompts.</p>
+    </div>
+
+    <h3>2.6 &nbsp;Temperature</h3>
+    <p>At each step the model has a ranked list of likely next tokens. Temperature decides how boldly it picks.</p>
+    <ul>
+      <li><strong>Low (0–0.3)</strong> — nearly always takes the top choice. Repeatable. Use for facts, extraction, code.</li>
+      <li><strong>High (0.8–1.0)</strong> — samples further down. Varied. Use for brainstorming, creative writing.</li>
+    </ul>
+    <p>Same prompt three times at high temperature gives three different answers. That's not a bug — it's sampling. <em>Note:</em> most chat UIs don't expose temperature; you'll see it in the API, and in n8n this afternoon.</p>
+
+    <h3>2.7 &nbsp;Why it hallucinates — the payoff</h3>
+    <p>Now assemble the pieces they already have. Let them get there before you say it.</p>
+    <ol>
+      <li>It generates statistically plausible continuations.</li>
+      <li>It has weights, not a database — nothing is ever looked up.</li>
+      <li>It has no mechanism to check truth, and no signal for "I don't know."</li>
+      <li>So when it doesn't know, it produces the most <em>plausible-looking</em> text instead. Confidently.</li>
+    </ol>
+
+    <div class="box key">
+      <div class="box-title">The sentence to put on a slide</div>
+      <p style="font-size:16.5px; margin-bottom:0;">Hallucination is not a bug in the system. <strong>It <em>is</em> the system.</strong> The model is always generating plausible text — you only call it hallucination when plausible and true happen to diverge.</p>
+    </div>
+
+    <div class="demo">
+      <div class="d-label">Live demo · the hook from 10:00, now explained</div>
+      <div class="type">Give me 3 research papers on [a narrow topic from their current unit], with authors, journal and year.</div>
+      <p style="margin-bottom:0;">Titles that sound perfect. Plausible authors. Real-looking journals. Check one live — it likely won't exist. <strong>Then say:</strong> "At 10 a.m. you saw this happen. Now you can explain it. And in twenty minutes you'll be able to prevent it."</p>
+    </div>
+
+    <div class="box warn">
+      <div class="box-title">This demo has the same fragility — protect it</div>
+      <ul style="margin-bottom:0;">
+        <li><strong>Turn web search / browsing OFF.</strong> With search on, the model looks it up and answers correctly — and your hook dies exactly the way strawberry did.</li>
+        <li><strong>Pick a genuinely narrow topic</strong> from their syllabus, not a famous one. Broad topics have real papers it can recall.</li>
+        <li><strong>Test three candidate topics on Thursday</strong> and keep the one that fabricates most confidently. Screenshot it as a backup in case the live run behaves.</li>
+      </ul>
+    </div>
+
+    <div class="box key">
+      <div class="box-title">Part 2 landing point</div>
+      <p style="margin-bottom:0;">"It predicts, it doesn't look up. Remember that one line and everything for the rest of the day is predictable — including why our agent this afternoon needs tools."</p>
+    </div>
+  </div>
+
+  <!-- ============================= PART 3 ============================= -->
+  <div class="part p3" id="p3">
+    <div class="part-hdr">
+      <div class="part-label"><span class="time-pill">11:15 – 11:35</span><span>Part 3 · 20 min &nbsp;·&nbsp; after the 10-min break</span></div>
+      <h2 class="serif">How to actually use an LLM</h2>
+      <p class="goal">Goal: they stop treating it as one box called "ChatGPT" and start choosing an interface and a mode on purpose.</p>
+    </div>
+
+    <h3>3.1 &nbsp;Four ways to reach the same model</h3>
+    <div class="t-scroll">
+      <table>
+        <thead><tr><th>Interface</th><th>What it is</th><th>Use it when</th></tr></thead>
+        <tbody>
+          <tr><td><b>Chat UI</b></td><td>chatgpt.com, claude.ai, gemini.google.com</td><td>Thinking, drafting, learning. Where all of you live now.</td></tr>
+          <tr><td><b>Projects / Gems / Custom instructions</b></td><td>A saved chat workspace with persistent context and files</td><td>You keep re-explaining the same background. Set it once.</td></tr>
+          <tr><td><b>API</b></td><td>Your code calls the model directly</td><td>You need it inside a program, at scale, or automated.</td></tr>
+          <tr><td><b>Embedded in a product</b></td><td>Copilot in your editor, AI in Sheets</td><td>The work already lives in that tool.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Point out the gap in the room:</strong> 94% of them use the chat UI. Under a quarter have touched anything else. This afternoon's agent runs on the API — through a visual tool, so no code required.</p>
+
+    <h3>3.2 &nbsp;What it's genuinely good and bad at</h3>
+    <div class="t-scroll">
+      <table>
+        <thead><tr><th>Strong</th><th>Weak</th></tr></thead>
+        <tbody>
+          <tr><td>Rewriting, summarising, reformatting</td><td>Precise counting and self-measurement</td></tr>
+          <tr><td>Explaining a concept five different ways</td><td>Anything after its training cutoff</td></tr>
+          <tr><td>Writing and debugging code</td><td>Facts about you, your college, your syllabus</td></tr>
+          <tr><td>Structure: turning mess into a table</td><td>Citations and references (see Part 2)</td></tr>
+          <tr><td>First drafts of anything</td><td>Saying "I don't know"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The pattern: <strong>strong when the answer is derivable from what's in front of it; weak when it needs a fact it must retrieve.</strong> Every weakness in that right column is fixed the same way — put the information into the context window, or give it a tool. That's the entire afternoon.</p>
+
+    <h3>3.3 &nbsp;The habit to install today</h3>
+    <ol>
+      <li><strong>Give it the source.</strong> Don't ask about your unit — paste your unit in.</li>
+      <li><strong>Ask for the reasoning, not just the answer.</strong> You can't check an answer you can't follow.</li>
+      <li><strong>Verify anything you'd be embarrassed to be wrong about.</strong> Names, numbers, citations, dates.</li>
+      <li><strong>Iterate.</strong> The first output is a draft. Reply "too generic, use my example" instead of starting over.</li>
+    </ol>
+    <p style="margin-bottom:0;">That fourth point speaks straight to the <b>37%</b> who said "I don't get the answer I expected" — most of them retry from scratch instead of correcting in place.</p>
+  </div>
+
+  <!-- ============================= PART 4 ============================= -->
+  <div class="part p4" id="p4">
+    <div class="part-hdr">
+      <div class="part-label"><span class="time-pill">11:35 – 12:00</span><span>Part 4 · 25 min &nbsp;·&nbsp; includes hands-on</span></div>
+      <h2 class="serif">Prompt engineering</h2>
+      <p class="goal">Goal: they can take a bad prompt and fix it deliberately using a checklist — not by retrying until something works. Targets the <b>44%</b> who lose the most time writing prompts and deciding what to ask.</p>
+    </div>
+
+    <h3>4.1 &nbsp;What it actually is</h3>
+    <p><strong>Prompt engineering is the practice of structuring your input so the model's next-token prediction lands where you want it.</strong> It is not magic words. It follows entirely from Part 2 — which is why we did Part 2 first.</p>
+
+    <h3>4.2 &nbsp;The anatomy — six parts</h3>
+    <p>Not every prompt needs all six. Most bad prompts are missing four.</p>
+    <div class="t-scroll">
+      <table>
+        <thead><tr><th>Part</th><th>Question it answers</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><b>Role</b></td><td>Who should it be?</td><td>"You are an ML tutor for 2nd-year AI &amp; DS students."</td></tr>
+          <tr><td><b>Context</b></td><td>What must it know?</td><td>"We've covered linear regression but not neural networks."</td></tr>
+          <tr><td><b>Task</b></td><td>What exactly to do?</td><td>"Explain batch, stochastic and mini-batch gradient descent."</td></tr>
+          <tr><td><b>Format</b></td><td>What shape is the output?</td><td>"One table per variant: how it works, when to use, trade-off."</td></tr>
+          <tr><td><b>Constraints</b></td><td>What are the limits?</td><td>"Under 300 words. No calculus notation."</td></tr>
+          <tr><td><b>Examples</b></td><td>Can you show it?</td><td>One sample of the output you want.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>4.3 &nbsp;Before and after</h3>
+    <div class="cmp">
+      <div class="cmp-col bad">
+        <h5>✕ What they write now</h5>
+        <pre>explain gradient descent</pre>
+        <p style="font-size:12.5px; color:var(--ink-2); margin:10px 0 0;">Result: a generic textbook dump. Wrong depth, wrong length, unknown audience, and probably drowns them in calculus they haven't done yet.</p>
+      </div>
+      <div class="cmp-col good">
+        <h5>✓ What to write instead</h5>
+<pre>You are an ML tutor for 2nd-year
+AI &amp; Data Science students.
+
+We have covered linear regression
+and cost functions, but NOT neural
+networks yet.
+
+Explain batch, stochastic and
+mini-batch gradient descent using
+ONE running example: fitting a line
+to 1000 student marks.
+
+Format: one table per variant with
+columns — How it works | When to
+use it | The trade-off.
+
+Under 300 words. No calculus
+notation. Then tell me in one line
+which one I'd use for my final year
+project and why.</pre>
+      </div>
+    </div>
+    <p>Run both live. The difference is not subtle, and it does more to convince the room than any slide.</p>
+
+    <h3>4.4 &nbsp;Four techniques worth naming</h3>
+    <div class="t-scroll">
+      <table>
+        <thead><tr><th>Technique</th><th>What you do</th><th>Best for</th></tr></thead>
+        <tbody>
+          <tr><td><b>Zero-shot</b></td><td>Just describe the task</td><td>Simple, common tasks</td></tr>
+          <tr><td><b>Few-shot</b></td><td>Give 2–3 examples of input→output first</td><td>Specific formats, consistent tone</td></tr>
+          <tr><td><b>Chain of thought</b></td><td>Add "work through this step by step"</td><td>Logic, maths, multi-step reasoning</td></tr>
+          <tr><td><b>Grounding</b></td><td>Paste the source and say "answer only from this"</td><td>Anything factual. The hallucination fix.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="demo">
+      <div class="d-label">Live demo · grounding — the bridge to this afternoon</div>
+      <p>Ask the same syllabus question twice:</p>
+      <div class="type">1. What are the assumptions of linear regression?</div>
+      <div class="type">2. [attach their unit PDF] Using only the attached notes, list the assumptions of linear regression exactly as our syllabus defines them, and quote the line each one comes from.</div>
+      <p style="margin-bottom:0;">The second is checkable, matches what the examiner wants, and can't invent citations. <strong>Say:</strong> "You didn't get a better model. You gave it better input. That's grounding — and it's the first thing we'll build into our agent."</p>
+    </div>
+
+    <h3>4.5 &nbsp;Hands-on — 12 minutes</h3>
+    <p>In pairs. Give every pair the same weak prompt tied to a unit they're doing now:</p>
+    <div class="demo" style="border-left-color: var(--aqua);">
+      <div class="d-label" style="color: var(--aqua);">Exercise prompt</div>
+      <div class="type">explain overfitting</div>
+      <p style="margin-bottom:0;"><strong>Task:</strong> rewrite it using the six-part anatomy. Run both. <strong>Then:</strong> three pairs read their before and after aloud. Ask the room which added part made the biggest difference — the answer is almost always <em>context</em> or <em>format</em>, and that's the lesson.</p>
+    </div>
+
+    <div class="box key">
+      <div class="box-title">Close the morning here</div>
+      <p style="margin-bottom:0;">"Everything you've done today, the model has only <em>talked</em>. It answered questions. It never looked anything up, never saved anything, never did anything. After lunch we give it hands — and you'll build that yourself, from an empty screen."</p>
+    </div>
+  </div>
+
+  <!-- ============================= PART 5 ============================= -->
+  <div class="part p5" id="p5">
+    <div class="part-hdr">
+      <div class="part-label"><span class="time-pill">14:00 – 14:30</span><span>Part 5 · 30 min</span></div>
+      <h2 class="serif">What is an AI agent</h2>
+      <p class="goal">Goal: they can name the four components and explain what separates an agent from a chatbot — before they build one.</p>
+    </div>
+
+    <h3>5.1 &nbsp;Open by showing the finished thing · 6 min</h3>
+    <p>Run your working agent on the projector with the Google Sheet open beside it. Type <strong>one</strong> instruction:</p>
+    <div class="demo">
+      <div class="d-label">The money shot</div>
+      <div class="type">Prepare me for Unit 3.</div>
+      <p style="margin-bottom:0;">Then say nothing. The room watches it work through the notes, look something up, and <strong>write six rows into the sheet, one after another</strong> — from a single instruction, with nobody typing. <em>"That's an agent. You gave it a goal, not a question, and it did the work."</em></p>
+    </div>
+
+    <h3>5.2 &nbsp;What is actually an agent — the honest ladder</h3>
+    <p>Most things marketed as "AI agents" are not agents. Give them the ladder so they can tell the difference for the rest of their careers.</p>
+    <div class="t-scroll">
+      <table>
+        <thead><tr><th>Level</th><th>You give it</th><th>It does</th><th>Agent?</th></tr></thead>
+        <tbody>
+          <tr><td><b>Chatbot</b></td><td>a question</td><td>answers</td><td>No</td></tr>
+          <tr><td><b>+ Retrieval (RAG)</b></td><td>a question</td><td>looks up → answers</td><td>No</td></tr>
+          <tr><td><b>+ Tools</b></td><td>a question</td><td>picks a tool → answers</td><td><b>Still no</b></td></tr>
+          <tr><td><b>Agent</b></td><td><b>a goal</b></td><td>plans → acts → observes → re-plans → delivers</td><td><b>Yes</b></td></tr>
+          <tr><td><b>Multi-agent</b></td><td>a goal</td><td>delegates to other agents</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box key">
+      <div class="box-title">The test — give them this sentence</div>
+      <p style="font-size:17px; margin-bottom:0;">Does it do <strong>multi-step work toward a goal while you are not typing?</strong> If you have to prompt every step, it's a chatbot with tools. Adding tools to a chatbot does not make it an agent.</p>
+    </div>
+
+    <div class="say">
+      <div class="say-label">Say this</div>
+      <p>"This morning you had a consultant — it told you things. An agent is the assistant who picks up the phone and actually does it. And the difference isn't intelligence. It's that you handed over a goal instead of a question."</p>
+    </div>
+
+    <h3>5.3 &nbsp;How an agent thinks — the loop</h3>
+    <p>Draw this on the board. It's the one genuinely new idea of the afternoon, and everything they build maps onto it.</p>
+    <div class="demo">
+      <div class="d-label">The loop</div>
+      <div class="type">GOAL received
+   ↓
+THINK     what's my first step?
+ACT       call a tool
+OBSERVE   read the result
+THINK     does that change my plan? am I done?   ← the agent
+   ↺      loop until the goal is met
+   ↓
+DELIVER   a result, or an action taken</div>
+      <p style="margin-bottom:0;"><strong>That second THINK is the whole thing.</strong> The result of one action changes what the next action is. A chatbot has no such step — it answers and stops. This pattern has a name in the literature: <strong>ReAct</strong> (Reason + Act).</p>
+    </div>
+
+    <h4>Traced on our actual agent</h4>
+    <div class="demo">
+      <div class="d-label">Student types: "Prepare me for Unit 3."</div>
+      <div class="type">THINK   → "A goal, not a question. First I need
+           to know what's in Unit 3."
+ACT     → reads the notes in context
+OBSERVE → 6 topics found
+
+THINK   → "Topic 4 is barely covered. That's a gap."
+ACT     → calls Wikipedia("regularization")
+OBSERVE → solid explanation returned
+
+THINK   → "Now I can write a question for every topic."
+ACT     → writes row 1 to the sheet
+ACT     → writes row 2 to the sheet
+           ... (repeats for all 6)
+
+THINK   → "Goal met. Report back."
+DELIVER → "Logged 6 topics. Topic 4 was thin in your
+           notes so I filled it from Wikipedia."</div>
+      <p style="margin-bottom:0;"><strong>Nobody programmed that sequence.</strong> No <code>if</code> statement decided topic 4 was thin. No loop counter said "six rows." The model decided how many steps to take and when it was finished.</p>
+    </div>
+
+    <h3>5.4 &nbsp;The four components</h3>
+    <div class="t-scroll">
+      <table>
+        <thead><tr><th>Component</th><th>What it is</th><th>In our build</th></tr></thead>
+        <tbody>
+          <tr><td><b>Model</b> — the brain</td><td>The predictor from this morning</td><td>Gemini</td></tr>
+          <tr><td><b>Tools</b> — the hands</td><td>Functions it can call to affect the world</td><td>Wikipedia · Calculator</td></tr>
+          <tr><td><b>Loop</b> — the judgement</td><td>Decide → act → observe → decide again</td><td>n8n's AI Agent node</td></tr>
+          <tr><td><b>Memory</b> — the continuity</td><td>State that outlives one message</td><td>Simple Memory</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.4 &nbsp;The loop, concretely</h3>
+    <p>Walk this through on the board slowly. It's the one genuinely new idea of the afternoon.</p>
+    <div class="demo">
+      <div class="d-label">Student asks: "What's the latest on the DPDP Act? Is it in my notes?"</div>
+      <div class="type">REASON  → "My notes were provided. Let me check them first."
+ACT     → calls search_notes("DPDP Act")
+OBSERVE → nothing relevant found
+
+REASON  → "Not in the notes. I have a web tool."
+ACT     → calls search_web("DPDP Act latest 2026")
+OBSERVE → three current articles returned
+
+REASON  → "I can answer now, and I must flag
+           that this was not from the syllabus."
+ANSWER  → replies, labelled clearly</div>
+      <p style="margin-bottom:0;"><strong>Nobody programmed that sequence.</strong> No <code>if</code> statement chose the web search. The model decided, mid-task, which tool to reach for. That decision is the whole difference — and it's why this is an agent and not a flowchart.</p>
+    </div>
+
+    <div class="box warn">
+      <div class="box-title">Say this plainly</div>
+      <p style="margin-bottom:0;">"An agent is not a smarter model. It's the same model from this morning, given tools and permission to choose. The intelligence you'll see this afternoon is <em>mostly in the wiring</em> — which is good news, because the wiring is what you're about to learn."</p>
+    </div>
+
+    <h3>5.5 &nbsp;Accounts and keys · 12 min</h3>
+
+    <div class="box key">
+      <div class="box-title">Design decision — one credential, total</div>
+      <p>Setup friction is the biggest threat to the build. Every extra signup loses students permanently. So the stack was cut to <strong>exactly one API key</strong>:</p>
+      <div class="t-scroll" style="margin-bottom:10px;">
+        <table>
+          <thead><tr><th>Component</th><th>What it costs the student</th></tr></thead>
+          <tbody>
+            <tr><td>n8n account</td><td>Sign in with Google · ~30 sec</td></tr>
+            <tr><td>Gemini API key</td><td>Google AI Studio · free, instant, <b>no card</b></td></tr>
+            <tr><td>Wikipedia tool</td><td><b>No credential at all</b></td></tr>
+            <tr><td>Calculator tool</td><td><b>No credential at all</b></td></tr>
+            <tr><td>Simple Memory</td><td><b>No credential at all</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-bottom:0;">Rejected: SerpAPI/Tavily web search (extra signup + key) and Google Sheets logging (OAuth flow that breaks in workshops). Wikipedia proves the identical concept — <em>the model chooses which tool to call</em> — at zero setup cost. Both rejected pieces are listed as stretch goals below for fast finishers.</p>
+    </div>
+
+    <div class="box warn">
+      <div class="box-title">Do not share one API key across the room</div>
+      <p style="margin-bottom:0;">Tempting shortcut, guaranteed failure. Gemini free-tier rate limits are <strong>per key</strong> and low — 54 students hitting one key at once throttles everybody within seconds, and you'll spend the build debugging quota errors instead of teaching. <strong>Each student needs their own key.</strong> This is why Wednesday's pre-work is non-negotiable rather than a convenience.</p>
+    </div>
+
+    <p>Run this while the concept settles. Walk the room — this is where people get stuck, not later.</p>
+    <ol>
+      <li>Everyone opens n8n and signs in with Google</li>
+      <li>Google AI Studio → <b>Create API key</b> → copy it somewhere safe</li>
+      <li>Have their unit notes open and ready to copy</li>
+      <li><strong>Hands up if anything failed</strong> — pair those students with a neighbour <em>now</em>, not at 15:00</li>
+    </ol>
+    <p style="margin-bottom:0;"><strong>For students who arrive with nothing:</strong> getting a Gemini key takes about a minute, so recover them here rather than writing them off — but pair them with someone who's ready so they're never watching a blank screen.</p>
+  </div>
+
+  <!-- ============================= PART 6 ============================= -->
+  <div class="part p6" id="p6">
+    <div class="part-hdr">
+      <div class="part-label"><span class="time-pill">14:30 – 15:45</span><span>Part 6 · 75 min &nbsp;·&nbsp; built from scratch</span></div>
+      <h2 class="serif">The build — from an empty canvas</h2>
+      <p class="goal">Goal: every student has a running "Study Buddy" agent they assembled node by node, and can explain what each node does. No template, no import.</p>
+    </div>
+
+    <div class="box note">
+      <div class="box-title">Ground rules</div>
+      <ul style="margin-bottom:0;">
+        <li><strong>Nothing is pre-built.</strong> They start from File → New Workflow, empty.</li>
+        <li><strong>Nobody moves on until their step runs.</strong> Checkpoints below; ask for hands each time.</li>
+        <li><strong>Scope is deliberately small.</strong> Two tools, not four. A finished small agent beats an unfinished ambitious one — and it's what they'll present at 15:45.</li>
+        <li><strong>You build on the projector at the same pace.</strong> They copy what they see.</li>
+      </ul>
+    </div>
+
+    <h3>What they're building</h3>
+    <p><strong>Unit Prep Agent</strong> — give it a goal, it does the work. From the single instruction <code>Prepare me for Unit 3</code> it:</p>
+    <ol>
+      <li>Works through their notes and identifies the key topics</li>
+      <li>Judges which topics its notes cover <em>thinly</em> ← a real decision, not a script</li>
+      <li>Looks those up on Wikipedia</li>
+      <li>Writes one row per topic into their revision sheet, with a practice question</li>
+      <li>Reports back what it did</li>
+    </ol>
+    <p>Then a <strong>schedule trigger</strong> makes it run at 8 p.m. without them there.</p>
+
+    <div class="box key">
+      <div class="box-title">Why this one passes the agent test</div>
+      <ul style="margin-bottom:0;">
+        <li><strong>Goal in, not a question in</strong> — one instruction, many actions</li>
+        <li><strong>Multi-step and self-directed</strong> — nobody told it there'd be six topics, or which were thin</li>
+        <li><strong>Each step depends on the last</strong> — it can't know what to look up until it's read the notes</li>
+        <li><strong>It acts on the world</strong> — rows in a real sheet, not text in a chat</li>
+        <li><strong>It runs without them</strong> — the 8 p.m. trigger is the clincher</li>
+      </ul>
+    </div>
+    <p style="margin-bottom:0;">Setup cost: <strong>one API key + one Google connection.</strong> Wikipedia and the scheduler need no credentials.</p>
+
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-b">
+        <span class="step-time">10 min</span>
+        <h4>Empty canvas → first response</h4>
+        <p>New workflow. Add <code>When chat message received</code>. Add <code>AI Agent</code>, connect the trigger into it. On the Agent's <b>Chat Model</b> port add <code>Google Gemini Chat Model</code> and paste the API key as a new credential.</p>
+        <p>Open the chat panel and say hello.</p>
+        <div class="checkpoint"><b>Checkpoint:</b> it replies. Hands up if not — almost every failure here is the API key. Fix all of them before step 2.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-b">
+        <span class="step-time">8 min</span>
+        <h4>Turn it from a chatbot into an agent</h4>
+        <p>In the AI Agent node, open <b>System Message</b>. This single field is what decides whether they've built a chatbot or an agent. Type it out together:</p>
+        <div class="codeblock">You are an exam prep agent for a 2nd-year
+AI &amp; Data Science student.
+
+When given a goal like "prepare me for Unit 3":
+1. Work through the notes and list the key topics.
+2. For each topic, judge whether the notes cover it
+   well enough to revise from.
+3. Look up anything thin using your tools.
+4. Write ONE row per topic to the revision sheet,
+   each with a practice question.
+5. Finish by reporting what you logged.
+
+Work through the entire goal before replying.
+Do NOT ask permission between steps.
+Never invent citations, papers or page numbers.</div>
+        <div class="checkpoint"><b>Checkpoint:</b> ask "who are you?" — the answer should have changed. <b>Teaching beat:</b> point at the last two lines. <em>"Work through the entire goal"</em> and <em>"don't ask permission between steps"</em> are what make it act instead of chat. Delete those two lines and you have a chatbot again.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-b">
+        <span class="step-time">15 min</span>
+        <h4>Ground it in their own notes</h4>
+        <p>Simplest reliable route in the time available: paste the notes text directly into the System Message under a clear heading.</p>
+        <div class="codeblock">=== MY COURSE NOTES ===
+[paste unit text here]
+=== END NOTES ===
+
+Answer from the notes above wherever possible,
+and quote the line you used.</div>
+        <p>Have them copy 2–3 pages of one unit, not the whole semester — context windows are finite, and they saw why this morning.</p>
+        <div class="checkpoint"><b>Checkpoint:</b> ask something covered in their notes → it answers <em>and quotes</em>. This is grounding, the exact fix from 11:50.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-b">
+        <span class="step-time">20 min</span>
+        <h4>The agent moment — give it a tool</h4>
+        <p>On the AI Agent's <b>Tool</b> port, add the <b>Wikipedia</b> tool. <strong>It asks for no credentials</strong> — it just connects and works.</p>
+        <p>In the tool's description field write plainly:</p>
+        <div class="codeblock">Use this to look up a topic when the student's
+notes do not cover it. Always tell the student
+the answer came from Wikipedia, not their notes.</div>
+        <p><strong>Stop and make the point here.</strong> That description isn't documentation — it's how the model decides whether to reach for the tool. They are writing a prompt <em>for a decision</em>. Nothing in the workflow says <code>if</code>.</p>
+        <div class="checkpoint"><b>Checkpoint:</b> ask something clearly outside their notes. Watch the execution path light up through the Wikipedia node. <b>This is the moment the room understands agents</b> — give it a beat and make them look at the node trail.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-b">
+        <span class="step-time">20 min</span>
+        <h4>Let it act on the world — the Sheet</h4>
+        <p>Each student makes a Google Sheet with headers <code>Date | Topic | Covered in notes? | Practice question</code>.</p>
+        <p>Add a <b>Google Sheets</b> tool to the Agent's Tool port, operation <b>Append Row</b>, and connect their Google account. Description:</p>
+        <div class="codeblock">Use this to log one revision topic. Call it once
+per topic — do not batch them into a single row.</div>
+        <p><strong>This is the slowest step and the one that breaks.</strong> Google OAuth is the flakiest thing in the build. Budget the full 20 minutes, walk the room, and pair anyone stuck rather than letting them sit.</p>
+        <div class="checkpoint"><b>Checkpoint — the moment of the day:</b> type <code>Prepare me for Unit 3</code>, then <b>don't touch anything</b>. Watch rows appear one by one in the sheet. One instruction, six actions, nobody typing. <em>That</em> is the agent.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">6</div>
+      <div class="step-b">
+        <span class="step-time">10 min</span>
+        <h4>Cut them out of the loop entirely</h4>
+        <p>Add a <b>Schedule Trigger</b> alongside the chat trigger, set to 8 p.m. daily, wired into the same Agent. Give it a standing goal — e.g. <code>Pick the topic I've revised least and log a fresh practice question for it.</code></p>
+        <p style="margin-bottom:0;"><strong>Say this:</strong> "Tonight you'll be having dinner. Your agent will be working. Tomorrow morning there'll be a row in your sheet you didn't ask for. Nothing you've built before has ever done that."</p>
+        <div class="checkpoint"><b>Checkpoint:</b> they don't need to wait until 8 p.m. — set it to two minutes ahead, close the tab, and watch the execution appear in n8n's <b>Executions</b> list. Work that happened without them.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">7</div>
+      <div class="step-b">
+        <span class="step-time">5 min</span>
+        <h4>Try to break it</h4>
+        <p>Ask it to prepare a unit whose notes it doesn't have. Ask in Tamil. Give it a goal with no clear endpoint. Ask about something too recent for Wikipedia — watching it fall back to guessing is the lesson.</p>
+        <p style="margin-bottom:0;">This is the responsible-AI content, delivered as engineering rather than a lecture — and it closes the loop with the <b>20%</b> who didn't know AI had limits at all.</p>
+      </div>
+    </div>
+
+    <div class="box note">
+      <div class="box-title">Stretch goals — for students who finish early only</div>
+      <ul style="margin-bottom:0;">
+        <li><strong>Calculator tool</strong> — no credentials; lets it handle the stats questions in their own coursework.</li>
+        <li><strong>Real web search</strong> — SerpAPI or Tavily free tier, for anything more current than Wikipedia.</li>
+        <li><strong>Email or Telegram delivery</strong> — the 8 p.m. run messages them instead of only writing to the sheet.</li>
+      </ul>
+    </div>
+
+    <div class="box warn">
+      <div class="box-title">If Google OAuth defeats a student</div>
+      <p style="margin-bottom:0;">Don't let them sit dead for 20 minutes. Have them skip to <strong>Step 6</strong> and give the agent a goal that ends in a written summary rather than sheet rows. They still have a goal-directed, multi-step, autonomously-scheduled agent — they've just lost the visual. Better than losing the student.</p>
+    </div>
+
+    <h3>15:45 – 15:55 &nbsp;·&nbsp; They present</h3>
+    <p>Four or five students, two minutes each, on their own screen:</p>
+    <ul>
+      <li>What their agent does</li>
+      <li>One question it answered from their notes</li>
+      <li>One thing that broke, and why they think it broke</li>
+    </ul>
+    <p>That third question is the one that shows whether the morning landed. Pick a couple of the students who wrote about agents in the survey — Alphonz, Rasswanth, Lavanya, Jeevasri, Daksha, Muhil — they'll have pushed furthest.</p>
+
+    <h3>15:55 – 16:00 &nbsp;·&nbsp; Close</h3>
+    <p style="margin-bottom:0;">Post-session form (same scales as the morning — that's the before/after read). Then three next steps: extend this agent with a schedule trigger, the fine-tuning path for the two who asked about training models, and where agents are showing up in industry (<b>28</b> asked for that).</p>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- ============================= TIMING ============================= -->
+  <h2 class="serif" id="timing" style="font-size:26px; margin-top:44px;">Timing sheet</h2>
+  <div class="t-scroll">
+    <table>
+      <thead><tr><th class="mono">Time</th><th>Part</th><th>Mode</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">10:00–10:10</td><td>Pre-form + hallucination hook</td><td>Admin + demo</td></tr>
+        <tr><td class="mono">10:10–10:35</td><td>1 · What is AI</td><td>Teach</td></tr>
+        <tr><td class="mono">10:35–11:05</td><td>2 · What is an LLM</td><td>Teach + demos</td></tr>
+        <tr><td class="mono">11:05–11:15</td><td>Break</td><td>—</td></tr>
+        <tr><td class="mono">11:15–11:35</td><td>3 · How to use an LLM</td><td>Teach</td></tr>
+        <tr><td class="mono">11:35–12:00</td><td>4 · Prompt engineering</td><td>Teach + pairs</td></tr>
+        <tr><td class="mono">14:00–14:30</td><td>5 · What is an agent + setup</td><td>Demo + teach + setup</td></tr>
+        <tr><td class="mono">14:30–15:45</td><td>6 · Build from scratch</td><td>Hands-on</td></tr>
+        <tr><td class="mono">15:45–15:55</td><td>Students present</td><td>Show &amp; tell</td></tr>
+        <tr><td class="mono">15:55–16:00</td><td>Post-form + next steps</td><td>Close</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box warn">
+    <div class="box-title">If you fall behind</div>
+    <p>Cut in this order — protect the build at all costs, because it's the only thing they take home:</p>
+    <ol style="margin-bottom:0;">
+      <li><strong>Part 3</strong> can compress to 10 minutes (it's the most cuttable — mostly orientation)</li>
+      <li><strong>Part 1.4</strong> discriminative vs generative can go to a single slide</li>
+      <li><strong>Step 7</strong> (break it) folds into the show-and-tell if needed</li>
+      <li><strong>Never cut</strong> Part 2.7 (why it hallucinates), <strong>Step 5</strong> (rows appearing from one instruction) or <strong>Step 6</strong> (the schedule trigger). Those three are the whole day — and without 5 and 6 they've built a chatbot, not an agent.</li>
+    </ol>
+  </div>
+
+  <!-- ============================= PREP ============================= -->
+  <h2 class="serif" id="prep" style="font-size:26px; margin-top:44px;">Prep checklist</h2>
+
+  <h4>Send to students Wednesday night</h4>
+  <p>Deliberately only <strong>two</strong> things to sign up for. Keep it that short — every extra item loses people.</p>
+  <ol>
+    <li>Create a free n8n account (<b>Sign in with Google</b> is fastest)</li>
+    <li>Go to Google AI Studio → <b>Create API key</b> → paste it somewhere you can find on Friday. Free, instant, no card needed. <strong>Get your own — don't share with a friend</strong>, or you'll both hit rate limits mid-session.</li>
+    <li>Make sure you can sign in to Google Sheets on your laptop — the agent will write to a sheet you own</li>
+    <li><strong>Bring 2–3 pages of one unit's notes as text you can copy</strong> — the agent runs on this. Without it you'll be building on someone else's material.</li>
+    <li>Laptop charged, wifi password known</li>
+  </ol>
+  <p style="margin-bottom:0;">Ask for a thumbs-up reply once steps 1 and 2 are done, so you know your real number before Friday morning rather than discovering it at 14:20.</p>
+
+  <h4>Your own prep — demo rehearsal is the priority</h4>
+  <ul>
+    <li><strong>Test every demo on the exact model and settings you'll use on the day.</strong> The strawberry example was retired precisely because it silently started working. Assume any demo you haven't personally run this week is broken.</li>
+    <li><strong>Turn browsing/web search OFF for the hallucination demo</strong>, and test three narrow syllabus topics — keep the one that fabricates most confidently. Screenshot it as a backup.</li>
+    <li>Build the Study Buddy yourself end to end, at least twice — once to learn it, once timed, so your 75-minute estimate is real.</li>
+    <li><strong>Verify the exact n8n node names on the version they'll use</strong> — especially that the <b>Wikipedia</b> and <b>Calculator</b> tool nodes are present and genuinely need no credentials. The whole one-key design rests on that. Check it before Wednesday, because the pre-work email depends on the answer.</li>
+    <li>Have a spare set of unit notes ready for students who forget theirs.</li>
+    <li>Have your own finished workflow open in a second tab — not to distribute, but so a stuck student can see what the target looks like.</li>
+    <li>Know the Gemini free-tier rate limit for the model you pick, so you can recognise a quota error instantly when a student hits one.</li>
+  </ul>
+
+  <footer class="note">
+    Built from the pre-session survey (54 responses, Notion "AI Tools Survey" / AI Training.xlsx, verified 2026-08-05). Percentages cited throughout trace to that dataset. Assumes the same cohort across both blocks and that most students have laptops with working wifi — both confirmed. Node names and UI labels for n8n, Google AI Studio and the tokenizer tool should be verified against the versions in use on the day.
+  </footer>
+
+</div>
+</body>
+</html>

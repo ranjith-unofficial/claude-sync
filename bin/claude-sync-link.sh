@@ -41,6 +41,17 @@ link "$PROJ/memory"                "$ICLOUD/memory"
 link "$CLAUDE/skills"              "$ICLOUD/skills"
 link "$CLAUDE/settings.json"       "$ICLOUD/settings/settings.json"
 link "$CLAUDE/settings.local.json" "$ICLOUD/settings/settings.local.json"
+link "$CLAUDE/CLAUDE.md"           "$ICLOUD/CLAUDE.md"
+
+# generated deliverables live outside ~/.claude, so link them separately
+if [ -L "$HOME/ClaudeDocs" ]; then
+  ln -sfn "$ICLOUD/outputs" "$HOME/ClaudeDocs"; echo "ok   (already linked)  $HOME/ClaudeDocs"
+elif [ -e "$HOME/ClaudeDocs" ]; then
+  rsync -a "$HOME/ClaudeDocs/" "$ICLOUD/outputs/"; rm -rf "$HOME/ClaudeDocs"
+  ln -s "$ICLOUD/outputs" "$HOME/ClaudeDocs"; echo "link (merged existing) $HOME/ClaudeDocs"
+else
+  ln -s "$ICLOUD/outputs" "$HOME/ClaudeDocs"; echo "link                  $HOME/ClaudeDocs"
+fi
 
 echo
 [ -d "$PARK" ] && echo "Previous local copies parked in: $PARK"

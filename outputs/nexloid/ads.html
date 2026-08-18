@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kaizen Klub — Sponsorship Packages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#09090b;
+    --panel:#111113;
+    --panel-2:#1a1a1d;
+    --ink:#f5f3ee;
+    --mute:#7a7a82;
+    --line:#26262b;
+    --red:#ff2e2e;
+    --red-deep:#c8102e;
+    --red-glow:rgba(255,46,46,0.15);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Archivo',sans-serif;-webkit-font-smoothing:antialiased}
+  body{
+    background-image:
+      radial-gradient(ellipse at top left, var(--red-glow), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(200,16,46,0.10), transparent 55%);
+    min-height:100vh;
+    padding:40px 24px 80px;
+  }
+  .wrap{max-width:1280px;margin:0 auto}
+
+  /* HEADER */
+  .header{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:48px;
+    flex-wrap:wrap;gap:20px;
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand-mark{
+    width:48px;height:48px;background:var(--red);color:#000;
+    display:grid;place-items:center;font-family:'Bebas Neue';font-size:28px;
+    transform:rotate(-6deg);
+    box-shadow:0 0 30px rgba(255,46,46,0.4);
+  }
+  .brand-text h1{font-family:'Bebas Neue';font-size:36px;letter-spacing:1px;line-height:1}
+  .brand-text p{font-family:'JetBrains Mono';font-size:11px;color:var(--mute);margin-top:4px;letter-spacing:2px;text-transform:uppercase}
+  .meta{font-family:'JetBrains Mono';font-size:11px;color:var(--mute);letter-spacing:1.5px;text-transform:uppercase;text-align:right}
+  .meta strong{color:var(--red);display:block;font-size:13px;margin-bottom:4px}
+
+  /* TITLE SPONSOR BANNER */
+  .title-banner{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:24px 28px;
+    margin-bottom:40px;
+    display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  .title-banner::before{
+    content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:var(--red);
+  }
+  .tb-tag{font-family:'Bebas Neue';font-size:14px;letter-spacing:3px;color:var(--red);padding-left:8px}
+  .tb-body{display:flex;gap:32px;flex-wrap:wrap}
+  .tb-item{font-size:13px}
+  .tb-item span{display:block;font-family:'JetBrains Mono';font-size:10px;color:var(--mute);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+  .tb-barter{
+    font-family:'JetBrains Mono';font-size:10px;color:var(--red);
+    border:1px dashed var(--red);padding:8px 12px;letter-spacing:1px;text-transform:uppercase;
+  }
+
+  /* REACH STRIP */
+  .reach-strip{
+    display:grid;grid-template-columns:auto repeat(2,1fr);gap:0;
+    border:1px solid var(--line);margin-bottom:48px;background:var(--panel);
+  }
+  .reach-label{
+    background:var(--red);color:#000;
+    font-family:'Bebas Neue';font-size:14px;letter-spacing:3px;
+    padding:20px 24px;display:grid;place-items:center;line-height:1.1;text-align:center;
+  }
+  .reach-item{padding:20px 24px;border-left:1px solid var(--line);display:flex;align-items:center;gap:16px}
+  .reach-item .num{font-family:'Bebas Neue';font-size:42px;color:var(--red);line-height:1}
+  .reach-item .plat{font-family:'JetBrains Mono';font-size:11px;color:var(--mute);letter-spacing:1.5px;text-transform:uppercase}
+  .reach-item .plat strong{display:block;color:var(--ink);font-size:14px;font-family:'Archivo';font-weight:700;margin-bottom:2px;letter-spacing:0;text-transform:none}
+
+  /* SECTION HEADING */
+  .section-head{
+    display:flex;align-items:baseline;gap:16px;margin-bottom:24px;
+  }
+  .section-head h2{font-family:'Bebas Neue';font-size:56px;letter-spacing:1px;line-height:0.9}
+  .section-head .dash{flex:1;height:1px;background:var(--line)}
+  .section-head .count{font-family:'JetBrains Mono';font-size:11px;color:var(--mute);letter-spacing:2px}
+
+  /* CARDS */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:56px}
+  @media(max-width:960px){.cards{grid-template-columns:1fr}}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:32px 28px;
+    position:relative;
+    display:flex;flex-direction:column;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--red)}
+  .card.featured{
+    background:linear-gradient(180deg, #1a0708 0%, #111113 100%);
+    border-color:var(--red);
+    box-shadow:0 0 40px rgba(255,46,46,0.15);
+  }
+  .card.featured::before{
+    content:"EXCLUSIVE";position:absolute;top:-1px;right:-1px;
+    background:var(--red);color:#000;font-family:'Bebas Neue';
+    font-size:12px;letter-spacing:2px;padding:6px 14px;
+  }
+  .card-num{
+    font-family:'JetBrains Mono';font-size:11px;color:var(--mute);
+    letter-spacing:2px;margin-bottom:12px;
+  }
+  .card.featured .card-num{color:var(--red)}
+  .card-title{
+    font-family:'Bebas Neue';font-size:32px;letter-spacing:1px;line-height:1;margin-bottom:8px;
+  }
+  .card-sub{font-family:'JetBrains Mono';font-size:10px;color:var(--mute);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px}
+
+  .price{
+    display:flex;align-items:baseline;gap:6px;
+    border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:24px;
+  }
+  .price .currency{font-family:'Archivo';font-weight:600;font-size:20px;color:var(--mute)}
+  .price .amount{font-family:'Bebas Neue';font-size:72px;line-height:0.9;letter-spacing:-1px}
+  .card.featured .amount{color:var(--red)}
+  .price .unit{font-family:'JetBrains Mono';font-size:11px;color:var(--mute);margin-left:auto;letter-spacing:1px}
+
+  .features{list-style:none;flex:1;margin-bottom:24px}
+  .features li{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:10px 0;border-bottom:1px dashed var(--line);
+    font-size:14px;line-height:1.4;
+  }
+  .features li:last-child{border-bottom:none}
+  .features .tick{
+    flex-shrink:0;width:16px;height:16px;border:1px solid var(--red);
+    display:grid;place-items:center;color:var(--red);font-size:10px;font-weight:700;
+    margin-top:2px;
+  }
+  .card.featured .features .tick{background:var(--red);color:#000}
+  .feat-label{flex:1}
+  .feat-note{font-family:'JetBrains Mono';font-size:10px;color:var(--mute);margin-left:6px}
+
+  .cta{
+    display:block;text-align:center;padding:14px;
+    background:transparent;border:1px solid var(--ink);color:var(--ink);
+    font-family:'Bebas Neue';letter-spacing:3px;font-size:14px;
+    text-decoration:none;transition:all .2s;cursor:pointer;
+  }
+  .cta:hover{background:var(--ink);color:var(--bg)}
+  .card.featured .cta{background:var(--red);color:#000;border-color:var(--red)}
+  .card.featured .cta:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+
+  /* COMPARISON TABLE */
+  .compare{
+    background:var(--panel);border:1px solid var(--line);overflow-x:auto;
+  }
+  .compare table{width:100%;border-collapse:collapse;min-width:700px}
+  .compare th, .compare td{
+    padding:16px 20px;text-align:left;border-bottom:1px solid var(--line);
+    font-size:14px;vertical-align:middle;
+  }
+  .compare thead th{
+    background:var(--panel-2);font-family:'Bebas Neue';font-size:16px;
+    letter-spacing:2px;color:var(--ink);
+  }
+  .compare thead th.highlight{color:var(--red)}
+  .compare tbody th{
+    font-family:'JetBrains Mono';font-size:11px;color:var(--mute);
+    letter-spacing:1.5px;text-transform:uppercase;font-weight:500;width:28%;
+  }
+  .compare td{text-align:center;color:var(--ink)}
+  .compare td.yes{color:var(--red);font-weight:700}
+  .compare td.no{color:#3a3a40}
+  .compare td.detail{font-family:'JetBrains Mono';font-size:12px;color:var(--ink)}
+  .compare tr:last-child td, .compare tr:last-child th{border-bottom:none}
+  .compare tr.price-row td, .compare tr.price-row th{
+    background:var(--panel-2);font-family:'Bebas Neue';font-size:22px;letter-spacing:1px;
+  }
+  .compare tr.price-row td.highlight{color:var(--red)}
+
+  .footer{
+    margin-top:48px;padding-top:24px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
+    font-family:'JetBrains Mono';font-size:10px;color:var(--mute);letter-spacing:1.5px;text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div class="brand-text">
+        <h1>KAIZEN KLUB</h1>
+        <p>Sponsorship Packages // 2026</p>
+      </div>
+    </div>
+    <div class="meta">
+      <strong>Commercial Rate Card</strong>
+      All figures in INR · Barter add-on available
+    </div>
+  </header>
+
+  <!-- TITLE SPONSOR / BARTER BANNER -->
+  <div class="title-banner">
+    <div class="tb-tag">TITLE<br>SPONSOR</div>
+    <div class="tb-body">
+      <div class="tb-item"><span>Coverage</span>Kaizen Klub mentioned in all videos & photos</div>
+      <div class="tb-item"><span>On-Ground</span>Live name mentions during the event</div>
+      <div class="tb-item"><span>Barter Deal</span>15 days unlimited: Gym · Recovery · Yoga · MMA</div>
+      <div class="tb-item"><span>Content</span>1–2 videos (2 preferred)</div>
+    </div>
+    <div class="tb-barter">Included with Exclusive</div>
+  </div>
+
+  <!-- REACH STRIP -->
+  <div class="reach-strip">
+    <div class="reach-label">AUDIENCE<br>REACH</div>
+    <div class="reach-item">
+      <div class="num">300K+</div>
+      <div class="plat"><strong>YouTube</strong>Subscribers</div>
+    </div>
+    <div class="reach-item">
+      <div class="num">70K+</div>
+      <div class="plat"><strong>Instagram</strong>Followers</div>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="section-head">
+    <h2>CHOOSE YOUR PLAN</h2>
+    <div class="dash"></div>
+    <div class="count">03 OPTIONS</div>
+  </div>
+
+  <div class="cards">
+
+    <!-- CARD 1: ADS -->
+    <div class="card">
+      <div class="card-num">// 01 — PERFORMANCE</div>
+      <div class="card-title">ONLY ADS</div>
+      <div class="card-sub">Paid media · Lead generation</div>
+      <div class="price">
+        <span class="currency">₹</span>
+        <span class="amount">20K</span>
+        <span class="unit">/ campaign</span>
+      </div>
+      <ul class="features">
+        <li><span class="tick">✓</span><span class="feat-label">Ad spend <span class="feat-note">₹5,000</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Execution time <span class="feat-note">15+ hours</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Targeting research <span class="feat-note">locality · interest · demo</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">A/B testing <span class="feat-note">2–3 variants</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Competitor report</span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Daily lead-gen reporting</span></li>
+      </ul>
+      <a class="cta">Select Plan</a>
+    </div>
+
+    <!-- CARD 2: INFLUENCER -->
+    <div class="card">
+      <div class="card-num">// 02 — REACH</div>
+      <div class="card-title">ONLY INFLUENCER</div>
+      <div class="card-sub">Content · Community · 370K+ reach</div>
+      <div class="price">
+        <span class="currency">₹</span>
+        <span class="amount">27.5K</span>
+        <span class="unit">/ campaign</span>
+      </div>
+      <ul class="features">
+        <li><span class="tick">✓</span><span class="feat-label">YouTube reach <span class="feat-note">300K+ subs</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Instagram reach <span class="feat-note">70K+ followers</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Video + photo <span class="feat-note">IG & YouTube</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Group community video</span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Extended engagement window</span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Map location or DM link</span></li>
+      </ul>
+      <a class="cta">Select Plan</a>
+    </div>
+
+    <!-- CARD 3: BOTH (FEATURED) -->
+    <div class="card featured">
+      <div class="card-num">// 03 — FULL STACK</div>
+      <div class="card-title">ADS + INFLUENCER</div>
+      <div class="card-sub">Exclusive title sponsor package</div>
+      <div class="price">
+        <span class="currency">₹</span>
+        <span class="amount">35K</span>
+        <span class="unit">/ campaign</span>
+      </div>
+      <ul class="features">
+        <li><span class="tick">✓</span><span class="feat-label">Ad budget <span class="feat-note">up to ₹7,500</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Targeting research + A/B testing</span></li>
+        <li><span class="tick">✓</span><span class="feat-label">2 creatives produced</span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Full influencer reach <span class="feat-note">370K+ combined</span></span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Extended engagement window</span></li>
+        <li><span class="tick">✓</span><span class="feat-label">Title sponsor for event</span></li>
+        <li><span class="tick">✓</span><span class="feat-label">In-person event name mention</span></li>
+        <li><span class="tick">✓</span><span class="feat-label">15-day barter access included</span></li>
+      </ul>
+      <a class="cta">Select Exclusive</a>
+    </div>
+
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="section-head">
+    <h2>PLAN COMPARISON</h2>
+    <div class="dash"></div>
+    <div class="count">FEATURE MATRIX</div>
+  </div>
+
+  <div class="compare">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Only Ads</th>
+          <th>Only Influencer</th>
+          <th class="highlight">Ads + Influencer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="price-row">
+          <th>Price</th>
+          <td>₹20,000</td>
+          <td>₹27,500</td>
+          <td class="highlight">₹35,000</td>
+        </tr>
+        <tr>
+          <th>Ad Spend Included</th>
+          <td class="detail">₹5,000</td>
+          <td class="no">—</td>
+          <td class="detail">up to ₹7,500</td>
+        </tr>
+        <tr>
+          <th>Execution Hours</th>
+          <td class="detail">15+ hrs</td>
+          <td class="no">—</td>
+          <td class="detail">15+ hrs</td>
+        </tr>
+        <tr>
+          <th>Targeting Research</th>
+          <td class="yes">✓</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>A/B Testing (2–3 variants)</th>
+          <td class="yes">✓</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Competitor Report</th>
+          <td class="yes">✓</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Daily Lead-Gen Report</th>
+          <td class="yes">✓</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>YouTube Reach (300K+)</th>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Instagram Reach (70K+)</th>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Video + Photo Content</th>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Group Community Video</th>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Extended Engagement Window</th>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Map / DM Link</th>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Creatives Produced</th>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="detail">2 creatives</td>
+        </tr>
+        <tr>
+          <th>Title Sponsor Status</th>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>In-Person Event Mention</th>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <th>Barter: 15-day Unlimited Access</th>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="yes">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="footer">
+    <div>Kaizen Klub · Gym · Recovery · Yoga · MMA</div>
+    <div>Barter: Gym + Recovery + Yoga + MMA — 15 days unlimited</div>
+  </footer>
+
+</div>
+</body>
+</html>

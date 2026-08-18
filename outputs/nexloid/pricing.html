@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gym Website Pricing</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f8f9fb;
+    min-height: 100vh;
+    padding: 60px 20px;
+    color: #1a1a2e;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 60px; }
+  .header h1 { font-size: 2.4rem; margin-bottom: 12px; font-weight: 700; }
+  .header p { font-size: 1.05rem; color: #6c757d; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 24px;
+  }
+  .card {
+    background: white;
+    border-radius: 14px;
+    padding: 36px 30px;
+    border: 1px solid #e8ecf1;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+  .card.featured {
+    background: #1a1a2e;
+    color: white;
+    border: none;
+  }
+  .badge {
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: #ff6b35;
+    color: white;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+  }
+  .tier-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .card.featured .tier-name { color: #ff6b35; }
+  .tagline {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 26px;
+    line-height: 1.5;
+  }
+  .card.featured .tagline { color: #b8c5d6; }
+  .divider {
+    height: 1px;
+    background: #e8ecf1;
+    margin-bottom: 22px;
+  }
+  .card.featured .divider { background: rgba(255,255,255,0.12); }
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #9ca3af;
+    margin-bottom: 14px;
+  }
+  .features {
+    list-style: none;
+    flex-grow: 1;
+    margin-bottom: 28px;
+  }
+  .features li {
+    padding: 8px 0;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .features li:before {
+    content: "✓";
+    color: #10b981;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .card.featured .features li:before { color: #4ade80; }
+  .cta {
+    display: block;
+    text-align: center;
+    padding: 13px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: #1a1a2e;
+    color: white;
+    transition: opacity 0.2s;
+  }
+  .cta:hover { opacity: 0.88; }
+  .card.featured .cta { background: #ff6b35; }
+  .footer-note {
+    text-align: center;
+    margin-top: 45px;
+    color: #9ca3af;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Gym Website Packages</h1>
+      <p>Simple, transparent pricing — pick what fits your goals</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="tier-name">Starter - INR 65,000 </div>
+        <div class="tagline">Get your gym online with a clean, professional website.</div>
+        <div class="divider"></div>
+        <div class="section-label">What's included</div>
+        <ul class="features">
+          <li>Home page + 5 inner pages</li>
+          <li>Mobile-responsive template design</li>
+          <li>Basic on-page SEO setup</li>
+          <li>1 year hosting + SSL certificate</li>
+          <li>30 days post-launch support</li>
+          <li>2 rounds of revisions</li>
+        </ul>
+        <a href="#" class="cta">Choose Starter</a>
+      </div>
+
+      <div class="card featured">
+        <div class="badge">MOST POPULAR</div>
+        <div class="tier-name">Professional - INR 1,00,000</div>
+        <div class="tagline">Everything in Starter, plus tools to automate and grow.</div>
+        <div class="divider"></div>
+        <div class="section-label">Everything in Starter, plus</div>
+        <ul class="features">
+          <li>Customer Calendar — 1 Year</li>
+          <li>N8N Automation — 1 Year (Basic access)</li>
+          <li>Google Analytics setup</li>
+          <li>SEO — Mid-level optimization</li>
+          <li>Competitor analysis report</li>
+          <li>Basic CRM setup</li>
+        </ul>
+        <a href="#" class="cta">Choose Professional</a>
+      </div>
+
+      <div class="card">
+        <div class="tier-name">Elite- INR 1,45,000</div>
+        <div class="tagline">The full package for gyms ready to scale with paid marketing.</div>
+        <div class="divider"></div>
+        <div class="section-label">Everything in Professional, plus</div>
+        <ul class="features">
+          <li>N8N Automation — 1 Year (Unlimited)</li>
+          <li>Customer Calendar — Lifetime access</li>
+          <li>Google Ads & Meta Ads strategy</li>
+          <li>SEO Pro optimization — 1 Month</li>
+          <li>Multi-language support (English + regional)</li>
+          <li>1 year of continued support</li>
+          <li>15 Days - Google Ads + Meta Ads execution</li>
+        </ul>
+        <a href="#" class="cta">Choose Elite</a>
+      </div>
+
+    </div>
+
+    <div class="footer-note">
+      All plans include 1 year hosting · SSL certificate · Mobile responsive
+    </div>
+  </div>
+</body>
+</html>

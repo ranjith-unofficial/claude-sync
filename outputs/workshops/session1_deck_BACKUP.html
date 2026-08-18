@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session 1 — Backup Deck (69 slides)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --bg:#e9edf2; --surface:#ffffff; --surface2:#f3f6f9; --line:#dbe2ea;
+ --ink:#0f172a; --ink2:#46556a; --ink3:#64748b;
+ --cyan:#047857; --amber:#047857; --purple:#334155; --green:#047857; --rose:#b4232a;
+}
+html,body{height:100%;background:var(--bg);color:var(--ink);
+ font-family:system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+body.overview{overflow:auto}
+
+/* ---------- deck / slide ---------- */
+#deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:2vmin}
+.slide{width:min(96vw,calc(94vh*16/9));aspect-ratio:16/9;background:var(--surface);
+ border:1px solid var(--line);border-radius:14px;padding:4.2% 5%;box-shadow:0 3px 22px rgba(15,23,42,.09);
+ display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.slide.cols{display:grid;grid-template-columns:55% 45%;gap:3%;align-items:center}
+.stxt{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.svis{min-width:0;display:flex;align-items:center;justify-content:center;height:100%;max-height:78%}
+.svis svg{width:100%;height:100%;max-height:100%;overflow:visible}
+
+.badge{font-size:1.15vh;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--cyan);margin-bottom:1.6vh;display:inline-block}
+.badge.demo{color:var(--amber)}
+h1.st{font-size:4.6vh;line-height:1.12;font-weight:600;letter-spacing:-.02em;margin-bottom:1.2vh}
+.sub{font-size:2.05vh;color:var(--ink2);line-height:1.45;margin-bottom:2.4vh}
+.pts{display:flex;flex-direction:column;gap:1.7vh}
+.pt{border-left:2px solid var(--line);padding-left:1.6vh}
+.pt .pth{font-size:2.35vh;font-weight:650;line-height:1.3}
+.pt .ptd{font-size:1.85vh;color:var(--ink2);line-height:1.45;margin-top:.35vh}
+.slide.cols h1.st{font-size:3.9vh} .slide.cols .pt .pth{font-size:2.05vh}
+.slide.cols .pt .ptd{font-size:1.7vh} .slide.cols .pts{gap:1.35vh}
+
+/* title slides */
+.slide.tt{align-items:flex-start;justify-content:center;
+ background:var(--surface);border-left:7px solid var(--green)}
+.slide.tt h1.st{font-size:6.6vh;max-width:16ch}
+.slide.tt .sub{font-size:2.4vh;max-width:52ch}
+.author{font-size:1.6vh;color:var(--ink3);margin-top:2vh}
+
+/* poll */
+.opts{display:grid;gap:1.3vh;margin-top:1vh}
+.opt{background:var(--surface2);border:1px solid var(--line);border-radius:9px;
+ padding:1.5vh 2vh;font-size:2.05vh;display:flex;align-items:center;gap:1.4vh}
+.opt .k{color:var(--cyan);font-weight:800;font-variant-numeric:tabular-nums}
+.qn{font-size:2.3vh;color:var(--ink2);margin-bottom:1.6vh}
+.livetag{position:absolute;top:3.5%;right:5%;font-size:1.2vh;font-weight:800;
+ letter-spacing:.1em;color:var(--rose);display:flex;align-items:center;gap:.7vh}
+.livetag i{width:.9vh;height:.9vh;border-radius:50%;background:var(--rose);animation:bl 1.4s infinite}
+@keyframes bl{50%{opacity:.25}}
+
+/* prompt card */
+.pcard{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:2.2vh 2.4vh;
+ font-family:ui-monospace,Menlo,monospace;font-size:1.62vh;line-height:1.55;color:var(--ink);
+ white-space:pre-wrap;overflow:auto;max-height:52vh}
+/* takeaways */
+.tks{display:flex;flex-direction:column;gap:1.5vh;margin-top:1vh}
+.tk{display:flex;gap:1.4vh;font-size:2.05vh;line-height:1.4}
+.tk .n{color:var(--cyan);font-weight:800;flex:none}
+
+.ph{font-family:ui-monospace,Menlo,monospace;color:#92400e;
+ background:#fef3c7;border:1px solid #f0c14b;
+ border-radius:4px;padding:0 .5vh;font-size:.92em}
+
+/* ---------- stagger ---------- */
+.rv{opacity:0;transform:translateY(9px)}
+.slide.go .rv{animation:rvin .42s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes rvin{to{opacity:1;transform:none}}
+.slide.go .svis{animation:vin .55s cubic-bezier(.22,1,.36,1) both}
+@keyframes vin{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:none}}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;bottom:0;height:3px;background:var(--cyan);transition:width .25s;z-index:20}
+#hud{position:fixed;bottom:1.6vh;right:2vw;font-size:1.5vh;color:var(--ink3);
+ font-variant-numeric:tabular-nums;z-index:20;display:flex;gap:1.6vh;align-items:center}
+#hud b{color:var(--ink2);font-weight:600}
+#part{position:fixed;bottom:1.6vh;left:2vw;font-size:1.4vh;color:var(--ink3);
+ letter-spacing:.08em;text-transform:uppercase;z-index:20}
+#help{position:fixed;top:1.6vh;left:2vw;font-size:1.3vh;color:var(--ink3);z-index:20;opacity:.75}
+kbd{background:var(--surface2);border:1px solid var(--line);border-radius:4px;
+ padding:.1vh .7vh;font-family:inherit;font-size:.95em}
+
+/* ---------- overview ---------- */
+#ov{display:none;padding:28px;background:var(--bg);min-height:100%}
+body.overview #deck{display:none} body.overview #ov{display:block}
+body.overview #hud,body.overview #part,body.overview #bar{display:none}
+.ovh{max-width:1500px;margin:0 auto 22px;display:flex;justify-content:space-between;
+ align-items:flex-end;flex-wrap:wrap;gap:14px}
+.ovh h2{font-size:24px;font-weight:600}
+.ovh p{color:var(--ink3);font-size:13px;margin-top:5px}
+.stat{display:flex;gap:22px;font-size:12.5px;color:var(--ink3)}
+.stat b{display:block;font-size:21px;color:var(--ink);font-weight:700;
+ font-variant-numeric:tabular-nums;line-height:1.2}
+.stat .warn b{color:var(--amber)}
+.grid{max-width:1500px;margin:0 auto;display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.mini{background:var(--surface);box-shadow:0 1px 6px rgba(15,23,42,.06);border:1px solid var(--line);border-radius:9px;
+ aspect-ratio:16/9;padding:12px;cursor:pointer;overflow:hidden;position:relative;
+ display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
+.mini:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.mini .mn{position:absolute;top:7px;right:9px;font-size:10px;color:var(--ink3);
+ font-variant-numeric:tabular-nums}
+.mini .mb{font-size:7.5px;font-weight:800;letter-spacing:.1em;color:var(--cyan);
+ text-transform:uppercase;margin-bottom:5px;padding-right:22px}
+.mini .mt{font-size:12.5px;font-weight:650;line-height:1.25}
+.mini .ms{font-size:10px;color:var(--ink3);margin-top:4px;line-height:1.3;
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mini .mp{margin-top:6px;font-size:9.5px;color:var(--ink3);line-height:1.35;
+ display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.mini.hasph{border-color:rgba(251,191,36,.5)}
+.mini.dense{border-color:rgba(251,113,133,.5)}
+.mini .flag{position:absolute;bottom:7px;right:9px;font-size:8.5px;font-weight:800;
+ letter-spacing:.06em;text-transform:uppercase}
+.mini .flag.ph{color:var(--amber)} .mini .flag.dn{color:var(--rose)}
+.mini .flag.vs{color:var(--purple)}
+.pt-head{max-width:1500px;margin:26px auto 10px;font-size:12px;font-weight:800;
+ letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);
+ border-top:1px solid var(--line);padding-top:14px}
+@media (prefers-reduced-motion:reduce){
+ .rv,.slide.go .rv,.slide.go .svis{animation:none!important;opacity:1!important;transform:none!important}
+ .livetag i{animation:none}
+}
+@media print{
+ html,body{overflow:visible;background:#fff}
+ #hud,#part,#bar,#help,#ov{display:none!important}
+ #deck{position:static;display:block;padding:0}
+ .slide{page-break-after:always;width:100%;margin-bottom:0}
+}
+</style></head><body>
+<div id="help"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>O</kbd> overview · <kbd>F</kbd> fullscreen</div>
+<div id="deck"></div>
+<div id="bar"></div>
+<div id="part"></div>
+<div id="hud"><span><b id="num">1</b> / 60</span></div>
+<div id="ov">
+  <div class="ovh">
+    <div><h2>Session 1 — all slides</h2>
+    <p>Backup deck. Click any slide to present from it. Press <kbd>O</kbd> to toggle back.</p></div>
+    <div class="stat">
+      <div><b id="n-slides">0</b>slides</div>
+      <div><b id="n-vis">0</b>diagrams</div>
+      <div class="warn"><b id="n-ph">0</b>need input</div>
+      <div><b id="n-dense">0</b>dense</div>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+<script>const DECK=[{"type": "title", "title": "AI, From Scratch", "subtitle": "Two sessions. Five things you'll build. Nothing you have to pay for.", "author": "Ranjith · Product Manager, AI", "badge": "SESSION 1 · 8 AUGUST", "isStudentViewEnabled": true, "id": "slide-1"}, {"type": "content", "title": "So — who am I?", "subtitle": "", "badge": "WHY LISTEN TO ME", "points": [{"title": "I started exactly where you are", "description": "Computer Science at Anna University. Tried full-stack. Tried AI engineering. Neither stuck."}, {"title": "Achiever Award from the Chief Minister of Tamil Nadu", "description": "Ranked top 5 out of 1.5 million students."}, {"title": "Product Manager – AI at Thrillophilia, now INC42", "description": "I build AI agents that do the work of a whole team, about 10x faster."}, {"title": "I handle a ₹10 crore budget for building those agents", "description": "Which is really just saying — this is a job, and it pays like one."}], "visual": {"kind": "career-path", "spec": "A simple left-to-right path: student → full-stack → AI engineer → AI Product Manager, with the CM award marked as a milestone above it."}, "isStudentViewEnabled": true, "id": "slide-2"}, {"type": "poll", "title": "I can run today two ways. You pick.", "question": "Which do you actually want?", "badge": "YOUR CHOICE #1", "options": [{"id": 0, "text": "A) Theory — I explain, you take notes", "votes": 0}, {"id": 1, "text": "B) Hands-on — you build things with me", "votes": 0}], "isStudentViewEnabled": true, "id": "slide-3"}, {"type": "poll", "title": "And how involved do you want to be?", "question": "Second question:", "badge": "YOUR CHOICE #2", "options": [{"id": 0, "text": "A) You demo, I'll watch", "votes": 0}, {"id": 1, "text": "B) I want to build it on my own laptop alongside you", "votes": 0}], "isStudentViewEnabled": true, "id": "slide-4"}, {"type": "content", "title": "Then I need a favour in return", "subtitle": "You asked for hands-on. That only works if we both hold up our end.", "badge": "THE DEAL", "points": [{"title": "Phones on silent", "description": "Not away. On silent. You will need them."}, {"title": "And one task, right now", "description": "Before I teach you anything. It takes six minutes."}], "isStudentViewEnabled": true, "id": "slide-5"}, {"type": "content", "title": "Task 1 — write this email. Right now.", "subtitle": "Do not overthink it. Write it the way you'd write it tonight.", "badge": "⚡ DO THIS NOW · 6 MINUTES", "points": [{"title": "Apply for an AI Research Intern role", "description": "Write to the hiring manager. Details on the next slide."}, {"title": "Use AI if you want. Or don't.", "description": "Completely up to you. Work how you normally work."}, {"title": "Send it to yourself, or to ranjith@ranjith.tech", "description": "We are coming back to this email later. Keep it."}], "isStudentViewEnabled": true, "id": "slide-6"}, {"id": "slide-7", "type": "prompt-card", "isStudentViewEnabled": true, "title": "The job you're applying for", "badge": "📋 THE FULL JOB DESCRIPTION", "subtitle": "Read it properly. Copy it if you want — your email should answer what's in here.", "promptText": "NEXORA AI  ·  Bangalore  ·  40 people\nAI RESEARCH INTERN  ·  6 months  ·  starts January  ·  paid  ·  hybrid (3 days in office)\nHiring manager: Priya Raghavan, Head of AI Research\n\nABOUT THE TEAM\nWe are a nine-person applied research team. We build LLM systems that go into\nproduction for fintech and healthcare clients — fraud detection, claims\nprocessing, and document search over very messy archives.\n\nWHAT YOU WILL ACTUALLY DO\n- Prepare and clean datasets, and build the evaluation sets we test against\n- Train baseline models and run experiments to see what actually improves them\n- Test where our LLM pipelines break — bad retrieval, hallucination, edge cases\n- Read recent papers and summarise what is worth trying, in one page\n- Build small proof-of-concept demos the client team can look at\n- Write up what you did so the next person can repeat it\n\nWHAT WE NEED\n- Python. You should be able to open a messy dataset and get somewhere alone\n- Understanding of basic ML: train/test splits, overfitting, evaluation metrics\n- One project you can defend in detail — what you chose, and what broke\n- Ability to explain a technical idea to someone who is not technical\n\nNICE TO HAVE\n- Anything you have built with an LLM API, however small\n- A public GitHub with commits that are not all from one weekend\n- Any experience with RAG, embeddings or vector search\n\nWHAT WE DO NOT NEED\n- A perfect CGPA. We have hired people with 6.5\n- Prior internships. This may well be your first\n- Certificates. We will ask you to explain something instead"}, {"type": "title", "title": "Part 1 — Why AI", "subtitle": "Before how it works, why you should care.", "author": "", "badge": "PART 1 OF 5", "isStudentViewEnabled": true, "id": "slide-8"}, {"type": "content", "title": "AI, in one line", "subtitle": "", "badge": "DEFINITION", "points": [{"title": "A machine doing something that normally needs a human brain", "description": "That's it. No magic. Chess apps, spam filters, ChatGPT — all AI."}], "isStudentViewEnabled": true, "id": "slide-9"}, {"type": "content", "title": "You already used AI six times today", "subtitle": "", "badge": "WITHOUT NOTICING", "points": [{"title": "Your phone unlocked by looking at your face", "description": "That's AI."}, {"title": "Instagram knew what to show you next", "description": "That's AI."}, {"title": "Maps picked your route and predicted traffic", "description": "That's AI."}, {"title": "Autocorrect fixed your typing", "description": "Also AI."}], "visual": {"kind": "daily-ai", "spec": "Six phone-screen icons in a grid — face unlock, Instagram feed, Maps route, autocorrect keyboard, YouTube, UPI fraud alert — each with a small check mark."}, "isStudentViewEnabled": true, "id": "slide-10"}, {"type": "content", "title": "So what happens if you don't learn this?", "subtitle": "World Economic Forum, Future of Jobs 2025 — 1,000+ employers surveyed", "badge": "BE HONEST ABOUT IT", "points": [{"title": "92 million jobs displaced by 2030", "description": "Routine, repeatable, rule-based work goes first."}, {"title": "But 170 million new ones created", "description": "A net gain of 78 million. The work changes shape — it does not vanish."}, {"title": "39% of your core skills will change", "description": "Whatever you learn now has a shelf life. That is the real message."}], "visual": {"kind": "jobs-balance", "spec": "Two bars: 92M displaced vs 170M created, with net +78M called out between them."}, "isStudentViewEnabled": true, "id": "slide-11"}, {"type": "content", "title": "And the part nobody tells you", "subtitle": "India-specific figures — verify before quoting", "badge": "THE OPPORTUNITY", "points": [{"title": "Only about 16% of Indian IT professionals are AI-skilled", "description": "Roughly one in six. That is your entire competition."}, {"title": "About half of AI roles go unfilled", "description": "Not because nobody applies. Because too few can do the work."}, {"title": "You have two years to be in that 16%", "description": "Starting this morning."}], "visual": {"kind": "supply-gap", "spec": "Tall DEMAND bar vs short 16% SUPPLY bar, the gap between them labelled 'your window'."}, "isStudentViewEnabled": true, "id": "slide-12"}, {"type": "title", "title": "Part 2 — What is AI", "subtitle": "We covered why. Now what it actually is.", "author": "", "badge": "PART 2 OF 5", "isStudentViewEnabled": true, "id": "slide-13"}, {"type": "content", "title": "The family tree", "subtitle": "Each one sits inside the one before it", "badge": "HOW IT ALL FITS", "points": [{"title": "Artificial Intelligence", "description": "Google Maps picking your route."}, {"title": "→ Machine Learning", "description": "YouTube learning what you'll watch next."}, {"title": "→ Deep Learning", "description": "Your phone's face unlock."}, {"title": "→ Generative AI", "description": "ChatGPT. AI images. It makes new things."}], "visual": {"kind": "nested-boxes", "spec": "Four concentric rounded boxes, outermost AI, innermost Generative AI in green."}, "isStudentViewEnabled": true, "id": "slide-14"}, {"type": "content", "title": "Machine Learning", "subtitle": "", "badge": "ML", "points": [{"title": "Instagram never asked what you like", "description": "It watched what you stopped scrolling for."}, {"title": "Nobody wrote the rule", "description": "No engineer typed 'this user likes cricket'. The pattern came out of your behaviour."}], "visual": {"kind": "data-to-rules", "spec": "Left: a pile of example thumbnails. Arrow right: a single clean rule emerging."}, "isStudentViewEnabled": true, "id": "slide-15"}, {"type": "content", "title": "Deep Learning", "subtitle": "", "badge": "DL", "points": [{"title": "Layers of simple maths, stacked deep", "description": "Layer 1 finds edges. Layer 5 finds shapes. Layer 20 finds faces."}, {"title": "Nobody ever defined 'face'", "description": "It built that idea layer by layer. That is your face unlock."}], "visual": {"kind": "layer-progression", "spec": "Three stacked panels of the same face: edges, then shapes, then the recognisable face."}, "isStudentViewEnabled": true, "id": "slide-16"}, {"type": "content", "title": "Generative AI", "subtitle": "", "badge": "GEN AI", "points": [{"title": "Everything above sorts things into buckets", "description": "Spam or not. Your face or not. Output: a label."}, {"title": "This one makes something that never existed", "description": "Writes the email. Draws the image. Output: new content."}], "visual": {"kind": "split-compare", "spec": "Left: input flowing into a single label chip. Right: input flowing into a paragraph being written."}, "isStudentViewEnabled": true, "id": "slide-17"}, {"type": "content", "title": "So what is an LLM?", "subtitle": "", "badge": "LARGE LANGUAGE MODEL", "points": [{"title": "Large", "description": "Billions of settings, trained on trillions of words."}, {"title": "Language", "description": "It was trained on text. Books, code, websites."}, {"title": "Model", "description": "A maths function. Text goes in, text comes out."}], "isStudentViewEnabled": true, "id": "slide-18"}, {"type": "content", "title": "Fill in the blank", "subtitle": "Say it out loud before you look at the next slide.", "badge": "YOU ALREADY DO THIS", "points": [{"title": "\"How are ___\"", "description": "Every single person in this room just thought \"you\"."}, {"title": "Why did you know that?", "description": "Because you have seen that phrase thousands of times. Nobody taught you a rule."}], "visual": {"kind": "fill-blank", "spec": "The text 'How are ___' large on screen, with 'you' appearing beneath it as the obvious completion."}, "isStudentViewEnabled": true, "id": "slide-19"}, {"type": "content", "title": "That is exactly what the AI does", "subtitle": "", "badge": "HOW IT PICKS THE NEXT WORD", "points": [{"title": "It has read a huge amount of text", "description": "So it knows which word usually follows which."}, {"title": "It generates a few possible next words", "description": "Each one gets a confidence score."}, {"title": "It picks the highest, writes it, and repeats", "description": "One word at a time. That is the whole engine."}], "visual": {"kind": "confidence-list", "spec": "The phrase 'How are ___' with four candidate words below it — you 92%, they 4%, we 3%, things 1% — the top one highlighted in green."}, "isStudentViewEnabled": true, "id": "slide-20"}, {"type": "content", "title": "Now — how do you read this sentence?", "subtitle": "", "badge": "START WITH YOURSELF", "points": [{"title": "You don't read letter by letter", "description": "You were trained to see whole words and chunks at once."}, {"title": "AI was never trained the way you were", "description": "So it does the same thing differently — it breaks text into pieces it can handle."}], "isStudentViewEnabled": true, "id": "slide-21"}, {"type": "content", "title": "Those pieces are called tokens", "subtitle": "", "badge": "TOKENS", "points": [{"title": "A word gets chopped into common chunks", "description": "engineering → engine + ering"}, {"title": "And the chunks ignore meaning", "description": "\"engine\" plus a leftover. Not syllables, not roots — just whatever the machine saw most often."}, {"title": "Every chunk becomes a number", "description": "That number is all the model ever sees. Never the letters."}], "visual": {"kind": "word-splitting", "spec": "The word 'engineering' breaking into two chips: engine / ering — the first chip meaningful, the second meaningless."}, "isStudentViewEnabled": true, "id": "slide-22"}, {"type": "content", "title": "Let's look at real tokens", "subtitle": "", "badge": "⚡ LIVE DEMO — WATCH THE SCREEN", "points": [{"title": "Opening the tokenizer now", "description": "platform.openai.com/tokenizer"}, {"title": "Guess before I press enter", "description": "How many chunks will this word break into?"}], "isStudentViewEnabled": true, "id": "slide-23"}, {"type": "content", "title": "Now the same sentence in Tamil", "subtitle": "", "badge": "WHY THIS MATTERS TO YOU", "points": [{"title": "Tamil costs far more tokens", "description": "Same meaning. Many more pieces."}, {"title": "Not because Tamil is harder", "description": "Because these models were trained mostly on English text."}, {"title": "English needs a few chunks for full context", "description": "Tamil needs many more to say the same thing."}], "visual": {"kind": "token-count-compare", "spec": "English row: 5 wide chips. Tamil row: 14 narrow chips overflowing to two rows. Counts on the right."}, "isStudentViewEnabled": true, "id": "slide-24"}, {"type": "content", "title": "Temperature", "subtitle": "Think of it as one slider, from fact to imagination.", "badge": "ONE SETTING, THREE POSITIONS", "points": [{"title": "0 — sticks to facts", "description": "Same question, same answer, every single time."}, {"title": "0.5 — normal", "description": "A sensible, balanced answer. This is the default."}, {"title": "1 — as creative as it can be", "description": "Same question, a different answer each time."}], "visual": {"kind": "temperature-scale", "spec": "A horizontal slider from 0 to 1 with three marked stops — 0 labelled FACT, 0.5 labelled NORMAL, 1 labelled CREATIVE — the handle sitting at 0.5."}, "isStudentViewEnabled": true, "id": "slide-25"}, {"type": "content", "title": "What is a parameter?", "subtitle": "Go back to 'How are ___' for a second.", "badge": "PARAMETERS", "points": [{"title": "Something has to remember that 'you' was likely", "description": "That memory is stored as a number. One number is one parameter."}, {"title": "It has billions of them", "description": "Together they hold every pattern it ever saw. Not sentences — just numbers."}, {"title": "After training they are frozen", "description": "That fixed set of numbers IS the model. Nothing else is stored."}], "visual": {"kind": "equaliser", "spec": "A dense field of small numeric dials at varying positions, three highlighted green, captioned that the whole pattern is the model."}, "isStudentViewEnabled": true, "id": "slide-26"}, {"id": "slide-27", "type": "content", "isStudentViewEnabled": true, "title": "The problem: it lies with a straight face", "badge": "HALLUCINATION", "subtitle": "Every one of you has hit this.", "points": [{"title": "You ask something. It answers confidently.", "description": "Neat, well-structured, sounds completely right."}, {"title": "Then you check, and it was made up", "description": "A fake citation. A function that does not exist. A date that is wrong."}, {"title": "So now you trust nothing it says", "description": "And you waste more time verifying than you saved. Here is why it happens."}]}, {"type": "content", "title": "You watched 10 videos before your exam", "subtitle": "", "badge": "THE SETUP", "points": [{"title": "Ask me a concept — I'll answer fine", "description": "\"What did he teach about AI?\" Easy. I understood it."}, {"title": "Now ask me what was said in the 5th minute", "description": "I don't actually know. But I will not say that."}], "visual": {"kind": "video-timeline", "spec": "A row of 10 video thumbnails with a timeline beneath, a marker at the 5-minute point circled with a question mark."}, "isStudentViewEnabled": true, "id": "slide-28"}, {"type": "content", "title": "You'd guess — and assume you were right", "subtitle": "", "badge": "THAT IS HALLUCINATION", "points": [{"title": "You'd say something that sounds plausible", "description": "Confident. Reasonable. Possibly completely wrong."}, {"title": "The AI does exactly this", "description": "\"This is probably the next word. This is probably the answer.\""}, {"title": "It never says 'I don't know'", "description": "It has no way to leave the page blank."}], "isStudentViewEnabled": true, "id": "slide-29"}, {"type": "content", "title": "So change the instruction", "subtitle": "", "badge": "THE FIX", "points": [{"title": "Don't ask: \"what was said in the 5th minute?\"", "description": "You are asking it to guess."}, {"title": "Ask: \"go to the video, pause at 5:00, read what's there, then tell me\"", "description": "Now it has to look before it speaks."}, {"title": "Precise question, precise answer", "description": "This one habit fixes most of your bad answers."}], "visual": {"kind": "grounding-flow", "spec": "Left: model alone producing an answer marked with a red cross. Right: model plugged into the source, answer marked with a green tick."}, "isStudentViewEnabled": true, "id": "slide-30"}, {"type": "title", "title": "Part 3 — Prompting", "subtitle": "The difference between people who get good answers and people who don't.", "author": "", "badge": "PART 3 OF 5", "isStudentViewEnabled": true, "id": "slide-31"}, {"id": "slide-32", "type": "content", "isStudentViewEnabled": true, "title": "The problem: you keep asking the same thing", "badge": "PROMPTING", "subtitle": "Be honest — how many of you recognise this?", "points": [{"title": "Too generic, so you ask again", "description": "\"No, more detail.\" Still generic."}, {"title": "You rephrase. New chat. Different AI.", "description": "Six attempts. Twenty minutes gone."}, {"title": "You give up and write it yourself", "description": "The tool was never the problem. The instruction was."}], "visual": {"kind": "retry-loop", "spec": "A circular loop of four prompt bubbles — ask, reject, rephrase, ask again — with a clock in the middle showing 20 minutes burned. No exit."}}, {"type": "content", "title": "What is a prompt?", "subtitle": "", "badge": "PROMPT", "points": [{"title": "Everything you type in", "description": "Your question, your files, your instructions. All of it."}], "isStudentViewEnabled": true, "id": "slide-33"}, {"type": "content", "title": "So what is prompt engineering?", "subtitle": "", "badge": "PROMPT ENGINEERING", "points": [{"title": "Writing that instruction properly, on purpose", "description": "Not magic words. Structure."}, {"title": "So you get the answer you wanted the first time", "description": "Instead of asking six times and giving up."}], "isStudentViewEnabled": true, "id": "slide-34"}, {"type": "content", "title": "And people are paid for this", "subtitle": "", "badge": "THE JOB MARKET", "points": [{"title": "Prompt engineering is now a line item on job descriptions", "description": "AI product roles, research roles, content roles, support roles."}, {"title": "It is not a separate career for most of you", "description": "It is a skill inside whatever job you take. Like knowing Excel was, twenty years ago."}, {"title": "Which is exactly why it's worth an hour today", "description": "Nobody is going to teach you this in a lab."}], "isStudentViewEnabled": true, "id": "slide-35"}, {"type": "content", "title": "A good prompt has six parts", "subtitle": "", "badge": "THE STRUCTURE", "points": [{"title": "Role + Context", "description": "Who it should be, and what it needs to know about you."}, {"title": "Task + Format", "description": "Exactly what to do, and the shape you want back."}, {"title": "Constraints + Examples", "description": "The limits, and a sample of what good looks like."}], "visual": {"kind": "prompt-anatomy", "spec": "One prompt block as six stacked bands labelled ROLE, CONTEXT, TASK, FORMAT, CONSTRAINTS, EXAMPLES."}, "isStudentViewEnabled": true, "id": "slide-36"}, {"type": "content", "title": "Watch it on something small first", "subtitle": "", "badge": "BEFORE", "points": [{"title": "\"make my resume point better\"", "description": "This is what most of you would type. Watch what comes back."}], "isStudentViewEnabled": true, "id": "slide-37"}, {"type": "prompt-card", "title": "Now watch a real one", "subtitle": "This is what a prompt that actually works looks like. Read the labels, not the words.", "badge": "📋 THE WORKED EXAMPLE", "promptText": "# ROLE\nYou are a technical recruiter at a top product company. You screen 200+ fresher\nresumes a week and you reject most of them in under 8 seconds.\n\n# CONTEXT\nI am a 2nd-year AI & Data Science student. No internship yet. My only real\nproject is a college attendance system using face recognition — Python, OpenCV\nand a small CNN. Three classes used it for one semester, about 120 students.\nIt cut roll-call from 6 minutes to under 30 seconds. It broke badly in low\nlight and I never fully fixed that.\n\n# TASK\nRewrite my resume's project section so it survives your 8-second scan.\n\n# FORMAT\nGive me exactly three versions:\n  1. IMPACT-FIRST  — leads with the number\n  2. TECHNICAL     — leads with what I actually built\n  3. SHORT         — one line, under 20 words\nUnder each, add one line starting \"Why this works:\"\n\n# CONSTRAINTS\n- Every version must use a real number I gave you\n- Do NOT invent accuracy figures, users, awards or results\n- Banned words: innovative, cutting-edge, leveraged, spearheaded, passionate\n- Resume voice. No sentences starting with \"I\".\n\n# EXAMPLE OF THE STYLE I WANT\n\"Cut manual roll-call from 6 min to 28 s across 3 classes (120 students) by\nshipping an OpenCV + CNN face-recognition attendance system.\"\n\n# ONE LAST THING\nAfter the three versions, tell me the single weakest thing about this project\nas a hiring signal — and what I should build next to fix it.", "isStudentViewEnabled": true, "id": "slide-38"}, {"type": "content", "title": "Now do it for your email", "subtitle": "This is the whole point of the morning.", "badge": "⚡ TASK 2 — 8 MINUTES", "points": [{"title": "Write the Nexora AI email again", "description": "Same role. Same hiring manager. Same details."}, {"title": "But this time, build the prompt first", "description": "Role, context, task, format, constraints."}, {"title": "Then compare it to what you wrote at 10am", "description": "Same person. Same tool. One hour apart."}], "isStudentViewEnabled": true, "id": "slide-39"}, {"type": "content", "title": "One last thing before lunch", "subtitle": "", "badge": "CONTEXT WINDOW", "points": [{"title": "Everything it can see right now", "description": "Your question, this conversation, any file you attached."}, {"title": "Outside that window, nothing exists", "description": "Like an open-book exam — only what's actually on your desk counts."}], "visual": {"kind": "window-frame", "spec": "A bright green frame containing a few documents, with more documents outside the frame drawn very faint."}, "isStudentViewEnabled": true, "id": "slide-40"}, {"type": "content", "title": "Which is why the long ones get worse", "subtitle": "", "badge": "THE CATCH", "points": [{"title": "Don't paste 200 pages and hope", "description": "Things buried in the middle get forgotten first."}, {"title": "Give it the 3 pages that matter", "description": "Smaller and sharper beats bigger every time."}], "visual": {"kind": "attention-curve", "spec": "A long document bar with a recall curve above it — high at the start, sagging badly in the middle, rising at the end."}, "isStudentViewEnabled": true, "id": "slide-41"}, {"type": "title", "title": "Lunch", "subtitle": "This afternoon you stop learning about AI and start building with it. Five things, none of them paid.", "author": "", "badge": "BREAK · BACK AT 2:00", "isStudentViewEnabled": true, "id": "slide-42"}, {"type": "title", "title": "Part 4 — Now build things", "subtitle": "Five projects. Free accounts only. No API keys, no installs.", "author": "", "badge": "PART 4 OF 5", "isStudentViewEnabled": true, "id": "slide-43"}, {"type": "content", "title": "Project 1 — a LinkedIn post engine", "subtitle": "", "badge": "CLAUDE PROJECTS", "points": [{"title": "You'll write posts for the next 3 years", "description": "Placements, projects, internships, certifications."}, {"title": "Right now you start from a blank box every time", "description": "And it shows."}, {"title": "Build it once, use it forever", "description": "A Claude Project remembers your instructions and your style."}], "isStudentViewEnabled": true, "id": "slide-44"}, {"type": "content", "title": "Four steps. Follow along.", "subtitle": "", "badge": "⚡ DO THIS NOW", "points": [{"title": "1. claude.ai → Projects → Create", "description": "Call it 'My LinkedIn Engine'."}, {"title": "2. Paste the instructions", "description": "Next slide has them."}, {"title": "3. Add one post you liked", "description": "Any creator. That teaches it your taste."}, {"title": "4. Ask it for a post about today", "description": "About this session. Then read it out."}], "isStudentViewEnabled": true, "id": "slide-45"}, {"type": "prompt-card", "title": "Your LinkedIn Project instructions", "subtitle": "Paste this into 'Set project instructions'. Change the bracketed bits to yours.", "badge": "📋 COPY THIS — PROJECT 1", "promptText": "You write LinkedIn posts for a 2nd-year AI & Data Science student in Coimbatore.\n\nAbout me: [your name], studying at [college]. I post about what I'm learning, projects I build, and things I got wrong.\n\nEvery post you write must:\n- Open with one specific line. Never \"I'm excited to share\".\n- Be under 150 words.\n- Contain one real detail or number from what I tell you.\n- End with a genuine question, not a call to action.\n- Sound like a student, not a consultant.\n\nNever use: leverage, delve, unlock, game-changer, thrilled, humbled.\nIf I give you nothing specific, ask me one question before writing.", "isStudentViewEnabled": true, "id": "slide-46"}, {"type": "content", "title": "Project 2 — recreate this image", "subtitle": "Look at it properly for thirty seconds before you write anything.", "badge": "IMAGE GENERATION", "points": [{"title": "Write a prompt that recreates it", "description": "ChatGPT or Gemini, whichever you already have open."}, {"title": "Same six parts as before", "description": "Style, subject, composition, lighting, colour — and what to leave out."}, {"title": "Then beat it", "description": "Yours will land close. Now make it better than mine."}], "isStudentViewEnabled": true, "id": "slide-47", "visual": {"kind": "image-target", "spec": "Reference image to recreate: flat-illustration night desk scene — dark blue room, window with moon and stars, wooden desk, open laptop with glowing green screen, stack of three coloured books, steaming mug."}}, {"type": "content", "title": "Project 3 — read a whole textbook in 4 minutes", "subtitle": "", "badge": "NOTEBOOKLM", "points": [{"title": "Upload a YouTube lecture, a PDF, your notes", "description": "notebooklm.google.com — free with your college Google account."}, {"title": "It only answers from what you gave it", "description": "Which is grounding. The thing we did this morning."}, {"title": "Ask it for a revision sheet", "description": "Then ask it what you'd probably get wrong."}], "isStudentViewEnabled": true, "id": "slide-48"}, {"type": "content", "title": "Project 4 — your exam study partner", "subtitle": "", "badge": "PERSONAL PROJECT", "points": [{"title": "A Claude Project that plans your revision", "description": "Give it your syllabus and your exam date."}, {"title": "It builds the plan and tracks what you've done", "description": "You open it each evening and tell it what you covered."}, {"title": "It updates the plan around what you missed", "description": "Because it remembers everything in the project."}], "isStudentViewEnabled": true, "id": "slide-49"}, {"type": "prompt-card", "title": "Your Study Partner instructions", "subtitle": "Paste this into a second Claude Project. Upload your syllabus.", "badge": "📋 COPY THIS — PROJECT 4", "promptText": "You are my exam study partner for [SUBJECT]. My exam is on [DATE].\n\nUse only the syllabus and notes uploaded to this project. If something is not in them, say \"NOT IN YOUR NOTES\" instead of guessing.\n\nWhen I first talk to you, build me a day-by-day revision plan up to my exam date, hardest topics first.\n\nEvery time I come back, ask me these three things:\n1. What did you actually study since we last spoke?\n2. What did you not get to?\n3. What still doesn't make sense?\n\nThen rewrite the remaining plan around my answers. Keep a running list of my weak topics and remind me of them.\n\nBe direct. If I'm behind, tell me I'm behind.", "isStudentViewEnabled": true, "id": "slide-50"}, {"type": "content", "title": "But you still have to show up", "subtitle": "Everything you built today waits for you to open it.", "badge": "THE CATCH", "points": [{"title": "The study partner only works if you remember it", "description": "Miss three days and it has no idea you fell behind."}, {"title": "Same with the LinkedIn engine", "description": "It's sitting there, waiting. It never starts on its own."}, {"title": "So what if it didn't wait for you?", "description": "What if the work was already done when you woke up?"}], "isStudentViewEnabled": true, "id": "slide-51"}, {"type": "content", "title": "Let me draw you something", "subtitle": "", "badge": "ON THE BOARD", "points": [{"title": "Say you want the top AI news every morning", "description": "Not you going and searching. It going and searching."}, {"title": "Forget tools for a second", "description": "If you were telling a person to do this job for you every day — what would you actually say to them?"}], "isStudentViewEnabled": true, "id": "slide-52"}, {"type": "content", "title": "You'd say something like this", "subtitle": "That's it. That's the whole workflow. Four sentences.", "badge": "THE WHOLE THING, IN PLAIN ENGLISH", "points": [{"title": "\"Every morning at seven, wake up.\"", "description": "That's the schedule. It starts on its own, you don't press anything."}, {"title": "\"Go online and find the five biggest AI stories.\"", "description": "That's the search. Then do the same for startup news."}, {"title": "\"Write them all into my Google Sheet.\"", "description": "That's where it puts the answer. Somewhere you'll actually look."}, {"title": "\"Then go back to sleep until tomorrow.\"", "description": "And it does. Every single day. Without being asked again."}], "isStudentViewEnabled": true, "visual": {"kind": "news-workflow", "spec": "A simple left-to-right whiteboard flow: a clock labelled 7:00 AM, arrow to a globe labelled 'search the web', arrow to a box labelled 'pick the top 5', arrow to a spreadsheet labelled 'write it down'. Hand-drawn feel, no tool logos."}, "id": "slide-53"}, {"type": "content", "title": "That's all an automation is", "subtitle": "", "badge": "THE POINT", "points": [{"title": "A trigger, some steps, and a place to put the answer", "description": "Nothing more complicated than what you just heard."}, {"title": "The tool doesn't matter", "description": "n8n, Zapier, Make, a Claude routine. They all do those four sentences."}, {"title": "What matters is that you can describe it", "description": "If you can say it out loud in order, someone can build it. Including you."}], "isStudentViewEnabled": true, "id": "slide-54"}, {"type": "content", "title": "And that's the difference", "subtitle": "", "badge": "WHERE THE 16% ARE", "points": [{"title": "Today you made AI answer you", "description": "Five times. Better each time."}, {"title": "This makes AI go and do something", "description": "While you're asleep, in class, or not thinking about it at all."}, {"title": "That's what I build at work", "description": "And it is genuinely not as hard as it sounds."}], "isStudentViewEnabled": true, "id": "slide-55"}, {"type": "title", "title": "Part 5 — What now", "subtitle": "You built five things today. Here's what to do with them.", "author": "", "badge": "PART 5 OF 5", "isStudentViewEnabled": true, "id": "slide-56"}, {"type": "content", "title": "What you actually made today", "subtitle": "", "badge": "IN FOUR HOURS", "points": [{"title": "An email you can send tomorrow", "description": "And proof you write better than you did at 10am."}, {"title": "A LinkedIn engine and a study partner", "description": "Both still working next semester."}, {"title": "An image prompt and a research assistant", "description": "Two tools most people your age don't know exist."}], "isStudentViewEnabled": true, "id": "slide-57"}, {"type": "content", "title": "Where to go from here", "subtitle": "", "badge": "NEXT STEPS", "points": [{"title": "Use the study partner for THIS semester", "description": "Not next one. The one you're in. Open it tonight."}, {"title": "Post one thing on LinkedIn this week", "description": "Use your engine. About what you built today."}, {"title": "Then learn to make AI do things, not just say things", "description": "That is agents — and that is where the 16% are."}], "isStudentViewEnabled": true, "id": "slide-58"}, {"type": "qna", "title": "Questions?", "subtitle": "Anything — about AI, your projects, placements, or what I actually do all day. Best questions get spotlighted and climb the leaderboard.", "badge": "LIVE Q&A", "isStudentViewEnabled": true, "id": "slide-59"}, {"type": "conclusion", "title": "One thing to remember", "subtitle": "If you forget everything else from today.", "badge": "THAT'S A WRAP", "takeaways": ["AI does not look anything up. It predicts what usually comes next.", "That one fact explains why it invents things, and why grounding fixes it.", "A good prompt has six parts. Most bad prompts are missing four of them.", "Give it the source. Don't ask about your syllabus — paste your syllabus in.", "Everyone can use ChatGPT. Understanding it is the part that pays."], "isStudentViewEnabled": true, "id": "slide-60"}];</script>
+<script>
+const D=DECK;
+const E=(s)=>document.createElement(s);
+function esc(t){return (t==null?'':String(t)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function ph(t){return esc(t).replace(/\[\[(.*?)\]\]/g,'<span class="ph">[[$1]]</span>');}
+function hasPH(s){return JSON.stringify(s).includes('[[');}
+function chars(s){let n=(s.title||'').length+(s.subtitle||'').length;
+ (s.points||[]).forEach(p=>n+=(p.title||'').length+(p.description||'').length);
+ (s.takeaways||[]).forEach(t=>n+=t.length); return n;}
+
+/* ================= DIAGRAMS ================= */
+const C={cy:'#047857', am:'#047857', pu:'#334155', gn:'#047857', ro:'#b4232a',
+ ln:'#c3cdd8', ink:'#0f172a', mut:'#5b6779'};
+const S=(inner,vb='-14 -14 328 228')=>`<svg viewBox="${vb}" fill="none" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+const box=(x,y,w,h,c,sw=2,r=8)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" stroke="${c}" stroke-width="${sw}"/>`;
+const txt=(x,y,t,c=C.mut,sz=11,w=600,a='middle')=>`<text x="${x}" y="${y}" fill="${c}" font-size="${sz}" font-weight="${w}" text-anchor="${a}" font-family="system-ui">${t}</text>`;
+const chip=(x,y,w,t,c)=>`${box(x,y,w,22,c,1.5,5)}${txt(x+w/2,y+15,t,c,10)}`;
+const arw=(x1,y1,x2,y2,c=C.ln)=>`<path d="M${x1} ${y1} L${x2} ${y2}" stroke="${c}" stroke-width="2" marker-end="url(#ah)"/>`;
+const DEFS=`<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="${C.ln}"/></marker></defs>`;
+
+const DIA={
+ 'nested-boxes':()=>S(`${box(10,15,280,170,C.ln)}${txt(150,32,'ARTIFICIAL INTELLIGENCE',C.mut,10)}
+  ${box(32,44,236,128,'#3f4b5c')}${txt(150,60,'MACHINE LEARNING','#8b96a5',10)}
+  ${box(54,72,192,86,C.pu)}${txt(150,88,'DEEP LEARNING',C.pu,10)}
+  ${box(76,100,148,44,C.cy)}${txt(150,120,'GENERATIVE AI',C.cy,11,700)}${txt(150,134,'ChatGPT lives here',C.mut,9)}`),
+ 'data-to-rules':()=>S(`${DEFS}${[0,1,2].map(i=>box(18+i*14,60+i*10,52,34,C.ln,1.5,4)).join('')}
+  ${txt(56,120,'messy examples',C.mut,10)}${arw(112,95,158,95)}
+  ${box(172,68,104,54,C.cy)}${txt(224,92,'RULE',C.cy,13,700)}${txt(224,108,'discovered',C.mut,9)}
+  ${txt(150,168,'you supply data — it produces the rule',C.mut,10)}`),
+ 'layered-nodes':()=>S(`${[0,1,2].map(c=>[0,1,2,3].map(r=>`<circle cx="${60+c*90}" cy="${50+r*34}" r="8" stroke="${c===1?C.cy:C.ln}" stroke-width="2"/>`).join('')).join('')}
+  ${[0,1].map(c=>[0,1,2,3].map(r=>[0,1,2,3].map(r2=>`<line x1="${68+c*90}" y1="${50+r*34}" x2="${142+c*90}" y2="${50+r2*34}" stroke="${C.ln}" stroke-width=".5" opacity=".55"/>`).join('')).join('')).join('')}
+  ${txt(60,180,'in',C.mut,10)}${txt(150,180,'hidden',C.mut,10)}${txt(240,180,'out',C.mut,10)}`),
+ 'layer-progression':()=>S(`${[['Layer 1 — edges',C.ln],['Layer 5 — shapes',C.pu],['Layer 20 — faces',C.cy]].map((L,i)=>
+  `${box(40,18+i*58,220,44,L[1])}${txt(150,45+i*58,L[0],i===2?C.cy:C.mut,11,650)}`).join('')}`),
+ 'text-to-numbers':()=>S(`${DEFS}${box(24,72,86,42,C.ln)}${txt(67,99,'"hello"',C.ink,15,600)}
+  ${arw(120,93,168,93)}${box(180,72,100,42,C.cy)}${txt(230,99,'[0.2, 0.9, …]',C.cy,12)}
+  ${txt(150,150,'language becomes maths',C.mut,10)}`),
+ 'split-compare':()=>S(`<line x1="150" y1="18" x2="150" y2="182" stroke="${C.ln}" stroke-width="1.5" stroke-dasharray="4 4"/>
+  ${txt(75,36,'DISCRIMINATIVE',C.mut,10,800)}${box(30,52,90,34,C.ln)}${txt(75,74,'input',C.mut,11)}
+  ${box(42,110,66,30,C.ro,2,15)}${txt(75,130,'SPAM',C.ro,12,700)}
+  ${txt(225,36,'GENERATIVE',C.cy,10,800)}${box(180,52,90,34,C.ln)}${txt(225,74,'input',C.mut,11)}
+  ${box(168,104,114,44,C.cy)}${txt(225,122,'new text being',C.cy,10)}${txt(225,136,'written…',C.cy,10)}`),
+ 'token-prediction-chain':()=>S(`${['The','cat','sat','on'].map((t,i)=>chip(18+i*54,96,46,t,C.ln)).join('')}
+  ${chip(234,96,48,'the',C.cy)}
+  ${box(212,26,92,58,C.ln,1.5,6)}${txt(258,44,'the   62%',C.cy,10)}${txt(258,60,'a      21%',C.mut,10)}${txt(258,76,'my     8%',C.mut,10)}
+  ${txt(150,164,'it ranks, then commits — one token at a time',C.mut,10)}`),
+ 'dial-grid':()=>S(`${Array.from({length:60},(_,i)=>{const x=26+(i%12)*22,y=40+Math.floor(i/12)*26,
+  a=Math.random()*Math.PI-Math.PI/2,g=[7,23,41].includes(i);
+  return `<circle cx="${x}" cy="${y}" r="7" stroke="${g?C.cy:C.ln}" stroke-width="1.5"/><line x1="${x}" y1="${y}" x2="${x+Math.cos(a)*5}" y2="${y+Math.sin(a)*5}" stroke="${g?C.cy:'#4a5666'}" stroke-width="1.5"/>`}).join('')}
+  ${txt(150,186,'billions of them — no single one means anything',C.mut,10)}`),
+ 'three-stage-pipeline':()=>S(`${DEFS}${[['READ','everything',C.ln],['PREDICT','over & over',C.pu],['GRADE','by humans',C.cy]].map((s,i)=>
+  `${box(14+i*98,64,84,52,s[2])}${txt(56+i*98,88,s[0],s[2]===C.ln?C.mut:s[2],12,750)}${txt(56+i*98,104,s[1],C.mut,9)}
+   ${i<2?arw(102+i*98,90,110+i*98,90):''}`).join('')}${txt(150,150,'months of compute → one frozen model',C.mut,10)}`),
+ 'word-splitting':()=>S(`${txt(150,52,'engineering',C.ink,24,600)}
+  ${chip(58,104,86,'engine',C.gn)}${chip(156,104,74,'ering',C.mut)}
+  ${txt(101,146,'a real word',C.mut,9)}${txt(193,146,'a leftover',C.mut,9)}
+  ${txt(150,180,'chunks ignore meaning',C.mut,10)}`),
+ 'token-count-compare':()=>S(`${txt(24,32,'ENGLISH',C.mut,10,800,'start')}
+  ${[0,1,2,3,4].map(i=>chip(24+i*44,42,40,'',C.cy)).join('')}${txt(276,58,'5',C.cy,15,700,'end')}
+  ${txt(24,102,'தமிழ்',C.mut,10,800,'start')}
+  ${Array.from({length:14},(_,i)=>chip(24+(i%7)*28,110+Math.floor(i/7)*30,24,'',C.am)).join('')}
+  ${txt(288,132,'14',C.am,15,700,'end')}${txt(150,186,'same sentence — 3× the cost',C.am,10)}`),
+ 'compression-funnel':()=>S(`${Array.from({length:16},(_,i)=>box(20+(i%8)*33,18+Math.floor(i/8)*20,28,15,C.ln,1,2)).join('')}
+  <path d="M22 62 L278 62 L188 118 L112 118 Z" stroke="${C.ln}" stroke-width="2"/>
+  ${box(112,128,76,40,C.cy)}${txt(150,153,'weights',C.cy,12,700)}
+  ${txt(150,188,'the books are gone — only numbers remain',C.mut,10)}`),
+ 'window-frame':()=>S(`${box(46,34,208,120,C.cy,2.5)}${txt(150,26,'CONTEXT WINDOW',C.cy,10,800)}
+  ${[0,1,2].map(i=>box(66+i*62,64,48,58,C.ln,1.5,4)).join('')}
+  ${txt(150,100,'',C.mut,9)}${box(6,150,40,34,'#1c222b',1.5,4)}${box(262,26,34,40,'#1c222b',1.5,4)}
+  ${txt(150,178,'outside the frame, nothing exists',C.mut,10)}`),
+ 'attention-curve':()=>S(`${box(24,132,252,26,C.ln,1.5,4)}${txt(150,150,'one very long document',C.mut,10)}
+  <path d="M28 46 C 90 44, 96 104, 150 106 C 204 108, 214 56, 272 50" stroke="${C.am}" stroke-width="2.5"/>
+  ${txt(30,36,'strong',C.mut,9,600,'start')}${txt(150,124,'forgotten',C.am,10,700)}${txt(270,36,'strong',C.mut,9,600,'end')}
+  ${txt(150,182,'the middle is where recall dies',C.mut,10)}`),
+ 'distribution-dial':()=>S(`${[38,58,86,120,86,58,38].map((h,i)=>`<rect x="${34+i*34}" y="${132-h}" width="24" height="${h}" rx="3" fill="${i===3?C.cy:'#2f3947'}"/>`).join('')}
+  ${box(34,150,232,14,C.ln,1.5,7)}<circle cx="86" cy="157" r="9" fill="${C.cy}"/>
+  ${txt(40,182,'low = safe',C.mut,10,600,'start')}${txt(262,182,'high = wild',C.mut,10,600,'end')}`),
+ 'two-paths':()=>S(`${DEFS}${txt(30,42,'FAST',C.mut,10,800,'start')}
+  ${box(24,52,60,30,C.ln)}${txt(54,72,'Q',C.mut,11)}${arw(88,67,196,67)}${box(202,52,74,30,C.cy)}${txt(239,72,'answer',C.cy,11)}
+  ${txt(30,116,'THINKING',C.pu,10,800,'start')}${box(24,126,44,30,C.ln)}${txt(46,146,'Q',C.mut,11)}
+  ${[0,1,2].map(i=>`${box(78+i*46,126,38,30,C.pu,1.5,5)}${txt(97+i*46,146,'·'.repeat(i+1),C.pu,11)}`).join('')}
+  ${arw(220,141,236,141)}${box(240,126,44,30,C.cy)}${txt(262,146,'✓',C.cy,13)}`),
+ 'three-logos':()=>S(`${[['ChatGPT','breadth',C.gn],['Claude','depth',C.am],['Gemini','free',C.cy]].map((m,i)=>
+  `${box(14+i*98,52,84,84,m[2])}${txt(56+i*98,92,m[0],m[2],12,700)}${txt(56+i*98,110,m[1],C.mut,10)}`).join('')}
+  ${txt(150,168,'all three do everything — these are tendencies',C.mut,10)}`),
+ 'size-scale':()=>S(`${DEFS}<line x1="24" y1="150" x2="278" y2="150" stroke="${C.ln}" stroke-width="1.5"/>
+  <circle cx="66" cy="112" r="16" stroke="${C.gn}" stroke-width="2"/>${txt(66,150+18,'fast',C.gn,10)}
+  <circle cx="150" cy="106" r="26" stroke="${C.cy}" stroke-width="2"/>${txt(150,150+18,'balanced',C.cy,10)}
+  <circle cx="240" cy="96" r="38" stroke="${C.pu}" stroke-width="2"/>${txt(240,150+18,'deep',C.pu,10)}
+  ${txt(24,36,'cheap & instant',C.mut,9,600,'start')}${txt(278,36,'slow & powerful',C.mut,9,600,'end')}`),
+ 'converge-to-tokens':()=>S(`${DEFS}${['photo','voice','doc','code'].map((t,i)=>
+  `${box(14,20+i*42,62,32,C.ln)}${txt(45,41+i*42,t,C.mut,10)}<path d="M80 ${36+i*42} Q 128 ${36+i*42} 140 100" stroke="${C.ln}" stroke-width="1.5"/>`).join('')}
+  ${[0,1,2,3].map(i=>chip(152+i*34,89,28,'',C.cy)).join('')}${txt(214,140,'all become tokens',C.cy,11,650)}`),
+ 'context-fill':()=>S(`${box(40,28,220,132,C.cy,2.5)}${txt(150,20,'CONTEXT WINDOW',C.cy,10,800)}
+  ${[['your question',C.cy],['your files',C.am],['your instructions',C.pu],['the chat so far','#4a5666']].map((b,i)=>
+  `${box(56,42+i*29,188,23,b[1],1.5,4)}${txt(150,58+i*29,b[0],b[1],10,600)}`).join('')}
+  ${txt(150,182,'all of this is "the prompt"',C.mut,10)}`),
+ 'grounding-flow':()=>S(`<line x1="150" y1="18" x2="150" y2="182" stroke="${C.ln}" stroke-width="1.5" stroke-dasharray="4 4"/>
+  ${txt(75,34,'WITHOUT SOURCE',C.mut,9,800)}${box(36,46,78,34,C.ln)}${txt(75,68,'model',C.mut,11)}
+  ${box(30,100,90,42,C.ro)}${txt(75,120,'"Sharma et al.',C.ro,9)}${txt(75,133,'(2019)" ✗',C.ro,9)}
+  ${txt(225,34,'WITH SOURCE',C.gn,9,800)}${box(186,46,78,34,C.am)}${txt(225,68,'notes',C.am,11)}
+  ${box(180,100,90,42,C.gn)}${txt(225,120,'"line 14 of',C.gn,9)}${txt(225,133,'your notes" ✓',C.gn,9)}`),
+ 'jobs-balance':()=>S(`${txt(70,34,'DISPLACED',C.ro,10,800)}${txt(232,34,'CREATED',C.cy,10,800)}
+  <rect x="40" y="46" width="62" height="62" rx="6" fill="${C.ro}" opacity=".22" stroke="${C.ro}" stroke-width="2"/>
+  ${txt(71,84,'92M',C.ro,17,700)}
+  <rect x="196" y="46" width="72" height="104" rx="6" fill="${C.cy}" opacity=".22" stroke="${C.cy}" stroke-width="2"/>
+  ${txt(232,105,'170M',C.cy,19,700)}
+  ${txt(150,132,'net',C.mut,9)}${txt(150,150,'+78M',C.gn,15,700)}
+  ${txt(150,182,'the work changes shape — it does not vanish',C.mut,10)}`),
+ 'supply-gap':()=>S(`${txt(72,32,'DEMAND',C.cy,10,800)}${txt(228,32,'SKILLED SUPPLY',C.am,10,800)}
+  <rect x="42" y="42" width="60" height="112" rx="5" fill="${C.cy}" opacity=".22" stroke="${C.cy}" stroke-width="2"/>
+  <rect x="198" y="130" width="60" height="24" rx="5" fill="${C.am}" opacity=".3" stroke="${C.am}" stroke-width="2"/>
+  ${txt(228,148,'16%',C.am,13,700)}
+  <path d="M110 96 L190 96" stroke="${C.gn}" stroke-width="2" stroke-dasharray="5 4"/>
+  ${txt(150,86,'this is your window',C.gn,10,700)}
+  ${txt(150,182,'51% of AI roles go unfilled',C.mut,10)}`),
+ 'child-dog':()=>S(`${txt(72,30,'RULES',C.ro,10,800)}
+  ${box(20,42,104,86,C.ro,1.5,6)}
+  ${txt(72,64,'4 legs',C.mut,10)}${txt(72,84,'fur',C.mut,10)}${txt(72,104,'a tail',C.mut,10)}
+  <line x1="30" y1="120" x2="114" y2="52" stroke="${C.ro}" stroke-width="2"/>
+  ${txt(72,146,'a cat passes this',C.ro,10)}
+  ${txt(224,30,'EXAMPLES',C.cy,10,800)}
+  ${[0,1,2].map(i=>`${box(152+i*46,42,38,34,C.ln,1.5,5)}${txt(171+i*46,64,'dog',C.mut,9)}`).join('')}
+  ${box(198,90,64,38,C.cy)}${txt(230,114,'new dog ✓',C.cy,10,650)}
+  ${txt(224,146,'it just knows',C.cy,10,650)}`),
+ 'dice-probability':()=>S(`${box(26,26,40,40,C.ink,2,6)}<circle cx="46" cy="46" r="4" fill="${C.ink}"/>
+  ${box(76,26,40,40,C.ink,2,6)}<circle cx="86" cy="36" r="4" fill="${C.ink}"/><circle cx="96" cy="46" r="4" fill="${C.ink}"/><circle cx="106" cy="56" r="4" fill="${C.ink}"/>
+  ${txt(71,84,'1 + 3 = 4',C.mut,11,650)}
+  ${txt(228,26,'ALL 36 OUTCOMES',C.mut,9,800)}
+  ${[1,2,3,4,5,6,5,4,3,2,1].map((h,i)=>`<rect x="${150+i*13}" y="${86-h*7}" width="10" height="${h*7}" rx="2" fill="${i===2?C.cy:'#2f3947'}"/>`).join('')}
+  ${txt(176,100,'4',C.cy,10,700)}${txt(228,100,'7',C.mut,10)}
+  ${txt(228,120,'P(4) = 3/36',C.cy,12,700)}
+  <line x1="20" y1="140" x2="280" y2="140" stroke="${C.ln}" stroke-width="1"/>
+  ${txt(150,158,'the next word works exactly the same way',C.am,11,650)}
+  ${['the 62%','a 21%','my 8%'].map((t,i)=>chip(58+i*66,168,58,t,i===0?C.am:C.ln)).join('')}`),
+ 'equaliser':()=>S(`${[52,88,34,104,66,120,44,96,72,58,110,80].map((h,i)=>{
+   const x=26+i*22, hi=[3,5,10].includes(i);
+   return `<line x1="${x}" y1="30" x2="${x}" y2="150" stroke="${C.ln}" stroke-width="2" stroke-linecap="round"/>
+    <rect x="${x-7}" y="${150-h}" width="14" height="10" rx="3" fill="${hi?C.cy:'#4a5666'}"/>`}).join('')}
+  ${txt(150,178,'billions of these — the pattern IS the model',C.mut,10)}`),
+ 'bluffed-answer':()=>S(`${box(44,20,212,150,C.ln,2,6)}
+  ${txt(150,42,'Q7.  Explain ___',C.mut,11,600)}
+  ${[62,78,94,110].map((y,i)=>`<line x1="62" y1="${y}" x2="${i===3?200:238}" y2="${y}" stroke="#4a5666" stroke-width="2" stroke-linecap="round"/>`).join('')}
+  <line x1="62" y1="122" x2="176" y2="122" stroke="${C.ink}" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M206 132 L238 158 M238 132 L206 158" stroke="${C.ro}" stroke-width="3.5" stroke-linecap="round"/>
+  ${txt(150,190,'neat, confident, and completely invented',C.ro,11,650)}`),
+ 'retry-loop':()=>S(`${DEFS}
+  ${[['ask',150,26],['too generic',248,100],['rephrase',150,174],['still wrong',52,100]].map(([t,x,y],i)=>
+   `${box(x-44,y-15,88,30,i%2?C.ro:C.ln,1.5,15)}${txt(x,y+5,t,i%2?C.ro:C.mut,10)}`).join('')}
+  <path d="M196 40 A 70 70 0 0 1 234 74" stroke="${C.ln}" stroke-width="2" marker-end="url(#ah)"/>
+  <path d="M244 128 A 70 70 0 0 1 198 162" stroke="${C.ln}" stroke-width="2" marker-end="url(#ah)"/>
+  <path d="M104 162 A 70 70 0 0 1 60 128" stroke="${C.ln}" stroke-width="2" marker-end="url(#ah)"/>
+  <path d="M62 74 A 70 70 0 0 1 102 40" stroke="${C.ln}" stroke-width="2" marker-end="url(#ah)"/>
+  <circle cx="150" cy="100" r="26" stroke="${C.am}" stroke-width="2"/>
+  ${txt(150,97,'20',C.am,15,700)}${txt(150,112,'min',C.am,9)}`),
+ 'prompt-anatomy':()=>S(`${[['ROLE',C.cy],['CONTEXT',C.pu],['TASK',C.am],['FORMAT',C.gn],['CONSTRAINTS',C.ro],['EXAMPLES','#7c8899']].map((b,i)=>
+   `<rect x="20" y="${16+i*29}" width="196" height="23" rx="4" fill="${b[1]}" opacity=".18" stroke="${b[1]}" stroke-width="1.5"/>
+    ${txt(30,32+i*29,b[0],b[1],9.5,800,'start')}
+    <line x1="106" y1="${28+i*29}" x2="${[196,180,205,170,190,150][i]}" y2="${28+i*29}" stroke="${b[1]}" stroke-width="2" opacity=".55" stroke-linecap="round"/>
+    ${txt(232,32+i*29,['who','what it knows','the job','the shape','the limits','a sample'][i],C.mut,9,600,'start')}`).join('')}
+  ${txt(150,196,'one prompt — six jobs',C.mut,10)}`),
+ 'dice-table':()=>S(`${(()=>{let o='';
+  const x0=52,y0=34,cw=38,ch=25;
+  o+=txt(26,y0-10,'+',C.mut,11,700);
+  for(let i=1;i<=6;i++){o+=txt(x0+cw*(i-0.5),y0-10,i,C.cy,11,700);}
+  for(let j=1;j<=6;j++){o+=txt(38,y0+ch*(j-0.5)+4,j,C.cy,11,700);}
+  for(let j=1;j<=6;j++)for(let i=1;i<=6;i++){
+    const sum=i+j, hit=(sum===4);
+    o+=`<rect x="${x0+cw*(i-1)}" y="${y0+ch*(j-1)}" width="${cw-2}" height="${ch-2}" rx="3"
+       fill="${hit?C.cy:'none'}" opacity="${hit?.28:1}" stroke="${hit?C.cy:C.ln}" stroke-width="${hit?2:1}"/>`;
+    o+=txt(x0+cw*(i-0.5)-1,y0+ch*(j-0.5)+4,sum,hit?C.cy:'#5d6875',hit?12:10,hit?700:500);
+  }
+  return o;})()}
+  ${txt(150,200,'3 of the 36 boxes make 4  →  P(4) = 3/36',C.cy,12,700)}`,'0 0 300 210'),
+ 'image-target':()=>S(`
+  <rect x="0" y="0" width="300" height="200" rx="10" fill="#101826"/>
+  <circle cx="248" cy="40" r="15" fill="#f4f0e2"/>
+  <rect x="196" y="14" width="88" height="72" rx="4" fill="none" stroke="#39485e" stroke-width="2"/>
+  <line x1="240" y1="14" x2="240" y2="86" stroke="#39485e" stroke-width="2"/>
+  ${[[210,30],[266,54],[224,70],[276,26]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="1.4" fill="#f4f0e2"/>`).join('')}
+  <rect x="0" y="140" width="300" height="60" fill="#6b4a2f"/>
+  <path d="M52 140 L52 96 L136 96 L136 140 Z" fill="#c9d4e4"/>
+  <path d="M46 140 L142 140 L148 148 L40 148 Z" fill="#8a97ab"/>
+  <rect x="60" y="103" width="68" height="30" rx="2" fill="#3ba57a"/>
+  ${[0,1,2,3].map(i=>`<rect x="66" y="${109+i*6}" width="${[52,40,46,30][i]}" height="2.5" rx="1" fill="#0d2b20"/>`).join('')}
+  <rect x="168" y="122" width="54" height="7" rx="2" fill="#c8543f"/>
+  <rect x="172" y="115" width="54" height="7" rx="2" fill="#e0a33e"/>
+  <rect x="166" y="108" width="54" height="7" rx="2" fill="#4a7fb5"/>
+  <path d="M244 128 h22 a3 3 0 0 1 3 3 v9 h-28 v-9 a3 3 0 0 1 3-3z" fill="#f4f0e2"/>
+  <path d="M269 131 a6 6 0 0 1 0 8" fill="none" stroke="#f4f0e2" stroke-width="2"/>
+  <path d="M252 122 q3-6 0-10 M259 122 q3-6 0-10" stroke="#8a97ab" stroke-width="1.6" fill="none" opacity=".8"/>
+  <ellipse cx="94" cy="150" rx="70" ry="7" fill="#3ba57a" opacity=".18"/>`),
+ 'career-path':()=>S(`${DEFS}${['student','full-stack','AI engineer','AI PM'].map((t,i)=>
+   `${box(16+i*68,96,58,34,i===3?C.gn:C.ln,i===3?2.5:1.5,5)}${txt(45+i*68,118,t,i===3?C.gn:C.mut,9,i===3?700:600)}
+    ${i<3?arw(76+i*68,113,82+i*68,113):''}`).join('')}
+  ${box(40,26,220,44,C.gn,2,6)}
+  ${txt(150,46,'Achiever Award — CM of Tamil Nadu',C.gn,9.5,700)}
+  ${txt(150,61,'top 5 of 1.5 million students',C.mut,8.5)}
+  <line x1="150" y1="70" x2="150" y2="92" stroke="${C.gn}" stroke-width="1.5" stroke-dasharray="3 3"/>
+  ${txt(150,160,'same starting point as you',C.mut,10)}`),
+ 'daily-ai':()=>S(`${[['face unlock',0],['Instagram',1],['Maps',2],['autocorrect',3],['YouTube',4],['UPI alerts',5]].map(([t,i])=>
+   `${box(14+(i%3)*98,26+Math.floor(i/3)*76,84,58,C.ln,1.5,6)}
+    ${txt(56+(i%3)*98,52+Math.floor(i/3)*76,t,C.ink,10,650)}
+    ${txt(56+(i%3)*98,70+Math.floor(i/3)*76,'✓ AI',C.gn,9,700)}`).join('')}
+  ${txt(150,190,'six times, before 9am',C.mut,10)}`),
+ 'job-card':()=>S(`${box(20,16,260,168,C.ln,2,8)}
+  ${txt(38,42,'Nexora AI',C.ink,17,700,'start')}
+  ${txt(38,60,'Applied AI lab · Bangalore · 40 people',C.mut,10,500,'start')}
+  <line x1="38" y1="72" x2="262" y2="72" stroke="${C.ln}" stroke-width="1"/>
+  ${box(38,82,140,26,C.gn,2,5)}${txt(108,99,'AI Research Intern',C.gn,11,700)}
+  ${txt(190,99,'6 months',C.mut,10,600,'start')}
+  ${['Python','curious about LLMs','one real project','reads papers'].map((t,i)=>
+   txt(38,126+i*15,'·  '+t,C.mut,9.5,500,'start')).join('')}
+  ${txt(262,170,'Priya Raghavan',C.ink,9.5,650,'end')}`),
+ 'fill-blank':()=>S(`${txt(150,84,'How are ___',C.ink,36,700)}
+  ${txt(150,132,'you',C.gn,30,700)}
+  ${txt(150,172,'every one of you just thought that',C.mut,11)}`),
+ 'confidence-list':()=>S(`${txt(150,30,'How are ___',C.ink,20,700)}
+  ${[['you','92%',true],['they','4%',false],['we','3%',false],['things','1%',false]].map(([w,p,hi],i)=>
+   `<rect x="46" y="${54+i*32}" width="${hi?200:Math.max(24,parseInt(p)*2.2)}" height="24" rx="4"
+      fill="${hi?C.gn:'#dfe5ec'}" opacity="${hi?.2:1}"/>
+    ${box(46,54+i*32,208,24,hi?C.gn:C.ln,hi?2:1,4)}
+    ${txt(58,71+i*32,w,hi?C.gn:C.mut,12,hi?700:500,'start')}
+    ${txt(242,71+i*32,p,hi?C.gn:C.mut,11,700,'end')}`).join('')}
+  ${txt(150,196,'highest score wins — then it does it again',C.mut,10)}`),
+ 'temperature-scale':()=>S(`<line x1="34" y1="96" x2="266" y2="96" stroke="${C.ln}" stroke-width="4" stroke-linecap="round"/>
+  <line x1="34" y1="96" x2="150" y2="96" stroke="${C.gn}" stroke-width="4" stroke-linecap="round"/>
+  ${[[34,'0','FACT'],[150,'0.5','NORMAL'],[266,'1','CREATIVE']].map(([x,v,l],i)=>
+   `<circle cx="${x}" cy="96" r="${i===1?11:7}" fill="${i===1?C.gn:'#ffffff'}" stroke="${i===1?C.gn:C.ln}" stroke-width="2.5"/>
+    ${txt(x,66,v,i===1?C.gn:C.ink,15,700)}${txt(x,128,l,i===1?C.gn:C.mut,9.5,700)}`).join('')}
+  ${txt(34,158,'same answer',C.mut,9,500,'start')}${txt(266,158,'different every time',C.mut,9,500,'end')}`),
+ 'video-timeline':()=>S(`${Array.from({length:10},(_,i)=>
+   `${box(10+i*29,22,25,20,C.ln,1.2,3)}`).join('')}
+  ${txt(150,58,'10 videos before the exam',C.mut,10)}
+  <line x1="20" y1="104" x2="280" y2="104" stroke="${C.ln}" stroke-width="2.5"/>
+  ${[0,1,2,3,4].map(i=>`<line x1="${20+i*65}" y1="98" x2="${20+i*65}" y2="110" stroke="${C.ln}" stroke-width="2"/>`).join('')}
+  <circle cx="150" cy="104" r="14" fill="#ffffff" stroke="${C.ro}" stroke-width="2.5"/>
+  ${txt(150,109,'?',C.ro,15,700)}
+  ${txt(150,140,'"what was said at 5:00?"',C.ro,12,700)}
+  ${txt(150,166,'you would guess — and sound certain',C.mut,10)}`),
+ 'two-doors':()=>S(`${box(34,34,96,132,C.ln,2,6)}${txt(82,96,'THE',C.mut,11,700)}${txt(82,112,'INTERVIEW',C.mut,11,700)}
+  <circle cx="116" cy="100" r="3.5" fill="${C.mut}"/>${txt(82,186,'your degree',C.mut,10)}
+  ${box(170,34,96,132,C.cy,2.5,6)}${txt(218,96,'THE',C.cy,11,700)}${txt(218,112,'JOB',C.cy,11,700)}
+  <circle cx="252" cy="100" r="3.5" fill="${C.cy}"/>${txt(218,186,'this session',C.cy,10,650)}`),
+ 'four-domain-grid':()=>S(`${[['scans','healthcare',C.cy],['code','software',C.pu],['crops','agriculture',C.gn],['drugs','pharma',C.am]].map((d,i)=>
+  `${box(20+(i%2)*140,24+Math.floor(i/2)*84,124,70,d[2])}${txt(82+(i%2)*140,58+Math.floor(i/2)*84,d[0],d[2],14,700)}
+   ${txt(82+(i%2)*140,76+Math.floor(i/2)*84,d[1],C.mut,10)}`).join('')}`),
+ 'sector-spread':()=>S(`${['health','finance','agri','logistics','edu','gov'].map((s,i)=>
+  `${box(10+i*48,72,42,46,i<3?C.cy:C.pu,1.5,5)}${txt(31+i*48,99,s,i<3?C.cy:C.pu,9,650)}`).join('')}
+  ${txt(150,152,'not confined to software',C.mut,11)}`),
+ 'balance-scale':()=>S(`<line x1="150" y1="34" x2="150" y2="150" stroke="${C.ln}" stroke-width="2"/>
+  <line x1="52" y1="74" x2="248" y2="46" stroke="${C.ln}" stroke-width="2.5"/>
+  ${box(18,80,86,44,C.ro)}${txt(61,100,'routine',C.ro,11,650)}${txt(61,115,'work ↓',C.ro,10)}
+  ${box(200,20,86,44,C.cy)}${txt(243,40,'judgement',C.cy,11,650)}${txt(243,55,'work ↑',C.cy,10)}
+  ${txt(150,178,'the mix shifts — it does not vanish',C.mut,10)}`),
+ 'timeline-gap':()=>S(`${txt(150,26,'YEARS OF EXPERIENCE THAT EXIST',C.mut,10,800)}
+  ${txt(20,58,'Civil engineering',C.mut,10,600,'start')}
+  <rect x="20" y="66" width="260" height="16" rx="8" fill="#2f3947"/>
+  ${txt(276,78,'100+ yrs',C.mut,10,700,'end')}
+  ${txt(20,110,'Web development',C.mut,10,600,'start')}
+  <rect x="20" y="118" width="150" height="16" rx="8" fill="#3a4757"/>
+  ${txt(176,130,'30 yrs',C.mut,10,700,'start')}
+  ${txt(20,162,'Building with LLMs',C.cy,10,700,'start')}
+  <rect x="20" y="170" width="34" height="16" rx="8" fill="${C.cy}"/>
+  ${txt(62,182,'~3 yrs — nobody is far ahead of you',C.cy,10,700,'start')}`),
+ 'progress-rail':()=>S(`<line x1="26" y1="100" x2="274" y2="100" stroke="${C.ln}" stroke-width="2"/>
+  ${[1,2,3,4,5,6].map((n,i)=>`<circle cx="${26+i*49.6}" cy="100" r="${i===0?11:8}" stroke="${i===0?C.cy:C.ln}" stroke-width="2" fill="${i===0?C.cy:'none'}"/>
+   ${txt(26+i*49.6,i%2?78:130,n,i===0?C.cy:C.mut,11,700)}`).join('')}
+  ${txt(150,172,'six parts, two hours',C.mut,10)}`),
+ 'day-split':()=>S(`${txt(24,44,'YOUR WORKDAY',C.mut,10,800,'start')}
+  <rect x="24" y="58" width="152" height="46" rx="6" fill="#2f3947"/>
+  <rect x="180" y="58" width="96" height="46" rx="6" fill="${C.cy}" opacity=".22" stroke="${C.cy}" stroke-width="2"/>
+  ${txt(100,86,'60% routine',C.mut,12,700)}${txt(228,86,'40% judgement',C.cy,11,700)}
+  ${txt(100,124,'AI takes this',C.mut,10)}${txt(228,124,'this is you',C.cy,10,650)}`),
+ 'talk-vs-act':()=>S(`${txt(75,36,'TODAY',C.mut,10,800)}
+  <path d="M30 60 h90 a6 6 0 0 1 6 6 v40 a6 6 0 0 1-6 6 h-62 l-16 14 v-14 h-12 a6 6 0 0 1-6-6 v-40 a6 6 0 0 1 6-6z" stroke="${C.ln}" stroke-width="2"/>
+  ${txt(78,90,'it answers',C.mut,11)}
+  ${txt(225,36,'THIS AFTERNOON',C.cy,10,800)}
+  <path d="M180 60 h90 a6 6 0 0 1 6 6 v34 a6 6 0 0 1-6 6 h-62 l-16 14 v-14 h-12 a6 6 0 0 1-6-6 v-34 a6 6 0 0 1 6-6z" stroke="${C.cy}" stroke-width="2"/>
+  ${txt(228,86,'it acts',C.cy,11,650)}
+  ${['search','write','save'].map((t,i)=>`${box(178+i*36,128,32,26,C.cy,1.5,4)}${txt(194+i*36,145,t,C.cy,8)}`).join('')}`),
+};
+function diagram(v){ if(!v||!DIA[v.kind]) return ''; try{return DIA[v.kind]();}catch(e){return '';} }
+
+/* ================= RENDER ================= */
+function render(s,i){
+ const el=E('div'); el.className='slide';
+ const vis=diagram(s.visual); let r=0;
+ const R=()=>`style="animation-delay:${(r++)*150}ms"`;
+ const badge=s.badge?`<div class="badge ${/DEMO|DO THIS/.test(s.badge)?'demo':''} rv" ${R()}>${esc(s.badge)}</div>`:'';
+
+ if(s.type==='title'){
+  el.className='slide tt';
+  el.innerHTML=`${badge}<h1 class="st rv" ${R()}>${ph(s.title)}</h1>
+   ${s.subtitle?`<div class="sub rv" ${R()}>${ph(s.subtitle)}</div>`:''}
+   ${s.author?`<div class="author rv" ${R()}>${esc(s.author)}</div>`:''}`;
+  return el;
+ }
+ let body='';
+ if(s.type==='content'){
+  body=`${badge}<h1 class="st rv" ${R()}>${ph(s.title)}</h1>
+   ${s.subtitle?`<div class="sub rv" ${R()}>${ph(s.subtitle)}</div>`:''}
+   <div class="pts">${(s.points||[]).map(p=>`<div class="pt rv" ${R()}>
+     <div class="pth">${ph(p.title)}</div>
+     ${p.description?`<div class="ptd">${ph(p.description)}</div>`:''}</div>`).join('')}</div>`;
+ } else if(s.type==='poll'){
+  body=`${badge}<h1 class="st rv" ${R()}>${ph(s.title)}</h1>
+   <div class="qn rv" ${R()}>${ph(s.question)}</div>
+   <div class="opts">${s.options.map((o,k)=>`<div class="opt rv" ${R()}>
+     <span class="k">${'ABCD'[k]}</span><span>${esc(o.text.replace(/^[A-D]\)\s*/,''))}</span></div>`).join('')}</div>
+   <div class="livetag"><i></i>LIVE IN PULSEDECK</div>`;
+ } else if(s.type==='prompt-card'){
+  body=`${badge}<h1 class="st rv" ${R()}>${ph(s.title)}</h1>
+   ${s.subtitle?`<div class="sub rv" ${R()}>${ph(s.subtitle)}</div>`:''}
+   <div class="pcard rv" ${R()}>${ph(s.promptText)}</div>`;
+ } else if(s.type==='qna'){
+  body=`${badge}<h1 class="st rv" ${R()}>${ph(s.title)}</h1>
+   ${s.subtitle?`<div class="sub rv" ${R()}>${ph(s.subtitle)}</div>`:''}
+   <div class="livetag"><i></i>LIVE IN PULSEDECK</div>`;
+ } else if(s.type==='conclusion'){
+  body=`${badge}<h1 class="st rv" ${R()}>${ph(s.title)}</h1>
+   ${s.subtitle?`<div class="sub rv" ${R()}>${ph(s.subtitle)}</div>`:''}
+   <div class="tks">${s.takeaways.map((t,k)=>`<div class="tk rv" ${R()}>
+     <span class="n">${k+1}</span><span>${ph(t)}</span></div>`).join('')}</div>`;
+ }
+ if(vis){ el.classList.add('cols');
+  el.innerHTML=`<div class="stxt">${body}</div><div class="svis">${vis}</div>`;
+ } else el.innerHTML=body;
+ return el;
+}
+
+/* ================= NAV ================= */
+let cur=0; const deckEl=document.getElementById('deck');
+const PARTS=D.map(s=>s.type==='title'&&/^PART/.test(s.badge||'')?s.title:null);
+function partFor(i){for(let j=i;j>=0;j--)if(PARTS[j])return PARTS[j];return 'Opening';}
+function show(i){
+ cur=Math.max(0,Math.min(D.length-1,i));
+ deckEl.innerHTML='';
+ const el=render(D[cur],cur);           // fresh node每 slide → stagger always replays
+ deckEl.appendChild(el);
+ void el.offsetWidth;                    // force reflow before adding .go
+ el.classList.add('go');
+ document.getElementById('bar').style.width=((cur+1)/D.length*100)+'%';
+ document.getElementById('num').textContent=cur+1;
+ document.getElementById('part').textContent=partFor(cur);
+ location.hash=cur+1;
+}
+function go(n){show(cur+n);}
+addEventListener('keydown',e=>{
+ if(e.key==='o'||e.key==='O'){document.body.classList.toggle('overview');return;}
+ if(document.body.classList.contains('overview')){if(e.key==='Escape')document.body.classList.remove('overview');return;}
+ if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(1);}
+ if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}
+ if(e.key==='Home')show(0); if(e.key==='End')show(D.length-1);
+ if(e.key==='f'||e.key==='F'){document.documentElement.requestFullscreen?.();}
+});
+deckEl.addEventListener('click',e=>go(e.clientX<innerWidth*0.25?-1:1));
+
+/* ================= OVERVIEW ================= */
+(function(){
+ const g=document.getElementById('grid'); let last=null;
+ D.forEach((s,i)=>{
+  const p=partFor(i);
+  if(p!==last){last=p;const h=E('div');h.className='pt-head';h.textContent=p;g.parentNode.insertBefore(h,g);
+   const ng=E('div');ng.className='grid';g.parentNode.insertBefore(ng,g);window.__g=ng;}
+  const t=window.__g||g;
+  const m=E('div'); m.className='mini';
+  const P=hasPH(s), dense=chars(s)>320;
+  if(P)m.classList.add('hasph'); else if(dense)m.classList.add('dense');
+  m.innerHTML=`<div class="mn">${i+1}</div>
+   <div class="mb">${esc(s.badge||s.type)}</div>
+   <div class="mt">${ph(s.title)}</div>
+   ${s.subtitle?`<div class="ms">${ph(s.subtitle)}</div>`:''}
+   <div class="mp">${(s.points||[]).map(x=>'· '+esc(x.title)).join('<br>')||
+     (s.takeaways||[]).map(x=>'· '+esc(x)).slice(0,3).join('<br>')||
+     (s.options||[]).map(x=>'· '+esc(x.text)).join('<br>')||''}</div>
+   ${P?'<div class="flag ph">needs input</div>':dense?'<div class="flag dn">dense</div>':
+     s.visual?'<div class="flag vs">◆ '+esc(s.visual.kind)+'</div>':''}`;
+  m.onclick=()=>{document.body.classList.remove('overview');show(i);};
+  t.appendChild(m);
+ });
+ document.getElementById('n-slides').textContent=D.length;
+ document.getElementById('n-ph').textContent=(JSON.stringify(D).match(/\[\[/g)||[]).length;
+ document.getElementById('n-vis').textContent=D.filter(s=>s.visual).length;
+ document.getElementById('n-dense').textContent=D.filter(s=>chars(s)>320).length;
+})();
+
+const h=parseInt(location.hash.slice(1)); show(h?h-1:0);
+</script>
+</body></html>

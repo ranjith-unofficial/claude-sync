@@ -8,8 +8,16 @@
 | `skills/` | `~/.claude/skills` | cybersecurity, fitness-nutrition, marketing, ui-ux-pro-max |
 | `settings/settings.json` | `~/.claude/settings.json` | effort level, theme, TUI, hooks |
 | `settings/settings.local.json` | `~/.claude/settings.local.json` | permission allowlist |
+| `CLAUDE.md` | `~/.claude/CLAUDE.md` | standing instruction: save deliverables to `~/ClaudeDocs` |
+| `outputs/` | `~/ClaudeDocs` | generated PDFs, HTML, DOCX — by project subfolder |
 
 **Not** shared, on purpose: session transcripts, `history.jsonl`, caches, `file-history`, daemon logs. That's ~529 MB of machine-local junk.
+
+`~/Downloads` is also deliberately excluded — it's 102 MB of browser dump containing invoices, Aadhaar, and bank PDFs. Identity and financial documents must not go into iCloud. Genuine deliverables were copied into `outputs/` individually; the originals were left in place.
+
+## Generated files
+
+Anything Claude produces goes in `~/ClaudeDocs/<project>/` and syncs automatically. `CLAUDE.md` is loaded at the start of every session on both Macs and tells Claude to save there by default, so this needs no reminding.
 
 ## Setup on the second Mac
 

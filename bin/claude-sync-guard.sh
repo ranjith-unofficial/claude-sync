@@ -36,5 +36,7 @@ heal "$PROJ/memory"                "$ICLOUD/memory"
 heal "$CLAUDE/skills"              "$ICLOUD/skills"
 heal "$CLAUDE/settings.json"       "$ICLOUD/settings/settings.json"
 heal "$CLAUDE/settings.local.json" "$ICLOUD/settings/settings.local.json"
+heal "$CLAUDE/CLAUDE.md"           "$ICLOUD/CLAUDE.md"
+heal "$HOME/ClaudeDocs"            "$ICLOUD/outputs"
 
 exit 0

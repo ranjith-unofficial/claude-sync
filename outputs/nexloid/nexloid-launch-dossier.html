@@ -1,0 +1,1784 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Data-backed market entry analysis for Nexloid: competitor teardown, positioning, ICP, pricing, copy, GTM and outbound plan.">
+<title>Nexloid Launch Dossier</title>
+<style>
+  /* ============ TOKENS: light is the base, both themes redefined ============ */
+  :root{
+    --bg:#F5F8F9;
+    --surface:#FFFFFF;
+    --surface-2:#EBF1F3;
+    --surface-3:#E0E9EC;
+    --border:#D3DEE2;
+    --border-strong:#B8C8CE;
+    --ink:#0C1418;
+    --ink-2:#3F535C;
+    --muted:#71878F;
+    --accent:#0E5C6B;
+    --accent-soft:#D9EAEE;
+    --signal:#C4551A;
+    --signal-soft:#FBE6D8;
+    --good:#1B6E4E;
+    --warn:#8E6206;
+    --bad:#A6382C;
+    --good-soft:#DCEEE5;
+    --warn-soft:#F6EBD2;
+    --bad-soft:#F7E1DD;
+    --on-accent:#FFFFFF;
+    --shadow:0 1px 2px rgba(12,20,24,.05), 0 8px 24px -16px rgba(12,20,24,.18);
+    --rail:rgba(14,92,107,.16);
+
+    --font-display:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --font-body:"Iowan Old Style","Charter","Palatino Linotype",Georgia,"Times New Roman",serif;
+    --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0A1114;
+      --surface:#101A1E;
+      --surface-2:#16232A;
+      --surface-3:#1D2E36;
+      --border:#243740;
+      --border-strong:#334B55;
+      --ink:#E7EEF0;
+      --ink-2:#A7BAC1;
+      --muted:#7A8F98;
+      --accent:#4FA8BC;
+      --accent-soft:#12313A;
+      --signal:#EE8B4C;
+      --signal-soft:#3A2214;
+      --good:#4FBF8E;
+      --warn:#D8A63C;
+      --bad:#E8796A;
+      --good-soft:#122E24;
+      --warn-soft:#2E2612;
+      --bad-soft:#331B18;
+      --on-accent:#08171B;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+      --rail:rgba(79,168,188,.22);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0A1114;
+    --surface:#101A1E;
+    --surface-2:#16232A;
+    --surface-3:#1D2E36;
+    --border:#243740;
+    --border-strong:#334B55;
+    --ink:#E7EEF0;
+    --ink-2:#A7BAC1;
+    --muted:#7A8F98;
+    --accent:#4FA8BC;
+    --accent-soft:#12313A;
+    --signal:#EE8B4C;
+    --signal-soft:#3A2214;
+    --good:#4FBF8E;
+    --warn:#D8A63C;
+    --bad:#E8796A;
+    --good-soft:#122E24;
+    --warn-soft:#2E2612;
+    --bad-soft:#331B18;
+    --on-accent:#08171B;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    --rail:rgba(79,168,188,.22);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.62;
+    font-synthesis-weight:none;
+  }
+
+  /* ============ SHELL ============ */
+  .shell{
+    display:grid;
+    grid-template-columns:1fr;
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 20px 100px;
+  }
+  @media (min-width:1080px){
+    .shell{grid-template-columns:210px minmax(0,1fr);gap:52px;padding:0 32px 120px}
+  }
+
+  /* ============ RAIL ============ */
+  .rail{display:none}
+  @media (min-width:1080px){
+    .rail{
+      display:block;
+      position:sticky;
+      top:0;
+      align-self:start;
+      max-height:100vh;
+      overflow-y:auto;
+      padding:40px 0 40px;
+    }
+  }
+  .rail-title{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:0 0 14px;
+  }
+  .rail-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+  .rail-list a{
+    display:flex;
+    gap:9px;
+    font-family:var(--font-display);
+    font-size:12.5px;
+    line-height:1.35;
+    color:var(--ink-2);
+    text-decoration:none;
+    padding:6px 8px 6px 10px;
+    border-left:2px solid var(--border);
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  .rail-list a:hover{color:var(--accent);border-left-color:var(--accent);background:var(--surface-2)}
+  .rail-list a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .rail-list .n{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);padding-top:1px}
+
+  /* ============ MASTHEAD ============ */
+  .masthead{padding:52px 0 34px;border-bottom:1px solid var(--border)}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 18px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:800;
+    letter-spacing:-.035em;
+    font-size:clamp(2.3rem,6vw,3.5rem);
+    line-height:1.02;
+    margin:0 0 20px;
+    text-wrap:balance;
+  }
+  .standfirst{
+    font-size:1.14rem;
+    color:var(--ink-2);
+    margin:0 0 26px;
+    max-width:62ch;
+  }
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 20px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:.04em;
+  }
+  .meta-row b{color:var(--ink-2);font-weight:500}
+
+  /* ============ SECTIONS ============ */
+  section{padding:56px 0 4px;scroll-margin-top:24px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:0 0 8px}
+  .sec-num{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    letter-spacing:.1em;
+    padding-top:6px;
+  }
+  h2{
+    font-family:var(--font-display);
+    font-weight:780;
+    letter-spacing:-.028em;
+    font-size:clamp(1.6rem,3.4vw,2.1rem);
+    line-height:1.12;
+    margin:0;
+    text-wrap:balance;
+  }
+  .sec-sub{color:var(--muted);margin:0 0 30px;font-size:.98rem;max-width:64ch}
+
+  h3{
+    font-family:var(--font-display);
+    font-weight:700;
+    letter-spacing:-.018em;
+    font-size:1.12rem;
+    line-height:1.25;
+    margin:38px 0 12px;
+    text-wrap:balance;
+  }
+  h4{
+    font-family:var(--font-mono);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:26px 0 10px;
+  }
+  p{margin:0 0 14px;max-width:68ch}
+  .lede{font-size:1.04rem;color:var(--ink-2)}
+
+  ul,ol{margin:0 0 16px;padding-left:20px;max-width:70ch}
+  li{margin:0 0 7px}
+  li::marker{color:var(--muted)}
+  strong{font-weight:600;color:var(--ink)}
+  a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+  code,.mono{font-family:var(--font-mono);font-size:.86em}
+  .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:.9em}
+
+  /* ============ TABLES ============ */
+  .tw{overflow-x:auto;margin:0 0 22px;border:1px solid var(--border);border-radius:3px;background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-family:var(--font-display);font-size:13.5px;line-height:1.45}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+  thead th{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:500;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--border-strong);
+    white-space:nowrap;
+  }
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:var(--surface-2)}
+  td.n{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.name{font-weight:600;color:var(--ink);white-space:nowrap}
+  .tnote{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);margin:-14px 0 26px;letter-spacing:.02em}
+
+  /* ============ CHIPS ============ */
+  .chip{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    padding:2px 7px;
+    border-radius:2px;
+    white-space:nowrap;
+    border:1px solid transparent;
+  }
+  .chip-good{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+  .chip-warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+  .chip-bad{background:var(--bad-soft);color:var(--bad);border-color:var(--bad)}
+  .chip-flat{background:var(--surface-2);color:var(--muted);border-color:var(--border)}
+  .chip-sig{background:var(--signal-soft);color:var(--signal);border-color:var(--signal)}
+
+  /* ============ CALLOUTS ============ */
+  .callout{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--accent);
+    border-radius:3px;
+    padding:18px 20px;
+    margin:0 0 22px;
+    box-shadow:var(--shadow);
+  }
+  .callout.sig{border-left-color:var(--signal)}
+  .callout.bad{border-left-color:var(--bad)}
+  .callout h4{margin-top:0}
+  .callout p:last-child,.callout ul:last-child{margin-bottom:0}
+
+  /* ============ DECISION CARDS ============ */
+  .decks{display:grid;gap:12px;margin:0 0 8px}
+  @media (min-width:700px){.decks{grid-template-columns:repeat(2,1fr)}}
+  .deck{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:3px;
+    padding:16px 18px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+  }
+  .deck .k{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .deck .v{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.02rem;
+    line-height:1.25;
+    letter-spacing:-.015em;
+  }
+  .deck .why{font-size:.88rem;color:var(--ink-2);line-height:1.5}
+  .deck.hero{grid-column:1/-1;border-left:3px solid var(--signal)}
+
+  /* ============ STAT STRIP ============ */
+  .stats{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:3px;margin:0 0 24px;overflow:hidden}
+  @media (min-width:620px){.stats{grid-template-columns:repeat(4,1fr)}}
+  .stat{background:var(--surface);padding:15px 16px;display:flex;flex-direction:column;gap:4px}
+  .stat .figure{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:1.55rem;
+    letter-spacing:-.03em;
+    font-variant-numeric:tabular-nums;
+    color:var(--accent);
+    line-height:1;
+  }
+  .stat .cap{font-family:var(--font-display);font-size:12px;color:var(--ink-2);line-height:1.35}
+  .stat .src{font-family:var(--font-mono);font-size:9.5px;color:var(--muted);letter-spacing:.04em}
+
+  /* ============ PRICE LADDER CHART ============ */
+  figure{margin:0 0 26px}
+  .chart{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:3px;
+    padding:22px 20px 14px;
+    box-shadow:var(--shadow);
+    overflow-x:auto;
+  }
+  .chart-inner{min-width:540px}
+  .chart-title{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:.98rem;
+    letter-spacing:-.015em;
+    margin:0 0 3px;
+  }
+  .chart-sub{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);margin:0 0 20px;letter-spacing:.03em}
+  .lad-row{display:grid;grid-template-columns:172px 1fr;align-items:center;gap:14px;margin-bottom:9px}
+  .lad-label{font-family:var(--font-display);font-size:12px;color:var(--ink-2);line-height:1.25;text-align:right}
+  .lad-track{position:relative;height:24px}
+  .lad-grid{position:absolute;inset:0}
+  .lad-grid span{position:absolute;top:0;bottom:0;width:1px;background:var(--border)}
+  .lad-bar{
+    position:absolute;
+    top:7px;
+    height:10px;
+    background:var(--accent);
+    opacity:.72;
+    border-radius:5px;
+  }
+  .lad-row.mine .lad-bar{background:var(--signal);opacity:1;height:14px;top:5px;border-radius:7px}
+  .lad-row.mine .lad-label{color:var(--signal);font-weight:700}
+  .lad-val{
+    position:absolute;
+    top:2px;
+    font-family:var(--font-mono);
+    font-size:10px;
+    color:var(--muted);
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .lad-row.mine .lad-val{color:var(--signal)}
+  .lad-axis{display:grid;grid-template-columns:172px 1fr;gap:14px;margin-top:6px}
+  .lad-axis-track{position:relative;height:18px;border-top:1px solid var(--border-strong)}
+  .lad-axis-track span{
+    position:absolute;
+    top:4px;
+    transform:translateX(-50%);
+    font-family:var(--font-mono);
+    font-size:10px;
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+  }
+  .chart-key{
+    display:flex;gap:16px;flex-wrap:wrap;
+    font-family:var(--font-mono);font-size:10px;color:var(--muted);
+    margin-top:14px;padding-top:12px;border-top:1px solid var(--border);
+    letter-spacing:.03em;
+  }
+  .chart-key i{display:inline-block;width:16px;height:6px;border-radius:3px;vertical-align:middle;margin-right:6px}
+  figcaption{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+
+  /* ============ COPY BLOCKS ============ */
+  .copyblock{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-left:3px solid var(--signal);
+    border-radius:3px;
+    padding:16px 18px;
+    margin:0 0 18px;
+    font-family:var(--font-display);
+    font-size:14px;
+    line-height:1.55;
+  }
+  .copyblock .lbl{
+    font-family:var(--font-mono);
+    font-size:9.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-bottom:8px;
+  }
+  .copyblock .h1x{font-weight:800;font-size:1.32rem;letter-spacing:-.03em;line-height:1.12;margin:0 0 8px;color:var(--ink)}
+  .copyblock .h2x{font-weight:600;font-size:1rem;margin:0 0 6px;color:var(--ink)}
+  .copyblock p{margin:0 0 9px;max-width:none;font-family:var(--font-display);font-size:14px}
+  .copyblock p:last-child{margin-bottom:0}
+  .copyblock ul{margin:0 0 9px;font-size:14px;max-width:none}
+  .copyblock .cta{
+    display:inline-block;margin-top:4px;
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+    background:var(--accent);color:var(--on-accent);padding:7px 13px;border-radius:2px;
+  }
+
+  .email{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:3px;
+    padding:0;
+    margin:0 0 16px;
+    overflow:hidden;
+  }
+  .email-head{
+    background:var(--surface-2);
+    border-bottom:1px solid var(--border);
+    padding:9px 14px;
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--muted);
+    letter-spacing:.06em;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .email-head b{color:var(--ink-2);font-weight:500}
+  .email-body{padding:14px 16px;font-family:var(--font-display);font-size:13.5px;line-height:1.6;white-space:pre-wrap}
+
+  hr.div{border:none;border-top:1px solid var(--border);margin:44px 0 0}
+
+  .kill{list-style:none;padding:0;margin:0 0 20px;display:flex;flex-direction:column;gap:9px}
+  .kill li{
+    display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+    background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:12px 14px;margin:0;
+    font-family:var(--font-display);font-size:13.5px;line-height:1.5;
+  }
+  .kill li .tag{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bad);padding-top:3px;white-space:nowrap}
+
+  .srcs{font-family:var(--font-mono);font-size:11px;line-height:1.7;color:var(--muted);columns:1;max-width:none}
+  @media (min-width:760px){.srcs{columns:2;column-gap:36px}}
+  .srcs a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--border)}
+  .srcs a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  .srcs div{break-inside:avoid;margin-bottom:5px}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+  /* ============ PRINT / PDF ============ */
+  @page{size:A4;margin:13mm 11mm 15mm}
+  @media print{
+    /* Force the light palette regardless of the OS theme */
+    :root{
+      --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F1F4F6; --surface-3:#E4EBEE;
+      --border:#C8D5DA; --border-strong:#A9BCC3;
+      --ink:#0C1418; --ink-2:#33454E; --muted:#5F757E;
+      --accent:#0E5C6B; --accent-soft:#DCEBEF;
+      --signal:#B14A14; --signal-soft:#FAE4D6;
+      --good:#166046; --warn:#7A5405; --bad:#932F24;
+      --good-soft:#DCEEE5; --warn-soft:#F6EBD2; --bad-soft:#F7E1DD;
+      --on-accent:#FFFFFF; --shadow:none;
+    }
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+
+    html,body{background:#FFFFFF;font-size:9.6pt;line-height:1.45}
+
+    /* Single column: the sticky nav is meaningless on paper */
+    .rail{display:none !important}
+    .shell{display:block !important;max-width:none;padding:0;margin:0}
+
+    /* Nothing may scroll sideways on paper — let every wide block wrap instead */
+    .tw{overflow:visible !important;border-radius:0;break-inside:auto}
+    table{min-width:0 !important;width:100% !important;table-layout:auto;font-size:7.8pt;line-height:1.32}
+    th,td{padding:4px 5px;overflow-wrap:break-word;word-break:normal;hyphens:none}
+    thead{display:table-header-group}
+    tr{break-inside:avoid;page-break-inside:avoid}
+    td.name,td.n{white-space:normal !important}
+
+    .chart{overflow:visible !important;padding:12px 10px 8px;break-inside:avoid}
+    .chart-inner{min-width:0 !important;width:100%}
+    .lad-row,.lad-axis{grid-template-columns:120px 1fr;gap:8px}
+    .lad-label{font-size:7.6pt}
+    .lad-val{font-size:7pt}
+
+    /* Keep reasoning units together */
+    .callout,.deck,.email,.stat,figure,.copyblock,.kill li{break-inside:avoid;page-break-inside:avoid}
+    .decks{display:block}
+    .decks .deck{margin-bottom:8px}
+    .stats{grid-template-columns:repeat(4,1fr)}
+    .srcs{columns:2;column-gap:22px;font-size:8pt}
+
+    /* Headings never strand at the foot of a page */
+    h1,h2,h3,h4{break-after:avoid;page-break-after:avoid}
+    h2{font-size:16pt}
+    h3{font-size:11.5pt;margin-top:16px}
+    section{padding:16px 0 0;break-before:auto}
+    .masthead{padding:0 0 16px}
+    h1{font-size:26pt}
+    hr.div{margin:18px 0 0}
+    p,ul,ol{max-width:none}
+    .email-body{white-space:pre-wrap;font-size:8.6pt}
+    a{text-decoration:none}
+    .chip{border-width:.5pt}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="rail" aria-label="Sections">
+    <p class="rail-title">Dossier</p>
+    <ul class="rail-list">
+      <li><a href="#calls"><span class="n">00</span><span>The five calls</span></a></li>
+      <li><a href="#reality"><span class="n">01</span><span>Reality check</span></a></li>
+      <li><a href="#competitors"><span class="n">02</span><span>Competitor teardown</span></a></li>
+      <li><a href="#market"><span class="n">03</span><span>Market &amp; country</span></a></li>
+      <li><a href="#positioning"><span class="n">04</span><span>Positioning</span></a></li>
+      <li><a href="#icp"><span class="n">05</span><span>ICP</span></a></li>
+      <li><a href="#pricing"><span class="n">06</span><span>Pricing</span></a></li>
+      <li><a href="#copy"><span class="n">07</span><span>Headline &amp; copy</span></a></li>
+      <li><a href="#gtm"><span class="n">08</span><span>GTM plan</span></a></li>
+      <li><a href="#outbound"><span class="n">09</span><span>Outbound</span></a></li>
+      <li><a href="#risks"><span class="n">10</span><span>What kills this</span></a></li>
+      <li><a href="#monday"><span class="n">11</span><span>Next 14 days</span></a></li>
+      <li><a href="#confidence"><span class="n">12</span><span>What I'm unsure of</span></a></li>
+      <li><a href="#sources"><span class="n">13</span><span>Sources</span></a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <header class="masthead">
+      <p class="eyebrow">Nexloid · Market entry analysis</p>
+      <h1>Sell the fix, not the audit.</h1>
+      <p class="standfirst">The audit layer of this market has already collapsed to zero. Two funded competitors are building the same auto-deploy agent you are. This is where a solo founder with ₹1–3L can still win, and the evidence behind every call.</p>
+      <div class="meta-row">
+        <span><b>Prepared</b> 16 Aug 2026</span>
+        <span><b>Competitors mapped</b> 21</span>
+        <span><b>Build state</b> scrape + audit + GTM auto-install</span>
+        <span><b>Runway assumed</b> solo, 6 months, ₹1–3L</span>
+      </div>
+    </header>
+
+    <!-- ================= 00 THE CALLS ================= -->
+    <section id="calls">
+      <div class="sec-head"><span class="sec-num">00</span><h2>The five calls</h2></div>
+      <p class="sec-sub">Everything below is the evidence. If you read nothing else, read this.</p>
+
+      <div class="decks">
+        <div class="deck hero">
+          <span class="k">The core reframe</span>
+          <span class="v">Stop selling "cheaper than an agency." Sell "tracking you can prove is correct, forever."</span>
+          <span class="why">The agency-replacement premise only holds at enterprise scale. The real floor price for GA4+GTM setup is <span class="num">$10–35</span> on Fiverr and a <span class="num">$30/hr</span> median on Upwork. You cannot out-cheap that, and you shouldn't try. What nobody sells at any price is <em>continuous, evidenced correctness</em> — and that's a subscription, not a project.</span>
+        </div>
+        <div class="deck">
+          <span class="k">Market to start</span>
+          <span class="v">UK first. Australia in parallel. US from month 4.</span>
+          <span class="why">17,636 UK agencies is 1,470× your 12-customer target, at full USD pricing, with the clearest cold-email permission (PECR) and a working day that runs 1:30–9:30pm IST. The US is 9× bigger and can wait until the message converts. India is design partners only. Full workings in <a href="#market">section 03</a>.</span>
+        </div>
+        <div class="deck">
+          <span class="k">Who buys first</span>
+          <span class="v">Performance &amp; web agencies with 5–50 SMB clients. And solo GA4/GTM freelancers.</span>
+          <span class="why">433,400 agencies worldwide. One agency = 20+ properties on one invoice, they already buy white-label audit deliverables ($99–999/yr), and they're the only segment a solo founder can list, reach and close without a sales team.</span>
+        </div>
+        <div class="deck">
+          <span class="k">What you sell</span>
+          <span class="v">A $299 one-time "Tracking Rescue," then a per-property subscription.</span>
+          <span class="why">GAfix already proves the on-ramp: free audit → $49 report → $199–499 human remediation. You deliver the remediation with software, at near-zero marginal cost. That's the arbitrage — human-fix prices, automated-fix costs.</span>
+        </div>
+        <div class="deck">
+          <span class="k">Price</span>
+          <span class="v">Free → $49 Solo → $199 Agency (25 properties) → $499 Scale (100).</span>
+          <span class="why">Directly anchored to NiceLookingData's $49/$199 and GA4 Auditor's $999/yr. You charge the same and deliver strictly more (they hand you a report; you ship the change). Never price per audit — that race ends at $49.</span>
+        </div>
+        <div class="deck">
+          <span class="k">First channel</span>
+          <span class="v">Cold email where the personalisation <em>is</em> the product output.</span>
+          <span class="why">Your scraper can pre-run a scan on a prospect's own client sites and name a specific broken event in line one. That converts a 3.4% baseline reply rate into top-quartile territory. Paid ads are wrong at a $49–199 ACV on a ₹1–3L budget.</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 01 REALITY ================= -->
+    <section id="reality">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Reality check: three premises that don't survive the data</h2></div>
+      <p class="sec-sub">Getting these wrong costs you the next six months. Each is falsified by a specific number.</p>
+
+      <div class="callout bad">
+        <h4>Premise 1 — "Agencies charge lakhs and lakhs for this"</h4>
+        <p><span class="chip chip-bad">Only true above mid-market</span></p>
+        <p>True at the top: mid-market GA4 migrations run <span class="num">$7,500–15,000</span>, deep technical audits <span class="num">$4,000–8,000</span>, enterprise implementations <span class="num">$30,000+</span>, consultants <span class="num">$150–250/hr</span>. False at the bottom, which is where your product's buyer actually lives: Fiverr sellers list GA4 + GTM + Meta Pixel setup at <span class="num">$10, $20, $30, $35</span>. Upwork's GTM specialist median is <span class="num">$30/hr</span> (range $20–49).</p>
+        <p><strong>Consequence:</strong> a price-led pitch puts you in a knife fight with a $10 gig. Every message must be about <em>certainty and continuity</em>, never cost.</p>
+      </div>
+
+      <div class="callout bad">
+        <h4>Premise 2 — "The audit is the product"</h4>
+        <p><span class="chip chip-bad">The audit is now worth $0</span></p>
+        <ul>
+          <li>GAfix: free tier (11 GA4 + 7 GTM checks), <span class="num">$49</span> for the full one.</li>
+          <li>NiceLookingData: free tier, 3 full audits/month, 150+ checks.</li>
+          <li>ObservePoint: free 300-page scan. Verified Data: free tier.</li>
+          <li>Open-source MCP servers now expose GTM tag/trigger/variable management, consent auditing and workspace versioning to any LLM — free. A published walkthrough audits a GA4 property with Claude <strong>in under four minutes</strong>.</li>
+        </ul>
+        <p><strong>Consequence:</strong> your audit is the lead magnet, not the SKU. Give it away without a login and monetise the deployment and the monitoring.</p>
+      </div>
+
+      <div class="callout bad">
+        <h4>Premise 3 — "jtracking.ai is my only direct competitor"</h4>
+        <p><span class="chip chip-bad">There are at least two funded ones</span></p>
+        <ul>
+          <li><strong>JTracking</strong> (Singapore, founded 2024) — backed by <strong>Bessemer Venture Partners and DCM</strong>. AI event builder, deploys GTM tags, server-side first, 14-day trial, one site per plan. They also open-sourced their agent on GitHub as a credibility and distribution play.</li>
+          <li><strong>Flisk.ai</strong> — seed-funded, positioned as "your AI agent for tag management." You describe what to track; it drafts a plan, configures GTM, writes the code, previews, and publishes to your container. It also monitors for misfires. Lead magnet: a free GTM audit. <strong>This is your product, almost exactly.</strong></li>
+          <li><strong>Tag Companion</strong> — pre-built importable GTM containers. Lower-tech, same job-to-be-done.</li>
+        </ul>
+        <p><strong>Consequence:</strong> "AI that sets up your tracking" is already a claimed position. You cannot win it broadly. You win it <em>narrowly</em>: one buyer, one workflow, better than anyone.</p>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 02 COMPETITORS ================= -->
+    <section id="competitors">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Competitor teardown</h2></div>
+      <p class="sec-sub">21 players across five layers. The column that matters is "Deploys the fix?" — almost nobody does, and the ones that do are funded.</p>
+
+      <div class="stats">
+        <div class="stat"><span class="figure">45.5%</span><span class="cap">of all websites run GTM — trackers disagree on the raw count, see §03</span><span class="src">w3techs, Aug 2026</span></div>
+        <div class="stat"><span class="figure">14.7M</span><span class="cap">active GA4 properties, Q1 2026</span><span class="src">Web Tonic</span></div>
+        <div class="stat"><span class="figure">48%</span><span class="cap">of sites carry ≥1 Consent Mode misconfiguration</span><span class="src">Web Tonic</span></div>
+        <div class="stat"><span class="figure">20–30%</span><span class="cap">of ad budget distorted by broken tracking</span><span class="src">Web Tonic</span></div>
+      </div>
+
+      <h3>The whole market on one price axis</h3>
+
+      <figure>
+        <div class="chart">
+          <div class="chart-inner">
+            <p class="chart-title">What buyers actually pay to get tracking right</p>
+            <p class="chart-sub">Log scale · USD · monthly subscription or one-time project, as each vendor sells it</p>
+
+            <div class="lad-row">
+              <span class="lad-label">DIY, free tiers &amp; open-source MCP</span>
+              <span class="lad-track">
+                <span class="lad-grid"><span style="left:7.5%"></span><span style="left:32.5%"></span><span style="left:57.5%"></span><span style="left:82.5%"></span></span>
+                <span class="lad-bar" style="left:0%;width:32.5%"></span>
+                <span class="lad-val" style="left:34%">$0 – $99</span>
+              </span>
+            </div>
+
+            <div class="lad-row">
+              <span class="lad-label">Fiverr / Upwork implementers</span>
+              <span class="lad-track">
+                <span class="lad-grid"><span style="left:7.5%"></span><span style="left:32.5%"></span><span style="left:57.5%"></span><span style="left:82.5%"></span></span>
+                <span class="lad-bar" style="left:7.5%;width:13.6%"></span>
+                <span class="lad-val" style="left:22.6%">$10 – $35 / gig</span>
+              </span>
+            </div>
+
+            <div class="lad-row">
+              <span class="lad-label">Self-serve audit SaaS</span>
+              <span class="lad-track">
+                <span class="lad-grid"><span style="left:7.5%"></span><span style="left:32.5%"></span><span style="left:57.5%"></span><span style="left:82.5%"></span></span>
+                <span class="lad-bar" style="left:24.8%;width:15.2%"></span>
+                <span class="lad-val" style="left:41%">$49 – $199 / mo</span>
+              </span>
+            </div>
+
+            <div class="lad-row mine">
+              <span class="lad-label">Nexloid's window</span>
+              <span class="lad-track">
+                <span class="lad-grid"><span style="left:7.5%"></span><span style="left:32.5%"></span><span style="left:57.5%"></span><span style="left:82.5%"></span></span>
+                <span class="lad-bar" style="left:24.8%;width:25.2%"></span>
+                <span class="lad-val" style="left:51.5%">$49 – $499 / mo · $299 fix</span>
+              </span>
+            </div>
+
+            <div class="lad-row">
+              <span class="lad-label">Shopify tracking apps</span>
+              <span class="lad-track">
+                <span class="lad-grid"><span style="left:7.5%"></span><span style="left:32.5%"></span><span style="left:57.5%"></span><span style="left:82.5%"></span></span>
+                <span class="lad-bar" style="left:36.6%;width:20.4%"></span>
+                <span class="lad-val" style="left:58%">$145 – $950 / mo</span>
+              </span>
+            </div>
+
+            <div class="lad-row">
+              <span class="lad-label">Monitoring &amp; governance SaaS</span>
+              <span class="lad-track">
+                <span class="lad-grid"><span style="left:7.5%"></span><span style="left:32.5%"></span><span style="left:57.5%"></span><span style="left:82.5%"></span></span>
+                <span class="lad-bar" style="left:42.4%;width:24.6%"></span>
+                <span class="lad-val" style="left:68%">$249 – $2,400 / mo</span>
+              </span>
+            </div>
+
+            <div class="lad-row">
+              <span class="lad-label">Consultants &amp; agencies</span>
+              <span class="lad-track">
+                <span class="lad-grid"><span style="left:7.5%"></span><span style="left:32.5%"></span><span style="left:57.5%"></span><span style="left:82.5%"></span></span>
+                <span class="lad-bar" style="left:61.9%;width:32.6%"></span>
+                <span class="lad-val" style="left:60%;top:-13px">$1,500 – $30,000 / project</span>
+              </span>
+            </div>
+
+            <div class="lad-axis">
+              <span></span>
+              <span class="lad-axis-track">
+                <span style="left:7.5%">$10</span>
+                <span style="left:32.5%">$100</span>
+                <span style="left:57.5%">$1K</span>
+                <span style="left:82.5%">$10K</span>
+              </span>
+            </div>
+
+            <div class="chart-key">
+              <span><i style="background:var(--accent);opacity:.72"></i>Existing market layers</span>
+              <span><i style="background:var(--signal)"></i>Where Nexloid should sit</span>
+            </div>
+          </div>
+        </div>
+        <figcaption>The structural gap: everything under $199 only <em>diagnoses</em>. Everything that actually <em>fixes</em> starts at $1,500 and is a human. Nexloid's whole reason to exist is closing that gap — and pricing closer to the diagnosis end so the decision is easy.</figcaption>
+      </figure>
+
+      <h3>Full teardown</h3>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr>
+              <th>Player</th><th>Layer</th><th>Diagnoses</th><th>Deploys the fix</th><th>Monitors</th><th>Price</th><th>Primary buyer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="name">JTracking</td><td>AI agent</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">Free tier + trial; 1 site per plan</td><td>Marketers, ad ops, agencies</td></tr>
+            <tr><td class="name">Flisk.ai</td><td>AI agent</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">Not public</td><td>Non-technical marketing teams</td></tr>
+            <tr><td class="name">NiceLookingData</td><td>Audit SaaS</td><td><span class="chip chip-good">150+ checks</span></td><td><span class="chip chip-warn">Sandbox only</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">Free / $49 / $199 mo</td><td>Analysts, agencies</td></tr>
+            <tr><td class="name">GAfix</td><td>Audit SaaS</td><td><span class="chip chip-good">50+ checks</span></td><td><span class="chip chip-warn">Humans, $199–499</span></td><td><span class="chip chip-bad">No</span></td><td class="n">Free / $49 / $198 bundle</td><td>Budget buyers, founders</td></tr>
+            <tr><td class="name">GA4 Auditor</td><td>Audit SaaS</td><td><span class="chip chip-good">100+ points</span></td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-bad">No</span></td><td class="n">$99 once / $999 yr</td><td>Agencies (white-label decks)</td></tr>
+            <tr><td class="name">Verified Data</td><td>Audit SaaS</td><td><span class="chip chip-good">60+ &amp; PII</span></td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">€99–249 mo</td><td>Privacy-led teams</td></tr>
+            <tr><td class="name">Trackingplan</td><td>Monitoring</td><td><span class="chip chip-good">Passive</span></td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-good">24/7</span></td><td class="n">$249–999; $1,750+ ent.</td><td>Data / product teams</td></tr>
+            <tr><td class="name">ObservePoint</td><td>Governance</td><td><span class="chip chip-good">Crawl + journeys</span></td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-good">Synthetic</span></td><td class="n">$599–2,400 mo (~$72K yr)</td><td>Enterprise, 200+ domains</td></tr>
+            <tr><td class="name">Avo</td><td>Governance</td><td><span class="chip chip-warn">Plan design</span></td><td><span class="chip chip-warn">Codegen</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">Free → $250 mo</td><td>Engineering / data teams</td></tr>
+            <tr><td class="name">DataTrue</td><td>Governance</td><td><span class="chip chip-good">Pipeline tests</span></td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">$999 mo</td><td>Enterprise QA</td></tr>
+            <tr><td class="name">Tag Inspector</td><td>Governance</td><td><span class="chip chip-good">Tag inventory</span></td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">Quote</td><td>Enterprise</td></tr>
+            <tr><td class="name">Analyzify</td><td>Shopify</td><td><span class="chip chip-good">Pre-setup audit</span></td><td><span class="chip chip-good">Done-for-you</span></td><td><span class="chip chip-warn">Support</span></td><td class="n">$145–575 mo</td><td>Shopify merchants</td></tr>
+            <tr><td class="name">Elevar</td><td>Shopify</td><td><span class="chip chip-warn">Partial</span></td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">$0 / $200 / $450 / $950 mo</td><td>Shopify, 6,500+ brands</td></tr>
+            <tr><td class="name">Littledata</td><td>Shopify</td><td><span class="chip chip-good">Free checker</span></td><td><span class="chip chip-good">Data layer</span></td><td><span class="chip chip-good">Yes</span></td><td class="n">$0.35/order · $199 · $990 mo</td><td>Shopify merchants</td></tr>
+            <tr><td class="name">TagFly</td><td>Shopify</td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-good">Prebuilt GTM</span></td><td><span class="chip chip-warn">Partial</span></td><td class="n">App-store tiers, 4.9★</td><td>Shopify merchants</td></tr>
+            <tr><td class="name">Stape</td><td>Infra</td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-warn">Hosting</span></td><td><span class="chip chip-warn">Basic</span></td><td class="n">Free → $20 → $100+ mo</td><td>Anyone doing server-side</td></tr>
+            <tr><td class="name">Tag Companion</td><td>Templates</td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-warn">Import files</span></td><td><span class="chip chip-bad">No</span></td><td class="n">Low</td><td>DIY marketers</td></tr>
+            <tr><td class="name">GTM/GA4 MCP servers</td><td>Open source</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-good">Yes, via LLM</span></td><td><span class="chip chip-bad">No</span></td><td class="n">Free</td><td>Technical marketers</td></tr>
+            <tr><td class="name">Fiverr / Upwork</td><td>Labour</td><td><span class="chip chip-warn">Ad hoc</span></td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-bad">No</span></td><td class="n">$10–35 gig · $30/hr median</td><td>SMBs, one-offs</td></tr>
+            <tr><td class="name">White-label services (E2M, ALM, Measure Marketing Pro)</td><td>Labour</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-warn">Retainer</span></td><td class="n">Retainer / per-setup</td><td>Agencies reselling</td></tr>
+            <tr><td class="name">Consultancies (DataVinci, Krish, InfoTrust…)</td><td>Labour</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-warn">Retainer</span></td><td class="n">$1.5K–30K project · $150–250/hr</td><td>Mid-market &amp; enterprise</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tnote">Prices as published Aug 2026. JTracking and Flisk do not publish tier pricing — treat as unknown, not as absent.</p>
+
+      <h3>How each one actually acquires customers</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Motion</th><th>Who runs it</th><th>The mechanic</th><th>Can you copy it solo?</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Comparison-post SEO / AEO</td><td>NiceLookingData, Web Tonic</td><td>Publish an honest, sourced roundup that ranks competitors fairly — becomes the page both Google and LLMs cite when someone asks "best GA4 audit tool."</td><td><span class="chip chip-good">Yes — highest leverage</span></td></tr>
+            <tr><td class="name">Free audit → paid fix</td><td>GAfix, Flisk</td><td>Free scan surfaces problems, then sells remediation ($199–499). The audit is a qualification tool, not a product.</td><td><span class="chip chip-good">Yes — do this now</span></td></tr>
+            <tr><td class="name">White-label deliverable</td><td>GA4 Auditor, ALM, E2M</td><td>Sell agencies a branded PDF/PPT their client sees. The buyer is buying <em>looking competent</em>.</td><td><span class="chip chip-good">Yes — cheap to add</span></td></tr>
+            <tr><td class="name">App-store distribution</td><td>Analyzify, Elevar, Littledata, TagFly</td><td>Shopify App Store search ranking plus a review flywheel — see the breakdown below. Analyzify: 4.7★/272 reviews. Elevar: 6,500+ brands, 4.6★. TagFly: 4.9★.</td><td><span class="chip chip-bad">No — reviews are the moat</span></td></tr>
+            <tr><td class="name">Open-source credibility</td><td>JTracking</td><td>Published their agent on GitHub. Buys developer trust and inbound that a landing page can't.</td><td><span class="chip chip-warn">Maybe, later</span></td></tr>
+            <tr><td class="name">Enterprise sales-led</td><td>ObservePoint, Trackingplan, DataTrue</td><td>G2/Capterra presence, SDRs, 6-week onboardings, procurement.</td><td><span class="chip chip-bad">No</span></td></tr>
+            <tr><td class="name">VC logo as proof</td><td>JTracking (Bessemer, DCM)</td><td>Investor names on the homepage substitute for customer count in a trust-heavy category.</td><td><span class="chip chip-bad">No — substitute with named case studies</span></td></tr>
+            <tr><td class="name">Marketplace SEO</td><td>Fiverr / Upwork sellers</td><td>Rank on "GA4 setup" inside a marketplace with buyer intent already present.</td><td><span class="chip chip-warn">Only as a lead source, not a channel</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>How app-store distribution actually creates visibility</h3>
+      <p class="lede">Worth understanding properly, because it explains a contradiction in the traffic data and it's the one channel you can't copy.</p>
+
+      <p>Shopify has never published its algorithm, but the observed mechanics are a two-stage filter. <strong>Stage one decides whether you appear at all</strong> for a merchant's search — driven almost entirely by metadata: app title, subtitle, listing description, keyword fields. <strong>Stage two decides how high you rank</strong> among the eligible apps, and that's where the compounding happens:</p>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>Signal</th><th>How it behaves</th><th>Why it's a moat</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Review velocity</td><td>New reviews in the last ~30 days, weighted far above lifetime count. An app gaining 50 reviews in 30 days will outrank one sitting on 500 static reviews. Ranking responds within 2–3 weeks.</td><td>Rewards whoever is actively growing — but you need installs before you can have review velocity, and rank before you have installs.</td></tr>
+            <tr><td class="name">Install velocity</td><td>A rising install rate lifts rank even with no reviews at all.</td><td>The flywheel's ignition. Incumbents already spinning; a new app has to start it cold.</td></tr>
+            <tr><td class="name">Listing conversion rate</td><td>What share of merchants who see the listing actually install.</td><td>Incumbents have years of A/B-tested screenshots and copy. You'd start at their baseline from 2019.</td></tr>
+            <tr><td class="name">Retention / uninstall rate</td><td>Fast uninstalls undercut every signal above them.</td><td>This is why Analyzify bundles done-for-you setup at $145–575/mo. It isn't generosity — it's rank protection.</td></tr>
+            <tr><td class="name">Listing freshness</td><td>Listings updated every 30–60 days rank higher.</td><td>Cheap to copy, but worth nothing on its own.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout sig">
+        <h4>The contradiction this resolves — and a caveat on my own traffic analysis</h4>
+        <p>Analyzify gets only <strong>~22,000 visits a month</strong> to its own website, mostly on brand-name searches. Elevar gets ~30,000. Yet Elevar serves <strong>6,500+ brands</strong>. Those numbers don't reconcile — until you realise <strong>their acquisition doesn't happen on the open web at all.</strong> It happens inside Shopify's own search box, where a merchant with active buying intent types "google analytics" and picks from a ranked list. Similarweb cannot see any of that.</p>
+        <p><strong>So the honest caveat on <a href="#market">section 03</a>:</strong> my "this category has almost no inbound demand" finding is true <em>of the open web</em>. Shopify's in-store search is a real, sizeable demand pool that is simply invisible to every traffic tool. It does not change the recommendation — you would be entering against 4.6–4.9★ incumbents with thousands of installs and years of review velocity, which is precisely the moat you cannot cross solo — but it does mean the Shopify players are bigger businesses than their web traffic suggests. Don't read their small traffic numbers as weakness.</p>
+      </div>
+
+      <div class="callout">
+        <h4>The one gap the whole table exposes</h4>
+        <p><strong>Nobody sells continuous, auto-remediated tracking to the agency that manages 20 clients' ad spend.</strong> Audit SaaS hands over a report. Shopify apps only work on Shopify. Monitoring SaaS starts at $249/mo and is built for a data team that already has a tracking plan. Consultants fix it once, then it rots. The two AI agents that do deploy are both aimed at the in-house team on a single site — <em>JTracking literally prices one site per plan.</em> The portfolio operator is unserved.</p>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 03 MARKET MAP ================= -->
+    <section id="market">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Market map and country choice</h2></div>
+      <p class="sec-sub">Measured, not reasoned. Traffic estimates for every competitor, installed base and ad spend by country, and the one finding that changes the channel plan.</p>
+
+      <h3>How much inbound demand this category actually has</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Site</th><th>What it is</th><th>Monthly visits</th><th>Global rank</th><th>Tell</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Stape.io</td><td>Server-side GTM hosting</td><td class="n">~101,000</td><td class="n">#131,360</td><td>58.9% direct. Infrastructure, not a competitor.</td></tr>
+            <tr><td class="name">Analytics Mania</td><td>Education / blog</td><td class="n">~45,000</td><td class="n">#328,104</td><td>57.9% organic, 3.4K keywords. Sells nothing like your product.</td></tr>
+            <tr><td class="name">Elevar</td><td>Shopify tracking</td><td class="n">~30,000</td><td class="n">—</td><td>45.2% direct — an installed base, not new demand.</td></tr>
+            <tr><td class="name">Analyzify</td><td>Shopify tracking</td><td class="n">~22,000</td><td class="n">#551,309</td><td>Brand-name keywords only.</td></tr>
+            <tr><td class="name">MeasureSchool</td><td>Education / courses</td><td class="n">~16,000</td><td class="n">#703,583</td><td>Declining 8.9% MoM.</td></tr>
+            <tr><td class="name">GAfix.ai</td><td>GA4+GTM audit</td><td class="n">~13,500</td><td class="n">#955,298</td><td><span class="chip chip-bad">77.7% paid · 90% bounce · 4-second visits</span></td></tr>
+            <tr><td class="name">Littledata</td><td>Shopify data layer</td><td class="n">~13,000</td><td class="n">#821,937</td><td>Brand keywords.</td></tr>
+            <tr><td class="name">ObservePoint</td><td>Enterprise governance</td><td class="n">~12,300</td><td class="n">#542,539</td><td>78.5% direct, 73% US. Sales-led, as expected.</td></tr>
+            <tr><td class="name">Trackingplan</td><td>Monitoring SaaS</td><td class="n">~7,500</td><td class="n">#1,277,964</td><td>100% organic but only 454 keywords. VC-backed, $249–1,750/mo.</td></tr>
+            <tr><td class="name">GA4 Auditor</td><td>GA4 audit</td><td class="n">negligible</td><td class="n">#5,152,382</td><td>Below measurable.</td></tr>
+            <tr><td class="name">JTracking</td><td>AI agent · Bessemer-backed</td><td class="n">negligible</td><td class="n">#4,014,969</td><td><span class="chip chip-sig">100% Singapore · 92.9% direct</span> — funded, zero organic demand.</td></tr>
+            <tr><td class="name">NiceLookingData</td><td>GA4+GTM audit</td><td class="n">negligible</td><td class="n">#10,362,993</td><td>Publishes the best comparison content in the category and still has no traffic.</td></tr>
+            <tr><td class="name">Flisk.ai</td><td>AI agent · seed-funded</td><td class="n">no data</td><td class="n">unranked</td><td><span class="chip chip-sig">Too small for Similarweb to measure at all.</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tnote">Similarweb estimates, July 2026, 3-month averages divided to monthly. Treat as order-of-magnitude, not precision. The large Vietnam / Nigeria / Cambodia / Indonesia / Poland shares reported across several of these domains are almost certainly proxy and bot traffic — which means real human buyer traffic is <em>smaller</em> than the figures above, not larger.</p>
+
+      <div class="callout bad">
+        <h4>The finding: this is a push market with almost no pull</h4>
+        <p>The biggest pure-play tool in the category gets <strong>7,500 visits a month</strong>. The two funded AI competitors that worried me most in section 01 have, between them, <strong>no measurable organic demand at all</strong>. Three consequences, all of which change the plan:</p>
+        <ul>
+          <li><strong>Content and SEO cannot be a primary channel.</strong> Win the entire "GA4 audit tool" search category and you inherit a few thousand visits a month. At a 2% trial rate and 20% close, that's fewer than 10 customers a year. Build the content for LLM citation and credibility — never as your acquisition engine.</li>
+          <li><strong>Paid acquisition is disproven in-category, with evidence.</strong> GAfix is running 77.7% paid traffic and getting a <strong>90% bounce rate on 4-second visits</strong>. They are buying traffic that does not convert. That's a stronger argument against paid than my CAC arithmetic was.</li>
+          <li><strong>Funding is not distribution here.</strong> JTracking has Bessemer and DCM and 92.9% direct traffic from a single country. Flisk is unmeasurable. Nobody has won distribution yet. That is your actual opening — and it closes the moment one of them builds an outbound motion.</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <h4>Where the attention actually is</h4>
+        <p>Analytics Mania (~45K/mo) + Stape (~101K/mo) + MeasureSchool (~16K/mo) = roughly <strong>162,000 monthly visits of precisely your audience</strong> — practitioners who touch GTM every week. None of the three sells an audit or deployment tool. They are education and infrastructure, which makes them complements, not competitors.</p>
+        <p>That is 12× the combined traffic of every audit tool in the market. Sponsorship, guest content, a Stape integration, or a tool listing on those properties is the only inbound lever in this category with real volume behind it — and it costs a conversation, not a media budget.</p>
+      </div>
+
+      <h3>Market size, stated honestly</h3>
+      <div class="stats">
+        <div class="stat"><span class="figure">45.5%</span><span class="cap">of all websites run GTM — 99.6% of those with any tag manager</span><span class="src">w3techs, Aug 2026</span></div>
+        <div class="stat"><span class="figure">$836B</span><span class="cap">global digital ad spend, 2026 — 68.7% of all advertising</span><span class="src">dentsu</span></div>
+        <div class="stat"><span class="figure">$167–251B</span><span class="cap">of that distorted by broken tracking, at 20–30%</span><span class="src">Derived</span></div>
+        <div class="stat"><span class="figure">140,023</span><span class="cap">agencies across US + UK + Australia</span><span class="src">IBISWorld</span></div>
+      </div>
+      <p>The revenue-side market — tag management software — is <strong>$1.74–1.86B in 2026, growing 12–15.6% a year</strong>. Your six-month goal of 12 customers is <span class="num">0.0086%</span> of the UK agency list alone. <strong>TAM is not your constraint and never will be. Sizing this market further is procrastination; the constraint is entirely distribution.</strong></p>
+
+      <div class="callout bad">
+        <h4>Correction: the "how many sites run GTM" number is not trustworthy, and I shouldn't have quoted one</h4>
+        <p>An earlier version of this document used two different figures — 10.6M active domains and 31.3M live sites. That inconsistency is real, and it's not a transcription error. The trackers genuinely disagree, because they crawl different populations and define "a website" differently:</p>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Source</th><th>Figure</th><th>What it's actually counting</th></tr></thead>
+            <tbody>
+              <tr><td class="name">w3techs</td><td class="n">45.5% of all sites</td><td>Percentage, not a count. Surveys the top ~10M sites by traffic. The most methodologically transparent of the three.</td></tr>
+              <tr><td class="name">Active-domain trackers</td><td class="n">10,584,793</td><td>Domains where GTM was detected on a recent crawl of live, resolving sites.</td></tr>
+              <tr><td class="name">BuiltWith (secondary reports)</td><td class="n">31.4M – 64.2M</td><td>Mixes "ever detected" with "currently live." Its own secondary reports contradict each other — one puts US sites at 1.5M, another at 3,858,130; UK at 400,000 in one and 1,412,352 in another. A 2.6–3.5× spread on the same metric.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>What is consistent across every source,</strong> and therefore usable: GTM holds <strong>98.5–99.6%</strong> of the tag-manager market, <strong>73.5%</strong> of the top 1M sites run it, and the country ordering is stable (US far ahead, then UK, then Brazil/Germany/Japan/France/Netherlands, then India).</p>
+        <p><strong>Why it doesn't matter:</strong> whether the real figure is 5M or 43M, your target is twelve customers. The only population count that should drive a decision here is the <strong>agency count</strong> — and that comes from IBISWorld business registries, which count registered companies rather than inferring technology from a crawl. Use 114,014 / 17,636 / 8,373. Ignore the site counts.</p>
+      </div>
+
+      <h3>Country scorecard</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Country</th><th>Live GTM sites</th><th>Agencies</th><th>Digital ad spend 2026</th><th>Spend per agency</th><th>At risk (20–30%)</th><th>Price realised</th><th>Cold email</th><th>IST overlap</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">United States</td><td class="n">3,858,130</td><td class="n">114,014</td><td class="n">~$320B</td><td class="n">$2.81M</td><td class="n">$64–96B</td><td><span class="chip chip-good">Full USD</span></td><td><span class="chip chip-good">CAN-SPAM</span></td><td><span class="chip chip-bad">6:30–10:30pm only</span></td>
+            </tr>
+            <tr>
+              <td class="name">United Kingdom</td><td class="n">1,412,352</td><td class="n">17,636</td><td class="n">$34B</td><td class="n">$1.93M</td><td class="n">$6.8–10.2B</td><td><span class="chip chip-good">Full USD</span></td><td><span class="chip chip-good">PECR B2B</span></td><td><span class="chip chip-good">1:30–9:30pm</span></td>
+            </tr>
+            <tr>
+              <td class="name">Australia</td><td class="n">&lt;736,000</td><td class="n">8,373</td><td class="n">$16.88B</td><td class="n">$2.02M</td><td class="n">$3.4–5.1B</td><td><span class="chip chip-good">Full USD</span></td><td><span class="chip chip-warn">Spam Act care</span></td><td><span class="chip chip-good">Before work</span></td>
+            </tr>
+            <tr>
+              <td class="name">India</td><td class="n">667,555</td><td class="n">~10,000–11,431</td><td class="n">$14.56B</td><td class="n">$1.27–1.46M</td><td class="n">$2.9–4.4B</td><td><span class="chip chip-bad">2–3× discount</span></td><td><span class="chip chip-good">Permitted</span></td><td><span class="chip chip-good">Same zone</span></td>
+            </tr>
+            <tr>
+              <td class="name">Brazil</td><td class="n">970,170</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td><span class="chip chip-bad">Heavy discount</span></td><td><span class="chip chip-warn">LGPD</span></td><td><span class="chip chip-bad">Inverted</span></td>
+            </tr>
+            <tr>
+              <td class="name">Germany</td><td class="n">842,968</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td><span class="chip chip-good">Full</span></td><td><span class="chip chip-bad">GDPR</span></td><td><span class="chip chip-good">Good</span></td>
+            </tr>
+            <tr>
+              <td class="name">Japan · France · Netherlands</td><td class="n">817K · 754K · 736K</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td><span class="chip chip-good">Full</span></td><td><span class="chip chip-bad">Language / GDPR</span></td><td><span class="chip chip-warn">Mixed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tnote">GTM counts: BuiltWith live-domain data. Australia does not appear in BuiltWith's top eight, so its true figure sits below the Netherlands' 736,226. Agencies: IBISWorld advertising-agency counts (US 114,014, +4.4% YoY; UK 17,636, +1.7%; AU 8,373 digital agencies); India from GoodFirms and industry counts, which are looser. Spend per agency = digital ad spend ÷ agency count — a proxy for how much client money the average agency is accountable for.</p>
+
+      <h3>The call, revised</h3>
+      <div class="decks">
+        <div class="deck hero">
+          <span class="k">Primary beachhead</span>
+          <span class="v">United Kingdom.</span>
+          <span class="why">17,636 agencies is <strong>1,470× your 12-customer target</strong> — you do not need a bigger list, you need a converting one. It pays full USD-equivalent with no PPP discount. <strong>PECR gives the clearest legal permission for B2B cold email of any market on this table.</strong> And the UK working day is 1:30–9:30pm IST, which is the only large English-speaking market you can work properly around a full-time job.</span>
+        </div>
+        <div class="deck">
+          <span class="k">Parallel test, from week one</span>
+          <span class="v">Australia.</span>
+          <span class="why">Fastest-growing of the four — digital ad spend up 12.7% annually, and Q1 2026 internet advertising hit a record A$4.9B, up 15.3% year on year. $2.02M of client ad spend per agency, higher than the UK. Least-contested by competitors. Small list (8,373), so run it alongside the UK rather than instead of it, and work it before your INC42 day starts.</span>
+        </div>
+        <div class="deck">
+          <span class="k">Scale market, from month 4</span>
+          <span class="v">United States.</span>
+          <span class="why">114,014 agencies, $320B of digital ad spend, $64–96B of it distorted — nine times the UK on every axis, and the market every competitor already concentrates in (US is the #1 traffic source for ObservePoint at 73%, GAfix at 45.5%, Trackingplan at 18.3%). Enter it with a message that has already been proven to convert somewhere cheaper. Do not learn on the most-cold-emailed market on earth.</span>
+        </div>
+        <div class="deck">
+          <span class="k">Run in parallel, priced in INR</span>
+          <span class="v">India.</span>
+          <span class="why">Revised: with your billing stack already handling GST, UPI and INR, India is a viable second market at <strong>₹4,999/mo</strong> — not a design-partner pool. Expect ~3.5× lower revenue per customer, at near-zero acquisition cost through your network. Indian agencies whose clients are Western are the sweet spot: they bill in hard currency, so they'll pay the USD price. Full working below.</span>
+        </div>
+      </div>
+
+      <h3>The India question, answered properly</h3>
+
+      <div class="callout sig">
+        <h4>Revised — you already have GST, UPI and multi-currency billing</h4>
+        <p>That removes four of the five barriers I listed. Payment rails, GST input credit, INR pricing and billing-failure churn are <strong>solved problems for you</strong>, not arguments. Strike them. What's left is one real argument, and it's the important one anyway.</p>
+      </div>
+
+      <h4>The one argument that survives: your product replaces labour, and Indian labour is cheap</h4>
+      <p class="lede">Nexloid's value is hours of analyst time it removes. So its worth is set by what an hour of that person costs — and that varies about 5–10× by country.</p>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>Market</th><th>What a GA4/GTM person costs</th><th>Effective hourly</th><th>Value of 2 hrs saved per client/month</th><th>Cost at $199 for 25 clients</th><th>Return</th></tr></thead>
+          <tbody>
+            <tr><td class="name">United States</td><td class="n">$114,320 avg salary<br>($100.5K–134.5K)</td><td class="n">~$55/hr</td><td class="n">$110</td><td class="n">$7.96/client</td><td class="n"><strong>13.8×</strong></td></tr>
+            <tr><td class="name">United Kingdom</td><td class="n">£225–250/day contractor<br>(~£32K salary)</td><td class="n">~$38/hr</td><td class="n">$76</td><td class="n">$7.96/client</td><td class="n"><strong>9.5×</strong></td></tr>
+            <tr><td class="name">India</td><td class="n">₹6–12L mid-level<br>(₹3–15L range)</td><td class="n">~$10/hr</td><td class="n">$20</td><td class="n">$7.96/client</td><td class="n"><strong>2.5×</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Read that table like this</h4>
+      <ul>
+        <li>Nexloid saves the agency roughly <strong>2 hours of analyst work per client per month</strong> — the audit, the tag build, the re-check.</li>
+        <li>In the US those 2 hours cost the agency <strong>$110</strong>. In India the same 2 hours cost <strong>$20</strong>. The work is identical; the wage isn't.</li>
+        <li>You charge $199/mo for 25 clients — <strong>$7.96 per client per month</strong>, the same everywhere.</li>
+        <li>So the US agency gets <strong>$110 of value for $7.96</strong>. The Indian agency gets <strong>$20 for $7.96</strong>.</li>
+      </ul>
+      <p><strong>That's the whole argument, and it's the honest version of the confusing "4.4× heavier" line from the last draft — which was measuring the wrong thing.</strong> Share of revenue was a weak proxy. This is the real mechanism: <em>a labour-replacing product is worth what the labour costs, and Indian analytics labour costs about a fifth of American.</em> The Indian agency isn't being stubborn about price; the maths genuinely gives them less reason to buy.</p>
+
+      <div class="callout">
+        <h4>Which changes the verdict, not just the reasoning</h4>
+        <p>With billing solved, India goes from <em>"design partners only"</em> to <strong>a viable second market — provided you price it in INR at a level that restores the return.</strong></p>
+        <ul>
+          <li><strong>₹4,999/mo Agency</strong> (25 properties) ≈ $57 → $2.28 per client → against $20 of saved labour that's an <strong>8.8× return</strong>, comparable to the UK's 9.5×. The ROI story works again.</li>
+          <li><strong>₹1,499/mo Solo</strong> (3 properties) as the entry tier.</li>
+          <li>Expect roughly <strong>3.5× lower revenue per customer</strong> than the UK. Fine — Indian customers cost you almost nothing to acquire.</li>
+        </ul>
+        <p><strong>So run both, because they consume different resources.</strong> India costs relationship time, which is free and which only you have. The UK costs the ₹50K outbound stack. They are not competing for the same rupee, and India will produce revenue in weeks where the UK produces it in months.</p>
+        <p><strong>The sequencing logic still holds for where to spend money:</strong> the UK converts on a 9.5× ROI story at 3.5× the price, so that's where the outbound budget goes. India is where the phone calls go.</p>
+      </div>
+
+      <p class="tnote">India's ad market is not the constraint — ₹71,621 cr digital in 2025 heading to ₹98,034 cr by 2027 (~$14.56B in 2026; sources vary, one puts it at $8.6B growing 21% YoY). Ad spend managed per Indian agency is $1.27–1.46M against $1.93M in the UK and $2.81M in the US, so the value-at-risk pitch is proportionally weaker too — but at ₹4,999 that's priced in.</p>
+
+      <div class="callout sig">
+        <h4>The version of India that does work: Indian agencies with Western clients</h4>
+        <p>India has <strong>12,000+ registered digital marketing agencies</strong> and a large white-label export industry servicing agencies and brands in the US, UK, Canada, Australia and the UAE. That segment breaks every barrier above:</p>
+        <ul>
+          <li><strong>They bill in USD or GBP,</strong> so there is no PPP problem and no forex objection — you're a cost against hard-currency revenue.</li>
+          <li><strong>Their clients' sites are Western sites,</strong> so the value-at-risk arithmetic runs at US/UK ad-spend levels, not Indian ones.</li>
+          <li><strong>They are in your timezone, in your language, in your network.</strong> They will take the call. Nobody else on this list will, for free, in week one.</li>
+          <li><strong>Their core anxiety is looking competent to a Western client.</strong> That is precisely what a white-label tracking report sells.</li>
+        </ul>
+        <p><strong>Caveat, stated plainly:</strong> this segment is smaller, harder to filter (you have to check whether their client logos are Western), and the most price-sensitive buyers you will meet. Quote them the same USD price as everyone else. If they won't pay it, that's information — not a reason to discount.</p>
+      </div>
+
+      <h3>Why not the US first, when it's nine times bigger</h3>
+      <ul>
+        <li><strong>You don't need scale, you need signal.</strong> Twelve customers. The UK list is 1,470× that. Market size stops mattering once it exceeds your need by three orders of magnitude.</li>
+        <li><strong>It's the most saturated inbox market in the world,</strong> and you'd be learning your message, your ICP and your deliverability all at once, in the hardest conditions available.</li>
+        <li><strong>The timezone tax is real.</strong> US working hours give you a four-hour window starting at 6:30pm IST, after a full day at INC42. UK gives you eight hours starting at 1:30pm and Australia gives you a clean morning.</li>
+        <li><strong>It's where every competitor already is.</strong> US is the top traffic source for ObservePoint (73%), GAfix (45.5%) and Trackingplan (18.3%). Fight there when you have a proven message, not before.</li>
+      </ul>
+
+      <h3>How to focus, concretely</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Window</th><th>Market</th><th>Volume</th><th>Where the list comes from</th><th>Working hours (IST)</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Weeks 1–3</td><td>India</td><td class="n">10–15 design partners</td><td>Your own network. Free, in exchange for before/after data.</td><td class="n">Anytime</td></tr>
+            <tr><td class="name">Weeks 4–12</td><td>UK</td><td class="n">80–100 emails/week</td><td>Clutch UK, Semrush Agency Partners UK, Google Partners UK, Sortlist UK</td><td class="n">1:30–9:30pm</td></tr>
+            <tr><td class="name">Weeks 4–12</td><td>Australia</td><td class="n">25–30 emails/week</td><td>Clutch AU, Semrush AU, IBISWorld-scale long tail</td><td class="n">7:00am–12:30pm</td></tr>
+            <tr><td class="name">Weeks 13–24</td><td>US</td><td class="n">150+ emails/week</td><td>Clutch US, Google Partners US, G2/Capterra reviewers of competitors</td><td class="n">6:30–10:30pm</td></tr>
+            <tr><td class="name">Ongoing</td><td>Canada, EU, Ireland, NZ</td><td class="n">LinkedIn only</td><td>Sales Navigator</td><td class="n">Async</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout sig">
+        <h4>What I'd change in the plan because of this section</h4>
+        <ul>
+          <li><strong>Market:</strong> "US + UK + Australia" was too vague. It's <strong>UK primary, Australia parallel, US at month 4.</strong></li>
+          <li><strong>Content timing:</strong> the error-library and comparison pages move from a phase-3 growth channel to a <strong>credibility asset</strong> — build them so an LLM and a sceptical prospect can find you, not to generate leads. The traffic isn't there.</li>
+          <li><strong>Add a channel:</strong> co-marketing with Stape, Analytics Mania and MeasureSchool. 162K monthly visits of your exact audience, all complementary, none of them selling what you sell.</li>
+          <li><strong>Paid ads:</strong> now disproven in-category rather than just unaffordable. GAfix's 90% bounce on 77.7% paid traffic is the evidence.</li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 04 POSITIONING ================= -->
+    <section id="positioning">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Positioning</h2></div>
+      <p class="sec-sub">One statement, three competitive alternatives, and the claims you are not allowed to make.</p>
+
+      <h3>The statement</h3>
+      <div class="callout sig">
+        <p><strong>For performance and web agencies</strong> who manage paid media for a portfolio of SMB clients and cannot justify a full-time analytics engineer,<br>
+        <strong>Nexloid is a tracking implementation agent</strong> that scans every client site, deploys the missing events straight into a reviewable GTM workspace, and re-checks them every week.<br>
+        <strong>Unlike audit tools</strong> that hand you a 40-page PDF you still have to action, <strong>or monitoring platforms</strong> priced for enterprise data teams,<br>
+        <strong>Nexloid closes the loop</strong> — diagnose, deploy, verify — across the whole portfolio, on one invoice.</p>
+      </div>
+
+      <h3>Category you are claiming</h3>
+      <p><span class="chip chip-flat">Not this</span> &nbsp;"AI analytics setup tool" — occupied by two funded companies and instantly commoditised by free MCP servers.</p>
+      <p><span class="chip chip-sig">This</span> &nbsp;<strong>Tracking assurance.</strong> The promise isn't speed of setup; it's that a number in a client report can be defended. That reframes the buyer from "someone who needs a task done" to "someone carrying risk" — and risk buys subscriptions.</p>
+
+      <h3>Beating each competitive alternative</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>They'd otherwise…</th><th>Their weakness (evidenced)</th><th>Your line</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Buy an audit tool</td><td>NiceLookingData explicitly won't touch a live container — fixes land in a sandbox copy for you to review and publish. GA4 Auditor doesn't audit GTM at all. GAfix sells you humans for the fix.</td><td>"A report is a to-do list. We hand back a published, versioned change and a re-test that proves it fired."</td></tr>
+            <tr><td class="name">Hire a freelancer per client</td><td>$10–35/gig sounds cheap until it's 20 clients, no documentation, no re-check, and a new person each time. Quality varies, nothing is monitored.</td><td>"Twenty clients, one dashboard, and a weekly re-check nobody has to remember to run."</td></tr>
+            <tr><td class="name">Do nothing</td><td>48% of sites carry a Consent Mode misconfiguration; broken tracking distorts 20–30% of ad budget; one documented account lost 90% of measured conversions overnight and never recovered ~60% of it.</td><td>"You're optimising bids against data you've never verified. Here's what's broken on [their client] right now."</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Proof you must be able to show before you charge</h3>
+      <ul>
+        <li><strong>Before/after conversion counts</strong> on three real properties — the only proof that survives scrutiny in this category.</li>
+        <li><strong>A named rollback story:</strong> every change lands as a named GTM workspace version. Show the version history screen.</li>
+        <li><strong>Time saved, measured:</strong> "audit + fix + verify for one client in 11 minutes vs. 4 hours manual" — consultants quote 3–4 hours per audit.</li>
+        <li><strong>A permissions page</strong> before anyone is asked for OAuth. This is the #1 objection you will hit.</li>
+      </ul>
+
+      <div class="callout bad">
+        <h4>Claims to never make</h4>
+        <ul>
+          <li><strong>A precision accuracy figure</strong> ("98% accurate", "99% of purchases"). Competitors do it; you can't substantiate it yet, and one sophisticated buyer disproving it kills your credibility in a small, gossipy market.</li>
+          <li><strong>"Replaces your analytics agency."</strong> Agencies are your <em>buyers</em>. Do not position against the people you're selling to.</li>
+          <li><strong>"Fully automatic."</strong> In a category where the failure mode is "you broke my live tracking," automation without a review gate reads as a threat, not a feature.</li>
+          <li><strong>"AI-powered" as the lead.</strong> Every single competitor says it. It carries zero information in Aug 2026.</li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 04 ICP ================= -->
+    <section id="icp">
+      <div class="sec-head"><span class="sec-num">05</span><h2>ICP: who buys first</h2></div>
+      <p class="sec-sub">First the buyer model — agency, brand, or both — because the last version left it ambiguous. Then the segment scoring.</p>
+
+      <h3>Agency or brand? Three different businesses, not one</h3>
+      <p class="lede">These get conflated constantly. They have different customers, different economics and different build requirements.</p>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>Model</th><th>Who pays you</th><th>ACV</th><th>Evidence for</th><th>Evidence against</th><th>When</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">A · Agency is the customer</td>
+              <td>The agency, one invoice, covering all their clients</td>
+              <td class="n">$199–499/mo<br>($2,388–5,988)</td>
+              <td>All three audit competitors ship an explicit agency tier (NiceLookingData $199/mo, GA4 Auditor $999/yr, Trackingplan "For Agencies") — the market has already validated who pays. Agencies spend <strong>7–10% of revenue on software</strong> and run ~12 subscriptions, so $199 fits an existing budget line. And they mark software up <strong>15–50%</strong> or bundle it into retainers — meaning your cost can become their revenue.</td>
+              <td>Churns when they lose clients. Seats go under-used. Price-sensitive by nature.</td>
+              <td><span class="chip chip-good">Now</span></td>
+            </tr>
+            <tr>
+              <td class="name">B · Agency is the channel</td>
+              <td>The brand, sold and supported by the agency</td>
+              <td class="n">$49–99/mo × many</td>
+              <td>Partner-sourced customers churn <strong>20–30% lower</strong>, retain <strong>58% better</strong>, close <strong>46% faster</strong>, carry <strong>40% higher order value</strong>, win <strong>53% more often</strong>, at up to <strong>50% lower CAC</strong> than direct deals.</td>
+              <td>Requires model A to exist first, plus sub-accounts, white-label and split billing. Not buildable in month one.</td>
+              <td><span class="chip chip-warn">Month 4–6</span></td>
+            </tr>
+            <tr>
+              <td class="name">C · Brand direct, subscription</td>
+              <td>The brand</td>
+              <td class="n">$49/mo<br>($588)</td>
+              <td>—</td>
+              <td><strong>The arithmetic fails.</strong> SMB CAC runs $200–700 in 2026 against a $588 ACV. Sub-$5K ACV companies post an 11-month median CAC payback. The benchmark's own conclusion is that sub-$50/mo products need product-led growth or referral — and <a href="#market">section 03</a> proves this category has no inbound demand to power PLG with.</td>
+              <td><span class="chip chip-bad">Not as a primary motion</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout sig">
+        <h4>The answer: A now, B from month 4, C only through warm channels</h4>
+        <ul>
+          <li><strong>Cold outbound goes to agencies only.</strong> One conversation buys you 25 properties instead of one, at 4× the ACV for the same acquisition effort. That is the whole reason this is solo-feasible.</li>
+          <li><strong>Brands are welcome — but only for the $299 one-time Rescue, and only warm.</strong> A one-time purchase has no payback period to recover, closes on a single demo, and is how you manufacture the before/after case studies that make the agency pitch credible. Source them from your network, design-partner referrals, and the free scanner. <strong>Never buy a brand through paid outbound at $49/mo</strong> — the CAC benchmark says you'd lose money on every one.</li>
+          <li><strong>Build for B while selling A.</strong> Sub-accounts and the white-label report are the same feature set that turns your 4 agency customers into a distribution network later. Ship them in the Agency tier from day one.</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <h4>One honest caveat on the partner data</h4>
+        <p>The 20–30% churn and 46% faster-close figures describe <strong>partner-sourced</strong> customers — model B, where a partner refers a customer to you. They are not direct evidence about model A, where the agency itself is the subscriber. I'm recommending A first on different grounds: ACV per acquisition conversation, the existence of agency tiers across every competitor, and the fact that agency software budgets already exist. Treat the partner statistics as the reason to <em>build toward</em> B, not as proof that A retains well. Watch agency logo churn closely in months 3–6; it's the number most likely to surprise you.</p>
+      </div>
+
+      <h3>Segment scorecard</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Segment</th><th>Pain</th><th>Ability to pay</th><th>Solo reach</th><th>Whitespace</th><th>Fit with what's built</th><th>Total</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Performance / web agencies &amp; GA4 freelancers</td><td class="n">5</td><td class="n">4</td><td class="n">5</td><td class="n">3</td><td class="n">5</td><td class="n"><strong>22</strong></td><td><span class="chip chip-good">Beachhead</span></td></tr>
+            <tr><td class="name">Mid-market lead-gen SMB (non-ecom, real ad spend)</td><td class="n">5</td><td class="n">4</td><td class="n">2</td><td class="n">4</td><td class="n">4</td><td class="n"><strong>19</strong></td><td><span class="chip chip-warn">Phase 2, via agencies</span></td></tr>
+            <tr><td class="name">India D2C / startups</td><td class="n">4</td><td class="n">2</td><td class="n">5</td><td class="n">4</td><td class="n">4</td><td class="n"><strong>19</strong></td><td><span class="chip chip-sig">Design partners, not revenue</span></td></tr>
+            <tr><td class="name">Shopify D2C merchants</td><td class="n">4</td><td class="n">5</td><td class="n">3</td><td class="n">1</td><td class="n">2</td><td class="n"><strong>15</strong></td><td><span class="chip chip-bad">Avoid</span></td></tr>
+            <tr><td class="name">Enterprise / multi-domain</td><td class="n">4</td><td class="n">5</td><td class="n">1</td><td class="n">2</td><td class="n">2</td><td class="n"><strong>14</strong></td><td><span class="chip chip-bad">Avoid</span></td></tr>
+            <tr><td class="name">Product / data teams with a data layer</td><td class="n">3</td><td class="n">4</td><td class="n">2</td><td class="n">2</td><td class="n">2</td><td class="n"><strong>13</strong></td><td><span class="chip chip-bad">Avoid</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tnote">Scored 1–5. Whitespace = inverse of how entrenched the incumbents are. Fit = how much of the value comes from what you've already built (scrape + audit + GTM auto-install).</p>
+
+      <h3>Why the losers lose</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Segment</th><th>The disqualifying fact</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Shopify D2C</td><td>Solved and defended. Elevar (6,500+ brands, 4.6★), Analyzify (4.7★, 272 reviews, $145–575/mo), Littledata, TagFly (4.9★), WeltPixel all sit on an app-store review moat you cannot rebuild solo. And they win on server-side/checkout depth, not GTM audits — which is not what you built.</td></tr>
+            <tr><td class="name">Enterprise</td><td>ObservePoint's own onboarding is six weeks and it averages ~$72K/yr. That is a sales-team business. You have one person.</td></tr>
+            <tr><td class="name">Product/data teams</td><td>Avo and Trackingplan already serve them, and this buyer <em>has</em> engineers — your auto-deploy is worth less to someone who can write the tag themselves.</td></tr>
+            <tr><td class="name">India, at USD pricing</td><td>Not disqualified — <strong>mispriced</strong>. Nexloid replaces analyst hours, and an Indian GA4 hour costs ~$10 against ~$55 in the US, so $199/mo returns 2.5× in India versus 13.8× in the US. Fix it with price, not exclusion: <strong>₹4,999/mo</strong> restores an 8.8× return. See <a href="#market">section 03</a>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The beachhead, defined tightly enough to build a list from</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Attribute</th><th>Filter</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Firm type</td><td>Performance marketing, PPC, web-design-with-retainer, or solo GA4/GTM consultant</td><td>They touch GTM as routine work and carry the blame when numbers are wrong.</td></tr>
+            <tr><td class="name">Size</td><td>2–30 staff; 5–50 active clients</td><td>Big enough for portfolio pain, small enough that the founder buys on a demo call, not procurement.</td></tr>
+            <tr><td class="name">Geography</td><td>UK first, Australia in parallel, US from month 4 (email) · Canada, Ireland, NZ, Singapore, UAE, EU (LinkedIn only)</td><td>USD pricing, no PPP discount. Sequenced on list size, legal permission and IST overlap — see <a href="#market">section 03</a>. Canada's CASL requires prior consent for commercial email.</td></tr>
+            <tr><td class="name">Client type</td><td>Lead-gen SMB: home services, dental/med, legal, education, local B2B, small SaaS</td><td>Not Shopify — those clients already have Elevar/Analyzify. Lead-gen tracking (forms, calls, bookings) has no app-store solution at all.</td></tr>
+            <tr><td class="name">Signal to look for</td><td>Publishes client logos · runs Google Ads for clients · has a "GA4" or "tracking" service page · listed on Clutch/Semrush/Sortlist/Google Partners</td><td>Client logos are your pre-scan targets. This is what makes your outbound work.</td></tr>
+            <tr><td class="name">Disqualify</td><td>&gt;50 staff · enterprise-only clients · Shopify-only shops · already selling their own analytics product</td><td>Wrong price point, wrong buyer, or a competitor.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <h4>The economics of picking agencies</h4>
+        <p>One agency at $199/mo covering 25 properties earns you <span class="num">$8/property</span> — but it's <strong>one</strong> sale, <strong>one</strong> onboarding, <strong>one</strong> support relationship, and it drags in 25 live sites' worth of product feedback. Selling the same $199 to 4 individual SMBs at $49 is four times the CAC and four times the churn surface. Against a market of <span class="num">433,400</span> agencies, you need <span class="num">0.003%</span> of them to hit your six-month goal.</p>
+      </div>
+
+      <h3>What India is for</h3>
+      <ul>
+        <li><strong>Design partners:</strong> 10–15 Indian D2C brands, startups and agencies from your own network. Free, in exchange for a recorded before/after and permission to name them. This is the fastest route to the proof you can't buy.</li>
+        <li><strong>Reference material:</strong> Indian agencies will tell you the truth on a call in a way a cold US prospect won't.</li>
+        <li><strong>Not:</strong> your pricing anchor, your case-study logos for US outbound (use them only if the brand is internationally recognisable), or your revenue base in months 1–6.</li>
+      </ul>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 05 PRICING ================= -->
+    <section id="pricing">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Pricing</h2></div>
+      <p class="sec-sub">Every number below is anchored to a competitor's published price, not to a margin target.</p>
+
+      <h3>Value metric</h3>
+      <p><strong>Connected property per month.</strong> It grows exactly as an agency grows, it's countable, it's the unit the buyer already thinks in ("I have 22 clients"), and it can't be gamed the way "audits" or "events" can.</p>
+      <p><span class="chip chip-bad">Reject</span> <strong>Per audit.</strong> GAfix sells one at $49 and gives away a free tier. Competing on audit count races you to zero.<br>
+      <span class="chip chip-bad">Reject</span> <strong>Per event / per request.</strong> JTracking prices this way and it makes the bill unpredictable — the top complaint pattern across every usage-priced tool in this space.</p>
+
+      <h3>The ladder</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Tier</th><th>Price</th><th>Includes</th><th>Anchored against</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Scan</td><td class="n">$0, no login</td><td>1 site, public-page scan, health score, top 5 issues named. No GA4/GTM connection required.</td><td>GAfix free (11+7 checks), NiceLookingData free (3/mo). You must match this to exist in the consideration set — and no-login beats both.</td></tr>
+            <tr><td class="name">Solo</td><td class="n">$49/mo</td><td>3 properties, full audit, unlimited deploys to workspace, weekly re-check, email alerts.</td><td>NiceLookingData Pro $49/mo — identical price, and you deploy where they only recommend.</td></tr>
+            <tr><td class="name">Agency</td><td class="n">$199/mo</td><td>25 properties, white-label PDF, client sub-accounts, deploy + weekly monitoring, Slack alerts.</td><td>NiceLookingData Agency $199/mo; GA4 Auditor $999/yr for 100 audits. Same shelf, more work done.</td></tr>
+            <tr><td class="name">Scale</td><td class="n">$499/mo</td><td>100 properties, API access, team seats, priority queue.</td><td>Sits deliberately under Trackingplan's $999 mid-tier and ObservePoint's $599 entry — you are the "before you need enterprise" option.</td></tr>
+            <tr><td class="name">Tracking Rescue</td><td class="n">$299 one-time</td><td>One property: full audit, every fix deployed, verification report, 30-day re-check.</td><td>GAfix remediation $199–499 (delivered by humans). Human audit alone: $1,500–3,000. You deliver the top of that band at the bottom of it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Rules</h3>
+      <ul>
+        <li><strong>Annual: 25% off.</strong> Analyzify's precedent, and it's the number this market has been trained on.</li>
+        <li><strong>Founding 20:</strong> lifetime price lock at launch rates, in exchange for a named case study and a recorded call. Your case studies are worth more than the discount.</li>
+        <li><strong>India gets a full INR price list, not a discount code.</strong> ₹1,499/mo Solo and ₹4,999/mo Agency, billed in INR through your existing GST/UPI stack. The justification isn't goodwill — it's that Indian analytics labour costs ~$10/hr against ~$55 in the US, so the same product delivers a fifth of the value there. ₹4,999 restores an 8.8× return, in line with the UK's 9.5×. Working in <a href="#market">section 03</a>.</li>
+        <li><strong>One exception:</strong> Indian agencies whose clients are Western bill in USD or GBP. Quote them the <em>USD</em> list price — their revenue and their clients' ad spend are both hard currency, so the ROI maths runs at UK levels, not Indian ones. Filter on whether their published client logos are Western.</li>
+        <li><strong>No PPP discount for the US, UK or Australia.</strong> Localised pricing correlates with ~30% higher growth, but discounting your highest-ROI markets destroys the unit that funds you.</li>
+        <li><strong>Lead with the Rescue, not the subscription,</strong> for the first 90 days. A $299 one-time purchase closes on a demo call. A subscription needs trust you haven't earned yet — and the Rescue <em>creates</em> that trust, then converts.</li>
+      </ul>
+
+      <h3>Path to ₹1L MRR (~$1,200)</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Line</th><th>Count</th><th>Unit</th><th>MRR</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Agency subscriptions</td><td class="n">4</td><td class="n">$199</td><td class="n">$796</td></tr>
+            <tr><td class="name">Solo subscriptions</td><td class="n">8</td><td class="n">$49</td><td class="n">$392</td></tr>
+            <tr><td class="name"><strong>Total recurring</strong></td><td class="n">12 customers</td><td class="n">—</td><td class="n"><strong>$1,188 ≈ ₹1.04L</strong></td></tr>
+            <tr><td class="name">Tracking Rescue (one-time, cash)</td><td class="n">10 over 6 mo</td><td class="n">$299</td><td class="n">$2,990 one-time</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tnote">Twelve paying customers. That is the entire six-month target — and it is what makes this achievable solo.</p>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 06 COPY ================= -->
+    <section id="copy">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Headline and copy</h2></div>
+      <p class="sec-sub">Six candidates, the mechanism each uses, and which one ships where.</p>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>#</th><th>Headline</th><th>Mechanism</th><th>Use it</th></tr></thead>
+          <tbody>
+            <tr><td class="n">1</td><td class="name">The tracking audit that ships the fix.</td><td>Direct contrast against the biggest competitor set (audit tools). Defines the category in seven words.</td><td><span class="chip chip-good">Primary H1</span></td></tr>
+            <tr><td class="n">2</td><td class="name">Your ad budget is bidding on broken data.</td><td>Loss framing on a quantified stat (20–30% of budget distorted).</td><td><span class="chip chip-sig">Cold email + ads</span></td></tr>
+            <tr><td class="n">3</td><td class="name">Tracking your clients can't argue with.</td><td>Status/blame framing for the agency buyer.</td><td><span class="chip chip-sig">Agency landing page</span></td></tr>
+            <tr><td class="n">4</td><td class="name">Find it. Fix it. Prove it stays fixed.</td><td>Three-beat mechanism — mirrors the actual product loop.</td><td><span class="chip chip-flat">Sub-head / demo</span></td></tr>
+            <tr><td class="n">5</td><td class="name">48% of sites have broken consent tracking. Check yours in 40 seconds.</td><td>Stat + low-commitment action.</td><td><span class="chip chip-flat">Free-scan tool page</span></td></tr>
+            <tr><td class="n">6</td><td class="name">AI-powered analytics implementation, automated.</td><td>None. Every competitor says a version of this.</td><td><span class="chip chip-bad">Never</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Homepage, written out</h3>
+
+      <div class="copyblock">
+        <span class="lbl">Hero</span>
+        <p class="h1x">The tracking audit that ships the fix.</p>
+        <p>Nexloid scans your site, finds every broken and missing event, and deploys the corrections straight into a GTM workspace you review before publishing. Then it re-checks every week, so nothing quietly rots.</p>
+        <span class="cta">Scan a site free — no login, no tag install</span>
+        <p style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-top:10px">Takes about 40 seconds. We never publish to your live container.</p>
+      </div>
+
+      <div class="copyblock">
+        <span class="lbl">Problem block</span>
+        <p class="h2x">You've never actually verified the numbers you optimise against.</p>
+        <ul>
+          <li>48% of websites carry at least one Google Consent Mode misconfiguration — the banner shows, the tag fires, and the consent signal never arrives.</li>
+          <li>Broken tracking distorts 20–30% of ad budget, because the bidding algorithm learns from the conversions it can see.</li>
+          <li>One documented account lost 90% of its measured conversions overnight. About 40% came back through modelling. The rest is gone.</li>
+        </ul>
+        <p>Nothing in your dashboard tells you this is happening. That's the whole problem.</p>
+      </div>
+
+      <div class="copyblock">
+        <span class="lbl">How it works — three steps</span>
+        <p class="h2x">1 · Scan</p>
+        <p>Point Nexloid at a URL. It reads your pages, your dataLayer and your GTM container, and reports what's firing, what's malformed, and what's missing — with the revenue consequence of each.</p>
+        <p class="h2x">2 · Deploy</p>
+        <p>Approve the fixes you want. Nexloid writes the tags, triggers and variables into a <strong>named GTM workspace</strong> — never your live container — so you preview, publish and roll back on your own terms.</p>
+        <p class="h2x">3 · Verify, weekly</p>
+        <p>Every week Nexloid re-runs the check and tells you if something broke: a developer shipped a redesign, a plugin changed a selector, a consent banner update swallowed a signal. You find out from us, not from a client.</p>
+      </div>
+
+      <div class="copyblock">
+        <span class="lbl">Objection block — put this above the pricing</span>
+        <p class="h2x">"You want access to my GTM container?"</p>
+        <p>Correct, and here's exactly what that means. Nexloid requests workspace-level access. Every change we make lands in a workspace named <code>nexloid-{date}</code>. We do not publish. We cannot publish. You review the diff, you hit publish, and GTM's own version history lets you roll back in one click. Read-only mode is available if you'd rather we only ever report.</p>
+      </div>
+
+      <div class="copyblock">
+        <span class="lbl">Agency page hero</span>
+        <p class="h1x">Tracking your clients can't argue with.</p>
+        <p>Twenty-five client properties, scanned every week, fixes deployed on approval, and a white-label report you can send without editing. One dashboard, one invoice, no analytics hire.</p>
+        <span class="cta">See it on one of your clients — free</span>
+      </div>
+
+      <h4>Words banned from all Nexloid copy</h4>
+      <p><span class="mono">seamless · supercharge · revolutionise · game-changing · 10x · effortless · leverage (as a verb) · "AI-powered" in a headline · any accuracy percentage you cannot reproduce on demand</span></p>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 07 GTM ================= -->
+    <section id="gtm">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Go-to-market plan · 6 months</h2></div>
+      <p class="sec-sub">Solo, ₹1–3L, nights and weekends. Sequenced so cash and proof arrive before spend does.</p>
+
+      <h3>Channel scorecard</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Channel</th><th>Time to 1st customer</th><th>Cost</th><th>Solo-feasible</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Cold email with a pre-run scan</td><td class="n">3–5 weeks</td><td class="n">₹6K/mo</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-sig">1</span></td></tr>
+            <tr><td class="name">Founder-led LinkedIn + Measure Slack / r/GoogleTagManager / r/analytics</td><td class="n">2–6 weeks</td><td class="n">₹0</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-sig">2</span></td></tr>
+            <tr><td class="name">Free no-login scanner (shareable report)</td><td class="n">4–10 weeks</td><td class="n">Build time</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-sig">3</span></td></tr>
+            <tr><td class="name">Comparison &amp; error-page content for LLM citation (AEO)</td><td class="n">8–20 weeks</td><td class="n">₹0</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-sig">4</span></td></tr>
+            <tr><td class="name">Agency white-label / reseller partnerships</td><td class="n">6–12 weeks</td><td class="n">₹0</td><td><span class="chip chip-warn">After 5 customers</span></td><td><span class="chip chip-flat">5</span></td></tr>
+            <tr><td class="name">Directories: G2, Capterra, AlternativeTo, Product Hunt</td><td class="n">Spiky</td><td class="n">₹8K</td><td><span class="chip chip-good">Yes</span></td><td><span class="chip chip-flat">6</span></td></tr>
+            <tr><td class="name">Paid ads (Google / LinkedIn)</td><td class="n">—</td><td class="n">High</td><td><span class="chip chip-bad">No</span></td><td><span class="chip chip-bad">Don't</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tnote">Paid is excluded on arithmetic, not taste: at a $49–199 ACV, a ₹1–3L budget buys too few clicks to even learn which creative works, let alone pay back CAC.</p>
+
+      <h3>The phases</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Phase</th><th>Weeks</th><th>The one job</th><th>Do</th><th>Exit criteria</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">0 · Proof</td><td class="n">1–3</td><td>Make the product survive contact with 10 real sites.</td>
+              <td>10–15 design partners from your India network, free. Run the full loop on each: scan → deploy → verify. Record every failure. Get 5 verbatim quotes and 3 before/after conversion counts in writing.</td>
+              <td>3 documented before/after results. Loop completes end-to-end without you hand-editing anything.</td>
+            </tr>
+            <tr>
+              <td class="name">1 · Cash</td><td class="n">4–8</td><td>Prove someone will pay.</td>
+              <td>Ship the no-login scanner and a one-page site with headline #1. Sell the $299 Tracking Rescue to warm contacts and design-partner referrals. Deliver each one personally.</td>
+              <td>5 paid Rescues. At least 2 of them ask "can you keep doing this every month?" — that's your subscription signal.</td>
+            </tr>
+            <tr>
+              <td class="name">2 · Engine</td><td class="n">9–16</td><td>Make acquisition repeatable without your network.</td>
+              <td>Cold outbound to US/UK/AU agencies at 100–125 emails/week, each with a pre-run scan of one of their client sites. Launch the Agency tier and white-label PDF. Post 3×/week on LinkedIn from real scan findings.</td>
+              <td>4 paying agencies. Reply rate ≥5%. You can name why each one bought.</td>
+            </tr>
+            <tr>
+              <td class="name">3 · Compounding</td><td class="n">17–24</td><td>Build the assets that keep working when you stop.</td>
+              <td>Publish the honest comparison page and the error-library pages (below). Product Hunt launch. G2/Capterra/AlternativeTo listings. Approach Stape and a CMP vendor for co-marketing.</td>
+              <td>12 paying customers · ₹1L MRR · ≥25% of new signups arriving without outbound.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The two acquisition assets worth building</h3>
+
+      <div class="callout">
+        <h4>Asset 1 — the no-login scanner</h4>
+        <p>Enter a URL, get a public tracking health report in 40 seconds. No account, no OAuth, no tag install — it only reads what's already public: GTM container ID, dataLayer shape, tags firing on page, consent signals, ecommerce event structure.</p>
+        <ul>
+          <li><strong>It's your outbound weapon.</strong> Run it on a prospect's client sites before you email them. The personalisation writes itself.</li>
+          <li><strong>It's shareable.</strong> Give each report a permanent URL. Agencies will send them to their own clients — that's distribution you don't pay for.</li>
+          <li><strong>It's the ranking asset.</strong> Free tools are the cheapest durable SEO you can build in a category where the paid tools all sit behind a login.</li>
+        </ul>
+      </div>
+
+      <div class="callout">
+        <h4>Asset 2 — the error library (programmatic SEO, and the AEO play)</h4>
+        <p>Every check your scanner runs becomes one public page: <em>"GA4 purchase event missing <code>transaction_id</code> — what it breaks, and how to fix it in GTM."</em> NiceLookingData runs 150+ checks; a comparable library is 100–150 genuinely useful pages that only you can write, because they come out of your own check engine.</p>
+        <p><strong>Why this matters more in 2026 than SEO alone:</strong> the buying question is increasingly asked to an LLM, not a search box. NiceLookingData's own honest, sourced roundup of competitors is exactly why it surfaced repeatedly in this research. Publish the same thing — a fair comparison that names GAfix, GA4 Auditor, Verified Data, ObservePoint and their real prices — and you become the citable source. Being fair to competitors is the tactic, not a concession.</p>
+      </div>
+
+      <h3>Budget, six months</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Line</th><th>Detail</th><th>6-month cost</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Sending infrastructure</td><td>2 secondary domains + 6 mailboxes</td><td class="n">₹15,000</td></tr>
+            <tr><td class="name">Sequencer</td><td>Instantly or Smartlead, ~$37/mo</td><td class="n">₹18,500</td></tr>
+            <tr><td class="name">Lead data</td><td>Apollo or similar, 4 months</td><td class="n">₹16,000</td></tr>
+            <tr><td class="name">Email verification</td><td>50K credits, one-time</td><td class="n">₹5,000</td></tr>
+            <tr><td class="name">Site + hosting</td><td>Landing, scanner, error-library pages</td><td class="n">₹10,000</td></tr>
+            <tr><td class="name">LLM / infra for scans</td><td>Product cost during free-scan volume</td><td class="n">₹12,500</td></tr>
+            <tr><td class="name">Brand + demo video</td><td>Logo, one good 90-second Loom, report template design</td><td class="n">₹15,000</td></tr>
+            <tr><td class="name">Directories + PH launch</td><td>Assets, listings</td><td class="n">₹8,000</td></tr>
+            <tr><td class="name">Reserve</td><td>Only spend if outbound validates the ICP</td><td class="n">₹50,000</td></tr>
+            <tr><td class="name"><strong>Total</strong></td><td>—</td><td class="n"><strong>₹1,50,000</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 08 OUTBOUND ================= -->
+    <section id="outbound">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Outbound plan</h2></div>
+      <p class="sec-sub">The arithmetic first, then the list, then the copy. Your unfair advantage here is that the product generates the personalisation.</p>
+
+      <h3>The math to 12 customers</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Stage</th><th>Baseline rate</th><th>With a pre-run scan in line 1</th><th>Emails needed</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Reply rate</td><td class="n">3.4%</td><td class="n">7–9% (top quartile)</td><td class="n">—</td></tr>
+            <tr><td class="name">Meetings booked</td><td class="n">1–2 per 100</td><td class="n">3 per 100</td><td class="n">—</td></tr>
+            <tr><td class="name">Meeting → paid</td><td class="n">25–30%</td><td class="n">30%</td><td class="n">—</td></tr>
+            <tr><td class="name">To get 40 meetings / 12 closes</td><td class="n">~2,700 emails</td><td class="n">~1,350 emails</td><td class="n"><strong>~110/week over 6 months</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tnote">Baselines: 3.43% average B2B cold-email reply rate; 5–10% is good, &gt;10% elite; SaaS runs 3–8%; positive-reply 1.5–3% is strong. 110 emails/week is 3 mailboxes at 8/day — comfortably under deliverability limits. Open rates are unreliable post-Apple MPP; measure replies only.</p>
+
+      <h3>Building the list</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Source</th><th>What to pull</th><th>Why it's good</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Clutch — GA4 consulting + digital marketing directories</td><td>Agency name, city, size, client logos</td><td>Self-declared analytics capability = they already sell this and feel the pain.</td></tr>
+            <tr><td class="name">Semrush Agency Partners</td><td>1,557 listed agencies with service tags</td><td>Structured, filterable, and every listing shows services offered.</td></tr>
+            <tr><td class="name">Google Partners directory</td><td>Ads-certified agencies by country</td><td>Certified = they run client ad spend = broken tracking costs them money directly.</td></tr>
+            <tr><td class="name">Sortlist, DesignRush, Shopify Partners</td><td>Small-agency long tail</td><td>Below the radar of enterprise vendors; nobody is selling to them.</td></tr>
+            <tr><td class="name">G2 / Capterra reviewers of NiceLookingData, GAfix, Trackingplan</td><td>Reviewer job title + company</td><td>Proven budget for exactly this category.</td></tr>
+            <tr><td class="name">Upwork / Fiverr top-rated GA4 sellers</td><td>Freelancer profiles</td><td>Counter-intuitive but strong: they're your Solo tier. Nexloid makes them faster and more profitable per gig.</td></tr>
+            <tr><td class="name">Measure Slack, r/GoogleTagManager, r/analytics, LinkedIn analytics creators</td><td>Active participants</td><td>Community-first, never cold-pitch. Contribute for 3 weeks before mentioning the product.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The hook that makes this work</h3>
+      <div class="callout sig">
+        <p>Before any email goes out: take the prospect's public client-logo page, pick one client site, and run your own scanner on it. Line one of the email names a <strong>specific broken event on a site they are responsible for.</strong></p>
+        <p>No competitor can do this at volume — their tools sit behind an OAuth wall and can't scan a stranger's property. Yours reads public pages. That single asymmetry is the reason to bet on outbound over every other channel.</p>
+      </div>
+
+      <h3>The sequence</h3>
+
+      <div class="email">
+        <div class="email-head"><span><b>Email 1</b> · Day 0 · plain text, no links, no images</span><span>Subject: <b>{{client_name}}'s add_to_cart</b></span></div>
+        <div class="email-body">Hi {{first_name}},
+
+I ran a tracking check on {{client_site}} this morning — you're listed as their agency.
+
+Their add_to_cart event fires, but it's missing the `items` array, so GA4 is recording the action and losing the value. Google Ads is bidding against that.
+
+Two other things looked off. Want the 1-page report? Free, no strings — I'm building a tool that does this and I'd rather show it than describe it.
+
+Ranjith</div>
+      </div>
+
+      <div class="email">
+        <div class="email-head"><span><b>Email 2</b> · Day 3</span><span>Subject: re: {{client_name}}'s add_to_cart</span></div>
+        <div class="email-body">Attaching it anyway — 3 issues on {{client_site}}, ranked by what they cost.
+
+The consent one is the expensive one. Roughly half of sites have a Consent Mode misconfiguration and it silently drops signals before they reach Google, so nothing in the dashboard flags it.
+
+Happy to walk you through it, or just take the PDF and fix it yourself. Both fine.</div>
+      </div>
+
+      <div class="email">
+        <div class="email-head"><span><b>Email 3</b> · Day 8 · the actual pitch</span><span>Subject: doing that for 25 clients</span></div>
+        <div class="email-body">The reason I sent that: I'm building Nexloid so an agency can run this across every client at once — scan, then deploy the fixes into a GTM workspace you approve before publishing, then re-check weekly so nothing rots after the next site redesign.
+
+$199/mo for 25 properties. White-label report. Nothing publishes without your click.
+
+Worth 15 minutes? If it's not useful I'll stop emailing.</div>
+      </div>
+
+      <div class="email">
+        <div class="email-head"><span><b>Email 4</b> · Day 15 · breakup</span><span>Subject: closing the loop</span></div>
+        <div class="email-body">Last one from me.
+
+If tracking QA isn't on your list this quarter, no problem — the report on {{client_site}} is yours regardless.
+
+If it ever becomes urgent (usually right after a client asks why the numbers don't match), you know where I am.</div>
+      </div>
+
+      <h4>LinkedIn, run in parallel</h4>
+      <ul>
+        <li><strong>Day 1:</strong> connect, no note.</li>
+        <li><strong>Day 4 (on accept):</strong> "Ran a check on {{client_site}} — the add_to_cart is missing its items array. Want the report?" Nothing else.</li>
+        <li><strong>Day 10:</strong> share a public scan finding as a post and tag nothing. Let them come to you.</li>
+        <li><strong>Use this channel exclusively for Canada, Ireland, NZ and the EU</strong> — see compliance below.</li>
+      </ul>
+
+      <h3>Infrastructure &amp; compliance</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Item</th><th>Setting</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Domains</td><td>2 secondary domains, never your primary</td><td>A deliverability problem must never touch nexloid.com.</td></tr>
+            <tr><td class="name">Mailboxes</td><td>3–6, warmed 14–21 days before first send</td><td>New domains sending cold on day one land in spam.</td></tr>
+            <tr><td class="name">Volume</td><td>8–20/day per mailbox, ramped</td><td>110/week total is enough. Volume is not your constraint; list quality is.</td></tr>
+            <tr><td class="name">Format</td><td>Plain text, no images, no tracking pixel, no link in email 1</td><td>Opens are unmeasurable post-MPP anyway — remove the thing that hurts deliverability and gains nothing.</td></tr>
+            <tr><td class="name">US</td><td><span class="chip chip-good">Cold email OK</span></td><td>CAN-SPAM: honest header, working opt-out, physical address.</td></tr>
+            <tr><td class="name">UK</td><td><span class="chip chip-good">B2B OK</span></td><td>PECR permits B2B corporate-subscriber email; still honour opt-outs immediately.</td></tr>
+            <tr><td class="name">Australia</td><td><span class="chip chip-warn">Care</span></td><td>Spam Act: inferred consent is arguable for role-relevant B2B; keep it clearly relevant and easy to exit.</td></tr>
+            <tr><td class="name">Canada</td><td><span class="chip chip-bad">Don't cold-email</span></td><td>CASL requires consent. Use LinkedIn.</td></tr>
+            <tr><td class="name">EU/EEA</td><td><span class="chip chip-bad">LinkedIn only</span></td><td>GDPR legitimate-interest is defensible in theory and expensive to defend in practice. Not worth it at your stage.</td></tr>
+            <tr><td class="name">Scan data</td><td>Public page data only; don't store non-customer scans beyond the pitch; delete on request</td><td>You're pitching a trust product. Being sloppy with data in the pitch itself is fatal.</td></tr>
+            <tr><td class="name">OAuth</td><td>Never request GTM access in a cold email</td><td>It converts the message from "here's a finding" to "give me the keys." Ask only after a call.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Weekly rhythm and what to watch</h3>
+      <ul>
+        <li><strong>Mon:</strong> build 30 prospects, run 30 scans, write 30 first lines. <strong>Tue–Thu:</strong> sends + all replies answered inside 4 hours. <strong>Fri:</strong> review numbers, cut the worst-performing segment, add one new list source.</li>
+        <li><strong>Measure:</strong> reply rate, positive-reply rate, meetings booked, close rate, bounce rate (keep &lt;3%). Ignore open rate entirely.</li>
+        <li><strong>Kill signals:</strong> reply rate &lt;2% after 300 sends → the ICP or the hook is wrong, not the copy. Positive replies but no closes → the price or the product is wrong. Both are useful; treat them differently.</li>
+      </ul>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 09 RISKS ================= -->
+    <section id="risks">
+      <div class="sec-head"><span class="sec-num">10</span><h2>What kills this</h2></div>
+      <p class="sec-sub">Ranked by probability × damage. Two of these are architectural and need a decision before you write more code.</p>
+
+      <ul class="kill">
+        <li><span class="tag">Architecture</span><span><strong>The GTM API ceiling.</strong> Tag Manager API v2 allows <span class="num">10,000 requests/day</span> and <span class="num">0.25 QPS</span> — <em>per Cloud project</em>, not per customer. One project serving 20 agencies × 25 containers hits that wall fast, and it returns a hard 403. Decide now: request a quota increase, shard across projects, or queue aggressively with retries. Every deploy must follow prepare → validate → version → publish, never a live edit.</span></li>
+        <li><span class="tag">Trust</span><span><strong>Nobody gives a stranger publish rights to their GTM container.</strong> This is your biggest conversion barrier and it's not a copy problem. Mitigate structurally: workspace-only scope, a read-only mode, a public permissions page, and never asking for OAuth before a human conversation. NiceLookingData's "we never touch your live container" is a selling point precisely because the fear is universal.</span></li>
+        <li><span class="tag">Competition</span><span><strong>Flisk and JTracking are funded and doing this.</strong> They will outspend you on product and brand. Your only defence is being unambiguously better for <em>one</em> buyer — the portfolio operator — while they chase the broader market. The moment you widen, you lose.</span></li>
+        <li><span class="tag">Commoditisation</span><span><strong>Free MCP servers plus an LLM already do the audit.</strong> A published walkthrough runs a GA4 audit in under four minutes with Claude. Anything you charge for that a technical marketer can prompt their way to is temporary revenue. Your durable value is the <em>weekly, unattended re-check across a portfolio</em> — nobody sets a cron job in a chat window.</span></li>
+        <li><span class="tag">Platform</span><span><strong>Google ships it natively.</strong> Google has consistently absorbed adjacent tooling into GTM and GA4. Hedge by owning the cross-platform surface — Meta, TikTok, consent, server-side — not just the Google stack.</span></li>
+        <li><span class="tag">Focus</span><span><strong>You have a full-time job.</strong> The plan above needs roughly 10–12 focused hours a week and survives being lumpy. It does not survive being abandoned for a month in the middle of phase 2 — outbound sequences and warmed domains both decay.</span></li>
+      </ul>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 10 MONDAY ================= -->
+    <section id="monday">
+      <div class="sec-head"><span class="sec-num">11</span><h2>The next 14 days</h2></div>
+      <p class="sec-sub">In order. Nothing here costs money.</p>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>Day</th><th>Do</th><th>Output</th></tr></thead>
+          <tbody>
+            <tr><td class="n">1–2</td><td>Sign up for GAfix free, NiceLookingData free, GA4 Auditor, and Flisk's free GTM audit. Run all four on the same site.</td><td>A precise map of what "good" looks like and where your report is worse.</td></tr>
+            <tr><td class="n">3</td><td>Decide the GTM API quota architecture. Request an increase if needed — approval takes time.</td><td>Unblocks everything downstream.</td></tr>
+            <tr><td class="n">4–5</td><td>Line up 10 design partners from your network. Indian D2C brands, startups and small agencies. Free, in exchange for a recorded before/after.</td><td>10 committed sites.</td></tr>
+            <tr><td class="n">6–9</td><td>Run the full loop on all 10. Log every failure and every manual intervention.</td><td>Your real product gap list, and 3 before/after numbers.</td></tr>
+            <tr><td class="n">10–11</td><td>Ship a one-page site: headline #1, the three-step block, the objection block, one CTA to the free scan.</td><td>Something to send.</td></tr>
+            <tr><td class="n">12</td><td>Buy 2 secondary domains, create mailboxes, start warmup.</td><td>Warmup clock starts — this is why it's on day 12, not day 30.</td></tr>
+            <tr><td class="n">13–14</td><td>Build the first 50-agency list from Clutch and Semrush Agency Partners. Pre-run scans on one client site each.</td><td>Your first outbound batch, loaded and personalised.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout sig">
+        <h4>The single most important thing in this document</h4>
+        <p>You are not selling automation to people who want tracking set up. You are selling <strong>evidence</strong> to people who are accountable for numbers they've never verified. Everything — price, copy, ICP, channel — follows from that one distinction.</p>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 12 CONFIDENCE REGISTER ================= -->
+    <section id="confidence">
+      <div class="sec-head"><span class="sec-num">12</span><h2>What I'm not confident about</h2></div>
+      <p class="sec-sub">A self-audit of this document. My own weak points first, then the sources I'd rather not bet on, then what I never looked at, then the arguments against my own recommendation.</p>
+
+      <h3>A · Load-bearing assumptions with no evidence behind them</h3>
+      <p class="lede">These are mine, not any source's. If one of them is wrong, something downstream in this document breaks.</p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Assumption</th><th>What rests on it</th><th>Risk</th><th>How to settle it</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">"Saves 2 analyst hours per client per month"</td>
+              <td>The entire labour-arbitrage ROI table, the 13.8× / 9.5× / 2.5× returns, the ₹4,999 India price, and the core sales argument.</td>
+              <td><span class="chip chip-bad">Highest in the document</span></td>
+              <td>Stopwatch the manual version against the Nexloid version across the 10 design partners. At 0.5 hours the US return falls to 3.5× and the India case dies. At 6 hours you are underpriced everywhere.</td>
+            </tr>
+            <tr>
+              <td class="name">An agency connects ~25 properties</td>
+              <td>The $199 tier's per-property economics and the "one sale = 25 sites" argument.</td>
+              <td><span class="chip chip-bad">High</span></td>
+              <td>Ask the first five agencies how many client containers they would actually connect in month one. My guess is the honest answer is 3–8, not 25 — people onboard slowly.</td>
+            </tr>
+            <tr>
+              <td class="name">The audit is accurate enough to trust</td>
+              <td>Everything. The positioning is "evidence you can defend." If the scan produces false positives at any meaningful rate, the product is not merely useless — it is a liability.</td>
+              <td><span class="chip chip-bad">High, and unexamined</span></td>
+              <td>Have a human verify every finding across the 10 design partners and record your own false-positive rate. I never assessed whether an LLM can reliably read an arbitrary site's dataLayer — and nothing else in this document does either.</td>
+            </tr>
+            <tr>
+              <td class="name">Pre-run scans lift reply rates to 7–9%</td>
+              <td>The outbound volume maths — 1,350 emails instead of 2,700.</td>
+              <td><span class="chip chip-warn">Medium</span></td>
+              <td>My extrapolation from "top quartile is 7–12%," not a measured result for this tactic. Plan on the 3.4% baseline and treat anything above it as upside.</td>
+            </tr>
+            <tr>
+              <td class="name">10–12 focused hours a week is enough</td>
+              <td>The whole six-month timeline.</td>
+              <td><span class="chip chip-warn">Medium</span></td>
+              <td>Track it honestly for three weeks before committing to the plan's dates.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>B · Numbers I used that I would not bet money on</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Figure</th><th>Problem</th><th>Confidence</th></tr></thead>
+          <tbody>
+            <tr><td class="name">48% of sites have a Consent Mode misconfiguration · 20–30% of ad budget distorted</td><td><strong>Both trace to a single source</strong> — one marketing agency's blog, which has a commercial interest in the number being alarming. I found no independent corroboration. These two stats carry your homepage copy and your cold-email hook.</td><td><span class="chip chip-warn">Low–medium</span></td></tr>
+            <tr><td class="name">Competitor traffic estimates</td><td>Similarweb is unreliable below roughly 50K visits, which is most of this category. The Cambodia / Vietnam / Nigeria / Bangladesh traffic shares are visibly bot noise. The direction — little open-web demand — I believe. The specific figures could be off by 2–5×.</td><td><span class="chip chip-warn">Directional only</span></td></tr>
+            <tr><td class="name">$2.81M / $1.93M "ad spend per agency"</td><td><strong>The weakest metric in this document.</strong> It is national digital ad spend divided by agency count. Most of that money goes direct to platforms or through a few holding companies, not the 114,000-firm long tail. The true figure for a ten-person agency is a small fraction of it. I would drop this metric rather than defend it.</td><td><span class="chip chip-bad">Poor</span></td></tr>
+            <tr><td class="name">114,014 US / 17,636 UK agencies</td><td>Reliable as counts, but the classification sweeps in creative shops, PR firms and media buyers who never touch GTM. Your genuinely addressable subset is smaller — plausibly 10–30% — and I do not know the real number.</td><td><span class="chip chip-warn">Overstated</span></td></tr>
+            <tr><td class="name">Cold-email benchmarks (3.43% reply, and the rest)</td><td>Published by companies selling cold-email software. Consistent across many such sources, but every one of them is self-interested.</td><td><span class="chip chip-warn">Medium</span></td></tr>
+            <tr><td class="name">Partner-led growth stats (20–30% lower churn)</td><td>PartnerStack's own benchmark — a vendor selling partner-management software. Already flagged in section 05 as measuring model B rather than model A.</td><td><span class="chip chip-warn">Medium</span></td></tr>
+            <tr><td class="name">Fiverr $10–35 as "the price floor"</td><td>Real listings, but unknown delivery quality and probably not a true substitute for what you do. I may have over-weighted this when killing the "cheaper than an agency" frame — though the $30/hr Upwork median points the same way.</td><td><span class="chip chip-warn">Medium</span></td></tr>
+            <tr><td class="name">The 90%-conversion-loss story</td><td>One account, one report. Fine as an illustration. Do not let the copy imply it is typical.</td><td><span class="chip chip-warn">Anecdote</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>C · What I never looked at</h3>
+
+      <div class="callout bad">
+        <h4>The one that could move your launch date — Google OAuth verification</h4>
+        <p>I checked GTM's API quotas but never checked whether Google will <em>let</em> a third-party app request container-edit access without review. It will not, automatically. Any app requesting <strong>sensitive or restricted scopes</strong> must pass Google's OAuth app verification before the public can grant it access.</p>
+        <ul>
+          <li>If GTM's edit and publish scopes are classified <strong>sensitive</strong>: you need a verified domain, a published privacy policy, a demo video and a written justification. Roughly <strong>10 days</strong> once the submission is complete, longer with back-and-forth.</li>
+          <li>If they are <strong>restricted</strong>: you additionally need an <strong>annual third-party security assessment (CASA)</strong>, running from a <span class="num">$540</span> automated scan to <span class="num">$5,000+</span> for a penetration test, paid by you.</li>
+        </ul>
+        <p><strong>I do not know which category <code>tagmanager.edit.containers</code> and <code>tagmanager.publish</code> fall into, and it changes both your cost and your launch date.</strong> Confirm it against Google's OAuth scopes list before writing more code, and start verification early — it runs in parallel with everything else. This probably belongs ahead of the quota question on your day-3 task.</p>
+      </div>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>Gap</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td class="name">Voice of customer — entirely absent</td><td>I read no G2, Capterra or Reddit reviews of any competitor. Every line of copy in section 07 is built from statistics rather than from how buyers describe the problem in their own words. That is the wrong way round, and it is the most fixable gap here.</td></tr>
+            <tr><td class="name">Liability when a deployment breaks something</td><td>You are writing to production systems. If a tag breaks a client's site or corrupts their consent configuration, who pays? Terms, indemnity and insurance are all unconsidered, and this intersects with GDPR and DPDP.</td></tr>
+            <tr><td class="name">Agency–client contracts</td><td>Many agencies are contractually barred from granting third parties access to client systems. A different and harder objection than the trust one I did cover.</td></tr>
+            <tr><td class="name">Server-side tracking</td><td>The fastest-growing part of this market — detected sGTM domains rose from 482 to 17,239 in a year, a 35× increase. You do not do it. <strong>Both funded competitors do.</strong> I quoted the number and never analysed the competitive consequence.</td></tr>
+            <tr><td class="name">Whether you can actually fix Consent Mode</td><td>48% of sites are broken here and it is plausibly the highest-value fix available. I assumed you can address it. I do not know that you can.</td></tr>
+            <tr><td class="name">Support load</td><td>12 customers × 25 properties is 300 production containers, supported by one person who has a full-time job. Never modelled.</td></tr>
+            <tr><td class="name">Churn for this specific category</td><td>I used general SMB SaaS benchmarks. Tracking work is project-shaped — fix it and leave — which may churn far faster than a typical subscription.</td></tr>
+            <tr><td class="name">GA4 Admin API quotas</td><td>I checked GTM's limits, not GA4's. You need both.</td></tr>
+            <tr><td class="name">Trademark and domain for "Nexloid"</td><td>Never checked.</td></tr>
+            <tr><td class="name">Seasonality</td><td>Agency budgets freeze in Q4 and release in Q1. The six-month plan has no timing awareness at all.</td></tr>
+            <tr><td class="name">Competitor funding size and runway</td><td>I know who backs JTracking, not how much or for how long.</td></tr>
+            <tr><td class="name">Anything past month 6</td><td>There is no plan beyond twelve customers.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>D · Arguments against my own recommendation</h3>
+
+      <div class="callout sig">
+        <h4>The strongest one, which I never addressed: this cannibalises some agencies' revenue</h4>
+        <p>If an agency bills clients for GA4 and GTM setup — hourly or as a project fee — then Nexloid <strong>reduces what they can invoice.</strong> A tool that turns four billable hours into fifteen minutes threatens that business model rather than serving it. Some agencies will resist for precisely the reason you think they should buy.</p>
+        <p><strong>The fix is an ICP filter I should have specified from the start:</strong> target <em>retainer-based</em> agencies, where tracking work is an unbilled cost of doing business and removing it is pure margin. For hourly and project-billing shops the pitch has to be "take on more clients with the same team," not "save time" — or skip them.</p>
+      </div>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>Counter-argument</th><th>My honest response</th></tr></thead>
+          <tbody>
+            <tr><td class="name">"Tracking assurance" is a category you invented</td><td>Correct. Nobody searches for it and nobody has a budget line for it. That is the risk in any category-creation play, and section 03's traffic data shows there is no existing demand to redirect. You would be creating want rather than capturing it — slower and harder than this document's tone implies.</td></tr>
+            <tr><td class="name">Nobody validated the price with a human</td><td>Also correct. Every price here is anchored to a competitor's published number, not to anyone's stated willingness to pay. Test it in the design-partner calls before the pricing page ships.</td></tr>
+            <tr><td class="name">The agency thesis rests on one untested belief</td><td>That agencies will pay a subscription for something they currently absorb as unbilled labour. The supporting evidence — every competitor ships an agency tier, agencies spend 7–10% of revenue on software — is circumstantial. It is not the same as someone paying you.</td></tr>
+            <tr><td class="name">You are solo against two funded teams in a category with no pull</td><td>True, and it is why the plan targets twelve customers rather than a market. If outbound cannot beat a 2% reply rate after 300 sends, the honest read is that this is a feature rather than a company — worth knowing in month three instead of month twelve.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <h4>If you only sort out five things, sort these</h4>
+        <ol>
+          <li><strong>The OAuth scope classification.</strong> Sensitive or restricted changes both your cost and your launch date.</li>
+          <li><strong>The real hours-saved number,</strong> stopwatched on the design partners. All the pricing depends on it.</li>
+          <li><strong>Your false-positive rate.</strong> The positioning is evidence. Evidence that is sometimes wrong is worse than none.</li>
+          <li><strong>Independent verification of the 48% and 20–30% figures,</strong> or stop using them in copy. Single-source vendor claims are not a foundation for a homepage.</li>
+          <li><strong>Ten customer conversations before the pricing page ships</strong> — not to sell, but to hear how they describe the problem, so the copy uses their words instead of my statistics.</li>
+        </ol>
+      </div>
+    </section>
+
+    <hr class="div">
+
+    <!-- ================= 13 SOURCES ================= -->
+    <section id="sources">
+      <div class="sec-head"><span class="sec-num">13</span><h2>Sources</h2></div>
+      <p class="sec-sub">All figures gathered 16 Aug 2026. Vendor pricing changes without notice — re-verify anything you quote publicly. Where sources conflict (Shopify store counts especially), both ranges are shown in the text rather than a single averaged figure.</p>
+      <div class="srcs">
+        <div><a href="https://www.jtracking.ai/">jtracking.ai</a> — positioning, Bessemer/DCM backing, 14-day trial</div>
+        <div><a href="https://github.com/jtrackingai/analytics-tracking-automation">github.com/jtrackingai</a> — open-sourced agent</div>
+        <div><a href="https://sourceforge.net/software/product/JTracking/">SourceForge</a> — JTracking founded 2024, Singapore</div>
+        <div><a href="https://www.flisk.ai/gtm">flisk.ai/gtm</a> — AI agent for tag management, publishes to container</div>
+        <div><a href="https://www.crunchbase.com/organization/flisk-c785">Crunchbase</a> — Flisk seed round</div>
+        <div><a href="https://www.nicelookingdata.com/blog/best-ga4-audit-tools-2026">NiceLookingData</a> — full audit-tool price comparison</div>
+        <div><a href="https://www.nicelookingdata.com/">nicelookingdata.com</a> — Free/$49/$199, sandbox-only fixes</div>
+        <div><a href="https://www.gafix.ai/">gafix.ai</a> — free tier, $49 audit, $199–499 remediation</div>
+        <div><a href="https://www.webtonic.io/blog/best-ga4-implementation-tools">Web Tonic</a> — 48% consent misconfig, 20–30% budget distortion, 14.7M GA4 properties, 20-tool price table</div>
+        <div><a href="https://www.trackingplan.com/pricing">Trackingplan pricing</a> — $249–999, $1,750+ enterprise</div>
+        <div><a href="https://apps.shopify.com/analyzify">Analyzify on Shopify</a> — 4.7★, 272 reviews, $145–575/mo</div>
+        <div><a href="https://serversideanalytics.ai/review/elevar-review">Elevar review</a> — $0/$200/$450/$950, 6,500+ brands</div>
+        <div><a href="https://www.littledata.io/vs/littledata-vs-analyzify">Littledata</a> — $0.35/order, $199, $990</div>
+        <div><a href="https://apps.shopify.com/tagfly">TagFly</a> — prebuilt GTM containers, 4.9★</div>
+        <div><a href="https://developers.google.com/tag-platform/tag-manager/api/v2/limits-quotas">Google</a> — GTM API v2: 10,000 req/day, 0.25 QPS</div>
+        <div><a href="https://www.incremys.com/en/resources/blog/google-tag-manager-api">Incremys</a> — prepare→validate→version→publish practice</div>
+        <div><a href="https://trends.builtwith.com/widgets/Google-Tag-Manager">BuiltWith</a> / <a href="https://w3techs.com/technologies/overview/tag_manager">w3techs</a> — GTM installed base and share</div>
+        <div><a href="https://mycodelesswebsite.com/marketing-agency-statistics/">Marketing agency statistics</a> — 433,400 agencies worldwide</div>
+        <div><a href="https://www.upwork.com/hire/google-tag-manager-freelancers/cost/">Upwork</a> — GTM specialist median $30/hr</div>
+        <div><a href="https://www.fiverr.com/">Fiverr</a> — GA4/GTM setup gigs at $10–35</div>
+        <div><a href="https://www.coders.dev/blog/how-much-should-i-charge-for-google-analytics-services.html">Coders.dev</a> — $7.5K–15K migrations, $150–250/hr</div>
+        <div><a href="https://ppc.land/consent-mode-v2-enforcement-is-silently-breaking-google-ads-conversions/">PPC Land</a> — 90% conversion loss case, ~40% recovered</div>
+        <div><a href="https://www.leadriver.io/blog/cold-email-reply-rate-benchmarks-2026">Leadriver</a> / <a href="https://www.cleanlist.ai/blog/2026-02-18-cold-email-response-rate-statistics">Cleanlist</a> — 2026 cold email benchmarks</div>
+        <div><a href="https://www.playto.so/blogs/how-to-price-your-saas-for-indian-vs-international-customers-in-2026">Playto</a> — India vs international SaaS price ratios</div>
+        <div><a href="https://emergedigital.co/the-state-of-shopify-in-india-2026/">Emerge Digital</a> — 121,624 Indian Shopify stores, +32% YoY</div>
+        <div><a href="https://measureu.com/ga4-audit-mcp/">MeasureU</a> — GA4 audit with Claude MCP in under 4 minutes</div>
+        <div><a href="https://claudemarketplaces.com/mcp/io.github.mharnett/gtm-ga4">GTM/GA4 MCP server</a> — 14 free tools incl. tag writes, consent audit</div>
+        <div><a href="https://www.mordorintelligence.com/industry-reports/tag-management-system-market">Mordor</a> — tag management market $1.74–1.86B, 12–15.6% CAGR</div>
+        <div><a href="https://alexisvantal.com/articles/server-side-gtm-cost/">Alexis Vantal</a> / <a href="https://stape.io/">Stape</a> — server-side GTM hosting costs</div>
+        <div><a href="https://clutch.co/it-services/analytics/ga4-consulting-services">Clutch</a> / <a href="https://agencies.semrush.com/list/">Semrush Agency Partners</a> — list sources</div>
+        <div><a href="https://www.similarweb.com/website/">Similarweb</a> — traffic estimates for all 13 domains in section 03, July 2026</div>
+        <div><a href="https://trends.builtwith.com/analytics/Google-Tag-Manager">BuiltWith</a> — GTM live sites by country: US 3,858,130 · UK 1,412,352 · India 667,555 · 31.27M live total</div>
+        <div><a href="https://www.ibisworld.com/united-states/number-of-businesses/advertising-agencies/1433/">IBISWorld US</a> — 114,014 advertising agencies, +4.4% YoY, $88.7B industry</div>
+        <div><a href="https://img3.ibisworld.com/united-kingdom/number-of-businesses/advertising-agencies/3985">IBISWorld UK</a> — 17,636 agencies, +1.7% YoY</div>
+        <div><a href="https://www.ibisworld.com/australia/number-of-businesses/advertising-agencies/2337/">IBISWorld AU</a> — 8,373 digital advertising agencies</div>
+        <div><a href="https://www.dentsu.com/news-releases/global-ad-spend-set-to-surpass-one-trillion-for-the-first-time-in-2026-as-the-algorithmic-era-redefines-growth">dentsu</a> — global ad spend passes $1T; digital $835.82B, 68.7% share</div>
+        <div><a href="https://www.emarketer.com/forecasts/5a4d341cd8690c01349716dc/5a4d1b48d8690c01349716ad/">eMarketer</a> — US ~$320B, UK $34B digital ad spend 2026</div>
+        <div><a href="https://ppc.land/australias-digital-ad-market-hits-record-4-9bn-q1-up-15-3/">PPC Land</a> — Australia record A$4.9B Q1 2026, +15.3%; US$16.88B digital, +12.7%/yr</div>
+        <div><a href="https://www.exchange4media.com/digital-news/dentsu-india-launches-digital-advertising-report-2026-151629.html">dentsu India</a> — ₹71,621 cr digital 2025 → ₹98,034 cr by 2027; ~$14.56B in 2026</div>
+        <div><a href="https://www.goodfirms.co/directory/country/top-digital-marketing-companies/in">GoodFirms</a> — 11,431 Indian digital marketing agencies listed</div>
+        <div><a href="https://www.demandsage.com/google-ads-statistics/">Demandsage</a> — 1.2M+ businesses on Google Ads; 65%+ of SMBs use PPC</div>
+        <div><a href="https://upgrowth.in/performance-marketing-retainer-pricing-india-2026/">upGrowth</a> — Indian agency retainers ₹15K–₹5L/mo; mid-tier ₹40–80K</div>
+        <div><a href="https://www.transactbridge.com/blog/the-ultimate-guide-to-saas-payments-in-india-everything-you-need-to-know">TransactBridge</a> — INR checkout cuts abandonment up to 40%; UPI AutoPay 3× recurring success; GST/ITC mechanics</div>
+        <div><a href="https://www.vitally.io/post/saas-churn-benchmarks">Vitally</a> — billing failures cause 20–40% of B2B SaaS churn</div>
+        <div><a href="https://glimmerspoint.com/top-20-offshore-b2b-digital-marketing-companies-in-india/">Glimmers Point</a> — 12,000+ Indian agencies; white-label export to US/UK/CA/AU/UAE</div>
+        <div><a href="https://partner2b.com/post/the-partner-led-growth-playbook-kpis-metrics-and-signals-that-prove-it-s-working">Partner2B</a> / PartnerStack — partner-sourced: 20–30% lower churn, 58% higher retention, 46% faster close, 40% higher AOV, 50% lower CAC</div>
+        <div><a href="https://stealthagents.com/research/smb-customer-acquisition-cost-statistics-2026">Stealth Agents</a> — SMB CAC $200–700 (2026)</div>
+        <div><a href="https://www.growthspreeofficial.com/blogs/b2b-saas-cac-payback-benchmarks-2026-acv-stage-channel">GrowthSpree</a> — sub-$5K ACV median CAC payback 11 months</div>
+        <div><a href="https://www.sasanova.com/guides/saas-spending-benchmarks-2026">Sasanova</a> — agencies spend 7–10% of revenue on software, ~12 subscriptions, mark up 15–50%</div>
+        <div><a href="https://w3techs.com/technologies/details/tg-google">w3techs</a> — GTM on 45.5% of all websites, 99.6% of those with a known tag manager (Aug 2026)</div>
+        <div><a href="https://prys.io/learn/shopify-app-store-ranking-factors">Prys</a> / <a href="https://www.bigmoves.marketing/blog/shopify-app-store-ranking-algorithm-overview-of-shopify-app-store-ranking-factors">BigMoves</a> — Shopify App Store ranking: relevance then quality, review and install velocity, retention, freshness</div>
+        <div><a href="https://www.ziprecruiter.com/Jobs/Google-Analytics-4-Ga4">ZipRecruiter</a> — US GA4 specialist $114,320 avg ($100.5K–134.5K)</div>
+        <div><a href="https://www.itjobswatch.co.uk/jv/Harnham-Data-Analytics-Recruitment/GA4-and-GTM-Implementation-Contractor-Job-London-South-East-England-UK-4t0pwf">ITJobsWatch</a> — UK GA4/GTM implementation contractor £225–250/day</div>
+        <div><a href="https://learntube.ai/blog/data-science/google-analytics/how-much-will-i-earn-as-a-google-analytics-specialist-the-ultimate-2024-salary-guide/">LearnTube</a> — India GA4 specialist ₹3–15L; mid-level ₹6–12L</div>
+        <div><a href="https://www.karboncard.com/blog/freelance-hourly-rate">Karbon</a> — freelance rates: US/Canada $48–70/hr, UK/W.Europe $30–60, India $10–30</div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
