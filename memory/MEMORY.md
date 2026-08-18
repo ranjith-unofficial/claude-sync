@@ -31,6 +31,7 @@
 - [Project: INC42 brand positioning (outside-in)](project-inc42-brand-positioning.md) — 9-operator feature matrix + archetype quadrant + ranked borrowable ideas; companion to the unification project, different method (external audit, not analytics)
 - [Strategic report structure](feedback-strategic-report-structure.md) — build one narrative argument, not additive tables; research named comparables directly
 - [INC42 vendor stack (verified)](reference-inc42-vendor-stack.md) — Customer.io (web+app, EU), PostHog (EU), MoEngage REMOVED, Singular/Firebase app-only
+- [INC42 app tracking links](reference-inc42-app-tracking-links.md) — store URLs, UTM→Singular param mapping (`pcn`/`pcid`/`pcrn`/`psn`), source = channel not event; DRS QR link verified working both platforms, but referrer carries only `singular_click_id` → GA4 sees no campaign
 - [INC42 market maps (idea from Utkarsh, 17 Aug 2026)](project-inc42-market-maps.md) — indianvcs.com/maps (thin, city-only) + marketmapmaker.app ($490/yr per map); our edge is DataLabs data; intent UNCONFIRMED
 
 ## INC42 data warehouse
