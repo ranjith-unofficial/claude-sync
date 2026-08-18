@@ -192,7 +192,13 @@
       "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --no-sandbox --no-first-run --force-color-profile=srgb --no-pdf-header-footer --print-to-pdf=/Users/thrillophilia/Nexloid-Launch-Dossier.pdf --virtual-time-budget=15000 file:///Users/thrillophilia/nexloid-launch-dossier.html)",
       "Bash(sed 's|/Users/thrillophilia|~|')",
       "Bash(./pdfenv/bin/python -c ' *)",
-      "Bash(claude mcp *)"
+      "Bash(claude mcp *)",
+      "mcp__claude_ai_Wispr_Flow__search_scratchpad_notes",
+      "mcp__claude_ai_Wispr_Flow__search_meetings",
+      "mcp__claude_ai_Wispr_Flow__get_account_info",
+      "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__list_meetings",
+      "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_identity",
+      "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_meeting_summary"
     ]
   }
 }
