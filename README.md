@@ -30,6 +30,13 @@ Anything Claude produces goes in `~/ClaudeDocs/<project>/` and syncs automatical
    ```
 
 4. Restart Claude Code.
+5. Confirm it worked:
+
+   ```
+   bash ~/Library/Mobile\ Documents/com~apple~CloudDocs/ClaudeSync/bin/claude-sync-verify.sh
+   ```
+
+   Expect six OK links and "All good." Run it any time you suspect a Mac has drifted.
 
 The script auto-detects the username, so a different home dir on Mac 2 is fine. Anything it replaces is parked in `~/.claude/pre-sync-backup-<timestamp>/` — nothing is deleted.
 
