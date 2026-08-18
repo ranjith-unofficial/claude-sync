@@ -17,8 +17,12 @@ Four symlinks point the local Claude install at it:
 - `~/.claude/skills` → `ClaudeSync/skills`
 - `~/.claude/settings.json` → `ClaudeSync/settings/settings.json`
 - `~/.claude/settings.local.json` → `ClaudeSync/settings/settings.local.json`
+- `~/.claude/CLAUDE.md` → `ClaudeSync/CLAUDE.md`
+- `~/ClaudeDocs` → `ClaudeSync/outputs`
 
 So **editing a memory file edits the shared copy on both Macs**. Session transcripts, history, and caches are deliberately NOT shared.
+
+**Generated deliverables (PDF/HTML/DOCX) go in `~/ClaudeDocs/<project>/`** — subfolders inc42, nexloid, personal, workshops. The synced `CLAUDE.md` instructs every session on both Macs to save there, so files sync by construction rather than by remembering. `~/Downloads` is deliberately excluded from sync: it holds invoices, Aadhaar, and bank PDFs that must not go into iCloud.
 
 **Scripts** in `ClaudeSync/bin/`: `claude-sync-link.sh` (one-time per Mac, auto-detects username), `claude-sync-guard.sh` (SessionStart hook — un-evicts iCloud files, repairs symlinks an app replaced with real files), `claude-sync-backup.sh` (Stop hook — git snapshot).
 
