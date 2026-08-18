@@ -191,7 +191,8 @@
       "Read(//Applications/**)",
       "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --no-sandbox --no-first-run --force-color-profile=srgb --no-pdf-header-footer --print-to-pdf=/Users/thrillophilia/Nexloid-Launch-Dossier.pdf --virtual-time-budget=15000 file:///Users/thrillophilia/nexloid-launch-dossier.html)",
       "Bash(sed 's|/Users/thrillophilia|~|')",
-      "Bash(./pdfenv/bin/python -c ' *)"
+      "Bash(./pdfenv/bin/python -c ' *)",
+      "Bash(claude mcp *)"
     ]
   }
 }
