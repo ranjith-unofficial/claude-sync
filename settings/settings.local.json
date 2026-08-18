@@ -198,7 +198,8 @@
       "mcp__claude_ai_Wispr_Flow__get_account_info",
       "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__list_meetings",
       "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_identity",
-      "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_meeting_summary"
+      "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_meeting_summary",
+      "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_meeting_transcript"
     ]
   }
 }
