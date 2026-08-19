@@ -8,6 +8,7 @@
 - [Validation approach](feedback-validation-approach.md) — confirm feasibility first; cross-check against independent ground truth, not curated lists
 - [Ask before assuming](feedback-ask-before-assuming.md) — don't state stale plan dates/memory as confirmed current fact; ask, don't build recommendations on assumptions
 - [Document calibration](feedback-document-calibration.md) — state decisions directly; explain only what prevents real confusion; never narrate rejected alternatives or invent unrequested sections
+- [Always include source links](feedback-always-include-source-links.md) — every reviewable list needs a clickable link to the source doc (resume/article), next to the name, not buried
 - [Completeness audits](feedback-completeness-audits.md) — on reviewed docs, audit line-by-line; surface my own misses first; never ship unauthorised changes
 - [PRD completeness](feedback-prd-completeness.md) — every PRD must cover evidence/data, legal/compliance, and an outside reframe-check, not just mechanics — flag gaps explicitly instead of locking unvalidated decisions
 - [Shared system safety](feedback-shared-system-safety.md) — on INC42 n8n/team sheets touch only the named object, and PROVE non-interference with a diff, don't just assert it
