@@ -61,7 +61,7 @@ Ranjith graded all 20 blind: **16 Reject · 3 Maybe · 1 Shortlist** (Arpita Dhi
 |---|---|---|---|
 | v1 (17 Aug locked decisions only) | **15/20 (75%)** | 20/20 | 1 ✅ |
 | v2 (+ B2C / structured writing / user thinking / first principles, stated 19 Aug) | **17/20 (85%)** | 20/20 | **0** ❌ |
-| v3 (v2 but pure-b2b capped, `mixed` NOT capped) | running on full pool | | |
+| v3 (v2 but pure-b2b capped, `mixed` NOT capped) | see gpt-5.2 row below | | |
 
 - v1 was **better than predicted** — it agreed on 5/6 presentation rows and 6/9 relevance rows by reaching the same rejects via *substance* ("no quantified impact", "AI listed as skills only"). Stripping presentation/background rules cost almost nothing.
 - v2's B2C rule fixed Utkarsh/Anmol/Siddharth but **capped Arpita — his only Shortlist — at Maybe(57) for "recent core work is B2B fintech."** Hence v3: the `mixed` vs pure-`b2b` split is the load-bearing line. His 4 non-rejects all classified `mixed`; the 8 he rejected hardest all classified `b2b`.
@@ -80,3 +80,30 @@ Ranjith graded all 20 blind: **16 Reject · 3 Maybe · 1 Shortlist** (Arpita Dhi
 2. Whether the B2C rule should cap `mixed` profiles (v3 says no, based on Arpita).
 
 Artifacts in `<scratchpad 88ba76e1>`: `pt_brief.py` (v1), `pt_brief_v2.py`, `pt_brief_v3.py`, `eligibility.py`, `run_pool.py`, `pool_results.json`, `ranjith_grades.json`.
+
+## FULL RUN COMPLETE (2026-08-19) — 235 scored, results in the sheet
+
+**⚠️ The Anthropic API key in the live `Workflow Config` node is OUT OF CREDIT** (HTTP 400, `x-should-retry: false`). It died 24 candidates into the first full run. **This means the live FOA hiring agent is also dead until someone tops up** — flag to Utkarsh. Switched to the OpenAI key at `<scratchpad 0a7258b2>/openai.key`, model **`gpt-5.2`** via the Responses API.
+
+**gpt-5.2 is NOT a drop-in for claude-sonnet-5 — it needs its own bands.**
+| Backend | Bands | Exact agreement |
+|---|---|---|
+| claude-sonnet-5 (v2) | 45/70 default | 17/20 |
+| gpt-5.2 (v3) | 45/70 default | **11/20** |
+| gpt-5.2 (v3) | **61/77 recalibrated** | **17/20** |
+
+Cause is a distribution shift, not worse reasoning: gpt-5.2 scores the same evidence ~19 pts higher (mean 49 vs 30). **Any future model swap requires re-running the 20 and re-deriving bands — agreement numbers do not transfer.**
+
+**gpt-5.2 is also less stable than Claude.** Same input, repeated calls: Arpita 74 vs 63; Ramandeep Dhillon 42 (batch) vs 61 (solo) — verdict flip. Tested explicitly: this is sampling non-determinism, **NOT a batching artifact** — each candidate is an independent API call, so "run one by one" does not fix it. Only majority-vote over N samples would, at 3x cost. Mitigation used instead: **117 of 235 sit within ±10 of a band boundary and are flagged `NEAR BOUNDARY - verify` in the sheet.** Treat the ranking as the signal and the verdict label as approximate.
+
+**Final numbers:** 545 applicants → 235 eligible → **10 Shortlist (4.3%) · 38 Maybe (16.2%) · 187 Reject (79.6%)**. Context split: 121 b2b · 90 mixed · 14 b2c · 10 unclear. Top of the ranking: Shruti Verma 82, Rashvi Santosh 82, Shivam Bhagat 82, Umang Singh 79.
+
+**Cost: ~Rs 267 (worst case Rs 374 if gpt-5.2 is priced above GPT-5 rates — pricing UNVERIFIED, do not quote as fact) + Rs 58 Anthropic.** 1.00M input / 189k output tokens for 235 candidates + calibration.
+
+**Written to the sheet (verified by re-reading, not assumed):**
+- `PT Calibration` cols K/L/M = agentVerdict / agentReason / agentFit, all 20 rows. His grades and names verified intact.
+- New tab **`Product Trainee Scores`** (gid 2128335977), 235 rows x 22 cols, sorted by fitScore desc, incl. salaryTier, negotiation tier, stabilityFlag, and the 7 sub-scores.
+
+⚠️ **Sheet-write gotcha:** the Google Sheets name box does NOT reliably take focus via a click at its coordinates — typing "K1" there landed in cell A1 and pasted over the `#`/`name`/`resume` columns. Caught and undone with cmd+z, no data lost. **Use keyboard navigation (click a known cell, then arrow keys) and verify the name box by zooming on it BEFORE pasting.**
+
+**Still open with Ranjith:** where to cut the review pile (he gets a ranking, not a verdict); topping up Anthropic; the Product sense 10% weighting. n8n multi-role deployment deliberately NOT done — it would bake in those unresolved decisions.
