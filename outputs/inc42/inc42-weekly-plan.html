@@ -1,4 +1,4 @@
-<title>One INC42 — Weekly Plan</title>
+<title>One INC42 — Funnels & Feature List</title>
 <style>
   :root{
     --paper:#f4f2ec; --card:#ffffff; --ink:#141118; --ink2:#565263; --ink3:#87829a;
@@ -58,19 +58,21 @@
   .sub{color:var(--ink2);font-size:15px;max-width:72ch;margin:0;}
   .head{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:26px;}
 
-  section{margin-bottom:40px;}
+  section{margin-bottom:42px;}
   .lbl{display:flex;align-items:baseline;gap:11px;margin-bottom:14px;}
   .lbl .k{font-family:"Iowan Old Style",serif;font-size:12px;color:var(--violet);border:1px solid var(--violet);width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;flex-shrink:0;}
   .lbl h2{font-size:20px;}
   .lbl .note{font-size:12.5px;color:var(--ink2);margin-left:auto;font-style:italic;}
 
-  /* GATE banner */
-  .gate{display:flex;gap:14px;align-items:flex-start;background:var(--amber-bg);border:1px solid var(--amber);border-left:5px solid var(--amber);border-radius:11px;padding:15px 18px;margin:20px 0 32px;}
-  .gate .g{font-size:22px;line-height:1;}
-  .gate .t{font-size:13.5px;color:var(--ink);}
-  .gate .t b{font-weight:700;}
+  .tbl-wrap{overflow-x:auto;margin:10px 0;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line2);vertical-align:top;}
+  th{font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink3);font-weight:700;border-bottom:1px solid var(--ink2);}
+  tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  td.k{font-weight:700;color:var(--ink);white-space:nowrap;}
 
-  /* QIA reality */
+  /* QIA cards */
   .qia{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .qcard{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px;}
   .qcard .ct{font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;font-weight:800;color:var(--ink3);margin-bottom:9px;}
@@ -80,117 +82,80 @@
   .bignum .u{font-size:13px;font-weight:600;color:var(--ink2);margin-left:6px;font-family:-apple-system,sans-serif;}
   .qcard ul{margin:8px 0 0;padding-left:17px;font-size:13px;color:var(--ink2);}
   .qcard li{margin-bottom:6px;} .qcard li b{color:var(--ink);}
-
-  .tbl-wrap{overflow-x:auto;margin-top:10px;}
-  table{width:100%;border-collapse:collapse;font-size:13px;min-width:340px;}
-  th,td{text-align:left;padding:7px 11px;border-bottom:1px solid var(--line2);}
-  th{font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink3);font-weight:700;border-bottom:1px solid var(--ink2);}
-  td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;}
-  td.hi{color:var(--violet);font-weight:800;}
-  tr:last-child td{border-bottom:none;}
   .verdict .vh{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;font-family:-apple-system,sans-serif;}
   .verdict p{margin:0;font-size:13.5px;color:var(--ink2);} .verdict p b{color:var(--ink);}
 
-  /* FUNNEL */
-  .funnel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);}
-  .fstage{padding:0 0 16px;border-right:1px solid var(--line);}
-  .fstage:last-child{border-right:none;}
-  .fstage .cap{height:6px;}
-  .fstage.acq .cap{background:var(--blue);} .fstage.act .cap{background:var(--green);} .fstage.eng .cap{background:var(--violet);}
-  .fstage .in{padding:15px 18px 0;}
-  .fstage .stg{font-size:10px;text-transform:uppercase;letter-spacing:0.07em;font-weight:800;}
-  .fstage.acq .stg{color:var(--blue);} .fstage.act .stg{color:var(--green);} .fstage.eng .stg{color:var(--violet);}
-  .fstage h3{font-size:17px;margin:3px 0 4px;}
-  .fstage .def{font-size:12.5px;color:var(--ink2);margin:0 0 11px;min-height:34px;}
-  .fstage .surf{border-top:1px solid var(--line2);padding-top:9px;}
-  .fstage .srow{display:flex;gap:8px;font-size:12px;padding:3px 0;align-items:baseline;}
-  .fstage .srow .sn{font-weight:700;color:var(--ink);width:64px;flex-shrink:0;}
-  .fstage .srow .sv{color:var(--ink2);}
-  .fstage .meas{margin-top:11px;font-size:11px;color:var(--ink3);}
-  .fstage .meas b{color:var(--ink2);font-weight:700;}
+  /* product activation funnels */
+  .prod{background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:14px;overflow:hidden;}
+  .prod .phead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:13px 18px;border-bottom:1px solid var(--line);}
+  .prod .phead h3{font-size:17px;}
+  .prod .phead .job{font-size:13px;color:var(--ink2);font-style:italic;}
+  .prod .phead .vchip{margin-left:auto;font-size:9.5px;text-transform:uppercase;letter-spacing:0.05em;font-weight:800;padding:2px 9px;border-radius:6px;white-space:nowrap;}
+  .vchip.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-soft);}
+  .vchip.warn{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber);}
+  .flow{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:0;}
+  .step{padding:14px 16px;border-right:1px solid var(--line2);}
+  .step:last-child{border-right:none;}
+  .step.actv{background:var(--green-bg);}
+  .step .cap2{height:4px;border-radius:3px;width:34px;margin-bottom:9px;}
+  .step.a1 .cap2{background:var(--blue);} .step.actv .cap2{background:var(--green);} .step.a3 .cap2{background:var(--violet);}
+  .step .st2{font-size:9.5px;text-transform:uppercase;letter-spacing:0.06em;font-weight:800;color:var(--ink3);}
+  .step.actv .st2{color:var(--green);}
+  .step .df{font-size:13px;color:var(--ink);margin-top:3px;font-weight:600;}
+  .step.actv .df{color:var(--green);}
+  .step .sub2{font-size:11.5px;color:var(--ink2);margin-top:4px;}
+  .pnote{font-size:11.5px;padding:9px 18px;border-top:1px solid var(--line2);color:var(--ink2);}
+  .pnote b{color:var(--ink);}
 
-  .rollup{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--panel);border-radius:12px;padding:15px 20px;margin-top:14px;}
-  .rollup .lead{color:#fff;font-weight:700;font-size:13.5px;}
-  .rollup .eq{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;}
-  .rollup .term{background:#241d3d;border:1px solid #3c3167;color:#cabffb;border-radius:7px;padding:4px 10px;font-weight:700;}
-  .rollup .op{color:#8b86a0;font-weight:800;}
-  .rollup .out{background:var(--amber);color:#1c1503;border-radius:7px;padding:4px 11px;font-weight:800;}
+  /* current funnel table */
+  .funnel-tbl table{font-size:13px;min-width:720px;}
+  .funnel-tbl th.grp{text-align:center;border-bottom:none;color:var(--ink);font-size:11px;}
+  .funnel-tbl th.web{color:var(--blue);} .funnel-tbl th.dl{color:var(--amber);} .funnel-tbl th.all{color:var(--violet);}
+  .funnel-tbl td.pct{color:var(--ink2);font-variant-numeric:tabular-nums;text-align:right;font-size:12px;}
+  .funnel-tbl tr.cliff{background:var(--red-bg);}
+  .funnel-tbl tr.cliff td{border-color:var(--red);}
+  .funnel-tbl tr.cliff td.k{color:var(--red);}
+  .funnel-tbl tr.cliff td.pct{color:var(--red);font-weight:800;}
+  .funnel-tbl tr.base td{border-bottom:2px solid var(--ink2);}
+  .colsep{border-left:1px solid var(--line);}
 
-  /* MAPPING */
-  .maptable table{min-width:640px;}
-  .maptable td.exp{font-weight:600;color:var(--ink);}
-  .fchip{display:inline-block;font-size:9px;text-transform:uppercase;letter-spacing:0.05em;font-weight:800;padding:2px 7px;border-radius:5px;white-space:nowrap;}
-  .fchip.acq{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-soft);}
-  .fchip.act{background:var(--green-bg);color:var(--green);border:1px solid var(--green-soft);}
-  .fchip.eng{background:var(--violet-bg);color:var(--violet);border:1px solid var(--violet-soft);}
-  .fchip.val{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber);}
-  .maptable td.contrib{font-size:12.5px;color:var(--ink2);}
-  .maptable td.contrib b{color:var(--ink);}
+  .standnote{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
+  .snote{flex:1;min-width:280px;border-radius:11px;padding:13px 16px;font-size:13px;}
+  .snote.cliff{background:var(--red-bg);border:1px solid var(--red);}
+  .snote.spine{background:var(--amber-bg);border:1px solid var(--amber);}
+  .snote b{color:var(--ink);}
 
-  /* SEQUENCE */
-  .seq{display:grid;grid-template-columns:1fr 44px 1fr;align-items:stretch;gap:0;}
-  .phase{border-radius:13px;padding:18px 20px;border:1px solid var(--line);background:var(--card);}
-  .phase.p1{border-top:5px solid var(--blue);} .phase.p2{border-top:5px solid var(--violet);}
-  .phase .pt{font-size:10.5px;text-transform:uppercase;letter-spacing:0.07em;font-weight:800;margin-bottom:4px;}
-  .phase.p1 .pt{color:var(--blue);} .phase.p2 .pt{color:var(--violet);}
-  .phase h3{font-size:17px;margin-bottom:6px;}
-  .phase .wk{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:9px;}
-  .phase p{font-size:12.5px;color:var(--ink2);margin:0;}
-  .seqarrow{display:flex;align-items:center;justify-content:center;color:var(--violet);}
+  /* feature list */
+  .fl-grp{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:13px;overflow:hidden;}
+  .fl-h{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--violet-bg);}
+  .fl-h .n{font-family:"Iowan Old Style",serif;font-size:11px;color:var(--violet);border:1px solid var(--violet-soft);border-radius:5px;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .fl-h h3{font-size:15px;}
+  .fl-h .cnt{margin-left:auto;font-size:11px;color:var(--ink3);font-weight:700;}
+  .fl-grp table{font-size:12.5px;min-width:560px;}
+  .fl-grp td.k{width:210px;}
+  .fl-grp td .src{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;border-radius:4px;padding:1px 6px;margin-top:3px;}
+  .src.strat{background:var(--violet-bg);color:var(--violet);border:1px solid var(--violet-soft);}
+  .src.app{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-soft);}
+  .src.here{background:var(--green-bg);color:var(--green);border:1px solid var(--green-soft);}
+  .hy{display:inline-block;font-size:9px;font-weight:800;color:var(--violet);border:1px solid var(--violet-soft);border-radius:4px;padding:0 5px;margin-left:4px;}
 
-  /* WEEKS */
-  .week{background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:15px;overflow:hidden;}
-  .week.now{border-color:var(--violet);box-shadow:0 0 0 1px var(--violet);}
-  .whead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:13px 18px;border-bottom:1px solid var(--line);background:var(--violet-bg);}
-  .week.fix .whead{background:var(--blue-bg);}
-  .whead h3{font-size:16px;} .whead .dt{font-size:12px;color:var(--ink2);font-variant-numeric:tabular-nums;}
-  .whead .theme{font-size:13px;color:var(--ink2);font-style:italic;}
-  .whead .ph{font-size:9px;text-transform:uppercase;letter-spacing:0.06em;font-weight:800;padding:2px 8px;border-radius:5px;}
-  .ph.fix{background:var(--blue);color:#fff;} .ph.exp{background:var(--violet);color:#fff;}
-  .whead .nowtag{font-size:9px;text-transform:uppercase;letter-spacing:0.06em;color:var(--violet);border:1px solid var(--violet);padding:1px 7px;border-radius:5px;font-weight:800;}
-  .wbody{padding:4px 0;}
-  .wbody table{min-width:600px;}
-  .wbody th,.wbody td{padding:8px 18px;}
-  .wbody td.task{font-weight:600;color:var(--ink);}
-  .wbody td.task .h{display:block;font-weight:400;color:var(--ink2);font-size:11.5px;margin-top:2px;}
-  .wbody td.own{color:var(--ink2);white-space:nowrap;font-size:12.5px;}
-  .wbody td.stg{white-space:nowrap;}
-
-  .pill{display:inline-block;font-size:9.5px;text-transform:uppercase;letter-spacing:0.04em;padding:2px 8px;font-weight:800;border-radius:5px;white-space:nowrap;}
-  .pill.ns{background:var(--grey-bg);color:var(--grey);}
-  .pill.ip{background:var(--blue-bg);color:var(--blue);}
-  .pill.bl{background:var(--red-bg);color:var(--red);}
-  .pill.dn{background:var(--green-bg);color:var(--green);}
-  .tagh{display:inline-block;font-size:9px;font-weight:800;color:var(--violet);border:1px solid var(--violet-soft);border-radius:4px;padding:0 5px;margin-left:4px;vertical-align:1px;}
-
-  .legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--ink2);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-top:6px;}
   .foot{border-top:1px solid var(--line);margin-top:34px;padding-top:16px;font-size:11.5px;color:var(--ink3);}
   .foot b{color:var(--ink2);}
 
-  @media (max-width:720px){
-    .qia{grid-template-columns:1fr;}
-    .funnel{grid-template-columns:1fr;} .fstage{border-right:none;border-bottom:1px solid var(--line);}
-    .seq{grid-template-columns:1fr;} .seqarrow{transform:rotate(90deg);padding:8px 0;}
-    h1.title{font-size:25px;}
-  }
+  @media (max-width:720px){ .qia{grid-template-columns:1fr;} .flow{grid-template-columns:1fr;} .step{border-right:none;border-bottom:1px solid var(--line2);} h1.title{font-size:25px;} }
 </style>
 
 <div class="wrap">
 
   <div class="head">
-    <div class="eyebrow"><span><b>One INC42</b></span><span>Weekly Plan</span><span>Owner: Ranjith</span><span>Consumer: Utkarsh</span><span>19 Aug 2026</span></div>
-    <h1 class="title">Weekly plan — validate the number, fix the instruments, then move the funnel</h1>
-    <p class="sub">The engine has one scoreboard (QIA) and one funnel beneath it: <b>acquisition → activation → engagement</b>. Every experiment names the funnel stage it moves and how that rolls up to the number. But nothing is read until the number itself is trustworthy — so validating QIA-30 is the gate on everything else.</p>
-  </div>
-
-  <div class="gate">
-    <div class="g">⛔</div>
-    <div class="t"><b>The gate — validate before we do anything.</b> The starting number (~2,100) is a 90-day, company-resolved estimate that can't be measured cross-surface today. Week 1 pulls the real <b>QIA-30</b> from BigQuery and fixes the events that feed it. No Phase-2 experiment is read against a number until this clears.</div>
+    <div class="eyebrow"><span><b>One INC42</b></span><span>Funnels &amp; Feature List</span><span>Owner: Ranjith</span><span>20 Aug 2026</span></div>
+    <h1 class="title">Where the funnel stands, and the full feature list to move it</h1>
+    <p class="sub">The scoreboard (QIA) and the funnel beneath it — <b>acquisition → activation → engagement</b> — measured on the real data, plus the complete backlog discussed here and in Utkarsh's strategy. Weekly sequencing is Ranjith's to set on top of this.</p>
   </div>
 
   <!-- 1 · THE NUMBER -->
   <section>
-    <div class="lbl"><span class="k">1</span><h2>The number we're planning against</h2><span class="note">verify before quoting — figures directional</span></div>
+    <div class="lbl"><span class="k">1</span><h2>The north-star number — and why it's soft</h2><span class="note">verify before quoting</span></div>
     <div class="qia">
       <div class="qcard claim">
         <div class="ct">What Utkarsh stated</div>
@@ -203,63 +168,22 @@
       <div class="qcard">
         <div class="ct">Why it's a ceiling, not the number</div>
         <ul>
-          <li><b>Wrong window.</b> QIA is a <b>30-day</b> metric (revised 12 Aug). 2,100 uses the <b>90-day</b> base — the strategy itself flags "the 30-day baseline must be pulled."</li>
-          <li><b>Strict floor.</b> "Role + resolved company" is narrower than QIA's "known role, in core market." Role-only reads ~9,200.</li>
-          <li><b>Un-measurable today.</b> 3 PostHog projects + 2 Customer.io workspaces can't see one person; no enrichment layer.</li>
-        </ul>
-      </div>
-      <div class="qcard">
-        <div class="ct">My PostHog cross-check — DataLabs surface (1 of 3), internal excluded</div>
-        <div class="tbl-wrap"><table>
-          <tr><th>Window</th><th class="num">Identified active</th><th class="num">Qualified (role+co.)</th></tr>
-          <tr><td>90-day</td><td class="num">279</td><td class="num">164</td></tr>
-          <tr><td>30-day</td><td class="num hi">160</td><td class="num hi">114</td></tr>
-          <tr><td>30d as % of 90d</td><td class="num">57%</td><td class="num">70%</td></tr>
-        </table></div>
-      </div>
-      <div class="qcard">
-        <div class="ct">What I couldn't pull</div>
-        <ul>
-          <li><b>GA4 &amp; BigQuery</b> — no CLI access on this machine. The authoritative cross-surface QIA-30 lives in the warehouse and must be pulled there.</li>
-          <li>DataLabs is one surface; editorial web (the bulk of the 21,298) is a separate project I can't reach here.</li>
+          <li><b>Wrong window.</b> QIA is a <b>30-day</b> metric; 2,100 uses the <b>90-day</b> base.</li>
+          <li><b>Strict floor.</b> "Role + resolved company" is narrower than "known role, in core market" (role-only ≈ 9,200).</li>
+          <li><b>Un-measurable today.</b> 3 PostHog projects + 2 Customer.io workspaces can't see one person.</li>
         </ul>
       </div>
       <div class="qcard verdict">
         <div class="ct">Verdict</div>
-        <div class="vh">Apply the 30-day haircut and the true QIA-30 is roughly <b>1,200–1,500</b> — not 2,100 — and even that isn't measurable correctly until the identity spine exists.</div>
-        <p>So the plan does not chase a QIA target yet. <b>Week 1 validates the number.</b> Everything downstream is read against a QIA-30 we can actually trust.</p>
+        <div class="vh">True <b>QIA-30 ≈ 1,200–1,500</b>, not 2,100 — and it can't be measured cross-surface until the identity spine exists. Pull the real QIA-30 from BigQuery before setting any target.</div>
       </div>
     </div>
   </section>
 
-  <!-- 2 · THE THREE PRODUCT FUNNELS -->
-  <style>
-    .prod{background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:14px;overflow:hidden;}
-    .prod .phead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:13px 18px;border-bottom:1px solid var(--line);}
-    .prod .phead h3{font-size:17px;}
-    .prod .phead .job{font-size:13px;color:var(--ink2);font-style:italic;}
-    .prod .phead .vchip{margin-left:auto;font-size:9.5px;text-transform:uppercase;letter-spacing:0.05em;font-weight:800;padding:2px 9px;border-radius:6px;white-space:nowrap;}
-    .vchip.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-soft);}
-    .vchip.warn{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber);}
-    .flow{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:0;}
-    .step{padding:14px 16px;border-right:1px solid var(--line2);}
-    .step:last-child{border-right:none;}
-    .step.actv{background:var(--green-bg);}
-    .step .cap2{height:4px;border-radius:3px;width:34px;margin-bottom:9px;}
-    .step.a1 .cap2{background:var(--blue);} .step.actv .cap2{background:var(--green);} .step.a3 .cap2{background:var(--violet);}
-    .step .st2{font-size:9.5px;text-transform:uppercase;letter-spacing:0.06em;font-weight:800;color:var(--ink3);}
-    .step.actv .st2{color:var(--green);}
-    .step .df{font-size:13px;color:var(--ink);margin-top:3px;font-weight:600;}
-    .step.actv .df{color:var(--green);}
-    .step .sub2{font-size:11.5px;color:var(--ink2);margin-top:4px;}
-    .pnote{font-size:11.5px;padding:9px 18px;border-top:1px solid var(--line2);color:var(--ink2);}
-    .pnote b{color:var(--ink);}
-    @media (max-width:720px){.flow{grid-template-columns:1fr;}.step{border-right:none;border-bottom:1px solid var(--line2);}}
-  </style>
+  <!-- 2 · PRODUCT FUNNELS (ACTIVATION) -->
   <section>
     <div class="lbl"><span class="k">2</span><h2>Three product funnels — one activation per product</h2><span class="note">activation = earliest action that predicts return</span></div>
 
-    <!-- WEBSITE -->
     <div class="prod">
       <div class="phead"><h3>Inc42 Website</h3><span class="job">editorial · "read startup news"</span><span class="vchip warn">⚠ Validate</span></div>
       <div class="flow">
@@ -267,10 +191,9 @@
         <div class="step actv"><div class="cap2"></div><div class="st2">★ Activation</div><div class="df">Reads a 2nd article in the visit</div><div class="sub2">The "not a bounce" signal · leading signal: 1st article to ≥70% depth</div></div>
         <div class="step a3"><div class="cap2"></div><div class="st2">Engagement</div><div class="df">Returns &amp; reads 2+ pieces / 30 days</div><div class="sub2">R30 · registers → Identified + role</div></div>
       </div>
-      <div class="pnote">⚠ <b>Proposed, not measured</b> — the editorial PostHog project isn't reachable here. Validate which of {2nd article · scroll ≥70% · newsletter signup} best predicts a 30-day return, then lock.</div>
+      <div class="pnote">⚠ <b>Proposed, not measured</b> — validate on PostHog which of {2nd article · scroll ≥70% · newsletter signup} best predicts a 30-day return, then lock.</div>
     </div>
 
-    <!-- DATALABS -->
     <div class="prod">
       <div class="phead"><h3>DataLabs</h3><span class="job">data · "look up companies, deals, sectors"</span><span class="vchip ok">✓ Data-backed</span></div>
       <div class="flow">
@@ -278,10 +201,9 @@
         <div class="step actv"><div class="cap2"></div><div class="st2">★ Activation</div><div class="df">Views a company (or investor) profile</div><div class="sub2">The core value unit — the #1 surface</div></div>
         <div class="step a3"><div class="cap2"></div><div class="st2">Engagement</div><div class="df">Returns → repeat lookup, saved search, alert, Ask</div><div class="sub2">the deepening actions that predict return</div></div>
       </div>
-      <div class="pnote">✓ <b>Confirmed in PostHog (proj 66351):</b> <span class="mono">/company/</span> is the top surface — 1,777 users · 9,134 views. Repeat-use by action: Advanced Filter <b>53%</b> · Saved Search <b>52%</b> &gt; Search 44% &gt; Alert 31%. So browsing a company = activation; filtering/saving/alerting = engagement.</div>
+      <div class="pnote">✓ <b>Confirmed in PostHog:</b> <span class="mono">/company/</span> is the top surface — 1,777 users · 9,134 views/30d. Repeat-use by action: Advanced Filter <b>53%</b> · Saved Search <b>52%</b> &gt; Search 44%.</div>
     </div>
 
-    <!-- APP -->
     <div class="prod">
       <div class="phead"><h3>Inc42 App</h3><span class="job">product · "the daily brief habit"</span><span class="vchip ok">✓ Confirmed</span></div>
       <div class="flow">
@@ -289,220 +211,209 @@
         <div class="step actv"><div class="cap2"></div><div class="st2">★ Activation</div><div class="df">Completes a brief</div><div class="sub2">use engaged completion (≥60s), not the 7s flick-through</div></div>
         <div class="step a3"><div class="cap2"></div><div class="st2">Engagement</div><div class="df">Returns &amp; completes another brief</div><div class="sub2">streak · D1/D7 return</div></div>
       </div>
-      <div class="pnote">✓ <b>Your call, refined:</b> first-week data shows 41% nominally "complete" but a 7s median — so measure activation as an <b>engaged</b> completion (≥60s), the ~8 real readers/day, not the flick-throughs.</div>
-    </div>
-
-    <div class="rollup">
-      <span class="lead">All three roll up to the north star:</span>
-      <span class="eq">
-        <span class="term">Identified</span><span class="op">∩</span>
-        <span class="term">Qualified</span><span class="op">∩</span>
-        <span class="term">Active&nbsp;·&nbsp;30d</span><span class="op">=</span>
-        <span class="out">QIA</span>
-      </span>
+      <div class="pnote">✓ <b>Refined:</b> 41% nominally "complete" but 7s median — measure an <b>engaged</b> completion (≥60s), not the flick-throughs.</div>
     </div>
   </section>
 
-  <!-- 3 · WHERE WE STAND -->
-  <style>
-    .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-    .fcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 15px;}
-    .fcard.unified{border-color:var(--violet-soft);background:var(--violet-bg);}
-    .fcard .fh{display:flex;align-items:baseline;gap:8px;justify-content:space-between;}
-    .fcard .fh h3{font-size:15px;}
-    .fcard .win{font-size:9.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;}
-    .idchip{font-size:9.5px;font-weight:800;color:var(--red);background:var(--red-bg);border:1px solid var(--red);border-radius:5px;padding:1px 7px;margin:7px 0 4px;display:inline-block;}
-    .fcard.unified .idchip{color:var(--red);}
-    .frow{display:grid;grid-template-columns:64px 1fr 72px;align-items:center;gap:8px;padding:2.5px 0;font-size:11px;}
-    .frow .fn{color:var(--ink2);font-weight:600;}
-    .ftrack{height:9px;background:var(--line2);border-radius:3px;overflow:hidden;}
-    .ffill{height:100%;background:var(--blue);border-radius:3px;min-width:3px;display:block;}
-    .frow.act .ffill{background:var(--green);}
-    .frow.cliff .ffill{background:var(--red);}
-    .frow.cliff .fn{color:var(--red);font-weight:800;}
-    .frow .fv{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700;}
-    .frow .fv .pc{display:block;font-size:9px;color:var(--ink3);font-weight:600;}
-    .standnote{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
-    .snote{flex:1;min-width:280px;border-radius:11px;padding:13px 16px;font-size:13px;}
-    .snote.cliff{background:var(--red-bg);border:1px solid var(--red);}
-    .snote.spine{background:var(--amber-bg);border:1px solid var(--amber);}
-    .snote b{color:var(--ink);}
-    @media (max-width:720px){.fgrid{grid-template-columns:1fr;}}
-  </style>
+  <!-- 3 · CURRENT FUNNEL -->
   <section>
     <div class="lbl"><span class="k">3</span><h2>Where we stand — the current funnel</h2><span class="note">PostHog · last 30 days · internal excluded</span></div>
-    <p class="sub" style="margin-bottom:14px;">Both products deliver value at scale — then identify almost no one. The funnel doesn't leak at activation or engagement; it <b>collapses at identity</b>. Activation &amp; engagement span all visitors (incl. anonymous); Acquisition is the <i>identified</i> cut — the gap is the cliff.</p>
-    <div class="fgrid">
-
-      <!-- WEBSITE -->
-      <div class="fcard">
-        <div class="fh"><h3>Inc42 Website</h3><span class="win">30d</span></div>
-        <span class="idchip">0.42% identified</span>
-        <div class="frow"><span class="fn">Views</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">721,890</span></div>
-        <div class="frow"><span class="fn">Total</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">478,249</span></div>
-        <div class="frow cliff"><span class="fn">Acquisition</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">1,986<span class="pc">0.42%</span></span></div>
-        <div class="frow act"><span class="fn">Activation</span><span class="ftrack"><span class="ffill" style="width:9.5%"></span></span><span class="fv">45,510<span class="pc">9.5%</span></span></div>
-        <div class="frow"><span class="fn">Engagement</span><span class="ftrack"><span class="ffill" style="width:8.9%"></span></span><span class="fv">42,622<span class="pc">8.9%</span></span></div>
-        <div class="frow"><span class="fn">Retention</span><span class="ftrack"><span class="ffill" style="width:7.7%"></span></span><span class="fv">36,635<span class="pc">7.7%</span></span></div>
-        <div class="frow"><span class="fn">Revenue</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">186<span class="pc">0.04%</span></span></div>
-        <div class="frow"><span class="fn">Referral</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">25<span class="pc">0.01%</span></span></div>
-      </div>
-
-      <!-- DATALABS -->
-      <div class="fcard">
-        <div class="fh"><h3>DataLabs</h3><span class="win">30d</span></div>
-        <span class="idchip">0.16% identified</span>
-        <div class="frow"><span class="fn">Views</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">207,529</span></div>
-        <div class="frow"><span class="fn">Total</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">135,909</span></div>
-        <div class="frow cliff"><span class="fn">Acquisition</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">211<span class="pc">0.16%</span></span></div>
-        <div class="frow act"><span class="fn">Activation</span><span class="ftrack"><span class="ffill" style="width:61.5%"></span></span><span class="fv">83,647<span class="pc">62%</span></span></div>
-        <div class="frow"><span class="fn">Engagement</span><span class="ftrack"><span class="ffill" style="width:2%"></span></span><span class="fv">2,665<span class="pc">2.0%</span></span></div>
-        <div class="frow"><span class="fn">Retention</span><span class="ftrack"><span class="ffill" style="width:1.4%"></span></span><span class="fv">1,880<span class="pc">1.4%</span></span></div>
-        <div class="frow"><span class="fn">Revenue</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">278*<span class="pc">0.20%</span></span></div>
-        <div class="frow"><span class="fn">Referral</span><span class="ftrack"><span class="ffill" style="width:3px"></span></span><span class="fv">n/a<span class="pc">not tracked</span></span></div>
-      </div>
-
-      <!-- UNIFIED -->
-      <div class="fcard unified">
-        <div class="fh"><h3>Unified*</h3><span class="win">web + DataLabs</span></div>
-        <span class="idchip">0.36% identified</span>
-        <div class="frow"><span class="fn">Views</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">929,419</span></div>
-        <div class="frow"><span class="fn">Total</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">614,158</span></div>
-        <div class="frow cliff"><span class="fn">Acquisition</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">2,197<span class="pc">0.36%</span></span></div>
-        <div class="frow act"><span class="fn">Activation</span><span class="ftrack"><span class="ffill" style="width:21%"></span></span><span class="fv">129,157<span class="pc">21%</span></span></div>
-        <div class="frow"><span class="fn">Engagement</span><span class="ftrack"><span class="ffill" style="width:7.4%"></span></span><span class="fv">45,287<span class="pc">7.4%</span></span></div>
-        <div class="frow"><span class="fn">Retention</span><span class="ftrack"><span class="ffill" style="width:6.3%"></span></span><span class="fv">38,515<span class="pc">6.3%</span></span></div>
-        <div class="frow"><span class="fn">Revenue</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">464<span class="pc">0.08%</span></span></div>
-        <div class="frow"><span class="fn">Referral</span><span class="ftrack"><span class="ffill" style="width:3px"></span></span><span class="fv">25<span class="pc">~0%</span></span></div>
-      </div>
-
+    <div class="funnel-tbl tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Stage</th>
+            <th class="grp web" colspan="2">Inc42 Website</th>
+            <th class="grp dl colsep" colspan="2">DataLabs</th>
+            <th class="grp all colsep" colspan="2">Unified*</th>
+          </tr>
+          <tr>
+            <th class="num">Users</th><th class="num">% of visitors</th>
+            <th class="num colsep">Users</th><th class="num">% of visitors</th>
+            <th class="num colsep">Users</th><th class="num">% of visitors</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="k">Views (awareness)</td>
+            <td class="num">721,890</td><td class="pct">151%</td>
+            <td class="num colsep">207,529</td><td class="pct">153%</td>
+            <td class="num colsep">929,419</td><td class="pct">151%</td></tr>
+          <tr class="base"><td class="k">Total visitors</td>
+            <td class="num">478,249</td><td class="pct">100%</td>
+            <td class="num colsep">135,909</td><td class="pct">100%</td>
+            <td class="num colsep">614,158</td><td class="pct">100%</td></tr>
+          <tr class="cliff"><td class="k">Acquisition — identified</td>
+            <td class="num">1,986</td><td class="pct">0.42%</td>
+            <td class="num colsep">211</td><td class="pct">0.16%</td>
+            <td class="num colsep">2,197</td><td class="pct">0.36%</td></tr>
+          <tr><td class="k">Activation <span style="font-weight:400;color:var(--ink3)">(value action)</span></td>
+            <td class="num">45,510</td><td class="pct">9.5%</td>
+            <td class="num colsep">83,647</td><td class="pct">61.5%</td>
+            <td class="num colsep">129,157</td><td class="pct">21.0%</td></tr>
+          <tr><td class="k">Engagement <span style="font-weight:400;color:var(--ink3)">(2+ days)</span></td>
+            <td class="num">42,622</td><td class="pct">8.9%</td>
+            <td class="num colsep">2,665</td><td class="pct">2.0%</td>
+            <td class="num colsep">45,287</td><td class="pct">7.4%</td></tr>
+          <tr><td class="k">Retention <span style="font-weight:400;color:var(--ink3)">(cross-period)</span></td>
+            <td class="num">36,635</td><td class="pct">7.7%</td>
+            <td class="num colsep">1,880</td><td class="pct">1.4%</td>
+            <td class="num colsep">38,515</td><td class="pct">6.3%</td></tr>
+          <tr><td class="k">Revenue <span style="font-weight:400;color:var(--ink3)">(payers)</span></td>
+            <td class="num">186</td><td class="pct">0.04%</td>
+            <td class="num colsep">278*</td><td class="pct">0.20%</td>
+            <td class="num colsep">464</td><td class="pct">0.08%</td></tr>
+          <tr><td class="k">Referral <span style="font-weight:400;color:var(--ink3)">(share)</span></td>
+            <td class="num">25</td><td class="pct">0.01%</td>
+            <td class="num colsep">n/a</td><td class="pct">—</td>
+            <td class="num colsep">25</td><td class="pct">0.004%</td></tr>
+        </tbody>
+      </table>
     </div>
     <div class="standnote">
-      <div class="snote cliff"><b>The cliff.</b> 614K combined visitors → <b>2,197 identified (0.36%)</b>. Value happens at scale — 129K take a core action — but we know almost no one. This is the case for registration-gating (A2), stated in one number.</div>
-      <div class="snote spine"><b>"Unified" is a naïve sum, not a truth.</b> We can't yet dedup one person across web + DataLabs (or the app) — three PostHog projects, no shared identity. Building that single view <i>is</i> the identity-spine work (A13). * Revenue &gt; Identified on DataLabs (278 &gt; 211) is the same broken spine — payment events don't carry email. The app is a separate ~130-user pilot, not summed here.</div>
+      <div class="snote cliff"><b>The cliff.</b> 614K combined visitors → <b>2,197 identified (0.36%)</b>. Value happens at scale — 129K take a core action — but we know almost no one. This is the one-number case for registration-gating (A2).</div>
+      <div class="snote spine"><b>"Unified" is a naïve sum, not a truth.</b> We can't yet dedup one person across web + DataLabs — three PostHog projects, no shared identity. Building that single view <i>is</i> the spine work (A13). * DataLabs Revenue &gt; Identified (278 &gt; 211) is the same broken spine — payment events don't carry email. App is a separate ~130-user pilot, not summed.</div>
     </div>
   </section>
 
-  <!-- 4 · HOW EXPERIMENTS MOVE THE NUMBER -->
+  <!-- 4 · FEATURE LIST -->
   <section>
-    <div class="lbl"><span class="k">4</span><h2>How each experiment moves the number</h2><span class="note">every experiment maps to a stage and a QIA lever</span></div>
-    <div class="maptable tbl-wrap"><table>
-      <tr><th>Experiment</th><th>Stage</th><th>How it contributes to QIA</th></tr>
-      <tr><td class="exp">Deep linking + Singular fix</td><td><span class="fchip acq">Acquisition</span></td><td class="contrib">More newsletter→app arrivals, and <b>attributable</b> so acquisition is measurable at all.</td></tr>
-      <tr><td class="exp">Registration-gate profiles/database <span class="tagh">A2</span></td><td><span class="fchip act">Activation</span></td><td class="contrib">Converts anonymous → <b>Identified</b> — the first QIA term. Articles stay open.</td></tr>
-      <tr><td class="exp">Role + employer at every capture <span class="tagh">A3</span></td><td><span class="fchip act">Activation</span></td><td class="contrib">Adds the <b>Qualified</b> term (role + company) to identified people.</td></tr>
-      <tr><td class="exp">Brief page redesign (cover cliff)</td><td><span class="fchip act">Activation</span></td><td class="contrib">Lifts app activation — brief completion up from 41% / 7s median.</td></tr>
-      <tr><td class="exp">Entity card · profiles that lead somewhere</td><td><span class="fchip act">Activation</span></td><td class="contrib">Deepens the first session and pulls a reader cross-surface toward identity.</td></tr>
-      <tr><td class="exp">Datalabs Weekly (generic free)</td><td><span class="fchip eng">Engagement</span> <span class="fchip act">Act</span></td><td class="contrib">A 30-day <b>return trigger</b>, and a registration capture point (Identified).</td></tr>
-      <tr><td class="exp">Morning-Brief push</td><td><span class="fchip eng">Engagement</span></td><td class="contrib">Drives the <b>30-day return</b> — the "active" term. 67% opt-in already banked.</td></tr>
-      <tr><td class="exp">Alerts on followed companies/sectors</td><td><span class="fchip eng">Engagement</span></td><td class="contrib">A reason to come back → qualifying action within 30 days.</td></tr>
-      <tr><td class="exp">WhatsApp community</td><td><span class="fchip eng">Engagement</span></td><td class="contrib">Retention infrastructure between rooms → sustained 30-day activity.</td></tr>
-      <tr><td class="exp">A1 migration probe</td><td><span class="fchip val">Validate</span></td><td class="contrib">Not a QIA lever — validates willingness-to-pay and shapes the FY28 offering.</td></tr>
-    </table></div>
-  </section>
+    <div class="lbl"><span class="k">4</span><h2>The complete feature list</h2><span class="note">everything discussed here + in Utkarsh's strategy</span></div>
+    <p class="sub" style="margin-bottom:14px;">Deduplicated across the One&nbsp;INC42 strategy, the app v2 scope, and this analysis. Source tag: <span class="src strat">Strategy</span> Utkarsh's One&nbsp;INC42 · <span class="src app">App v2</span> app scope · <span class="src here">Analysis</span> this funnel/activation work. <span class="hy">A#</span> = strategy hypothesis.</p>
 
-  <!-- 4 · SEQUENCE -->
-  <section>
-    <div class="lbl"><span class="k">5</span><h2>The sequence — instruments before experiments</h2></div>
-    <div class="seq">
-      <div class="phase p1">
-        <div class="pt">Phase 1 · Foundation</div><h3>Fix the instruments</h3>
-        <div class="wk">Weeks 1–2 · Aug 18 – Aug 29</div>
-        <p>Validate QIA-30, restore the dead events, stand up the identity spine, fix attribution. Cheap and fast — and the whole funnel is invisible without it.</p>
-      </div>
-      <div class="seqarrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="phase p2">
-        <div class="pt">Phase 2 · Engine</div><h3>Move the funnel</h3>
-        <div class="wk">Weeks 3–6 · Sep 1 – Sep 26</div>
-        <p>Run acquisition / activation / engagement experiments, each read on the QIA term it targets and on 30-day activity lift — now trustworthy because Phase 1 shipped.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 · WEEKS -->
-  <section>
-    <div class="lbl"><span class="k">6</span><h2>The weeks</h2><span class="note">owners proposed · confirm at Monday leads sync</span></div>
-
-    <div class="week fix now">
-      <div class="whead"><span class="ph fix">Fix</span><h3>Week 1</h3><span class="dt">Aug 18–22</span><span class="nowtag">This week</span><span class="theme">Make the number honest</span></div>
-      <div class="wbody"><div class="tbl-wrap"><table>
-        <tr><th>Task</th><th>Stage</th><th>Owner</th><th>Status</th></tr>
-        <tr><td class="task">Pull the real QIA-30 from BigQuery <span class="h">Role + core-market + qualifying action, 30-day, internal excluded — replaces the ~2,100 estimate. THE gate.</span></td><td class="stg"><span class="fchip val">Validate</span></td><td class="own">Data (Ashish/Prapti)</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Restore Scroll Depth + Register-Lock (web) <span class="h">Activation depth + the gating instrument A2's holdout needs — dead since 18 May</span></td><td class="stg"><span class="fchip act">Act</span></td><td class="own">Eng · Web</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">App events v1.5 sign-off <span class="h">Fire push_delivered / decode / monetization; is_internal; completed_engaged (≥60s) = app activation</span></td><td class="stg"><span class="fchip act">Act</span></td><td class="own">Ranjith + App eng</td><td><span class="pill ip">In progress</span></td></tr>
-        <tr><td class="task">Singular fix — campaign=None <span class="h">Makes acquisition attributable; Summit installs unmeasurable until fixed</span></td><td class="stg"><span class="fchip acq">Acq</span></td><td class="own">Eng + Marketing</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">File tickets: deep linking + Explore filters <span class="h">Newsletter links open in Safari not app; route via Singular</span></td><td class="stg"><span class="fchip acq">Acq</span></td><td class="own">Nityam / Ranjith</td><td><span class="pill ip">In progress</span></td></tr>
-      </table></div></div>
+    <!-- 1 Instrumentation -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">1</span><h3>Instrumentation &amp; measurement</h3><span class="cnt">7</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">Event dictionary v1.5</td><td>Fire dark events (push_delivered, decode, monetization); dedupe untrack; adopt <span class="mono">completed_engaged</span> (≥60s); is_internal tag</td><td><span class="src app">App v2</span></td></tr>
+        <tr><td class="k">Restore Scroll Depth + Register-Lock (web)</td><td>Activation-depth + the gating instrument A2's holdout needs — dead since 18 May</td><td><span class="src strat">Strategy</span> <span class="hy">A2</span></td></tr>
+        <tr><td class="k">Singular attribution fix</td><td>campaign=None → wire deeplink source; makes acquisition measurable</td><td><span class="src app">App v2</span></td></tr>
+        <tr><td class="k">Per-product activation events</td><td>Instrument web 2nd-article · DataLabs company-view · app engaged-brief as first-class activation events</td><td><span class="src here">Analysis</span></td></tr>
+        <tr><td class="k">Full-funnel instrumentation</td><td>Views→Acquisition→Activation→Engagement→Retention→Revenue→Referral per product; add Share/referral tracking on DataLabs (missing)</td><td><span class="src here">Analysis</span></td></tr>
+        <tr><td class="k">RFV engagement score</td><td>FT-style Recency·Frequency·Volume over the 30-day window = the measurable "active" in QIA</td><td><span class="src here">Analysis</span></td></tr>
+        <tr><td class="k">QIA-30 baseline pull</td><td>Real 30-day QIA from BigQuery (role + core-market + qualifying action), replaces the ~2,100 estimate</td><td><span class="src strat">Strategy</span></td></tr>
+      </table></div>
     </div>
 
-    <div class="week fix">
-      <div class="whead"><span class="ph fix">Fix</span><h3>Week 2</h3><span class="dt">Aug 25–29</span><span class="theme">Identity spine + finish the fixes</span></div>
-      <div class="wbody"><div class="tbl-wrap"><table>
-        <tr><th>Task</th><th>Stage</th><th>Owner</th><th>Status</th></tr>
-        <tr><td class="task">Canonical Auth0 <span class="mono">distinct_id</span> everywhere <span class="h">One person visible across surfaces — the join the whole funnel needs <span class="tagh">A13</span></span></td><td class="stg"><span class="fchip val">Spine</span></td><td class="own">Data + Eng</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Internal &amp; beta exclusion cohort <span class="h">34 of 168 app actives are team; @inc42.com + pre-Aug-12</span></td><td class="stg"><span class="fchip val">Spine</span></td><td class="own">Data</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">recommendation.js · recirc blur · dunning retry <span class="h">Unconditional fixes — should already be moving</span></td><td class="stg"><span class="fchip eng">Eng</span></td><td class="own">Eng · Web</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Role + employer + timestamp at every capture <span class="h">Builds the Qualified term; no timestamp exists today <span class="tagh">A3</span></span></td><td class="stg"><span class="fchip act">Act</span></td><td class="own">Product + Eng</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Deep linking verified iOS + Android <span class="h">Gmail/Apple Mail taps open in-app; Singular carries campaign</span></td><td class="stg"><span class="fchip acq">Acq</span></td><td class="own">Nityam + Eng</td><td><span class="pill ns">Not started</span></td></tr>
-      </table></div></div>
+    <!-- 2 Identity spine -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">2</span><h3>Identity spine — converge to one person</h3><span class="cnt">5</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">Canonical Auth0 distinct_id</td><td>Same id across web/app/DataLabs — a convention, not a migration</td><td><span class="src strat">Strategy</span> <span class="hy">A13</span></td></tr>
+        <tr><td class="k">Unify events in the warehouse</td><td>One event stream across surfaces (history stays unjoinable — accept it)</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Converge PostHog + Customer.io</td><td>3 PostHog projects → 1 (surface property); fold in the unused Datalabs CIO workspace</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Promote 40,699 ICP labels</td><td>Move stranded silver-layer labels to gold — feeds QIA qualification</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Internal-user exclusion</td><td>is_internal person property + "Internal &amp; beta" cohort as default filter</td><td><span class="src app">App v2</span></td></tr>
+      </table></div>
     </div>
 
-    <div class="week">
-      <div class="whead"><span class="ph exp">Experiment</span><h3>Week 3</h3><span class="dt">Sep 1–5</span><span class="theme">Spine converges · identity levers live</span></div>
-      <div class="wbody"><div class="tbl-wrap"><table>
-        <tr><th>Task</th><th>Stage</th><th>Owner</th><th>Status</th></tr>
-        <tr><td class="task">Registration-gate profiles behind an A2 holdout <span class="h">Converts anonymous → Identified; articles stay open <span class="tagh">A2</span></span></td><td class="stg"><span class="fchip act">Act → Identified</span></td><td class="own">Web + Product</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">A1 migration probe LIVE <span class="h">982 Plus + 63 Pro across ₹4,999–14,999 — needs nothing built, earns while it runs <span class="tagh">A1</span></span></td><td class="stg"><span class="fchip val">Validate</span></td><td class="own">Product + Sales</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Converge PostHog projects + CIO workspaces (begin) <span class="h">Fold in the unused Datalabs CIO workspace</span></td><td class="stg"><span class="fchip val">Spine</span></td><td class="own">Data</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Promote 40,699 ICP labels silver → gold <span class="h">Feeds QIA qualification</span></td><td class="stg"><span class="fchip act">Qualified</span></td><td class="own">Data</td><td><span class="pill ns">Not started</span></td></tr>
-      </table></div></div>
+    <!-- 3 Identify -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">3</span><h3>Identify — registration &amp; capture</h3><span class="cnt">4</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">Registration-gate profiles + database</td><td>Free but registration-gated; articles stay open (behind an A2 holdout)</td><td><span class="src strat">Strategy</span> <span class="hy">A2</span></td></tr>
+        <tr><td class="k">Role + employer + timestamp at capture</td><td>Every capture point asks role + employer type, date-stamped → the Qualified term</td><td><span class="src strat">Strategy</span> <span class="hy">A3</span></td></tr>
+        <tr><td class="k">Unified onboarding</td><td>One persona + role + sector ask, captured once, reused everywhere</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Newsletter signup as identity capture</td><td>NYT's habit anchor — a subscriber-only newsletter is the strongest retention lever</td><td><span class="src here">Analysis</span></td></tr>
+      </table></div>
     </div>
 
-    <div class="week">
-      <div class="whead"><span class="ph exp">Experiment</span><h3>Week 4</h3><span class="dt">Sep 8–12</span><span class="theme">Activation + engagement go live</span></div>
-      <div class="wbody"><div class="tbl-wrap"><table>
-        <tr><th>Task</th><th>Stage</th><th>Owner</th><th>Status</th></tr>
-        <tr><td class="task">A2 holdout live — gate profiles + database <span class="h">Measure traffic impact vs holdout <span class="tagh">A2</span></span></td><td class="stg"><span class="fchip act">Act → Identified</span></td><td class="own">Web + Data</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Brief page redesign — kill the cover cliff <span class="h">99 saw cover, 41 entered (41%); 7s median <span class="tagh">A12</span></span></td><td class="stg"><span class="fchip act">Act (app)</span></td><td class="own">Design + App eng</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Datalabs Weekly launch — generic issue free <span class="h">Return trigger + registration capture point <span class="tagh">A12</span></span></td><td class="stg"><span class="fchip eng">Eng</span> <span class="fchip act">Act</span></td><td class="own">Prapti + Product</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Turn on the Morning-Brief push <span class="h">67% opt-in banked; push_delivered fired 0 times ever <span class="tagh">A12</span></span></td><td class="stg"><span class="fchip eng">Engagement</span></td><td class="own">Lifecycle + Eng</td><td><span class="pill bl">Blocked · confirm CIO</span></td></tr>
-      </table></div></div>
+    <!-- 4 Activate -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">4</span><h3>Activate — cross-surface discovery</h3><span class="cnt">4</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">In-body entity card</td><td>Company card inside the reading path (a variant already ships)</td><td><span class="src strat">Strategy</span> <span class="hy">A13</span></td></tr>
+        <tr><td class="k">Profiles that lead somewhere</td><td>Article → entity → membership path; profiles aren't dead-ends</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">AskInc42</td><td>Ask as a layer on web/app/DataLabs; v2 = 3 stored onboarding Qs (⚠ blocked on Anmol API; flags halted)</td><td><span class="src app">App v2</span></td></tr>
+        <tr><td class="k">Brief page redesign</td><td>Fix the cover→brief cliff (41% enter) and the 7s median completion</td><td><span class="src app">App v2</span> <span class="hy">A12</span></td></tr>
+      </table></div>
     </div>
 
-    <div class="week">
-      <div class="whead"><span class="ph exp">Experiment</span><h3>Week 5</h3><span class="dt">Sep 15–19</span><span class="theme">Engagement competition ramps</span></div>
-      <div class="wbody"><div class="tbl-wrap"><table>
-        <tr><th>Task</th><th>Stage</th><th>Owner</th><th>Status</th></tr>
-        <tr><td class="task">Alerts on followed companies/sectors <span class="h">The only genuinely new data capability <span class="tagh">A12</span></span></td><td class="stg"><span class="fchip eng">Engagement</span></td><td class="own">Data + Eng</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">WhatsApp community — formalise <span class="h">Between-rooms belonging loop <span class="tagh">A12</span></span></td><td class="stg"><span class="fchip eng">Engagement</span></td><td class="own">Community</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Deal Digest — ship <span class="h">Prototyped, never shipped — give it a surface <span class="tagh">A12</span></span></td><td class="stg"><span class="fchip eng">Engagement</span></td><td class="own">Product</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">AskInc42 v2 — 3 stored onboarding Qs <span class="h">Blocked on an API from Anmol — raise it first; flags halted</span></td><td class="stg"><span class="fchip act">Act</span></td><td class="own">Ritvik</td><td><span class="pill bl">Blocked · Anmol API</span></td></tr>
-      </table></div></div>
+    <!-- 5 Retain -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">5</span><h3>Retain — the engagement competition</h3><span class="cnt">6</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">Morning-Brief push</td><td>Turn on Customer.io push — 67% opt-in banked, push_delivered fired 0 times ever</td><td><span class="src app">App v2</span> <span class="hy">A12</span></td></tr>
+        <tr><td class="k">Datalabs Weekly</td><td>Generic issue free (registration capture) · personalised = T1 entitlement</td><td><span class="src strat">Strategy</span> <span class="hy">A12</span></td></tr>
+        <tr><td class="k">Alerts</td><td>Followed companies/sectors — the only genuinely new data capability</td><td><span class="src strat">Strategy</span> <span class="hy">A12</span></td></tr>
+        <tr><td class="k">WhatsApp community</td><td>Cheap to start; between-rooms belonging loop as retention infra</td><td><span class="src strat">Strategy</span> <span class="hy">A12</span></td></tr>
+        <tr><td class="k">Brief habit loop + streaks</td><td>Instrument and tune the app's daily return loop</td><td><span class="src app">App v2</span> <span class="hy">A12</span></td></tr>
+        <tr><td class="k">Rooms + between-rooms community</td><td>Treat convening + community as retention infrastructure, not an event by-product</td><td><span class="src strat">Strategy</span> <span class="hy">A12</span></td></tr>
+      </table></div>
     </div>
 
-    <div class="week">
-      <div class="whead"><span class="ph exp">Experiment</span><h3>Week 6</h3><span class="dt">Sep 22–26</span><span class="theme">Read the funnel · re-baseline</span></div>
-      <div class="wbody"><div class="tbl-wrap"><table>
-        <tr><th>Task</th><th>Stage</th><th>Owner</th><th>Status</th></tr>
-        <tr><td class="task">Read activation + 30-day engagement lift per experiment <span class="h">Which levers moved which QIA term; winners → entitlements <span class="tagh">A12</span></span></td><td class="stg"><span class="fchip val">Read</span></td><td class="own">Ranjith + Data</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Re-baseline QIA-30 on spine data <span class="h">Replace the estimate with a measured, cross-surface number</span></td><td class="stg"><span class="fchip val">Validate</span></td><td class="own">Data</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Surfaces for the 5 built reports + entitlement reshuffle <span class="h">Scout · Sector · Comparison · Quick Snapshots · Scout Briefing</span></td><td class="stg"><span class="fchip eng">Engagement</span></td><td class="own">Product + Web</td><td><span class="pill ns">Not started</span></td></tr>
-        <tr><td class="task">Read A1 probe → lock or rework T1 price band <span class="h">Below ~20% migration, prices rework before anything's built <span class="tagh">A1</span></span></td><td class="stg"><span class="fchip val">Validate</span></td><td class="own">Product</td><td><span class="pill ns">Not started</span></td></tr>
-      </table></div></div>
+    <!-- 6 Unify -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">6</span><h3>Unify experience &amp; brand</h3><span class="cnt">6</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">One login / identity across surfaces</td><td>Article, database, app, newsletter = one person, one session</td><td><span class="src strat">Strategy</span> <span class="hy">A13</span></td></tr>
+        <tr><td class="k">Unified navigation &amp; value-prop</td><td>Experience ONE Inc42, not five products</td><td><span class="src strat">Strategy</span> <span class="hy">A13</span></td></tr>
+        <tr><td class="k">Unified brand-message rollout</td><td>The locked positioning told everywhere (with marketing)</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Separating Datalabs (IA)</td><td>⚠ Split DataLabs into its own surface — scope to define</td><td><span class="src app">App v2</span></td></tr>
+        <tr><td class="k">Redesign Datalabs + article section</td><td>Pairs with the IA split</td><td><span class="src app">App v2</span></td></tr>
+        <tr><td class="k">Deep linking (newsletter → app)</td><td>Route via Singular so newsletter links open in-app on iOS + Android</td><td><span class="src app">App v2</span></td></tr>
+      </table></div>
     </div>
 
-    <div class="legend">
-      <b style="color:var(--ink);">Status:</b>
-      <span class="pill ns">Not started</span><span class="pill ip">In progress</span><span class="pill bl">Blocked</span><span class="pill dn">Done</span>
-      <span>&nbsp;·&nbsp;<b style="color:var(--ink);">Stage:</b></span>
-      <span class="fchip acq">Acquisition</span><span class="fchip act">Activation</span><span class="fchip eng">Engagement</span><span class="fchip val">Validate/Spine</span>
-      <span>&nbsp;·&nbsp;<span class="tagh">A#</span> = strategy hypothesis</span>
+    <!-- 7 Surfaces & entitlements -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">7</span><h3>Product surfaces &amp; entitlements</h3><span class="cnt">5</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">Surfaces for the 5 built reports</td><td>Scout · Sector · Comparison · Quick Snapshots · Scout Briefing — built, need a front-end</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Deal Digest</td><td>Prototyped, never shipped — give it a surface</td><td><span class="src strat">Strategy</span> <span class="hy">A12</span></td></tr>
+        <tr><td class="k">Exports + saved searches (entitlement)</td><td>Re-fence existing capabilities into T1</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Ask — uncapped + app deploy</td><td>Entitlement change; ship Ask on the app surface</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Entitlement reshuffle + billing</td><td>One billing rail; map free/T1/T2 fences</td><td><span class="src strat">Strategy</span> <span class="hy">A4</span></td></tr>
+      </table></div>
     </div>
+
+    <!-- 8 App-specific -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">8</span><h3>App-specific (v2)</h3><span class="cnt">4</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">Datalabs fixes</td><td>⚠ Specifics needed — what's broken, which surface</td><td><span class="src app">App v2</span></td></tr>
+        <tr><td class="k">Dummy screen before 7am</td><td>Pre-drop placeholder / countdown before the brief publishes</td><td><span class="src app">App v2</span></td></tr>
+        <tr><td class="k">Tap-again-to-exit</td><td>Android double-back to exit</td><td><span class="src app">App v2</span></td></tr>
+        <tr><td class="k">Sector images + dark mode</td><td>⚠ 86% of articles have no sector — dark mode clean; sector images need tagging fix/fallback</td><td><span class="src app">App v2</span></td></tr>
+      </table></div>
+    </div>
+
+    <!-- 9 Probe & renewal -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">9</span><h3>Monetisation probe &amp; renewal</h3><span class="cnt">4</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">A1 migration probe</td><td>Offer to 982 Plus + 63 Pro across ₹4,999–14,999 — needs nothing built, earns while it runs</td><td><span class="src strat">Strategy</span> <span class="hy">A1</span></td></tr>
+        <tr><td class="k">Call ~38 churned data buyers</td><td>Cheapest input to the membership-retention question, never done</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Renewal motion</td><td>15% auto-renew today; 26–142 Plus terms lapse/mo with zero comms → ~₹30–50L</td><td><span class="src strat">Strategy</span> <span class="hy">A10</span></td></tr>
+        <tr><td class="k">Failed-charge recovery</td><td>Dunning retry + on-hold recovery (~₹5–7L)</td><td><span class="src strat">Strategy</span></td></tr>
+      </table></div>
+    </div>
+
+    <!-- 10 Governance -->
+    <div class="fl-grp">
+      <div class="fl-h"><span class="n">10</span><h3>Governance &amp; adjacent</h3><span class="cnt">4</span></div>
+      <div class="tbl-wrap"><table>
+        <tr><th>Feature</th><th>What</th><th>Source</th></tr>
+        <tr><td class="k">Hurun list-factory</td><td>Formalise &amp; document the list→reveal→membership machinery (committed)</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Independence firewall (G8)</td><td>Lock, own, publish the registry-never-sponsored policy</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Video-target reconciliation</td><td>Two targets ~10× apart — agree one before amplification carries a metric</td><td><span class="src strat">Strategy</span></td></tr>
+        <tr><td class="k">Datalabs Weekly ladder placement</td><td>Resolve overlap with Deal Digest + Markets newsletter (with Prapti)</td><td><span class="src strat">Strategy</span></td></tr>
+      </table></div>
+    </div>
+
   </section>
 
   <div class="foot">
-    <p><b>Sources:</b> One&nbsp;INC42 Strategy / Product Vision / Offering workbook (Utkarsh, Aug 2026) · PostHog first-week app review (17 Aug) · PostHog "Inc42 Datalabs | Live" (proj 66351) HogQL cross-check, 19 Aug · deep-linking Slack thread (18 Aug).</p>
-    <p><b>Caveats:</b> QIA figures are directional — the PostHog cross-check covers the DataLabs surface only (internal @inc42.com excluded); the authoritative cross-surface QIA-30 must be pulled from BigQuery (Week 1, the gate). Owners are proposed pending the leadership-briefing assignments. FY27-H2 asks the membership line for no revenue — this is the engine-building half.</p>
+    <p><b>Sources:</b> One&nbsp;INC42 Strategy / Product Vision / Offering workbook (Utkarsh, Aug 2026) · PostHog first-week app review (17 Aug) · PostHog HogQL — projects 53557 (web) &amp; 66351 (DataLabs), 20 Aug · FT RFV &amp; NYT engagement research · deep-linking Slack thread (18 Aug).</p>
+    <p><b>Caveats:</b> funnel figures are PostHog, last 30 days, internal @inc42.com excluded — a lower bound vs GA4 (ad-block/sampling). Website activation ("2nd article") is proposed, not yet validated. QIA figures directional; pull the real QIA-30 from BigQuery before quoting. Weekly sequencing to be set by Ranjith on top of this list.</p>
   </div>
 
 </div>
