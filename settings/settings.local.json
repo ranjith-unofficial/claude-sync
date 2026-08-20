@@ -204,7 +204,8 @@
       "mcp__asana__asana_list_workspaces",
       "mcp__asana__asana_get_project",
       "mcp__asana__asana_get_project_sections",
-      "mcp__asana__asana_create_task"
+      "mcp__asana__asana_create_task",
+      "mcp__asana__asana_update_task"
     ]
   }
 }
