@@ -1,8 +1,4 @@
 {
-  "effortLevel": "high",
-  "tui": "fullscreen",
-  "theme": "dark",
-  "agentPushNotifEnabled": true,
   "hooks": {
     "SessionStart": [
       {
@@ -22,11 +18,15 @@
           {
             "type": "command",
             "command": "bash \"$HOME/Library/Mobile Documents/com~apple~CloudDocs/ClaudeSync/bin/claude-sync-backup.sh\"",
-            "async": true,
-            "timeout": 120
+            "timeout": 120,
+            "async": true
           }
         ]
       }
     ]
-  }
+  },
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "theme": "dark",
+  "agentPushNotifEnabled": true
 }

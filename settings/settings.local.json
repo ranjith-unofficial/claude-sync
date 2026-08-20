@@ -205,7 +205,11 @@
       "mcp__asana__asana_get_project",
       "mcp__asana__asana_get_project_sections",
       "mcp__asana__asana_create_task",
-      "mcp__asana__asana_update_task"
+      "mcp__asana__asana_update_task",
+      "WebFetch(domain:www.truefan.ai)",
+      "WebFetch(domain:churnkey.co)",
+      "WebFetch(domain:razorpay.com)",
+      "WebFetch(domain:www.outlookmoney.com)"
     ]
   }
 }

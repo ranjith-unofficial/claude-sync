@@ -1,0 +1,1060 @@
+<title>Mandate Winback</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,800;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --ground:      #F6F4F7;
+    --surface:     #FFFFFF;
+    --surface-2:   #EFECF1;
+    --ink:         #16121A;
+    --ink-2:       #3B3542;
+    --muted:       #6C6472;
+    --rule:        #DDD8E1;
+    --rule-strong: #C4BCCA;
+    --accent:      #8E1D45;
+    --accent-soft: #F3E4EA;
+    --ok:          #1D7A4F;
+    --ok-soft:     #E1F0E8;
+    --warn:        #8A5A00;
+    --warn-soft:   #F7EBD6;
+    --dead:        #5C5A66;
+    --dead-soft:   #E8E6EC;
+    --alert:       #A8241C;
+
+    --f-display: "Spectral", Georgia, "Times New Roman", serif;
+    --f-body:    "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --prose: 74ch;
+    --page:  1160px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #100D14;
+      --surface:     #191520;
+      --surface-2:   #221D2B;
+      --ink:         #EDE9F0;
+      --ink-2:       #C6BFCE;
+      --muted:       #948C9E;
+      --rule:        #2E2838;
+      --rule-strong: #443C50;
+      --accent:      #E884A9;
+      --accent-soft: #331722;
+      --ok:          #63C795;
+      --ok-soft:     #12291E;
+      --warn:        #D9A84A;
+      --warn-soft:   #2B2113;
+      --dead:        #8F8A9C;
+      --dead-soft:   #232030;
+      --alert:       #E88A82;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #100D14;
+    --surface:     #191520;
+    --surface-2:   #221D2B;
+    --ink:         #EDE9F0;
+    --ink-2:       #C6BFCE;
+    --muted:       #948C9E;
+    --rule:        #2E2838;
+    --rule-strong: #443C50;
+    --accent:      #E884A9;
+    --accent-soft: #331722;
+    --ok:          #63C795;
+    --ok-soft:     #12291E;
+    --warn:        #D9A84A;
+    --warn-soft:   #2B2113;
+    --dead:        #8F8A9C;
+    --dead-soft:   #232030;
+    --alert:       #E88A82;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 0 28px 120px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    padding: 72px 0 34px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+  }
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 6.5vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -.02em;
+    margin: 0 0 20px;
+    text-wrap: balance;
+    max-width: 16ch;
+  }
+  .standfirst {
+    font-family: var(--f-display);
+    font-size: clamp(1.06rem, 2vw, 1.32rem);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 62ch;
+    margin: 0;
+  }
+  .meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 26px;
+    margin-top: 30px;
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: .03em;
+  }
+  .meta-strip b { color: var(--ink-2); font-weight: 500; }
+
+  /* ---------- sections ---------- */
+
+  section { padding-top: 62px; }
+
+  h2 {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: clamp(1.65rem, 3.1vw, 2.15rem);
+    line-height: 1.14;
+    letter-spacing: -.015em;
+    margin: 0 0 6px;
+    text-wrap: balance;
+    max-width: 26ch;
+  }
+  .sec-num {
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    letter-spacing: .14em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .dek {
+    color: var(--muted);
+    max-width: var(--prose);
+    margin: 12px 0 30px;
+    font-size: 15.5px;
+  }
+
+  h3 {
+    font-family: var(--f-body);
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: -.005em;
+    margin: 38px 0 12px;
+    color: var(--ink);
+  }
+  h3:first-child { margin-top: 0; }
+
+  p { max-width: var(--prose); margin: 0 0 16px; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  strong { font-weight: 600; color: var(--ink); }
+  code {
+    font-family: var(--f-mono);
+    font-size: .84em;
+    background: var(--surface-2);
+    padding: 1.5px 5px;
+    border-radius: 3px;
+    color: var(--ink-2);
+  }
+
+  ul.list {
+    max-width: var(--prose);
+    margin: 0 0 18px;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+  ul.list > li {
+    position: relative;
+    padding-left: 20px;
+  }
+  ul.list > li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: .68em;
+    width: 6px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  /* ---------- tables ---------- */
+
+  .scroll {
+    overflow-x: auto;
+    margin: 0 0 12px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    background: var(--surface);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.2px;
+    line-height: 1.5;
+    min-width: 620px;
+  }
+  thead th {
+    font-family: var(--f-mono);
+    font-size: 10.8px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--rule-strong);
+    background: var(--surface-2);
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  tbody td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    color: var(--ink-2);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { color: var(--ink); font-weight: 500; }
+  td .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+  caption {
+    caption-side: bottom;
+    text-align: left;
+    font-size: 12.5px;
+    color: var(--muted);
+    padding: 10px 16px 0;
+  }
+
+  .cap {
+    font-size: 12.6px;
+    color: var(--muted);
+    max-width: var(--prose);
+    margin: 0 0 26px;
+  }
+
+  /* ---------- chips ---------- */
+
+  .chip {
+    display: inline-block;
+    font-family: var(--f-mono);
+    font-size: 10.4px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 2.5px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+  .chip-built { background: var(--ok-soft);   color: var(--ok); }
+  .chip-gap   { background: var(--accent-soft); color: var(--accent); }
+  .chip-part  { background: var(--warn-soft); color: var(--warn); }
+  .chip-dead  { background: var(--dead-soft); color: var(--dead); }
+
+  /* ---------- callouts ---------- */
+
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 26px 0;
+    max-width: var(--prose);
+    border-radius: 0 3px 3px 0;
+  }
+  .callout .label {
+    font-family: var(--f-mono);
+    font-size: 10.6px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 9px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.grey { border-left-color: var(--rule-strong); }
+  .callout.grey .label { color: var(--muted); }
+
+  /* ---------- ladder ---------- */
+
+  .ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0 0 14px;
+    counter-reset: rung;
+  }
+  .rung {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    gap: 0 20px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 20px 22px;
+  }
+  .rung + .rung { border-top: none; }
+  .rung::before {
+    counter-increment: rung;
+    content: counter(rung);
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--accent);
+    opacity: .55;
+  }
+  .rung h4 {
+    font-family: var(--f-body);
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin: 0 0 5px;
+    color: var(--ink);
+  }
+  .rung .ask {
+    font-family: var(--f-mono);
+    font-size: 11.4px;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .rung p { margin: 0 0 9px; max-width: 68ch; font-size: 14.6px; }
+  .rung p:last-child { margin-bottom: 0; }
+  .rung .say {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink);
+    border-left: 2px solid var(--rule-strong);
+    padding-left: 14px;
+    margin: 12px 0 0;
+  }
+
+  /* ---------- experiment cards ---------- */
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 2px;
+    margin-bottom: 14px;
+  }
+  .exp {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .exp .id {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    color: var(--accent);
+  }
+  .exp h4 {
+    font-family: var(--f-body);
+    font-size: .98rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .exp dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 12px;
+    font-size: 13.6px;
+  }
+  .exp dt {
+    font-family: var(--f-mono);
+    font-size: 10.4px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 3px;
+  }
+  .exp dd { margin: 0; color: var(--ink-2); }
+
+  /* ---------- sources ---------- */
+
+  .sources {
+    columns: 2;
+    column-gap: 44px;
+    font-size: 13.4px;
+    max-width: 100%;
+    margin-top: 6px;
+  }
+  .sources li {
+    break-inside: avoid;
+    margin-bottom: 10px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  @media (max-width: 720px) { .sources { columns: 1; } }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--f-mono);
+    font-size: 11.4px;
+    color: var(--muted);
+    letter-spacing: .03em;
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 0 18px 80px; }
+    .masthead { padding-top: 48px; }
+    .rung { grid-template-columns: 1fr; gap: 6px; }
+    .rung::before { font-size: 1.4rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="page">
+
+<header class="masthead">
+  <p class="eyebrow">Inc42 · Product strategy · 20 Aug 2026</p>
+  <h1>Winning back a cancelled mandate</h1>
+  <p class="standfirst">The dunning system is built. What isn't built is an answer to the hardest case: someone opens GPay, kills the Inc42 AutoPay mandate, and we never got a chance to say anything. This is the strategy for that moment — and for the 30 days after it.</p>
+  <div class="meta-strip">
+    <span><b>Scope</b> Inc42+ / Datalabs Pro · Razorpay recurring · UPI AutoPay</span>
+    <span><b>Companion to</b> the Notion system doc</span>
+    <span><b>Author</b> Ranjith</span>
+  </div>
+</header>
+
+<!-- ============================================== -->
+<section id="read">
+  <span class="sec-num">01 — THE READ</span>
+  <h2>What this is actually about</h2>
+
+  <ul class="list">
+    <li><strong>The plumbing is done; the persuasion isn't.</strong> The Notion doc solves detection, classification, state, and the payment mechanics. Every open item in it is engineering. Nothing in it decides <em>what we say, to whom, in what order, and what we offer instead.</em> That's this document.</li>
+    <li><strong>We don't own the cancel surface.</strong> The cancel happens inside GPay / PhonePe / Paytm. There is no cancel button of ours to intercept, so the entire published save-flow playbook — exit surveys, save offers, pause prompts, the 34% deflection rates — is <em>structurally unavailable to us at the moment it matters.</em> Everything has to move post-hoc.</li>
+    <li><strong>But we get told, and we get time.</strong> <code>token.cancelled</code> fires in near-real-time, mid-cycle, while the person still has paid access. The gap between mandate death and service death — up to 30 days monthly, up to a year on annual — is the whole winback asset. The system already preserves it (<code>pending-cancel</code> + stashed <code>next_payment</code>). Good call.</li>
+    <li><strong>A cancelled mandate is not a stated intention to leave.</strong> It is one fact: <em>they don't want a standing instruction on their bank account.</em> Treating it as "they want to churn" is the mistake that makes the current single-rung winback ("re-register auto-pay for ₹10") ask them to undo the exact thing they chose to do.</li>
+    <li><strong>Judged as revenue, this project is small. Judged as QIA, it's the point.</strong> See §10 — this reframe is what protects it from being killed on an ROI test, and it changes several product decisions below.</li>
+  </ul>
+
+  <div class="callout">
+    <span class="label">The one-line strategy</span>
+    <p>Stop optimising for <em>recovered rupees</em> and optimise for <em>a qualified person who stays identified and active.</em> Then build a winback ladder where every rung asks for less trust than the one above it — and where the bottom rung is free.</p>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<section id="positioning">
+  <span class="sec-num">02 — POSITIONING</span>
+  <h2>Why the SaaS playbook gives the wrong answer here</h2>
+  <p class="dek">Per the One Inc42 strategy (Utkarsh, 13 Aug 2026): membership is <strong>never</strong> the primary revenue channel — its purpose is engagement and retention; price maximises the <em>number</em> of qualified people in a paid relationship, not revenue per head; articles stay open; the north star is QIA-30. That changes the objective function, and therefore the decisions.</p>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th style="width:22%">Decision</th><th style="width:26%">SaaS default</th><th style="width:26%">Our call</th><th>Because</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Access during grace</td>
+          <td>Hard-wall to force payment</td>
+          <td><strong>Keep full access for the whole 15-day grace.</strong> Soft in-product prompt only.</td>
+          <td>A hard wall on every visit converts involuntary churn into <em>deliberate</em> churn, and it destroys the QIA — which is the asset the primary business sells.</td>
+        </tr>
+        <tr>
+          <td>Downgrade to free</td>
+          <td>Fight it; it's lost MRR</td>
+          <td><strong>Offer it explicitly. Count it as a save.</strong></td>
+          <td>Datalabs Core is a genuinely useful free tier. A member who lands on Free is still identified, still active, still QIA. That is a success state, not a loss.</td>
+        </tr>
+        <tr>
+          <td>Discount to save</td>
+          <td>Lead with it — accepted 62% of the time</td>
+          <td><strong>Last resort, and never in a utility message.</strong></td>
+          <td>Discount answers a price objection. Mandate cancellation is usually not a price objection. Also: a discount reclassifies a WhatsApp utility template as marketing.</td>
+        </tr>
+        <tr>
+          <td>Success metric</td>
+          <td>Recovered MRR</td>
+          <td><strong>Retained QIA-30, then recovered ₹.</strong></td>
+          <td>Reporting this as a revenue project sets a bar it can't clear (§10) and invites the wrong optimisations.</td>
+        </tr>
+        <tr>
+          <td>Tone</td>
+          <td>"Your account will be suspended"</td>
+          <td><strong>Editorial, not billing-ops.</strong> We're an intelligence product, not a vendor.</td>
+          <td>Consumer sentiment in India is actively hostile to autopay right now (§03). Debt-collector tone lands on a primed audience and confirms the frame.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap">One guardrail from the strategy doc: §11 lists "paid reactivation of the dormant base" as explicitly not-building. That is paid media to the dormant <em>audience</em>. This is owned-channel winback of <em>paying members</em>. Different thing — worth saying out loud before someone reads it as a conflict.</p>
+</section>
+
+<!-- ============================================== -->
+<section id="upi">
+  <span class="sec-num">03 — THE UPI PROBLEM</span>
+  <h2>Five structural facts nobody's playbook accounts for</h2>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th style="width:34%">Fact</th><th style="width:33%">What it means for us</th><th>What we do about it</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>The cancel happens in a third-party app. We can't intercept, can't survey, can't offer.</td>
+          <td>Our save rate at the moment of cancel is structurally <strong>0%</strong>. Every industry deflection benchmark assumes a click we never get.</td>
+          <td>Move the whole flow post-hoc (§05, §06) — <em>and</em> build our own mandate-management surface so some cancels start with us instead (§07, F2).</td>
+        </tr>
+        <tr>
+          <td><strong>NPCI forces a re-decision every cycle.</strong> A pre-debit notification is mandatory 24h before every debit, names the merchant and amount, and the same screen carries pause and cancel.</td>
+          <td>We are legally required to put a cancel button in front of every member, attached to a price, with zero context about value — 12× a year on monthly, 1× on annual.</td>
+          <td>Two things. Land a value message <em>alongside</em> the PDN (§07, F1). And push annual as an <em>exposure</em> argument, not a discount argument (§06, rung 3).</td>
+        </tr>
+        <tr>
+          <td><strong>Our own dunning can cause the cancel.</strong> ~20M UPI mandate revocations/month in India, largely triggered by failed debits on low balances.</td>
+          <td>A naive retry loop manufactures mandate deaths: debit fails → retries fire → notifications pile up → user kills the mandate to stop the noise.</td>
+          <td>Cap and space retries; stop retrying once the customer has been told and given a link. Treat retry count as a churn-risk input, not a free lever (§08, G2).</td>
+        </tr>
+        <tr>
+          <td><strong>The environment is primed against autopay.</strong> "Subscription traps" named as dark patterns by Consumer Affairs; RBI complaint surge; Kuku FM and STAGE publicly named; ~1 in 4 Indians report a mandate they can't explain.</td>
+          <td>A real share of our cancels are <em>mandate spring-cleaning</em> with no opinion about Inc42 at all. Also: any aggressive recovery tactic risks landing us in that narrative.</td>
+          <td>This cohort is the most winnable and needs the least persuasion — it needs <em>recognition</em>, not a pitch: "you cancelled Inc42 — was that deliberate?"</td>
+        </tr>
+        <tr>
+          <td><strong>Pause exists, and we don't handle it.</strong> GPay and PhonePe let users pause a mandate. Razorpay fires a webhook carrying <code>pause_initiated_by</code>. A customer-paused mandate can only be resumed <em>by the customer</em>.</td>
+          <td>Today a pause would fall through our classifier. Worst case: we email "re-authorize your mandate" to someone whose mandate is alive and deliberately paused. That is the single worst message we could send.</td>
+          <td>Add <code>paused</code> as a first-class state before launch. It's a live gap, not a nice-to-have (§08, G1).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<section id="journey">
+  <span class="sec-num">04 — THE JOURNEY</span>
+  <h2>How people come in, and the four ways they leave</h2>
+
+  <h3>In</h3>
+  <ul class="list">
+    <li>Open article (99.71% logged out) → register → <strong>Datalabs Core, free</strong> → 7-day trial of Pro → ₹10 mandate registration → trial converts on day 7 at ₹1,499 + GST = <strong>₹1,768.82</strong>.</li>
+    <li><strong>The sharpest edge in the entire funnel is day 6.</strong> The member approved ₹10. The PDN that lands 24h before conversion says ₹1,768.82 — 177× the number they consented to — with pause and cancel on the same screen. Industry: 40–60% of intro-offer subscribers churn at promo expiry, vs 15–25% of full-price. This is almost certainly our #1 mandate-cancellation moment and it is not addressed anywhere in the current system.</li>
+  </ul>
+
+  <h3>Out</h3>
+  <p class="dek">Four exits, four different truths, four different responses. Mixing them is the failure mode the system was built to prevent — the taxonomy below is the doc's, extended with what each exit means <em>commercially</em>.</p>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th style="width:19%">Exit</th><th style="width:16%">State</th><th style="width:24%">What it actually tells us</th><th style="width:23%">Right response</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Transient failure — no balance</td>
+          <td><span class="chip chip-part">RETRY LOOP</span></td>
+          <td>A liquidity blip. Not churn. ~41% of all declines industry-wide are insufficient funds and they're the most recoverable class there is.</td>
+          <td>Retry + pay-now link. Never mention the mandate.</td>
+          <td><span class="chip chip-built">BUILT</span></td>
+        </tr>
+        <tr>
+          <td>Dead mandate — token unconfirmed / expired / rejected</td>
+          <td><span class="chip chip-part">NEEDS RE-AUTH</span></td>
+          <td>Plumbing failure. Usually our bug or the bank's, not a decision.</td>
+          <td>One combined charge that pays and re-registers. Apologise for the friction, don't sell.</td>
+          <td><span class="chip chip-built">BUILT</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mandate killed in the UPI app</strong></td>
+          <td><span class="chip chip-gap">PENDING-CANCEL</span></td>
+          <td><strong>Ambiguous — and this is the whole question.</strong> Could be hygiene, sticker shock, annoyance, or genuine exit. We can't ask at the moment, so we infer (§05).</td>
+          <td>Segment, then run the ladder (§06).</td>
+          <td><span class="chip chip-part">STATE BUILT · STRATEGY GAP</span></td>
+        </tr>
+        <tr>
+          <td>Voluntary cancel on our surface</td>
+          <td><span class="chip chip-gap">PENDING-CANCEL</span></td>
+          <td>Real intent — <em>and the only exit where we get to ask why.</em> Today this path barely exists because there's nowhere to do it.</td>
+          <td>Intercept properly: one-question reason, ladder offered as the answers.</td>
+          <td><span class="chip chip-gap">GAP</span></td>
+        </tr>
+        <tr>
+          <td>Mandate paused in the UPI app</td>
+          <td><span class="chip chip-dead">UNHANDLED</span></td>
+          <td>The single most positive churn signal available — 3 in 4 who pause come back. And the mandate is still alive.</td>
+          <td>Recognise it, confirm it, schedule a return nudge. <em>Never</em> ask them to re-authorize.</td>
+          <td><span class="chip chip-gap">GAP</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<section id="segment">
+  <span class="sec-num">05 — SEGMENTATION</span>
+  <h2>Reading the reason without being able to ask</h2>
+  <p class="dek">The practical core of this document. Everything a save flow normally learns from an exit survey, we can infer from data we already hold at the instant <code>token.cancelled</code> fires. Segment first, message second — a single generic winback email across all five of these will underperform badly and burn the cohort that was most winnable.</p>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th style="width:20%">Segment</th><th style="width:30%">Signal (all available at webhook time)</th><th style="width:14%">Winnable</th><th>What to send</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Mandate spring-clean</td>
+          <td>Cancel <strong>not</strong> within 48h of a PDN · no failed debits · product usage in last 30d is normal</td>
+          <td><span class="chip chip-built">HIGH</span></td>
+          <td>Recognition, not a pitch. "You turned off auto-pay for Inc42 — deliberate, or housekeeping?" One tap to restore. Nothing else.</td>
+        </tr>
+        <tr>
+          <td>Post-PDN sticker shock</td>
+          <td>Cancel <strong>within 48h</strong> of a PDN · especially the trial→paid PDN</td>
+          <td><span class="chip chip-built">HIGH</span></td>
+          <td>Answer the number. What the last cycle actually delivered, then annual (rung 3) or a smaller commitment. Never a discount first.</td>
+        </tr>
+        <tr>
+          <td>Dunning fatigue</td>
+          <td>≥1 failed debit in the 14d before the cancel</td>
+          <td><span class="chip chip-part">MEDIUM</span></td>
+          <td>Own it. "We kept retrying and that was noisy — sorry." Then mandate-free renewal (rung 1), because they've now been burned by autopay <em>by us</em>.</td>
+        </tr>
+        <tr>
+          <td>Value churn</td>
+          <td>Low or zero Pro-feature usage in the 30d before cancel (no company views, no exports, no alerts firing)</td>
+          <td><span class="chip chip-dead">LOW ON PRICE</span></td>
+          <td>Don't spend money here. Route to pause (rung 2) or Free (rung 4). Preserving QIA is the win; the rupees are not coming back.</td>
+        </tr>
+        <tr>
+          <td>Trial non-intent</td>
+          <td>Cancel inside the 7-day trial · near-zero usage</td>
+          <td><span class="chip chip-dead">DON'T SPEND</span></td>
+          <td>One message: "trial ended, Core is still yours, free." Keep the identity. Exit the sequence.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap">Then confirm the inference with one question, post-hoc — <strong>one</strong>. Evidence across 2M+ responses: every question beyond the first costs ~6.7% of save rate. Design it so the answer options <em>are</em> the ladder — picking a reason and accepting an offer become the same tap.</p>
+</section>
+
+<!-- ============================================== -->
+<section id="ladder">
+  <span class="sec-num">06 — THE OFFER</span>
+  <h2>A ladder, not a single rung</h2>
+  <p class="dek">Ordered by how much trust each rung asks the member to re-extend. The current system has rung 5 only — which asks someone who just deliberately removed a standing instruction to create a new standing instruction. That is the wrong first ask for most of the cohort.</p>
+
+  <div class="ladder">
+    <div class="rung">
+      <div>
+        <h4>Keep it — without the mandate</h4>
+        <p class="ask">Asks for: one payment. No standing instruction.</p>
+        <p>Pay the next cycle as a plain one-time UPI or card payment. We remind you before each renewal; nothing is ever auto-debited. <strong>This is the highest-leverage move in the document</strong> and almost nobody in India offers it.</p>
+        <p>It answers the actual objection. A cancelled mandate says "no standing instruction on my account" — it does not say "not Inc42." Cost to us: manual renewal friction, worse retention mechanics, real ops overhead. Gain: the person stays paid and stays QIA. For a SaaS that trade is bad. For a business whose membership exists to retain qualified people, it is obviously right.</p>
+        <p class="say">"Don't want auto-debit? Fair. Pay for next month when it's due — we'll remind you, nothing gets deducted automatically."</p>
+      </div>
+    </div>
+
+    <div class="rung">
+      <div>
+        <h4>Pause, don't leave</h4>
+        <p class="ask">Asks for: a return date. Keeps the mandate alive.</p>
+        <p>1, 2, or 3 months. Access pauses, billing resumes on a date they pick. 67% of subscribers say they'd rather pause than cancel; ~3 in 4 who pause come back; pause usage is up 337% YoY. Razorpay supports merchant-side pause and resume natively.</p>
+        <p><strong>Critical asymmetry:</strong> a subscription paused by the <em>customer</em> in their UPI app can only be resumed by the customer. One paused by <em>us</em> at their request, we can resume. So it is strictly better for us that pauses happen on our surface — another argument for F2.</p>
+      </div>
+    </div>
+
+    <div class="rung">
+      <div>
+        <h4>Move to annual</h4>
+        <p class="ask">Asks for: more money up front, once.</p>
+        <p>Sell it as <strong>fewer interruptions, not savings</strong>: one debit a year means one pre-debit notification a year instead of twelve. Twelve forced re-decisions become one. Annual billing is documented to cut monthly churn 60–80% and involuntary churn by up to ~95%, and the annual subscriber is 3–5× likelier to renew.</p>
+        <p>Also lines up with the T1 ladder in the strategy (₹4,999–14,999/yr), so this rung does double duty as A1 evidence.</p>
+      </div>
+    </div>
+
+    <div class="rung">
+      <div>
+        <h4>Drop to Free — keep everything else</h4>
+        <p class="ask">Asks for: nothing.</p>
+        <p>Datalabs Core, the newsletters, the app. And critically: <strong>watchlists, saved searches and alerts stay alive</strong> — capped or read-only, not deleted. That's what gives the account gravity and makes the return trip cheap.</p>
+        <p>Count this as a save in reporting, because under a QIA north star it is one. This is the rung that turns a churn event into a tier change.</p>
+      </div>
+    </div>
+
+    <div class="rung">
+      <div>
+        <h4>Reactivate auto-pay — ₹10</h4>
+        <p class="ask">Asks for: a fresh mandate.</p>
+        <p>Already built, and correct — for the accidental and hygiene cancels who never meant to switch anything off. Wrong as the <em>only</em> offer, and wrong as the <em>first</em> offer to anyone who cancelled deliberately.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout grey">
+    <span class="label">And below the ladder</span>
+    <p><strong>Stay known.</strong> Whatever else happens, never lose the identity — newsletter, app, alerts. Identity is what the primary business (rooms, sponsors, warranted composition) actually sells. A member who stops paying but stays identified and active has cost us revenue we were never counting on. A member who goes dark has cost us the asset.</p>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<section id="features">
+  <span class="sec-num">07 — FEATURES</span>
+  <h2>What to build, in order of leverage</h2>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th style="width:5%">#</th><th style="width:21%">Feature</th><th style="width:36%">What it is</th><th style="width:23%">Why it works here specifically</th><th>Size</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">F1</td>
+          <td>PDN companion message</td>
+          <td>6–12h before every pre-debit notification, send a message that names what the membership actually did last cycle — companies you tracked, alerts that fired, reports opened, exports used.</td>
+          <td>We can't change the UPI app screen, but we can land beside it. Turns "₹1,768.82?" into "₹1,768.82 for <em>that</em>." Highest-frequency retention surface we have, currently unused.</td>
+          <td>M</td>
+        </tr>
+        <tr>
+          <td class="num">F2</td>
+          <td>Your auto-pay page</td>
+          <td>Our own mandate-management surface: status, next debit, amount, and our own pause / switch-to-annual / cancel controls. Linked from F1, the app, and the account page.</td>
+          <td><strong>The only structural fix to "we don't own the cancel surface."</strong> Every cancel that starts here is a cancel we can intercept — which is where the entire 15–34% industry save rate lives.</td>
+          <td>M</td>
+        </tr>
+        <tr>
+          <td class="num">F3</td>
+          <td>The ladder, as a page</td>
+          <td>One login-free page rendering §06 by segment. The existing <code>recovery-state</code> endpoint already returns an <code>actions[]</code> array — extend it with the new rungs rather than building a second surface.</td>
+          <td>Turns a one-option winback email into a real choice architecture. Reuses infrastructure that already exists.</td>
+          <td>M</td>
+        </tr>
+        <tr>
+          <td class="num">F4</td>
+          <td>Trial→paid ramp</td>
+          <td>Day 5 (before the day-6 PDN): "your trial ends Sunday, ₹1,768.82 debits Monday — here's what you used it for." Offers: annual, or extend the trial.</td>
+          <td>Pre-empts our sharpest cancellation moment (§04) 24h before the regulator forces the question.</td>
+          <td>S</td>
+        </tr>
+        <tr>
+          <td class="num">F5</td>
+          <td>WhatsApp as the recovery channel</td>
+          <td>Utility templates for failed-payment, mandate-dead, and renewal messages. Email keeps the winback <em>offer</em> messages.</td>
+          <td>Email-only dunning in India recovers &lt;10% — messages land in Promotions. WhatsApp + UPI link is reported at ~3× recovery. ₹0.115/message. <strong>Constraint:</strong> utility templates cannot carry discounts or offers without being reclassified as marketing — so the split above isn't optional.</td>
+          <td>M</td>
+        </tr>
+        <tr>
+          <td class="num">F6</td>
+          <td>One-question exit capture</td>
+          <td>Fires within hours of <code>token.cancelled</code>. Answer options are the ladder rungs. Reason and offer are the same tap.</td>
+          <td>Recovers the exit-survey signal we structurally can't collect at the moment of cancel — and validates or kills the §05 inference rules.</td>
+          <td>S</td>
+        </tr>
+        <tr>
+          <td class="num">F7</td>
+          <td>App push</td>
+          <td>Turn on push for recovery and winback events.</td>
+          <td>Free, instant, and currently dead — push has never fired in the app. Fastest channel we own for anyone who has it installed.</td>
+          <td>S</td>
+        </tr>
+        <tr>
+          <td class="num">F8</td>
+          <td>Value receipt at every debit</td>
+          <td>Replace the invoice-shaped renewal email with a usage receipt. Invoice attached, not featured.</td>
+          <td>Every successful debit is currently a silent cost reminder with no offsetting value reminder.</td>
+          <td>S</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<section id="gaps">
+  <span class="sec-num">08 — GAPS</span>
+  <h2>Things in the current design that will bite</h2>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th style="width:6%"></th><th style="width:26%">Gap</th><th style="width:34%">Consequence</th><th>Fix</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">G1</td>
+          <td><strong>No <code>paused</code> state</strong></td>
+          <td>A user-initiated pause has no home in the state machine. Depending on how the token reads, it either falls through silently or gets classified as a dead mandate — and we email "re-authorize your mandate" to someone whose mandate is alive and intentionally paused.</td>
+          <td>Handle the pause webhook; branch on <code>pause_initiated_by</code>. Self-pause → suppress all dunning, schedule a return-date nudge. <strong>Ship before launch.</strong></td>
+        </tr>
+        <tr>
+          <td class="num">G2</td>
+          <td>Retry cadence is unbounded</td>
+          <td>"Let WCS retry on its own schedule" is the exact loop that drives mandate revocations nationally. Each retry generates another bank notification.</td>
+          <td>Cap retries, space them, and stop once the member has been messaged with a working link. Log retry count as a churn-risk feature.</td>
+        </tr>
+        <tr>
+          <td class="num">G3</td>
+          <td>Single-rung winback</td>
+          <td>Only offer is a fresh mandate — the one thing the member just rejected. Predicts a low yield on the largest cohort.</td>
+          <td>§06.</td>
+        </tr>
+        <tr>
+          <td class="num">G4</td>
+          <td>No voluntary-cancel surface worth the name</td>
+          <td><code>cancel-at-period-end</code> exists as an endpoint with nothing meaningful in front of it. So 100% of cancels stay un-intercepted by default.</td>
+          <td>F2 + F3. This is the difference between a 0% and a 15–30% save rate on the slice we can reach.</td>
+        </tr>
+        <tr>
+          <td class="num">G5</td>
+          <td>Email-only outreach plan</td>
+          <td>Phase 4 assumes Customer.io email. In India that caps recovery below 10% before a single word of copy is written.</td>
+          <td>F5. Decide the WhatsApp path (Customer.io → Twilio, or direct BSP) — this is a live blocker, not a phase-2 nicety.</td>
+        </tr>
+        <tr>
+          <td class="num">G6</td>
+          <td>Backfill decision is still open</td>
+          <td>The doc flags proactive <code>mark_needs_reauth</code> vs waiting. Blasting the whole broken cohort at once tells a large group of people who currently don't know they're broken that they're broken — a share will respond by cancelling properly.</td>
+          <td><strong>Proactive, but in waves with a holdout.</strong> Start with the highest-value 10%, measure cancel rate against the untouched group, then scale. This is a cheap, real experiment (§09, D5).</td>
+        </tr>
+        <tr>
+          <td class="num">G7</td>
+          <td>Open REST endpoints</td>
+          <td>Already flagged in the doc, and it's the one blocker that can't be traded off — <code>user_id</code>-param ownership checks on endpoints that move money and mandates.</td>
+          <td>Ship the auth hardening before any of this is public.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<section id="experiments">
+  <span class="sec-num">09 — EXPERIMENTS</span>
+  <h2>What we'd be testing, with the bar set first</h2>
+  <p class="dek">Pre-registered, in the ledger convention — each names the hypothesis it feeds and the bar it has to clear. One honest caveat up front: at ~1,045 active subscriptions, most of these will not reach statistical significance in a quarter. Run them as <strong>decision experiments with pre-committed action rules</strong>, not as significance tests, and say so in the readout.</p>
+
+  <div class="exp-grid">
+    <div class="exp">
+      <span class="id">D1 · feeds A9</span>
+      <h4>Mandate-free renewal beats re-authorization</h4>
+      <dl>
+        <dt>Test</dt><dd>Post-cancel offer: one-time payment vs ₹10 re-auth, on the spring-clean + dunning-fatigue segments.</dd>
+        <dt>Bar</dt><dd>≥2× the take rate of re-auth alone. Below 1.5× → the mandate wasn't the objection; drop rung 1.</dd>
+        <dt>Cost</dt><dd>M — needs the one-time renewal path.</dd>
+      </dl>
+    </div>
+
+    <div class="exp">
+      <span class="id">D2 · feeds A12</span>
+      <h4>The PDN companion reduces cancels</h4>
+      <dl>
+        <dt>Test</dt><dd>50/50 holdout on F1 across all active monthly members, 3 cycles.</dd>
+        <dt>Bar</dt><dd>≥20% relative reduction in <code>token.cancelled</code> within 72h of a PDN.</dd>
+        <dt>Cost</dt><dd>M. <strong>Run this first</strong> — prevention beats recovery and it's the largest addressable pool.</dd>
+      </dl>
+    </div>
+
+    <div class="exp">
+      <span class="id">D3 · feeds A12</span>
+      <h4>Channel: WhatsApp vs email</h4>
+      <dl>
+        <dt>Test</dt><dd>Same copy, same link, split across both, on failed-payment and mandate-dead events.</dd>
+        <dt>Bar</dt><dd>≥2× recovery within 7 days. Reported claim is ~3×; if we can't clear 2× the channel spend isn't justified.</dd>
+        <dt>Cost</dt><dd>S once F5 is wired. Cleanest, cheapest read available.</dd>
+      </dl>
+    </div>
+
+    <div class="exp">
+      <span class="id">D4 · feeds A9 / A1</span>
+      <h4>Annual framed as fewer interruptions</h4>
+      <dl>
+        <dt>Test</dt><dd>Winback offer copy: "one debit a year instead of twelve" vs "save 2 months."</dd>
+        <dt>Bar</dt><dd>Interruption framing ≥ savings framing on take rate. Directional read is enough to pick the copy.</dd>
+        <dt>Cost</dt><dd>S — copy only.</dd>
+      </dl>
+    </div>
+
+    <div class="exp">
+      <span class="id">D5 · unblocks G6</span>
+      <h4>Proactive backfill doesn't trigger real cancels</h4>
+      <dl>
+        <dt>Test</dt><dd>Wave 1 = highest-value 10% of the broken cohort. Rest held back untouched.</dd>
+        <dt>Bar</dt><dd>Voluntary cancel rate in wave 1 no more than +3pp vs holdout. Above that → stop and wait for natural cycles.</dd>
+        <dt>Cost</dt><dd>S. Decides a live open item.</dd>
+      </dl>
+    </div>
+
+    <div class="exp">
+      <span class="id">D6 · feeds A4</span>
+      <h4>Downgrade-to-Free preserves QIA</h4>
+      <dl>
+        <dt>Test</dt><dd>Offer rung 4 to the value-churn segment; track 30-day activity after the downgrade.</dd>
+        <dt>Bar</dt><dd>≥50% still QIA-30 at day 60. If they go dark anyway, Free isn't a save and we should stop counting it as one.</dd>
+        <dt>Cost</dt><dd>S. This is the experiment that validates the whole §02 reframe.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<section id="measure">
+  <span class="sec-num">10 — MEASUREMENT</span>
+  <h2>What to count, and how big this actually is</h2>
+
+  <h3>The honest sizing</h3>
+  <p>Nobody has pulled the cancellation numbers yet, so this is a frame, not a finding — but it should be checked before the roadmap is written, because it changes how much to build.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="width:42%">Line</th><th style="width:20%">Figure</th><th>Source / assumption</th></tr></thead>
+      <tbody>
+        <tr><td>Active subscriptions</td><td class="num">~1,045</td><td>One Inc42 strategy doc — <strong>verify</strong></td></tr>
+        <tr><td>Digital media monthly churn benchmark</td><td class="num">4.14%</td><td>Recurly, Jul 2026 — 2.55% voluntary / 1.59% involuntary</td></tr>
+        <tr><td>Implied losses/month</td><td class="num">~43</td><td>of which ~17 involuntary</td></tr>
+        <tr><td>Recoverable at best-in-class</td><td class="num">~10–12/mo</td><td>60–70% of involuntary, per Churnkey</td></tr>
+        <tr><td>Annualised recovered revenue</td><td class="num">~₹20–25L</td><td>At ₹1,768.82/mo, all-monthly assumption</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <span class="label">Say this before someone else does</span>
+    <p>Judged purely on recovered revenue, this is a low-seven-figure project that will not survive an ROI comparison against almost anything else on the roadmap. Judged on QIA retention it is a different object — and it is the only instrumentation that will ever produce evidence for <strong>A9 (members renew)</strong> and against <strong>A10 (the org can't run a recurring-revenue motion)</strong>. No comparable publishes a renewal rate. Report it that way from day one.</p>
+  </div>
+
+  <h3>Metrics to define now</h3>
+  <ul class="list">
+    <li><strong>Mandate survival curve</strong> — % of mandates alive at cycle 1, 3, 6, 12. The category decay reference is ~85% → ~70% by month 6. This is the headline health number and we don't have it.</li>
+    <li><strong>Cancel-within-72h-of-PDN rate</strong> — isolates regulator-forced churn from everything else. The single most diagnostic number in the system.</li>
+    <li><strong>Winback take rate, by rung and by segment</strong> — a blended number will hide which rung is doing the work.</li>
+    <li><strong>QIA-30 retention after a mandate cancel</strong> — the north-star-aligned outcome, and the only metric that credits rungs 2 and 4.</li>
+    <li><strong>Recovery rate by channel and message index</strong> — expect steep decay (~2.8% / 1.9% / 1.7% by email), which is the argument for stopping at three.</li>
+    <li><strong>Involuntary : voluntary split</strong> — after classification. The benchmark says ~38% of media churn is involuntary; if ours is far higher, the plumbing is still broken.</li>
+  </ul>
+</section>
+
+<!-- ============================================== -->
+<section id="sequence">
+  <span class="sec-num">11 — SEQUENCE</span>
+  <h2>Order of operations</h2>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="width:16%">Stage</th><th style="width:42%">Do</th><th>Why here</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Before any launch</td>
+          <td>G7 auth hardening · G1 pause state · G2 retry caps · pull the baseline numbers in §10</td>
+          <td>Two of these are correctness bugs that will send actively wrong messages. The third is our only pre-intervention baseline, and it disappears the moment we ship.</td>
+        </tr>
+        <tr>
+          <td>Wave 1 — prevention</td>
+          <td>F1 PDN companion · F4 trial ramp · F8 value receipt · run D2</td>
+          <td>Prevention beats recovery, applies to the whole base rather than the churned tail, and needs no new offers or commercial approvals.</td>
+        </tr>
+        <tr>
+          <td>Wave 2 — channel + capture</td>
+          <td>F5 WhatsApp · F7 push · F6 exit question · run D3</td>
+          <td>Unblocks Phase 4, and F6 starts validating the §05 inference rules while the sample accumulates.</td>
+        </tr>
+        <tr>
+          <td>Wave 3 — the ladder</td>
+          <td>F2 auto-pay page · F3 ladder page · rungs 1–4 · run D1, D4, D6</td>
+          <td>The largest build, and the one that needs commercial sign-off on rungs 1 and 4. Sequenced last so the earlier waves are already producing data to aim it with.</td>
+        </tr>
+        <tr>
+          <td>Throughout</td>
+          <td>G6 backfill in waves with a holdout (D5)</td>
+          <td>Independent of everything else; decides an item that's open right now.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<section id="open">
+  <span class="sec-num">12 — OPEN</span>
+  <h2>Decisions I can't make alone</h2>
+  <ul class="list">
+    <li><strong>Rung 1 — will we actually offer mandate-free renewal?</strong> It's the strongest recommendation here and it has a real ops cost. Needs Utkarsh, not me.</li>
+    <li><strong>Rung 4 — does downgrade-to-Free count as a save in reporting?</strong> The QIA logic says yes. Someone owns that call before the dashboard is built.</li>
+    <li><strong>WhatsApp path</strong> — Customer.io → Twilio, or a direct BSP. Blocks F5, and F5 blocks most of the recovery upside.</li>
+    <li><strong>The baseline pull.</strong> Cancellation volume, mandate survival, monthly-vs-annual mix, and the real active-sub count all sit in WooCommerce/Razorpay, not PostHog. Every number in §10 is a benchmark standing in for data we own and haven't looked at.</li>
+    <li><strong>Grace period length.</strong> 15 days is set. Category advice floors at 7. On monthly billing, 15 days of free access after a failed debit is half a cycle — worth a deliberate decision rather than a default.</li>
+  </ul>
+</section>
+
+<!-- ============================================== -->
+<section id="sources">
+  <span class="sec-num">13 — SOURCES</span>
+  <h2>Where the numbers come from</h2>
+  <ul class="sources">
+    <li><a href="https://www.business-standard.com/finance/news/upi-autopay-revocations-hit-20-mn-monthly-over-low-customer-balances-125090700500_1.html">Business Standard — UPI autopay revocations hit 20mn/month</a>, driven by failed debits on low balances.</li>
+    <li><a href="https://razorpay.com/docs/payments/subscriptions/pause-resume-cancel/">Razorpay — Pause, Resume and Cancel a Subscription</a> · <a href="https://razorpay.com/docs/webhooks/subscriptions/">Subscriptions webhook events</a> · <a href="https://razorpay.com/docs/api/payments/tpap-pro/mandate-flow/update-revoke-mandate/">Update or revoke a mandate</a> — pause states, <code>pause_initiated_by</code>, merchant vs self resume.</li>
+    <li><a href="https://payu.in/blog/upi-autopay-mandate-subscription-payments/">PayU — UPI AutoPay mandate setup</a> and <a href="https://paytm.com/blog/bill-payments/upi-autopay/understanding-the-pre-debit-notification-for-your-upi-autopay-mandates-stay-informed/">Paytm — pre-debit notifications</a> — the mandatory 24h PDN and its pause/cancel affordance.</li>
+    <li><a href="https://churnkey.co/blog/involuntary-churn-benchmarks/">Churnkey — involuntary churn benchmarks</a> — 70% recoverable combined, email decay 2.8/1.9/1.7%, insufficient funds = 40.6% of declines, no-login recovery.</li>
+    <li><a href="https://churnkey.co/guides/reduce-subscription-churn">Churnkey — 14 tactics from 200M subscriptions</a> and <a href="https://docs.churnkey.co/cancel-flows/offers/pause-subscription/">pause offers</a> — 34% platform save rate, discount 62% / pause 22% / plan change 8% acceptance, pause +337% YoY.</li>
+    <li><a href="https://recurly.com/research/churn-rate-benchmarks/">Recurly — churn benchmarks</a> — digital media 4.14% monthly, 2.55% voluntary / 1.59% involuntary (Jul 2026).</li>
+    <li><a href="https://www.truefan.ai/blogs/upi-autopay-subscription-reactivation-guide">TrueFan — UPI AutoPay reactivation</a> and <a href="https://bighelpers.in/insights/subscription-billing-india/">Subscription billing in India, 2026</a> — 30–40% of Indian churn is involuntary, UPI debit success ~85% → ~70% by month 6, WhatsApp ~3× email recovery, email-only &lt;10%.</li>
+    <li><a href="https://blog.campaignhq.co/subscription-renewal-reminder-automation-india-whatsapp-email-2026">CampaignHQ — WhatsApp + email renewal automation, India</a> and <a href="https://m.aisensy.com/blog/utility-whatsapp-templates-best-examples/">AiSensy — utility template rules</a> — what utility templates may and may not contain; ₹0.115/message.</li>
+    <li><a href="https://www.outlookmoney.com/banking/upi-auto-debit-scam-kuku-fm-stage-paytm-google-pay-phonepe-how-cancel-auto-debit">Outlook Money — UPI auto-debit complaints</a> — the consumer narrative, RBI complaints, dark-pattern designation.</li>
+    <li><a href="https://appsops.store/blog/ios-subscription-grace-period-billing-retry">AppsOps — grace periods and billing retry</a> — hard walls during grace convert involuntary churn into deliberate churn.</li>
+    <li><a href="https://baremetrics.com/blog/annual-vs-monthly-pricing-better-retention">Baremetrics — annual vs monthly retention</a> — annual cuts monthly churn 60–80%, involuntary by up to 95%, 3–5× renewal likelihood.</li>
+    <li><a href="https://www.specific.app/blog/cancellation-survey-best-practices-and-best-questions-for-subscription-cancellation-how-to-get-actionable-customer-feedback-that-drives-retention-1">Specific — cancellation survey practice</a> — each question past the first costs ~6.7% of save rate.</li>
+    <li><a href="https://reutersinstitute.politics.ox.ac.uk/news/how-asian-business-site-attracted-30000-subscribers-publishing-one-story-day">Reuters Institute — The Ken</a> and <a href="https://recurx.app/blog/subscription-win-back-campaigns">winback timing benchmarks</a> — first-year churn concentration, 40–60% intro-offer churn at expiry, winback windows.</li>
+    <li><a href="https://inc42.com/datalabs/pricing/">Inc42 Datalabs pricing</a> — ₹1,499/mo + GST, 7-day trial, Core free tier.</li>
+    <li>Internal — Notion: <em>Subscription Dunning, Recovery & Winback System</em> · <em>One Inc42 Strategy</em> (Utkarsh, 13 Aug 2026) · QIA funnel analysis.</li>
+  </ul>
+</section>
+
+<footer>
+  Companion to the Razorpay Recurring system doc · Strategy layer only — no engineering decisions changed · Ranjith, 20 Aug 2026
+</footer>
+
+</div>
