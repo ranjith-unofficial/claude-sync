@@ -275,6 +275,215 @@
     </div>
   </section>
 
+  <!-- 4 · THE MODEL -->
+  <style>
+    .modeltbl table{min-width:640px;font-size:12.5px;}
+    .modeltbl td.mon{font-weight:700;color:var(--ink);white-space:nowrap;}
+    .modeltbl td.w{text-align:center;font-variant-numeric:tabular-nums;}
+    .modeltbl td.w.on{background:var(--violet-bg);color:var(--violet);font-weight:800;}
+    .modeltbl th.acq{color:var(--red);}
+    .modeltbl td.acq{background:var(--red-bg);color:var(--red);font-weight:800;}
+    .mcard{background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:14px;overflow:hidden;}
+    .mcard .mh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--violet-bg);}
+    .mcard .mh h3{font-size:16px;}
+    .mcard .mh .mt{font-size:13px;color:var(--ink2);font-style:italic;}
+    .mcard .mh .wchips{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap;}
+    .wchip{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;padding:1px 7px;border-radius:5px;background:var(--grey-bg);color:var(--grey);}
+    .wchip.hi{background:var(--violet);color:#fff;}
+    .wchip.acq{background:var(--red);color:#fff;}
+    .mbody{padding:6px 18px 14px;}
+    .srow{padding:9px 0;border-bottom:1px solid var(--line2);}
+    .srow:last-child{border-bottom:none;}
+    .srow .sh{font-size:10px;text-transform:uppercase;letter-spacing:0.06em;font-weight:800;margin-bottom:5px;}
+    .sh.fund{color:var(--blue);} .sh.awar{color:var(--amber);} .sh.acq{color:var(--red);} .sh.actv{color:var(--green);} .sh.eng{color:var(--violet);} .sh.ret{color:var(--ink2);} .sh.rev{color:var(--amber);} .sh.para{color:var(--ink3);}
+    .srow ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink);}
+    .srow li{margin-bottom:3px;}
+    .tag{display:inline-block;font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.03em;border-radius:4px;padding:0 5px;margin-left:3px;vertical-align:1px;}
+    .tag.sheet{background:var(--blue-bg);color:var(--blue);} .tag.feat{background:var(--violet-bg);color:var(--violet);} .tag.gap{background:var(--amber-bg);color:var(--amber);}
+    .flagbox{background:var(--red-bg);border:1px solid var(--red);border-radius:11px;padding:14px 17px;margin-top:6px;}
+    .flagbox .fbh{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;color:var(--red);margin-bottom:7px;}
+    .flagbox ul{margin:0;padding-left:17px;font-size:12.5px;color:var(--ink);}
+    .flagbox li{margin-bottom:5px;}
+  </style>
+  <section>
+    <div class="lbl"><span class="k">4</span><h2>The model — effort by funnel stage, month over month</h2><span class="note">from your Sheet5 · ★ Acquisition added</span></div>
+    <p class="sub" style="margin-bottom:12px;">Your monthly weighting is the right spine. One change: it jumps Awareness → Activation with no <b>Acquisition / Identification</b> stage — but the data says that's the cliff (0.16–0.42% identified). I carved it out of early Activation and loaded it up front.</p>
+    <div class="modeltbl tbl-wrap">
+      <table>
+        <tr><th>Month</th><th>Fundamentals</th><th>Awareness</th><th class="acq">★ Acquisition</th><th>Activation</th><th>Engagement</th><th>Retention</th><th>Revenue</th></tr>
+        <tr><td class="mon">M0 · Foundation</td><td class="w on">0.75</td><td class="w">—</td><td class="acq">—</td><td class="w">—</td><td class="w">—</td><td class="w">—</td><td class="w">—</td></tr>
+        <tr><td class="mon">M1 · Top of funnel</td><td class="w">—</td><td class="w on">0.30</td><td class="acq">0.30</td><td class="w on">0.20</td><td class="w">0.20</td><td class="w">—</td><td class="w">—</td></tr>
+        <tr><td class="mon">M2 · Middle</td><td class="w">—</td><td class="w">0.20</td><td class="acq">0.25</td><td class="w on">0.25</td><td class="w on">0.30</td><td class="w">—</td><td class="w">—</td></tr>
+        <tr><td class="mon">M3 · Middle</td><td class="w">—</td><td class="w">0.05</td><td class="acq">0.15</td><td class="w on">0.30</td><td class="w on">0.40</td><td class="w">0.10</td><td class="w">—</td></tr>
+        <tr><td class="mon">M4 · Middle</td><td class="w">—</td><td class="w">0.05</td><td class="acq">0.10</td><td class="w">0.15</td><td class="w on">0.45</td><td class="w on">0.25</td><td class="w">—</td></tr>
+        <tr><td class="mon">M5 · Middle</td><td class="w">—</td><td class="w">0.05</td><td class="acq">0.05</td><td class="w">0.10</td><td class="w on">0.45</td><td class="w on">0.25</td><td class="w">0.10</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5 · THE ROADMAP -->
+  <section>
+    <div class="lbl"><span class="k">5</span><h2>The roadmap ahead — features slotted by stage &amp; month</h2><span class="note"><span class="tag sheet">Sheet5</span> <span class="tag feat">Feature list</span> <span class="tag gap">Competitor gap</span></span></div>
+
+    <!-- M0 -->
+    <div class="mcard">
+      <div class="mh"><h3>Month 0 — Foundation</h3><span class="mt">"make the number honest &amp; the surfaces measurable"</span><span class="wchips"><span class="wchip hi">Fundamentals 0.75</span></span></div>
+      <div class="mbody">
+        <div class="srow"><div class="sh fund">Instrumentation</div><ul>
+          <li>Event dictionary v1.5 + implementation <span class="tag sheet">Sheet5</span></li>
+          <li>Restore Scroll Depth + Register-Lock instrument <span class="tag feat">Feat</span></li>
+          <li>Singular setup complete (attribution flow) <span class="tag sheet">Sheet5</span></li>
+          <li>Per-product activation events + full-funnel instrumentation (add DataLabs referral) <span class="tag feat">Feat</span></li>
+          <li>QIA-30 pull from BigQuery + RFV engagement score <span class="tag feat">Feat</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh fund">Identity spine</div><ul>
+          <li>Canonical Auth0 <span class="mono">distinct_id</span> everywhere <span class="tag feat">Feat</span></li>
+          <li>Converge 3 PostHog projects + 2 Customer.io workspaces <span class="tag feat">Feat</span></li>
+          <li>Promote 40,699 ICP labels silver→gold · internal-user exclusion <span class="tag feat">Feat</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh fund">Enablers &amp; app</div><ul>
+          <li>Feature-Flag framework <span class="tag sheet">Sheet5</span></li>
+          <li>Release V2 app · Redefine login page · collect phone number <span class="tag sheet">Sheet5</span></li>
+          <li>Source-based Lock Modal — design + staging <span class="tag sheet">Sheet5</span></li>
+          <li>llm.txt documentation (AI answer-engine prep) <span class="tag sheet">Sheet5</span> <span class="tag gap">Gap</span></li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- M1 -->
+    <div class="mcard">
+      <div class="mh"><h3>Month 1 — Top of the funnel</h3><span class="mt">"be found, and start knowing who arrives"</span><span class="wchips"><span class="wchip hi">Aware .30</span><span class="wchip acq">Acq .30</span><span class="wchip hi">Activ .20</span><span class="wchip">Eng .20</span></span></div>
+      <div class="mbody">
+        <div class="srow"><div class="sh awar">Awareness</div><ul>
+          <li>llm.txt live → AI answer-engine visibility <span class="tag sheet">Sheet5</span> <span class="tag gap">Gap · only Crunchbase has it</span></li>
+          <li>Google preference / Discover bar · Google News indexing <span class="tag sheet">Sheet5</span> <span class="tag gap">Gap</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh acq">★ Acquisition — the cliff</div><ul>
+          <li>Lock Modal live = registration-gate profiles/database (behind A2 holdout) <span class="tag feat">Feat</span></li>
+          <li>Unified onboarding — role + sector asked once <span class="tag sheet">Sheet5</span></li>
+          <li>Role + employer + timestamp at every capture (the "Qualified" term) <span class="tag feat">Feat</span></li>
+          <li>Newsletter signup as an identity-capture lever <span class="tag feat">Feat</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh actv">Activation</div><ul>
+          <li>Make search visible · Unified navigation bar <span class="tag sheet">Sheet5</span> <span class="tag gap">Gap</span></li>
+          <li>AskInc42 — prominent on DataLabs + introduce in Inc42 Media <span class="tag sheet">Sheet5</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh eng">Engagement</div><ul>
+          <li>Turn on the Morning-Brief push (67% opt-in banked) <span class="tag feat">Feat</span></li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- M2 -->
+    <div class="mcard">
+      <div class="mh"><h3>Month 2 — Middle of the funnel</h3><span class="mt">"make the reading path lead somewhere"</span><span class="wchips"><span class="wchip acq">Acq .25</span><span class="wchip hi">Activ .25</span><span class="wchip hi">Eng .30</span><span class="wchip">Aware .20</span></span></div>
+      <div class="mbody">
+        <div class="srow"><div class="sh actv">Activation</div><ul>
+          <li>Interlinking DataLabs (media ↔ data cross-linking) <span class="tag sheet">Sheet5</span> <span class="tag gap">Gap · Crunchbase strongest</span></li>
+          <li>In-body entity card · profiles that lead somewhere <span class="tag feat">Feat</span></li>
+          <li>Brief redesign — fix card 1 (only 45% advance) &amp; the full-article one-way door <span class="tag feat">Feat</span></li>
+          <li>Article &amp; Companies card redesign (premium) <span class="tag sheet">Sheet5</span></li>
+          <li>Content personalization <span class="tag gap">Gap · The Ken has it</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh eng">Engagement</div><ul>
+          <li>Datalabs Weekly launch (generic free = capture point) <span class="tag feat">Feat</span></li>
+          <li>Brief habit loop + streaks <span class="tag feat">Feat</span></li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- M3 -->
+    <div class="mcard">
+      <div class="mh"><h3>Month 3 — Middle of the funnel</h3><span class="mt">"reasons to come back"</span><span class="wchips"><span class="wchip hi">Activ .30</span><span class="wchip hi">Eng .40</span><span class="wchip">Ret .10</span></span></div>
+      <div class="mbody">
+        <div class="srow"><div class="sh eng">Engagement</div><ul>
+          <li>Alerts on followed companies/sectors <span class="tag feat">Feat</span></li>
+          <li>WhatsApp community <span class="tag feat">Feat</span> <span class="tag gap">Gap · The Ken, Tech in Asia</span></li>
+          <li>Reading progress bar · in-article TOC/nav <span class="tag gap">Gap</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh actv">Activation</div><ul>
+          <li>AskInc42 v2 — 3 stored onboarding Qs (⚠ needs Anmol API) <span class="tag feat">Feat</span></li>
+          <li>Model training on app context <span class="tag sheet">Sheet5</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh ret">Retention (start)</div><ul>
+          <li>Lifecycle journeys groundwork · save / bookmark surfacing <span class="tag feat">Feat</span></li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- M4 -->
+    <div class="mcard">
+      <div class="mh"><h3>Month 4 — Middle of the funnel</h3><span class="mt">"deepen &amp; hold"</span><span class="wchips"><span class="wchip hi">Eng .45</span><span class="wchip hi">Ret .25</span><span class="wchip">Activ .15</span></span></div>
+      <div class="mbody">
+        <div class="srow"><div class="sh eng">Engagement</div><ul>
+          <li>Deal Digest ship · surfaces for the 5 built reports <span class="tag feat">Feat</span></li>
+          <li>Rooms + between-rooms community as retention infra <span class="tag feat">Feat</span></li>
+          <li>Audio content format (narrated) <span class="tag gap">Gap · The Ken · optional</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh ret">Retention</div><ul>
+          <li>Renewal motion live · dunning + failed-charge recovery (~₹30–50L) <span class="tag feat">Feat</span></li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- M5 -->
+    <div class="mcard">
+      <div class="mh"><h3>Month 5 — Middle of the funnel</h3><span class="mt">"first revenue read"</span><span class="wchips"><span class="wchip hi">Eng .45</span><span class="wchip hi">Ret .25</span><span class="wchip">Rev .10</span></span></div>
+      <div class="mbody">
+        <div class="srow"><div class="sh rev">Revenue</div><ul>
+          <li>Read A1 migration probe → lock/rework T1 price band <span class="tag feat">Feat</span></li>
+          <li>Entitlement reshuffle + billing · unified pricing <span class="tag feat">Feat</span> <span class="tag gap">Gap · Tracxn, Tech in Asia</span></li>
+        </ul></div>
+        <div class="srow"><div class="sh eng">Engagement / Retention</div><ul>
+          <li>Continue lifecycle journeys · deepen the retain winners <span class="tag feat">Feat</span></li>
+        </ul></div>
+      </div>
+    </div>
+
+    <!-- PARALLEL -->
+    <div class="mcard">
+      <div class="mh"><h3>Runs in parallel</h3><span class="mt">not on the funnel, but on the roadmap</span><span class="wchips"><span class="wchip">Cross-cutting</span></span></div>
+      <div class="mbody">
+        <div class="srow"><div class="sh para">Ops &amp; internal</div><ul>
+          <li>Hiring Agent (pilot) · CRM use-case · Delete-functionality flow <span class="tag sheet">Sheet5</span></li>
+          <li>Unifying — documentation closure (competitor research, positioning, retention/engagement plans) <span class="tag sheet">Sheet5</span></li>
+          <li>G8 independence firewall · Hurun list-factory formalise <span class="tag feat">Feat</span></li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="flagbox">
+      <div class="fbh">⚠ Four calls to make before locking</div>
+      <ul>
+        <li><b>Pull the A1 migration probe forward to M0–M1.</b> Your model puts Revenue at M5, but the probe needs <i>nothing built</i>, informs the offering, and earns while it runs. Waiting to M5 starves the FY28 number.</li>
+        <li><b>Acquisition/Identification is now its own weighted stage</b> — because 0.16–0.42% identified is the real leak, not activation.</li>
+        <li><b>Don't chase every competitor gap.</b> Team/Enterprise plans: DataLabs enterprise was tried &amp; killed (0 of 17 renewals). Parity here is a trap.</li>
+        <li><b>Brief fix = get past card 1 + stop dumping readers into the full-article one-way door</b> (median completion is ~78s, not 7s; 94% never return from the full article).</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 · COMPETITOR GAPS -->
+  <section>
+    <div class="lbl"><span class="k">6</span><h2>Competitor gaps → where they land</h2><span class="note">from your comparison tab (9 rivals)</span></div>
+    <div class="tbl-wrap"><table>
+      <tr><th>Gap (Inc42 ❌/⚠)</th><th>Who has it</th><th>Where in the plan</th></tr>
+      <tr><td class="k">AI answer-engine visibility</td><td>Crunchbase</td><td>llm.txt — M0 build → M1 Awareness</td></tr>
+      <tr><td class="k">Search bar prominence</td><td>Entrackr · Crunchbase · YourStory · Tech in Asia</td><td>M1 "make search visible"</td></tr>
+      <tr><td class="k">Unified login (media ↔ data)</td><td>Tracxn · Tech in Asia</td><td>M0 identity spine + M1 Acquisition</td></tr>
+      <tr><td class="k">Cross-linking media ↔ data</td><td>Crunchbase · DealStreetAsia · Tech in Asia</td><td>M2 Interlinking DataLabs</td></tr>
+      <tr><td class="k">Content personalization</td><td>The Ken</td><td>M2 Activation</td></tr>
+      <tr><td class="k">WhatsApp community</td><td>The Ken · Tech in Asia</td><td>M3 Engagement</td></tr>
+      <tr><td class="k">Audio content</td><td>The Ken</td><td>M4 (optional)</td></tr>
+      <tr><td class="k">Reading progress / in-article nav</td><td>(nobody — cheap edge)</td><td>M3 Engagement</td></tr>
+      <tr><td class="k">Unified pricing</td><td>Tracxn · Tech in Asia</td><td>M5 Revenue</td></tr>
+      <tr><td class="k">Native news app</td><td>The Ken · YourStory · Tech in Asia</td><td>Already shipping (App v2)</td></tr>
+      <tr><td class="k" style="color:var(--red)">Team / enterprise plans</td><td>Tracxn · Tech in Asia · Crunchbase</td><td style="color:var(--red)">✗ Not chasing — tried &amp; killed (0/17 renewals)</td></tr>
+    </table></div>
+  </section>
+
+  <!-- FEATURE LIST (reference) -->
+  <section style="display:none">
   <!-- 4 · FEATURE LIST -->
   <section>
     <div class="lbl"><span class="k">4</span><h2>The complete feature list</h2><span class="note">everything discussed here + in Utkarsh's strategy</span></div>
