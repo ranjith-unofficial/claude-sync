@@ -304,6 +304,89 @@ tr.total td { border-top: 2px solid var(--rule); font-weight: 600; }
     <p>People either bounce instantly or go nearly all the way. <strong>There is no fatigue curve.</strong> That rules out "the brief is too long" as the problem — and it means the fix is at the entrance and the exit, not in the middle.</p>
   </div>
 
+  <h3>Card 1 is a different card to every other card</h3>
+  <p>The rate at which a reader advances from one card to the next, measured on the actual next event fired:</p>
+
+  <div class="funnel">
+    <div class="frow"><span class="flabel">Card 1 → card 2</span><span class="ftrack"><span class="fbar drop" style="width:45%"></span></span><span class="fnum"><b>45%</b> · 87 of 193</span></div>
+    <div class="frow"><span class="flabel">Card 2 → card 3</span><span class="ftrack"><span class="fbar" style="width:79%"></span></span><span class="fnum"><b>79%</b> · 94 of 119</span></div>
+    <div class="frow"><span class="flabel">Card 3 → card 4</span><span class="ftrack"><span class="fbar" style="width:87%"></span></span><span class="fnum"><b>87%</b> · 91 of 105</span></div>
+    <div class="frow"><span class="flabel">Card 4 → card 5</span><span class="ftrack"><span class="fbar" style="width:82%"></span></span><span class="fnum"><b>82%</b> · 80 of 98</span></div>
+    <div class="frow"><span class="flabel">Card 5 → card 6</span><span class="ftrack"><span class="fbar" style="width:87%"></span></span><span class="fnum"><b>87%</b> · 76 of 87</span></div>
+    <div class="frow"><span class="flabel">Card 6 → card 7</span><span class="ftrack"><span class="fbar" style="width:77%"></span></span><span class="fnum"><b>77%</b> · 65 of 84</span></div>
+    <div class="frow"><span class="flabel">Card 7 → card 8</span><span class="ftrack"><span class="fbar" style="width:80%"></span></span><span class="fnum"><b>80%</b> · 61 of 76</span></div>
+  </div>
+
+  <p><strong>Once a reader gets to card 2, they almost always keep going</strong> — 77% to 87% per card, every card, with no decay as the brief gets longer. Card 1 loses 55%. Every other card loses 13–23%.</p>
+
+  <h3>So what do the 106 people who don't advance from card 1 actually do?</h3>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Next action after card 1</th><th>Times</th><th>Share of all card-1 views</th><th>What it means</th></tr></thead>
+    <tbody>
+      <tr><td>Swipe to card 2</td><td class="n ok">87</td><td class="n">45%</td><td>Working as designed</td></tr>
+      <tr><td><strong>Back to the brief cover</strong></td><td class="n hot">29</td><td class="n">15%</td><td>They retreat to the front page — they did not leave, they went backwards</td></tr>
+      <tr><td>Expand the summary</td><td class="n">26</td><td class="n">13%</td><td>Engaged, reading in place</td></tr>
+      <tr><td><strong>Leave the app entirely</strong></td><td class="n hot">19</td><td class="n">10%</td><td>The only true exit</td></tr>
+      <tr><td><strong>Open the full article</strong></td><td class="n hot">17</td><td class="n">9%</td><td>Diverted out of the brief — see below</td></tr>
+      <tr><td>Re-open the brief</td><td class="n">12</td><td class="n">6%</td><td>Navigation loop</td></tr>
+      <tr><td>Explore / watchlist</td><td class="n">3</td><td class="n">2%</td><td>Left for another surface</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note alarm">
+    <h4>Only 10% of card-1 leavers actually quit</h4>
+    <p>The story everyone assumes — "users open the brief, don't like it, leave" — accounts for <strong>19 out of 193 card-1 views</strong>. The much bigger group, <strong>41 views (21%), goes backwards or sideways inside the app</strong>: 29 bounce back to the cover they just came from, 12 re-open the brief.</p>
+    <p>That is not disinterest. That reads like a navigation problem — people arriving on card 1 and not understanding that they are meant to swipe. <strong>The cover cliff and the card-1 cliff may be the same bug seen from two sides.</strong></p>
+  </div>
+
+  <h3>Tapping the full article is a one-way door</h3>
+  <p>54 articles were opened from a brief card. Here is what happened next:</p>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>After opening a full article from a brief card</th><th>Times</th><th>Share</th></tr></thead>
+    <tbody>
+      <tr><td>Started reading it (scroll fired)</td><td class="n">40</td><td class="n">74%</td></tr>
+      <tr><td>Left the app</td><td class="n">7</td><td class="n">13%</td></tr>
+      <tr><td><strong>Returned to another brief card</strong></td><td class="n hot">3</td><td class="n hot">6%</td></tr>
+      <tr><td>Returned to the brief cover</td><td class="n">2</td><td class="n">4%</td></tr>
+      <tr><td>Opened another article / shared</td><td class="n">2</td><td class="n">4%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>94% of readers who tap through to a full article never come back to another card in that session.</strong> The brief is designed to be finishable; the article link is the thing that stops people finishing it. And they are not bouncing — 74% go on to genuinely read the article they opened.</p>
+
+  <p>This is the mechanism behind the 20 sessions that reached card 8 without completing. They are not abandoning out of boredom, they are being <strong>successfully converted into readers and then stranded there.</strong></p>
+
+  <div class="note warn">
+    <h4>The design tension this exposes</h4>
+    <p>Every "read full story" tap is simultaneously a <em>success</em> for editorial and a <em>failure</em> for the completion metric. Right now the product has no way to send a reader back into the brief after an article, so the two goals are fighting each other and completion is losing.</p>
+    <p>A return path — "back to your brief · 4 stories left" on the article page — converts that conflict into a loop. It is the cheapest structural fix available for brief completion, and it needs no change to the brief itself.</p>
+  </div>
+
+  <h3>Expanding the summary is where readers decide</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>After expanding a card summary</th><th>Times</th><th>Share</th></tr></thead>
+    <tbody>
+      <tr><td>Expand another summary</td><td class="n">96</td><td class="n">38%</td></tr>
+      <tr><td>Advance to the next card</td><td class="n ok">50</td><td class="n">20%</td></tr>
+      <tr><td><strong>Leave the app</strong></td><td class="n hot">44</td><td class="n">18%</td></tr>
+      <tr><td>Go to Explore</td><td class="n">26</td><td class="n">10%</td></tr>
+      <tr><td>Open the full article</td><td class="n">14</td><td class="n">6%</td></tr>
+      <tr><td>Back to the cover</td><td class="n">14</td><td class="n">6%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The summary does its job — <strong>58% of expansions lead to more brief consumption</strong> (another summary or the next card). But <strong>18% end the session right there</strong>, which is the highest exit rate of any action inside the brief.</p>
+
+  <p>Read charitably, that is a satisfied exit: the reader got what they needed from the summary and left. Read strictly, it is the summary substituting for the rest of the brief. Either way, <strong>the summary is a bigger exit point than the full article is</strong> — 44 exits versus 7.</p>
+
   <h3>20 sessions reached card 8 and never completed</h3>
   <p>The single largest recoverable group. They are <em>not</em> disengaged — they opened <strong>more</strong> articles than the people who completed:</p>
 
