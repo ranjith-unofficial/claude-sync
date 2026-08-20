@@ -199,7 +199,12 @@
       "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__list_meetings",
       "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_identity",
       "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_meeting_summary",
-      "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_meeting_transcript"
+      "mcp__claude_ai_Fathom_Your_Meeting_Intelligence_Layer__get_meeting_transcript",
+      "mcp__asana__asana_typeahead_search",
+      "mcp__asana__asana_list_workspaces",
+      "mcp__asana__asana_get_project",
+      "mcp__asana__asana_get_project_sections",
+      "mcp__asana__asana_create_task"
     ]
   }
 }
