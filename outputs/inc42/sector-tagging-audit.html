@@ -1,0 +1,381 @@
+<title>Sector Tagging Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#FAF8F4; --surface:#FFFFFF; --sunk:#F1EEE7;
+  --ink:#15191E; --ink-2:#3A434D; --muted:#6B7683; --hair:#DFDAD0; --hair-2:#EBE7DE;
+  --accent:#0F5257; --accent-soft:#DCE9E8; --accent-ink:#0B3D41;
+  --crit:#A32E22; --crit-soft:#F3E0DC;
+  --warn:#9C6209; --warn-soft:#F5E9D6;
+  --good:#2E6B4A; --good-soft:#DFEBE2;
+  --shadow:0 1px 2px rgba(21,25,30,.05),0 8px 24px -16px rgba(21,25,30,.28);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#111519; --surface:#181D23; --sunk:#1F252C;
+    --ink:#E9E7E1; --ink-2:#BDC4CC; --muted:#8B96A3; --hair:#2C343D; --hair-2:#232A32;
+    --accent:#63BFB8; --accent-soft:#17332F; --accent-ink:#9AD8D0;
+    --crit:#E08376; --crit-soft:#35211E;
+    --warn:#D9A75A; --warn-soft:#332816;
+    --good:#7FC49B; --good-soft:#1B2E23;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111519; --surface:#181D23; --sunk:#1F252C;
+  --ink:#E9E7E1; --ink-2:#BDC4CC; --muted:#8B96A3; --hair:#2C343D; --hair-2:#232A32;
+  --accent:#63BFB8; --accent-soft:#17332F; --accent-ink:#9AD8D0;
+  --crit:#E08376; --crit-soft:#35211E;
+  --warn:#D9A75A; --warn-soft:#332816;
+  --good:#7FC49B; --good-soft:#1B2E23;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 96px}
+h1,h2,h3{font-family:"Newsreader",Georgia,serif;font-weight:500;text-wrap:balance;margin:0}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.num{font-variant-numeric:tabular-nums}
+
+/* masthead */
+.mast{padding:56px 0 34px;border-bottom:1px solid var(--hair)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.mast h1{font-size:clamp(34px,5vw,52px);line-height:1.08;letter-spacing:-.015em;margin:14px 0 0;max-width:19ch}
+.mast h1 em{font-style:italic;color:var(--accent)}
+.dek{margin:16px 0 0;max-width:62ch;color:var(--ink-2);font-size:17px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:24px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+.meta b{color:var(--ink-2);font-weight:500}
+
+/* headline stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:1px;background:var(--hair);border:1px solid var(--hair);margin:40px 0 0}
+.stat{background:var(--surface);padding:20px 20px 18px}
+.stat .k{font-family:"Newsreader",serif;font-size:40px;line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums}
+.stat .k small{font-size:19px;color:var(--muted);margin-left:2px}
+.stat .l{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.42}
+.stat.crit .k{color:var(--crit)} .stat.warn .k{color:var(--warn)} .stat.good .k{color:var(--good)}
+
+section{margin-top:64px}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--hair);
+  padding-bottom:10px;margin-bottom:26px}
+.sec-head h2{font-size:26px;letter-spacing:-.01em}
+.sec-head .tag{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  color:var(--muted);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.lede{max-width:66ch;color:var(--ink-2);margin:0 0 24px}
+
+/* completeness rack */
+.rack{display:flex;flex-direction:column;gap:2px}
+.row{display:grid;grid-template-columns:minmax(130px,1.1fr) 1fr 82px;align-items:center;
+  gap:16px;padding:9px 0;border-bottom:1px solid var(--hair-2)}
+.row .f{font-size:14px;font-weight:500}
+.bar{height:12px;background:var(--sunk);position:relative;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;display:block}
+.row .v{font-family:"IBM Plex Mono",monospace;font-size:13px;text-align:right;
+  font-variant-numeric:tabular-nums;font-weight:500}
+.sv-crit{background:var(--crit)} .sv-warn{background:var(--warn)} .sv-good{background:var(--good)}
+.t-crit{color:var(--crit)} .t-warn{color:var(--warn)} .t-good{color:var(--good)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;font-size:12px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:7px}
+.dot{width:9px;height:9px;flex:none}
+
+/* flow */
+.flow{border:1px solid var(--hair);background:var(--surface);padding:26px;box-shadow:var(--shadow)}
+.flowbar{display:flex;height:46px;margin:20px 0 0;overflow:hidden}
+.flowbar div{display:flex;align-items:center;justify-content:center;color:#fff;
+  font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:600;letter-spacing:.02em}
+.flowkey{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px;margin-top:22px}
+.flowkey div{border-top:3px solid;padding-top:11px}
+.flowkey h4{margin:0 0 5px;font-family:"Public Sans",sans-serif;font-size:13.5px;font-weight:600}
+.flowkey p{margin:0;font-size:12.8px;color:var(--muted);line-height:1.5}
+
+/* tables */
+.scroll{overflow-x:auto;border:1px solid var(--hair);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.6px;min-width:520px}
+th{text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);font-weight:500;padding:12px 14px;
+  border-bottom:1px solid var(--hair);background:var(--sunk);white-space:nowrap;vertical-align:bottom}
+td{padding:10px 14px;border-bottom:1px solid var(--hair-2);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+td.co{font-weight:600;white-space:nowrap}
+.chip{display:inline-block;padding:2px 8px;font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;font-weight:600}
+.c-crit{background:var(--crit-soft);color:var(--crit)}
+.c-warn{background:var(--warn-soft);color:var(--warn)}
+.c-good{background:var(--good-soft);color:var(--good)}
+.c-acc{background:var(--accent-soft);color:var(--accent-ink)}
+
+/* callout */
+.call{border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:18px 22px;margin:26px 0}
+.call p{margin:0;color:var(--accent-ink);font-size:14.5px;line-height:1.55}
+.call p+p{margin-top:9px}
+.call b{font-weight:700}
+
+/* actions */
+.acts{display:flex;flex-direction:column;gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.act{background:var(--surface);display:grid;grid-template-columns:44px 1fr auto;gap:18px;
+  align-items:start;padding:18px 22px}
+.act .i{font-family:"Newsreader",serif;font-size:26px;color:var(--accent);line-height:1.1;
+  font-variant-numeric:tabular-nums}
+.act h4{margin:0 0 4px;font-family:"Public Sans",sans-serif;font-size:15px;font-weight:600}
+.act p{margin:0;font-size:13.4px;color:var(--muted);line-height:1.5;max-width:62ch}
+.act .eff{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);
+  text-align:right;white-space:nowrap;padding-top:3px}
+.note{font-size:12.5px;color:var(--muted);margin-top:12px;max-width:70ch}
+.foot{margin-top:72px;padding-top:22px;border-top:1px solid var(--hair);
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);line-height:1.8}
+@media(max-width:640px){
+  .row{grid-template-columns:1fr 62px;row-gap:6px}
+  .row .bar{grid-column:1/-1;order:3}
+  .act{grid-template-columns:32px 1fr;gap:12px}
+  .act .eff{grid-column:2;text-align:left;padding-top:6px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">Inc42 · Editorial metadata · 809 posts · 5 Jun – 20 Aug 2026</div>
+  <h1>Four in ten articles ship with <em>no sector</em></h1>
+  <p class="dek">An audit of <span class="mono">42_posts.csv</span> across sector, company and industry tagging. The headline number looks like an editorial discipline problem. It isn't — most of it is a pipeline that never copies industry into the sector field.</p>
+  <div class="meta">
+    <span>SOURCE <b>42_posts (1).csv</b></span>
+    <span>ROWS <b>809</b></span>
+    <span>FIELDS AUDITED <b>8</b></span>
+    <span>BLANKS COUNTED AS <b>NULL · null · undefined · TBD · ""</b></span>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat crit"><div class="k num">337</div><div class="l">articles with no sector<br><b class="mono">41.7%</b> of the corpus</div></div>
+  <div class="stat warn"><div class="k num">219</div><div class="l">articles with no company<br><b class="mono">27.1%</b> — 108 of them literal <span class="mono">TBD</span></div></div>
+  <div class="stat crit"><div class="k num">113</div><div class="l">fully dark articles<br>no company, no sector, no industry</div></div>
+  <div class="stat good"><div class="k num">140</div><div class="l">auto-fixable today<br>from data already in the row</div></div>
+  <div class="stat"><div class="k num">31</div><div class="l">taxonomy leaks<br>sub-industries stored as top level</div></div>
+</div>
+
+<section>
+  <div class="sec-head"><h2>Where the holes are</h2><span class="tag">Field completeness · n=809</span></div>
+  <p class="lede">Nothing is stored as a real empty cell. Blanks arrive as four different sentinels — <span class="mono">NULL</span>, lowercase <span class="mono">null</span>, <span class="mono">undefined</span> and <span class="mono">TBD</span> — which is why a naive completeness check on this table under-reports the gap.</p>
+  <div class="rack">
+    <div class="row"><span class="f">Tag</span><span class="bar"><i class="sv-crit" style="width:59.1%"></i></span><span class="v t-crit">59.1%</span></div>
+    <div class="row"><span class="f">Sector</span><span class="bar"><i class="sv-crit" style="width:41.7%"></i></span><span class="v t-crit">41.7%</span></div>
+    <div class="row"><span class="f">Secondary industry</span><span class="bar"><i class="sv-crit" style="width:38.4%"></i></span><span class="v t-crit">38.4%</span></div>
+    <div class="row"><span class="f">Location</span><span class="bar"><i class="sv-warn" style="width:28.1%"></i></span><span class="v t-warn">28.1%</span></div>
+    <div class="row"><span class="f">Companies</span><span class="bar"><i class="sv-warn" style="width:27.1%"></i></span><span class="v t-warn">27.1%</span></div>
+    <div class="row"><span class="f">Industries path</span><span class="bar"><i class="sv-warn" style="width:19.8%"></i></span><span class="v t-warn">19.8%</span></div>
+    <div class="row"><span class="f">Primary industry</span><span class="bar"><i class="sv-warn" style="width:19.7%"></i></span><span class="v t-warn">19.7%</span></div>
+    <div class="row"><span class="f">Development tag</span><span class="bar"><i class="sv-good" style="width:15.1%"></i></span><span class="v t-good">15.1%</span></div>
+  </div>
+  <div class="legend">
+    <span><i class="dot sv-crit"></i>Critical — over a third missing</span>
+    <span><i class="dot sv-warn"></i>Warning — 15–35% missing</span>
+    <span><i class="dot sv-good"></i>Acceptable</span>
+    <span class="mono">bar length = % missing</span>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>The 337, decomposed</h2><span class="tag">Sector-missing articles</span></div>
+  <p class="lede">Splitting the sector gap by what else the row already contains changes the diagnosis completely. Only 155 of 337 are genuinely untagged content. The rest are rows where the answer is sitting one column over.</p>
+  <div class="flow">
+    <div class="eyebrow">337 articles missing sector →</div>
+    <div class="flowbar">
+      <div style="width:40.7%;background:var(--good)">137 &nbsp;RESOLVABLE NOW</div>
+      <div style="width:12.5%;background:var(--warn)">42 &nbsp;COMPANY KNOWN</div>
+      <div style="width:46.8%;background:var(--crit)">158 &nbsp;GENUINELY DARK</div>
+    </div>
+    <div class="flowkey">
+      <div style="border-color:var(--good)">
+        <h4>137 — resolvable from the same row</h4>
+        <p>The row already carries a valid industry path. 99 can be copied verbatim; 38 need a one-hop roll-up from a sub-industry to its parent. Zero editorial judgement required.</p>
+      </div>
+      <div style="border-color:var(--warn)">
+        <h4>42 — company known, never sector-tagged</h4>
+        <p>Named companies with no sector anywhere in the corpus. Fixable once, in the company master, then every past and future article inherits it.</p>
+      </div>
+      <div style="border-color:var(--crit)">
+        <h4>158 — genuinely dark</h4>
+        <p>113 have no company, no sector and no industry at all. Another 42 carry only an orphan taxonomy value. These need a human.</p>
+      </div>
+    </div>
+  </div>
+  <div class="call">
+    <p><b>The finding:</b> 178 articles have a populated <span class="mono">primary_industry</span> but a blank <span class="mono">sector</span>. Where both fields are filled, they agree 92.2% of the time (435 of 472). Sector is not being authored independently — it is a copy of industry that silently fails to write.</p>
+    <p>That reframes 178 of the 337 from an editorial-training problem into a one-time backfill plus a pipeline fix.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>The taxonomy is leaking</h2><span class="tag">31 orphan values</span></div>
+  <p class="lede"><span class="mono">sector</span> uses a closed list of 16 values. <span class="mono">primary_industry</span> uses 46 — of which 31 are not valid sectors at all. They are second- or third-level nodes stored as though they were top level, which is exactly why the copy into <span class="mono">sector</span> fails for those rows.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Value stored in Primary Industry</th><th class="n">Articles</th><th>Correct parent sector</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="co">Startup Ecosystem</td><td class="n">28</td><td>—</td><td><span class="chip c-crit">No parent — add to sector list</span></td></tr>
+        <tr><td class="co">Quick Commerce</td><td class="n">6</td><td>Consumer Services</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">Semiconductors</td><td class="n">5</td><td>—</td><td><span class="chip c-crit">No parent</span></td></tr>
+        <tr><td class="co">AgriTech</td><td class="n">4</td><td>Agritech</td><td><span class="chip c-warn">Casing duplicate</span></td></tr>
+        <tr><td class="co">Cryptocurrency</td><td class="n">4</td><td>—</td><td><span class="chip c-crit">No parent</span></td></tr>
+        <tr><td class="co">D2C</td><td class="n">3</td><td>Ecommerce</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">Social Media</td><td class="n">3</td><td>Media &amp; Entertainment</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">Electric Vehicles</td><td class="n">3</td><td>Clean Tech</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">Ride Hailing</td><td class="n">2</td><td>Travel Tech</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">Manufacturing Solutions</td><td class="n">2</td><td>Enterprise Services</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">Beauty &amp; Personal Care</td><td class="n">2</td><td>Ecommerce</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">Retail</td><td class="n">2</td><td>—</td><td><span class="chip c-crit">No parent</span></td></tr>
+        <tr><td class="co">Deeptech</td><td class="n">2</td><td>—</td><td><span class="chip c-crit">No parent</span></td></tr>
+        <tr><td class="co">Banking · Digital Payments · UPI Payments</td><td class="n">3</td><td>Fintech</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">Investment Tech · Insurance Aggregators</td><td class="n">2</td><td>Fintech</td><td><span class="chip c-good">Auto roll-up</span></td></tr>
+        <tr><td class="co">17 further single-article values</td><td class="n">17</td><td>mixed</td><td><span class="chip c-acc">See workbook tab 9</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>Startup Ecosystem is the biggest single miss.</b> 28 articles — funding round-ups, unicorn trackers, IPO trackers, fund launches — have a coherent industry value that has no home in the sector taxonomy. Adding it as a 17th sector clears 28 of the 337 in one decision.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Companies with no sector, anywhere</h2><span class="tag">81 of 340 companies</span></div>
+  <p class="lede">340 distinct companies appear across the corpus. 105 show up in at least one sector-blank article — and 81 of those have <em>never</em> carried a sector on any article. These are gaps in the company master, not in any one post.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Company</th><th class="n">Articles</th><th>Industry seen on the article</th><th>Suggested sector</th></tr></thead>
+      <tbody>
+        <tr><td class="co">Zetwerk</td><td class="n">6</td><td>Manufacturing Solutions</td><td><span class="chip c-good">Advanced Hardware &amp; Technology</span></td></tr>
+        <tr><td class="co">Cred</td><td class="n">6</td><td>none</td><td><span class="chip c-crit">Manual — Fintech expected</span></td></tr>
+        <tr><td class="co">3one4 Capital</td><td class="n">3</td><td>none</td><td><span class="chip c-crit">Manual — VC firm</span></td></tr>
+        <tr><td class="co">Peak XV Partners</td><td class="n">2</td><td>none</td><td><span class="chip c-crit">Manual — VC firm</span></td></tr>
+        <tr><td class="co">Digit Insurance</td><td class="n">2</td><td>Fintech</td><td><span class="chip c-good">Fintech</span></td></tr>
+        <tr><td class="co">Tek Travels</td><td class="n">2</td><td>Travel Tech</td><td><span class="chip c-good">Travel Tech</span></td></tr>
+        <tr><td class="co">Zee5</td><td class="n">1</td><td>Media &amp; Entertainment</td><td><span class="chip c-good">Media &amp; Entertainment</span></td></tr>
+        <tr><td class="co">Home Credit India</td><td class="n">1</td><td>Fintech</td><td><span class="chip c-good">Fintech</span></td></tr>
+        <tr><td class="co">Ketto</td><td class="n">1</td><td>Fintech</td><td><span class="chip c-good">Fintech</span></td></tr>
+        <tr><td class="co">Quick Clean</td><td class="n">1</td><td>Consumer Services</td><td><span class="chip c-good">Consumer Services</span></td></tr>
+        <tr><td class="co">SwitchOn</td><td class="n">1</td><td>AI</td><td><span class="chip c-good">AI</span></td></tr>
+        <tr><td class="co">Fizzy Goblet · Promom · BUILT</td><td class="n">3</td><td>Ecommerce</td><td><span class="chip c-good">Ecommerce</span></td></tr>
+        <tr><td class="co">Elevation Capital · Fundamentum · Avendus</td><td class="n">3</td><td>none</td><td><span class="chip c-crit">Manual — investors</span></td></tr>
+        <tr><td class="co">68 further companies</td><td class="n">—</td><td>mixed</td><td><span class="chip c-acc">See workbook tab 7</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">A pattern worth naming: <b>investors and funds are systematically untagged.</b> 3one4, Peak XV, Elevation, Fundamentum, Avendus, Info Edge Ventures, Together Fund, Accel Atoms, Mirae Asset, Piper Serica and Aum Ventures all appear with no sector. They are not startups, so the taxonomy has nowhere to put them — the same hole that <span class="mono">Startup Ecosystem</span> would fill.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Companies tagged inconsistently</h2><span class="tag">23 companies · proof it's a process gap</span></div>
+  <p class="lede">These companies carry a sector on some articles and not others. Same company, same desk, different outcome — which rules out "we don't know the sector" and points squarely at the write step.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Company</th><th class="n">Articles</th><th class="n">Missing sector</th><th>Sector already used elsewhere</th></tr></thead>
+      <tbody>
+        <tr><td class="co">Dream11</td><td class="n">3</td><td class="n">2</td><td>Media &amp; Entertainment</td></tr>
+        <tr><td class="co">Uber India</td><td class="n">3</td><td class="n">2</td><td>Consumer Services</td></tr>
+        <tr><td class="co">Fitbee</td><td class="n">3</td><td class="n">2</td><td>Ecommerce</td></tr>
+        <tr><td class="co">Flipkart</td><td class="n">13</td><td class="n">1</td><td>Ecommerce</td></tr>
+        <tr><td class="co">Sarvam AI</td><td class="n">8</td><td class="n">1</td><td>AI</td></tr>
+        <tr><td class="co">Blinkit</td><td class="n">7</td><td class="n">1</td><td>Consumer Services / Foodtech <span class="chip c-warn">also inconsistent</span></td></tr>
+        <tr><td class="co">Table Space</td><td class="n">7</td><td class="n">1</td><td>Real Estate Tech</td></tr>
+        <tr><td class="co">Skyroot</td><td class="n">6</td><td class="n">1</td><td>Adv. Hardware / Health Tech <span class="chip c-crit">wrong on one</span></td></tr>
+        <tr><td class="co">Groww</td><td class="n">5</td><td class="n">1</td><td>Fintech</td></tr>
+        <tr><td class="co">upGrad</td><td class="n">4</td><td class="n">1</td><td>Edtech</td></tr>
+        <tr><td class="co">13 more (Kissht, NoBroker, GoKwik, MobiKwik, PolicyBazaar, Reliance Retail, Reliance Jio, Amazon Pay India, Amazon Smbhav, Medial, Reo.Dev, QOSMIC, Tonbo Imaging)</td><td class="n">28</td><td class="n">13</td><td>known</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Two companies are worse than inconsistent — they are contradictory. <b>Skyroot</b> (space launch) is tagged <em>Health Tech</em> on one article and <em>Advanced Hardware &amp; Technology</em> on another. <b>Blinkit</b> splits between <em>Consumer Services</em> and <em>Foodtech</em>. Both need a canonical decision before any backfill runs.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Which desks leak most</h2><span class="tag">Missing rate by development tag</span></div>
+  <p class="lede">The gap is not spread evenly. Transactional beats — funding, financials, IPOs — tag well because a company object is attached at the source. Policy and trend writing has no company to hang metadata on, and falls straight through.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Development tag</th><th class="n">Articles</th><th class="n">No sector</th><th class="n">Rate</th><th class="n">No company</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td class="co">Government &amp; Policies</td><td class="n">57</td><td class="n">53</td><td class="n t-crit">93.0%</td><td class="n">51</td><td><span class="chip c-crit">Structurally untaggable today</span></td></tr>
+        <tr><td class="co">Fund Launches</td><td class="n">15</td><td class="n">13</td><td class="n t-crit">86.7%</td><td class="n">1</td><td><span class="chip c-crit">No sector fits a fund</span></td></tr>
+        <tr><td class="co">Industry Trends</td><td class="n">34</td><td class="n">28</td><td class="n t-crit">82.4%</td><td class="n">23</td><td><span class="chip c-crit">Multi-company by nature</span></td></tr>
+        <tr><td class="co">(no development tag)</td><td class="n">122</td><td class="n">65</td><td class="n t-crit">53.3%</td><td class="n">55</td><td><span class="chip c-crit">Untagged twice over</span></td></tr>
+        <tr><td class="co">Controversies</td><td class="n">60</td><td class="n">31</td><td class="n t-crit">51.7%</td><td class="n">23</td><td><span class="chip c-warn">Often about non-startups</span></td></tr>
+        <tr><td class="co">Startup Funding &amp; Investments</td><td class="n">140</td><td class="n">57</td><td class="n t-warn">40.7%</td><td class="n">21</td><td><span class="chip c-warn">Round-ups drag it down</span></td></tr>
+        <tr><td class="co">Business Updates</td><td class="n">170</td><td class="n">57</td><td class="n t-warn">33.5%</td><td class="n">36</td><td><span class="chip c-warn">Largest absolute gap</span></td></tr>
+        <tr><td class="co">People &amp; Culture</td><td class="n">19</td><td class="n">6</td><td class="n t-warn">31.6%</td><td class="n">3</td><td><span class="chip c-warn">—</span></td></tr>
+        <tr><td class="co">Startup Financials</td><td class="n">102</td><td class="n">17</td><td class="n t-good">16.7%</td><td class="n">3</td><td><span class="chip c-good">Healthy</span></td></tr>
+        <tr><td class="co">Startup M&amp;A</td><td class="n">24</td><td class="n">3</td><td class="n t-good">12.5%</td><td class="n">0</td><td><span class="chip c-good">Healthy</span></td></tr>
+        <tr><td class="co">Startup IPO</td><td class="n">62</td><td class="n">5</td><td class="n t-good">8.1%</td><td class="n">1</td><td><span class="chip c-good">Best in class</span></td></tr>
+        <tr><td class="co">Startup Layoffs</td><td class="n">2</td><td class="n">0</td><td class="n t-good">0%</td><td class="n">0</td><td><span class="chip c-good">Clean</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Recurring editorial series are near-total blackouts: <b>The AI Shift</b>, <b>The Checkout</b>, <b>Funding Galore</b>, <b>Listicle</b>, <b>Inc42 Announcements</b>, <b>30 Startups To Watch</b>, <b>Fintech / AI Startups To Watch</b> and <b>Session Article</b> are all 100% sector-missing. <b>Inc42 Markets</b> is 80% missing on its own but 0% when paired with the <em>Markets</em> tag — the same content, tagged two different ways.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Not improving over time</h2><span class="tag">Monthly · Jun–Aug 2026</span></div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Month</th><th class="n">Articles</th><th class="n">No sector</th><th class="n">No company</th><th class="n">No primary industry</th></tr></thead>
+      <tbody>
+        <tr><td class="co">Jun 2026</td><td class="n">113</td><td class="n t-crit">45.1%</td><td class="n">29.2%</td><td class="n">25.7%</td></tr>
+        <tr><td class="co">Jul 2026</td><td class="n">391</td><td class="n t-crit">43.0%</td><td class="n">25.1%</td><td class="n">16.6%</td></tr>
+        <tr><td class="co">Aug 2026</td><td class="n">305</td><td class="n t-crit">38.7%</td><td class="n">28.9%</td><td class="n">21.3%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">A 6-point drift across three months, with company coverage flat and primary industry moving the wrong way in August. There is no trend here to wait out — the rate is stable, so the volume of untagged content compounds at roughly 120 articles a month.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>What it costs</h2><span class="tag">Downstream impact</span></div>
+  <p class="lede">Sector is the join key for sector-based personalisation, sector newsletters, sector landing pages, DataLabs cross-linking and any "more from this sector" module.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Sector</th><th class="n">Tagged today</th><th class="n">After backfill</th><th class="n">Uplift</th></tr></thead>
+      <tbody>
+        <tr><td class="co">Ecommerce</td><td class="n">95</td><td class="n">126</td><td class="n t-good">+33%</td></tr>
+        <tr><td class="co">Fintech</td><td class="n">86</td><td class="n">110</td><td class="n t-good">+28%</td></tr>
+        <tr><td class="co">AI</td><td class="n">14</td><td class="n">43</td><td class="n t-good">+207%</td></tr>
+        <tr><td class="co">Consumer Services</td><td class="n">27</td><td class="n">40</td><td class="n t-good">+48%</td></tr>
+        <tr><td class="co">Enterprise Tech</td><td class="n">34</td><td class="n">43</td><td class="n t-good">+26%</td></tr>
+        <tr><td class="co">Media &amp; Entertainment</td><td class="n">14</td><td class="n">22</td><td class="n t-good">+57%</td></tr>
+        <tr><td class="co">Advanced Hardware &amp; Tech</td><td class="n">19</td><td class="n">25</td><td class="n t-good">+32%</td></tr>
+        <tr><td class="co">Clean Tech</td><td class="n">23</td><td class="n">28</td><td class="n t-good">+22%</td></tr>
+        <tr><td class="co">Travel Tech</td><td class="n">23</td><td class="n">27</td><td class="n t-good">+17%</td></tr>
+        <tr><td class="co">Enterprise Services</td><td class="n">10</td><td class="n">14</td><td class="n t-good">+40%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="call">
+    <p><b>AI is the sector this hurts most.</b> Only 14 articles carry the AI sector today, against 43 after backfill — the corpus is running an AI beat that the taxonomy can barely see. Any "AI" newsletter, feed or landing page built on <span class="mono">sector</span> right now is showing a third of the real inventory.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>What to do</h2><span class="tag">In order</span></div>
+  <div class="acts">
+    <div class="act"><div class="i num">1</div><div><h4>Fix the write, not the rows</h4><p>Sector agrees with primary industry 92.2% of the time and is blank on 178 rows where industry is populated. Find the step that derives sector and make it fire on every publish, including edits. Without this, any backfill re-decays at ~120 articles a month.</p></div><div class="eff">pipeline · 1 fix</div></div>
+    <div class="act"><div class="i num">2</div><div><h4>Add <span class="mono">Startup Ecosystem</span> as a 17th sector</h4><p>28 articles — trackers, round-ups, fund launches — plus 11 investor entities have a real, coherent industry value with no sector to map to. One taxonomy decision clears the largest single orphan bucket.</p></div><div class="eff">taxonomy · 1 decision</div></div>
+    <div class="act"><div class="i num">3</div><div><h4>Run the 137-row automated backfill</h4><p>99 rows copy their industry root verbatim; 38 need a one-hop parent roll-up. Deterministic, reversible, no editorial input. Tab 3 of the workbook is the exact row list with the suggested value and how it was derived.</p></div><div class="eff">137 rows · script</div></div>
+    <div class="act"><div class="i num">4</div><div><h4>Resolve 31 orphan taxonomy values</h4><p>Map each sub-industry to its parent, merge <span class="mono">AgriTech</span> into <span class="mono">Agritech</span>, and add a validation rule so <span class="mono">primary_industry</span> can only ever hold a top-level node. This is what stops leak #1 recurring.</p></div><div class="eff">31 values</div></div>
+    <div class="act"><div class="i num">5</div><div><h4>Backfill 81 companies in the company master</h4><p>Fix once at the company level and every past and future article inherits. 39 of the 81 already show a usable industry on their article. Resolve the Skyroot and Blinkit contradictions first.</p></div><div class="eff">81 companies</div></div>
+    <div class="act"><div class="i num">6</div><div><h4>Give the 113 dark articles a fallback</h4><p>Government &amp; Policies (33), Business Updates (31) and Controversies (17) dominate. Most are about regulators, platforms or the ecosystem rather than a startup. Either allow a sector without a company, or accept them as untagged deliberately — but decide, rather than leaving them to fall through.</p></div><div class="eff">113 articles</div></div>
+    <div class="act"><div class="i num">7</div><div><h4>Replace all four blank sentinels with real nulls</h4><p><span class="mono">NULL</span>, <span class="mono">null</span>, <span class="mono">undefined</span>, <span class="mono">TBD</span> and empty string all mean the same thing today. Until they don't, every downstream completeness check under-counts the gap and <span class="mono">TBD</span> reads as a company name in 108 rows.</p></div><div class="eff">data hygiene</div></div>
+  </div>
+</section>
+
+<div class="foot">
+  Workbook — 15 tabs including the full 809-row master, the 337-row fix plan with suggested values, and every drill-down list<br>
+  <b>~/ClaudeDocs/inc42/inc42_sector_tagging_audit.xlsx</b><br><br>
+  Method — blanks counted as NULL, null, undefined, TBD or empty string, case-insensitive. Company lists split on the pipe delimiter with TBD tokens discarded. Suggested sectors derived first from the industries path root, then from primary industry, then from the company's sector history elsewhere in the corpus; every suggestion carries its derivation in the workbook. HTML entities unescaped before comparison.
+</div>
+
+</div>
