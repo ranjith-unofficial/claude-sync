@@ -36,6 +36,8 @@
 - [INC42 market maps (idea from Utkarsh, 17 Aug 2026)](project-inc42-market-maps.md) — indianvcs.com/maps (thin, city-only) + marketmapmaker.app ($490/yr per map); our edge is DataLabs data; intent UNCONFIRMED
 - [INC42 PostHog review (Utkarsh, ~20 Aug 2026)](project-inc42-posthog-review.md) — ⚠️ INCOMPLETE: only "internal users must be flagged/excluded in PostHog" captured; rest of his pointers still to be collected
 - [INC42 app deep linking](project-inc42-deep-linking.md) — newsletter links fail (open in Safari not app); root cause = CIO click-tracker breaks Universal/App Links; fix = route via Singular (also fixes campaign=None attribution); tickets #1 (Nityam) + #6 filters (Prapti) pending
+- [INC42 funnel analysis](project-inc42-funnel-analysis.md) — QIA ~2,100 is a 90d floor (real QIA-30 ~1.2-1.5k); per-product activation defs (web=2nd article, DataLabs=company view, app=engaged brief); THE finding = identification cliff (web 0.42% / DataLabs 0.16% identified); weekly-plan artifact dfd082a1
+- [INC42 PostHog projects](reference-inc42-posthog-projects.md) — project IDs: 53557 editorial web / 66351 DataLabs / 146258 app; shared Prapti account switches mid-session (always restore); no GA4/BigQuery CLI
 
 ## INC42 data warehouse
 - [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026, 328K contacts/75K companies, powers contact_360/company_360 + Customer.io reverse ETL

@@ -303,9 +303,89 @@
     </div>
   </section>
 
-  <!-- 3 · HOW EXPERIMENTS MOVE THE NUMBER -->
+  <!-- 3 · WHERE WE STAND -->
+  <style>
+    .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .fcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 15px;}
+    .fcard.unified{border-color:var(--violet-soft);background:var(--violet-bg);}
+    .fcard .fh{display:flex;align-items:baseline;gap:8px;justify-content:space-between;}
+    .fcard .fh h3{font-size:15px;}
+    .fcard .win{font-size:9.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;}
+    .idchip{font-size:9.5px;font-weight:800;color:var(--red);background:var(--red-bg);border:1px solid var(--red);border-radius:5px;padding:1px 7px;margin:7px 0 4px;display:inline-block;}
+    .fcard.unified .idchip{color:var(--red);}
+    .frow{display:grid;grid-template-columns:64px 1fr 72px;align-items:center;gap:8px;padding:2.5px 0;font-size:11px;}
+    .frow .fn{color:var(--ink2);font-weight:600;}
+    .ftrack{height:9px;background:var(--line2);border-radius:3px;overflow:hidden;}
+    .ffill{height:100%;background:var(--blue);border-radius:3px;min-width:3px;display:block;}
+    .frow.act .ffill{background:var(--green);}
+    .frow.cliff .ffill{background:var(--red);}
+    .frow.cliff .fn{color:var(--red);font-weight:800;}
+    .frow .fv{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700;}
+    .frow .fv .pc{display:block;font-size:9px;color:var(--ink3);font-weight:600;}
+    .standnote{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
+    .snote{flex:1;min-width:280px;border-radius:11px;padding:13px 16px;font-size:13px;}
+    .snote.cliff{background:var(--red-bg);border:1px solid var(--red);}
+    .snote.spine{background:var(--amber-bg);border:1px solid var(--amber);}
+    .snote b{color:var(--ink);}
+    @media (max-width:720px){.fgrid{grid-template-columns:1fr;}}
+  </style>
   <section>
-    <div class="lbl"><span class="k">3</span><h2>How each experiment moves the number</h2><span class="note">every experiment maps to a stage and a QIA lever</span></div>
+    <div class="lbl"><span class="k">3</span><h2>Where we stand — the current funnel</h2><span class="note">PostHog · last 30 days · internal excluded</span></div>
+    <p class="sub" style="margin-bottom:14px;">Both products deliver value at scale — then identify almost no one. The funnel doesn't leak at activation or engagement; it <b>collapses at identity</b>. Activation &amp; engagement span all visitors (incl. anonymous); Acquisition is the <i>identified</i> cut — the gap is the cliff.</p>
+    <div class="fgrid">
+
+      <!-- WEBSITE -->
+      <div class="fcard">
+        <div class="fh"><h3>Inc42 Website</h3><span class="win">30d</span></div>
+        <span class="idchip">0.42% identified</span>
+        <div class="frow"><span class="fn">Views</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">721,890</span></div>
+        <div class="frow"><span class="fn">Total</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">478,249</span></div>
+        <div class="frow cliff"><span class="fn">Acquisition</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">1,986<span class="pc">0.42%</span></span></div>
+        <div class="frow act"><span class="fn">Activation</span><span class="ftrack"><span class="ffill" style="width:9.5%"></span></span><span class="fv">45,510<span class="pc">9.5%</span></span></div>
+        <div class="frow"><span class="fn">Engagement</span><span class="ftrack"><span class="ffill" style="width:8.9%"></span></span><span class="fv">42,622<span class="pc">8.9%</span></span></div>
+        <div class="frow"><span class="fn">Retention</span><span class="ftrack"><span class="ffill" style="width:7.7%"></span></span><span class="fv">36,635<span class="pc">7.7%</span></span></div>
+        <div class="frow"><span class="fn">Revenue</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">186<span class="pc">0.04%</span></span></div>
+        <div class="frow"><span class="fn">Referral</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">25<span class="pc">0.01%</span></span></div>
+      </div>
+
+      <!-- DATALABS -->
+      <div class="fcard">
+        <div class="fh"><h3>DataLabs</h3><span class="win">30d</span></div>
+        <span class="idchip">0.16% identified</span>
+        <div class="frow"><span class="fn">Views</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">207,529</span></div>
+        <div class="frow"><span class="fn">Total</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">135,909</span></div>
+        <div class="frow cliff"><span class="fn">Acquisition</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">211<span class="pc">0.16%</span></span></div>
+        <div class="frow act"><span class="fn">Activation</span><span class="ftrack"><span class="ffill" style="width:61.5%"></span></span><span class="fv">83,647<span class="pc">62%</span></span></div>
+        <div class="frow"><span class="fn">Engagement</span><span class="ftrack"><span class="ffill" style="width:2%"></span></span><span class="fv">2,665<span class="pc">2.0%</span></span></div>
+        <div class="frow"><span class="fn">Retention</span><span class="ftrack"><span class="ffill" style="width:1.4%"></span></span><span class="fv">1,880<span class="pc">1.4%</span></span></div>
+        <div class="frow"><span class="fn">Revenue</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">278*<span class="pc">0.20%</span></span></div>
+        <div class="frow"><span class="fn">Referral</span><span class="ftrack"><span class="ffill" style="width:3px"></span></span><span class="fv">n/a<span class="pc">not tracked</span></span></div>
+      </div>
+
+      <!-- UNIFIED -->
+      <div class="fcard unified">
+        <div class="fh"><h3>Unified*</h3><span class="win">web + DataLabs</span></div>
+        <span class="idchip">0.36% identified</span>
+        <div class="frow"><span class="fn">Views</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">929,419</span></div>
+        <div class="frow"><span class="fn">Total</span><span class="ftrack"><span class="ffill" style="width:100%"></span></span><span class="fv">614,158</span></div>
+        <div class="frow cliff"><span class="fn">Acquisition</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">2,197<span class="pc">0.36%</span></span></div>
+        <div class="frow act"><span class="fn">Activation</span><span class="ftrack"><span class="ffill" style="width:21%"></span></span><span class="fv">129,157<span class="pc">21%</span></span></div>
+        <div class="frow"><span class="fn">Engagement</span><span class="ftrack"><span class="ffill" style="width:7.4%"></span></span><span class="fv">45,287<span class="pc">7.4%</span></span></div>
+        <div class="frow"><span class="fn">Retention</span><span class="ftrack"><span class="ffill" style="width:6.3%"></span></span><span class="fv">38,515<span class="pc">6.3%</span></span></div>
+        <div class="frow"><span class="fn">Revenue</span><span class="ftrack"><span class="ffill" style="width:1%"></span></span><span class="fv">464<span class="pc">0.08%</span></span></div>
+        <div class="frow"><span class="fn">Referral</span><span class="ftrack"><span class="ffill" style="width:3px"></span></span><span class="fv">25<span class="pc">~0%</span></span></div>
+      </div>
+
+    </div>
+    <div class="standnote">
+      <div class="snote cliff"><b>The cliff.</b> 614K combined visitors → <b>2,197 identified (0.36%)</b>. Value happens at scale — 129K take a core action — but we know almost no one. This is the case for registration-gating (A2), stated in one number.</div>
+      <div class="snote spine"><b>"Unified" is a naïve sum, not a truth.</b> We can't yet dedup one person across web + DataLabs (or the app) — three PostHog projects, no shared identity. Building that single view <i>is</i> the identity-spine work (A13). * Revenue &gt; Identified on DataLabs (278 &gt; 211) is the same broken spine — payment events don't carry email. The app is a separate ~130-user pilot, not summed here.</div>
+    </div>
+  </section>
+
+  <!-- 4 · HOW EXPERIMENTS MOVE THE NUMBER -->
+  <section>
+    <div class="lbl"><span class="k">4</span><h2>How each experiment moves the number</h2><span class="note">every experiment maps to a stage and a QIA lever</span></div>
     <div class="maptable tbl-wrap"><table>
       <tr><th>Experiment</th><th>Stage</th><th>How it contributes to QIA</th></tr>
       <tr><td class="exp">Deep linking + Singular fix</td><td><span class="fchip acq">Acquisition</span></td><td class="contrib">More newsletter→app arrivals, and <b>attributable</b> so acquisition is measurable at all.</td></tr>
@@ -323,7 +403,7 @@
 
   <!-- 4 · SEQUENCE -->
   <section>
-    <div class="lbl"><span class="k">4</span><h2>The sequence — instruments before experiments</h2></div>
+    <div class="lbl"><span class="k">5</span><h2>The sequence — instruments before experiments</h2></div>
     <div class="seq">
       <div class="phase p1">
         <div class="pt">Phase 1 · Foundation</div><h3>Fix the instruments</h3>
@@ -341,7 +421,7 @@
 
   <!-- 5 · WEEKS -->
   <section>
-    <div class="lbl"><span class="k">5</span><h2>The weeks</h2><span class="note">owners proposed · confirm at Monday leads sync</span></div>
+    <div class="lbl"><span class="k">6</span><h2>The weeks</h2><span class="note">owners proposed · confirm at Monday leads sync</span></div>
 
     <div class="week fix now">
       <div class="whead"><span class="ph fix">Fix</span><h3>Week 1</h3><span class="dt">Aug 18–22</span><span class="nowtag">This week</span><span class="theme">Make the number honest</span></div>
