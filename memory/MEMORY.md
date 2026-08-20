@@ -34,6 +34,7 @@
 - [INC42 vendor stack (verified)](reference-inc42-vendor-stack.md) — Customer.io (web+app, EU), PostHog (EU), MoEngage REMOVED, Singular/Firebase app-only
 - [INC42 app tracking links](reference-inc42-app-tracking-links.md) — store URLs, UTM→Singular param mapping (`pcn`/`pcid`/`pcrn`/`psn`), source = channel not event; DRS QR link verified working both platforms, but referrer carries only `singular_click_id` → GA4 sees no campaign
 - [INC42 market maps (idea from Utkarsh, 17 Aug 2026)](project-inc42-market-maps.md) — indianvcs.com/maps (thin, city-only) + marketmapmaker.app ($490/yr per map); our edge is DataLabs data; intent UNCONFIRMED
+- [INC42 PostHog review (Utkarsh, ~20 Aug 2026)](project-inc42-posthog-review.md) — ⚠️ INCOMPLETE: only "internal users must be flagged/excluded in PostHog" captured; rest of his pointers still to be collected
 - [INC42 app deep linking](project-inc42-deep-linking.md) — newsletter links fail (open in Safari not app); root cause = CIO click-tracker breaks Universal/App Links; fix = route via Singular (also fixes campaign=None attribution); tickets #1 (Nityam) + #6 filters (Prapti) pending
 
 ## INC42 data warehouse
