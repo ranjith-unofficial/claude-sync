@@ -1,0 +1,610 @@
+<title>What Inc42 App Users Actually Do</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root {
+  --ground:      #F6F6F3;
+  --surface:     #FFFFFF;
+  --surface-alt: #ECEDE7;
+  --ink:         #191C19;
+  --ink-soft:    #55605A;
+  --ink-faint:   #808C86;
+  --rule:        #D5D8D1;
+  --rule-soft:   #E4E6E0;
+  --accent:      #1F5B4E;
+  --accent-soft: #DDEAE5;
+  --alarm:       #A93A22;
+  --alarm-soft:  #F6E3DD;
+  --warn:        #8A6614;
+  --warn-soft:   #F3EBD7;
+  --bar-bg:      #E4E6E0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #121412;
+    --surface:     #1A1D1A;
+    --surface-alt: #232722;
+    --ink:         #E9ECE7;
+    --ink-soft:    #A3ADA6;
+    --ink-faint:   #7C877F;
+    --rule:        #2E332D;
+    --rule-soft:   #262A25;
+    --accent:      #6FBBA6;
+    --accent-soft: #1B2E29;
+    --alarm:       #E38468;
+    --alarm-soft:  #2E1C16;
+    --warn:        #D9B45E;
+    --warn-soft:   #2B2414;
+    --bar-bg:      #2A2E29;
+  }
+}
+:root[data-theme="dark"] {
+  --ground:      #121412;
+  --surface:     #1A1D1A;
+  --surface-alt: #232722;
+  --ink:         #E9ECE7;
+  --ink-soft:    #A3ADA6;
+  --ink-faint:   #7C877F;
+  --rule:        #2E332D;
+  --rule-soft:   #262A25;
+  --accent:      #6FBBA6;
+  --accent-soft: #1B2E29;
+  --alarm:       #E38468;
+  --alarm-soft:  #2E1C16;
+  --warn:        #D9B45E;
+  --warn-soft:   #2B2414;
+  --bar-bg:      #2A2E29;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 26px 100px; }
+
+/* masthead */
+.top { padding: 60px 0 30px; border-bottom: 3px double var(--ink); }
+.eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 16px; font-weight: 500;
+}
+h1 {
+  font-family: "Zilla Slab", Georgia, serif;
+  font-weight: 700; font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+  line-height: 1.03; letter-spacing: -.015em; margin: 0 0 16px;
+  text-wrap: balance;
+}
+.dek { font-size: 1.08rem; color: var(--ink-soft); max-width: 60ch; margin: 0; }
+.dek b { color: var(--ink); font-weight: 600; }
+
+/* headline stats */
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 30px;
+}
+.stats > div { background: var(--surface); padding: 15px 17px; }
+.stats .v {
+  font-family: "Zilla Slab", serif; font-weight: 700;
+  font-size: 1.85rem; line-height: 1; letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums; display: block;
+}
+.stats .v.bad { color: var(--alarm); }
+.stats .v.good { color: var(--accent); }
+.stats .k {
+  font-family: "IBM Plex Mono", monospace; font-size: 10px;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ink-faint); margin-top: 8px; display: block; line-height: 1.4;
+}
+
+/* sections */
+section { margin-top: 56px; }
+.shead { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--ink); padding-bottom: 9px; }
+.snum {
+  font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 500;
+  color: var(--accent); flex: none;
+}
+h2 {
+  font-family: "Zilla Slab", serif; font-weight: 600;
+  font-size: 1.4rem; letter-spacing: -.008em; margin: 0; flex: 1;
+}
+h3 {
+  font-family: "Zilla Slab", serif; font-weight: 600; font-size: 1.05rem;
+  margin: 30px 0 10px; letter-spacing: -.005em;
+}
+p { margin: 14px 0; max-width: 68ch; }
+p.lede { color: var(--ink-soft); }
+strong { font-weight: 600; }
+em.hot { font-style: normal; color: var(--alarm); font-weight: 600; }
+
+/* funnel bars */
+.funnel { margin: 18px 0 4px; }
+.frow {
+  display: grid; grid-template-columns: 190px 1fr 132px;
+  gap: 14px; align-items: center; padding: 7px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.frow:last-child { border-bottom: none; }
+.flabel { font-size: .92rem; }
+.ftrack { background: var(--bar-bg); height: 20px; position: relative; }
+.fbar { background: var(--accent); height: 100%; }
+.fbar.drop { background: var(--alarm); }
+.fnum {
+  font-family: "IBM Plex Mono", monospace; font-size: .82rem;
+  text-align: right; color: var(--ink-soft); font-variant-numeric: tabular-nums;
+}
+.fnum b { color: var(--ink); font-weight: 500; }
+
+/* tables */
+.scroller { overflow-x: auto; margin: 18px 0 4px; }
+table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: .92rem; }
+th, td { text-align: left; padding: 9px 18px 9px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+th {
+  font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--ink-faint); font-weight: 400;
+  border-bottom: 1px solid var(--rule);
+}
+td.n { font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.hot { color: var(--alarm); font-weight: 600; }
+td.ok { color: var(--accent); font-weight: 600; }
+tr.total td { border-top: 2px solid var(--rule); font-weight: 600; }
+
+/* callouts */
+.note {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent); padding: 16px 19px; margin: 22px 0;
+}
+.note.alarm { border-left-color: var(--alarm); }
+.note.warn  { border-left-color: var(--warn); }
+.note h4 {
+  font-family: "Zilla Slab", serif; font-size: .98rem; font-weight: 600;
+  margin: 0 0 7px;
+}
+.note p { margin: 0 0 8px; font-size: .95rem; color: var(--ink-soft); max-width: none; }
+.note p:last-child { margin-bottom: 0; }
+.note strong { color: var(--ink); }
+
+/* chips */
+.chip {
+  font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .04em;
+  padding: 2px 7px; border-radius: 2px; white-space: nowrap;
+}
+.chip.up { background: var(--accent-soft); color: var(--accent); }
+.chip.down { background: var(--alarm-soft); color: var(--alarm); }
+.chip.flat { background: var(--warn-soft); color: var(--warn); }
+
+/* sparkline-ish day bars */
+.days { display: flex; gap: 3px; align-items: flex-end; height: 76px; margin: 16px 0 6px; }
+.days > div { flex: 1; background: var(--accent); min-height: 2px; position: relative; }
+.days > div.partial { background: var(--bar-bg); border: 1px dashed var(--ink-faint); }
+.daylabels {
+  display: flex; gap: 3px; font-family: "IBM Plex Mono", monospace;
+  font-size: 9px; color: var(--ink-faint);
+}
+.daylabels > div { flex: 1; text-align: center; }
+
+.colophon {
+  margin-top: 60px; padding-top: 22px; border-top: 1px solid var(--rule);
+  font-size: .87rem; color: var(--ink-faint); max-width: 72ch;
+}
+.colophon code { font-family: "IBM Plex Mono", monospace; font-size: .88em; background: var(--surface-alt); padding: 1px 5px; }
+
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px 70px; }
+  .frow { grid-template-columns: 128px 1fr; }
+  .frow .fnum { grid-column: 1 / -1; text-align: left; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">PostHog · project 146258 · 12–20 Aug 2026 · n = 188</p>
+  <h1>What Inc42 App users actually do</h1>
+  <p class="dek">Eight days of real post-launch behaviour, measured on people who <b>installed on or after 12 August</b> with Inc42 staff excluded. The short version: the archive is winning, the brief is losing, and the habit engine has never been switched on.</p>
+
+  <div class="stats">
+    <div><span class="v">179</span><span class="k">Installers</span></div>
+    <div><span class="v">188</span><span class="k">Total users</span></div>
+    <div><span class="v">82%</span><span class="k">Touched Explore<br>(tour-inflated)</span></div>
+    <div><span class="v bad">48%</span><span class="k">Opened a brief</span></div>
+    <div><span class="v bad">18%</span><span class="k">Finished one</span></div>
+    <div><span class="v bad">57%</span><span class="k">Active exactly 1 day</span></div>
+  </div>
+</header>
+
+<div class="note alarm">
+  <h4>Read section 02 before quoting any Explore number</h4>
+  <p>The app ships a <strong>four-step guided walkthrough, and steps 2 and 3 are Explore</strong>. It drives users onto that surface before they choose anything. Every headline Explore and Watchlist figure in this report is inflated by it, and the correction is large enough to reverse the conclusion.</p>
+  <p>What survives the correction: <strong>company data is the deepest genuine engagement in the app</strong> — 75% of company-section views happen well after the tour ends, and unguided users reach it on their own.</p>
+</div>
+
+<!-- 01 -->
+<section>
+  <div class="shead"><span class="snum">01</span><h2>The activation funnel</h2></div>
+  <p class="lede">Onboarding is not the problem. It is one of the healthiest first-run flows you could ask for. Everything breaks at one specific door.</p>
+
+  <div class="funnel">
+    <div class="frow"><span class="flabel">Installed</span><span class="ftrack"><span class="fbar" style="width:100%"></span></span><span class="fnum"><b>179</b> · 100%</span></div>
+    <div class="frow"><span class="flabel">Saw walkthrough</span><span class="ftrack"><span class="fbar" style="width:84%"></span></span><span class="fnum"><b>151</b> · 84%</span></div>
+    <div class="frow"><span class="flabel">Onboarding: role</span><span class="ftrack"><span class="fbar" style="width:93%"></span></span><span class="fnum"><b>166</b> · 93%</span></div>
+    <div class="frow"><span class="flabel">Onboarding: sectors</span><span class="ftrack"><span class="fbar" style="width:89%"></span></span><span class="fnum"><b>159</b> · 89%</span></div>
+    <div class="frow"><span class="flabel">Onboarding: topics</span><span class="ftrack"><span class="fbar" style="width:89%"></span></span><span class="fnum"><b>159</b> · 89%</span></div>
+    <div class="frow"><span class="flabel">Onboarding complete</span><span class="ftrack"><span class="fbar" style="width:84%"></span></span><span class="fnum"><b>150</b> · 84%</span></div>
+    <div class="frow"><span class="flabel">Saw the brief cover</span><span class="ftrack"><span class="fbar" style="width:87%"></span></span><span class="fnum"><b>156</b> · 87%</span></div>
+    <div class="frow"><span class="flabel">Entered the brief</span><span class="ftrack"><span class="fbar drop" style="width:48%"></span></span><span class="fnum"><b>86</b> · 48%</span></div>
+    <div class="frow"><span class="flabel">Completed the brief</span><span class="ftrack"><span class="fbar drop" style="width:18%"></span></span><span class="fnum"><b>33</b> · 18%</span></div>
+  </div>
+
+  <p><strong>Onboarding loses 16% across three screens.</strong> That is excellent. People pick a role, then choose <strong>4.4 sectors and 5.2 topics on average</strong> — they are not rushing through, they are genuinely configuring the product. There is no meaningful abandonment anywhere in the setup flow.</p>
+
+  <p><strong>Then 87% reach the brief cover and only 48% walk through the door.</strong> 70 people looked at the front page of the product's core feature and left. That single step destroys more users than every other step in the app combined.</p>
+
+  <div class="note">
+    <h4>Two numbers that need correcting</h4>
+    <p><strong>Cover-to-brief entry is 55%, not 41%.</strong> The 17 Aug review measured 99 → 41. Eight days on it is 156 → 86. The cliff is real but it is shallower than reported, and it is improving.</p>
+    <p><strong>Brief completion is 38% of openers and 18% of installs.</strong> Neither figure is the "~20%" quoted in the 17 Aug Weekly App Review. Pick one denominator and publish it, because three different numbers are currently circulating for the metric you have committed to double.</p>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <div class="shead"><span class="snum">02</span><h2>Explore's dominance is mostly the walkthrough</h2></div>
+  <p class="lede">The raw numbers say Explore beats the brief 82% to 48%. That comparison does not survive contact with how users get there.</p>
+
+  <p>The app runs a <strong>four-step guided tour on first launch</strong>: step 1 <code>brief</code>, step 2 <code>explore_articles</code>, step 3 <code>explore_companies</code>, step 4 <code>watchlist</code>. It walks people onto Explore and Watchlist before they have chosen anything. 134 of 179 users went through steps 2 and 3.</p>
+
+  <h3>The control groups</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Group</th><th>Users</th><th>Used Explore</th><th>Opened brief</th><th>Saw watchlist</th></tr></thead>
+    <tbody>
+      <tr><td>Guided through the Explore steps</td><td class="n">134</td><td class="n hot">100%</td><td class="n">55%</td><td class="n hot">96%</td></tr>
+      <tr><td><strong>Skipped the tour at step 1</strong></td><td class="n">16</td><td class="n">44%</td><td class="n ok">63%</td><td class="n">25%</td></tr>
+      <tr><td>Never saw the walkthrough</td><td class="n">38</td><td class="n">13%</td><td class="n">5%</td><td class="n">0%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>Every single user who was guided into Explore used Explore. All 134 of them.</strong> That is not a preference, it is the tour firing an event.</p>
+
+  <p>The honest control is the 16 people who dismissed the tour at step 1 and were never guided anywhere. Among them the ordering <strong>flips</strong>: 63% opened the brief, 44% went to Explore. The third group — 38 users who never saw the walkthrough at all — is not a clean control; they barely used the app at all (5% opened a brief), so they are mostly immediate bounces, not unguided explorers.</p>
+
+  <div class="note alarm">
+    <h4>Corrected reading</h4>
+    <p><strong>Your hypothesis holds.</strong> Explore does not out-perform the brief on user intent — it out-performs on guided navigation. Strip the tour and the brief is at least competitive, and on the one clean control group it is <em class="hot">ahead</em>.</p>
+    <p>Worth noting the tour may actively cost brief entries: guided users opened the brief at 55%, tour-skippers at 63%. Small sample (n=16), but it points the wrong way for a tour whose first step is the brief.</p>
+  </div>
+
+  <h3>What survives when you strip the tour window</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Surface</th><th>Users ever</th><th>After first 10 min</th><th>On a later day</th><th>% of events inside tour window</th></tr></thead>
+    <tbody>
+      <tr><td>Explore</td><td class="n">146</td><td class="n">75</td><td class="n">41</td><td class="n hot">48%</td></tr>
+      <tr><td>Watchlist</td><td class="n">133</td><td class="n">36</td><td class="n">15</td><td class="n hot">62%</td></tr>
+      <tr><td>Brief</td><td class="n">86</td><td class="n">47</td><td class="n">35</td><td class="n">37%</td></tr>
+      <tr><td>Company profile</td><td class="n">35</td><td class="n">—</td><td class="n">—</td><td class="n ok">20%</td></tr>
+      <tr><td>Company sections</td><td class="n">34</td><td class="n">—</td><td class="n">—</td><td class="n ok">25%</td></tr>
+      <tr><td>Article reader</td><td class="n">69</td><td class="n">—</td><td class="n">—</td><td class="n ok">21%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>On <strong>return visits</strong> — the only measure the tour cannot manufacture — Explore reaches 41 users and the brief reaches 35. Of the 80 people who came back at all, that is 51% versus 44%. <strong>Near parity, not a 34-point gap.</strong></p>
+
+  <p>Meanwhile <strong>company profiles, company sections and the article reader are 75–80% post-tour behaviour.</strong> Those are the surfaces users find on their own.</p>
+
+  <h3>Raw surface reach — keep the tour caveat attached</h3>
+  <p>These are the uncorrected numbers. The first two rows are the tour-inflated ones; everything below Article reader is earned.</p>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Surface</th><th>Users</th><th>% of installs</th><th>Events</th><th>Per user</th></tr></thead>
+    <tbody>
+      <tr><td>Explore</td><td class="n">146</td><td class="n">82%</td><td class="n">993</td><td class="n">6.8</td></tr>
+      <tr><td>Watchlist tab</td><td class="n">133</td><td class="n">74%</td><td class="n">269</td><td class="n">2.0</td></tr>
+      <tr><td>Brief cover</td><td class="n">156</td><td class="n">87%</td><td class="n">910</td><td class="n">5.8</td></tr>
+      <tr><td>Brief (entered)</td><td class="n hot">86</td><td class="n">48%</td><td class="n">195</td><td class="n">2.3</td></tr>
+      <tr><td>Article reader</td><td class="n">69</td><td class="n">39%</td><td class="n">238</td><td class="n">3.5</td></tr>
+      <tr><td>Company profile</td><td class="n">35</td><td class="n">20%</td><td class="n">134</td><td class="n">3.8</td></tr>
+      <tr><td>Search</td><td class="n">17</td><td class="n">9%</td><td class="n">203</td><td class="n">11.9</td></tr>
+      <tr><td>Streak</td><td class="n">15</td><td class="n">8%</td><td class="n">27</td><td class="n">1.8</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Inside Explore, the behaviour is overwhelmingly <strong>passive and unfiltered</strong>:</p>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Explore tab</th><th>Users</th><th>Views</th><th>Avg filters applied</th></tr></thead>
+    <tbody>
+      <tr><td>Articles → Latest</td><td class="n">146</td><td class="n">449</td><td class="n">0.02</td></tr>
+      <tr><td>Companies → All</td><td class="n">135</td><td class="n">372</td><td class="n">0.06</td></tr>
+      <tr><td>Companies → Recently funded</td><td class="n">28</td><td class="n">66</td><td class="n">0.55</td></tr>
+      <tr><td>Articles → Deals</td><td class="n">16</td><td class="n">37</td><td class="n">1.00</td></tr>
+      <tr><td>Companies → IPO bound</td><td class="n">8</td><td class="n">16</td><td class="n">0.12</td></tr>
+      <tr><td>Companies → Just launched</td><td class="n">5</td><td class="n">16</td><td class="n">0.00</td></tr>
+      <tr><td>Companies → Soonicorns</td><td class="n">3</td><td class="n">3</td><td class="n">2.33</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>Effectively nobody filters.</strong> On the two dominant tabs the average filter count is 0.02 and 0.06 — two users in a hundred. The curated pills (Recently funded, IPO bound, Soonicorns, Just launched) reach single-digit or low-double-digit audiences. People open Explore and scroll the default list.</p>
+
+  <div class="note warn">
+    <h4>Read this against the personalisation bet</h4>
+    <p>Users spent real effort in onboarding picking 4.4 sectors and 5.2 topics — and then browse an <strong>unfiltered "Latest" feed</strong> and never touch a filter. Either the personalisation those selections drive is invisible to them, or they don't want a filtered view at all. That is a direct test of the sector-personalisation thesis, and right now the behaviour argues against it.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section>
+  <div class="shead"><span class="snum">03</span><h2>The most engaged behaviour in the app is DataLabs</h2></div>
+  <p class="lede">This is the finding nobody was looking for.</p>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Company profile section</th><th>Users</th><th>Views</th><th>Views per user</th></tr></thead>
+    <tbody>
+      <tr><td>Funding</td><td class="n">32</td><td class="n ok">281</td><td class="n ok">8.8</td></tr>
+      <tr><td>Financial overview</td><td class="n">29</td><td class="n">159</td><td class="n">5.5</td></tr>
+      <tr><td>Key people</td><td class="n">21</td><td class="n">111</td><td class="n">5.3</td></tr>
+      <tr><td>Corporate activity</td><td class="n">14</td><td class="n">77</td><td class="n">5.5</td></tr>
+      <tr><td>Recent activity</td><td class="n">18</td><td class="n">55</td><td class="n">3.1</td></tr>
+      <tr class="total"><td>All sections</td><td class="n">34</td><td class="n">683</td><td class="n">20.1</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>34 people — 19% of the base — generated 683 company-section views.</strong> Twenty each. Compare that to the brief, where 86 people generated 195 opens. A fifth of the user base is using this app as a funding-data terminal, and they are the most intense users in the product by a wide margin.</p>
+
+  <p>The ordering matters too: <strong>funding first, financials second, people third.</strong> That is a deal-research sequence, not a news-reading sequence. These look like investors, founders and operators checking a company — precisely the qualified audience the One Inc42 strategy is built to identify and monetise.</p>
+
+  <div class="note">
+    <h4>Why this matters beyond the app</h4>
+    <p>The strategy positions DataLabs as depth behind a membership, and the app as a habit surface. In the data, <strong>the DataLabs-style surface is producing the depth and the habit surface is not.</strong> The app may be a better on-ramp to DataLabs than it is a brief-delivery vehicle — which is an argument about roadmap sequencing, not a bug.</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <div class="shead"><span class="snum">04</span><h2>The watchlist is the biggest dead end in the product</h2></div>
+
+  <div class="stats" style="margin-top:20px">
+    <div><span class="v">133</span><span class="k">Opened the tab</span></div>
+    <div><span class="v bad">9</span><span class="k">Ever added anything</span></div>
+    <div><span class="v bad">75%</span><span class="k">Views of an empty list</span></div>
+    <div><span class="v bad">62%</span><span class="k">Views inside the tour window</span></div>
+  </div>
+
+  <p><strong>74% of users open the Watchlist tab. 5% put anything in it.</strong> Of 269 watchlist views, <strong>202 were of a completely empty list</strong> — people tapping into a blank screen, repeatedly. Only one user has ever removed an entity.</p>
+
+  <p>And the 74% is the most tour-manufactured number in the app: <strong>step 4 of the walkthrough is the watchlist</strong>. Guided users reach it at 96%, users who never saw the walkthrough reach it at <strong>0%</strong>, and 62% of all watchlist views land inside the first ten minutes. Outside the tour window only 36 users ever open it, and only 15 on a later day.</p>
+
+  <p>The cause is structural, not motivational. The spec had onboarding run <em>role → sectors → topics → watchlist</em>. The shipped flow logs only role, sectors and topics — <strong>the watchlist step was never built.</strong> So every user arrives at a personalisation surface that has nothing in it and no path that ever filled it.</p>
+
+  <p>This is not a small feature gap. The watchlist is what makes alerts, "relevant because" reasoning, and the DataLabs on-ramp possible. All three are dormant because of one missing onboarding screen.</p>
+</section>
+
+<!-- 05 -->
+<section>
+  <div class="shead"><span class="snum">05</span><h2>Retention: a good first day, then a cliff</h2></div>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Install cohort</th><th>Size</th><th>D1</th><th>D2</th><th>D3</th><th>Ever returned</th></tr></thead>
+    <tbody>
+      <tr><td>12 Aug</td><td class="n">14</td><td class="n ok">43%</td><td class="n">29%</td><td class="n">14%</td><td class="n">57%</td></tr>
+      <tr><td>13 Aug</td><td class="n">28</td><td class="n">32%</td><td class="n">21%</td><td class="n">14%</td><td class="n">46%</td></tr>
+      <tr><td>14 Aug</td><td class="n">19</td><td class="n">26%</td><td class="n">21%</td><td class="n">21%</td><td class="n">53%</td></tr>
+      <tr><td>15 Aug</td><td class="n">14</td><td class="n">36%</td><td class="n">36%</td><td class="n">21%</td><td class="n ok">71%</td></tr>
+      <tr><td>16 Aug</td><td class="n">13</td><td class="n">38%</td><td class="n">23%</td><td class="n">15%</td><td class="n">46%</td></tr>
+      <tr><td>17 Aug</td><td class="n">41</td><td class="n">37%</td><td class="n">29%</td><td class="n hot">7%</td><td class="n">44%</td></tr>
+      <tr><td>18 Aug</td><td class="n">22</td><td class="n">27%</td><td class="n">18%</td><td class="n">—</td><td class="n hot">32%</td></tr>
+      <tr><td>19 Aug</td><td class="n">28</td><td class="n">29%</td><td class="n">—</td><td class="n">—</td><td class="n">29%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>D1 holds at roughly a third</strong> — 26% to 43%, blended ~33%. For a news app with <em class="hot">zero push notifications ever delivered</em>, that is genuinely good; the category median sits around 25–30%.</p>
+
+  <p><strong>D3 is where it falls apart.</strong> Every cohort lands between 7% and 21%. The largest cohort, 17 Aug's 41 installs, retained 7% to day three.</p>
+
+  <h3>How many days is a user actually active?</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Distinct active days</th><th>Users</th><th>Share</th></tr></thead>
+    <tbody>
+      <tr><td>1 day only</td><td class="n hot">108</td><td class="n hot">57%</td></tr>
+      <tr><td>2 days</td><td class="n">40</td><td class="n">21%</td></tr>
+      <tr><td>3 days</td><td class="n">23</td><td class="n">12%</td></tr>
+      <tr><td>4 days</td><td class="n">10</td><td class="n">5%</td></tr>
+      <tr><td>5–6 days</td><td class="n">7</td><td class="n">4%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>Fifty-seven percent of everyone who has ever installed this app used it on exactly one day.</strong> Seven people — under 4% — have built anything resembling a habit. For a product whose entire positioning is a daily habit, that is the number to carry into every roadmap conversation.</p>
+
+  <div class="note alarm">
+    <h4>The retention engine has never been turned on</h4>
+    <p>171 of 179 users were prompted for push permission. <strong>114 granted it — 67%.</strong> And <code>push_delivered</code> has never fired, not once, in the app's entire history. <code>push_opened</code> has fired twice ever, both on 10 July.</p>
+    <p>So: a third of users come back on day one, unprompted, with the retention mechanism completely dark. The most valuable thing in this report is that <strong>the D3 cliff has never been tested against a working push.</strong></p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section>
+  <div class="shead"><span class="snum">06</span><h2>Two products, two clocks</h2></div>
+  <p class="lede">Usage by hour, IST. Brief-reading and archive-browsing are different behaviours at different times of day.</p>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Window (IST)</th><th>Brief opens</th><th>Explore views</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>08:00 – 11:00</td><td class="n ok">69</td><td class="n">168</td><td>The brief works. Morning is its window.</td></tr>
+      <tr><td>12:00 – 14:00</td><td class="n hot">25</td><td class="n">149</td><td>Brief collapses at midday, Explore keeps going.</td></tr>
+      <tr><td>15:00 – 18:00</td><td class="n">33</td><td class="n">211</td><td>Pure browsing.</td></tr>
+      <tr><td>19:00 – 23:00</td><td class="n">55</td><td class="n ok">335</td><td><strong>Peak Explore.</strong> 20:00 and 22:00 are the two biggest hours in the day.</td></tr>
+      <tr><td>00:00 – 02:00</td><td class="n">11</td><td class="n">91</td><td>Late-night archive scrolling is real.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>The brief has a genuine morning peak</strong> — 8–10am is when people open it, which validates the daily-brief concept and the ~8am send window. But <strong>Explore's peak is 8pm to 11pm, and it is nearly twice the size.</strong></p>
+
+  <p>Nothing in the current product speaks to the evening user. There is one push slot planned, in the morning, for the smaller of the two behaviours.</p>
+</section>
+
+<!-- 07 -->
+<section>
+  <div class="shead"><span class="snum">07</span><h2>What people read, and how deep</h2></div>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Article opened from</th><th>Users</th><th>Opens</th><th>Avg age of story</th></tr></thead>
+    <tbody>
+      <tr><td>Explore</td><td class="n">31</td><td class="n ok">107</td><td class="n">1.9 days</td></tr>
+      <tr><td>Brief card</td><td class="n">32</td><td class="n">54</td><td class="n">1.2 days</td></tr>
+      <tr><td>Deep link</td><td class="n">26</td><td class="n">45</td><td class="n hot">156.7 days</td></tr>
+      <tr><td>Search</td><td class="n">8</td><td class="n">14</td><td class="n hot">145.6 days</td></tr>
+      <tr><td>Company page</td><td class="n">5</td><td class="n">8</td><td class="n hot">130.1 days</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>Explore drives twice as many article opens as the brief does.</strong> And there is a sharp split in what the surfaces serve: Explore and the brief deliver stories 1–2 days old, while deep links, search and company pages deliver stories <strong>four to five months old</strong>.</p>
+
+  <p>The archive is not dead weight. It is a third of all article opens, and it is reached through entirely different doors than the ones the roadmap is focused on.</p>
+
+  <h3>Do they finish?</h3>
+  <div class="funnel">
+    <div class="frow"><span class="flabel">Reached 25%</span><span class="ftrack"><span class="fbar" style="width:100%"></span></span><span class="fnum"><b>51</b> readers</span></div>
+    <div class="frow"><span class="flabel">Reached 50%</span><span class="ftrack"><span class="fbar" style="width:98%"></span></span><span class="fnum"><b>50</b> · 98%</span></div>
+    <div class="frow"><span class="flabel">Reached 75%</span><span class="ftrack"><span class="fbar" style="width:69%"></span></span><span class="fnum"><b>35</b> · 69%</span></div>
+    <div class="frow"><span class="flabel">Reached 100%</span><span class="ftrack"><span class="fbar drop" style="width:22%"></span></span><span class="fnum"><b>11</b> · 22%</span></div>
+  </div>
+
+  <p><strong>Almost everyone who starts an article gets halfway.</strong> 98% of 25%-scrollers reach 50%. The drop is at the end: 22% finish. That is a strong reading curve — better than the brief's, and it suggests the content is fine and the packaging is what's failing.</p>
+
+  <h3>What they open</h3>
+  <p>By industry: <strong>Consumer</strong> (33 opens), <strong>Ecommerce &amp; D2C</strong> (50 across types), <strong>Fintech</strong> (20), <strong>Startup Ecosystem</strong> (27), <strong>DeepTech</strong> (17). By format, generic "Others" dominates, followed by <strong>Series</strong> and <strong>Listicles</strong> — Listicles pull 15 opens from just 7 users, the highest opens-per-reader of any format.</p>
+</section>
+
+<!-- 08 -->
+<section>
+  <div class="shead"><span class="snum">08</span><h2>Things that are quietly broken</h2></div>
+
+  <h3>Search returns nothing, often</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Scope</th><th>Searches</th><th>Searchers</th><th>Zero results</th><th>Avg results</th></tr></thead>
+    <tbody>
+      <tr><td>Companies</td><td class="n">158</td><td class="n">12</td><td class="n hot">28.5%</td><td class="n">10.6</td></tr>
+      <tr><td>Articles</td><td class="n">45</td><td class="n">12</td><td class="n hot">42.2%</td><td class="n hot">2.2</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Article search fails nearly half the time</strong> and returns 2.2 results when it works. Only 17 people search — but they search <strong>12 times each</strong>, which is the signature of people not finding what they came for and trying again.</p>
+
+  <h3>13% of users hit a visible error</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Error</th><th>Surface</th><th>Users</th><th>Occurrences</th></tr></thead>
+    <tbody>
+      <tr><td>load_failed</td><td>Explore</td><td class="n hot">13</td><td class="n">24</td></tr>
+      <tr><td>load_failed</td><td>Brief</td><td class="n">9</td><td class="n">21</td></tr>
+      <tr><td>not_found</td><td>Company profile</td><td class="n">6</td><td class="n">13</td></tr>
+      <tr><td>load_failed</td><td>Watchlist</td><td class="n">3</td><td class="n">3</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Failures are concentrated on <strong>the two most-used surfaces in the app.</strong> 24 of 179 users saw an error screen. Explore — the thing 82% of people use — is also the thing that breaks most.</p>
+
+  <h3>Sign-in is effectively mandatory</h3>
+  <p>171 of 179 users started sign-in (96%) and 139 completed it (78%). Only 10 ever saw a contextual sign-in prompt. The spec describes an <strong>anonymous-first architecture where most users stay logged out</strong> — in production, almost nobody does. Either the flow forces it, or the option to skip is invisible.</p>
+  <p>Only <strong>51 registered as net-new</strong>, so roughly 88 of the 139 sign-ins were <strong>existing Inc42 or Google accounts.</strong> Read carefully: this app is currently reaching Inc42's existing audience, not a new one.</p>
+
+  <h3>Features nobody uses</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Feature</th><th>Users, 8 days</th></tr></thead>
+    <tbody>
+      <tr><td>Rate card in brief story</td><td class="n hot">1</td></tr>
+      <tr><td>Save a story</td><td class="n hot">4</td></tr>
+      <tr><td>Share a story</td><td class="n hot">5</td></tr>
+      <tr><td>Sector landing page</td><td class="n hot">4</td></tr>
+      <tr><td>Update preferences</td><td class="n hot">5</td></tr>
+      <tr><td>Remove from watchlist</td><td class="n hot">1</td></tr>
+      <tr><td>Streak page</td><td class="n">15</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The <strong>streak</strong> is worth singling out: 20 users hit a streak milestone but only 15 ever opened the streak page. A retention mechanic that fewer than one in ten users looks at is not a retention mechanic.</p>
+</section>
+
+<!-- 09 -->
+<section>
+  <div class="shead"><span class="snum">09</span><h2>Three things that were believed and aren't true</h2></div>
+
+  <div class="note">
+    <h4>1. iOS 1.0.1 is live and rolling out — it is not waiting on Apple</h4>
+    <p>Version 1.0.1 appeared with 3 users on 17 Aug, then <strong>16 on 18 Aug and 27 on 19 Aug.</strong> The build shipped. Any open item saying "blocked on build ≥41" or "awaiting Apple review of the screenshots" should be closed, and the four staged screenshots checked as live.</p>
+  </div>
+
+  <div class="note">
+    <h4>2. Android is the platform, not iOS</h4>
+    <p>111 Android users against roughly 83 on iOS. The launch-platform flip to Play Store first is being borne out by where the users actually are.</p>
+  </div>
+
+  <div class="note">
+    <h4>3. The anonymous-user architecture isn't what's happening</h4>
+    <p>96% of installs start sign-in. The push-able-without-registration design that the spec assumes is not the lived flow, which changes how the Customer.io person-attribute machine should be wired.</p>
+  </div>
+</section>
+
+<!-- 10 -->
+<section>
+  <div class="shead"><span class="snum">10</span><h2>What the data says to do next</h2></div>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>#</th><th>Move</th><th>Why the data says so</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td><strong>Turn on push</strong></td><td>67% opt-in banked, D1 already ~33% without it, D3 collapses to 7–21%. The one lever proven to move D3 in this category has never been switched on. Nothing else here has this ratio of impact to effort.</td></tr>
+      <tr><td class="n">2</td><td><strong>Ship the onboarding watchlist step</strong></td><td>133 people open an empty tab; 9 fill it. One missing screen is holding down alerts, personalisation and the DataLabs on-ramp simultaneously.</td></tr>
+      <tr><td class="n">3</td><td><strong>Fix the cover, or delete it</strong></td><td>156 → 86 is the largest single loss in the funnel. Auto-advancing into card 1 tests the whole hypothesis in one build.</td></tr>
+      <tr><td class="n">4</td><td><strong>Re-cut every Explore number without the tour — then re-decide</strong></td><td>The 82%-vs-48% gap is a walkthrough artifact. On return visits it is 51% vs 44%. Any roadmap argument that leaned on "Explore is winning" needs rebuilding on post-tour data. The company-data signal survives and is the one to act on.</td></tr>
+      <tr><td class="n">4b</td><td><strong>Test removing or reordering the walkthrough</strong></td><td>Tour-skippers opened the brief at 63% vs 55% for guided users. The tour may be costing brief entries while inflating the metrics used to judge the brief. It also makes every surface-reach number in every dashboard untrustworthy until it is filtered out.</td></tr>
+      <tr><td class="n">5</td><td><strong>Add an evening moment</strong></td><td>Explore peaks 8–11pm at nearly double the morning brief. There is currently no product surface or notification aimed at the larger of the two usage patterns.</td></tr>
+      <tr><td class="n">6</td><td><strong>Fix article search</strong></td><td>42% zero-result, 2.2 average results, 12 searches per searcher. Small audience, unambiguous failure.</td></tr>
+      <tr><td class="n">7</td><td><strong>Fix load_failed on Explore</strong></td><td>Errors are concentrated on the surface 82% of users depend on.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note warn">
+    <h4>The strategic question this raises</h4>
+    <p>Utkarsh's 17 Aug call was to fix activation before acquisition, and the data agrees. The brief is <em>not</em> being out-competed by Explore on user intent — that gap was the walkthrough — so the decision to invest in brief completion stands.</p>
+    <p>What the data adds is a second, quieter question. A fifth of the base reads company funding tables eight times each, in the evening, filtering nothing, and finds those pages without being guided there. <strong>That is the most genuine engagement in the product and nothing on the roadmap serves it.</strong> Fixing the brief and serving that cohort are not in conflict — but only one of them is currently planned.</p>
+  </div>
+</section>
+
+<div class="colophon">
+  <p><strong>Method.</strong> PostHog project <code>Inc42 App</code> (146258), EU. Cohort: persons whose <code>person.created_at</code> is on or after 2026-08-12, with any event carrying an <code>@inc42.com</code> email excluded. Window 12–20 Aug 2026; <strong>20 Aug is a partial day</strong> and is included in totals but not in trend readings. All user counts are person-distinct. Retention is measured on exact-day returns against each person's first-seen date.</p>
+  <p><strong>The walkthrough correction.</strong> Section 02's control groups come from <code>walkthrough.status = 'skip_tour'</code> at <code>step_number = 1</code> (n=16) versus users reaching steps 2–3 (n=134). Sixteen people is a small control and the finding should be re-tested as the base grows — but the direction is unambiguous, because 134 of 134 guided users hitting Explore cannot be a preference. The "first 10 minutes" cut is a proxy for the tour window measured from <code>person.created_at</code>, not a measured tour duration.</p>
+  <p><strong>Known limits.</strong> There is no <code>is_internal</code> person property, so team exclusion relies on the email property being present — internal users who never signed in are still counted. <code>deep_link_opened</code> is polluted with <code>auth_callback</code> redirects and is excluded from the deep-link reading above, which uses <code>article_opened.source</code> instead. <code>decode</code>, the AI explainer, has never fired, so nothing in this report measures it. Eight days and 188 people is directional, not conclusive.</p>
+</div>
+
+</div>
