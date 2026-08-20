@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 9528bcb6-d611-479f-9459-97ac0adfb878
-  modified: 2026-08-17T18:17:56.251Z
+  modified: 2026-08-20T13:49:13.482Z
 ---
 
 Ranjith is driving the **Inc42 mobile app launch** end to end.
@@ -88,6 +88,10 @@ Ranjith is driving the **Inc42 mobile app launch** end to end.
 - 🔴 **The live listing carries only ONE iPhone screenshot.** The 1.0.1 draft already has **four** staged and waiting. Apple surfaces the first 3 in search results, so the live page is under-using the highest-leverage conversion slot while the fix sits unshipped behind a missing build. Directly relevant to the acquisition problem above.
 
 **How to apply:** to change anything user-visible on the iOS listing except Promotional Text, the route is ship 1.0.1 — there is no metadata-only edit path on 1.0 while a draft version exists. The blocker is a build, not Apple.
+
+**✅ SUPERSEDED 2026-08-20 — iOS 1.0.1 IS LIVE.** PostHog `app_opened` by version shows 1.0.1 appearing 17 Aug (3 users), then 16 on 18 Aug and 27 on 19 Aug. The build shipped and is rolling out. Close any item reading "blocked on build ≥41" or "awaiting Apple review of the screenshots", and verify the four staged screenshots are now on the live listing.
+
+**🔴 The install-count question is answered: 189 real users since 12 Aug** (persons first seen on/after 12 Aug, @inc42.com excluded), of whom 180 fired `app_installed` — the event under-fires ~5%, so PostHog will always read low against Play Console. This supersedes the 15 / 37–38 / 50 / 7–8 figures that were circulating. Full behavioural picture in [[project-inc42-app-behaviour]].
 
 **2026-08-17 — acquisition reframed from "backup plan" to a two-phase growth plan.** iOS is live and there is a working base, so the rescue framing is retired. Full detail (5 beta levers, public launch 25–26 Aug, gates, open gaps) lives in **[[project-inc42-app-acquisition]]**.
 

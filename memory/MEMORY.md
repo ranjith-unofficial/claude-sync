@@ -12,9 +12,11 @@
 - [Completeness audits](feedback-completeness-audits.md) — on reviewed docs, audit line-by-line; surface my own misses first; never ship unauthorised changes
 - [PRD completeness](feedback-prd-completeness.md) — every PRD must cover evidence/data, legal/compliance, and an outside reframe-check, not just mechanics — flag gaps explicitly instead of locking unvalidated decisions
 - [Shared system safety](feedback-shared-system-safety.md) — on INC42 n8n/team sheets touch only the named object, and PROVE non-interference with a diff, don't just assert it
+- [Analytics depth](feedback-analytics-depth.md) — funnels must report what users DID next, not where they stopped; and verify an absence with full-history SQL before asserting it (taxonomy panels only sample)
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE, verified 15 Aug — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — install base still small (15 vs 50 unreconciled); paid ruled out, banners→store direct, feedback moves in-app; iOS live but listing has only 1 screenshot, fix blocked on build ≥41; + Aug 14 Product & Data call commitments; team: Utkarsh, Ritvik, Animesh, Nityam, Amit
+- [INC42 app behaviour (post-launch data)](project-inc42-app-behaviour.md) — **189 real users 12–20 Aug; iOS 1.0.1 LIVE; the walkthrough tours users into Explore so "Explore beats Brief" is an artifact; all brief loss is at card 1 (45% advance) and the full article is a one-way door (94% never return); median completion is 78s NOT 7s; company data is the deepest earned engagement; push never fired**
 - [INC42 app acquisition plan](project-inc42-app-acquisition.md) — 5 beta levers (banner, email, mobile-web "read on the go", repeat-reader + 60–70% scroll triggers) → public launch 25–26 Aug on Product Hunt; Nityam blocked by D2C & Retail Summit; sizing/gates/attribution still open
 - [INC42 ways of working](project-inc42-ways-of-working.md) — Asana Product Master/Backlog, daily standup + Techwalla updates, monthly/weekly plan, recurring-audit checklist
 - [Project: INC42 legal & compliance](project-inc42-legal-compliance.md) — T&C + Privacy Policy, Utkarsh's 12 locked decisions, 7-day account-deletion model
@@ -56,6 +58,7 @@
 - [Nexloid open questions](nexloid_open_questions.md) — ⚠️ unresolved: Google OAuth scope class (could need $5K CASA), the unevidenced "2 hrs saved" that all pricing rests on, false-positive rate, single-source stats
 
 ## Reference
+- [Account identities](reference-account-identities.md) — **Claude Code runs as ranjith@ranjith.tech (NOT datalabs@inc42.com); Asana is ranjith.m@ink42.com; PostHog logs as Prapti; artifacts die if the account mismatches**
 - [Tools & stack](reference-tools-stack.md) — Figma, PostHog, GA4, BigQuery, n8n, Docker, VPS
 - [Figma MCP limits](reference-figma-mcp-limits.md) — Starter+View seat = only 20 tool calls/MONTH; check whoami and budget calls before any Figma build
 - [Doc generation](reference-doc-generation.md) — PDF via headless Chrome; DOCX via python-docx (textutil flattens tables!)
