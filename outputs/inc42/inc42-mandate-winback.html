@@ -457,11 +457,11 @@
 <div class="page">
 
 <header class="masthead">
-  <p class="eyebrow">Inc42 · Product strategy · 20 Aug 2026</p>
+  <p class="eyebrow">Inc42 Datalabs · Product strategy · 21 Aug 2026</p>
   <h1>Winning back a cancelled mandate</h1>
-  <p class="standfirst">The dunning system is built. What isn't built is an answer to the hardest case: someone opens GPay, kills the Inc42 AutoPay mandate, and we never got a chance to say anything. This is the strategy for that moment — and for the 30 days after it.</p>
+  <p class="standfirst">The dunning system is built. What isn't built is an answer to the hardest case: a Datalabs Pro member opens GPay, kills the AutoPay mandate, and we never got a chance to say anything. This is the strategy for that moment — and for the 30 days after it.</p>
   <div class="meta-strip">
-    <span><b>Scope</b> Inc42+ / Datalabs Pro · Razorpay recurring · UPI AutoPay</span>
+    <span><b>Scope</b> Datalabs Pro only · Razorpay recurring · UPI AutoPay</span>
     <span><b>Companion to</b> the Notion system doc</span>
     <span><b>Author</b> Ranjith</span>
   </div>
@@ -474,6 +474,7 @@
 
   <ul class="list">
     <li><strong>The plumbing is done; the persuasion isn't.</strong> The Notion doc solves detection, classification, state, and the payment mechanics. Every open item in it is engineering. Nothing in it decides <em>what we say, to whom, in what order, and what we offer instead.</em> That's this document.</li>
+    <li><strong>Pro is a meter, not a wall — and that decides most of what follows.</strong> Core and Pro see the same database: 75,000+ company profiles, investors, funding rounds, financials, MCA filings, cap tables, verified contacts. Pro buys <em>export credits</em> (0 → 50/mo, 100/mo on annual) and <em>AI query headroom</em> (5 → 25/day). Three consequences run through this whole document: the value we deliver is <strong>countable</strong>, the churn is <strong>predictable weeks ahead</strong>, and dropping to Free is <strong>unusually soft</strong> — they keep the product, they lose the capacity.</li>
     <li><strong>We don't own the cancel surface.</strong> The cancel happens inside GPay / PhonePe / Paytm. There is no cancel button of ours to intercept, so the entire published save-flow playbook — exit surveys, save offers, pause prompts, the 34% deflection rates — is <em>structurally unavailable to us at the moment it matters.</em> Everything has to move post-hoc.</li>
     <li><strong>But we get told, and we get time.</strong> <code>token.cancelled</code> fires in near-real-time, mid-cycle, while the person still has paid access. The gap between mandate death and service death — up to 30 days monthly, up to a year on annual — is the whole winback asset. The system already preserves it (<code>pending-cancel</code> + stashed <code>next_payment</code>). Good call.</li>
     <li><strong>A cancelled mandate is not a stated intention to leave.</strong> It is one fact: <em>they don't want a standing instruction on their bank account.</em> Treating it as "they want to churn" is the mistake that makes the current single-rung winback ("re-register auto-pay for ₹10") ask them to undo the exact thing they chose to do.</li>
@@ -490,7 +491,7 @@
 <section id="positioning">
   <span class="sec-num">02 — POSITIONING</span>
   <h2>Why the SaaS playbook gives the wrong answer here</h2>
-  <p class="dek">Per the One Inc42 strategy (Utkarsh, 13 Aug 2026): membership is <strong>never</strong> the primary revenue channel — its purpose is engagement and retention; price maximises the <em>number</em> of qualified people in a paid relationship, not revenue per head; articles stay open; the north star is QIA-30. That changes the objective function, and therefore the decisions.</p>
+  <p class="dek">Per the One Inc42 strategy (Utkarsh, 13 Aug 2026): membership is <strong>never</strong> the primary revenue channel — its purpose is engagement and retention; price maximises the <em>number</em> of qualified people in a paid relationship, not revenue per head; the north star is QIA-30. Datalabs already embodies this — the database is open on Core and Pro meters it. We are not selling access; we are selling capacity. That changes the objective function, and therefore the decisions.</p>
 
   <div class="scroll">
     <table>
@@ -508,7 +509,7 @@
           <td>Downgrade to free</td>
           <td>Fight it; it's lost MRR</td>
           <td><strong>Offer it explicitly. Count it as a save.</strong></td>
-          <td>Datalabs Core is a genuinely useful free tier. A member who lands on Free is still identified, still active, still QIA. That is a success state, not a loss.</td>
+          <td>Core is not a crippled tier — it is the same database, minus exports and AI headroom. A member who lands on Free keeps using Datalabs daily: still identified, still active, still QIA. That is a success state, not a loss.</td>
         </tr>
         <tr>
           <td>Discount to save</td>
@@ -531,7 +532,7 @@
       </tbody>
     </table>
   </div>
-  <p class="cap">One guardrail from the strategy doc: §11 lists "paid reactivation of the dormant base" as explicitly not-building. That is paid media to the dormant <em>audience</em>. This is owned-channel winback of <em>paying members</em>. Different thing — worth saying out loud before someone reads it as a conflict.</p>
+  <p class="cap"><strong>Two guardrails from the strategy doc.</strong> §11 lists "paid reactivation of the dormant base" as not-building — that's paid media to the dormant <em>audience</em>; this is owned-channel winback of <em>paying members</em>. Different thing, worth saying out loud before someone reads it as a conflict. §11 also rules out a <em>Datalabs enterprise sales motion</em> (0 renewals from 17 expired terms). So no rung in §06 routes a churning Pro member to a human or to the Team plan, however tempting that looks for a high-usage account. Self-serve or nothing.</p>
 </section>
 
 <!-- ============================================== -->
@@ -582,8 +583,12 @@
 
   <h3>In</h3>
   <ul class="list">
-    <li>Open article (99.71% logged out) → register → <strong>Datalabs Core, free</strong> → 7-day trial of Pro → ₹10 mandate registration → trial converts on day 7 at ₹1,499 + GST = <strong>₹1,768.82</strong>.</li>
-    <li><strong>The sharpest edge in the entire funnel is day 6.</strong> The member approved ₹10. The PDN that lands 24h before conversion says ₹1,768.82 — 177× the number they consented to — with pause and cancel on the same screen. Industry: 40–60% of intro-offer subscribers churn at promo expiry, vs 15–25% of full-price. This is almost certainly our #1 mandate-cancellation moment and it is not addressed anywhere in the current system.</li>
+    <li><strong>Search or a company profile is the front door.</strong> <code>/company/</code> is the #1 surface — 1,777 users and 9,134 views per 30 days. Repeat use is driven by the workflow actions, not browsing: Advanced Filter 53%, Saved Search 52%, plain Search 44%.</li>
+    <li><strong>The gate is a cap, not a paywall.</strong> Nobody hits a locked door — they hit <em>0 export credits left</em> or <em>5 AI queries used today</em>. So conversion happens at a specific moment of frustration, at peak need.</li>
+    <li>→ 7-day Pro trial → ₹10 mandate registration → converts day 7 at ₹1,499 + GST = <strong>₹1,768.82/mo</strong>.</li>
+    <li><strong>Peak-need conversion means episodic demand.</strong> A member often subscribes <em>for a thing</em> — a fundraise, a deal screen, a pitch, a report. When the thing ends, the need ends, and the mandate dies. That is not dissatisfaction and it should never be answered with a discount. It is the strongest pause and credit-pack cohort we have (§05, §06).</li>
+    <li><strong>The sharpest edge in the funnel is day 6.</strong> The member approved ₹10. The pre-debit notification 24h before conversion says ₹1,768.82 — 177× the number they consented to — with pause and cancel on the same screen. Industry: 40–60% of intro-offer subscribers churn at promo expiry vs 15–25% at full price. Almost certainly our #1 cancellation moment, and nothing in the current system addresses it.</li>
+    <li><strong>And almost nobody arrives identified.</strong> Datalabs has the worst identification cliff of any Inc42 surface: 135,909 visitors / 30d, 62% activate on a company profile, <strong>211 identified — 0.16%</strong>. The paid base is drawn from an extremely thin identified layer, which is exactly why losing one to a dead mandate is expensive in QIA terms even when it's cheap in rupees.</li>
   </ul>
 
   <h3>Out</h3>
@@ -639,7 +644,11 @@
 <section id="segment">
   <span class="sec-num">05 — SEGMENTATION</span>
   <h2>Reading the reason without being able to ask</h2>
-  <p class="dek">The practical core of this document. Everything a save flow normally learns from an exit survey, we can infer from data we already hold at the instant <code>token.cancelled</code> fires. Segment first, message second — a single generic winback email across all five of these will underperform badly and burn the cohort that was most winnable.</p>
+  <p class="dek">The practical core of this document. Everything a save flow normally learns from an exit survey, we can infer from data we already hold at the instant <code>token.cancelled</code> fires — and because Pro is metered, our usage signal is a number, not a guess. Segment first, message second: a single generic winback email across all six of these will underperform badly and burn the cohort that was most winnable.</p>
+  <div class="callout">
+    <span class="label">The one signal that matters most</span>
+    <p><strong>Export credits consumed per cycle.</strong> It is the thing they are paying for, it is countable, and it moves before the cancel does. A member at 0/50 for two consecutive cycles is telling us they will cancel — weeks before the mandate dies. Every prevention feature in §07 should be aimed by this number, and it is the first field to add to the churn-risk record.</p>
+  </div>
 
   <div class="scroll">
     <table>
@@ -649,7 +658,7 @@
       <tbody>
         <tr>
           <td>Mandate spring-clean</td>
-          <td>Cancel <strong>not</strong> within 48h of a PDN · no failed debits · product usage in last 30d is normal</td>
+          <td>Cancel <strong>not</strong> within 48h of a PDN · no failed debits · exports and logins running at their normal rate</td>
           <td><span class="chip chip-built">HIGH</span></td>
           <td>Recognition, not a pitch. "You turned off auto-pay for Inc42 — deliberate, or housekeeping?" One tap to restore. Nothing else.</td>
         </tr>
@@ -666,16 +675,22 @@
           <td>Own it. "We kept retrying and that was noisy — sorry." Then mandate-free renewal (rung 1), because they've now been burned by autopay <em>by us</em>.</td>
         </tr>
         <tr>
-          <td>Value churn</td>
-          <td>Low or zero Pro-feature usage in the 30d before cancel (no company views, no exports, no alerts firing)</td>
+          <td><strong>Project ended</strong> (episodic need)</td>
+          <td>Exports were <em>heavy</em> then stopped — e.g. 40+/50 for two cycles, then near-zero · saved searches still exist · logins continue</td>
+          <td><span class="chip chip-built">HIGH — WRONG SHAPE, NOT WRONG PRODUCT</span></td>
+          <td>The need was real and it ended. Pause with a return date (rung 2), or credit packs if we ever build them. Never a discount — price was never the objection.</td>
+        </tr>
+        <tr>
+          <td>Never activated</td>
+          <td>Exports at or near 0/50 for the whole life of the subscription · few AI queries · no saved searches or alerts</td>
           <td><span class="chip chip-dead">LOW ON PRICE</span></td>
-          <td>Don't spend money here. Route to pause (rung 2) or Free (rung 4). Preserving QIA is the win; the rupees are not coming back.</td>
+          <td>They bought capacity and never used it. Don't spend money here. Route to Free (rung 4) — they keep the database they were actually using. Preserving QIA is the win; the rupees are not coming back.</td>
         </tr>
         <tr>
           <td>Trial non-intent</td>
-          <td>Cancel inside the 7-day trial · near-zero usage</td>
+          <td>Cancel inside the 7-day trial · zero exports, few AI queries</td>
           <td><span class="chip chip-dead">DON'T SPEND</span></td>
-          <td>One message: "trial ended, Core is still yours, free." Keep the identity. Exit the sequence.</td>
+          <td>One message: "trial ended — the full database is still yours on Core, free." Keep the identity. Exit the sequence.</td>
         </tr>
       </tbody>
     </table>
@@ -711,19 +726,21 @@
 
     <div class="rung">
       <div>
-        <h4>Move to annual</h4>
+        <h4>Move to annual — double the credits</h4>
         <p class="ask">Asks for: more money up front, once.</p>
-        <p>Sell it as <strong>fewer interruptions, not savings</strong>: one debit a year means one pre-debit notification a year instead of twelve. Twelve forced re-decisions become one. Annual billing is documented to cut monthly churn 60–80% and involuntary churn by up to ~95%, and the annual subscriber is 3–5× likelier to renew.</p>
-        <p>Also lines up with the T1 ladder in the strategy (₹4,999–14,999/yr), so this rung does double duty as A1 evidence.</p>
+        <p><strong>Correction worth flagging:</strong> annual is not a discount on Datalabs. The pricing page shows the same ₹1,499/mo headline — what annual buys is <strong>100 export credits/month instead of 50</strong>. So the usual "save two months" pitch does not exist here, and any copy that implies it will be caught.</p>
+        <p>The two real arguments, and they stack: <em>twice the capacity</em>, and <em>one debit a year instead of twelve</em> — twelve regulator-forced re-decisions become one. Annual billing is documented to cut monthly churn 60–80% and involuntary churn by up to ~95%; annual subscribers renew at 3–5× the rate.</p>
+        <p><strong>Aim it.</strong> This rung is only for members who were <em>hitting</em> the 50-credit cap. Offering more capacity to someone who used 3 credits is an insult dressed as an upgrade. Also lines up with the T1 ladder in the strategy (₹4,999–14,999/yr), so it does double duty as A1 evidence.</p>
       </div>
     </div>
 
     <div class="rung">
       <div>
-        <h4>Drop to Free — keep everything else</h4>
+        <h4>Drop to Core — you keep the database</h4>
         <p class="ask">Asks for: nothing.</p>
-        <p>Datalabs Core, the newsletters, the app. And critically: <strong>watchlists, saved searches and alerts stay alive</strong> — capped or read-only, not deleted. That's what gives the account gravity and makes the return trip cheap.</p>
-        <p>Count this as a save in reporting, because under a QIA north star it is one. This is the rung that turns a churn event into a tier change.</p>
+        <p><strong>Softer here than at almost any subscription product</strong>, and we should say so plainly: Core is the same 75,000+ company profiles, the same investors, funding rounds, financials, MCA filings, cap tables, contacts. You lose 50 exports a month and 20 AI queries a day. You do not lose Datalabs.</p>
+        <p>Critically: <strong>saved searches, custom lists and alerts stay alive</strong> — capped or read-only, never deleted. Those are the actions that drive repeat use (Saved Search 52%, Advanced Filter 53%), so they are what gives the account gravity and makes the return trip cheap. Deleting them on downgrade would be the single most expensive small decision in this system.</p>
+        <p>Count it as a save in reporting, because under a QIA north star it is one. This rung turns a churn event into a tier change.</p>
       </div>
     </div>
 
@@ -734,6 +751,12 @@
         <p>Already built, and correct — for the accidental and hygiene cancels who never meant to switch anything off. Wrong as the <em>only</em> offer, and wrong as the <em>first</em> offer to anyone who cancelled deliberately.</p>
       </div>
     </div>
+  </div>
+
+  <div class="callout">
+    <span class="label">A rung we could have, but I can't authorise — credit packs</span>
+    <p>Because Pro is metered, there is an offer available to Datalabs that isn't available to a normal media subscription: <strong>sell the credits without the subscription.</strong> A pack of 25 exports, valid 6 months, one payment, no mandate.</p>
+    <p>It is the purest possible answer to the two largest winnable segments — <em>project ended</em> and <em>didn't want autopay</em> — because it matches episodic demand with episodic billing. It also cannibalises Pro, and it's a pricing decision, not a retention one. Flagging it as the strongest idea in this document that isn't mine to make.</p>
   </div>
 
   <div class="callout grey">
@@ -756,8 +779,8 @@
         <tr>
           <td class="num">F1</td>
           <td>PDN companion message</td>
-          <td>6–12h before every pre-debit notification, send a message that names what the membership actually did last cycle — companies you tracked, alerts that fired, reports opened, exports used.</td>
-          <td>We can't change the UPI app screen, but we can land beside it. Turns "₹1,768.82?" into "₹1,768.82 for <em>that</em>." Highest-frequency retention surface we have, currently unused.</td>
+          <td>6–12h before every pre-debit notification, send a message that counts the cycle: <em>"38 of 50 exports · 214 AI queries · 6 saved searches running · 12 alerts fired."</em> <strong>Threshold rule:</strong> only send the count when usage clears a floor — below it, send the offer instead (annual if capped, pause if episodic, Core if never activated).</td>
+          <td>We can't change the UPI app screen, but we can land beside it. Turns "₹1,768.82?" into "₹1,768.82 for <em>that</em>." Because Pro is metered, the number is unarguable — <strong>which is also why the threshold rule is not optional</strong>: telling a member they used 3 credits does the maths for them at ₹590 an export and hands them the reason to cancel.</td>
           <td>M</td>
         </tr>
         <tr>
@@ -777,8 +800,8 @@
         <tr>
           <td class="num">F4</td>
           <td>Trial→paid ramp</td>
-          <td>Day 5 (before the day-6 PDN): "your trial ends Sunday, ₹1,768.82 debits Monday — here's what you used it for." Offers: annual, or extend the trial.</td>
-          <td>Pre-empts our sharpest cancellation moment (§04) 24h before the regulator forces the question.</td>
+          <td>Day 5, before the day-6 PDN: "your trial ends Sunday, ₹1,768.82 debits Monday — you used 14 exports and 61 AI queries." Offers: annual, or extend the trial. If they used almost nothing: "Core keeps the whole database free — cancel now if that's enough."</td>
+          <td>Pre-empts our sharpest cancellation moment (§04) 24h before the regulator forces the question. Offering the graceful exit to a non-user is not lost revenue — it's a member who leaves without resenting us, and stays identified.</td>
           <td>S</td>
         </tr>
         <tr>
@@ -805,9 +828,16 @@
         <tr>
           <td class="num">F8</td>
           <td>Value receipt at every debit</td>
-          <td>Replace the invoice-shaped renewal email with a usage receipt. Invoice attached, not featured.</td>
-          <td>Every successful debit is currently a silent cost reminder with no offsetting value reminder.</td>
+          <td>Replace the invoice-shaped renewal email with a credit statement — used, remaining, rolled over. Invoice attached, not featured. Same threshold rule as F1.</td>
+          <td>Every successful debit is currently a silent cost reminder with no offsetting value reminder. On a metered plan the offset writes itself.</td>
           <td>S</td>
+        </tr>
+        <tr>
+          <td class="num">F9</td>
+          <td><strong>Credit-drought watch</strong></td>
+          <td>Flag any Pro member whose exports drop below a floor for a full cycle. Trigger a use-it intervention <em>before</em> the next PDN: a saved search worth running, three companies matching their last filter, one alert worth setting.</td>
+          <td><strong>The only feature here that prevents the cancel rather than answering it</strong> — and it's available to us only because Pro is metered. Two dead cycles is a churn prediction with weeks of lead time; today nobody is looking at it.</td>
+          <td>M</td>
         </tr>
       </tbody>
     </table>
@@ -911,10 +941,10 @@
 
     <div class="exp">
       <span class="id">D4 · feeds A9 / A1</span>
-      <h4>Annual framed as fewer interruptions</h4>
+      <h4>Annual: capacity or interruptions?</h4>
       <dl>
-        <dt>Test</dt><dd>Winback offer copy: "one debit a year instead of twelve" vs "save 2 months."</dd>
-        <dt>Bar</dt><dd>Interruption framing ≥ savings framing on take rate. Directional read is enough to pick the copy.</dd>
+        <dt>Test</dt><dd>Winback copy to the credit-capped segment only: "100 exports a month instead of 50" vs "one debit a year instead of twelve." <em>Not</em> a savings test — annual isn't cheaper on Datalabs.</dd>
+        <dt>Bar</dt><dd>Directional read is enough to pick the copy. If neither clears the ₹10 re-auth baseline, annual is the wrong rung for cancellers full stop.</dd>
         <dt>Cost</dt><dd>S — copy only.</dd>
       </dl>
     </div>
@@ -933,9 +963,19 @@
       <span class="id">D6 · feeds A4</span>
       <h4>Downgrade-to-Free preserves QIA</h4>
       <dl>
-        <dt>Test</dt><dd>Offer rung 4 to the value-churn segment; track 30-day activity after the downgrade.</dd>
-        <dt>Bar</dt><dd>≥50% still QIA-30 at day 60. If they go dark anyway, Free isn't a save and we should stop counting it as one.</dd>
+        <dt>Test</dt><dd>Offer rung 4 to the never-activated segment; track 30-day Datalabs activity after the downgrade.</dd>
+        <dt>Bar</dt><dd>≥50% still QIA-30 at day 60. If they go dark anyway, Core isn't a save and we should stop counting it as one.</dd>
         <dt>Cost</dt><dd>S. This is the experiment that validates the whole §02 reframe.</dd>
+      </dl>
+    </div>
+
+    <div class="exp">
+      <span class="id">D7 · feeds A12</span>
+      <h4>Credit drought predicts the cancel</h4>
+      <dl>
+        <dt>Test</dt><dd>First a read, not a test: for every Pro member who cancelled in the last 12 months, chart export credits used per cycle against the cancel date.</dd>
+        <dt>Bar</dt><dd>If ≥60% show two sub-floor cycles before cancelling, F9 has a real target and Wave 1 should lead with it. If the curve is flat, drop F9 and stop claiming churn is predictable here.</dd>
+        <dt>Cost</dt><dd>S — one query, no build. <strong>Run this before committing to F9.</strong></dd>
       </dl>
     </div>
   </div>
@@ -953,7 +993,8 @@
     <table>
       <thead><tr><th style="width:42%">Line</th><th style="width:20%">Figure</th><th>Source / assumption</th></tr></thead>
       <tbody>
-        <tr><td>Active subscriptions</td><td class="num">~1,045</td><td>One Inc42 strategy doc — <strong>verify</strong></td></tr>
+        <tr><td><strong>Active Datalabs Pro subs</strong></td><td class="num">unknown</td><td><strong>The 1,045 figure in the strategy doc is all of Inc42+, not Datalabs Pro. Do not reuse it here.</strong> The Pro-only count is the first number to pull.</td></tr>
+        <tr><td>Working placeholder</td><td class="num">~1,045</td><td>Used below only to show the shape of the answer. Every downstream figure moves with the real count.</td></tr>
         <tr><td>Digital media monthly churn benchmark</td><td class="num">4.14%</td><td>Recurly, Jul 2026 — 2.55% voluntary / 1.59% involuntary</td></tr>
         <tr><td>Implied losses/month</td><td class="num">~43</td><td>of which ~17 involuntary</td></tr>
         <tr><td>Recoverable at best-in-class</td><td class="num">~10–12/mo</td><td>60–70% of involuntary, per Churnkey</td></tr>
@@ -967,8 +1008,14 @@
     <p>Judged purely on recovered revenue, this is a low-seven-figure project that will not survive an ROI comparison against almost anything else on the roadmap. Judged on QIA retention it is a different object — and it is the only instrumentation that will ever produce evidence for <strong>A9 (members renew)</strong> and against <strong>A10 (the org can't run a recurring-revenue motion)</strong>. No comparable publishes a renewal rate. Report it that way from day one.</p>
   </div>
 
+  <div class="callout">
+    <span class="label">A blocker sitting under all of this</span>
+    <p>In the 30-day Datalabs cut, <strong>revenue events (278) outnumber identified persons (211)</strong> — because payment events don't carry an email. We cannot reliably join a cancellation to a person today. That breaks the segmentation in §05, the holdouts in §09, and the QIA-retention metric below. <strong>Carrying the Auth0 <code>distinct_id</code> onto payment and subscription events is a prerequisite for this project, not an adjacent cleanup.</strong> It's already on the H1 instrument-spine list; this gives it a second reason to move.</p>
+  </div>
+
   <h3>Metrics to define now</h3>
   <ul class="list">
+    <li><strong>Export credits consumed per cycle, per member</strong> — the leading indicator (§05). Nothing else on this list gives weeks of warning.</li>
     <li><strong>Mandate survival curve</strong> — % of mandates alive at cycle 1, 3, 6, 12. The category decay reference is ~85% → ~70% by month 6. This is the headline health number and we don't have it.</li>
     <li><strong>Cancel-within-72h-of-PDN rate</strong> — isolates regulator-forced churn from everything else. The single most diagnostic number in the system.</li>
     <li><strong>Winback take rate, by rung and by segment</strong> — a blended number will hide which rung is doing the work.</li>
@@ -989,13 +1036,13 @@
       <tbody>
         <tr>
           <td>Before any launch</td>
-          <td>G7 auth hardening · G1 pause state · G2 retry caps · pull the baseline numbers in §10</td>
-          <td>Two of these are correctness bugs that will send actively wrong messages. The third is our only pre-intervention baseline, and it disappears the moment we ship.</td>
+          <td>G7 auth hardening · G1 pause state · G2 retry caps · <code>distinct_id</code> on payment events · pull the §10 baseline and run D7</td>
+          <td>Two are correctness bugs that will send actively wrong messages. One is the identity join without which none of this can be measured. And the baseline disappears the moment we ship anything.</td>
         </tr>
         <tr>
           <td>Wave 1 — prevention</td>
-          <td>F1 PDN companion · F4 trial ramp · F8 value receipt · run D2</td>
-          <td>Prevention beats recovery, applies to the whole base rather than the churned tail, and needs no new offers or commercial approvals.</td>
+          <td>F9 credit-drought watch (if D7 clears) · F1 PDN companion · F4 trial ramp · F8 credit statement · run D2</td>
+          <td>Prevention beats recovery, applies to the whole base rather than the churned tail, and needs no new offers or commercial approvals. F9 leads because it's the only one that acts before the mandate dies.</td>
         </tr>
         <tr>
           <td>Wave 2 — channel + capture</td>
@@ -1023,9 +1070,11 @@
   <h2>Decisions I can't make alone</h2>
   <ul class="list">
     <li><strong>Rung 1 — will we actually offer mandate-free renewal?</strong> It's the strongest recommendation here and it has a real ops cost. Needs Utkarsh, not me.</li>
-    <li><strong>Rung 4 — does downgrade-to-Free count as a save in reporting?</strong> The QIA logic says yes. Someone owns that call before the dashboard is built.</li>
+    <li><strong>Rung 4 — does downgrade-to-Core count as a save in reporting?</strong> The QIA logic says yes, and on Datalabs it's stronger than usual because Core is the same database. Someone owns that call before the dashboard is built.</li>
+    <li><strong>Credit packs — are we willing to sell capacity without a subscription?</strong> The best-fitting offer for our two most winnable segments, and a pricing decision rather than a retention one.</li>
+    <li><strong>Do saved searches, custom lists and alerts survive a downgrade to Core?</strong> If they're deleted, rung 4 stops working and the return trip gets expensive. Cheap to decide now, painful to retrofit.</li>
     <li><strong>WhatsApp path</strong> — Customer.io → Twilio, or a direct BSP. Blocks F5, and F5 blocks most of the recovery upside.</li>
-    <li><strong>The baseline pull.</strong> Cancellation volume, mandate survival, monthly-vs-annual mix, and the real active-sub count all sit in WooCommerce/Razorpay, not PostHog. Every number in §10 is a benchmark standing in for data we own and haven't looked at.</li>
+    <li><strong>The baseline pull.</strong> Datalabs Pro sub count, cancellation volume, mandate survival, monthly-vs-annual mix, and export-credit consumption all sit in WooCommerce / Razorpay / the warehouse, not PostHog. Every number in §10 is a benchmark standing in for data we own and haven't looked at.</li>
     <li><strong>Grace period length.</strong> 15 days is set. Category advice floors at 7. On monthly billing, 15 days of free access after a failed debit is half a cycle — worth a deliberate decision rather than a default.</li>
   </ul>
 </section>
@@ -1048,13 +1097,13 @@
     <li><a href="https://baremetrics.com/blog/annual-vs-monthly-pricing-better-retention">Baremetrics — annual vs monthly retention</a> — annual cuts monthly churn 60–80%, involuntary by up to 95%, 3–5× renewal likelihood.</li>
     <li><a href="https://www.specific.app/blog/cancellation-survey-best-practices-and-best-questions-for-subscription-cancellation-how-to-get-actionable-customer-feedback-that-drives-retention-1">Specific — cancellation survey practice</a> — each question past the first costs ~6.7% of save rate.</li>
     <li><a href="https://reutersinstitute.politics.ox.ac.uk/news/how-asian-business-site-attracted-30000-subscribers-publishing-one-story-day">Reuters Institute — The Ken</a> and <a href="https://recurx.app/blog/subscription-win-back-campaigns">winback timing benchmarks</a> — first-year churn concentration, 40–60% intro-offer churn at expiry, winback windows.</li>
-    <li><a href="https://inc42.com/datalabs/pricing/">Inc42 Datalabs pricing</a> — ₹1,499/mo + GST, 7-day trial, Core free tier.</li>
+    <li><a href="https://inc42.com/datalabs/pricing/">Inc42 Datalabs pricing</a> — ₹1,499/mo + GST, 7-day trial; Core free with the full database; Pro gates export credits (0 → 50/mo, 100/mo annual) and AI queries (5 → 25/day).</li>
     <li>Internal — Notion: <em>Subscription Dunning, Recovery & Winback System</em> · <em>One Inc42 Strategy</em> (Utkarsh, 13 Aug 2026) · QIA funnel analysis.</li>
   </ul>
 </section>
 
 <footer>
-  Companion to the Razorpay Recurring system doc · Strategy layer only — no engineering decisions changed · Ranjith, 20 Aug 2026
+  Companion to the Razorpay Recurring system doc · Datalabs Pro scope · Strategy layer only — no engineering decisions changed · Ranjith, 21 Aug 2026
 </footer>
 
 </div>
