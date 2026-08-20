@@ -235,7 +235,8 @@ tr.total td { border-top: 2px solid var(--rule); font-weight: 600; }
 
   <div class="funnel">
     <div class="frow"><span class="flabel">Installed</span><span class="ftrack"><span class="fbar" style="width:100%"></span></span><span class="fnum"><b>179</b> · 100%</span></div>
-    <div class="frow"><span class="flabel">Saw walkthrough</span><span class="ftrack"><span class="fbar" style="width:84%"></span></span><span class="fnum"><b>151</b> · 84%</span></div>
+    <div class="frow"><span class="flabel">Started walkthrough</span><span class="ftrack"><span class="fbar" style="width:84%"></span></span><span class="fnum"><b>151</b> · 84%</span></div>
+    <div class="frow"><span class="flabel">Finished walkthrough</span><span class="ftrack"><span class="fbar" style="width:69%"></span></span><span class="fnum"><b>123</b> · 69%</span></div>
     <div class="frow"><span class="flabel">Onboarding: role</span><span class="ftrack"><span class="fbar" style="width:93%"></span></span><span class="fnum"><b>166</b> · 93%</span></div>
     <div class="frow"><span class="flabel">Onboarding: sectors</span><span class="ftrack"><span class="fbar" style="width:89%"></span></span><span class="fnum"><b>159</b> · 89%</span></div>
     <div class="frow"><span class="flabel">Onboarding: topics</span><span class="ftrack"><span class="fbar" style="width:89%"></span></span><span class="fnum"><b>159</b> · 89%</span></div>
@@ -249,11 +250,102 @@ tr.total td { border-top: 2px solid var(--rule); font-weight: 600; }
 
   <p><strong>Then 87% reach the brief cover and only 48% walk through the door.</strong> 70 people looked at the front page of the product's core feature and left. That single step destroys more users than every other step in the app combined.</p>
 
+  <h3>Walkthrough: seen is not finished</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Walkthrough outcome</th><th>Users</th><th>Share of the 151 who started</th></tr></thead>
+    <tbody>
+      <tr><td>Started it (any step fired)</td><td class="n">151</td><td class="n">100%</td></tr>
+      <tr><td><strong>Finished it</strong> (<code>status = done</code> at step 4)</td><td class="n ok">123</td><td class="n ok">81%</td></tr>
+      <tr><td>Skipped out partway</td><td class="n">27</td><td class="n">18%</td></tr>
+      <tr><td>— skipped at step 1 (brief)</td><td class="n">16</td><td class="n">11%</td></tr>
+      <tr><td>— skipped at step 2 (explore articles)</td><td class="n">7</td><td class="n">5%</td></tr>
+      <tr><td>— skipped at step 3 (explore companies)</td><td class="n">1</td><td class="n">1%</td></tr>
+      <tr><td>— skipped at step 4 (watchlist)</td><td class="n">3</td><td class="n">2%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>81% of people who start the tour finish all four steps.</strong> Of the 27 who bail, nearly all bail immediately — 16 of 27 dismiss it on the very first screen. Almost nobody quits mid-tour. So the tour is either accepted wholesale or rejected on sight.</p>
+
   <div class="note">
     <h4>Two numbers that need correcting</h4>
     <p><strong>Cover-to-brief entry is 55%, not 41%.</strong> The 17 Aug review measured 99 → 41. Eight days on it is 156 → 86. The cliff is real but it is shallower than reported, and it is improving.</p>
     <p><strong>Brief completion is 38% of openers and 18% of installs.</strong> Neither figure is the "~20%" quoted in the 17 Aug Weekly App Review. Pick one denominator and publish it, because three different numbers are currently circulating for the metric you have committed to double.</p>
   </div>
+</section>
+
+<!-- 01b -->
+<section>
+  <div class="shead"><span class="snum">01b</span><h2>Inside the brief: who finishes and who doesn't</h2></div>
+  <p class="lede">112 brief sessions across 86 people. 37 ended in a completion — <strong>33% of sessions, 38% of people.</strong> Here is where the other 75 stopped.</p>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Last card reached</th><th>Sessions</th><th>Completed</th><th>Abandoned</th></tr></thead>
+    <tbody>
+      <tr><td>Card 1 (position 0)</td><td class="n hot">25</td><td class="n">0</td><td class="n hot">25</td></tr>
+      <tr><td>Card 2</td><td class="n">8</td><td class="n">0</td><td class="n">8</td></tr>
+      <tr><td>Card 3</td><td class="n">4</td><td class="n">0</td><td class="n">4</td></tr>
+      <tr><td>Card 4</td><td class="n">6</td><td class="n">0</td><td class="n">6</td></tr>
+      <tr><td>Card 5</td><td class="n">3</td><td class="n">0</td><td class="n">3</td></tr>
+      <tr><td>Card 6</td><td class="n">3</td><td class="n">0</td><td class="n">3</td></tr>
+      <tr><td>Card 7</td><td class="n">4</td><td class="n">0</td><td class="n">4</td></tr>
+      <tr><td>Card 8</td><td class="n">46</td><td class="n ok">26</td><td class="n hot">20</td></tr>
+      <tr><td>Card 9</td><td class="n">5</td><td class="n ok">5</td><td class="n">0</td></tr>
+      <tr><td>Card 10</td><td class="n">8</td><td class="n ok">6</td><td class="n">2</td></tr>
+      <tr class="total"><td>All sessions</td><td class="n">112</td><td class="n">37</td><td class="n">75</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note alarm">
+    <h4>The drop-off is bimodal, and that's the whole story</h4>
+    <p><strong>25 sessions — 22% — die on card one.</strong> Someone tapped into the brief, saw a single story, and left. Then almost nothing happens in the middle: cards 2 through 7 account for just 28 sessions combined. Then a huge cluster of 59 sessions reaches card 8 or beyond.</p>
+    <p>People either bounce instantly or go nearly all the way. <strong>There is no fatigue curve.</strong> That rules out "the brief is too long" as the problem — and it means the fix is at the entrance and the exit, not in the middle.</p>
+  </div>
+
+  <h3>20 sessions reached card 8 and never completed</h3>
+  <p>The single largest recoverable group. They are <em>not</em> disengaged — they opened <strong>more</strong> articles than the people who completed:</p>
+
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Sessions reaching card 8</th><th>Count</th><th>Article opens</th><th>Per session</th><th>Summary expands</th></tr></thead>
+    <tbody>
+      <tr><td>Completed the brief</td><td class="n">26</td><td class="n">38</td><td class="n">1.46</td><td class="n">37</td></tr>
+      <tr><td><strong>Abandoned at card 8</strong></td><td class="n">20</td><td class="n">46</td><td class="n ok">2.30</td><td class="n">37</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>They read <strong>57% more articles per session</strong> than completers. These are engaged readers who tapped through to a full story and never came back to close out the brief. Whether that is a missing return path or an unreliable <code>brief_completed</code> event is a question for engineering — but either way, <strong>completion is under-counting your best readers.</strong> Recovering those 20 sessions alone would lift session completion from 33% to 51%.</p>
+
+  <h3>Completions are real reads, not flick-throughs</h3>
+  <div class="stats" style="margin-top:18px">
+    <div><span class="v">78s</span><span class="k">Median completion</span></div>
+    <div><span class="v">8.4</span><span class="k">Avg cards viewed</span></div>
+    <div><span class="v good">51%</span><span class="k">Took over a minute</span></div>
+    <div><span class="v bad">20%</span><span class="k">Under 10 seconds</span></div>
+  </div>
+
+  <p><strong>This overturns the most alarming line in the 17 Aug review.</strong> That report put median completion duration at <em>7 seconds</em> and concluded the brief was "mostly being flicked through." On the clean post-launch cohort the median is <strong>78 seconds</strong>, and the distribution is: 9 completions under 10s, 13 between 10s and a minute, 9 between one and three minutes, and <strong>14 over three minutes.</strong></p>
+  <p>Only a fifth are flick-throughs. Half are genuine minute-plus reads. The earlier figure was distorted by pre-launch test traffic — <strong>the brief is being read far better than anyone currently believes.</strong></p>
+
+  <h3>Opening it twice is the tipping point</h3>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Times opened</th><th>Users</th><th>Completed at least once</th><th>Rate</th></tr></thead>
+    <tbody>
+      <tr><td>Once</td><td class="n">47</td><td class="n">12</td><td class="n hot">26%</td></tr>
+      <tr><td>Twice</td><td class="n">14</td><td class="n">7</td><td class="n ok">50%</td></tr>
+      <tr><td>3 times</td><td class="n">14</td><td class="n">6</td><td class="n">43%</td></tr>
+      <tr><td>4–6 times</td><td class="n">7</td><td class="n">5</td><td class="n ok">71%</td></tr>
+      <tr><td>8–16 times</td><td class="n">4</td><td class="n">3</td><td class="n ok">75%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>Completion nearly doubles between the first open and the second</strong> — 26% to 50%. And a genuine power core exists: three users opened the brief 10, 10 and 16 times in eight days, producing 11 completions between them.</p>
+  <p>Since 47 of 86 openers have only ever opened it once, <strong>the highest-leverage completion intervention is getting someone to open a second brief</strong> — which is the same thing as turning push on.</p>
 </section>
 
 <!-- 02 -->
