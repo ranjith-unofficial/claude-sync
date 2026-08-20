@@ -209,7 +209,9 @@
       "WebFetch(domain:www.truefan.ai)",
       "WebFetch(domain:churnkey.co)",
       "WebFetch(domain:razorpay.com)",
-      "WebFetch(domain:www.outlookmoney.com)"
+      "WebFetch(domain:www.outlookmoney.com)",
+      "WebFetch(domain:the-ken.com)",
+      "WebFetch(domain:rizevault.razorpay.com)"
     ]
   }
 }
