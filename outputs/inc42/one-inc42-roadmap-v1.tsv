@@ -1,0 +1,116 @@
+ONE INC42 — ROADMAP v1									
+Scope	Unifying Website (editorial) + DataLabs + App around one audience.								
+North star	QIA — Qualified Identified Actives. A person with a known role, inside the core startup-professional market, who took a qualifying action in a rolling 30-day window. QIA = Identified ∩ Qualified ∩ Active-30d.								
+Baseline caveat	Utkarsh's "~2,100 qualified today" is a 90-day, company-resolved FLOOR. True QIA-30 is ~1,200–1,500 and cannot be measured cross-surface yet (3 separate PostHog projects + 2 Customer.io workspaces, no shared identity). The real number must be pulled from BigQuery first — see M0.								
+Funnel	Acquisition → Activation → Engagement, rolling up to QIA.								
+Structure	Monthly effort-weight model modelled on the Sheet5 tab, with one addition: Acquisition/Identification is broken out as its own weighted stage (Sheet5 skips it — and that is where the leak is).								
+Owner / Target date	Left blank deliberately — for the team to fill.								
+									
+ACTIVATION IS DEFINED PER PRODUCT									
+Product	Activation = 	Note							
+Website (editorial)	Reads a 2nd article in the visit	⚠ PROPOSED — validate before locking this definition.							
+DataLabs	Runs a search / applies a filter (an active query)	"Views a company profile" is the SEO landing, NOT activation.							
+App	Completes a brief — engaged, ≥60s	A 7s flick does not count.							
+									
+THE CORE FINDING — the funnel collapses at IDENTITY, not activation									
+Source: PostHog, last 30 days, internal users excluded.									
+Stage	Website	DataLabs							
+Total visitors	478,249	135,909							
+Activation (value action)	45,510 (9.5%)	83,647 (62%)							
+Identified	1,986 (0.42%)	211 (0.16%)							
+Engaged (2+ days)	42,622	2,665							
+Retained	36,635	1,880							
+Revenue (payers)	186	278							
+Read	Both products deliver value at scale but identify almost no one. Registration-gating — turning anonymous visitors into known users — is the single highest-leverage lever in this roadmap.								
+									
+EFFORT WEIGHT BY FUNNEL STAGE, BY MONTH									
+Month	Fundamentals	Awareness	Acquisition	Activation	Engagement	Retention	Revenue		
+M0 — Foundation	75%	—	—	—	—	—	—		
+M1 — Top of funnel	—	30%	30%	20%	20%	—	—		
+M2 — Middle of funnel	—	20%	25%	25%	30%	—	—		
+M3 — Middle of funnel	—	5%	15%	30%	40%	10%	—		
+M4 — Middle of funnel	—	5%	10%	15%	45%	25%	—		
+M5 — Middle of funnel	—	5%	5%	10%	45%	25%	10%		
+Note	Acquisition is a NEW stage vs Sheet5. It earns its own weight because 0.16–0.42% identified — not activation — is where the funnel breaks.								
+									
+ROADMAP									
+Month	Funnel Stage	Feature	What we'll do	How we'll do it	Attributes to (metric it moves)	Source	Status	Owner	Target date
+M0 — FOUNDATION		THEME: make the number honest and the surfaces measurable.							
+M0 — Foundation	Fundamentals	Event dictionary v1.5	Reconcile events to spec; fire the dark events (push_delivered, decode, monetization); dedupe; adopt completed_engaged (≥60s); add the is_internal tag	Eng implements against the events doc	Measurement integrity	Sheet5	Not started		
+M0 — Foundation	Fundamentals	Restore Scroll Depth + Register-Lock instrument	Re-enable the two dead events	Eng	Activation-depth + A2 holdout measurability	Feature-list	Not started		
+M0 — Foundation	Fundamentals	Singular setup complete	Finish attribution + event flow beyond the SDK	Config + validate data transmission	Awareness (attributable acquisition)	Sheet5	Not started		
+M0 — Foundation	Fundamentals	Per-product activation events + full-funnel instrumentation	Instrument web-2nd-article, DataLabs-search/filter and app-engaged-brief; add the DataLabs referral/Share event (currently missing)	Eng + data	The whole funnel becomes measurable	Feature-list	Not started		
+M0 — Foundation	Fundamentals	QIA-30 pull + RFV engagement score	Pull the real 30-day QIA from BigQuery; build an FT-style Recency · Frequency · Volume score	Data team, BigQuery	The north-star baseline	Feature-list	Not started		
+M0 — Foundation	Fundamentals	Identity spine	Canonical Auth0 distinct_id everywhere; converge the 3 PostHog projects + 2 Customer.io workspaces; promote 40,699 ICP labels silver→gold; exclude internal users	Data eng	One person visible across surfaces — this is what makes QIA measurable	Feature-list / Strategy	Not started		
+M0 — Foundation	Fundamentals	Feature-Flag framework	Build the controlled-rollout framework	Backend config + segmentation	Enabler	Sheet5	Not started		
+M0 — Foundation	Fundamentals	V2 app release · Redefine login page · Collect phone number	Ship v2; redesign the login page; capture phone at signup	Eng	Enabler + identity capture	Sheet5	Not started		
+M0 — Foundation	Acquisition	Source-based Lock Modal (design + staging)	Design the registration gate	Design + staging first	Acquisition → % identified	Sheet5	Not started		
+									
+M1 — TOP OF FUNNEL		THEME: be found, and know who arrives.							
+M1 — Top of funnel	Awareness	llm.txt / AI answer-engine visibility	Publish llm.txt so LLMs cite Inc42	Content + technical	Awareness — Inc42's biggest distribution gap; only Crunchbase has this today	Sheet5 + Competitor-gap	Not started		
+M1 — Top of funnel	Awareness	Google preference/Discover bar · Google News indexing	Optimise for Google "preferred source" and get indexed in Google News	SEO / technical	Awareness	Sheet5 + Competitor-gap	Not started		
+M1 — Top of funnel	Acquisition	Lock Modal LIVE — registration-gate profiles/database	Gate profiles and the database behind registration (articles stay open), released behind an A/B holdout	Ship the modal designed in M0	Acquisition → % identified (THE cliff)	Feature-list	Not started		
+M1 — Top of funnel	Acquisition	Unified onboarding	Ask role + sector once, reuse it everywhere	Product flow	The Qualified term of QIA	Sheet5	Not started		
+M1 — Top of funnel	Acquisition	Role + employer + timestamp at every capture	Every capture point asks role + employer type, and dates it	Product + eng	The Qualified term of QIA	Feature-list	Not started		
+M1 — Top of funnel	Acquisition	Newsletter signup as identity capture	Push the newsletter as a capture lever (NYT's habit anchor)	Placement + flow	Identified + retention	Feature-list	Not started		
+M1 — Top of funnel	Activation	Make search visible · Unified navigation bar	Surface search; one nav across surfaces	Design + FE	Activation (+ competitor parity)	Sheet5 + Competitor-gap	Not started		
+M1 — Top of funnel	Activation	AskInc42 — prominent on DataLabs + introduced in Inc42 Media	Make Ask visible on DataLabs; introduce it in Media	Product + backend	Activation	Sheet5	Not started		
+M1 — Top of funnel	Engagement	Turn on Morning-Brief push	Activate Customer.io push — 67% opt-in is already granted and push has never once fired	Lifecycle + eng	Engagement → 30-day return	Feature-list	Not started		
+									
+M2 — MIDDLE OF FUNNEL		THEME: make the reading path lead somewhere.							
+M2 — Middle of funnel	Activation	Interlinking DataLabs (media ↔ data cross-linking)	Link articles to company/entity pages and back	Content model + FE	Activation + cross-surface movement (Crunchbase is strongest here)	Sheet5 + Competitor-gap	Not started		
+M2 — Middle of funnel	Activation	In-body entity card · profiles that lead somewhere	Put a company card in the reading path; make profiles route on to membership	FE	Activation → cross-surface discovery	Feature-list	Not started		
+M2 — Middle of funnel	Activation	Brief redesign	Fix card 1 (only 45% advance) and the full-article one-way door (94% never return)	Design + app eng	Activation (app)	Feature-list	Not started		
+M2 — Middle of funnel	Activation	Article & Companies card redesign	Premium visual refresh	Design	Activation	Sheet5	Not started		
+M2 — Middle of funnel	Activation	Content personalization	Recommend content per reader	Ranking / ML	Activation / Engagement (The Ken has it)	Competitor-gap	Not started		
+M2 — Middle of funnel	Engagement	DataLabs Weekly launch	Ship the generic-free weekly — it doubles as a registration capture point	Editorial + product	Engagement + Identified	Feature-list	Not started		
+M2 — Middle of funnel	Engagement	Brief habit loop + streaks	Instrument and tune daily return	Product	Engagement	Feature-list	Not started		
+									
+M3 — MIDDLE OF FUNNEL		THEME: reasons to come back.							
+M3 — Middle of funnel	Engagement	Alerts on followed companies/sectors	Build alerts — the only genuinely new data capability on this roadmap	Data + eng	Engagement → 30-day return	Feature-list	Not started		
+M3 — Middle of funnel	Engagement	WhatsApp community	Stand up the community	Ops	Engagement (The Ken and Tech in Asia have it)	Feature-list + Competitor-gap	Not started		
+M3 — Middle of funnel	Engagement	Reading progress bar · in-article TOC/nav	Add a progress bar and in-article navigation	FE	Engagement — a cheap edge; no rival has it	Competitor-gap	Not started		
+M3 — Middle of funnel	Activation	AskInc42 v2 — 3 stored onboarding Qs	Personalise answers using 3 stored onboarding questions	⚠ BLOCKED — needs an API from Anmol, which has not yet been raised with him	Activation	Feature-list	Blocked — dependency		
+M3 — Middle of funnel	Activation	Model training on app context	Tune the AI to app workflows	Dataset prep	Activation quality	Sheet5	Not started		
+M3 — Middle of funnel	Retention	Lifecycle journeys groundwork · save/bookmark	Build state-based journeys; surface saved items	Lifecycle	Retention	Feature-list	Not started		
+									
+M4 — MIDDLE OF FUNNEL		THEME: deepen and hold.							
+M4 — Middle of funnel	Engagement	Deal Digest ship · surfaces for the 5 built reports	Ship the prototyped Deal Digest; build front-ends for Scout, Sector, Comparison, Quick-Snapshots and Scout-Briefing	FE	Engagement — these are already built, they just need surfaces	Feature-list	Not started		
+M4 — Middle of funnel	Engagement	Rooms + between-rooms community	Treat convening and community as retention infrastructure, not events marketing	Events + community	Engagement / Retention	Feature-list	Not started		
+M4 — Middle of funnel	Engagement	Audio content (narrated)	Optional narrated format	Content	Engagement (The Ken has it)	Competitor-gap	Not started		
+M4 — Middle of funnel	Retention	Renewal motion + dunning + failed-charge recovery	Build renewal comms — only 15% auto-renew today, and 26–142 terms lapse per month with zero comms (~₹30–50L)	Lifecycle + billing	Retention / Revenue	Feature-list	Not started		
+									
+M5 — MIDDLE OF FUNNEL		THEME: first revenue read.							
+M5 — Middle of funnel	Revenue	Read the A1 migration probe → lock or rework the T1 price band	Read the probe results. NOTE: the probe itself should START in M0–M1 — see Flag 1 below	Product + sales	Revenue validation	Feature-list	Not started		
+M5 — Middle of funnel	Revenue	Entitlement reshuffle + billing · unified pricing	Map the free/T1/T2 fences; move to one billing rail; unify pricing across surfaces	Product + billing	Revenue (Tracxn and Tech in Asia have unified pricing)	Feature-list + Competitor-gap	Not started		
+M5 — Middle of funnel	Engagement / Retention	Deepen the retain winners	Double down on whichever M2–M4 mechanism moved 30-day activity most	Product	Engagement / Retention	Feature-list	Not started		
+									
+RUNS IN PARALLEL — not on the funnel									
+Month	Funnel Stage	Feature	What we'll do	How we'll do it	Attributes to (metric it moves)	Source	Status	Owner	Target date
+Parallel	Ops	Hiring Agent (pilot) · CRM use-case · Delete-functionality flow	Per Sheet5	Eng	—	Sheet5	Not started		
+Parallel	Ops	Unifying — documentation closure	Competitor research, positioning, retention and engagement plans; then freeze the doc	—	—	Sheet5	Not started		
+Parallel	Governance	G8 independence firewall · Hurun list-factory formalise	Lock, own and publish the firewall; document the list machinery	—	Trust / credential engine	Feature-list	Not started		
+									
+COMPETITOR GAPS — where Inc42 is ❌ or ⚠, and where each one lands in this plan									
+Gap	Who has it	Plan slot							
+AI answer-engine visibility	Crunchbase	M0 → M1 (llm.txt)							
+Search bar prominence	Entrackr, Crunchbase, YourStory, Tech in Asia	M1							
+Unified login	Tracxn, Tech in Asia	M0 identity spine + M1							
+Cross-linking media ↔ data	Crunchbase, DealStreetAsia, Tech in Asia	M2							
+Content personalization	The Ken	M2							
+WhatsApp community	The Ken, Tech in Asia	M3							
+Audio content	The Ken	M4 (optional)							
+Unified pricing	Tracxn, Tech in Asia	M5							
+Native news app	The Ken, YourStory, Tech in Asia	Already shipping (App v2)							
+Team/enterprise plans	Tracxn, Tech in Asia, Crunchbase	✗ DO NOT CHASE — DataLabs enterprise was already tried and killed (0 of 17 renewals).							
+									
+DECISIONS & FLAGS									
+#	Decision / flag	Why it matters							
+1	Pull the A1 migration probe forward to M0–M1.	The weight model puts Revenue at M5, but the probe needs nothing built, informs the offering, and earns while it runs. The probe = an offer to 982 Plus + 63 Pro subscribers across a ₹4,999–14,999 band, 2–3 price cells, ~20% migration bar.							
+2	Acquisition/Identification is its own weighted stage.	0.16–0.42% identified is the leak. Activation is not the problem — Website activates 9.5% and DataLabs 62%.							
+3	The Brief fix is: get readers past card 1, and stop dumping them into the full-article one-way door.	Only 45% advance past card 1; 94% never return from the full article. Median completion is ~78s, not 7s.							
+4	DataLabs activation = search / filter, NOT company-view.	A company-profile view is the SEO landing, not a signal of intent.							
+									
+OPEN DEPENDENCIES — keep visible									
+⚠ 1	AskInc42 v2 (M3) needs an API from Anmol. It has not yet been raised with him.								
+⚠ 2	The Website activation definition ("reads a 2nd article in the visit") is PROPOSED and still needs validation.								
