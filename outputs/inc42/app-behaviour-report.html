@@ -210,11 +210,11 @@ tr.total td { border-top: 2px solid var(--rule); font-weight: 600; }
 <header class="top">
   <p class="eyebrow">PostHog · project 146258 · 12–20 Aug 2026 · n = 188</p>
   <h1>What Inc42 App users actually do</h1>
-  <p class="dek">Eight days of real post-launch behaviour, measured on people who <b>installed on or after 12 August</b> with Inc42 staff excluded. The short version: the archive is winning, the brief is losing, and the habit engine has never been switched on.</p>
+  <p class="dek">Eight days of real post-launch behaviour, measured on people <b>first seen on or after 12 August</b> with Inc42 staff excluded. 189 real users; 180 of them fired an install event — see §08 for why the other 9 didn't. The short version: the archive is winning, the brief is losing, and the habit engine has never been switched on.</p>
 
   <div class="stats">
-    <div><span class="v">179</span><span class="k">Installers</span></div>
-    <div><span class="v">188</span><span class="k">Total users</span></div>
+    <div><span class="v">189</span><span class="k">Real users</span></div>
+    <div><span class="v">180</span><span class="k">Fired app_installed</span></div>
     <div><span class="v">82%</span><span class="k">Touched Explore<br>(tour-inflated)</span></div>
     <div><span class="v bad">48%</span><span class="k">Opened a brief</span></div>
     <div><span class="v bad">18%</span><span class="k">Finished one</span></div>
@@ -706,6 +706,11 @@ tr.total td { border-top: 2px solid var(--rule); font-weight: 600; }
   </table>
   </div>
   <p>Failures are concentrated on <strong>the two most-used surfaces in the app.</strong> 24 of 179 users saw an error screen. Explore — the thing 82% of people use — is also the thing that breaks most.</p>
+
+  <h3><code>app_installed</code> under-fires by 5%</h3>
+  <p>The cohort holds <strong>189 real users but only 180 ever fired <code>app_installed</code></strong>. The missing 9 are not ghosts or duplicate person records — <strong>all 9 completed the walkthrough, 4 completed onboarding, and they average 78.7 events each</strong>, which is above the cohort average. They are among the most active users in the app.</p>
+  <p>Eight of the nine are Android. Their first recorded event is <code>$identify</code> (7), <code>sign_in_completed</code> (1) or <code>Application Opened</code> (1) — never the install. Since every one of them ran the first-launch walkthrough, the app definitely launched for the first time and the install event simply did not send.</p>
+  <p><strong>Consequence:</strong> every "% of installs" figure in this report uses 180 as its denominator when the true base is 189, so each one is roughly half a point too generous. It also means <code>app_installed</code> cannot be trusted as an install counter against Play Console — which matters directly for the install-number reconciliation that is still open.</p>
 
   <h3>Sign-in is effectively mandatory</h3>
   <p>171 of 179 users started sign-in (96%) and 139 completed it (78%). Only 10 ever saw a contextual sign-in prompt. The spec describes an <strong>anonymous-first architecture where most users stay logged out</strong> — in production, almost nobody does. Either the flow forces it, or the option to skip is invisible.</p>
