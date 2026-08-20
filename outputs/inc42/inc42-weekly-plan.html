@@ -232,44 +232,68 @@
     </div>
   </section>
 
-  <!-- 2 · THE FUNNEL -->
+  <!-- 2 · THE THREE PRODUCT FUNNELS -->
+  <style>
+    .prod{background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:14px;overflow:hidden;}
+    .prod .phead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:13px 18px;border-bottom:1px solid var(--line);}
+    .prod .phead h3{font-size:17px;}
+    .prod .phead .job{font-size:13px;color:var(--ink2);font-style:italic;}
+    .prod .phead .vchip{margin-left:auto;font-size:9.5px;text-transform:uppercase;letter-spacing:0.05em;font-weight:800;padding:2px 9px;border-radius:6px;white-space:nowrap;}
+    .vchip.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-soft);}
+    .vchip.warn{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber);}
+    .flow{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:0;}
+    .step{padding:14px 16px;border-right:1px solid var(--line2);}
+    .step:last-child{border-right:none;}
+    .step.actv{background:var(--green-bg);}
+    .step .cap2{height:4px;border-radius:3px;width:34px;margin-bottom:9px;}
+    .step.a1 .cap2{background:var(--blue);} .step.actv .cap2{background:var(--green);} .step.a3 .cap2{background:var(--violet);}
+    .step .st2{font-size:9.5px;text-transform:uppercase;letter-spacing:0.06em;font-weight:800;color:var(--ink3);}
+    .step.actv .st2{color:var(--green);}
+    .step .df{font-size:13px;color:var(--ink);margin-top:3px;font-weight:600;}
+    .step.actv .df{color:var(--green);}
+    .step .sub2{font-size:11.5px;color:var(--ink2);margin-top:4px;}
+    .pnote{font-size:11.5px;padding:9px 18px;border-top:1px solid var(--line2);color:var(--ink2);}
+    .pnote b{color:var(--ink);}
+    @media (max-width:720px){.flow{grid-template-columns:1fr;}.step{border-right:none;border-bottom:1px solid var(--line2);}}
+  </style>
   <section>
-    <div class="lbl"><span class="k">2</span><h2>The funnel — acquisition → activation → engagement</h2><span class="note">activation is defined per surface</span></div>
-    <div class="funnel">
-      <div class="fstage acq"><div class="cap"></div><div class="in">
-        <div class="stg">Stage 1</div><h3>Acquisition</h3>
-        <p class="def">A new person reaches a surface — from search, social, a newsletter, or an app install.</p>
-        <div class="surf">
-          <div class="srow"><span class="sn">Web</span><span class="sv">lands on an article / DataLabs page</span></div>
-          <div class="srow"><span class="sn">App</span><span class="sv">installs &amp; opens</span></div>
-          <div class="srow"><span class="sn">Email</span><span class="sv">newsletter click → surface</span></div>
-        </div>
-        <div class="meas"><b>Measure:</b> new visitors · installs · attributable source</div>
-      </div></div>
-      <div class="fstage act"><div class="cap"></div><div class="in">
-        <div class="stg">Stage 2</div><h3>Activation</h3>
-        <p class="def">The first real value action — <i>defined by the surface</i> — plus the identity capture that makes the person known.</p>
-        <div class="surf">
-          <div class="srow"><span class="sn">Editorial</span><span class="sv">reads an article (to depth)</span></div>
-          <div class="srow"><span class="sn">DataLabs</span><span class="sv">browses a company profile</span></div>
-          <div class="srow"><span class="sn">App</span><span class="sv">completes a brief (≥60s)</span></div>
-          <div class="srow"><span class="sn">Identity</span><span class="sv">registers → role + employer asked</span></div>
-        </div>
-        <div class="meas"><b>Makes:</b> Identified (register) + Qualified (role+company)</div>
-      </div></div>
-      <div class="fstage eng"><div class="cap"></div><div class="in">
-        <div class="stg">Stage 3</div><h3>Engagement</h3>
-        <p class="def">The person comes back and takes a qualifying action inside a rolling 30 days. This is the "active" in QIA.</p>
-        <div class="surf">
-          <div class="srow"><span class="sn">Web</span><span class="sv">returns → 2nd+ article / profile</span></div>
-          <div class="srow"><span class="sn">DataLabs</span><span class="sv">search · alert · saved search · Ask</span></div>
-          <div class="srow"><span class="sn">App</span><span class="sv">returns → completes another brief</span></div>
-        </div>
-        <div class="meas"><b>Measure:</b> 30-day qualifying action · repeat-day rate</div>
-      </div></div>
+    <div class="lbl"><span class="k">2</span><h2>Three product funnels — one activation per product</h2><span class="note">activation = earliest action that predicts return</span></div>
+
+    <!-- WEBSITE -->
+    <div class="prod">
+      <div class="phead"><h3>Inc42 Website</h3><span class="job">editorial · "read startup news"</span><span class="vchip warn">⚠ Validate</span></div>
+      <div class="flow">
+        <div class="step a1"><div class="cap2"></div><div class="st2">Acquisition</div><div class="df">Lands on an article</div><div class="sub2">SEO · social · newsletter click</div></div>
+        <div class="step actv"><div class="cap2"></div><div class="st2">★ Activation</div><div class="df">Reads a 2nd article in the visit</div><div class="sub2">The "not a bounce" signal · leading signal: 1st article to ≥70% depth</div></div>
+        <div class="step a3"><div class="cap2"></div><div class="st2">Engagement</div><div class="df">Returns &amp; reads 2+ pieces / 30 days</div><div class="sub2">R30 · registers → Identified + role</div></div>
+      </div>
+      <div class="pnote">⚠ <b>Proposed, not measured</b> — the editorial PostHog project isn't reachable here. Validate which of {2nd article · scroll ≥70% · newsletter signup} best predicts a 30-day return, then lock.</div>
     </div>
+
+    <!-- DATALABS -->
+    <div class="prod">
+      <div class="phead"><h3>DataLabs</h3><span class="job">data · "look up companies, deals, sectors"</span><span class="vchip ok">✓ Data-backed</span></div>
+      <div class="flow">
+        <div class="step a1"><div class="cap2"></div><div class="st2">Acquisition</div><div class="df">Lands on DataLabs</div><div class="sub2">company · industry · report page</div></div>
+        <div class="step actv"><div class="cap2"></div><div class="st2">★ Activation</div><div class="df">Views a company (or investor) profile</div><div class="sub2">The core value unit — the #1 surface</div></div>
+        <div class="step a3"><div class="cap2"></div><div class="st2">Engagement</div><div class="df">Returns → repeat lookup, saved search, alert, Ask</div><div class="sub2">the deepening actions that predict return</div></div>
+      </div>
+      <div class="pnote">✓ <b>Confirmed in PostHog (proj 66351):</b> <span class="mono">/company/</span> is the top surface — 1,777 users · 9,134 views. Repeat-use by action: Advanced Filter <b>53%</b> · Saved Search <b>52%</b> &gt; Search 44% &gt; Alert 31%. So browsing a company = activation; filtering/saving/alerting = engagement.</div>
+    </div>
+
+    <!-- APP -->
+    <div class="prod">
+      <div class="phead"><h3>Inc42 App</h3><span class="job">product · "the daily brief habit"</span><span class="vchip ok">✓ Confirmed</span></div>
+      <div class="flow">
+        <div class="step a1"><div class="cap2"></div><div class="st2">Acquisition</div><div class="df">Installs &amp; opens</div><div class="sub2">store · in-app banners · deep links</div></div>
+        <div class="step actv"><div class="cap2"></div><div class="st2">★ Activation</div><div class="df">Completes a brief</div><div class="sub2">use engaged completion (≥60s), not the 7s flick-through</div></div>
+        <div class="step a3"><div class="cap2"></div><div class="st2">Engagement</div><div class="df">Returns &amp; completes another brief</div><div class="sub2">streak · D1/D7 return</div></div>
+      </div>
+      <div class="pnote">✓ <b>Your call, refined:</b> first-week data shows 41% nominally "complete" but a 7s median — so measure activation as an <b>engaged</b> completion (≥60s), the ~8 real readers/day, not the flick-throughs.</div>
+    </div>
+
     <div class="rollup">
-      <span class="lead">Rolls up to the north star:</span>
+      <span class="lead">All three roll up to the north star:</span>
       <span class="eq">
         <span class="term">Identified</span><span class="op">∩</span>
         <span class="term">Qualified</span><span class="op">∩</span>
