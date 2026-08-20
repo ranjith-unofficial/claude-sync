@@ -1,0 +1,817 @@
+<title>Inc42 Open Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root {
+  --ground:      #F2F4F6;
+  --surface:     #FFFFFF;
+  --surface-alt: #E9ECF0;
+  --ink:         #171A20;
+  --ink-soft:    #545C6B;
+  --ink-faint:   #7C8698;
+  --rule:        #D6DAE1;
+  --rule-soft:   #E4E7EC;
+  --accent:      #24466F;
+  --accent-soft: #E3EAF3;
+  --signal:      #B44214;
+  --signal-soft: #F7E6DE;
+  --wait:        #6B5A2E;
+  --wait-soft:   #F1EBDC;
+  --shadow:      0 1px 2px rgba(23,26,32,.06), 0 8px 24px -16px rgba(23,26,32,.28);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #131519;
+    --surface:     #1B1E24;
+    --surface-alt: #232830;
+    --ink:         #E7EAEF;
+    --ink-soft:    #A0A9B8;
+    --ink-faint:   #7A8395;
+    --rule:        #2E343E;
+    --rule-soft:   #262B33;
+    --accent:      #8FB0D8;
+    --accent-soft: #1E2A3A;
+    --signal:      #E8845A;
+    --signal-soft: #332016;
+    --wait:        #D3BC7E;
+    --wait-soft:   #2A2517;
+    --shadow:      0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"] {
+  --ground:      #131519;
+  --surface:     #1B1E24;
+  --surface-alt: #232830;
+  --ink:         #E7EAEF;
+  --ink-soft:    #A0A9B8;
+  --ink-faint:   #7A8395;
+  --rule:        #2E343E;
+  --rule-soft:   #262B33;
+  --accent:      #8FB0D8;
+  --accent-soft: #1E2A3A;
+  --signal:      #E8845A;
+  --signal-soft: #332016;
+  --wait:        #D3BC7E;
+  --wait-soft:   #2A2517;
+  --shadow:      0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 28px 96px;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  padding: 56px 0 28px;
+  border-bottom: 2px solid var(--ink);
+}
+.kicker {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 14px;
+}
+h1 {
+  font-family: Archivo, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5.2vw, 3.1rem);
+  line-height: 1.02;
+  letter-spacing: -.022em;
+  margin: 0 0 14px;
+  text-wrap: balance;
+}
+.standfirst {
+  font-size: 1.06rem;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  margin: 0;
+}
+.standfirst strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- tally strip ---------- */
+
+.tally {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 28px 0 0;
+}
+.tally div {
+  background: var(--surface);
+  padding: 16px 18px;
+}
+.tally .n {
+  font-family: Archivo, sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+  display: block;
+}
+.tally .n.hot { color: var(--signal); }
+.tally .l {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 7px;
+  display: block;
+}
+
+/* ---------- sections ---------- */
+
+section { margin-top: 52px; }
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ink);
+  margin-bottom: 4px;
+}
+.sec-letter {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: .1em;
+  color: var(--surface);
+  background: var(--ink);
+  padding: 3px 8px;
+  flex: none;
+}
+h2 {
+  font-family: Archivo, sans-serif;
+  font-weight: 600;
+  font-size: 1.32rem;
+  letter-spacing: -.012em;
+  margin: 0;
+  flex: 1;
+}
+.sec-count {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+.sec-note {
+  font-size: .93rem;
+  color: var(--ink-soft);
+  margin: 12px 0 2px;
+  max-width: 68ch;
+}
+.sec-note em { color: var(--signal); font-style: normal; font-weight: 600; }
+
+/* ---------- items ---------- */
+
+ol.items { list-style: none; margin: 0; padding: 0; }
+
+ol.items li {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 0 14px;
+  padding: 14px 0 13px;
+  border-bottom: 1px solid var(--rule-soft);
+  align-items: start;
+}
+ol.items li:last-child { border-bottom: none; }
+
+.id {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--ink-faint);
+  padding-top: 4px;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.id input {
+  width: 13px; height: 13px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  margin: 0;
+  flex: none;
+}
+.id input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.task { min-width: 0; }
+.task > p { margin: 0; }
+.task > p b { font-weight: 600; }
+li:has(.id input:checked) .task > p { text-decoration: line-through; color: var(--ink-faint); }
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 7px;
+}
+.chip {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: .04em;
+  padding: 2px 7px;
+  border: 1px solid var(--rule);
+  color: var(--ink-soft);
+  background: var(--surface);
+  white-space: nowrap;
+}
+.chip.src { background: var(--surface-alt); border-color: transparent; }
+.chip.hot { color: var(--signal); background: var(--signal-soft); border-color: transparent; font-weight: 500; }
+.chip.blk { color: var(--wait); background: var(--wait-soft); border-color: transparent; }
+.chip.dec { color: var(--accent); background: var(--accent-soft); border-color: transparent; }
+
+/* ---------- callout ---------- */
+
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--signal);
+  padding: 18px 20px;
+  margin: 22px 0 0;
+  box-shadow: var(--shadow);
+}
+.callout h3 {
+  font-family: Archivo, sans-serif;
+  font-size: .95rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+  letter-spacing: -.005em;
+}
+.callout p { margin: 0 0 8px; font-size: .95rem; color: var(--ink-soft); }
+.callout p:last-child { margin-bottom: 0; }
+.callout strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- waiting table ---------- */
+
+.scroller { overflow-x: auto; margin-top: 4px; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 560px;
+  font-size: .93rem;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 11px 16px 11px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+th {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 400;
+  border-bottom-color: var(--rule);
+}
+td:first-child { font-weight: 600; white-space: nowrap; width: 1%; padding-right: 28px; }
+td.blocks { color: var(--signal); font-size: .88rem; }
+
+/* ---------- conflicts ---------- */
+
+.conflicts { list-style: none; margin: 4px 0 0; padding: 0; }
+.conflicts li {
+  padding: 13px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: .95rem;
+  color: var(--ink-soft);
+}
+.conflicts li:last-child { border-bottom: none; }
+.conflicts b { color: var(--ink); font-weight: 600; }
+.conflicts .vals {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .85rem;
+  color: var(--signal);
+  display: block;
+  margin-top: 4px;
+}
+
+/* ---------- colophon ---------- */
+
+.colophon {
+  margin-top: 60px;
+  padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  font-size: .88rem;
+  color: var(--ink-faint);
+  max-width: 70ch;
+}
+.colophon p { margin: 0 0 9px; }
+.colophon code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: .85em;
+  background: var(--surface-alt);
+  padding: 1px 5px;
+}
+
+@media (max-width: 620px) {
+  .wrap { padding: 0 18px 72px; }
+  ol.items li { grid-template-columns: 46px 1fr; gap: 0 10px; }
+  .id { font-size: 11px; }
+}
+@media print {
+  body { background: #fff; color: #000; }
+  .tally, .callout { break-inside: avoid; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="kicker">Compiled 18 Aug 2026 · Fathom + Wispr + PostHog + project docs</p>
+  <h1>Inc42 Open Ledger</h1>
+  <p class="standfirst">Everything currently pending <strong>on Ranjith</strong>, swept from 13 recorded meetings (25 Jul – 17 Aug), the 17 Aug PostHog review, the strategy corpus and every project note. Items other people owe are listed separately at the end, so nothing gets chased twice.</p>
+
+  <div class="tally">
+    <div><span class="n hot">7</span><span class="l">Hard-dated</span></div>
+    <div><span class="n">119</span><span class="l">On you</span></div>
+    <div><span class="n">13</span><span class="l">Sections</span></div>
+    <div><span class="n">9</span><span class="l">People owe you</span></div>
+    <div><span class="n hot">5</span><span class="l">Unresolved facts</span></div>
+  </div>
+</header>
+
+<div class="callout">
+  <h3>One thing changed the shape of everything below</h3>
+  <p>On <strong>17 Aug, Utkarsh reversed the priority order</strong>: activation now comes before acquisition. Brief completion sits at ~20% and he wants 40%. Your 17 Aug acquisition plan was written acquisition-first — <strong>B1 is now your headline deliverable</strong>, and the launch-date conversation (A5) should be framed as "here's the activation fix, here's the date it unlocks", not the other way round.</p>
+</div>
+
+<!-- ===================== A ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">A</span><h2>Hard dates — this week</h2><span class="sec-count">7 items</span></div>
+  <p class="sec-note">The D2C &amp; Retail Summit is <em>tomorrow</em>. Everything here has a date attached to it, not a priority ranking.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> A1</span><div class="task">
+      <p><b>Fix Singular <code>campaign=None</code> before the Summit QR moment.</b> Tent-card QR → preloaded onboarding is unmeasurable as it stands; every Summit install lands unattributed.</p>
+      <div class="meta"><span class="chip hot">19 Aug</span><span class="chip src">PostHog review</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> A2</span><div class="task">
+      <p><b>File ticket #1 — deep linking.</b> Owner Nityam + dev.</p>
+      <div class="meta"><span class="chip hot">Now</span><span class="chip src">Slack 18 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> A3</span><div class="task">
+      <p><b>File ticket #6 — Explore › Companies filters not working.</b> Owner Prapti; needs repro detail, may tie to the Explore <code>load_failed</code> in the review.</p>
+      <div class="meta"><span class="chip hot">Now</span><span class="chip src">Slack 18 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> A4</span><div class="task">
+      <p><b>Confirm the destination Asana project for both tickets</b> — and whether you create or draft them.</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> A5</span><div class="task">
+      <p><b>Lock the 25–26 Aug public launch date with Utkarsh.</b> You raised it 17 Aug; no outcome recorded.</p>
+      <div class="meta"><span class="chip hot">Before 25 Aug</span><span class="chip src">Acquisition plan</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> A6</span><div class="task">
+      <p><b>Get approval on Nityam's DRS-vs-launch-prep bandwidth split.</b> Without it, the levers slip by default.</p>
+      <div class="meta"><span class="chip hot">Before 25 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> A7</span><div class="task">
+      <p><b>Settle the deep-link root cause before anyone builds against it.</b> The 17 Aug review concluded <em>user permission blocks</em> (declining "open in app" in Chrome permanently kills the prompt on both OSes). The 18 Aug Slack thread concluded <em>the Customer.io click-tracker</em> breaks Universal/App Links. Different bugs, different fixes.</p>
+      <div class="meta"><span class="chip hot">Blocks Nityam</span><span class="chip dec">Conflict</span></div></div></li>
+  </ol>
+</section>
+
+<!-- ===================== B ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">B</span><h2>Activation — the new #1</h2><span class="sec-count">12 items</span></div>
+  <p class="sec-note">D1 retention is already 30–38% <em>with zero push notifications live</em>, which is at or above news-app benchmarks. The engine is dark, not broken.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> B1</span><div class="task">
+      <p><b>Propose how brief completion goes from ~20% to 40%.</b> Utkarsh's explicit ask, and the reason acquisition got demoted.</p>
+      <div class="meta"><span class="chip src">Weekly App Review 17 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B2</span><div class="task">
+      <p><b>Decide which completion number you're committing to.</b> Three exist: 20% (the call), 41% of brief-openers, 13% of installs (PostHog). Whichever you take to Utkarsh, pair it with the <b>7-second median duration</b> or you'll be committing to move a metric that measures flick-throughs.</p>
+      <div class="meta"><span class="chip dec">Decision</span><span class="chip src">PostHog review</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B3</span><div class="task">
+      <p><b>Adopt <code>completed_engaged</code> (duration ≥ 60s) as the reported north star</b> before the flattering number hardens into weekly scorecards. Keep the raw count as a diagnostic.</p>
+      <div class="meta"><span class="chip src">PostHog review</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B4</span><div class="task">
+      <p><b>Fix the cover cliff.</b> 99 users reached the brief cover, 41 walked through it. Cheapest tests: stronger CTA, or auto-advance into card 1.</p>
+      <div class="meta"><span class="chip src">PostHog review</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B5</span><div class="task">
+      <p><b>Ship the specced onboarding watchlist step.</b> It's in the spec, absent from the shipped flow — <code>onboarding.step_name</code> only shows role/sectors/topics. 98 opened the tab, 9 added anything.</p>
+      <div class="meta"><span class="chip src">PostHog review</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B6</span><div class="task">
+      <p><b>Find out why the Customer.io push layer is dark.</b> <code>push_delivered</code> has never fired; <code>push_opened</code> twice ever, both 10 Jul. 67% grant permission at onboarding and then receive nothing. Integration unfinished, or deliberately held?</p>
+      <div class="meta"><span class="chip hot">Highest impact</span><span class="chip src">PostHog review</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B7</span><div class="task">
+      <p><b>Guarantee the daily brief push — send it manually if the automation doesn't fire.</b> Utkarsh's standing instruction after it missed him on 12 Aug.</p>
+      <div class="meta"><span class="chip src">Product &amp; Data 12 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B8</span><div class="task">
+      <p><b>Run 1–2 manual breaking-story pushes a day</b>, sent universally rather than sector-targeted. Sync with Ashish on execution.</p>
+      <div class="meta"><span class="chip src">Product &amp; Data 12 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B9</span><div class="task">
+      <p><b>Overhaul the notification strategy</b> — new copy, new triggers, new content formats including breaking-news alerts. Current approach is failing to activate.</p>
+      <div class="meta"><span class="chip src">Weekly App Review 17 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B10</span><div class="task">
+      <p><b>Sector-based default brief images with Anmol — restart or formally drop.</b> You deprioritised this on 14 Aug ("not my primary concern"). It's still on Utkarsh's list from 12 Aug, so it needs a stated decision either way.</p>
+      <div class="meta"><span class="chip dec">Decision</span><span class="chip src">Product &amp; Data 12 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B11</span><div class="task">
+      <p><b>Define scoring/weighting for automated article pushes.</b> Parked on 12 Aug until "real users, ~a week out" — that week has passed and there are now 131.</p>
+      <div class="meta"><span class="chip src">Product &amp; Data 12 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> B12</span><div class="task">
+      <p><b>Re-read Explore-vs-Brief after the cover cliff is fixed.</b> 69% use Explore, 31% open a brief — the product thesis is currently inverted. If it holds with a working brief entry, that's a v1.1 strategy signal, not a bug.</p>
+      <div class="meta"><span class="chip src">PostHog review</span></div></div></li>
+  </ol>
+</section>
+
+<!-- ===================== C ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">C</span><h2>Acquisition &amp; launch</h2><span class="sec-count">18 items</span></div>
+  <p class="sec-note">Paid acquisition stays ruled out. Levers 3–5 are the strongest — biggest pool, intent-gated, no design dependency on Satya.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> C1</span><div class="task">
+      <p><b>Get the authoritative install number from Play Console + App Store Connect.</b> Four figures are circulating: 15, 37–38, 50, and 131 fresh installers. All your sizing anchors on this.</p>
+      <div class="meta"><span class="chip dec">Conflict</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C2</span><div class="task">
+      <p><b>Confirm whether App Store banner/description auto-fetch or need a build — then update them.</b></p>
+      <div class="meta"><span class="chip src">Weekly App Review 17 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C3</span><div class="task">
+      <p><b>Monitor Apple's review of the updated screenshots.</b> The live 1.0 listing still carries one iPhone screenshot; four are staged. Apple surfaces the first three in search — this is the highest-leverage conversion slot on the page.</p>
+      <div class="meta"><span class="chip blk">Waiting on Apple</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C4</span><div class="task">
+      <p><b>Lever 1 — website banner straight to Play Store + App Store.</b> Nityam already briefed. Confirm it's live to <em>all</em> visitors, not just logged-in.</p>
+      <div class="meta"><span class="chip src">Acquisition plan</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C5</span><div class="task">
+      <p><b>Lever 2 — email via Customer.io.</b> Note the ~1% open rate: 7,000 sends ≈ 70 opens. Size it honestly before counting on it.</p>
+      <div class="meta"><span class="chip src">Acquisition plan</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C6</span><div class="task">
+      <p><b>Lever 3 — "read on the go" prompt on Inc42 mobile web.</b> The biggest addressable pool by far.</p>
+      <div class="meta"><span class="chip src">Acquisition plan</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C7</span><div class="task">
+      <p><b>Lever 4 — fire only for repeat readers</b> (1+ / 2+ articles), never first-time visitors.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C8</span><div class="task">
+      <p><b>Lever 5 — fire at ~60–70% scroll depth.</b></p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C9</span><div class="task">
+      <p><b>Size the levers.</b> Needs mobile-web sessions/week × % reaching 2+ articles × % scrolling past 60% × prompt CTR × store conversion. Right now the plan has no numbers under it.</p>
+      <div class="meta"><span class="chip src">Your own gap list</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C10</span><div class="task">
+      <p><b>Define the go/no-go gate for 25 Aug and say the slip condition out loud.</b> Proposed: install threshold, ≥99% crash-free, zero blocking bugs, ≥4.0 rating with ≥10 ratings, iOS stable.</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C11</span><div class="task">
+      <p><b>Give every lever a distinct UTM / deep link, and verify deferred deep-linking</b> — tap from an article should land on that article in-app, not a cold home screen.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C12</span><div class="task">
+      <p><b>Set a frequency cap on the web prompts</b> — suggested once per user per 7 days. Web is the revenue surface; an aggressive interstitial costs viewability and bounce.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C13</span><div class="task">
+      <p><b>Seed ratings before public launch.</b> Play Store conversion is driven by rating count — ask the WhatsApp community for reviews now, not on 25 Aug.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C14</span><div class="task">
+      <p><b>Name an owner for the levers while Nityam is on DRS.</b> Currently unnamed, which means they slip by default.</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C15</span><div class="task">
+      <p><b>Use the D2C Summit itself as a channel.</b> Captive ICP audience; even a QR on stage slides is free acquisition.</p>
+      <div class="meta"><span class="chip hot">19 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C16</span><div class="task">
+      <p><b>Research international media-brand growth tactics; share with Animesh.</b> His steer: don't benchmark ET/HT/TOI, look at international media brands at similar scale. His framing to answer — "this is media, there's no technical USP to sell."</p>
+      <div class="meta"><span class="chip src">13 Aug call</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C17</span><div class="task">
+      <p><b>LinkedIn outreach to more senior Apple contacts.</b> Low expectations — your principal-engineer contact can't intervene without violating Apple policy.</p>
+      <div class="meta"><span class="chip src">11 Aug call</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> C18</span><div class="task">
+      <p><b>Collate the App Store hygiene list and share with Ritvik</b> — dev / store / blockers tabs; he works blockers only, ignoring anything Google-Play-specific.</p>
+      <div class="meta"><span class="chip src">11 Aug call</span></div></div></li>
+  </ol>
+</section>
+
+<!-- ===================== D ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">D</span><h2>Instrumentation &amp; data hygiene</h2><span class="sec-count">13 items</span></div>
+  <p class="sec-note">The event dictionary's own rule is "if an event isn't in this doc, it doesn't get instrumented." Reality has drifted in <em>both</em> directions.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> D1</span><div class="task">
+      <p><b><code>decode</code> has zero telemetry.</b> The AI explainer <em>is the positioning</em> — "AI that explains what it means for you". Establish whether it isn't in the shipped build, or shipped uninstrumented. If it shipped uninstrumented, this is the single biggest gap.</p>
+      <div class="meta"><span class="chip hot">#1 data gap</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D2</span><div class="task">
+      <p><b>The v1 monetization dataset is empty</b> — <code>interest_captured</code>, <code>locked_feature_tapped</code>, <code>watchlist_limit_hit</code> have never fired, against a spec that says "must be clean day 1". Gates not in the build, or silent?</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D3</span><div class="task">
+      <p><b>Resolve the auth anomaly: 110 sign-ins, 25 registers.</b> Either sign-in is effectively mandatory in the shipped flow (spec says optional) or <code>register</code> under-fires. This determines whether the anonymous-user architecture is even live.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D4</span><div class="task">
+      <p><b>Dedupe the untrack events.</b> <code>company_untracked</code> + <code>industry_untracked</code> duplicate <code>watchlist_entity_removed</code> — three events for one action.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D5</span><div class="task">
+      <p><b>Exclude <code>auth_callback</code> redirects from <code>deep_link_opened</code></b> at the client — 62 of ~150 users are pollution, plus a dev IP running inside production data.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D6</span><div class="task">
+      <p><b>Implement <code>brief_page_opened.is_edition_switch</code></b> — null on all 871 events.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D7</span><div class="task">
+      <p><b>Add an <code>is_internal</code> person property and an "Internal &amp; beta" cohort.</b> 34 pre-12-Aug people are mixed into every live number and there's currently no way to exclude the team.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D8</span><div class="task">
+      <p><b>Run a v1.5 reconciliation of the 47-event dictionary with engineering.</b> Off-spec events firing include <code>walkthrough</code> (104 users — the largest unspecced surface in the app), <code>brief_story_rated</code>, <code>share_initiated</code>, <code>app_installed</code>, and <code>brief_open_today</code> (dead since 13 Jul — remove).</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D9</span><div class="task">
+      <p><b>Retire dashboards 583341 / 892092 / 894281</b> — confirm with Utkarsh. The new North Star board (901039) is built and pinned.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D10</span><div class="task">
+      <p><b>Website events fixing</b> — the last open row in the events table of the unification memo.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D11</span><div class="task">
+      <p><b>Reconcile your proposed event names against the real taxonomy</b> in <code>Inc42 Website - Events &amp; Properties.xlsx</code>.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D12</span><div class="task">
+      <p><b>Search quality: 30% zero-result rate</b> (58 of 195 searches, 16 searchers). Low volume, high signal — reproduces the Task #17 concern in production.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> D13</span><div class="task">
+      <p><b>Errors concentrated on the most-used surface:</b> <code>load_failed</code> on Explore (7 users), <code>not_found</code> on company profiles (4).</p></div></li>
+  </ol>
+</section>
+
+<!-- ===================== E ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">E</span><h2>Dunning &amp; win-back</h2><span class="sec-count">2 items</span></div>
+  <p class="sec-note">Entirely new workstream, picked up 17 Aug and not in any earlier plan.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> E1</span><div class="task">
+      <p><b>Design the in-app dunning / win-back flow.</b> The instant win-back email on Razorpay's <code>token.cancelled</code> webhook is paused — your argument was that in-app nudges and offers beat email, because users are receptive while already in the product.</p>
+      <div class="meta"><span class="chip src">17 Aug impromptu</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> E2</span><div class="task">
+      <p><b>Consume Ashish's task map + draft offer flows</b> when they land, and turn them into the actual flow.</p>
+      <div class="meta"><span class="chip blk">Waiting on Ashish</span></div></div></li>
+  </ol>
+</section>
+
+<!-- ===================== F ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">F</span><h2>Hiring agent</h2><span class="sec-count">13 items</span></div>
+  <p class="sec-note">Product Trainee is <em>entirely gated on F1</em>. Cost so far is ₹0; a full run on 243 candidates is ~₹389 and needs your explicit go.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> F1</span><div class="task">
+      <p><b>Submit your 20 blind grades in the PT Calibration tab.</b> 20 stratified applicants, bands interleaved, agent columns held blank to protect the blind. This is the ground truth that's been missing across the whole project — FOA agreement went 1/11 → 7/11 <em>only</em> after calibration.</p>
+      <div class="meta"><span class="chip hot">Blocks everything</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F2</span><div class="task">
+      <p><b>Deploy the experience-computation fix.</b> Written with 10/10 tests, not shipped. Four failure paths across 382 candidates — 38 fall back to Keka's self-reported figure that includes internships; Trainee/Articleship/Summer Analyst titles never matched; overlapping roles summed instead of calendar-unioned; four auto-rejected on garbage totals (60.27y). The bug is in <code>Normalize Candidate Fields</code>, not the request builder.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F3</span><div class="task">
+      <p><b>Move the three hard-coded JS rules into per-role sheet config</b> — <code>countInternships</code>, <code>presentationMode</code>, <code>bucketWeights</code>, plus <code>hardRejects</code>, <code>typicalHikePercent</code>, <code>resultsTab</code>, <code>pilotCap</code>. One workflow, never cloned.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F4</span><div class="task">
+      <p><b>Move the Keka client secret, Keka API key and Anthropic key out of plaintext</b> in the <code>Workflow Config</code> node and into n8n credentials. Readable today by anyone with n8n access.</p>
+      <div class="meta"><span class="chip hot">Security</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F5</span><div class="task">
+      <p><b>Settle the misspelling rule.</b> Yash says hard negative; Shweta says a single awkward word is a remark. Calibration sided with Shweta — needs you to make it official.</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F6</span><div class="task">
+      <p><b>Confirm whether any background is a negative in itself</b> for the Product Trainee brief. Currently defaulting to "judge on evidence only".</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F7</span><div class="task">
+      <p><b>Chase Yash's consolidated JD feedback.</b> Promised for the night of 14 Aug — salary, years, all criteria in one pass. Blocks the FOA re-run and rollout beyond Founder's Office.</p>
+      <div class="meta"><span class="chip blk">Overdue, on Yash</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F8</span><div class="task">
+      <p><b>Correct three numbers you've quoted to Utkarsh:</b> hard filters reject <b>77%</b> not ~60% (only 22% reach the AI); <b>location rejects nobody</b> — it's ranking-only, since Keka captures no relocation field; tolerance is <b>20%</b>, not 30–40%.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F9</span><div class="task">
+      <p><b>Share the hiring report with Utkarsh</b> — resumes received, shortlisted, rejected.</p>
+      <div class="meta"><span class="chip src">Product &amp; Data 12 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F10</span><div class="task">
+      <p><b>Monitor and report agent cost to Utkarsh.</b> A per-resume cost column exists in the sheet for exactly this.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F11</span><div class="task">
+      <p><b>Discuss the hiring-agent proposal with Utkarsh.</b> It appears in the unification plan but was never discussed with him — he considers the hiring agent "done and dusted", so its presence in a roadmap needs framing.</p>
+      <div class="meta"><span class="chip src">17 Aug impromptu</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F12</span><div class="task">
+      <p><b>Hold the 15-min session with Ritvik on VM vs SaaS hosting, take the call, and inform Akash.</b> Your math: only 20–40% of applicants reach the AI, so a 24×7 VM likely costs more than the API spend it replaces. Ritvik's point: HR needs a UI, not a VM.</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> F13</span><div class="task">
+      <p><b>Confirm the second FOA batch (200 resumes) is actually closed out.</b> The 10 Aug plan was 100–150 → HR → then 200. FOA was declared complete on 14 Aug but the second batch was never confirmed.</p>
+      <div class="meta"><span class="chip dec">Verify</span></div></div></li>
+  </ol>
+</section>
+
+<!-- ===================== G ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">G</span><h2>AskInc42 &amp; knowledge repo</h2><span class="sec-count">10 items</span></div>
+  <p class="sec-note">Design is the standing blocker; the backend has been waiting on UI since 12 Aug.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> G1</span><div class="task">
+      <p><b>Insert the DataLabs tab at position 5 in the Google Doc</b> and re-transfer the three tabs whose sources changed — How to read this, Inc42, Decision log. <code>08_DataLabs.md</code> exists only on disk today.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G2</span><div class="task">
+      <p><b>Decide the single source of truth — Google Doc or the MD files.</b> Both copies are live and drifting. Recommendation on file: Doc wins, MD becomes a dated snapshot, ingestion exports from the Doc.</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G3</span><div class="task">
+      <p><b>Raise the v2 onboarding API need with Anmol.</b> v2 (3 stored questions) has been blocked on an API from him since 11 Aug — and it has never actually been raised with him.</p>
+      <div class="meta"><span class="chip hot">Never asked</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G4</span><div class="task">
+      <p><b>Unblock the four placement designs</b> — Utkarsh's instruction is to plan Satya's bandwidth <em>jointly with the design team</em>, merging their queue with product priorities, not assigning unilaterally.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G5</span><div class="task">
+      <p><b>Deploy Ask DataLabs fast mode + streaming, and put analytics inside the DataLabs workspace</b> (the separate analytics workspace was removed).</p>
+      <div class="meta"><span class="chip src">Product &amp; Data 12 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G6</span><div class="task">
+      <p><b>Get answers to the release brief's two open questions:</b> will the client implement <code>final</code>, and which webhook the live frontend calls after deploy — <code>master-agent-v1</code> or <code>master-agent-v2-stream</code>. The second decides when the fast lane actually reaches users.</p>
+      <div class="meta"><span class="chip dec">Blocks step 2</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G7</span><div class="task">
+      <p><b>Land the Agent V3 fix.</b> Backward compatible, forced by the 11 Dec gpt-5.4 deprecation. A client that finalises on the first <code>end</code> truncates answers to the first fragment.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G8</span><div class="task">
+      <p><b>Ensure every "Go deeper" click is logged.</b> Each one is a labelled routing error and the only telemetry that shows whether auto-routing under-selects depth.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G9</span><div class="task">
+      <p><b>Decide whether the cross-session cache leak is a reportable incident.</b> Follow-up fragments shared one global cache entry — a user asking for company financials could receive another user's answer. Fixed, but it was live in production.</p>
+      <div class="meta"><span class="chip dec">Decision</span><span class="chip hot">DPDP</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> G10</span><div class="task">
+      <p><b>Research what product types exist across Inc42 and Inc42 DataLabs</b>, plus each product's T&amp;Cs — the scoping pass for the knowledge repo.</p></div></li>
+  </ol>
+</section>
+
+<!-- ===================== H ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">H</span><h2>Strategy &amp; roadmap</h2><span class="sec-count">14 items</span></div>
+  <p class="sec-note">Everything here must be QIA-oriented and hypothesis-tagged. Utkarsh's four docs archived the old merged plan — <em>"the roadmap is re-derived from the vision and strategy."</em></p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> H1</span><div class="task">
+      <p><b>Draft the 1–2 month unification + agent-platform roadmap and review it with Utkarsh.</b> Committed 14 Aug for a Monday 17 Aug review — neither 17 Aug recording is that meeting, so confirm whether it happened.</p>
+      <div class="meta"><span class="chip hot">Possibly missed</span><span class="chip src">Product &amp; Data 14 Aug</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H2</span><div class="task">
+      <p><b>Sync with Utkarsh on the unification plan's scope.</b> It contains items — the hiring agent among them — that were never discussed with him.</p>
+      <div class="meta"><span class="chip src">17 Aug impromptu</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H3</span><div class="task">
+      <p><b>Confirm the deliverable format for "clubbing" your plan with his corpus</b> — one merged master doc, a roadmap doc referencing his strategy, or a multi-tab artifact. Also whether the Agent Platform is inside the club or a referenced parallel workstream. This initiative has already been rebuilt many times; don't assume.</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H4</span><div class="task">
+      <p><b>Re-derive the roadmap QIA-first</b> — every item tagged to a hypothesis (A1–A13) with a pre-registered bar, mechanisms treated as competing candidates rather than committed builds, rooms as the primary business, membership as a retention tool.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H5</span><div class="task">
+      <p><b>Merge Utkarsh's master context doc (last updated April 2026) with your knowledge doc</b>, add DataLabs context, share back.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H6</span><div class="task">
+      <p><b>Run manual context updates with Ashish for 1–2 weeks, log how often things change, then automate.</b> The agreed process, not a shortcut.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H7</span><div class="task">
+      <p><b>Share the daily/weekly cadence checklist with Utkarsh</b> (notifications, weekly brief, app knowledge updates) and hand it to Ashish to chunk into the vector DB.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H8</span><div class="task">
+      <p><b>Restore Ashish's edit access to the unification plan sheet.</b> Two-minute task, currently blocking him.</p>
+      <div class="meta"><span class="chip src">17 Aug impromptu</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H9</span><div class="task">
+      <p><b>Schedule the 30–60 minute internal alignment session on the unification plan.</b></p>
+      <div class="meta"><span class="chip src">11 Aug call</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H10</span><div class="task">
+      <p><b>Fold LLMs.txt / AEO into the roadmap</b>, then revisit properly after the D2C Summit alongside the new Inc42 messaging. Utkarsh raised this independently.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H11</span><div class="task">
+      <p><b>Ask Utkarsh what he actually wants from the market-maps links.</b> Build one off our data / evaluate the tool / competitive read / FYI — shared 17 Aug with no brief. Our edge is the DataLabs data, not a map builder.</p>
+      <div class="meta"><span class="chip dec">Intent unknown</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H12</span><div class="task">
+      <p><b>Re-measure scroll completion excluding paywalled short pages.</b> Any tiny scroll on a locked article registers as ~100% completion, so the 67% figure is contaminated — and Utkarsh separately flagged the scroll event's own parameters as inaccurate. §3 of the memo stays provisional until this runs.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H13</span><div class="task">
+      <p><b>Reconcile the DataLabs Pro-conversion conflict</b> — 25 people / 0.05% of Registered (funnel) vs 3–6% beating a 1.2–2.0% target (dashboard). Same PostHog project, wildly different implications. Don't quote either until both definitions are open side by side.</p>
+      <div class="meta"><span class="chip dec">Conflict</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> H14</span><div class="task">
+      <p><b>Reconcile Registered→Onboarding</b> — 57.9% / ~75% / a displayed 70.07% that matches neither.</p>
+      <div class="meta"><span class="chip dec">Conflict</span></div></div></li>
+  </ol>
+</section>
+
+<!-- ===================== I ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">I</span><h2>Ops, process &amp; hygiene</h2><span class="sec-count">11 items</span></div>
+  <p class="sec-note">Small individually. Collectively they're the reason you couldn't answer Utkarsh when he asked about the AskInc42 designs.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> I1</span><div class="task">
+      <p><b>Add your tasks to the Product Backlog project.</b> Ritvik's ask — it's the single view he uses to see team load and re-allocate bandwidth, and your tasks aren't in it at all. A task can live in its own project and the backlog simultaneously.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I2</span><div class="task">
+      <p><b>Explore Product Master / Product Backlog and propose how they're used together</b>, so unification work has a home and everything reaching Satya and the tech team sits in one place.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I3</span><div class="task">
+      <p><b>Post the post-standup priority summary in channel.</b> Utkarsh's explicit ask — he reviews it himself.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I4</span><div class="task">
+      <p><b>Post daily updates in Techwalla</b> — completed yesterday, working on today, including what you're doing with Utkarsh.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I5</span><div class="task">
+      <p><b>Write and share the user feedback-collection plan.</b></p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I6</span><div class="task">
+      <p><b>Finish the master recurring-audit checklist and share it.</b> Two parts: recurring tasks needing manual review (knowledge refresh cadence; whether new app functionality triggers a T&amp;C/privacy update), and audit processes with timing — page speed explicitly included.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I7</span><div class="task">
+      <p><b>Start direct user calls for qualitative feedback.</b> Utkarsh's process feedback: stop relying only on in-app and observational signals.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I8</span><div class="task">
+      <p><b>Rename the "Companies" tab to "Data Labs".</b> Users don't realise it's the DataLabs section.</p>
+      <div class="meta"><span class="chip src">17 Aug impromptu</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I9</span><div class="task">
+      <p><b>Adopt Major.Feature.Bugfix versioning</b> across app releases — agreed 17 Aug.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I10</span><div class="task">
+      <p><b>Fix the notification delay bug</b> — notifications show "today" for yesterday's activity.</p>
+      <div class="meta"><span class="chip src">17 Aug impromptu</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> I11</span><div class="task">
+      <p><b>Feed the release-notes agent once Ashish builds it</b>, and start maintaining release notes for every change.</p>
+      <div class="meta"><span class="chip blk">Waiting on Ashish</span></div></div></li>
+  </ol>
+</section>
+
+<!-- ===================== J ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">J</span><h2>Legal, privacy &amp; DPDP</h2><span class="sec-count">9 items</span></div>
+  <p class="sec-note">J1 is your first live erasure request in the wild — how you handle it sets the precedent for every one after it.</p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> J1</span><div class="task">
+      <p><b>Send Gokul's opt-out details to Ashish and notify on deletion.</b> Required: delete photo, work email and LinkedIn URL · add to suppression list · remove from the XML sitemap · the public profile page must return a real <b>404</b>, not an unpublished page. Data team deletes the DB entry, dev verifies the 404.</p>
+      <div class="meta"><span class="chip hot">Live request</span><span class="chip src">17 Aug impromptu</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> J2</span><div class="task">
+      <p><b>Establish the statutory DPDP minimum before going to Utkarsh.</b> Your deliberate hold — entering implementation without knowing what's mandatory vs. upsold means paying for optional controls.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> J3</span><div class="task">
+      <p><b>Push the vendor for a re-scoped plan.</b> ₹10L + GST covers phases; consent manager +₹2L; TPRM and security tooling a further ~₹15–20L "if identified" — realistically ~₹30L all-in, with a lock-in trap once the first ₹12L is paid.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> J4</span><div class="task">
+      <p><b>Resolve the vendor identity.</b> Notes name both KavachOne/Shivang and "Mitigator" — same engagement re-quoted, a second vendor, or a transcription slip?</p>
+      <div class="meta"><span class="chip dec">Conflict</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> J5</span><div class="task">
+      <p><b>Name the LLM sub-processor in Privacy §7.1/§8, get a DPA and zero-retention terms.</b> §5.1 already names Ask Mode, AI reports and company summaries as live features — with no AI processor disclosed anywhere. The hiring agent creates the same exposure again.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> J6</span><div class="task">
+      <p><b>Verify deletion actually cascades</b> from the app DB to BigQuery, Elasticsearch, Customer.io and HubSpot. If it doesn't, the published 7-day permanent-deletion promise isn't being met.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> J7</span><div class="task">
+      <p><b>T&amp;C §18(f) still says "within 30 days"</b> — must become the 7-day restore model to match Privacy §9.4.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> J8</span><div class="task">
+      <p><b>Replace the <code>[PUBLISH DATE]</code> placeholder</b> in both policy documents, and re-export — the PDF/DOCX builds are behind your own edits.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> J9</span><div class="task">
+      <p><b>Note the earlier binding deadline: consent management, 13 Nov 2026</b> — not May 2027. It's the date most people miss.</p></div></li>
+  </ol>
+</section>
+
+<!-- ===================== K ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">K</span><h2>Azure &amp; cost</h2><span class="sec-count">5 items</span></div>
+  <p class="sec-note">₹16.84L of credits left. At the normal burn that's ~11 Oct — <em>at last month's rate it's about one month.</em></p>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> K1</span><div class="task">
+      <p><b>Capture what Varun actually committed to, and by when.</b> The follow-up call happened on 14 Aug; the outcome was never recorded.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> K2</span><div class="task">
+      <p><b>Get the credit history from Ashish</b> — received last year, whether there was a POC, utilisation to date. Varun needs all three before he can move.</p>
+      <div class="meta"><span class="chip blk">Waiting on Ashish</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> K3</span><div class="task">
+      <p><b>Investigate the cost spike.</b> Last month's bill was ~$15,000 against a consistent ~₹8.5L — roughly double, cause unknown. If that rate holds, runway is one month, not two.</p>
+      <div class="meta"><span class="chip hot">Runway risk</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> K4</span><div class="task">
+      <p><b>Build the AI-led POC case to Microsoft and ask for the maximum, not the $50k gap.</b> Startup programs weight AI-heavy use cases; your previous company secured $200k on that pitch.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> K5</span><div class="task">
+      <p><b>Fast-track the credit add-on with Varun.</b> There was no POC on last year's $100k, so the extra headroom to the $150k ceiling isn't automatic — it needs a POC and a written case.</p></div></li>
+  </ol>
+</section>
+
+<!-- ===================== L ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">L</span><h2>QA backlog &amp; copy</h2><span class="sec-count">3 items</span></div>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> L1</span><div class="task">
+      <p><b>Close out the 20 UI/UX bugs shared with the team on 1 Aug.</b> None confirmed done. They span Welcome, onboarding, typography, Streak, Explore/Article, Companies in the News, Save Article, Featured Article, bottom nav, Brief header, Rate Up, guest users, the Company filter sheet and Sort By.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> L2</span><div class="task">
+      <p><b>The three follow-ups from that list, still unactioned:</b> tag inline-article-mention opens with a distinct source/campaign so they're separable in analytics · finalise the Articles/Companies pill order with Editorial · create a CRM doc listing all identified CRM use cases.</p></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> L3</span><div class="task">
+      <p><b>Pick the final card copy.</b> "✦ Read more (takes 30 seconds)" is contradictory and fights the anti-infinite-scroll positioning. Recommendation on file: <code>30-sec summary</code> for the block, <code>Read full story →</code> as the separate CTA.</p>
+      <div class="meta"><span class="chip dec">Decision</span></div></div></li>
+  </ol>
+</section>
+
+<!-- ===================== M ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">M</span><h2>Personal &amp; HR</h2><span class="sec-count">2 items</span></div>
+  <ol class="items">
+    <li><span class="id"><input type="checkbox" aria-label="done"> M1</span><div class="task">
+      <p><b>Raise the time-policy conflict with HR and Utkarsh, and request the leave-deduction reversal.</b> The rigid late-check-in deduction is incompatible with an expectation of working late.</p>
+      <div class="meta"><span class="chip src">17 Aug impromptu</span></div></div></li>
+    <li><span class="id"><input type="checkbox" aria-label="done"> M2</span><div class="task">
+      <p><b>Chase Utkarsh's approval of your WFH regularisation on Keka.</b> Assigned to him 12 Aug, no confirmation since.</p></div></li>
+  </ol>
+</section>
+
+<!-- ===================== waiting ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">›</span><h2>Not on you — who owes what</h2><span class="sec-count">9 people</span></div>
+  <p class="sec-note">Listed so you stop carrying them mentally. Only the red column needs chasing.</p>
+  <div class="scroller">
+  <table>
+    <thead><tr><th>Person</th><th>Owes</th><th>Blocks you?</th></tr></thead>
+    <tbody>
+      <tr><td>Yash</td><td>Consolidated JD feedback across all roles — salary, years, criteria in one pass. Promised the night of 14 Aug.</td><td class="blocks">Yes — FOA re-run</td></tr>
+      <tr><td>Satya</td><td>The four AskInc42 placement designs. Pulled onto the CTO Summit website rebuild; updates nothing in Asana.</td><td class="blocks">Yes — AskInc42 ship</td></tr>
+      <tr><td>Ashish</td><td>Dunning task map + draft win-back offer flows · Gokul 404 verification · release-notes agent · DataLabs SEO fixes · Azure credit history · infra cost optimisation</td><td class="blocks">Yes — E2, K2</td></tr>
+      <tr><td>Anmol</td><td>Ask DataLabs suggested-Q&amp;A storage API · cost optimisation this month · iOS/Android creatives from Animesh</td><td>Partly</td></tr>
+      <tr><td>Nityam</td><td>Deep-link re-prompt research · global availability country list · brief activation improvements · multi-topic brief push plan · push-notification trigger investigation</td><td>Partly</td></tr>
+      <tr><td>Ritvik</td><td>Ask DataLabs fast-mode redirect to Utkarsh's Claude flow · deep-mode error handling and timeouts · sync with Utkarsh on the Claude automation errors</td><td>No</td></tr>
+      <tr><td>Utkarsh</td><td>Product direction doc · updated master context doc · scheduling the Monday roadmap review · unblocking Satya's bandwidth · the FOA band confirmation with Yash · delete AI Workspace</td><td class="blocks">Yes — H1, F7</td></tr>
+      <tr><td>Animesh</td><td>Play-Store-first backup flow draft · 2× daily syncs</td><td>No</td></tr>
+      <tr><td>Prapti</td><td>Listicle images with Bhavika · card-vs-list A/B test doc · trend-based early-stage startups piece</td><td>No</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ===================== conflicts ===================== -->
+<section>
+  <div class="sec-head"><span class="sec-letter">!</span><h2>Facts that contradict themselves</h2><span class="sec-count">5 open</span></div>
+  <p class="sec-note">Each of these has been quoted to leadership in at least two different forms. Resolve before the next review, not during it.</p>
+  <ul class="conflicts">
+    <li><b>Deep-link root cause</b> — decides what Nityam builds.
+      <span class="vals">user permission block (17 Aug call)  ·  Customer.io click-tracker (18 Aug Slack)</span></li>
+    <li><b>Install count</b> — the whole sizing argument anchors on it.
+      <span class="vals">15 (you, 14 Aug)  ·  7–8 (Animesh)  ·  37–38 (you, 13 Aug)  ·  ~50 (to Utkarsh)  ·  131 fresh installers (PostHog)</span></li>
+    <li><b>Brief completion rate</b> — the metric you're now committing to move.
+      <span class="vals">~20% (17 Aug call)  ·  41% of brief-openers  ·  13% of installs  ·  median duration 7s</span></li>
+    <li><b>Founder's Office salary band</b> — don't touch the agent's cap until it's settled.
+      <span class="vals">10–12L (Yash via you)  ·  12–14L (Utkarsh)  ·  18L (Utkarsh's proposal, Yash: "not for this profile")  ·  agent runs 12L</span></li>
+    <li><b>DataLabs Pro conversion</b> — changes whether DataLabs reads as healthy or broken.
+      <span class="vals">0.05% of Registered (90-day funnel)  ·  3–6% against a 1.2–2.0% target (baseline dashboard)</span></li>
+  </ul>
+</section>
+
+<div class="colophon">
+  <p><b>What was swept:</b> 13 Fathom meetings from 25 Jul to 17 Aug (three were empty recordings with no summary or transcript: <code>171998592</code>, <code>171632227</code>, <code>171573975</code>) · Wispr Notetaker, 6 calls all dated 13 Aug, of which 2 were work and 4 personal · Wispr scratchpad, which is empty · the 17 Aug PostHog review · the four strategy docs plus the Agent Platform brief · every project note.</p>
+  <p><b>What this can't see:</b> nothing was recorded on 15, 16 or 18 August in either tool. Anything agreed in those three days — including today — is absent from this ledger. Slack threads are represented only where they were already written down.</p>
+  <p><b>Worth verifying rather than assuming closed:</b> the 27 Jul commitments (brief/PN title logic, seven sector-generic brief images, the 'Jun' capitalisation bug, removing "Sector focus" from the brief card, Pulse LLM filtering with rejection reasons) were never explicitly confirmed done in any later meeting.</p>
+</div>
+
+</div>
