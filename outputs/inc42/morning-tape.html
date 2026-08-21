@@ -1,0 +1,586 @@
+<title>Inc42 Morning Tape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;450;500;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap">
+
+<style>
+:root{
+  --ground:#F4F6F9;
+  --surface:#FFFFFF;
+  --surface-2:#EDF0F5;
+  --ink:#12161D;
+  --ink-2:#4C5666;
+  --ink-3:#7C879A;
+  --line:#DFE4EC;
+  --line-strong:#C6CEDA;
+  --accent:#1F4FD8;
+  --accent-soft:#E6ECFC;
+  --up:#0B7150;
+  --up-soft:#DFF1E9;
+  --down:#B93A22;
+  --down-soft:#FBE6E1;
+  --warn:#9C5D00;
+  --warn-soft:#FBEEDA;
+  --shadow:0 1px 2px rgba(18,22,29,.05), 0 8px 24px -16px rgba(18,22,29,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1015;
+    --surface:#151A22;
+    --surface-2:#1D2430;
+    --ink:#E7ECF4;
+    --ink-2:#A3AEBF;
+    --ink-3:#76828F;
+    --line:#242C39;
+    --line-strong:#333D4D;
+    --accent:#7FA0FF;
+    --accent-soft:#1B2540;
+    --up:#48C99A;
+    --up-soft:#122C25;
+    --down:#FF8B73;
+    --down-soft:#331A16;
+    --warn:#E5A94A;
+    --warn-soft:#2E2312;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1015;
+  --surface:#151A22;
+  --surface-2:#1D2430;
+  --ink:#E7ECF4;
+  --ink-2:#A3AEBF;
+  --ink-3:#76828F;
+  --line:#242C39;
+  --line-strong:#333D4D;
+  --accent:#7FA0FF;
+  --accent-soft:#1B2540;
+  --up:#48C99A;
+  --up-soft:#122C25;
+  --down:#FF8B73;
+  --down-soft:#331A16;
+  --warn:#E5A94A;
+  --warn-soft:#2E2312;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 72px}
+
+/* ---------- masthead ---------- */
+.mast{
+  border-bottom:2px solid var(--ink);
+  padding:34px 0 16px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px 28px;
+}
+.mast h1{
+  font-family:"IBM Plex Serif", Georgia, serif;
+  font-weight:700;
+  font-size:clamp(30px,4.6vw,44px);
+  letter-spacing:-.02em;
+  line-height:1;
+  margin:0;
+  text-wrap:balance;
+}
+.mast .sub{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:11.5px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  margin-top:9px;
+}
+.mast .stamp{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:12px;
+  color:var(--ink-2);
+  text-align:right;
+  line-height:1.7;
+  white-space:nowrap;
+}
+.mast .stamp b{color:var(--ink);font-weight:600}
+
+/* ---------- tape strip ---------- */
+.tape{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:8px;
+  overflow:hidden;
+  margin:22px 0 0;
+}
+.tape .cell{
+  background:var(--surface);
+  padding:16px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.tape .who{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+}
+.tape .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.tape .val{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:27px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+}
+.tape .unit{font-size:12px;color:var(--ink-3)}
+
+/* ---------- section headers ---------- */
+h2{
+  font-family:"IBM Plex Serif", Georgia, serif;
+  font-size:22px;font-weight:700;letter-spacing:-.015em;
+  margin:0;
+}
+.sec-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin:48px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line-strong);
+}
+.sec-head .note{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:11px;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase;
+}
+
+/* ---------- attention cards ---------- */
+.alerts{display:flex;flex-direction:column;gap:10px}
+.alert{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:4px solid var(--sev);
+  border-radius:7px;
+  padding:14px 18px;
+  box-shadow:var(--shadow);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:4px 20px;
+  align-items:start;
+}
+.alert.crit{--sev:var(--down)}
+.alert.warn{--sev:var(--warn)}
+.alert.info{--sev:var(--accent)}
+.alert .hd{font-weight:600;font-size:15px;letter-spacing:-.005em}
+.alert .bd{grid-column:1/2;color:var(--ink-2);font-size:13.5px;margin-top:2px}
+.alert .bd code{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;font-size:12px;
+  background:var(--surface-2);padding:1px 5px;border-radius:3px;color:var(--ink);
+}
+.sev-tag{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+  padding:3px 8px;border-radius:3px;white-space:nowrap;
+  color:var(--sev);background:var(--sev-bg);
+}
+.alert.crit .sev-tag{--sev-bg:var(--down-soft)}
+.alert.warn .sev-tag{--sev-bg:var(--warn-soft)}
+.alert.info .sev-tag{--sev-bg:var(--accent-soft)}
+
+/* ---------- kpi tiles ---------- */
+.tiles{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+  margin-bottom:16px;
+}
+.tile{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:15px 17px 13px;
+  box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:8px;
+}
+.tile .lbl{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+}
+.tile .big{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.tile .foot{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.spark{display:block;width:96px;height:28px;flex:none}
+
+/* ---------- delta chips ---------- */
+.d{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;
+  padding:2.5px 7px;border-radius:4px;white-space:nowrap;display:inline-block;
+}
+.d.good{color:var(--up);background:var(--up-soft)}
+.d.bad{color:var(--down);background:var(--down-soft)}
+.d.flat{color:var(--ink-2);background:var(--surface-2)}
+
+/* ---------- tables ---------- */
+.tbl-wrap{
+  overflow-x:auto;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{padding:9px 16px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+thead th{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;
+  background:var(--surface-2);
+  border-bottom:1px solid var(--line-strong);
+  position:sticky;top:0;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody td{font-size:13.5px}
+td.num{font-family:"IBM Plex Mono", ui-monospace, monospace;font-variant-numeric:tabular-nums;font-size:13px}
+td.metric{color:var(--ink);font-weight:450}
+td.prior{color:var(--ink-3)}
+tbody tr.hl td{background:var(--warn-soft)}
+tbody tr.hl td.metric{font-weight:600}
+
+/* ---------- prose ---------- */
+.prose{max-width:66ch;color:var(--ink-2);font-size:14px}
+.prose p{margin:10px 0}
+.prose strong{color:var(--ink);font-weight:600}
+.prose code{
+  font-family:"IBM Plex Mono", ui-monospace, monospace;font-size:12px;
+  background:var(--surface-2);padding:1px 5px;border-radius:3px;color:var(--ink);
+}
+ul.tight{margin:10px 0;padding-left:20px;color:var(--ink-2);font-size:14px;max-width:66ch}
+ul.tight li{margin:6px 0}
+ul.tight strong{color:var(--ink);font-weight:600}
+
+.foot-note{
+  margin-top:44px;padding-top:16px;border-top:1px solid var(--line);
+  font-family:"IBM Plex Mono", ui-monospace, monospace;
+  font-size:11px;line-height:1.9;color:var(--ink-3);
+}
+.foot-note a{color:var(--accent)}
+a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div>
+      <h1>Inc42 Morning Tape</h1>
+      <div class="sub">Web &middot; DataLabs &middot; App &mdash; one day, one week, one screen</div>
+    </div>
+    <div class="stamp">
+      Read on <b>Fri 21 Aug 2026</b><br>
+      Reporting day <b>Wed 20 Aug</b> (IST)<br>
+      Compared to <b>13&ndash;19 Aug daily avg</b>
+    </div>
+  </header>
+
+  <div class="tape">
+    <div class="cell">
+      <div class="who">inc42.com &mdash; visitors</div>
+      <div class="row"><span class="val">14,565</span><span class="d bad">&#9660; 13.4%</span></div>
+      <div class="unit">Softest day in two weeks</div>
+    </div>
+    <div class="cell">
+      <div class="who">DataLabs &mdash; visitors</div>
+      <div class="row"><span class="val">2,969</span><span class="d good">&#9650; 23.1%</span></div>
+      <div class="unit">Best day in two weeks</div>
+    </div>
+    <div class="cell">
+      <div class="who">App &mdash; daily active</div>
+      <div class="row"><span class="val">69</span><span class="d good">&#9650; 22.6%</span></div>
+      <div class="unit">1 in 9 hit an error</div>
+    </div>
+  </div>
+
+  <!-- ============ ATTENTION ============ -->
+  <div class="sec-head">
+    <h2>What needs attention</h2>
+    <span class="note">7 items &middot; ranked by cost</span>
+  </div>
+
+  <div class="alerts">
+
+    <div class="alert crit">
+      <div class="hd">Android app errors nearly tripled &mdash; 1 in 9 active users hit one</div>
+      <span class="sev-tag">Bug</span>
+      <div class="bd">28 <code>error_shown</code> events across 8 of 69 daily active users, against a 10/day baseline. <strong>27 of 28 were Android on v1.0.0</strong> &mdash; <code>load_failed</code> on the brief (15) and Explore (10), plus 2 on company profile. iOS, now on 1.0.1, threw exactly one. Android has never received a 1.0.1 build, so the fix that appears to have helped iOS has not shipped there.</div>
+    </div>
+
+    <div class="alert crit">
+      <div class="hd">A referral source that was sending up to 1,400 visitors/day went to zero</div>
+      <span class="sev-tag">Traffic</span>
+      <div class="bd"><code>news.squidapp.co</code> sent 448, 439 and 1,432 visitors on 13&ndash;15 Aug, then 10 on 18 Aug and <strong>nothing on 19 or 20 Aug</strong>. That gap alone accounts for most of yesterday's 13% visitor decline. Nobody appears to have noticed it stop &mdash; worth finding out whether it was their change or ours.</div>
+    </div>
+
+    <div class="alert warn">
+      <div class="hd">Pro payments are double-counted across two PostHog projects</div>
+      <span class="sev-tag">Data trust</span>
+      <div class="bd"><code>Payment Completed_Backend</code> lands in <em>both</em> the web project (53557) and DataLabs (66351), with byte-identical daily counts every day for the last eight. Adding the two projects' "Pro Payment" totals doubles revenue. <strong>Yesterday's real number is 6 buyers</strong>, not 37 + 7 = 44 events.</div>
+    </div>
+
+    <div class="alert warn">
+      <div class="hd">The frontend payment-success event misses two thirds of buyers</div>
+      <span class="sev-tag">Data trust</span>
+      <div class="bd">Yesterday: <code>Payment Completed</code> fired for 2 users, <code>Payment Completed_Backend</code> for 6. The pattern holds all week (13 vs 3 on 18 Aug). Anything measuring conversion off the frontend event is understating it. Until it's fixed, treat the backend stage as the only source of truth.</div>
+    </div>
+
+    <div class="alert warn">
+      <div class="hd">Newsletter signups fell to 12 &mdash; lowest in 15 days</div>
+      <span class="sev-tag">Watch</span>
+      <div class="bd">Against a 39/day average and a 15-day range of 17&ndash;52. Registrations (59) and logins (114) were both normal-to-good on the same day, so this is specific to the newsletter path rather than general traffic weakness. One day only &mdash; confirm today before acting.</div>
+    </div>
+
+    <div class="alert info">
+      <div class="hd">DataLabs <code>Limit Reached</code> has fired zero times in 15 days</div>
+      <span class="sev-tag">Hygiene</span>
+      <div class="bd">The event exists in the taxonomy and never fires. Either the usage limit it tracks is unreachable, or the instrumentation is broken. Meanwhile <code>Register Lock Interaction</code> fires ~150&times;/day, so gating itself is clearly working &mdash; it's this one event that's dark.</div>
+    </div>
+
+    <div class="alert info">
+      <div class="hd">Internal users are still not excluded from the web and app projects</div>
+      <span class="sev-tag">Hygiene</span>
+      <div class="bd">DataLabs filters test accounts by default; projects 53557 (web) and 146258 (app) do not. At 69 app DAU, the team's own usage is a material share of every app number on this page. Until that filter exists, read app figures as an upper bound.</div>
+    </div>
+
+  </div>
+
+  <!-- ============ WEB ============ -->
+  <div class="sec-head">
+    <h2>inc42.com</h2>
+    <span class="note">Project 53557 &middot; editorial web</span>
+  </div>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="lbl">Visitors</div>
+      <div class="big">14,565</div>
+      <div class="foot"><span class="d bad">&#9660; 13.4%</span><span class="spark" data-spark="14693,15334,17779,16956,16251,18240,18408,14565" data-dir="down"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Registrations</div>
+      <div class="big">59</div>
+      <div class="foot"><span class="d good">&#9650; 12.8%</span><span class="spark" data-spark="48,53,46,47,58,55,59,59" data-dir="up"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Identified share</div>
+      <div class="big">3.7%</div>
+      <div class="foot"><span class="d good">&#9650; 0.4pp</span><span class="spark" data-spark="3.76,3.69,2.41,2.22,3.96,3.66,3.50,3.74" data-dir="up"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Pro buyers</div>
+      <div class="big">6</div>
+      <div class="foot"><span class="d bad">&#9660; 15%</span><span class="spark" data-spark="5,6,8,5,6,13,7,6" data-dir="down"></span></div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Wed 20 Aug</th><th>7-day avg</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="metric">Visitors</td><td class="num">14,565</td><td class="num prior">16,809</td><td class="num"><span class="d bad">&#9660; 13.4%</span></td></tr>
+        <tr><td class="metric">Sessions</td><td class="num">15,916</td><td class="num prior">18,158</td><td class="num"><span class="d bad">&#9660; 12.3%</span></td></tr>
+        <tr><td class="metric">Pageviews</td><td class="num">20,546</td><td class="num prior">22,963</td><td class="num"><span class="d bad">&#9660; 10.5%</span></td></tr>
+        <tr><td class="metric">Identified visitors</td><td class="num">545</td><td class="num prior">551</td><td class="num"><span class="d flat">&#9642; 1%</span></td></tr>
+        <tr><td class="metric">Registrations</td><td class="num">59</td><td class="num prior">52</td><td class="num"><span class="d good">&#9650; 12.8%</span></td></tr>
+        <tr><td class="metric">Logins</td><td class="num">114</td><td class="num prior">113</td><td class="num"><span class="d flat">&#9642; 1%</span></td></tr>
+        <tr class="hl"><td class="metric">Newsletter subscribes</td><td class="num">12</td><td class="num prior">39</td><td class="num"><span class="d bad">&#9660; 69.5%</span></td></tr>
+        <tr><td class="metric">Freewall locks</td><td class="num">1,405</td><td class="num prior">1,343</td><td class="num"><span class="d flat">&#9650; 4.6%</span></td></tr>
+        <tr><td class="metric">Searches completed</td><td class="num">239</td><td class="num prior">269</td><td class="num"><span class="d bad">&#9660; 11.3%</span></td></tr>
+        <tr><td class="metric">Dead clicks</td><td class="num">2,909</td><td class="num prior">3,653</td><td class="num"><span class="d good">&#9660; 20.4%</span></td></tr>
+        <tr><td class="metric">Pro buyers (backend-confirmed)</td><td class="num">6</td><td class="num prior">7.1</td><td class="num"><span class="d bad">&#9660; 15%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ul class="tight">
+    <li><strong>Where the drop came from.</strong> Google (7,838, up from 6,720) and direct (6,454, up from 4,468) both grew. The decline is concentrated in the vanished squidapp referral, not in search or brand demand.</li>
+    <li><strong>Dead clicks worth a look.</strong> One article &mdash; <em>D2C brands disrupting India's consumer market</em> &mdash; produced 278 dead clicks from just 8 people, roughly 35 frustrated clicks each. Something on that page looks tappable and isn't. The <code>/contact/</code> page threw 71 from 11 people, which is worse because it's a conversion surface.</li>
+    <li><strong>Registrations held up</strong> at 59 on 13% less traffic, so per-visitor signup intent actually improved.</li>
+  </ul>
+
+  <!-- ============ DATALABS ============ -->
+  <div class="sec-head">
+    <h2>DataLabs</h2>
+    <span class="note">Project 66351 &middot; test accounts filtered</span>
+  </div>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="lbl">Visitors</div>
+      <div class="big">2,969</div>
+      <div class="foot"><span class="d good">&#9650; 23.1%</span><span class="spark" data-spark="2541,2410,1487,2064,2790,2774,2822,2969" data-dir="up"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Advanced filters</div>
+      <div class="big">538</div>
+      <div class="foot"><span class="d good">&#9650; 116%</span><span class="spark" data-spark="288,131,99,98,255,521,350,538" data-dir="up"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Agent queries</div>
+      <div class="big">47</div>
+      <div class="foot"><span class="d good">&#9650; 26%</span><span class="spark" data-spark="51,56,16,12,14,92,20,47" data-dir="up"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Registrations</div>
+      <div class="big">86</div>
+      <div class="foot"><span class="d flat">&#9650; 2%</span><span class="spark" data-spark="102,75,63,69,88,98,95,86" data-dir="flat"></span></div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Wed 20 Aug</th><th>7-day avg</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="metric">Visitors</td><td class="num">2,969</td><td class="num prior">2,413</td><td class="num"><span class="d good">&#9650; 23.1%</span></td></tr>
+        <tr><td class="metric">Sessions</td><td class="num">3,430</td><td class="num prior">2,768</td><td class="num"><span class="d good">&#9650; 23.9%</span></td></tr>
+        <tr><td class="metric">Pageviews</td><td class="num">7,181</td><td class="num prior">5,605</td><td class="num"><span class="d good">&#9650; 28.1%</span></td></tr>
+        <tr><td class="metric">Identified share</td><td class="num">6.1%</td><td class="num prior">6.4%</td><td class="num"><span class="d flat">&#9660; 0.3pp</span></td></tr>
+        <tr><td class="metric">Registrations</td><td class="num">86</td><td class="num prior">84</td><td class="num"><span class="d flat">&#9650; 2.0%</span></td></tr>
+        <tr><td class="metric">Logins</td><td class="num">212</td><td class="num prior">188</td><td class="num"><span class="d good">&#9650; 12.8%</span></td></tr>
+        <tr><td class="metric">Searches completed</td><td class="num">307</td><td class="num prior">241</td><td class="num"><span class="d good">&#9650; 27.3%</span></td></tr>
+        <tr><td class="metric">AI searches</td><td class="num">34</td><td class="num prior">25</td><td class="num"><span class="d good">&#9650; 37.6%</span></td></tr>
+        <tr><td class="metric">Agent queries</td><td class="num">47</td><td class="num prior">37</td><td class="num"><span class="d good">&#9650; 26.0%</span></td></tr>
+        <tr><td class="metric">Advanced filters applied</td><td class="num">538</td><td class="num prior">249</td><td class="num"><span class="d good">&#9650; 116%</span></td></tr>
+        <tr><td class="metric">Register-lock hits</td><td class="num">150</td><td class="num prior">148</td><td class="num"><span class="d flat">&#9650; 1.4%</span></td></tr>
+        <tr><td class="metric">Pro-lock hits</td><td class="num">27</td><td class="num prior">24</td><td class="num"><span class="d good">&#9650; 12.5%</span></td></tr>
+        <tr class="hl"><td class="metric">Exports</td><td class="num">2</td><td class="num prior">6.9</td><td class="num"><span class="d bad">&#9660; 71%</span></td></tr>
+        <tr><td class="metric">Pro buyers (backend-confirmed)</td><td class="num">6</td><td class="num prior">7.1</td><td class="num"><span class="d bad">&#9660; 15%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ul class="tight">
+    <li><strong>This was the deepest usage day of the fortnight, not just the biggest.</strong> Filters more than doubled and searches rose 27% while visitors rose 23% &mdash; so the extra people did <em>more</em> per head, they didn't just land and bounce.</li>
+    <li><strong>The funnel stayed still.</strong> 150 register-locks and 86 registrations, both flat, on 23% more traffic. The gate is converting a shrinking share of the people hitting it &mdash; the single clearest lever on this page.</li>
+    <li><strong>Exports are noisy.</strong> 2 yesterday against a 7-day average of 6.9, but the daily series runs 0, 1, 1, 2, 4, 9, 30. Too small to read as a trend; ignore until it's instrumented per-user.</li>
+  </ul>
+
+  <!-- ============ APP ============ -->
+  <div class="sec-head">
+    <h2>Inc42 App</h2>
+    <span class="note">Project 146258 &middot; internal users NOT excluded</span>
+  </div>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="lbl">Daily active users</div>
+      <div class="big">69</div>
+      <div class="foot"><span class="d good">&#9650; 22.6%</span><span class="spark" data-spark="55,41,44,39,81,70,64,69" data-dir="up"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Briefs completed</div>
+      <div class="big">20</div>
+      <div class="foot"><span class="d good">&#9650; 40%</span><span class="spark" data-spark="17,27,6,5,19,15,11,20" data-dir="up"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">New installs</div>
+      <div class="big">17</div>
+      <div class="foot"><span class="d bad">&#9660; 28.8%</span><span class="spark" data-spark="28,18,19,12,41,20,29,17" data-dir="down"></span></div>
+    </div>
+    <div class="tile">
+      <div class="lbl">Users hitting errors</div>
+      <div class="big">8</div>
+      <div class="foot"><span class="d bad">&#9650; 100%</span><span class="spark" data-spark="0,3,6,2,1,11,5,8" data-dir="down"></span></div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Wed 20 Aug</th><th>7-day avg</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="metric">Daily active users</td><td class="num">69</td><td class="num prior">56.3</td><td class="num"><span class="d good">&#9650; 22.6%</span></td></tr>
+        <tr><td class="metric">App opens</td><td class="num">96</td><td class="num prior">88.6</td><td class="num"><span class="d good">&#9650; 8.4%</span></td></tr>
+        <tr><td class="metric">New installs</td><td class="num">17</td><td class="num prior">23.9</td><td class="num"><span class="d bad">&#9660; 28.8%</span></td></tr>
+        <tr><td class="metric">Sign-ins completed</td><td class="num">38</td><td class="num prior">34.0</td><td class="num"><span class="d good">&#9650; 11.8%</span></td></tr>
+        <tr><td class="metric">Onboardings completed</td><td class="num">16</td><td class="num prior">20.6</td><td class="num"><span class="d bad">&#9660; 22.2%</span></td></tr>
+        <tr><td class="metric">Brief readers</td><td class="num">26</td><td class="num prior">19.7</td><td class="num"><span class="d good">&#9650; 31.9%</span></td></tr>
+        <tr><td class="metric">Briefs completed</td><td class="num">20</td><td class="num prior">14.3</td><td class="num"><span class="d good">&#9650; 40.0%</span></td></tr>
+        <tr><td class="metric">Article readers</td><td class="num">21</td><td class="num prior">19.4</td><td class="num"><span class="d good">&#9650; 8.1%</span></td></tr>
+        <tr><td class="metric">Articles opened</td><td class="num">54</td><td class="num prior">47.1</td><td class="num"><span class="d good">&#9650; 14.6%</span></td></tr>
+        <tr><td class="metric">Explore viewers</td><td class="num">41</td><td class="num prior">33.6</td><td class="num"><span class="d good">&#9650; 22.1%</span></td></tr>
+        <tr><td class="metric">Watchlist viewers</td><td class="num">26</td><td class="num prior">22.3</td><td class="num"><span class="d good">&#9650; 16.7%</span></td></tr>
+        <tr class="hl"><td class="metric">Error events shown</td><td class="num">28</td><td class="num prior">10.1</td><td class="num"><span class="d bad">&#9650; 177%</span></td></tr>
+        <tr class="hl"><td class="metric">Users who hit an error</td><td class="num">8</td><td class="num prior">4.0</td><td class="num"><span class="d bad">&#9650; 100%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ul class="tight">
+    <li><strong>Engagement is genuinely up, not just active users.</strong> Brief readers +32% and completions +40% both outran the +23% in DAU, so the people who showed up went deeper than usual.</li>
+    <li><strong>Installs fell while usage rose</strong> &mdash; 17 installs on a 24/day baseline. Yesterday's growth came from existing users returning, not from acquisition. With the public launch pencilled for 25&ndash;26 Aug, this is the number to watch daily.</li>
+    <li><strong>Onboarding completions (16) are running below sign-ins (38).</strong> That gap has been there all week and is worth a funnel pass separately &mdash; it is not a one-day artifact.</li>
+    <li><strong>Search is too small to read.</strong> 2 people searched yesterday. Earlier spikes (57 events on 16 Aug) came from 9 people, so the whole series is a handful of individuals. Don't treat it as a trend either way.</li>
+  </ul>
+
+  <!-- ============ METHOD ============ -->
+  <div class="sec-head">
+    <h2>How to read this</h2>
+    <span class="note">Method &amp; caveats</span>
+  </div>
+
+  <div class="prose">
+    <p><strong>Comparison basis.</strong> Every "change" column is yesterday against the mean of the seven days before it (13&ndash;19 Aug), not against the day before. Day-over-day on this data is mostly weekend noise &mdash; both Sat 15 and Sun 16 Aug run 30&ndash;40% below weekdays on all three properties.</p>
+    <p><strong>Days are IST.</strong> The app project stores in UTC, so its days are converted; web and DataLabs are already Asia/Kolkata. Today (21 Aug) is excluded everywhere &mdash; it is partial.</p>
+    <p><strong>Unique users are counted on <code>person_id</code></strong>, not <code>distinct_id</code>, so one person across devices counts once. Uniques don't sum across days, which is why weekly totals are deliberately absent from this page.</p>
+    <p><strong>Three numbers on this page should not be trusted yet</strong>, and they're flagged in the attention list: Pro payments are duplicated across two projects, the frontend payment-success event under-fires, and internal traffic is not filtered out of the web or app projects.</p>
+  </div>
+
+  <div class="foot-note">
+    Sources: PostHog EU &mdash; project 53557 (Inc42 Live), 66351 (DataLabs Live), 146258 (Inc42 App).<br>
+    Built 21 Aug 2026 from direct HogQL queries. Rebuild by re-running the same queries against the previous IST day.
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var W = 96, H = 28, P = 3;
+  document.querySelectorAll('.spark').forEach(function (el) {
+    var pts = el.dataset.spark.split(',').map(Number);
+    if (pts.length < 2) return;
+    var dir = el.dataset.dir || 'flat';
+    var stroke = dir === 'up' ? 'var(--up)' : dir === 'down' ? 'var(--down)' : 'var(--ink-3)';
+    var min = Math.min.apply(null, pts), max = Math.max.apply(null, pts);
+    var range = (max - min) || 1;
+    var x = function (i) { return P + i * (W - 2 * P) / (pts.length - 1); };
+    var y = function (v) { return H - P - ((v - min) / range) * (H - 2 * P); };
+    var line = pts.map(function (v, i) { return x(i).toFixed(1) + ',' + y(v).toFixed(1); }).join(' ');
+    var area = P + ',' + (H - P) + ' ' + line + ' ' + (W - P) + ',' + (H - P);
+    var lastX = x(pts.length - 1).toFixed(1), lastY = y(pts[pts.length - 1]).toFixed(1);
+    var uid = 'sg' + Math.random().toString(36).slice(2, 8);
+
+    el.innerHTML =
+      '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="8-day trend" focusable="false">' +
+        '<defs><linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="' + stroke + '" stop-opacity="0.22"/>' +
+          '<stop offset="100%" stop-color="' + stroke + '" stop-opacity="0"/>' +
+        '</linearGradient></defs>' +
+        '<line x1="0" y1="' + (H - P) + '" x2="' + W + '" y2="' + (H - P) + '" stroke="var(--line)" stroke-width="1"/>' +
+        '<polygon points="' + area + '" fill="url(#' + uid + ')"/>' +
+        '<polyline points="' + line + '" fill="none" stroke="' + stroke + '" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>' +
+        '<circle cx="' + lastX + '" cy="' + lastY + '" r="2.2" fill="' + stroke + '"/>' +
+      '</svg>';
+  });
+})();
+</script>
