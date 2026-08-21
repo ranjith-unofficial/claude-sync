@@ -13,7 +13,7 @@ Built a QIA-grounded weekly plan for Ranjith (Aug 2026). Artifact (updated in pl
 
 **Per-product activation (validated where possible)** — activation = earliest action that predicts return (FT RFV / NYT habit method):
 - **Website** = reads a **2nd article** (⚠ proposed, not measured — validate on proj 53557: 2nd article vs scroll≥70% vs newsletter).
-- **DataLabs** = **views a company profile** (✅ data-backed: `/company/` is the #1 surface, 1,777 users/9,134 views/30d; repeat-use by action: Adv Filter 53% · Saved Search 52% > Search 44%).
+- **DataLabs** = **an active query — search / applies a filter**. ⚠ SUPERSEDES the earlier "views a company profile" call: Ranjith locked company-view as the **SEO landing, NOT activation** (Aug 2026, unification roadmap Flag 2). The repeat-use data agreed all along (Adv Filter 53% · Saved Search 52% > Search 44% > passive `/company/` view). **Refined Aug 2026 to Inc42's own tracked north star: "Onboarded user who completed ≥2 search actions in the week (WAAU)" — baseline ~197 WAAU/week** (DataLabs Master Reporting Dashboard). WAAU is **weekly**; QIA is **rolling 30-day** — ~197 WAAU/week is NOT ~197 QIA-30; never equate them.
 - **App** = **completes a brief, engaged ≥60s** (not the 7s flick; 41% nominal completion but 7s median).
 
 **THE finding — the identification cliff** (PostHog, 30d, internal excluded; [[reference-inc42-posthog-projects]]):
@@ -28,3 +28,5 @@ Built a QIA-grounded weekly plan for Ranjith (Aug 2026). Artifact (updated in pl
 | Revenue | 186 | 278* | 464 |
 
 Both deliver value at scale then **identify almost no one** — the funnel collapses at identity, not activation. This is the one-number case for registration-gating (A2). *Unified = naïve sum (can't dedup cross-surface yet = the spine work). * DataLabs Revenue 278 > Identified 211 because payment events don't carry email (person-on-events) — the broken spine showing in data.
+
+**Three different "paying" numbers — do not sum or compare** (all three now appear in the same sheet): **83** = currently-active PAID subscriptions (Metorik, 17 Aug 2026; plus ~35 Pro trials/wk, ~18 payments/wk) · **278** = PostHog 30-day payment-*event* count (above) · **1,045** = lifetime Plus+Pro base (982 Plus + 63 Pro) used by the A1 migration probe. The 12× spread is definitional, not a data error.
