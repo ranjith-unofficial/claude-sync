@@ -71,7 +71,6 @@ Columns: **Month | Vertical | Funnel Stage | Feature | What we'll do | How we'll
 - Engagement | Engagement | WhatsApp community | Stand up a community channel | Ops | Engagement (The Ken, Tech in Asia have it) | Unification-tab + Competitor-gap
 - Engagement | Engagement | Reading progress bar · in-article TOC / navigation bar | Add progress + in-article nav | FE | Engagement (cheap edge — no rival has it) | Unification-tab + Competitor-gap
 - Engagement | Engagement | Audio content format | Narrated articles/newsletters | Content | Engagement (The Ken) | Unification-tab + Competitor-gap
-- Engagement | Engagement | Brief habit loop (app) | Tune the daily return loop | Product | Engagement | Strategy
 
 **MONTH 4 — ENGAGEMENT / RETENTION ("deepen & hold")**
 - Engagement | Engagement | Personalization v2 + community deepening | Iterate on the M2/M3 winners | Product | Engagement/Retention | Unification-tab
@@ -87,7 +86,7 @@ Columns: **Month | Vertical | Funnel Stage | Feature | What we'll do | How we'll
 | Gap (Inc42 ❌/⚠) | Vertical | Who has it | Plan slot |
 |---|---|---|---|
 | AI answer-engine visibility | Distribution | Crunchbase | M0→M1 llm.txt |
-| Search bar prominence | Engagement | Entrackr, Crunchbase, YourStory, Tech in Asia | M1–M2 |
+| Search bar prominence | Engagement | Entrackr, Crunchbase, YourStory, Tech in Asia | M0 (design) → M2 (live) |
 | Unified login | Sanity | Tracxn, Tech in Asia | M1 |
 | Cross-linking media↔data | Engagement | Crunchbase, DealStreetAsia, Tech in Asia | M2 |
 | Content personalization | Engagement | The Ken | M2 |
@@ -102,9 +101,8 @@ Columns: **Month | Vertical | Funnel Stage | Feature | What we'll do | How we'll
 ## DECISIONS / FLAGS (add as notes)
 1. Acquisition/Identification is its own weighted stage — 0.16–0.42% identified is the leak, not activation.
 2. DataLabs activation = search/filter (an active query), not company-view (that's the SEO landing).
-3. Brief fix = get past card 1 (only 45% advance) + stop dumping readers into the full-article one-way door (94% never return; median completion ~78s). The Brief redesign itself is NOT a row in this plan — it sits in Track D.
-4. Alerts stays in Track C (membership), by decision — it is not in the Inc42 Unification matrix. M4 ships the follow graph without it; that is deliberate.
-5. Unified Login creates a unified-DELETION obligation — the Delete-functionality flow in Track C must be scoped to the one account, not per-surface (DPDP).
+3. Alerts stays in Track C (membership), by decision — it is not in the Inc42 Unification matrix. M4 ships the follow graph without it; that is deliberate.
+4. Unified Login creates a unified-DELETION obligation — the Delete-functionality flow in Track C must be scoped to the one account, not per-surface (DPDP).
 
 ## RULES
 - Self-contained; don't invent owners/dates (leave blank).
@@ -128,10 +126,12 @@ Columns: **Month | Vertical | Funnel Stage | Feature | What we'll do | How we'll
 
 **C. Membership / offering & ops** (a separate product track):
 - Datalabs Weekly · Alerts · Deal Digest + report surfaces · rooms-as-membership · A1 migration probe · renewal motion + dunning · Hiring Agent · CRM use-case · Delete-functionality flow
+- **App-internal brief optimisation** — moved out of the unification plan by decision. App-internal engagement is not a cross-surface "one Inc42" feature; same logic that keeps Alerts out. The app's unification touchpoints (unified login on app, AskInc42 everywhere, cross-linking) stay in the plan; its internal optimisation does not.
+  - **Brief redesign** — get past card 1 (only 45% advance) and stop dumping readers into the full-article one-way door (94% never return; median completion ~78s, NOT 7s)
+  - **Brief habit loop** — tune the daily return loop
 
 **D. Parked — no home yet.** These fell out of the unification plan AND out of tracks A-C in the split. Park, don't delete — nothing is lost:
 - **Turn on Morning-Brief push** — 67% opt-in is already granted and push has never once fired. Cheapest engagement win on the board.
-- **Brief redesign** — fix card 1 (only 45% advance) and the full-article one-way door (94% never return; median completion ~78s)
 - **AskInc42 v2 — 3 stored onboarding Qs** · ⚠ needs an API from Anmol, not yet raised with him
 - Model training on app context
 - Lifecycle journeys groundwork (state-based journeys)
