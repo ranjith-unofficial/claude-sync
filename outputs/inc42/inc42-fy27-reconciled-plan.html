@@ -78,6 +78,12 @@
   th{font-size:12.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink3);font-weight:700;}
   td.k{font-weight:600;color:var(--ink);white-space:nowrap;}
   tr:last-child td{border-bottom:none;}
+  .stage table{margin-top:6px;}
+  .stage table td:first-child{font-weight:700;color:var(--ink);width:34%;}
+  .stage table td:last-child{color:var(--ink3);font-size:13.5px;white-space:nowrap;}
+  .stage table td{font-size:15px;padding:11px 14px 11px 0;}
+  .stage table th{padding:0 14px 8px 0;}
+  .stage table th:last-child,.stage table td:last-child{padding-right:0;}
 
   .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);line-height:1.6;}
   @media (max-width:560px){ h1{font-size:27px;} .month{grid-template-columns:1fr;gap:2px;} }
@@ -141,65 +147,83 @@
     <div class="stage">
       <h3>Foundation — the plumbing</h3>
       <p class="intro">Nothing above can be measured or scored until this is in place. It lands through September.</p>
-      <div class="feat"><span class="n">Identity spine.</span> <span class="d">One profile per person across web, DataLabs, email and app — a single Auth0 ID, the three PostHog projects and two Customer.io workspaces merged, and the 40,699 computed audience labels promoted. This is what makes QIA measurable and unification possible.</span><span class="m">With Prapti · lands September</span></div>
-      <div class="feat"><span class="n">QIA-30 &amp; engagement score.</span> <span class="d">Pull the real 30-day north star from the warehouse and build an engagement (recency-frequency-volume) score on real data.</span><span class="m">~20 September</span></div>
-      <div class="feat"><span class="n">Fix the instruments.</span> <span class="d">Restore scroll-depth and the register-lock event, dedupe duplicate people, and audit events across all surfaces so the trends stop lying.</span><span class="m">August</span></div>
-      <div class="feat"><span class="n">Define "One Inc42" in writing.</span> <span class="d">One login, one navigation, one value proposition — as a dated document, not a discussion. Product delivers unification once this exists.</span><span class="m">August · Utkarsh chairs, hands to you at delivery</span></div>
-      <div class="feat"><span class="n">Feature-flag framework.</span> <span class="d">Controlled rollouts, so we can run the gate test and other experiments safely.</span><span class="m">August</span></div>
-      <div class="feat"><span class="n">Agent platform.</span> <span class="d">The internal AI that runs the company — pilots in Slack now, adoption toward 20–30 users, cost-per-QIA tracked.</span><span class="m">With Prapti</span></div>
+      <div class="tbl"><table>
+        <tr><th>Feature</th><th>What it is</th><th>When / with</th></tr>
+        <tr><td>Identity spine</td><td>One profile per person across web, DataLabs, email and app — a single Auth0 ID, the three PostHog projects and two Customer.io workspaces merged, and the 40,699 computed audience labels promoted. Makes QIA measurable and unification possible.</td><td>Sep · Prapti</td></tr>
+        <tr><td>QIA-30 &amp; engagement score</td><td>Pull the real 30-day north star from the warehouse; build a recency-frequency-volume engagement score on real data.</td><td>~20 Sep</td></tr>
+        <tr><td>Fix the instruments</td><td>Restore scroll-depth and the register-lock event, dedupe duplicate people, and audit events across all surfaces so trends stop lying.</td><td>Aug</td></tr>
+        <tr><td>Define "One Inc42" in writing</td><td>One login, one navigation, one value proposition — a dated document, not a discussion. Product delivers unification once this exists.</td><td>Aug · Utkarsh chairs</td></tr>
+        <tr><td>Feature-flag framework</td><td>Controlled rollouts, so the gate test and other experiments run safely.</td><td>Aug</td></tr>
+        <tr><td>Agent platform</td><td>The internal AI that runs the company — Slack pilots now, adoption toward 20–30 users.</td><td>Prapti</td></tr>
+      </table></div>
     </div>
 
     <div class="stage">
       <h3>Acquisition — arrive, and get known at the door</h3>
       <p class="intro">This is the leak. Only <b>0.16–0.42%</b> of visitors are identified today, so this is the highest-leverage stage. Baseline: ~580 registrations a week.</p>
-      <div class="feat"><span class="n">Capture at app sign-in.</span> <span class="d">Ask seniority and company when someone signs in — not at signup, because three in four app users already have an account. This is the fastest way to learn who a person is.</span><span class="m">August</span></div>
-      <div class="feat"><span class="n">Web sign-up gate — a test.</span> <span class="d">An onsite freewall and newsletter lock. This is a test, not a committed build: you decide in October whether it wins more identity than the traffic it costs.</span><span class="m">Test in September → your decision in October</span></div>
-      <div class="feat"><span class="n">One onboarding pattern.</span> <span class="d">The same role and sector ask across all three surfaces, captured once and reused.</span></div>
-      <div class="feat"><span class="n">Newsletter signup as capture.</span> <span class="d">Treat the newsletter as a shared identity-capture point — the strongest habit anchor in media.</span></div>
-      <div class="feat"><span class="n">WhatsApp number.</span> <span class="d">Ask for a WhatsApp number as a reachable contact, feeding lifecycle messaging and community.</span></div>
-      <div class="feat"><span class="n">Unified login.</span> <span class="d">One account across media and data — part of unification.</span></div>
+      <div class="tbl"><table>
+        <tr><th>Feature</th><th>What it is</th><th>When</th></tr>
+        <tr><td>Capture at app sign-in</td><td>Ask seniority and company at sign-in — not signup, because three in four app users already have an account. The fastest way to learn who a person is.</td><td>Aug</td></tr>
+        <tr><td>Web sign-up gate — a test</td><td>An onsite freewall and newsletter lock. A test, not a committed build: you decide whether it wins more identity than the traffic it costs.</td><td>Test Sep → decide Oct</td></tr>
+        <tr><td>One onboarding pattern</td><td>The same role and sector ask across all three surfaces, captured once and reused.</td><td>—</td></tr>
+        <tr><td>Newsletter signup as capture</td><td>The newsletter as a shared identity-capture point — the strongest habit anchor in media.</td><td>—</td></tr>
+        <tr><td>WhatsApp number</td><td>Ask for a WhatsApp number as a reachable contact — feeds lifecycle messaging and community.</td><td>—</td></tr>
+        <tr><td>Unified login</td><td>One account across media and data — part of unification.</td><td>—</td></tr>
+      </table></div>
     </div>
 
     <div class="stage">
       <h3>Activation — first real value, per surface</h3>
       <p class="intro">Activation is defined by the surface: on the <b>website</b> it's reading a second article; on <b>DataLabs</b> it's two searches in a week (~197 people/week); in the <b>app</b> it's completing a brief for real (≥60 seconds).</p>
-      <div class="feat"><span class="n">AskInc42, everywhere.</span> <span class="d">The assistant — prominent on DataLabs, live in the app, and decided and built for Inc42.com.</span><span class="m">With Ashish · streaming &amp; in-app already shipped</span></div>
-      <div class="feat"><span class="n">Cross-linking, media ↔ data.</span> <span class="d">Link articles to company and entity pages and back, so the reading path leads somewhere instead of ending.</span></div>
-      <div class="feat"><span class="n">Living company pages &amp; in-body entity cards.</span> <span class="d">A company card inside the reading path; profiles that lead onward rather than dead-ending.</span></div>
-      <div class="feat"><span class="n">Unified, visible search.</span> <span class="d">One search across surfaces, made actually visible — today it's buried.</span></div>
-      <div class="feat"><span class="n">Content personalization.</span> <span class="d">Recommend content per reader.</span></div>
-      <div class="feat"><span class="n">Brief redesign.</span> <span class="d">Fix the first-card drop-off (only 45% advance) and stop dumping readers into the full-article dead end.</span></div>
-      <div class="feat"><span class="n">Card redesign.</span> <span class="d">A premium refresh of the company and article cards.</span></div>
-      <div class="feat"><span class="n">AskInc42 v2.</span> <span class="d">Three stored onboarding questions to personalize answers.</span><span class="m">Blocked on an API from Anmol</span></div>
-      <div class="feat"><span class="n">Model training.</span> <span class="d">Tune the model to app workflows for better, more relevant answers.</span></div>
-      <div class="feat"><span class="n">Unification plan shipped.</span> <span class="d">One design for messaging, navigation, onboarding and lifecycle across all three surfaces; delivery phased after.</span><span class="m">September</span></div>
+      <div class="tbl"><table>
+        <tr><th>Feature</th><th>What it is</th><th>When / with</th></tr>
+        <tr><td>AskInc42, everywhere</td><td>The assistant — prominent on DataLabs, live in the app, and decided and built for Inc42.com.</td><td>Ashish · shipping</td></tr>
+        <tr><td>Cross-linking, media ↔ data</td><td>Link articles to company and entity pages and back, so the reading path leads somewhere instead of ending.</td><td>—</td></tr>
+        <tr><td>Living company pages &amp; entity cards</td><td>A company card inside the reading path; profiles that lead onward rather than dead-ending.</td><td>—</td></tr>
+        <tr><td>Unified, visible search</td><td>One search across surfaces, made actually visible — today it's buried.</td><td>—</td></tr>
+        <tr><td>Content personalization</td><td>Recommend content per reader.</td><td>—</td></tr>
+        <tr><td>Brief redesign</td><td>Fix the first-card drop-off (only 45% advance) and stop dumping readers into the full-article dead end.</td><td>—</td></tr>
+        <tr><td>Card redesign</td><td>A premium refresh of the company and article cards.</td><td>—</td></tr>
+        <tr><td>AskInc42 v2</td><td>Three stored onboarding questions to personalize answers.</td><td>Blocked · Anmol API</td></tr>
+        <tr><td>Model training</td><td>Tune the model to app workflows for better, more relevant answers.</td><td>—</td></tr>
+        <tr><td>Unification plan shipped</td><td>One design for messaging, navigation, onboarding and lifecycle across all three surfaces; delivery phased after.</td><td>Sep</td></tr>
+      </table></div>
     </div>
 
     <div class="stage">
       <h3>Engagement — form a habit, reach a second surface</h3>
       <p class="intro">This is the heart of your remit. Candidate features compete on <b>one metric — 30-day return</b>. You run it, Utkarsh scores it: named in August, <b>first scoring in October</b>, winners get investment in November, and the winners become the membership's entitlements in December.</p>
-      <div class="feat"><span class="n">Morning &amp; Breaking push.</span> <span class="d">The daily notification cadence — 67% of users have opted in, but push has never actually fired.</span></div>
-      <div class="feat"><span class="n">Brief-card share.</span> <span class="d">A share on each brief card that pops the card out as an image — the way a UPI app throws a shareable payment-success screenshot. Every card becomes shareable, which also feeds Referral.</span><span class="m">Needs a Share event to measure</span></div>
-      <div class="feat"><span class="n">DataLabs Weekly &amp; Pulse.</span> <span class="d">Named candidate newsletters and briefings.</span></div>
-      <div class="feat"><span class="n">Alerts, community, report surfaces.</span> <span class="d">Scoped in September, then they compete on 30-day return.</span></div>
-      <div class="feat"><span class="n">Lifecycle journeys.</span> <span class="d">Ship for DataLabs and the app separately first; unification folds them into one design later, by design.</span></div>
-      <div class="feat"><span class="n">Ask on all three surfaces.</span> <span class="d">Usage and answer quality measured.</span></div>
+      <div class="tbl"><table>
+        <tr><th>Feature</th><th>What it is</th><th>When</th></tr>
+        <tr><td>Morning &amp; Breaking push</td><td>The daily notification cadence — 67% of users have opted in, but push has never actually fired.</td><td>Aug</td></tr>
+        <tr><td>Brief-card share</td><td>A share on each brief card that pops it out as an image — the way a UPI app throws a shareable payment-success screenshot. Every card becomes shareable, which also feeds Referral.</td><td>Needs a Share event</td></tr>
+        <tr><td>DataLabs Weekly &amp; Pulse</td><td>Named candidate newsletters and briefings.</td><td>scoped Sep</td></tr>
+        <tr><td>Alerts, community, report surfaces</td><td>Scoped in September, then they compete on 30-day return.</td><td>Sep</td></tr>
+        <tr><td>Lifecycle journeys</td><td>Ship for DataLabs and the app separately first; unified into one design later, by design.</td><td>Aug→Sep</td></tr>
+        <tr><td>Ask on all three surfaces</td><td>Usage and answer quality measured.</td><td>Oct</td></tr>
+      </table></div>
     </div>
 
     <div class="stage">
       <h3>Retention — still here months later</h3>
       <p class="intro">Baseline: 15% auto-renew today, and 93,000 dormant-but-reachable people to win back.</p>
-      <div class="feat"><span class="n">Payment retries &amp; dunning.</span> <span class="d">Recover failed payments.</span></div>
-      <div class="feat"><span class="n">DataLabs renewal &amp; Plus.</span> <span class="d">The renewal motion, and the calls on new and existing memberships.</span></div>
-      <div class="feat"><span class="n">Reactivation &amp; win-backs.</span> <span class="d">Sequences to the 93K dormant pool and win-backs on engagement segments. Campaigns run with Animesh; product provides the segments and in-product triggers.</span></div>
+      <div class="tbl"><table>
+        <tr><th>Feature</th><th>What it is</th><th>When</th></tr>
+        <tr><td>Payment retries &amp; dunning</td><td>Recover failed payments.</td><td>Aug</td></tr>
+        <tr><td>DataLabs renewal &amp; Plus</td><td>The renewal motion, and the calls on new and existing memberships.</td><td>Sep</td></tr>
+        <tr><td>Reactivation &amp; win-backs</td><td>Sequences to the 93K dormant pool and win-backs on engagement segments. Campaigns run with Animesh; product provides the segments and in-product triggers.</td><td>Sep→Oct</td></tr>
+      </table></div>
     </div>
 
     <div class="stage">
       <h3>Revenue — learn what they'll pay for, before building</h3>
       <p class="intro">Baseline: 83 active paying subscriptions.</p>
-      <div class="feat"><span class="n">A1 price probe.</span> <span class="d">An offer to existing subscribers — it needs nothing built and earns while it runs. Read it in September.</span><span class="m">With Utkarsh</span></div>
-      <div class="feat"><span class="n">Shape the offering.</span> <span class="d">From what engaged people actually use → define the membership (December) → design the pilot (January).</span></div>
-      <div class="feat"><span class="n">Unified pricing &amp; entitlements.</span> <span class="d">One price across media and data; map the free / T1 / T2 fences.</span></div>
+      <div class="tbl"><table>
+        <tr><th>Feature</th><th>What it is</th><th>When / with</th></tr>
+        <tr><td>A1 price probe</td><td>An offer to existing subscribers — needs nothing built and earns while it runs. Read it in September.</td><td>Sep · Utkarsh</td></tr>
+        <tr><td>Shape the offering</td><td>From what engaged people actually use → define the membership (Dec) → design the pilot (Jan).</td><td>Nov→Jan</td></tr>
+        <tr><td>Unified pricing &amp; entitlements</td><td>One price across media and data; map the free / T1 / T2 fences.</td><td>—</td></tr>
+      </table></div>
     </div>
 
     <div class="stage">
