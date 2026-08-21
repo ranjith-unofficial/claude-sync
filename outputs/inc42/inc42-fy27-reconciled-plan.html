@@ -1,317 +1,244 @@
-<title>One INC42 — Combined FY27 Plan</title>
+<title>One INC42 — Product Plan</title>
 <style>
   :root{
-    --paper:#f4f2ec; --card:#ffffff; --ink:#141118; --ink2:#565263; --ink3:#87829a;
-    --line:#e4e0d6; --line2:#efece3;
-    --violet:#5b40d6; --violet-bg:#efeafd; --violet-soft:#cfc2f4;
-    --blue:#2560b0; --blue-bg:#e7f0fb; --blue-soft:#bcd3f0;
-    --green:#2e7d55; --green-bg:#e4f1ea; --green-soft:#bcdcc8;
-    --amber:#a8791f; --amber-bg:#f6edd6;
-    --red:#b23a2e; --red-bg:#f6e3df;
-    --grey:#6a6656; --grey-bg:#ece9e0;
-    --panel:#151119;
+    --paper:#faf8f3; --ink:#242028; --ink2:#5d5866; --ink3:#8b8794;
+    --line:#e7e2d8; --line2:#efeae0;
+    --accent:#4a4da0; --accent-soft:#e9e8f4;
+    --card:#ffffff; --note:#f3f0e8;
   }
   @media (prefers-color-scheme:dark){:root{
-    --paper:#121016; --card:#1b1922; --ink:#f0eee9; --ink2:#a7a2b4; --ink3:#7d7890;
-    --line:#2b2833; --line2:#232029;
-    --violet:#a48ff5; --violet-bg:#241d3d; --violet-soft:#3c3167;
-    --blue:#7ea6df; --blue-bg:#182338; --blue-soft:#2c3f5e;
-    --green:#7cc5a0; --green-bg:#16291f; --green-soft:#2b4636;
-    --amber:#d6ab5f; --amber-bg:#2c2413;
-    --red:#e08a7d; --red-bg:#361f1c;
-    --grey:#9a9686; --grey-bg:#24221b;
-    --panel:#0c0a10;
+    --paper:#15141a; --ink:#eceae4; --ink2:#a8a3b0; --ink3:#7c7787;
+    --line:#2a2833; --line2:#221f29;
+    --accent:#9a9ce8; --accent-soft:#232241;
+    --card:#1c1a22; --note:#201e28;
   }}
   :root[data-theme="dark"]{
-    --paper:#121016; --card:#1b1922; --ink:#f0eee9; --ink2:#a7a2b4; --ink3:#7d7890;
-    --line:#2b2833; --line2:#232029;
-    --violet:#a48ff5; --violet-bg:#241d3d; --violet-soft:#3c3167;
-    --blue:#7ea6df; --blue-bg:#182338; --blue-soft:#2c3f5e;
-    --green:#7cc5a0; --green-bg:#16291f; --green-soft:#2b4636;
-    --amber:#d6ab5f; --amber-bg:#2c2413;
-    --red:#e08a7d; --red-bg:#361f1c;
-    --grey:#9a9686; --grey-bg:#24221b;
-    --panel:#0c0a10;
+    --paper:#15141a; --ink:#eceae4; --ink2:#a8a3b0; --ink3:#7c7787;
+    --line:#2a2833; --line2:#221f29;
+    --accent:#9a9ce8; --accent-soft:#232241;
+    --card:#1c1a22; --note:#201e28;
   }
   :root[data-theme="light"]{
-    --paper:#f4f2ec; --card:#ffffff; --ink:#141118; --ink2:#565263; --ink3:#87829a;
-    --line:#e4e0d6; --line2:#efece3;
-    --violet:#5b40d6; --violet-bg:#efeafd; --violet-soft:#cfc2f4;
-    --blue:#2560b0; --blue-bg:#e7f0fb; --blue-soft:#bcd3f0;
-    --green:#2e7d55; --green-bg:#e4f1ea; --green-soft:#bcdcc8;
-    --amber:#a8791f; --amber-bg:#f6edd6;
-    --red:#b23a2e; --red-bg:#f6e3df;
-    --grey:#6a6656; --grey-bg:#ece9e0;
-    --panel:#151119;
+    --paper:#faf8f3; --ink:#242028; --ink2:#5d5866; --ink3:#8b8794;
+    --line:#e7e2d8; --line2:#efeae0;
+    --accent:#4a4da0; --accent-soft:#e9e8f4;
+    --card:#ffffff; --note:#f3f0e8;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:1120px;margin:0 auto;padding:40px 26px 90px;}
-  h1,h2,h3,h4{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-weight:600;color:var(--ink);text-wrap:balance;margin:0;}
-  .mono{font-variant-numeric:tabular-nums;}
-  .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:0.13em;color:var(--ink2);display:flex;gap:14px;flex-wrap:wrap;}
-  .eyebrow b{color:var(--ink);}
-  h1.title{font-size:31px;line-height:1.12;margin:12px 0 8px;letter-spacing:-0.01em;}
-  .sub{color:var(--ink2);font-size:15px;max-width:74ch;margin:0;}
-  .head{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:26px;}
-  .lock{display:inline-block;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;font-weight:800;color:var(--amber);border:1px solid var(--amber);border-radius:5px;padding:2px 8px;}
+    font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:720px;margin:0 auto;padding:52px 24px 100px;}
+  h1,h2,h3{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;font-weight:600;color:var(--ink);text-wrap:balance;}
+  a{color:var(--accent);}
 
-  section{margin-bottom:40px;}
-  .lbl{display:flex;align-items:baseline;gap:11px;margin-bottom:14px;}
-  .lbl .k{font-family:"Iowan Old Style",serif;font-size:12px;color:var(--violet);border:1px solid var(--violet);width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;flex-shrink:0;}
-  .lbl h2{font-size:20px;} .lbl .note{font-size:12.5px;color:var(--ink2);margin-left:auto;font-style:italic;}
+  .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink3);font-weight:700;}
+  h1{font-size:33px;line-height:1.15;margin:14px 0 14px;letter-spacing:-0.01em;}
+  .lede{color:var(--ink2);font-size:17px;margin:0 0 6px;}
+  .head{padding-bottom:30px;margin-bottom:20px;border-bottom:1px solid var(--line);}
 
-  .tbl-wrap{overflow-x:auto;margin:10px 0;}
-  table{width:100%;border-collapse:collapse;font-size:12.5px;}
-  th,td{text-align:left;padding:7px 11px;border-bottom:1px solid var(--line2);vertical-align:top;}
-  th{font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink3);font-weight:700;border-bottom:1px solid var(--ink2);}
-  tr:last-child td{border-bottom:none;} td.k{font-weight:700;color:var(--ink);}
-  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
-  td.hi{color:var(--violet);font-weight:800;} tr.cliff td{background:var(--red-bg);} tr.cliff td.k{color:var(--red);}
-  td.srv{color:var(--ink2);white-space:nowrap;} td.bl{color:var(--ink);font-variant-numeric:tabular-nums;} td.bl .t{color:var(--ink3);}
-  .flag{color:var(--red);font-weight:700;}
-  .eg td.eng{font-weight:800;color:var(--violet);white-space:nowrap;} .eg td.own{color:var(--ink2);}
+  section{margin:46px 0;}
+  h2{font-size:22px;margin:0 0 6px;}
+  .sec-note{color:var(--ink3);font-size:14.5px;margin:0 0 20px;}
+  h2 + .sec-note{margin-top:2px;}
 
-  /* funnel-stage cards */
-  .fs{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:13px;overflow:hidden;}
-  .fs .cap{height:5px;}
-  .fs.awr .cap{background:var(--blue);} .fs.acq .cap{background:var(--red);} .fs.act .cap{background:var(--green);}
-  .fs.eng .cap{background:var(--violet);} .fs.ret .cap{background:var(--amber);} .fs.rev .cap{background:var(--amber);}
-  .fs.ref .cap{background:var(--grey);} .fs.fnd .cap{background:var(--grey);}
-  .fsh{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:11px 16px 4px;}
-  .fsh h3{font-size:16px;} .fsh .stg{font-size:10px;text-transform:uppercase;letter-spacing:0.06em;font-weight:800;}
-  .fs.awr .stg{color:var(--blue);} .fs.acq .stg{color:var(--red);} .fs.act .stg{color:var(--green);} .fs.eng .stg{color:var(--violet);} .fs.ret .stg,.fs.rev .stg{color:var(--amber);} .fs.fnd .stg,.fs.ref .stg{color:var(--grey);}
-  .fsh .one{font-size:12.5px;color:var(--ink2);font-style:italic;flex-basis:100%;}
-  .fs table{min-width:640px;}
+  /* readable stage blocks */
+  .stage{margin:34px 0;padding-left:18px;border-left:2px solid var(--accent-soft);}
+  .stage h3{font-size:19px;margin:0 0 3px;}
+  .stage .intro{color:var(--ink2);font-size:15.5px;margin:0 0 16px;}
+  .stage .intro b{color:var(--ink);}
 
-  /* spine mapping */
-  .spine-tbl td.stg{font-weight:800;} .spine-tbl td.map{color:var(--ink2);white-space:nowrap;}
+  .feat{margin:0 0 15px;}
+  .feat .n{font-weight:700;color:var(--ink);}
+  .feat .d{color:var(--ink2);}
+  .feat .m{display:block;color:var(--ink3);font-size:13.5px;margin-top:2px;}
 
-  .rec table{min-width:640px;} .rec td.was{color:var(--ink2);} .rec td.now{color:var(--ink);font-weight:600;}
-  .tl{overflow-x:auto;} .tl table{min-width:900px;font-size:11.5px;} .tl th.mo{text-align:center;}
-  .tl td.trkn{font-weight:700;color:var(--ink);white-space:nowrap;} .tl td.c{vertical-align:top;} .tl .dot{color:var(--green);font-weight:800;} .tl .di{color:var(--ink3);} .tl td.hot{background:var(--amber-bg);}
-  .foot{border-top:1px solid var(--line);margin-top:30px;padding-top:16px;font-size:11.5px;color:var(--ink3);} .foot b{color:var(--ink2);}
-  @media (max-width:720px){ h1.title{font-size:24px;} }
+  /* callout */
+  .call{background:var(--note);border-radius:12px;padding:18px 22px;margin:18px 0;}
+  .call p{margin:0 0 10px;font-size:15.5px;color:var(--ink2);} .call p:last-child{margin-bottom:0;}
+  .call p b{color:var(--ink);} .call .big{font-size:16.5px;color:var(--ink);font-weight:600;}
+
+  /* simple list */
+  ul.plain{margin:0;padding:0;list-style:none;}
+  ul.plain li{padding:12px 0;border-bottom:1px solid var(--line2);font-size:16px;}
+  ul.plain li:last-child{border-bottom:none;}
+  ul.plain li b{color:var(--ink);}
+  ul.plain li .sub{display:block;color:var(--ink3);font-size:14px;margin-top:1px;}
+
+  /* month focus */
+  .month{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line2);}
+  .month:last-child{border-bottom:none;}
+  .month .mm{font-weight:700;color:var(--accent);font-size:15px;}
+  .month .mt{color:var(--ink2);font-size:15.5px;} .month .mt b{color:var(--ink);}
+
+  /* clean table */
+  .tbl{overflow-x:auto;margin:8px 0;}
+  table{width:100%;border-collapse:collapse;font-size:15px;}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line2);vertical-align:top;}
+  th{font-size:12.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink3);font-weight:700;}
+  td.k{font-weight:600;color:var(--ink);white-space:nowrap;}
+  tr:last-child td{border-bottom:none;}
+
+  .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);line-height:1.6;}
+  @media (max-width:560px){ h1{font-size:27px;} .month{grid-template-columns:1fr;gap:2px;} }
 </style>
 
 <div class="wrap">
 
   <div class="head">
-    <div class="eyebrow"><span><b>One INC42</b></span><span>Combined FY27 Plan · Ranjith × Utkarsh</span><span>21 Aug 2026</span></div>
-    <h1 class="title">The combined plan — organised by the funnel, data-backed</h1>
-    <p class="sub">A <b>product plan</b>, scoped to the tracks Ranjith owns or is on — nothing from Brand, Social, Video, Editorial, IPs or pure infra (those belong to other owners). Ranjith's <b>7-stage funnel</b> is the lens; Utkarsh's <span class="lock">Locked 21 Aug</span> FY27 tracks are the frame each feature serves.</p>
+    <div class="eyebrow">One INC42 · Product Plan</div>
+    <h1>The product plan, by funnel stage</h1>
+    <p class="lede">Scoped to the tracks Ranjith owns or is on — nothing from brand, social, video, editorial or IPs. It follows one person through the funnel: how they arrive, get known, find value, form a habit, stay, and pay.</p>
+    <p class="lede" style="font-size:15px;color:var(--ink3);">Aligned to Utkarsh's locked FY27 plan (21 Aug 2026). Numbers are directional until the north star becomes measurable ~20 Sep.</p>
   </div>
 
-  <!-- 1 · THE FUNNEL & FRAME -->
+  <!-- THE FUNNEL -->
   <section>
-    <div class="lbl"><span class="k">1</span><h2>The funnel — the lens, and how it sits in Utkarsh's spine</h2></div>
-    <div class="tbl-wrap"><table class="spine-tbl">
-      <tr><th>Funnel stage</th><th>What it means</th><th>Serves (Utkarsh's spine)</th></tr>
-      <tr><td class="stg" style="color:var(--blue)">Awareness</td><td>Be found — <span class="flag">owned by Distribution (Nityam) · out of this product plan</span></td><td class="map">Acquire &amp; Identify</td></tr>
-      <tr><td class="stg" style="color:var(--red)">Acquisition</td><td>Arrive + get known at the door — <span class="flag">the cliff: only 0.16–0.42% identified</span></td><td class="map">Acquire &amp; Identify</td></tr>
-      <tr><td class="stg" style="color:var(--green)">Activation</td><td>First real value, per surface (web 2nd article · DataLabs ≥2 searches · app engaged brief)</td><td class="map">Activate &amp; Deepen</td></tr>
-      <tr><td class="stg" style="color:var(--violet)">Engagement</td><td>Form a habit, reach a 2nd surface — <b>the mechanism competition runs here</b></td><td class="map">Activate &amp; Deepen</td></tr>
-      <tr><td class="stg" style="color:var(--amber)">Retention</td><td>Still here months later — dunning, reactivation, win-backs</td><td class="map">Retain &amp; Renew</td></tr>
-      <tr><td class="stg" style="color:var(--amber)">Revenue</td><td>Pay for it — price probe, membership, unified pricing</td><td class="map">Retain &amp; Renew</td></tr>
-      <tr><td class="stg" style="color:var(--grey)">Referral</td><td>Bring others in — <span class="flag">not instrumented today (a gap)</span></td><td class="map">—</td></tr>
-    </table></div>
+    <h2>The funnel, in one look</h2>
+    <p class="sec-note">Seven stages. Product owns all of them except Awareness, which sits with Distribution.</p>
+    <ul class="plain">
+      <li><b>Awareness</b> — being found as one brand.<span class="sub">Owned by Distribution (Nityam) — out of this product plan.</span></li>
+      <li><b>Acquisition</b> — people arrive, and we learn who they are at the door.<span class="sub">This is the leak: only 0.16–0.42% of visitors are identified today.</span></li>
+      <li><b>Activation</b> — a known person gets real value, defined per surface.</li>
+      <li><b>Engagement</b> — they form a habit and reach a second surface.<span class="sub">The mechanism competition runs here — this is the heart of the plan.</span></li>
+      <li><b>Retention</b> — they're still here months later, and we've asked them to stay.</li>
+      <li><b>Revenue</b> — we learn what they'll pay for, then charge for it.</li>
+      <li><b>Referral</b> — they bring others in.</li>
+    </ul>
+  </section>
 
-    <h3 style="font-size:15px;margin:22px 0 8px;">Ranjith's tracks — owner or included</h3>
-    <div class="tbl-wrap"><table class="eg">
-      <tr><th>Track (Utkarsh FY27)</th><th>Ranjith's role</th><th>With</th></tr>
-      <tr><td class="eng">Measurement &amp; Data Activation</td><td>Instruments</td><td class="own">Prapti (warehouse)</td></tr>
-      <tr><td class="eng">Unification</td><td>Delivery</td><td class="own">Utkarsh (chairs until defined)</td></tr>
-      <tr><td class="eng">Acquire &amp; Identify</td><td>Gates &amp; capture</td><td class="own">Growth</td></tr>
-      <tr><td class="eng">Activate &amp; Deepen</td><td>Runs the mechanism competition</td><td class="own">Utkarsh (scores)</td></tr>
-      <tr><td class="eng">Retain &amp; Renew</td><td>Renewal + in-product</td><td class="own">Animesh (campaigns)</td></tr>
-      <tr><td class="eng">AI Layer (Ask)</td><td>Owns</td><td class="own">Ashish</td></tr>
-      <tr><td class="eng">Offering</td><td>Owns</td><td class="own">Utkarsh</td></tr>
-      <tr><td class="eng">Engine Room — Agent Platform</td><td>Platform</td><td class="own">Prapti (pilots)</td></tr>
-    </table></div>
+  <!-- MONTH FOCUS -->
+  <section>
+    <h2>What we focus on, month by month</h2>
+    <p class="sec-note">One or two stages per month — not everything at once.</p>
+    <div class="month"><div class="mm">Month 0</div><div class="mt"><b>Foundation.</b> Fix the plumbing — measurement, the identity spine, event fixes, feature flags. Nothing above can be measured until this lands.</div></div>
+    <div class="month"><div class="mm">Month 1</div><div class="mt"><b>Acquisition.</b> Start knowing who arrives — capture at app sign-in, run the web gate test, one onboarding pattern.</div></div>
+    <div class="month"><div class="mm">Month 2</div><div class="mt"><b>Activation.</b> Make the reading path lead somewhere — cross-linking, entity cards, unified search, AskInc42 — and name the habit candidates.</div></div>
+    <div class="month"><div class="mm">Month 3</div><div class="mt"><b>Engagement.</b> Give people reasons to come back — push, alerts, community, the Weekly. The mechanism competition ramps.</div></div>
+    <div class="month"><div class="mm">Month 4</div><div class="mt"><b>Engagement &amp; Retention.</b> Score the winners; run reactivation and renewal.</div></div>
+    <div class="month"><div class="mm">Month 5</div><div class="mt"><b>Retention &amp; Revenue.</b> Read the price probe; shape the membership and pricing.</div></div>
+  </section>
 
-    <style>
-      .mfocus{display:flex;flex-direction:column;gap:8px;margin-top:6px;}
-      .mf{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 15px;}
-      .mf .mn{font-weight:800;color:var(--violet);font-size:13px;white-space:nowrap;}
-      .mf .mt{font-size:13px;color:var(--ink2);} .mf .mt b{color:var(--ink);}
-      @media(max-width:600px){.mf{grid-template-columns:1fr;gap:3px;}}
-    </style>
-    <h3 style="font-size:15px;margin:22px 0 6px;">What we focus on, month by month</h3>
-    <div class="mfocus">
-      <div class="mf"><div class="mn">Month 0</div><div class="mt"><b>Foundation.</b> Fix the plumbing — measurement, the identity spine, event fixes, feature flags. Nothing above can be scored until this lands.</div></div>
-      <div class="mf"><div class="mn">Month 1</div><div class="mt"><b>Awareness + Acquisition.</b> Be found as one brand (llm.txt, Google Discover) and start knowing who arrives (sign-in capture, the gate test).</div></div>
-      <div class="mf"><div class="mn">Month 2</div><div class="mt"><b>Activation + Engagement.</b> Make the reading path lead somewhere (cross-linking, entity cards, unified search) and name &amp; scope the habit candidates.</div></div>
-      <div class="mf"><div class="mn">Month 3</div><div class="mt"><b>Engagement.</b> Reasons to come back — the mechanism competition ramps (alerts, community, Datalabs Weekly, push).</div></div>
-      <div class="mf"><div class="mn">Month 4</div><div class="mt"><b>Engagement + Retention.</b> Deepen and hold — score the winners, run reactivation and renewal.</div></div>
-      <div class="mf"><div class="mn">Month 5</div><div class="mt"><b>Retention + Revenue.</b> First revenue read — the price-probe result, unified pricing, and the shape of the membership.</div></div>
+  <!-- THE NUMBERS -->
+  <section>
+    <h2>The few numbers that matter</h2>
+    <div class="call">
+      <p class="big">The whole plan turns on one problem: we deliver value at scale, then identify almost no one.</p>
+      <p>Of ~478,000 website visitors in a month, only <b>1,986 (0.42%)</b> become known to us. On DataLabs, <b>211 of ~136,000 (0.16%)</b>. That is why <b>Acquisition</b> is the priority — traffic was never the constraint; identity is.</p>
+    </div>
+    <div class="call">
+      <p><b>QIA (the north star)</b> — Utkarsh's stated figure is <b>~2,100</b> qualified people (30-day, across web + DataLabs + email + app). It's computed on only 3 of its 9 activities today, so it will <b>jump up</b> when the rest are piped in (~20 Sep) — that's a measurement fix, not growth.</p>
+      <p><b>Activation on DataLabs</b> — ~197 people a week do 2+ searches (WAAU). This is weekly, and is not the same as the 30-day QIA.</p>
+      <p><b>Paying</b> — 83 active paying subscriptions today. (Don't confuse with the 278 payment-event count or the 1,045 lifetime subscriber base — three different definitions.)</p>
     </div>
   </section>
 
-  <!-- 2 · DATA -->
+  <!-- THE PLAN BY STAGE -->
   <section>
-    <div class="lbl"><span class="k">2</span><h2>Where we stand — the data under the funnel</h2><span class="note">PostHog 30d · DataLabs dashboard · internal excluded</span></div>
-    <div class="tbl-wrap"><table>
-      <tr><th>Funnel stage</th><th class="num">Website</th><th class="num">DataLabs</th><th class="num">Unified*</th><th>Read</th></tr>
-      <tr><td class="k">Awareness (views)</td><td class="num">721,890</td><td class="num">207,529</td><td class="num">929,419</td><td>—</td></tr>
-      <tr><td class="k">Visitors</td><td class="num">478,249</td><td class="num">135,909</td><td class="num">614,158</td><td>reach</td></tr>
-      <tr><td class="k">Activation</td><td class="num">45,510</td><td class="num">83,647</td><td class="num">129,157</td><td>value at scale</td></tr>
-      <tr class="cliff"><td class="k">Acquisition (identified)</td><td class="num">1,986 · 0.42%</td><td class="num">211 · 0.16%</td><td class="num">2,197 · 0.36%</td><td>THE cliff — funnel collapses at identity</td></tr>
-      <tr><td class="k">Engagement (2+d)</td><td class="num">42,622</td><td class="num">2,665</td><td class="num">45,287</td><td>—</td></tr>
-      <tr><td class="k">Retention</td><td class="num">36,635</td><td class="num">1,880</td><td class="num">38,515</td><td>—</td></tr>
-    </table></div>
-    <div class="tbl-wrap"><table>
-      <tr><th>Anchor number</th><th>Value</th><th>Watch-out</th></tr>
-      <tr><td class="k">QIA (north star)</td><td>~2,100 — Utkarsh's stated 30-day figure, cross-surface (web + DataLabs + email + app), not DataLabs-only</td><td>Computed on only <b>3 of 9</b> activities today → understated; jumps <b>UP</b> when the rest pipe in (~20 Sep) — measurement, NOT growth. <span class="flag">(Any lower "haircut" estimate is retracted — it wrongly applied a DataLabs-only 30/90-day ratio to a cross-surface number.)</span></td></tr>
-      <tr><td class="k">Cross-surface use</td><td>1.6–3.4% today</td><td>Measurable for the first time in Sep</td></tr>
-      <tr><td class="k">Activation defs</td><td>Web = 2nd article (⚠) · DataLabs = <b>≥2 searches/wk (WAAU ~197/wk)</b> · App = engaged brief ≥60s</td><td>WAAU is weekly; QIA is 30-day — never equate</td></tr>
-      <tr><td class="k">"Paying" — 3 numbers</td><td>83 active subs · 278 PostHog 30d events · 1,045 lifetime Plus+Pro</td><td><span class="flag">Different definitions — don't sum/compare (12× spread)</span></td></tr>
-      <tr><td class="k">Retention · dormant</td><td>15% auto-renew · 93K dormant reachable</td><td>Retention baselines</td></tr>
-    </table></div>
-  </section>
+    <h2>The plan, stage by stage</h2>
+    <p class="sec-note">Each feature, in plain terms, with who you work with and when it lands.</p>
 
-  <!-- 3 · FEATURES BY FUNNEL STAGE -->
-  <section>
-    <div class="lbl"><span class="k">3</span><h2>Every feature — by funnel stage</h2><span class="note">product-involvement only · "Serves" = the FY27 track</span></div>
-    <p class="sub" style="margin-bottom:14px;">Filtered to <b>where product is involved</b>. Pure Brand, Social, Video and Editorial (Distribution / Newsroom) are excluded — they don't need product. Where a row serves a non-product track, only product's piece is shown.</p>
-
-    <!-- FOUNDATION -->
-    <div class="fs fnd"><div class="cap"></div><div class="fsh"><span class="stg">Foundation</span><h3>The plumbing — nothing above can be scored without it</h3><span class="one">Measurement + spine + engine room. Lands ~20 Sep.</span></div>
-      <div class="tbl-wrap"><table>
-        <tr><th>Feature</th><th>Serves</th><th>What</th><th>When</th></tr>
-        <tr><td class="k">Fix analytics + audit</td><td class="srv">Measurement</td><td>Record when tracking broke; clean duplicate/dead data; fix scroll-depth; dedupe person-merge; audit events across all surfaces</td><td class="bl">Aug</td></tr>
-        <tr><td class="k">Identity spine</td><td class="srv">Measurement</td><td>One profile per person across web/data/email/app (Auth0 id; converge 3 PostHog + 2 CIO; 40,699 ICP labels)</td><td class="bl">Sep · unblocks Unification</td></tr>
-        <tr><td class="k">Pipe app activity → warehouse</td><td class="srv">Measurement</td><td>Recovers 3 activity types; DataLabs 30-day counter on</td><td class="bl">Aug→Sep</td></tr>
-        <tr><td class="k">QIA-30 measurable + RFV score</td><td class="srv">Measurement</td><td>North star computed properly (first time); engagement score/tiers on real data</td><td class="bl">~20 Sep · tiers Oct</td></tr>
-        <tr><td class="k">Reverse-ETL + segments</td><td class="srv">Measurement</td><td>Push engagement tier to messaging tool; segments live</td><td class="bl">Sep</td></tr>
-        <tr><td class="k">Singular attribution</td><td class="srv">Measurement</td><td>Complete attribution/event flow (fixes campaign=None)</td><td class="bl">Aug</td></tr>
-        <tr><td class="k">Define "One Inc42" (written)</td><td class="srv">Unification</td><td>The seam decision — one login, nav, value-prop in a dated DOC + audit contradictions</td><td class="bl">Aug</td></tr>
-        <tr><td class="k">Feature-Flag framework</td><td class="srv">Engine Room</td><td>Controlled rollouts / holdouts (enables the gate test)</td><td class="bl">Aug</td></tr>
-        <tr><td class="k">Agent platform + pilots</td><td class="srv">Engine Room</td><td>Slack social-intel (Aug); AI Data-Requests + Research pilots (Sep); adoption → 20–30; cost-per-QIA (Oct)</td><td class="bl">Aug→Oct</td></tr>
-      </table></div>
+    <div class="stage">
+      <h3>Foundation — the plumbing</h3>
+      <p class="intro">Nothing above can be measured or scored until this is in place. It lands through September.</p>
+      <div class="feat"><span class="n">Identity spine.</span> <span class="d">One profile per person across web, DataLabs, email and app — a single Auth0 ID, the three PostHog projects and two Customer.io workspaces merged, and the 40,699 computed audience labels promoted. This is what makes QIA measurable and unification possible.</span><span class="m">With Prapti · lands September</span></div>
+      <div class="feat"><span class="n">QIA-30 &amp; engagement score.</span> <span class="d">Pull the real 30-day north star from the warehouse and build an engagement (recency-frequency-volume) score on real data.</span><span class="m">~20 September</span></div>
+      <div class="feat"><span class="n">Fix the instruments.</span> <span class="d">Restore scroll-depth and the register-lock event, dedupe duplicate people, and audit events across all surfaces so the trends stop lying.</span><span class="m">August</span></div>
+      <div class="feat"><span class="n">Define "One Inc42" in writing.</span> <span class="d">One login, one navigation, one value proposition — as a dated document, not a discussion. Product delivers unification once this exists.</span><span class="m">August · Utkarsh chairs, hands to you at delivery</span></div>
+      <div class="feat"><span class="n">Feature-flag framework.</span> <span class="d">Controlled rollouts, so we can run the gate test and other experiments safely.</span><span class="m">August</span></div>
+      <div class="feat"><span class="n">Agent platform.</span> <span class="d">The internal AI that runs the company — pilots in Slack now, adoption toward 20–30 users, cost-per-QIA tracked.</span><span class="m">With Prapti</span></div>
     </div>
 
-    <!-- ACQUISITION -->
-    <div class="fs acq"><div class="cap"></div><div class="fsh"><span class="stg">Acquisition</span><h3>Arrive + get known at the door — THE cliff</h3><span class="one">Only 0.16–0.42% identified today. This is the highest-leverage stage.</span></div>
-      <div class="tbl-wrap"><table>
-        <tr><th>Feature</th><th>Serves</th><th>What</th><th>Baseline / target</th></tr>
-        <tr><td class="k flag">Capture at APP SIGN-IN</td><td class="srv">Acquire</td><td>Seniority + company asked at <b>sign-in, not signup</b> (3 in 4 already have accounts) 🔴</td><td class="bl">Aug</td></tr>
-        <tr><td class="k">Sign-up gate TEST (web)</td><td class="srv">Acquire</td><td>Onsite freewall + newsletter locks — a <b>test</b>; Ranjith decides Oct if it stays</td><td class="bl">Sep test · reg ~580/wk</td></tr>
-        <tr><td class="k">One onboarding pattern</td><td class="srv">Acquire</td><td>Agreed across all three services</td><td class="bl">Sep</td></tr>
-        <tr><td class="k">Newsletter signup = capture</td><td class="srv">Acquire</td><td>Shared identity-capture across surfaces (NYT habit anchor) — not the Datalabs Weekly product</td><td class="bl">—</td></tr>
-        <tr><td class="k">WhatsApp number capture</td><td class="srv">Acquire</td><td>Ask for WhatsApp number as an identity + reachable-contact point at the door (feeds lifecycle + community)</td><td class="bl">—</td></tr>
-        <tr><td class="k">Unified login · unified nav</td><td class="srv">Unification</td><td>One account &amp; one navigation across media ↔ data ↔ app</td><td class="bl">cross-surface 1.6–3.4%→↑</td></tr>
-      </table></div>
+    <div class="stage">
+      <h3>Acquisition — arrive, and get known at the door</h3>
+      <p class="intro">This is the leak. Only <b>0.16–0.42%</b> of visitors are identified today, so this is the highest-leverage stage. Baseline: ~580 registrations a week.</p>
+      <div class="feat"><span class="n">Capture at app sign-in.</span> <span class="d">Ask seniority and company when someone signs in — not at signup, because three in four app users already have an account. This is the fastest way to learn who a person is.</span><span class="m">August</span></div>
+      <div class="feat"><span class="n">Web sign-up gate — a test.</span> <span class="d">An onsite freewall and newsletter lock. This is a test, not a committed build: you decide in October whether it wins more identity than the traffic it costs.</span><span class="m">Test in September → your decision in October</span></div>
+      <div class="feat"><span class="n">One onboarding pattern.</span> <span class="d">The same role and sector ask across all three surfaces, captured once and reused.</span></div>
+      <div class="feat"><span class="n">Newsletter signup as capture.</span> <span class="d">Treat the newsletter as a shared identity-capture point — the strongest habit anchor in media.</span></div>
+      <div class="feat"><span class="n">WhatsApp number.</span> <span class="d">Ask for a WhatsApp number as a reachable contact, feeding lifecycle messaging and community.</span></div>
+      <div class="feat"><span class="n">Unified login.</span> <span class="d">One account across media and data — part of unification.</span></div>
     </div>
 
-    <!-- ACTIVATION -->
-    <div class="fs act"><div class="cap"></div><div class="fsh"><span class="stg">Activation</span><h3>First real value — per surface</h3><span class="one">Web = 2nd article · DataLabs = ≥2 searches (WAAU ~197/wk) · App = engaged brief ≥60s.</span></div>
-      <div class="tbl-wrap"><table>
-        <tr><th>Feature</th><th>Serves</th><th>What</th><th>Baseline / target</th></tr>
-        <tr><td class="k">Unification PLAN shipped</td><td class="srv">Unification</td><td>One design for messaging + navigation + onboarding + lifecycle across all 3; delivery phased</td><td class="bl">Sep</td></tr>
-        <tr><td class="k">Cross-linking / interlinking</td><td class="srv">Unification</td><td>Media ↔ data links both ways (Crunchbase strongest)</td><td class="bl">Sep+</td></tr>
-        <tr><td class="k">In-body entity card · living company pages</td><td class="srv">Unification</td><td>Company card in the reading path; profiles that lead onward</td><td class="bl">—</td></tr>
-        <tr><td class="k">Unified search + prominence</td><td class="srv">Unification</td><td>One visible search across surfaces</td><td class="bl">—</td></tr>
-        <tr><td class="k">Article &amp; Companies card redesign</td><td class="srv">Sheet5</td><td>Premium visual refresh</td><td class="bl">—</td></tr>
-        <tr><td class="k">Content personalization</td><td class="srv">Activate</td><td>Recommend per reader (The Ken has it)</td><td class="bl">—</td></tr>
-        <tr><td class="k">App optimisation / Brief redesign</td><td class="srv">Activate</td><td>Fix card 1 (only 45% advance) + the full-article one-way door</td><td class="bl">~78s median</td></tr>
-        <tr><td class="k">AskInc42 (DataLabs + Media + app)</td><td class="srv">AI Layer</td><td>Streaming/fast mode ✓ (21 Aug); in-app ✓; decide + build on Inc42.com (Sep)</td><td class="bl">Aug→Sep</td></tr>
-        <tr><td class="k">Model training (app context)</td><td class="srv">AI Layer</td><td>Tune the model to app workflows for answer relevance</td><td class="bl">Sheet5</td></tr>
-        <tr><td class="k">AskInc42 v2</td><td class="srv">Activate</td><td>3 stored onboarding Qs — <span class="flag">blocked on Anmol API</span></td><td class="bl">—</td></tr>
-      </table></div>
+    <div class="stage">
+      <h3>Activation — first real value, per surface</h3>
+      <p class="intro">Activation is defined by the surface: on the <b>website</b> it's reading a second article; on <b>DataLabs</b> it's two searches in a week (~197 people/week); in the <b>app</b> it's completing a brief for real (≥60 seconds).</p>
+      <div class="feat"><span class="n">AskInc42, everywhere.</span> <span class="d">The assistant — prominent on DataLabs, live in the app, and decided and built for Inc42.com.</span><span class="m">With Ashish · streaming &amp; in-app already shipped</span></div>
+      <div class="feat"><span class="n">Cross-linking, media ↔ data.</span> <span class="d">Link articles to company and entity pages and back, so the reading path leads somewhere instead of ending.</span></div>
+      <div class="feat"><span class="n">Living company pages &amp; in-body entity cards.</span> <span class="d">A company card inside the reading path; profiles that lead onward rather than dead-ending.</span></div>
+      <div class="feat"><span class="n">Unified, visible search.</span> <span class="d">One search across surfaces, made actually visible — today it's buried.</span></div>
+      <div class="feat"><span class="n">Content personalization.</span> <span class="d">Recommend content per reader.</span></div>
+      <div class="feat"><span class="n">Brief redesign.</span> <span class="d">Fix the first-card drop-off (only 45% advance) and stop dumping readers into the full-article dead end.</span></div>
+      <div class="feat"><span class="n">Card redesign.</span> <span class="d">A premium refresh of the company and article cards.</span></div>
+      <div class="feat"><span class="n">AskInc42 v2.</span> <span class="d">Three stored onboarding questions to personalize answers.</span><span class="m">Blocked on an API from Anmol</span></div>
+      <div class="feat"><span class="n">Model training.</span> <span class="d">Tune the model to app workflows for better, more relevant answers.</span></div>
+      <div class="feat"><span class="n">Unification plan shipped.</span> <span class="d">One design for messaging, navigation, onboarding and lifecycle across all three surfaces; delivery phased after.</span><span class="m">September</span></div>
     </div>
 
-    <!-- ENGAGEMENT -->
-    <div class="fs eng"><div class="cap"></div><div class="fsh"><span class="stg">Engagement</span><h3>Form a habit, reach a 2nd surface — the mechanism competition</h3><span class="one">Ranjith runs · Utkarsh scores. Candidates compete on 30-day return: named Aug · FIRST SCORING Oct · winners invested Nov · become membership entitlements Dec.</span></div>
-      <div class="tbl-wrap"><table>
-        <tr><th>Candidate / feature</th><th>Serves</th><th>What</th><th>When</th></tr>
-        <tr><td class="k">App notifications / Morning push</td><td class="srv">Activate</td><td>Brief &amp; Breaking cadence (67% opt-in banked; push has never fired)</td><td class="bl">Aug</td></tr>
-        <tr><td class="k">Brief-card share (App)</td><td class="srv">Activate</td><td>A dedicated share on each brief card that pops the card out as an auto-generated image — the way a UPI app throws a shareable payment-success screenshot. Turns every card shareable → <b>also lights up Referral</b></td><td class="bl">needs a Share event</td></tr>
-        <tr><td class="k">Datalabs Weekly · Pulse (Social Briefing)</td><td class="srv">Activate</td><td>Named candidates</td><td class="bl">scoped Sep</td></tr>
-        <tr><td class="k">Alerts · community (WhatsApp) · report surfaces</td><td class="srv">Activate</td><td>Scoped Sep; compete on 30-day return</td><td class="bl">Sep</td></tr>
-        <tr><td class="k">Lifecycle journeys (DL &amp; App)</td><td class="srv">Activate</td><td>Ship SEPARATELY first; unification folds into one design later (by design)</td><td class="bl">Aug→Sep</td></tr>
-        <tr><td class="k">Ask on all 3 surfaces (measured)</td><td class="srv">AI Layer</td><td>Usage + answer quality measured; count Ask queries</td><td class="bl">Oct</td></tr>
-        <tr><td class="k flag">FIRST SCORING → invest → entitlements</td><td class="srv">Activate</td><td>Every candidate on 30-day return, real data → winners invested, losers dropped visibly → winners define the membership</td><td class="bl">Oct → Nov → Dec</td></tr>
-      </table></div>
+    <div class="stage">
+      <h3>Engagement — form a habit, reach a second surface</h3>
+      <p class="intro">This is the heart of your remit. Candidate features compete on <b>one metric — 30-day return</b>. You run it, Utkarsh scores it: named in August, <b>first scoring in October</b>, winners get investment in November, and the winners become the membership's entitlements in December.</p>
+      <div class="feat"><span class="n">Morning &amp; Breaking push.</span> <span class="d">The daily notification cadence — 67% of users have opted in, but push has never actually fired.</span></div>
+      <div class="feat"><span class="n">Brief-card share.</span> <span class="d">A share on each brief card that pops the card out as an image — the way a UPI app throws a shareable payment-success screenshot. Every card becomes shareable, which also feeds Referral.</span><span class="m">Needs a Share event to measure</span></div>
+      <div class="feat"><span class="n">DataLabs Weekly &amp; Pulse.</span> <span class="d">Named candidate newsletters and briefings.</span></div>
+      <div class="feat"><span class="n">Alerts, community, report surfaces.</span> <span class="d">Scoped in September, then they compete on 30-day return.</span></div>
+      <div class="feat"><span class="n">Lifecycle journeys.</span> <span class="d">Ship for DataLabs and the app separately first; unification folds them into one design later, by design.</span></div>
+      <div class="feat"><span class="n">Ask on all three surfaces.</span> <span class="d">Usage and answer quality measured.</span></div>
     </div>
 
-    <!-- RETENTION -->
-    <div class="fs ret"><div class="cap"></div><div class="fsh"><span class="stg">Retention</span><h3>Still here months later — and asked to stay</h3><span class="one">Renewal read vs 15% today · 93K dormant reachable.</span></div>
-      <div class="tbl-wrap"><table>
-        <tr><th>Feature</th><th>Serves</th><th>What</th><th>When</th></tr>
-        <tr><td class="k">Payment retries + dunning</td><td class="srv">Retain</td><td>Recover failed payments</td><td class="bl">Aug</td></tr>
-        <tr><td class="k">Reactivation sequence</td><td class="srv">Retain</td><td>To the 93K dormant reachable pool</td><td class="bl">Sep · 93K</td></tr>
-        <tr><td class="k">Datalabs renewal + Plus call</td><td class="srv">Retain</td><td>Renewal motion; Plus new &amp; existing memberships</td><td class="bl">Sep</td></tr>
-        <tr><td class="k">Win-backs</td><td class="srv">Retain</td><td>On engagement segments</td><td class="bl">Oct · read vs 15% (Mar)</td></tr>
-      </table></div>
+    <div class="stage">
+      <h3>Retention — still here months later</h3>
+      <p class="intro">Baseline: 15% auto-renew today, and 93,000 dormant-but-reachable people to win back.</p>
+      <div class="feat"><span class="n">Payment retries &amp; dunning.</span> <span class="d">Recover failed payments.</span></div>
+      <div class="feat"><span class="n">DataLabs renewal &amp; Plus.</span> <span class="d">The renewal motion, and the calls on new and existing memberships.</span></div>
+      <div class="feat"><span class="n">Reactivation &amp; win-backs.</span> <span class="d">Sequences to the 93K dormant pool and win-backs on engagement segments. Campaigns run with Animesh; product provides the segments and in-product triggers.</span></div>
     </div>
 
-    <!-- REVENUE -->
-    <div class="fs rev"><div class="cap"></div><div class="fsh"><span class="stg">Revenue</span><h3>Pay for it — learn before building</h3><span class="one">Waits on engagement evidence (Oct) + the A1 probe (Sep).</span></div>
-      <div class="tbl-wrap"><table>
-        <tr><th>Feature</th><th>Serves</th><th>What</th><th>Baseline / target</th></tr>
-        <tr><td class="k">A1 price probe</td><td class="srv">Offering</td><td>On existing subscribers — needs nothing built, earns while it runs; read the probe</td><td class="bl">Sep · 1,045 base</td></tr>
-        <tr><td class="k">Shape offering → membership → pilot</td><td class="srv">Offering</td><td>From what engaged people use; define membership (Dec); design pilot (Jan)</td><td class="bl">Nov→Jan</td></tr>
-        <tr><td class="k">Unified pricing + entitlements</td><td class="srv">Offering</td><td>One price across media ↔ data; map free/T1/T2 fences</td><td class="bl">83 paid · 15% renewal</td></tr>
-      </table></div>
+    <div class="stage">
+      <h3>Revenue — learn what they'll pay for, before building</h3>
+      <p class="intro">Baseline: 83 active paying subscriptions.</p>
+      <div class="feat"><span class="n">A1 price probe.</span> <span class="d">An offer to existing subscribers — it needs nothing built and earns while it runs. Read it in September.</span><span class="m">With Utkarsh</span></div>
+      <div class="feat"><span class="n">Shape the offering.</span> <span class="d">From what engaged people actually use → define the membership (December) → design the pilot (January).</span></div>
+      <div class="feat"><span class="n">Unified pricing &amp; entitlements.</span> <span class="d">One price across media and data; map the free / T1 / T2 fences.</span></div>
     </div>
 
-    <!-- REFERRAL -->
-    <div class="fs ref"><div class="cap"></div><div class="fsh"><span class="stg">Referral</span><h3>Bring others in</h3><span class="one">First instrument: the <b>brief-card share</b> (in Engagement) — each shared card pulls new people in. Not in Utkarsh's plan yet, and <span class="flag">needs a Share event instrumented</span> to be measured.</span></div>
-      <div class="tbl-wrap"><table>
-        <tr><th>Feature</th><th>Serves</th><th>Product's involvement</th><th>Status</th></tr>
-        <tr><td class="k">Brief-card share → referral loop</td><td class="srv">Activate / new</td><td>UPI-style shareable brief-card image (see Engagement); instrument a Share event to measure reach &amp; installs it drives</td><td class="bl">to build</td></tr>
-      </table></div>
+    <div class="stage">
+      <h3>Referral — bring others in</h3>
+      <p class="intro">The first instrument is the <b>brief-card share</b> above — each shared card pulls new people in. It's not in Utkarsh's plan yet, and needs a Share event to be measured.</p>
     </div>
   </section>
 
-  <!-- 4 · RECONCILIATIONS -->
+  <!-- KEY DATES -->
   <section>
-    <div class="lbl"><span class="k">4</span><h2>Reconciliations — our earlier plan vs the locked plan</h2></div>
-    <div class="rec tbl-wrap"><table>
-      <tr><th>#</th><th>Our earlier plan said</th><th>The LOCKED FY27 plan says</th></tr>
-      <tr><td class="k">1</td><td class="was">"Lock Modal LIVE" — a committed build</td><td class="now">Sign-up gate is a <b>TEST</b> (Sep); Ranjith <b>decides Oct</b> whether it stays</td></tr>
-      <tr><td class="k">2</td><td class="was">Capture at "every capture point"</td><td class="now">Capture at <b>app SIGN-IN, not signup</b> (3 in 4 already have accounts)</td></tr>
-      <tr><td class="k">3</td><td class="was">QIA baselines as growth targets</td><td class="now">QIA will <b>jump as a measurement fix</b> — must not be banked as growth</td></tr>
-      <tr><td class="k">4</td><td class="was">Ship alerts/community/Weekly (committed)</td><td class="now">They are <b>candidates competing</b> — first scoring <b>Oct</b>, winners invested <b>Nov</b></td></tr>
-      <tr><td class="k">5</td><td class="was">A1 probe / revenue at M5</td><td class="now">Price probe is <b>Sep</b>, read Sep</td></tr>
-    </table></div>
+    <h2>The dates that anchor everything</h2>
+    <ul class="plain">
+      <li><b>August</b> — Foundation begins; define "One Inc42" in writing; sign-in capture; dunning.</li>
+      <li><b>~20 September</b> — the identity spine lands, the north star becomes measurable for the first time, the unification plan ships, and the price probe runs.<span class="sub">The single most important date on the plan.</span></li>
+      <li><b>October</b> — first scoring of the engagement candidates; your decision on the web gate.</li>
+      <li><b>November</b> — winners of the competition get investment.</li>
+      <li><b>December</b> — the winners define what the membership contains.</li>
+    </ul>
   </section>
 
-  <!-- 5 · TIMELINE -->
+  <!-- OPEN DECISIONS -->
   <section>
-    <div class="lbl"><span class="k">5</span><h2>Timeline — Ranjith's tracks, Aug → Mar</h2><span class="note">● milestone · ◇ evidence-driven</span></div>
-    <div class="tl tbl-wrap"><table>
-      <tr><th>Track</th><th class="mo">Aug</th><th class="mo hot">Sep</th><th class="mo">Oct</th><th class="mo">Nov</th><th class="mo">Dec</th><th class="mo">Jan–Mar</th></tr>
-      <tr><td class="trkn">Measurement</td><td class="c">Fix analytics · pipe app→warehouse · Singular</td><td class="c hot"><span class="dot">●</span> Identity spine · <b>north star measurable ~20 Sep</b> · reverse-ETL · 93K restart</td><td class="c">Engagement score + tiers</td><td class="c di">◇</td><td class="c di">◇</td><td class="c di">◇</td></tr>
-      <tr><td class="trkn">Unification</td><td class="c">Define "One Inc42" (doc) · audit</td><td class="c hot"><span class="dot">●</span> <b>Unification PLAN shipped</b> · cross-surface measurable</td><td class="c">Hands to Ranjith for delivery</td><td class="c di">◇</td><td class="c di">◇</td><td class="c di">◇</td></tr>
-      <tr><td class="trkn">Acquisition</td><td class="c">Sign-in capture 🔴 · app marketing begins</td><td class="c hot">Gate test (web) · one onboarding pattern</td><td class="c"><b>Gate decision</b></td><td class="c di">◇</td><td class="c di">◇</td><td class="c">Signup→identified read (Mar)</td></tr>
-      <tr><td class="trkn">Activation + Engagement</td><td class="c">Candidates named · push · journeys separate</td><td class="c hot">Alerts/community/reports scoped</td><td class="c"><span class="dot">●</span> <b>FIRST SCORING</b> (30-day return)</td><td class="c">Winners invested</td><td class="c">Become membership entitlements</td><td class="c">Persistence read (Mar)</td></tr>
-      <tr><td class="trkn">Retention</td><td class="c">Dunning · payment retries</td><td class="c hot">Reactivate 93K · Datalabs renewal · Plus call</td><td class="c">Win-backs on segments</td><td class="c di">◇</td><td class="c di">◇</td><td class="c">Renewal read vs 15% (Mar)</td></tr>
-      <tr><td class="trkn">AI Layer (Ask)</td><td class="c">Ask DL streaming ✓ · Ask in app ✓</td><td class="c hot">Ask on Inc42.com · count queries</td><td class="c">Ask on all 3 · quality measured</td><td class="c">Paid vs free decided</td><td class="c di">◇</td><td class="c di">◇</td></tr>
-      <tr><td class="trkn">Revenue (Offering)</td><td class="c">—</td><td class="c hot"><span class="dot">●</span> <b>A1 price probe</b> · read it</td><td class="c">Engagement evidence builds</td><td class="c">Shape offering</td><td class="c">Define membership</td><td class="c">Pilot → early FY28</td></tr>
-    </table></div>
-  </section>
-
-  <!-- 6 · DECISIONS -->
-  <section>
-    <div class="lbl"><span class="k">6</span><h2>Not yet decided — and what settles it</h2><span class="note">Utkarsh's merged register</span></div>
-    <div class="tbl-wrap"><table>
-      <tr><th>Decision</th><th>Who</th><th>When</th><th>What tells us the answer</th></tr>
-      <tr><td class="k">What "One Inc42" means in the product</td><td>Utkarsh</td><td>Sep</td><td>A written definition — the doc IS the deliverable</td></tr>
-      <tr><td class="k">Who owns unification after Oct</td><td>Utkarsh</td><td>Oct retro</td><td>Is it defined + instruments landed → delivery moves to Ranjith</td></tr>
-      <tr><td class="k">Which retention mechanisms survive</td><td>Utkarsh scores · Ranjith invests</td><td>Oct → Nov</td><td>30-day return lift — measured, not argued</td></tr>
-      <tr><td class="k">What the membership contains</td><td>Ranjith + Utkarsh</td><td>Dec</td><td>What engaged people actually use</td></tr>
-      <tr><td class="k">Price &amp; packaging</td><td>Utkarsh</td><td>Sep</td><td>The price probe on existing subscribers</td></tr>
-      <tr><td class="k">Whether the sign-up gate stays</td><td>Ranjith</td><td>Oct</td><td>The gate test — traffic lost vs identity gained</td></tr>
-      <tr><td class="k">AI layer paid or free</td><td>Ranjith + Utkarsh</td><td>Nov</td><td>Real Ask usage across the 3 surfaces</td></tr>
+    <h2>Still open — and what settles each</h2>
+    <p class="sec-note">Decisions where you're the decider or a co-decider. Each waits on a signal, not an opinion.</p>
+    <div class="tbl"><table>
+      <tr><th>Decision</th><th>When</th><th>What settles it</th></tr>
+      <tr><td class="k">What "One Inc42" means</td><td>September</td><td>A written definition — the document is the deliverable</td></tr>
+      <tr><td class="k">Which retention mechanisms survive</td><td>Oct → Nov</td><td>30-day return lift, measured</td></tr>
+      <tr><td class="k">What the membership contains</td><td>December</td><td>What engaged people actually use</td></tr>
+      <tr><td class="k">Price &amp; packaging</td><td>September</td><td>The price probe on existing subscribers</td></tr>
+      <tr><td class="k">Whether the web gate stays</td><td>October</td><td>The gate test — traffic lost vs identity gained</td></tr>
+      <tr><td class="k">AI layer: paid or free</td><td>November</td><td>Real AskInc42 usage across the three surfaces</td></tr>
+      <tr><td class="k">Who owns unification after Oct</td><td>Oct retro</td><td>Whether it's defined in writing and instruments have landed</td></tr>
     </table></div>
   </section>
 
   <div class="foot">
-    <p><b>Sources:</b> Utkarsh's FY27 Plan — Engines × Tracks (LOCKED 21 Aug 2026, PMTD MOP 2026) · Ranjith's Roadmap+Plan (funnel-weight model, Sheet5) · PostHog HogQL projects 53557 (web) &amp; 66351 (DataLabs), 30-day · DataLabs Master Reporting Dashboard 2026 · FT RFV &amp; NYT engagement research.</p>
-    <p><b>Caveats:</b> funnel figures are PostHog last-30-days, internal excluded (a lower bound vs GA4). QIA becomes trustworthy only after the ~20 Sep changeover, and its jump is measurement, not growth. Website activation ("2nd article") unvalidated. Referral is not instrumented. Griffin out of scope. Per-product execution lives in the monthly MOP, serving these tracks.</p>
+    Sources: Utkarsh's FY27 plan (locked 21 Aug 2026) · Ranjith's roadmap &amp; funnel model · PostHog (web &amp; DataLabs, last 30 days, internal excluded) · DataLabs Master Reporting Dashboard.<br>
+    Caveats: funnel figures are a lower bound (ad-blockers). QIA becomes trustworthy only after ~20 Sep, and its jump is measurement, not growth. Website activation is not yet validated. Griffin is out of scope.
   </div>
 
 </div>
