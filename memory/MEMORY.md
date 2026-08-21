@@ -41,6 +41,8 @@
 - [INC42 funnel analysis](project-inc42-funnel-analysis.md) — QIA ~2,100 is a 90d floor (real QIA-30 ~1.2-1.5k); per-product activation defs (web=2nd article, DataLabs=company view, app=engaged brief); THE finding = identification cliff (web 0.42% / DataLabs 0.16% identified); weekly-plan artifact dfd082a1
 - [INC42 PostHog projects](reference-inc42-posthog-projects.md) — project IDs: 53557 editorial web / 66351 DataLabs / 146258 app; shared Prapti account switches mid-session (always restore); no GA4/BigQuery CLI
 
+- [INC42 Morning Tape (daily brief)](project-inc42-morning-tape.md) — 7am IST cloud routine, 3 properties in one artifact; HogQL rules: explicit dates only, per-day-then-average baselines
+
 ## INC42 data warehouse
 - [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026, 328K contacts/75K companies, powers contact_360/company_360 + Customer.io reverse ETL
 
