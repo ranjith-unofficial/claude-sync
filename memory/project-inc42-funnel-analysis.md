@@ -9,7 +9,7 @@ metadata:
 
 Built a QIA-grounded weekly plan for Ranjith (Aug 2026). Artifact (updated in place): **https://claude.ai/code/artifact/dfd082a1-c773-4367-8002-e8b1548b5b01** · source `~/ClaudeDocs/inc42/inc42-weekly-plan.html`.
 
-**QIA number is soft.** Utkarsh's "~2,100 qualified today" = 21,298 ninety-day identified actives × 9.99% (role **and** resolved company). But QIA is defined as **30-day** (not 90), so it's inflated; true QIA-30 ≈ **1,200–1,500** (est). Can't be measured cross-surface today (identity spine broken). Plan gates everything on pulling the real QIA-30 from BigQuery first. See [[project-inc42-strategy-utkarsh]].
+**QIA number is soft — but the direction is UP, not down.** Utkarsh's "~2,100" = 21,298 identified actives × 9.99% (role **and** resolved company), **cross-surface** (web+DataLabs+email+app, NOT DataLabs-only). ⚠️ CORRECTION (Ranjith, Aug 2026): my earlier "true QIA-30 ≈ 1,200–1,500" is **RETRACTED** — it wrongly applied a DataLabs-only 30d/90d haircut to a cross-surface number. Two facts override it: (1) Utkarsh states 2,100 is already the **30-day** figure (the written strategy doc says 90-day and "pull the 30-day" — a discrepancy to reconcile); (2) per the FY27 plan the north star is computed on only **3 of 9 activities** today → it's **understated and jumps UP** when the rest pipe in (~20 Sep) — a measurement fix, NOT growth. Nobody has the true cross-surface QIA-30 until ~20 Sep. See [[project-inc42-fy27-plan]].
 
 **Per-product activation (validated where possible)** — activation = earliest action that predicts return (FT RFV / NYT habit method):
 - **Website** = reads a **2nd article** (⚠ proposed, not measured — validate on proj 53557: 2nd article vs scroll≥70% vs newsletter).
