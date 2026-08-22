@@ -159,7 +159,10 @@
     gap:14px;
     margin-bottom:20px;
   }
+  ol.steps>li>*{grid-column:2}
   ol.steps>li::before{
+    grid-column:1;
+    grid-row:1;
     content:counter(s,decimal-leading-zero);
     font-family:var(--mono);
     font-size:12px;
