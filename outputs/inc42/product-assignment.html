@@ -1,0 +1,532 @@
+<title>Inc42 — Product Assignment</title>
+<style>
+  :root{
+    --ground:#F6F8F8;
+    --surface:#FFFFFF;
+    --ink:#101718;
+    --muted:#5A6B6D;
+    --rule:#DCE4E4;
+    --accent:#0D5B64;
+    --accent-tint:#E2EFF0;
+    --signal:#8A5310;
+    --signal-tint:#F6EEE2;
+    --shadow:0 1px 0 rgba(16,23,24,.04);
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --serif:ui-serif,"Iowan Old Style",Georgia,Cambria,"Times New Roman",serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0C1213;
+      --surface:#131B1C;
+      --ink:#E7EDEC;
+      --muted:#93A4A5;
+      --rule:#243031;
+      --accent:#5CCDD6;
+      --accent-tint:#0F2A2D;
+      --signal:#D9A34E;
+      --signal-tint:#241C10;
+      --shadow:none;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0C1213;
+    --surface:#131B1C;
+    --ink:#E7EDEC;
+    --muted:#93A4A5;
+    --rule:#243031;
+    --accent:#5CCDD6;
+    --accent-tint:#0F2A2D;
+    --signal:#D9A34E;
+    --signal-tint:#241C10;
+    --shadow:none;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:17px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    margin:0;
+    padding:0 20px 96px;
+  }
+  .wrap{max-width:960px;margin:0 auto}
+
+  /* ---- masthead ---- */
+  .masthead{
+    padding:56px 0 28px;
+    border-bottom:2px solid var(--ink);
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+  h1{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(30px,5vw,44px);
+    line-height:1.08;
+    letter-spacing:-.022em;
+    text-wrap:balance;
+    margin:0 0 14px;
+  }
+  .standfirst{
+    font-size:19px;
+    color:var(--muted);
+    max-width:62ch;
+    margin:0;
+  }
+  .factbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0 40px;
+    margin-top:30px;
+    font-family:var(--mono);
+    font-size:12px;
+    line-height:1.9;
+  }
+  .factbar div span{display:block;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-size:10px}
+  .factbar div b{font-weight:500;color:var(--ink)}
+
+  /* ---- section grid: rail + column ---- */
+  section{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px 40px;
+    padding:44px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  section:last-of-type{border-bottom:0}
+  @media(min-width:900px){
+    section{grid-template-columns:150px minmax(0,1fr)}
+  }
+  .rail{
+    font-family:var(--mono);
+    font-size:11px;
+    line-height:1.7;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .rail b{display:block;color:var(--accent);font-weight:500;font-size:12px;margin-bottom:6px}
+  .col{max-width:68ch;min-width:0}
+
+  h2{
+    font-family:var(--sans);
+    font-weight:650;
+    font-size:26px;
+    line-height:1.2;
+    letter-spacing:-.016em;
+    text-wrap:balance;
+    margin:0 0 16px;
+  }
+  h3{
+    font-family:var(--sans);
+    font-weight:620;
+    font-size:17px;
+    letter-spacing:-.008em;
+    margin:30px 0 8px;
+  }
+  p{margin:0 0 15px}
+  a{color:var(--accent)}
+  ul,ol{margin:0 0 15px;padding-left:22px}
+  li{margin-bottom:8px}
+  li::marker{color:var(--muted)}
+  strong{font-weight:650}
+  em.q{font-style:italic;color:var(--ink)}
+  code{
+    font-family:var(--mono);
+    font-size:.86em;
+    background:var(--accent-tint);
+    color:var(--ink);
+    padding:1px 5px;
+    border-radius:2px;
+  }
+
+  /* ---- steps ---- */
+  ol.steps{list-style:none;padding:0;counter-reset:s;margin:0 0 8px}
+  ol.steps>li{
+    counter-increment:s;
+    display:grid;
+    grid-template-columns:34px minmax(0,1fr);
+    gap:14px;
+    margin-bottom:20px;
+  }
+  ol.steps>li::before{
+    content:counter(s,decimal-leading-zero);
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--accent);
+    padding-top:5px;
+    letter-spacing:.06em;
+  }
+  ol.steps h3{margin:0 0 4px}
+  ol.steps p{margin:0}
+
+  /* ---- callouts ---- */
+  .note,.warn{
+    background:var(--accent-tint);
+    padding:18px 20px;
+    border-radius:3px;
+    margin:20px 0;
+  }
+  .warn{background:var(--signal-tint)}
+  .note>p:last-child,.warn>p:last-child{margin-bottom:0}
+  .label{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:block;
+    margin-bottom:8px;
+  }
+  .warn .label{color:var(--signal)}
+
+  /* ---- example block ---- */
+  .worked{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    padding:22px 24px;
+    margin:20px 0;
+    box-shadow:var(--shadow);
+  }
+  .worked dl{margin:0;display:grid;grid-template-columns:1fr;gap:2px 20px}
+  @media(min-width:560px){.worked dl{grid-template-columns:132px minmax(0,1fr)}}
+  .worked dt{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-top:6px;
+  }
+  .worked dd{margin:0 0 12px;font-size:16px}
+  .worked dd:last-of-type{margin-bottom:0}
+
+  /* ---- tables ---- */
+  .scroll{overflow-x:auto;margin:20px 0;-webkit-overflow-scrolling:touch}
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:460px;
+    font-family:var(--sans);
+    font-size:15px;
+    background:var(--surface);
+  }
+  caption{
+    text-align:left;
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding-bottom:10px;
+  }
+  th,td{
+    text-align:left;
+    padding:11px 14px;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;
+    line-height:1.45;
+  }
+  thead th{
+    font-size:11px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:600;
+    border-bottom:1.5px solid var(--ink);
+  }
+  tbody tr:last-child td{border-bottom:0}
+  td.num,th.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.metric{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:14px;white-space:nowrap;color:var(--accent)}
+
+  /* ---- strong vs weak ---- */
+  .compare{display:grid;grid-template-columns:1fr;gap:16px;margin:20px 0}
+  @media(min-width:640px){.compare{grid-template-columns:1fr 1fr}}
+  .compare div{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:18px 20px}
+  .compare h4{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin:0 0 10px;
+    font-weight:500;
+  }
+  .compare .good h4{color:var(--accent)}
+  .compare .bad h4{color:var(--signal)}
+  .compare ul{margin:0;padding-left:18px;font-size:15.5px}
+  .compare li{margin-bottom:7px}
+  .compare li:last-child{margin-bottom:0}
+
+  footer{
+    padding-top:36px;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.06em;
+    color:var(--muted);
+    border-top:1px solid var(--rule);
+    margin-top:8px;
+  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Inc42 · Product Hiring</p>
+    <h1>Product Assignment</h1>
+    <p class="standfirst">Two real problems we are working on right now. We are not looking for the right answer — there isn't one yet. We are looking at how you get to an answer.</p>
+    <div class="factbar">
+      <div><span>Part A</span><b>Take-home · ~3 hrs</b></div>
+      <div><span>Part B</span><b>Live · 15 min · no prep</b></div>
+      <div><span>Due</span><b>[DATE], 6:00 PM IST</b></div>
+      <div><span>Submit to</span><b>[EMAIL]</b></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="rail"><b>Context</b>Read first</div>
+    <div class="col">
+      <h2>Why we give this assignment</h2>
+      <p>Inc42 is India's largest startup media and data platform. In August 2026 we launched the Inc42 mobile app — a daily <strong>Brief</strong> (a swipeable set of cards summarising what happened in Indian startups), an <strong>Explore</strong> feed, a <strong>Watchlist</strong>, and company data pages backed by our DataLabs database.</p>
+      <p>The app is live and real people are using it. Both problems below are open on our roadmap. Whatever you write, someone on the team is arguing about this week.</p>
+      <p>So this is not a hypothetical case study. Treat it as your first week on the job.</p>
+      <div class="note">
+        <span class="label">What we are actually testing</span>
+        <p>Not how many ideas you can generate. We can generate ideas. We are testing whether you can find the <em class="q">one</em> that matters, say why it beats the others, and tell us in advance what would prove you wrong.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="rail"><b>Step 0</b>Before you write anything</div>
+    <div class="col">
+      <h2>Use the product for three days</h2>
+      <ul>
+        <li>Install the app — <a href="[PLAY_STORE_LINK]">Android</a> · <a href="[APP_STORE_LINK]">iOS</a></li>
+        <li>Open it at least once a day for three days. Read a Brief end to end. Tap into a full article. Look up a company. Add something to your Watchlist.</li>
+        <li>Keep a rough note of every moment you were confused, bored, or unsure what to do next — with the timestamp or screen. That note is worth more than any framework you could apply later.</li>
+      </ul>
+      <p>We will open the interview by asking what confused you in the first sixty seconds. Candidates who genuinely used the app answer that instantly.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="rail"><b>Method</b>How we work</div>
+    <div class="col">
+      <h2>How we approach a problem statement at Inc42</h2>
+      <p>You are free to work however you like. But this is the shape of thinking we respond to, and it is how the problems below were written. Following it is the closest thing to a hint we will give you.</p>
+
+      <ol class="steps">
+        <li>
+          <h3>Ask what the thing is for, before judging whether it is good</h3>
+          <p>A feature can only be broken relative to a job it is supposed to do. If the job is undefined, every critique is just taste. If you think the job is undefined here, say so — that is a legitimate finding, not a dodge.</p>
+        </li>
+        <li>
+          <h3>Go to where users actually drop, not where you would guess</h3>
+          <p>Intuition tells you the design is ugly. Data tells you 55% never get past the first card. Only one of those is a place to spend a week of engineering.</p>
+        </li>
+        <li>
+          <h3>Keep observation, hypothesis, and intervention separate</h3>
+          <p>Most weak product writing fuses all three into one sentence: <em class="q">"the onboarding is confusing so we should add a tutorial."</em> Split them. The observation is checkable, the hypothesis is arguable, the intervention is a bet. Confusing them hides which part you are actually unsure about.</p>
+        </li>
+        <li>
+          <h3>Pick one. Sequence the rest.</h3>
+          <p>A ranked list with a reason for the ranking is a decision. An unranked list of ten ideas is a menu handed back to us. We already have a menu.</p>
+        </li>
+        <li>
+          <h3>Say what would prove you wrong, before you build</h3>
+          <p>Name the number, the size of change you would accept, and the window. <em class="q">"Card-1 advance rate goes from 45% to 60% within 7 days of shipping"</em> is a commitment. <em class="q">"Engagement should improve"</em> is not.</p>
+        </li>
+        <li>
+          <h3>Be willing to remove something</h3>
+          <p>Adding is cheap and feels productive. Almost every meaningful improvement we have shipped involved deleting a step, a screen, or a choice. If your answer only adds, you have probably not found the real problem.</p>
+        </li>
+      </ol>
+
+      <div class="worked">
+        <span class="label">Worked example — a different product, so it gives nothing away</span>
+        <dl>
+          <dt>Observation</dt>
+          <dd>On a food delivery app, 70% of repeat orders come from the "Reorder" button, but only 12% of users ever tap it.</dd>
+          <dt>Question</dt>
+          <dd>Is it that people don't want to repeat orders, or that they can't find the button?</dd>
+          <dt>Hypothesis</dt>
+          <dd>Demand exists; discovery doesn't. Reorder sits three scrolls down the home screen, below the promotional carousel.</dd>
+          <dt>Intervention</dt>
+          <dd>Move last order to the top of the home screen for anyone who ordered in the last 14 days. Push the carousel below it.</dd>
+          <dt>Falsifier</dt>
+          <dd>If reorder tap-rate doesn't clear 25% within 10 days, discovery was not the constraint and the real problem is menu fatigue — a different and much larger project.</dd>
+          <dt>Trade-off</dt>
+          <dd>We lose the top promo slot, which carries paid placements. Worth it only if reorder revenue beats promo revenue — check before shipping.</dd>
+        </dl>
+      </div>
+      <p>Five lines. No framework acronyms. That is roughly the density we are looking for.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="rail"><b>Part A</b>Take-home<br>~3 hrs<br>Max 2 pages</div>
+    <div class="col">
+      <h2>Part A — Why don't people finish the Brief?</h2>
+      <p>The Brief is the reason the app exists. It is a stack of cards you swipe through, published daily, summarising what happened in Indian startups. Our bet is that a busy founder or investor opens it every morning the way they'd open a newspaper.</p>
+      <p>Right now most people who open it do not finish it, and most people who open it once do not come back. Below is what we actually see in the data.</p>
+
+      <div class="scroll">
+        <table>
+          <caption>Data pack — first weeks after launch. Figures rounded.</caption>
+          <thead>
+            <tr><th>What we measured</th><th class="num">What we see</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Real users in the first nine days after launch</td><td class="metric">~200</td></tr>
+            <tr><td>Users who advance past the <strong>first card</strong> of the Brief</td><td class="metric">45%</td></tr>
+            <tr><td>Median time spent by someone who completes a Brief</td><td class="metric">~78 sec</td></tr>
+            <tr><td>Users who tap through to a full article and then return to the Brief</td><td class="metric">~6%</td></tr>
+            <tr><td>First-run walkthrough</td><td class="metric">sends new users to Explore, not the Brief</td></tr>
+            <tr><td>Push notifications</td><td class="metric">configured, never fired</td></tr>
+            <tr><td>Deepest engagement anywhere in the app</td><td class="metric">company data pages</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="warn">
+        <span class="label">Read the data carefully</span>
+        <p>At least two rows in that table contradict an assumption the product is currently built on. Finding them is most of the assignment.</p>
+      </div>
+
+      <h3>What to submit</h3>
+      <ol>
+        <li><strong>Diagnosis.</strong> Where exactly is the Brief losing people, and why do you think that is? Use the data plus your three days of using it. Name the single biggest gap.</li>
+        <li><strong>Ranked interventions.</strong> Three to five things you would do, in order. For each: one line on what it is, and one line on why it sits where it does in the order.</li>
+        <li><strong>The week-one bet.</strong> Pick <em class="q">one</em> to ship first. Say what has to be true for it to work, and what number you would check after seven days to know whether you were wrong.</li>
+        <li><strong>One removal.</strong> Name one thing currently in the app you would take away, and what you expect to gain by removing it.</li>
+      </ol>
+
+      <h3>Format</h3>
+      <ul>
+        <li>Maximum <strong>2 pages of PDF</strong>, or <strong>8 slides</strong>. Screenshots and annotations welcome and don't count toward the limit.</li>
+        <li>Bullets are fine. Prose is fine. Wireframes are optional and will not earn points on their own.</li>
+        <li>Optional: a 3-minute screen recording walking us through the app while you talk. Several past candidates found this easier than writing.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="rail"><b>Part B</b>Live round<br>15 min<br>No prep</div>
+    <div class="col">
+      <h2>Part B — Visitors who never become users</h2>
+      <p>Across our web properties, a very large number of people read Inc42 every month. A very small fraction of them ever sign up, sign in, or otherwise tell us who they are. That gap is our biggest single business problem.</p>
+      <p>We will hand you the real funnel numbers <strong>live in the interview</strong> and give you fifteen minutes to work through it out loud with us.</p>
+
+      <div class="note">
+        <span class="label">Why we do this live</span>
+        <p>Part A shows us your finished thinking. Part B shows us your thinking while it is still forming — which questions you ask first, what you do when you don't have a number, how you handle being pushed back on. Both matter. Neither substitutes for the other.</p>
+      </div>
+
+      <h3>How to prepare</h3>
+      <p>Don't prepare an answer — you'll be answering a question you haven't seen. Do come having thought about the general shape of the problem: what makes someone give up their identity to a media site, and what it costs them to do it. If you want a starting point, spend twenty minutes on <a href="https://inc42.com">inc42.com</a> as a first-time reader and notice every point where you are asked for something.</p>
+      <p>Thinking out loud is the point. Silence while you find the perfect answer scores worse than a wrong answer you reason through in front of us.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="rail"><b>Scoring</b>Both parts</div>
+    <div class="col">
+      <h2>How we evaluate</h2>
+      <p>Four dimensions, scored 1–4 each. We share this openly because we would rather you optimise for the right things than guess at them.</p>
+
+      <div class="scroll">
+        <table>
+          <caption>Evaluation rubric</caption>
+          <thead>
+            <tr><th>Dimension</th><th class="num">Weight</th><th>A 4 looks like</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Diagnosis</strong></td><td class="num">30%</td>
+              <td>Found the real drop-off and explained the mechanism behind it — not a list of UX complaints.</td>
+            </tr>
+            <tr>
+              <td><strong>Prioritisation</strong></td><td class="num">30%</td>
+              <td>Ranked the work and defended the ranking. Chose one thing for week one and can say what it beat.</td>
+            </tr>
+            <tr>
+              <td><strong>Measurement</strong></td><td class="num">20%</td>
+              <td>Named a specific metric, a target, and a window. Stated what result would make them abandon the idea.</td>
+            </tr>
+            <tr>
+              <td><strong>Restraint</strong></td><td class="num">20%</td>
+              <td>Removed something. Acknowledged a trade-off they are accepting rather than pretending there isn't one.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="compare">
+        <div class="good">
+          <h4>What scores well</h4>
+          <ul>
+            <li>"The first card is where 55% leave. Everything else is downstream of that, so I'd fix it before touching anything else."</li>
+            <li>"I'd ship this one, not that one, because it takes two days instead of six weeks and it tests the same assumption."</li>
+            <li>"If card-1 advance doesn't move 10 points in a week, my read was wrong and the problem is the content itself."</li>
+            <li>"I'd cut the walkthrough entirely."</li>
+            <li>"I couldn't tell what the Brief was for in my first three sessions — here's why I think that's the actual problem."</li>
+          </ul>
+        </div>
+        <div class="bad">
+          <h4>What scores poorly</h4>
+          <ul>
+            <li>A list of twelve ideas with no order and no reason for the order.</li>
+            <li>"Add personalisation, gamification, streaks and push notifications" — all at once, all unranked.</li>
+            <li>Metrics named without a target or a timeframe. "Improve engagement."</li>
+            <li>A polished deck that never says which single thing ships first.</li>
+            <li>Framework names doing the work instead of the argument. We don't score AARRR or RICE, we score the reasoning.</li>
+            <li>Recommendations that ignore the data pack because they were written before reading it.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="rail"><b>Rules</b>Read before submitting</div>
+    <div class="col">
+      <h2>Ground rules</h2>
+
+      <h3>On using AI</h3>
+      <p>Use it. We do, every day, and we would be suspicious of a product hire who didn't. But two things follow from that:</p>
+      <ul>
+        <li>You will be asked to defend every claim in your submission, live, without notes. If you can't explain why a recommendation is ranked where it is, it doesn't count — regardless of who wrote it.</li>
+        <li>An unedited model output is easy to spot and scores badly on all four dimensions, because models generate menus and we are scoring decisions. The value you add is the cutting.</li>
+      </ul>
+
+      <h3>On scope</h3>
+      <ul>
+        <li>Three hours is a cap, not a target. Submissions that clearly took fifteen hours are not scored higher — and we read the 2-page limit as part of the test.</li>
+        <li>You do not have access to our analytics. You are not expected to. Work from the data pack and the product itself; where you'd need a number you don't have, write down which number and why it would change your answer. That earns points.</li>
+        <li>Everything in this document, including the data pack, is confidential. Don't post it, publish it, or paste it into a public forum.</li>
+      </ul>
+
+      <h3>Submitting</h3>
+      <ul>
+        <li>Email your PDF or deck to <strong>[EMAIL]</strong> by <strong>[DATE], 6:00 PM IST</strong>.</li>
+        <li>Subject line: <code>Product Assignment — [Your Name]</code></li>
+        <li>If something in this brief is unclear, email and ask. Asking a sharp clarifying question before starting is a positive signal, not a negative one.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Inc42 · Product Hiring · Confidential — for the named candidate only</footer>
+
+</div>
