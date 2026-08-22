@@ -31,3 +31,23 @@ metadata:
 **Undecided register (owner · when · signal):** what "One Inc42" means (Utkarsh · Sep · written doc) · unification owner after Oct (Utkarsh · Oct retro) · which retention mechanisms survive (Utkarsh scores Oct → Ranjith invests Nov) · membership contents (Dec) · price/packaging (Utkarsh · Sep · probe) · sign-up gate stays? (Ranjith · Oct · gate test) · AI layer paid vs free (Nov) · editorial metric (Utkarsh+Editorial · ~Oct) · message convergence (Nityam · Sep) · consent rules (Prapti→legal · Oct) · merge 3 messaging workspaces (Utkarsh · TBD).
 
 Implication for [[project-inc42-funnel-analysis]] / the unification sheet: our "Unification Roadmap" spans MANY of these tracks — per Note 1 every feature must name the FY27 track it Serves; the true Unification track is just define→design→phased-deliver.
+
+---
+
+**Sep planning call with Utkarsh — 21 Aug 2026, 9:00–10:10 PM IST** (Wispr meeting `b516e3d6-63b2-43ed-96d7-0fdc447210db`).
+⚠️ That notetaker summary has the speaker labels FLIPPED — items it credits to "Utkarsh" are Ranjith's and vice versa. The list below is corrected.
+
+**Ranjith owns:** the **detailed September MOP** (merge Aug + Sep MOPs into one plan, ambitious + practical goals, structured Awareness/Acquisition/Activation/Retention against a north-star metric) · the **Mon–Wed task plan** so devs aren't blocked · two recorded user-feedback calls stored in a shared folder · product-marketing referral asks · reconnect with Utkarsh over the weekend to **lock the plan before Monday**.
+
+**Utkarsh owns:** the analytics + DataLabs tracking-plan sheets · finalizing the product-marketing hiring assignment (interviews next week) · following up with Ashish on the "remaining scan bug fix" (*what this refers to is UNKNOWN — six garbled words from the notetaker; transcript never pulled*).
+
+**Decisions from that call:**
+- Event and event-property conventions stay unchanged; **only user properties** migrate to the new convention, pushed via reverse ETL from the warehouse.
+- **Workspaces stay separate per platform** — historical stitching is impossible for the ~95% non-logged-in base.
+- **App is the primary acquisition + engagement surface.** Inc42 website gets hygiene + small experiments only, capped at **5–10% of bandwidth for 15–20 days**. DataLabs' core gap is retention (no reason to return) → parallel experiments.
+- Tracking plans: update, verify implementation matches, **weekly audits**, unify into one master sheet.
+- Behavioural scoring / RFV in the warehouse **deprioritized** until logic and use case are clear.
+- **Monday leads meeting** becomes the channel for weekly priorities and design-bandwidth conflicts (e.g. Satya on website banners vs app).
+- **QIA likely shifts 30-day → 7-day** for faster feedback loops.
+- Onboarding fields/values to be unified across platforms; skip questions already answered.
+- Ideas raised: MCP connector for Inc42 content as an acquisition play; shift IP ticket acquisition from ~70–80% paid to 50/50 organic via the audience engine.
