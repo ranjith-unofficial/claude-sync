@@ -7,7 +7,7 @@
             "type": "command",
             "command": "bash \"$HOME/Library/Mobile Documents/com~apple~CloudDocs/ClaudeSync/bin/claude-sync-guard.sh\"",
             "timeout": 20,
-            "statusMessage": "Syncing Claude memory…"
+            "statusMessage": "Syncing Claude memory\u2026"
           }
         ]
       }
@@ -29,5 +29,6 @@
   "tui": "fullscreen",
   "theme": "dark",
   "remoteControlAtStartup": false,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "autoUploadSessions": false
 }
