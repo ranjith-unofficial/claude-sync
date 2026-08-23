@@ -7,6 +7,9 @@ export default {
   id: 'logout',
   name: 'Authenticated — sign out and identity reset',
   auth: 'user',
+  // Signing out invalidates the saved session server-side, so every later --auth run would
+  // silently degrade to anonymous. Opt in with --include-logout, then re-run node login.mjs.
+  optIn: 'include-logout',
   expect: [
     { event: 'signed_out', min: 1 },
   ],
@@ -25,6 +28,13 @@ export default {
     ctx.log(`logout control      : ${out ?? 'NOT FOUND'}`);
     await settle(page, 8000);
 
+    /* Did the sign-out actually take effect? Without this, "Logout never fired" is
+       indistinguishable from "the logout button did nothing". */
+    const cookies = await page.context().cookies('https://inc42.com');
+    const loggedOut = !cookies.some((c) => ['user_logged_in', 'current_user_id'].includes(c.name)
+      && c.value && c.value !== 'deleted');
+    ctx.log(`session ended      : ${loggedOut ? 'yes — auth cookies cleared' : 'NO — still authenticated'}`);
+
     const after = await snapshot(page, 'signed_out');
     ctx.log(`distinct_id after   : ${after?.posthog_distinct_id ?? 'null'}`);
     const leaked = Boolean(after?.posthog_distinct_id && before?.posthog_distinct_id
@@ -33,6 +43,11 @@ export default {
       ? 'RESET NOT CALLED — identity survived logout'
       : 'identity changed after logout (reset appears to work)');
 
-    return { before: before?.posthog_distinct_id ?? null, after: after?.posthog_distinct_id ?? null, out, resetMissing: leaked };
+    return {
+      before: before?.posthog_distinct_id ?? null,
+      after: after?.posthog_distinct_id ?? null,
+      out, loggedOut,
+      resetMissing: loggedOut && leaked,   // only meaningful if the sign-out actually happened
+    };
   },
 };

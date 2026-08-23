@@ -136,28 +136,41 @@
       "trigger": "sign out",
       "requires": {
         "journey": "logout",
-        "field": "out"
+        "field": "loggedOut"
       }
     },
     "Save Story": {
       "journey": "logged-in",
       "destination": "posthog",
-      "trigger": "bookmark an article"
+      "trigger": "bookmark an article",
+      "requires": {
+        "journey": "logged-in",
+        "field": "saved"
+      }
     },
     "Follow": {
       "journey": "logged-in",
       "destination": "posthog",
-      "trigger": "follow an entity"
+      "trigger": "follow an entity",
+      "requires": {
+        "journey": "logged-in",
+        "field": "followed"
+      }
     },
     "Unfollow": {
-      "journey": "logged-in",
+      "journey": null,
       "destination": "posthog",
-      "trigger": "unfollow"
+      "trigger": "unfollow",
+      "why": "no journey unfollows - it needs an existing follow, and Follow itself could not be driven"
     },
     "My Inc42": {
       "journey": "logged-in",
       "destination": "posthog",
-      "trigger": "personalised feed opened"
+      "trigger": "personalised feed opened",
+      "requires": {
+        "journey": "logged-in",
+        "field": "feed"
+      }
     },
     "Newsletter Subscribed": {
       "journey": null,

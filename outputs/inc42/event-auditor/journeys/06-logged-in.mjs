@@ -42,9 +42,20 @@ export default {
 
     await mark(page, 'auth:follow');
     const followed = await clickFirst(page, [
-      'text=/start following/i', '[class*="follow"] button', 'button:has-text("Follow")', '[class*="follow-btn"]',
+      'text=/start following/i', 'button:has-text("Follow")', 'a:has-text("Follow")',
+      '[class*="follow"] button', '[class*="follow-btn"]', '[class*="follow"]',
+      '[data-action*="follow"]', '[aria-label*="ollow"]',
     ]);
-    ctx.log(`follow entity       : ${followed ?? 'NOT FOUND'}`);
+    if (!followed) {
+      // the follow control may only exist on company/topic pages, not on an article
+      await page.goto('https://inc42.com/company/swiggy/', { waitUntil: 'domcontentloaded' }).catch(() => {});
+      await settle(page, 3500);
+      ctx.log('retrying follow on a company page');
+    }
+    const followed2 = followed || await clickFirst(page, [
+      'button:has-text("Follow")', 'text=/start following/i', '[class*="follow"] button', '[class*="follow"]',
+    ]);
+    ctx.log(`follow entity       : ${followed2 ?? 'NOT FOUND (article + company page)'}`);
     await page.waitForTimeout(3000);
 
     await mark(page, 'auth:my-inc42');
@@ -58,6 +69,6 @@ export default {
     const filtered = await clickFirst(page, ['[class*="tab"]', '[class*="filter"] button', '[role="tab"]']);
     await page.waitForTimeout(2500);
 
-    return { identity: id ?? null, saved, followed, feed, filtered };
+    return { identity: id ?? null, saved, followed: followed2, feed, filtered };
   },
 };

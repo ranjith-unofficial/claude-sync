@@ -53,6 +53,8 @@ async function runBrowser() {
   const journeys = [];
   for (const f of files) {
     const mod = (await import(path.join(dir, f))).default;
+    const gated = mod.optIn && !process.argv.includes(`--${mod.optIn}`) && !PICK.includes(mod.id);
+    if (gated) continue;
     if (!PICK.length || PICK.includes(mod.id)) journeys.push(mod);
   }
   const haveAuth = fs.existsSync(AUTH_STATE);
