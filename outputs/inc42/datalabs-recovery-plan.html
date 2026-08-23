@@ -204,45 +204,138 @@
 </header>
 
 <!-- ========== 01 ========== -->
-<section id="principle">
-  <span class="sec-num">01 — SEQUENCING</span>
-  <h2>Fix the bucket before refilling it</h2>
+<section id="primer">
+  <span class="sec-num">01 — START HERE</span>
+  <h2>How a Datalabs subscription actually works</h2>
+  <p class="dek">Read this first even if you've worked on Datalabs. Most of the problems below live in the payment plumbing, which almost nobody has had reason to look at.</p>
 
-  <p>Winback runs <strong>after</strong> the mechanics, not alongside. A recovered customer today walks back into a system where the first charge fails 42% of the time, nothing retries, and a third of subscriptions silently detach their mandate and expire without a debit ever being attempted.</p>
+  <h3>The three moments that matter</h3>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:12%">Phase</th><th style="width:30%">What</th><th style="width:16%">Gate to proceed</th><th>Why this order</th></tr></thead>
+      <thead><tr><th style="width:14%">When</th><th style="width:24%">What happens</th><th style="width:16%">Amount</th><th>How healthy it is</th></tr></thead>
       <tbody>
         <tr>
-          <td><span class="chip c-p0">P0</span></td>
-          <td>Stop silent deaths · fix token confirmation</td>
-          <td>0 live subs in detached state</td>
-          <td>A retry is pointless if the subscription never schedules a charge.</td>
+          <td><strong>Day 0</strong></td>
+          <td>Customer starts a 7-day trial. To do that they must set up a <strong>mandate</strong> — standing permission for us to debit them later. Razorpay proves it works by charging ₹10.</td>
+          <td class="num">₹10</td>
+          <td><span class="chip c-ok">FINE</span> 228 of 251 customers get a working mandate — 90.8%.</td>
         </tr>
         <tr>
-          <td><span class="chip c-p0">P0</span></td>
-          <td>Build the retry system</td>
-          <td>First-charge capture &gt; 70%</td>
-          <td>₹92,665 forgone vs ₹94,437 ever earned. The leak has cost what the business has made.</td>
+          <td><strong>Day 7</strong></td>
+          <td><strong>The first real charge.</strong> The trial ends and we attempt the actual subscription debit. This is the moment a trial becomes a paying customer.</td>
+          <td class="num">₹1,768.82</td>
+          <td><span class="chip c-p0">BROKEN</span> Only 57.9% succeed, and it's getting worse — 73.7% in May, 53.8% in July.</td>
         </tr>
         <tr>
-          <td><span class="chip c-p1">P1</span></td>
-          <td>Move detection to webhook · handle pause</td>
-          <td>Revocation recorded before charge fails</td>
-          <td>In 0 of 91 cases did we know before the debit already bounced.</td>
+          <td><strong>Day 37+</strong></td>
+          <td>Monthly renewals on the same mandate.</td>
+          <td class="num">₹1,768.82</td>
+          <td><span class="chip c-p1">THIN</span> Only 16 subscriptions have ever reached a second charge.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Almost everything in this document is about <strong>Day 7</strong>, or about mandates that quietly died before Day 7 ever arrived.</p>
+
+  <h3>The words used below</h3>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="width:26%">Term</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Mandate</td>
+          <td>The standing permission a customer gives their bank or UPI app allowing us to debit them automatically. It lives inside <strong>their</strong> GPay / PhonePe / bank app, not in our product. Only they can pause or cancel it.</td>
         </tr>
         <tr>
-          <td><span class="chip c-p1">P1</span></td>
-          <td>Work the four lists by hand</td>
-          <td>Reply rate + reasons written down</td>
-          <td>A few dozen people. A person can do it in an afternoon and learn more than a dashboard.</td>
+          <td>Token</td>
+          <td>Razorpay's word for that mandate in the API and in our logs. "Token cancelled" and "mandate cancelled" mean the same thing.</td>
         </tr>
         <tr>
-          <td><span class="chip c-p2">P2</span></td>
-          <td>Build the in-product surfaces</td>
-          <td>Only if P1 shows something</td>
-          <td>At 31 active subs, don't build a campaign engine for a spreadsheet-sized problem.</td>
+          <td>The ₹10 authorisation</td>
+          <td>A small real charge at signup whose only job is to prove the mandate works. It is captured, but it isn't revenue.</td>
+        </tr>
+        <tr>
+          <td>Pre-debit notification<br><span style="color:var(--muted);font-size:12.5px">(PDN)</span></td>
+          <td>An alert NPCI <strong>requires</strong> us to send 24 hours before every single debit. It appears in the customer's UPI app naming Inc42 and the amount — <strong>with pause and cancel buttons on the same screen.</strong> So regulation forces us to prompt a re-decision every billing cycle.</td>
+        </tr>
+        <tr>
+          <td>Revoked <span style="color:var(--muted);font-size:12.5px">/ cancelled externally</span></td>
+          <td>The customer killed the mandate inside their UPI app. It's dead. A new one has to be created before we can charge them again.</td>
+        </tr>
+        <tr>
+          <td>Paused</td>
+          <td>The customer temporarily suspended the mandate. <strong>It's still alive.</strong> Only they can resume it — we can't. Very different from revoked, and we currently treat them the same.</td>
+        </tr>
+        <tr>
+          <td><strong>Detached mandate</strong></td>
+          <td>Our records say the subscription is active, but there's no working mandate behind it. <strong>No debit will ever be attempted.</strong> The subscription simply expires at the end of its term and nobody notices. 9 live subscriptions and 5 current trials are in this state right now.</td>
+        </tr>
+        <tr>
+          <td>Retry</td>
+          <td>A second attempt at a debit that failed. <strong>We have never made one.</strong> 47 failed charges, zero retries.</td>
+        </tr>
+        <tr>
+          <td>Dunning</td>
+          <td>The standard industry term for the sequence of retries and messages that follows a failed payment.</td>
+        </tr>
+        <tr>
+          <td>Grace period</td>
+          <td>How long a customer keeps access after a failure before we cancel them. Currently set to 15 days.</td>
+        </tr>
+        <tr>
+          <td>First-charge capture</td>
+          <td>The percentage of Day-7 charges that succeed. Today 57.9%. This single number is the health of the business.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========== 02 ========== -->
+<section id="principle">
+  <span class="sec-num">02 — SEQUENCING</span>
+  <h2>Fix the bucket before refilling it</h2>
+
+  <p>The instinct is to go straight at winning back the customers who cancelled. That's the wrong order. Today a recovered customer walks back into a system where the Day-7 charge fails 42% of the time, nothing ever retries, and some subscriptions lose their mandate and expire without a single debit being attempted.</p>
+
+  <p><strong>So: repair the payment plumbing first, then contact the people we've lost, and only build new product after we've learned something from them.</strong></p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="width:8%"></th><th style="width:26%">What we do</th><th style="width:34%">Why it has to come here</th><th>Move on when</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="chip c-p0">1st</span></td>
+          <td>Stop subscriptions from dying without ever being charged</td>
+          <td>Some subscriptions lose their mandate but stay marked active, so no debit is ever attempted and they quietly expire. <strong>A retry system can't retry a charge that was never scheduled in the first place.</strong></td>
+          <td>No live subscription is sitting without a working mandate behind it.</td>
+        </tr>
+        <tr>
+          <td><span class="chip c-p0">2nd</span></td>
+          <td>Build a system that tries a failed payment more than once</td>
+          <td>When a debit fails today, nothing happens — ever. We've lost roughly <strong>₹92,665</strong> of lifetime value to failed first charges, against <strong>₹94,437</strong> the business has earned in total. The leak has cost about what we've made.</td>
+          <td>First-charge capture is above 70%. It's 57.9% today.</td>
+        </tr>
+        <tr>
+          <td><span class="chip c-p1">3rd</span></td>
+          <td>Find out about cancellations when they happen, not weeks later</td>
+          <td>We learn a mandate was cancelled by polling Razorpay occasionally, rather than being told immediately. <strong>In 0 of 91 cases did we know before the next charge had already bounced.</strong> The window where we could have said something is gone by the time we notice.</td>
+          <td>A cancellation is recorded the same day, before any charge is attempted.</td>
+        </tr>
+        <tr>
+          <td><span class="chip c-p1">4th</span></td>
+          <td>Email the four lists of affected people, by hand</td>
+          <td>A few dozen people in total. <strong>A person can work through them in an afternoon and will learn more than any dashboard.</strong> Automating this before we know what to say has already been tried here, and failed.</td>
+          <td>Every reply is written down and the reasons are understood.</td>
+        </tr>
+        <tr>
+          <td><span class="chip c-p2">5th</span></td>
+          <td>Build new product surfaces</td>
+          <td>At 31 active subscriptions, a campaign engine would be heavier than the thing it protects. Build only what the replies in step 4 justify.</td>
+          <td>—</td>
         </tr>
       </tbody>
     </table>
