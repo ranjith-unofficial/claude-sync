@@ -1,0 +1,688 @@
+<title>Jatin Saluja Interview Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#FBFCFD;
+  --surface:#F1F5F7;
+  --surface-2:#E6ECEF;
+  --line:#D3DDE3;
+  --line-soft:#E4EBEF;
+  --ink:#14212B;
+  --ink-2:#33454F;
+  --muted:#5A6B77;
+  --accent:#0F6E6E;
+  --accent-soft:#DDEDEC;
+  --good:#1F7A4D;
+  --watch:#A8620A;
+  --risk:#A32F2F;
+  --good-bg:#E4F2EA;
+  --watch-bg:#F8EEDF;
+  --risk-bg:#F7E6E5;
+  --shadow:0 1px 2px rgba(20,33,43,.05), 0 8px 24px -16px rgba(20,33,43,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1418;
+    --surface:#141F25;
+    --surface-2:#1B2830;
+    --line:#2A3B45;
+    --line-soft:#22313A;
+    --ink:#E8EFF2;
+    --ink-2:#C0CDD4;
+    --muted:#8DA0AB;
+    --accent:#4FBFB8;
+    --accent-soft:#13312F;
+    --good:#5FC48C;
+    --watch:#D9A24A;
+    --risk:#E08079;
+    --good-bg:#132A20;
+    --watch-bg:#2B2214;
+    --risk-bg:#2E1B1A;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1418;
+  --surface:#141F25;
+  --surface-2:#1B2830;
+  --line:#2A3B45;
+  --line-soft:#22313A;
+  --ink:#E8EFF2;
+  --ink-2:#C0CDD4;
+  --muted:#8DA0AB;
+  --accent:#4FBFB8;
+  --accent-soft:#13312F;
+  --good:#5FC48C;
+  --watch:#D9A24A;
+  --risk:#E08079;
+  --good-bg:#132A20;
+  --watch-bg:#2B2214;
+  --risk-bg:#2E1B1A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.masthead{
+  border-bottom:2px solid var(--ink);
+  padding:44px 0 22px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:24px;
+  align-items:flex-end;
+  justify-content:space-between;
+}
+.eyebrow{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin:0 0 10px;
+}
+h1{
+  font-size:clamp(30px,4.4vw,44px);
+  line-height:1.05;
+  letter-spacing:-.022em;
+  font-weight:700;
+  margin:0;
+  text-wrap:balance;
+}
+.sub{color:var(--muted);margin:8px 0 0;font-size:15px;max-width:52ch}
+.verdict-chip{
+  display:inline-flex;align-items:baseline;gap:10px;
+  background:var(--accent-soft);
+  border:1px solid var(--accent);
+  border-radius:2px;
+  padding:10px 16px;
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+}
+.verdict-chip b{font-size:26px;font-weight:600;color:var(--accent);line-height:1}
+.verdict-chip span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+
+/* ---------- facts ---------- */
+.facts{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  margin:28px 0 0;
+}
+.fact{background:var(--ground);padding:14px 16px}
+.fact dt{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 5px;
+}
+.fact dd{margin:0;font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+
+/* ---------- score bars ---------- */
+.scores{margin:32px 0 0}
+.score-row{
+  display:grid;
+  grid-template-columns:minmax(120px,180px) 1fr 42px;
+  align-items:center;
+  gap:14px;
+  padding:7px 0;
+  border-bottom:1px solid var(--line-soft);
+}
+.score-row:last-child{border-bottom:0}
+.score-row .lbl{font-size:13.5px;color:var(--ink-2)}
+.score-row .lbl em{font-style:normal;color:var(--muted);font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+.bar{height:7px;background:var(--surface-2);position:relative;border-radius:1px;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:1px}
+.bar.is-weak i{background:var(--watch)}
+.score-row .num{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:13px;text-align:right;font-variant-numeric:tabular-nums;font-weight:500;
+}
+
+/* ---------- nav ---------- */
+nav.buckets{
+  position:sticky;top:0;z-index:20;
+  background:var(--ground);
+  border-bottom:1px solid var(--line);
+  margin:40px 0 0;
+  padding:10px 0;
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+nav.buckets a{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;
+  padding:5px 9px;border:1px solid var(--line);border-radius:2px;
+  white-space:nowrap;
+}
+nav.buckets a:hover,nav.buckets a:focus-visible{
+  border-color:var(--accent);color:var(--accent);background:var(--accent-soft);
+}
+
+/* ---------- sections ---------- */
+section{margin:52px 0 0;scroll-margin-top:64px}
+.sec-head{
+  display:flex;flex-wrap:wrap;gap:12px 20px;align-items:baseline;
+  border-bottom:1px solid var(--ink);padding-bottom:9px;margin-bottom:6px;
+}
+.sec-head h2{
+  font-size:21px;letter-spacing:-.012em;font-weight:600;margin:0;flex:1 1 auto;
+}
+.weight,.clock{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;white-space:nowrap;
+}
+.weight{background:var(--ink);color:var(--ground)}
+.weight.gate{background:var(--accent);color:#fff}
+:root[data-theme="dark"] .weight.gate,
+:root:not([data-theme="light"]) .weight.gate{color:#08201F}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) .weight.gate{color:#fff}
+}
+.clock{background:var(--surface-2);color:var(--ink-2)}
+.sec-note{
+  font-family:'Source Serif 4',Georgia,serif;
+  color:var(--muted);font-size:15px;margin:12px 0 18px;max-width:74ch;
+}
+
+/* ---------- tables ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--line);background:var(--ground)}
+table{border-collapse:collapse;width:100%;min-width:880px}
+thead th{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);text-align:left;font-weight:500;
+  padding:10px 14px;background:var(--surface);
+  border-bottom:1px solid var(--line);
+  vertical-align:bottom;
+}
+tbody td{
+  padding:15px 14px;border-bottom:1px solid var(--line-soft);
+  vertical-align:top;font-size:13.5px;line-height:1.5;
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:var(--surface)}
+.qnum{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:11px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+.q{font-weight:500;color:var(--ink);font-size:14px;min-width:210px}
+.q .ask{display:block;margin-bottom:6px}
+.serif{font-family:'Source Serif 4',Georgia,serif;font-size:14px;line-height:1.5}
+td.good{color:var(--ink-2)}
+td.good b{color:var(--good);font-weight:600}
+td.bad{color:var(--ink-2)}
+td.bad b{color:var(--risk);font-weight:600}
+td.why{color:var(--muted);font-size:13px}
+.pri{
+  display:inline-block;font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.09em;padding:2px 5px;border-radius:2px;
+  vertical-align:2px;margin-left:0;
+}
+.p1{background:var(--ink);color:var(--ground)}
+.p2{background:var(--surface-2);color:var(--muted)}
+.hook{
+  display:block;margin-top:8px;font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.03em;color:var(--accent);text-transform:uppercase;
+}
+
+/* ---------- flags ---------- */
+.flags{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:6px}
+.flag{border:1px solid var(--line);border-top:3px solid var(--risk);background:var(--ground);padding:16px 18px}
+.flag h3{margin:0 0 8px;font-size:15px;font-weight:600;letter-spacing:-.008em}
+.flag p{margin:0 0 10px;font-family:'Source Serif 4',Georgia,serif;font-size:14px;color:var(--ink-2)}
+.flag .quote{
+  font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;
+  background:var(--surface);border-left:2px solid var(--line);
+  padding:8px 11px;color:var(--ink-2);margin:0 0 10px;
+}
+.flag .ask-this{font-size:13.5px;color:var(--ink);font-weight:500;margin:0}
+
+/* ---------- scorecard ---------- */
+.card{border:1px solid var(--line);background:var(--surface);padding:20px 22px;margin-top:6px}
+.card h3{margin:0 0 4px;font-size:15px;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:14px;font-family:'Source Serif 4',Georgia,serif}
+.callout{
+  border:1px solid var(--accent);background:var(--accent-soft);
+  padding:16px 18px;margin:22px 0 0;
+}
+.callout p{margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:14.5px;color:var(--ink)}
+.callout strong{font-family:'Archivo',sans-serif;font-weight:600}
+
+footer{
+  margin-top:56px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:11px;color:var(--muted);letter-spacing:.03em;
+  display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between;
+}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:640px){
+  .masthead{padding-top:32px}
+  .score-row{grid-template-columns:minmax(96px,120px) 1fr 36px;gap:10px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div>
+    <p class="eyebrow">Product Trainee &nbsp;·&nbsp; Inc42 &nbsp;·&nbsp; Interview Guide</p>
+    <h1>Jatin Saluja</h1>
+    <p class="sub">Ranked 10 of 235 scored applicants, out of 545 total. Shortlist band. Interviewer: Ranjith.</p>
+  </div>
+  <div class="verdict-chip"><b>77</b><span>Fit&nbsp;score<br>Shortlist</span></div>
+</header>
+
+<dl class="facts">
+  <div class="fact"><dt>Education</dt><dd>BBA, JECRC 2025</dd></div>
+  <div class="fact"><dt>Experience</dt><dd>9 months</dd></div>
+  <div class="fact"><dt>All roles</dt><dd>Internships</dd></div>
+  <div class="fact"><dt>Location</dt><dd>Delhi</dd></div>
+  <div class="fact"><dt>Current CTC</dt><dd>₹1.8L</dd></div>
+  <div class="fact"><dt>Expected</dt><dd>₹6.0L</dd></div>
+  <div class="fact"><dt>Product context</dt><dd>Mixed</dd></div>
+</dl>
+
+<div class="scores">
+  <div class="score-row"><div class="lbl">AI fluency <em>20%</em></div><div class="bar"><i style="width:82%"></i></div><div class="num">82</div></div>
+  <div class="score-row"><div class="lbl">Analytical <em>25%</em></div><div class="bar"><i style="width:75%"></i></div><div class="num">75</div></div>
+  <div class="score-row"><div class="lbl">Execution &amp; impact <em>25%</em></div><div class="bar"><i style="width:73%"></i></div><div class="num">73</div></div>
+  <div class="score-row"><div class="lbl">Written comms <em>20%</em></div><div class="bar"><i style="width:72%"></i></div><div class="num">72</div></div>
+  <div class="score-row"><div class="lbl">Product sense <em>10%</em></div><div class="bar"><i style="width:69%"></i></div><div class="num">69</div></div>
+  <div class="score-row"><div class="lbl">First principles <em>cross</em></div><div class="bar is-weak"><i style="width:66%"></i></div><div class="num">66</div></div>
+  <div class="score-row"><div class="lbl">User thinking <em>cross</em></div><div class="bar is-weak"><i style="width:64%"></i></div><div class="num">64</div></div>
+</div>
+
+<div class="callout">
+  <p><strong>Where to spend the hour.</strong> His two weakest numbers — first principles (66) and user thinking (64) — are the two you named as the real bar. His strongest, AI fluency (82), is the one most easily faked on paper. So the interview is not a tour of the resume: it is a stress test of the top and the bottom, and a verification of three specific claims that may not survive contact.</p>
+</div>
+
+<nav class="buckets" aria-label="Interview sections">
+  <a href="#open">Open</a>
+  <a href="#b2c">B2C gate</a>
+  <a href="#analytical">Analytical 25%</a>
+  <a href="#execution">Execution 25%</a>
+  <a href="#ai">AI fluency 20%</a>
+  <a href="#writing">Writing 20%</a>
+  <a href="#sense">Product sense 10%</a>
+  <a href="#flags">Three red flags</a>
+  <a href="#close">Close</a>
+  <a href="#scorecard">Scorecard</a>
+</nav>
+
+<!-- ============ OPEN ============ -->
+<section id="open">
+  <div class="sec-head">
+    <h2>Opening</h2>
+    <span class="weight gate">Unscored</span>
+    <span class="clock">4 min</span>
+  </div>
+  <p class="sec-note">Do not ask him to walk through his resume. You have read it; the time is better spent making him choose what matters, which is itself a signal.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>Strong answer sounds like</th><th>Red flag</th><th>Why ask it</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="qnum">O1 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Of everything on your resume, which one piece of work would you want me to judge you on? Just that one.”</span></td>
+          <td class="good serif">Picks a <b>shipped</b> thing with a measured outcome — most likely the Figs KYC funnel or the n8n agent — and can say why it beats the rest.</td>
+          <td class="bad serif">Picks the <b>18% AUM</b> line, or can't choose and re-narrates the whole resume chronologically.</td>
+          <td class="why">Forces self-assessment. What he rates highest tells you what he thinks the job is.</td>
+        </tr>
+        <tr>
+          <td class="qnum">O2 <span class="pri p2">IF TIME</span></td>
+          <td class="q"><span class="ask">“You applied to a media and intelligence company after two fintech internships. What made you apply here?”</span></td>
+          <td class="good serif">Has actually used Inc42 — names the app, DataLabs, a specific IP, or an article. Curiosity about the product, not the brand.</td>
+          <td class="bad serif">Generic startup-ecosystem enthusiasm. Has not opened the product.</td>
+          <td class="why">Cheap test of whether he does homework — the same instinct the role needs daily.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ B2C ============ -->
+<section id="b2c">
+  <div class="sec-head">
+    <h2>Consumer product experience</h2>
+    <span class="weight gate">Filter, not a weight</span>
+    <span class="clock">5 min</span>
+  </div>
+  <p class="sec-note">He classified as <strong>mixed</strong>, not clean B2C — consumer fintech at Figs, but agency ad work at REPP and GTM strategy at PrimeWealth. This is the filter that killed nine of the twenty you graded, so it is worth confirming the consumer work is real.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>Strong answer sounds like</th><th>Red flag</th><th>Why ask it</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="qnum">C1 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“At Figs, who was the actual end user of the onboarding flow you owned? Describe one of them to me.”</span><span class="hook">Resume: Figs, goal-based investing, Jun–Nov 2025</span></td>
+          <td class="good serif">A specific human — first-time retail investor, age, what confused them, where they abandoned. Speaks about them from <b>observation</b>, not persona docs.</td>
+          <td class="bad serif">Describes a segment, not a person. Or the "user" turns out to be a relationship manager, making it internal tooling.</td>
+          <td class="why">Separates real consumer work from B2B work with a consumer label. Directly tests his weakest score, user thinking (64).</td>
+        </tr>
+        <tr>
+          <td class="qnum">C2 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“How many users were in that funnel? Roughly what scale?”</span></td>
+          <td class="good serif">Knows the order of magnitude and can say how he knew. Comfortable saying "a few thousand" if that is the truth.</td>
+          <td class="bad serif">Deflects, or the number is so small the 10% improvement is noise.</td>
+          <td class="why">A 10% drop-off cut on 80 users is not a result. Scale determines whether the headline number means anything.</td>
+        </tr>
+        <tr>
+          <td class="qnum">C3 <span class="pri p2">IF TIME</span></td>
+          <td class="q"><span class="ask">“Your quick-commerce study benchmarked four apps over 50+ queries. What made you start it — nobody asked you to.”</span></td>
+          <td class="good serif">Personal friction he noticed as a user, then systematised. Shows the instinct to <b>go look</b> without being assigned.</td>
+          <td class="bad serif">It was a fellowship assignment presented as self-driven.</td>
+          <td class="why">This project is the closest thing on his resume to the work you actually do. Worth knowing if it was his idea.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ ANALYTICAL ============ -->
+<section id="analytical">
+  <div class="sec-head">
+    <h2>Analytical judgement</h2>
+    <span class="weight">25% · scored 75</span>
+    <span class="clock">10 min</span>
+  </div>
+  <p class="sec-note">Your bar is separating signal from noise, not producing reports on request. The reference point is the brief-ranking simulation: running the scorer over 366 real articles and finding 86% carried no sector tag, which killed the feature. You are listening for someone who would have found that.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>Strong answer sounds like</th><th>Red flag</th><th>Why ask it</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="qnum">A1 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Take the KYC funnel. Before you changed anything — how did you work out <em>where</em> people were dropping, and how did you know that was the real problem and not a symptom?”</span></td>
+          <td class="good serif">Step-by-step: instrumented the steps, looked at the drop between them, segmented by device or document type, then <b>checked the obvious explanation and ruled it out</b>. Names what he expected to find and didn't.</td>
+          <td class="bad serif">"We saw drop-off at KYC so we simplified KYC." A conclusion with no interrogation in between.</td>
+          <td class="why">The single highest-signal question in this bucket. Tests whether he reasons about causes or just reads a chart.</td>
+        </tr>
+        <tr>
+          <td class="qnum">A2 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Here's a real one from our app. Users pick sectors during onboarding to personalise their daily brief. The feature is live, and the ranking barely changes what anyone sees. Where would you look?”</span></td>
+          <td class="good serif">Asks about the <b>data behind the tag</b> before touching the algorithm — coverage, how sectors get assigned, who assigns them. Suspects an input problem, not a logic problem.</td>
+          <td class="bad serif">Goes straight to tuning weights, adding ML, or "we should A/B test it."</td>
+          <td class="why">A live problem you already solved, so you know the answer. Anyone who asks about tag coverage is thinking the way the job needs.</td>
+        </tr>
+        <tr>
+          <td class="qnum">A3 <span class="pri p2">IF TIME</span></td>
+          <td class="q"><span class="ask">“What's a number you reported that you later realised was misleading?”</span></td>
+          <td class="good serif">A real one, told without flinching, with what he changed afterwards.</td>
+          <td class="bad serif">"I can't think of one." At nine months, everyone has one.</td>
+          <td class="why">Tests intellectual honesty — which matters more than usual given the projection-vs-result issue in his resume.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ EXECUTION ============ -->
+<section id="execution">
+  <div class="sec-head">
+    <h2>Execution &amp; impact</h2>
+    <span class="weight">25% · scored 73</span>
+    <span class="clock">10 min</span>
+  </div>
+  <p class="sec-note">Something shipped, and it moved a number he personally influenced. Team-level "contributed to" framing is weak evidence — and his resume has some.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>Strong answer sounds like</th><th>Red flag</th><th>Why ask it</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="qnum">E1 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Walk me through the KYC rework from the day you proposed it to the day the 10% showed up. Who had to agree, what got cut, how long did it take?”</span><span class="hook">Resume: “cutting verification drop-off by 10%”</span></td>
+          <td class="good serif">Names people and friction — an engineer who pushed back, a compliance constraint, a scope cut. <b>Knows how long it took.</b> The 10% arrives with a before-and-after and a measurement window.</td>
+          <td class="bad serif">Frictionless story where everyone agreed. No timeline. The 10% has no baseline attached.</td>
+          <td class="why">Real shipping has scars. The absence of any is usually the absence of ownership.</td>
+        </tr>
+        <tr>
+          <td class="qnum">E2 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“You shipped the MVP at Figs. What did you decide <em>not</em> to build, and what did that cost you?”</span></td>
+          <td class="good serif">A specific cut with a named trade-off he still stands behind or has since revised.</td>
+          <td class="bad serif">"We built everything in the spec." Suggests he executed a list rather than owning scope.</td>
+          <td class="why">Deciding what not to build is the part of product sense that survives into a trainee role.</td>
+        </tr>
+        <tr>
+          <td class="qnum">E3 <span class="pri p2">IF TIME</span></td>
+          <td class="q"><span class="ask">“All three of your roles were internships ending in under six months. What would change about how you work if you owned something for two years?”</span></td>
+          <td class="good serif">Recognises he has never lived with his own consequences, and says what he'd do differently.</td>
+          <td class="bad serif">Insists nothing would change.</td>
+          <td class="why">Honest framing of his real gap — nine months, no full-time role — without making it an accusation.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ AI ============ -->
+<section id="ai">
+  <div class="sec-head">
+    <h2>AI fluency</h2>
+    <span class="weight">20% · scored 82</span>
+    <span class="clock">10 min</span>
+  </div>
+  <p class="sec-note">His highest score, and the bucket where candidates inflate most. Your bar: built something shippable, or used AI inside the analysis itself. Tool names count for nothing. He has two real-looking builds — an n8n research agent and a RAG chatbot — so this is verification, not discovery.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>Strong answer sounds like</th><th>Red flag</th><th>Why ask it</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="qnum">AI1 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Your n8n agent scrapes Reddit and Hacker News and drafts PRDs. Show me the workflow, or draw the nodes for me. Where does it break?”</span><span class="hook">Resume: n8n AI Product Research Agent</span></td>
+          <td class="good serif">Describes actual nodes — trigger, fetch, dedupe, an LLM call, output. Volunteers <b>failure modes</b>: rate limits, hallucinated themes, junk from low-quality threads. Has opinions about the prompt.</td>
+          <td class="bad serif">Stays at outcome level. Can't say what breaks. "It just works."</td>
+          <td class="why">You build n8n workflows daily and this hiring agent is one. You will know within ninety seconds whether he actually built it.</td>
+        </tr>
+        <tr>
+          <td class="qnum">AI2 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Your RAG bot grounds every answer in cited sources. What did you do about the cases where it retrieved the wrong fund?”</span><span class="hook">Resume: RAG chatbot, 5 mutual funds, 30+ fields</span></td>
+          <td class="good serif">Talks about chunking, retrieval failures, evaluation — even crudely. Admits it got things wrong and says how he caught it.</td>
+          <td class="bad serif">Claims it never retrieved wrongly. That answer is always false and reveals he never evaluated it.</td>
+          <td class="why">Directly relevant to AskInc42. Whether he tested his own AI output is the difference between a builder and a demo-maker.</td>
+        </tr>
+        <tr>
+          <td class="qnum">AI3 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Tell me about a time an AI tool gave you a confidently wrong answer and you caught it. How?”</span></td>
+          <td class="good serif">A concrete instance with the verification method he used. His own AI-trust research suggests he thinks about this.</td>
+          <td class="bad serif">Generic "you should always verify AI output" with no example.</td>
+          <td class="why">The JD asks for someone who can "evaluate, debug and improve AI outputs." This is that line, made testable.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ WRITING ============ -->
+<section id="writing">
+  <div class="sec-head">
+    <h2>Written communication</h2>
+    <span class="weight">20% · scored 72</span>
+    <span class="clock">4 min live + take-home</span>
+  </div>
+  <p class="sec-note">He claims PRD writing three times and names no artifact. His resume itself reads clean and specific, which is the primary evidence — but 20% of the decision should not rest on a one-page CV. Most of this bucket is better tested after the call than during it.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>Strong answer sounds like</th><th>Red flag</th><th>Why ask it</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="qnum">W1 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Send me one PRD you actually wrote — the real file, not a rewrite. Which one will you send?”</span></td>
+          <td class="good serif">Names it immediately and can say who read it and what they did because of it.</td>
+          <td class="bad serif">Offers to "put something together." Means no PRD exists in the form claimed.</td>
+          <td class="why">The claim appears three times on the resume. Either an artifact exists or the claim is decoration.</td>
+        </tr>
+        <tr>
+          <td class="qnum">W2 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">Take-home, one page, 48 hours: <em>“Our newsletter deep links open in Safari instead of the app. Write the problem statement and how you'd find the cause.”</em></span></td>
+          <td class="good serif">Structured, states assumptions, proposes how to <b>verify</b> rather than jumping to a fix. Readable in one pass.</td>
+          <td class="bad serif">Padded, hedged, or a generic troubleshooting listicle. Length used to substitute for clarity.</td>
+          <td class="why">A real open problem on your plate. You already know the answer is the click-tracker breaking Universal Links, so you can grade the reasoning honestly.</td>
+        </tr>
+        <tr>
+          <td class="qnum">W3 <span class="pri p2">IF TIME</span></td>
+          <td class="q"><span class="ask">“Explain goal-based investing to me as if I've never invested.”</span></td>
+          <td class="good serif">Plain language, no jargon, one concrete example. Checks whether you followed.</td>
+          <td class="bad serif">Reaches for finance vocabulary to sound credible.</td>
+          <td class="why">Verbal analogue of the writing test, and quick. The role turns analysis into recommendations other people act on.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ SENSE ============ -->
+<section id="sense">
+  <div class="sec-head">
+    <h2>Product sense &amp; first principles</h2>
+    <span class="weight">10% · scored 69 / 66</span>
+    <span class="clock">7 min</span>
+  </div>
+  <p class="sec-note">Weighted lowest in your locked rubric at 10%, but it holds the two things you actually said matter most — user thinking and first principles. Worth noting the weighting may be wrong; treat these answers as more decisive than 10% implies.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>Strong answer sounds like</th><th>Red flag</th><th>Why ask it</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="qnum">P1 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“Tell me about a time the data told you the thing you were building wouldn't work — and you said so.”</span></td>
+          <td class="good serif">Killed or redirected his own idea on evidence. Names what it cost him to say it.</td>
+          <td class="bad serif">Reframes a small pivot as a kill. Or has never had the experience.</td>
+          <td class="why">The single question closest to your bar. First principles is his weakest relevant score at 66.</td>
+        </tr>
+        <tr>
+          <td class="qnum">P2 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“You have a news app with a small install base and no paid budget. Where do the next thousand installs come from?”</span></td>
+          <td class="good serif">Reasons from where the audience already is — mobile web, newsletter, repeat readers — and proposes <b>gating on intent</b> rather than blanket prompts. Asks for numbers before committing.</td>
+          <td class="bad serif">Reaches for Product Hunt, influencers, referral loops. Playbook recitation with no sizing.</td>
+          <td class="why">Your live acquisition problem. The good answer independently reconstructs the plan you already built.</td>
+        </tr>
+        <tr>
+          <td class="qnum">P3 <span class="pri p2">IF TIME</span></td>
+          <td class="q"><span class="ask">“Your AI trust research found 76% got wrong outputs and 84% wanted uncertainty signals. What did you do with that?”</span></td>
+          <td class="good serif">The finding changed a design decision, and he can name the decision.</td>
+          <td class="bad serif">Research ended at the slide. Insight never met a product.</td>
+          <td class="why">Tests whether research is a habit that changes things, or an artefact he produces.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ FLAGS ============ -->
+<section id="flags">
+  <div class="sec-head">
+    <h2>Three claims to verify</h2>
+    <span class="weight gate">Do not skip</span>
+    <span class="clock">woven through</span>
+  </div>
+  <p class="sec-note">These are the screening agent's specific concerns. Each is a claim that may not survive contact — ask them inside the relevant bucket rather than as an interrogation block.</p>
+  <div class="flags">
+    <div class="flag">
+      <h3>Projections dressed as results</h3>
+      <p class="quote">“projected 25% CTR lift” · “projected 30% drop-off reduction”</p>
+      <p>The InvestMates lines are forecasts, formatted identically to the Figs 10%, which appears to be real. A reader skimming sees five measured wins where there may be one.</p>
+      <p class="ask-this">Ask: “Which of those numbers were measured after launch, and which were forecasts?” — the test is whether he separates them <em>unprompted</em>.</p>
+    </div>
+    <div class="flag">
+      <h3>The 18% AUM claim</h3>
+      <p class="quote">“drove 18% growth in AUM” — GTM intern, 3 months</p>
+      <p>A three-month intern claiming to have driven assets-under-management growth at a wealth firm. Possible, but attribution is doing heavy lifting.</p>
+      <p class="ask-this">Ask: “What was your specific contribution to the 18%, and what else was happening at the firm that quarter?”</p>
+    </div>
+    <div class="flag">
+      <h3>User research with no n</h3>
+      <p class="quote">“76% got wrong AI outputs, 84% wanted uncertainty signals”</p>
+      <p>Percentages with no sample size and no method. Could be 200 respondents or 12 friends.</p>
+      <p class="ask-this">Ask: “How many people, recruited how? What surprised you enough to change the design?”</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section id="close">
+  <div class="sec-head">
+    <h2>Close</h2>
+    <span class="weight gate">Logistics</span>
+    <span class="clock">5 min</span>
+  </div>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Question</th><th>What you're establishing</th><th>Watch for</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="qnum">X1 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“You're on ₹1.8L and asking ₹6L. Talk me through that number.”</span></td>
+          <td class="good serif">A reasoned figure — market rate, cost of living, a competing offer. Flexible if the work is right.</td>
+          <td class="bad serif">Anchoring hard at ₹6L with no reasoning, or visible discomfort discussing it.</td>
+          <td class="why">₹6L sits <b>exactly at your ceiling</b> (₹5L cap + 20%). At ₹5L he still gets a 178% raise, so you have real room.</td>
+        </tr>
+        <tr>
+          <td class="qnum">X2 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“This is a trainee role converting to full-time. Can you start now?”</span></td>
+          <td class="good serif">Available immediately, understands the trainee framing.</td>
+          <td class="bad serif">Notice period, or expects a full PM title on day one.</td>
+          <td class="why">Your locked criterion: students and fresh grads must be able to join now as a trainee.</td>
+        </tr>
+        <tr>
+          <td class="qnum">X3 <span class="pri p1">MUST</span></td>
+          <td class="q"><span class="ask">“What do you want to ask me?”</span></td>
+          <td class="good serif">Questions about the product, the data, what he'd own in month one. Specific.</td>
+          <td class="bad serif">Only perks, title, and growth path. Or nothing.</td>
+          <td class="why">The last honest signal in any interview. What he's curious about is what he'll dig into.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ SCORECARD ============ -->
+<section id="scorecard">
+  <div class="sec-head">
+    <h2>Post-interview scorecard</h2>
+    <span class="weight">Score before you discuss him</span>
+  </div>
+  <p class="sec-note">Fill this before comparing notes with anyone. The agent's scores are in the left column — the point is to record where your read diverges, which is also how the next calibration round gets better.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Bucket</th><th>Weight</th><th>Agent score</th><th>Your score</th><th>Evidence that moved you</th></tr></thead>
+      <tbody>
+        <tr><td class="q">Analytical judgement</td><td class="qnum">25%</td><td class="qnum">75</td><td class="qnum">___</td><td class="why">&nbsp;</td></tr>
+        <tr><td class="q">Execution &amp; impact</td><td class="qnum">25%</td><td class="qnum">73</td><td class="qnum">___</td><td class="why">&nbsp;</td></tr>
+        <tr><td class="q">AI fluency</td><td class="qnum">20%</td><td class="qnum">82</td><td class="qnum">___</td><td class="why">&nbsp;</td></tr>
+        <tr><td class="q">Written communication</td><td class="qnum">20%</td><td class="qnum">72</td><td class="qnum">___</td><td class="why">&nbsp;</td></tr>
+        <tr><td class="q">Product sense</td><td class="qnum">10%</td><td class="qnum">69</td><td class="qnum">___</td><td class="why">&nbsp;</td></tr>
+        <tr><td class="q">First principles</td><td class="qnum">cross</td><td class="qnum">66</td><td class="qnum">___</td><td class="why">&nbsp;</td></tr>
+        <tr><td class="q">User thinking</td><td class="qnum">cross</td><td class="qnum">64</td><td class="qnum">___</td><td class="why">&nbsp;</td></tr>
+        <tr><td class="q"><strong>Overall</strong></td><td class="qnum">—</td><td class="qnum">77</td><td class="qnum">___</td><td class="why">Advance / hold / pass</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3>Decision rule worth setting in advance</h3>
+    <p>If the Figs 10% holds up under E1 and he can produce one real PRD under W1, he is a strong trainee hire. If both fail, the resume was better than the candidate — and that is worth knowing, because he is rank 10 and the same pattern will repeat down the list.</p>
+  </div>
+</section>
+
+<footer>
+  <span>Scored by the Inc42 screening agent · gpt-5.2 · rubric v3 · 19 Aug 2026</span>
+  <span>Rank 10 / 235 scored · 545 applicants</span>
+</footer>
+
+</div>
