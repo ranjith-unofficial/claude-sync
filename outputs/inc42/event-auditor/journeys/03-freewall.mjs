@@ -24,9 +24,11 @@ export default {
       await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight * 0.6 })).catch(() => {});
       await page.waitForTimeout(2000);
 
+      // Structural selectors only. A bare "continue reading" text match hits every
+      // card link on the page and reports a freewall that never rendered.
       const lock = await isVisible(page, [
-        '[class*="freewall"]', '[class*="lock-model"]', '[class*="register-lock"]',
-        'text=/sign in to continue/i', 'text=/continue reading/i',
+        '[class*="freewall-lock"]', '[class*="lock-model"]', '[class*="register-lock"]',
+        '[class*="freewall"]', 'text=/sign in to continue reading/i',
       ]);
       if (lock) { lockedAt = { index: i + 1, url: links[i], selector: lock }; break; }
     }

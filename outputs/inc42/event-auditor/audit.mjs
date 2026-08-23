@@ -27,6 +27,12 @@ const DAYS = Number(arg('days', 30));
 const PICK = arg('journeys', '').split(',').map((s) => s.trim()).filter(Boolean);
 const WAIT_INGEST = Number(arg('ingest-wait', 120)); // seconds before verifying
 
+/* inc42.com serves HTTP 201 + application/octet-stream to any UA containing
+   "HeadlessChrome" — a bot-mitigation rule. Without this override every headless
+   run silently gets a non-HTML body. Anything you point at this site (synthetic
+   monitors included) needs a real Chrome UA. */
+const REAL_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
+
 const log = (...a) => console.log(...a);
 const readJSON = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 
@@ -64,9 +70,29 @@ async function runBrowser() {
     log(`\n  ── ${j.name}`);
     const ctx = await browser.newContext({
       viewport: { width: 1440, height: 900 },
-      userAgent: undefined,
+      userAgent: REAL_UA,
       locale: 'en-IN',
       timezoneId: 'Asia/Kolkata',
+      extraHTTPHeaders: { 'accept-language': 'en-IN,en;q=0.9' },
+    });
+    // Streamed from the probe. Bound before addInitScript so it exists on first document.
+    await ctx.exposeBinding('__AUDIT_EMIT__', (src, r) => {
+      try {
+        if (!r || typeof r !== 'object') return;
+        if (r.channel === 'identity') {
+          // addInitScript runs in every frame; ad/GTM iframes produce empty about:blank snapshots.
+          const empty = r.posthog_distinct_id == null && r.cio_user_id == null && r.event_properties_bundle == null;
+          if (r.url === 'blank' && empty) return;
+          identity.push({ ...r, journey: j.id });
+          return;
+        }
+        if (r.vendor === '_marker') return;
+        events.push({
+          vendor: r.vendor, name: r.name, props: r.props ?? {}, t: r.t,
+          journey: j.id, marker: actionState.marker, source: 'sdk', kind: r.kind,
+          stack: r.stack, pageUrl: r.url,
+        });
+      } catch {}
     });
     await ctx.addInitScript({ path: path.join(ROOT, 'lib/probe.js') });
 
@@ -91,17 +117,9 @@ async function runBrowser() {
 
     // drain the probe + any late beacons
     await page.waitForTimeout(3000).catch(() => {});
-    const probe = await page.evaluate(() => window.__AUDIT__ ?? null).catch(() => null);
-    if (probe) {
-      identity.push(...(probe.identity || []).map((s) => ({ ...s, journey: j.id })));
-      for (const s of probe.sdk || []) {
-        if (s.vendor === '_marker') continue;
-        events.push({
-          vendor: s.vendor, name: s.name, props: s.props ?? {}, t: s.t,
-          journey: j.id, marker: s.kind, source: 'sdk', kind: s.kind, stack: s.stack,
-        });
-      }
-    }
+    // The binding already streamed everything; this only surfaces probe self-diagnostics.
+    const probe = await page.evaluate(() => (window.__AUDIT__ ? { notes: window.__AUDIT__.notes } : null)).catch(() => null);
+    if (probe?.notes?.length) log(`     probe notes: ${probe.notes.slice(0, 3).join(' | ')}`);
 
     for (const e of j.expect || []) {
       expectations.push({ ...e, journey: j.id, critical: spec.byName[e.event]?.critical ?? false });

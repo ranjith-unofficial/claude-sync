@@ -18,26 +18,69 @@ const normKey = (k) => k.toLowerCase().replace(/[^a-z0-9]/g, '');
 const pct = (a, b) => (b ? Math.round((a / b) * 1000) / 10 : 0);
 
 /* ── 1 · NEVER_FIRES — spec'd, expected in a journey, absent everywhere ───── */
+// Denominators: without them the funnel above them cannot be measured at all.
+const DENOMINATORS = new Set(['freewall_shown', 'plus_wall_shown', 'sign_in_prompt_shown',
+  'newsletter_prompt_shown', 'search_initiated', 'web_push_prompt_shown']);
+
 export function ruleNeverFires({ spec, aliases, browser, warehouse }) {
   const out = [];
-  const fired = new Set(browser.events.map((e) => e.name));
+  const fired = new Set(browser.events.filter((e) => e.vendor === 'posthog').map((e) => e.name));
   const vol = new Map((warehouse?.volumes || []).map((v) => [v.event, Number(v.volume) || 0]));
+  const haveWarehouse = Boolean(warehouse?.volumes?.length);
+
   for (const exp of browser.expectations) {
     const a = aliases.map[exp.event] || {};
     const live = a.posthog;
-    const sawBrowser = live ? fired.has(live) : false;
-    const sawWarehouse = live ? (vol.get(live) || 0) > 0 : false;
-    if (sawBrowser || sawWarehouse) continue;
+    if (live && fired.has(live)) continue;               // observed this run — nothing to report
+
+    const sp = spec.byName[exp.event];
+    const isP0 = exp.critical || sp?.critical || sp?.upsell || DENOMINATORS.has(exp.event);
+    const wVol = live ? (vol.get(live) ?? 0) : 0;
+
+    // Three genuinely different situations. Collapsing them is how an auditor cries wolf.
+    if (live && haveWarehouse && wVol > 0) {
+      out.push(F({
+        cls: 'NOT_REPRODUCED', severity: P2, event: exp.event,
+        title: `\`${exp.event}\` fires in production but not in this journey`,
+        evidence: `\`${live}\` has ${wVol.toLocaleString()} events/30d in PostHog, yet the "${exp.journey}" journey produced none.`,
+        impact: 'Either the journey does not reach the trigger, or the event is conditional (variant, segment, device). Not a defect on its own.',
+        fix: 'Tighten the journey to hit the real trigger, or document the condition.',
+        journey: exp.journey,
+      }));
+      continue;
+    }
+    if (live && haveWarehouse && wVol === 0) {
+      out.push(F({
+        cls: 'NEVER_FIRES', severity: isP0 ? P0 : P1, event: exp.event,
+        title: `\`${exp.event}\` never fires`,
+        evidence: `Mapped to \`${live}\`. Zero captures in the "${exp.journey}" journey AND zero volume in PostHog over the last 30 days.`,
+        impact: exp.note || sp?.metric || 'The metric in the plan has no data behind it.',
+        fix: `Check the handler for \`${live}\`.`,
+        journey: exp.journey,
+      }));
+      continue;
+    }
+    if (!live) {
+      if (a.status === 'gtm_only') continue;   // ruleGtmOnly already reports these, with better evidence
+      out.push(F({
+        cls: 'NOT_INSTRUMENTED', severity: isP0 ? P0 : P1, event: exp.event,
+        title: `\`${exp.event}\` is not instrumented at all`,
+        evidence: a.gtm
+          ? `No PostHog event is mapped. It exists only on the GTM/Meta path as \`${a.gtm}\`.`
+          : `No production event is mapped to this spec event (status: ${a.status ?? 'unmapped'}).`,
+        impact: exp.note || sp?.metric || 'Planned metric with nothing behind it.',
+        fix: `Instrument \`${exp.event}\` per the spec — fires when: ${sp?.fires_when ?? '—'}.`,
+        journey: exp.journey,
+      }));
+      continue;
+    }
+    // mapped, browser saw nothing, and we have no warehouse to arbitrate
     out.push(F({
-      cls: 'NEVER_FIRES',
-      severity: exp.critical ? P0 : P1,
-      event: exp.event,
-      title: `\`${exp.event}\` never fires`,
-      evidence: live
-        ? `Mapped to live event \`${live}\`, but the journey "${exp.journey}" produced 0 and the 30d warehouse volume is 0.`
-        : `No production event is mapped to this spec event at all (status: ${a.status ?? 'unmapped'}).`,
-      impact: exp.note || spec.byName[exp.event]?.metric || 'Metric in the spec has no data behind it.',
-      fix: live ? `Check the handler for \`${live}\`.` : `Instrument \`${exp.event}\` per the spec (${spec.byName[exp.event]?.fires_when ?? '—'}).`,
+      cls: 'UNVERIFIED', severity: P2, event: exp.event,
+      title: `\`${exp.event}\` not observed — unverified`,
+      evidence: `\`${live}\` produced no captures in "${exp.journey}". No PostHog key was supplied, so production volume could not be checked.`,
+      impact: 'Cannot distinguish a broken event from a journey that never reached the trigger.',
+      fix: 'Set POSTHOG_API_KEY and re-run to resolve this either way.',
       journey: exp.journey,
     }));
   }
@@ -86,35 +129,52 @@ export function ruleGtmOnly({ browser, aliases }) {
 }
 
 /* ── 4 · DOUBLE_FIRE — two names for one action, or one name twice ────────── */
+// GTM's own lifecycle pushes (gtm.js / gtm.dom / gtm.scrollDepth / config pushes with no
+// `event` key) are container plumbing, not analytics events. Repeats there are normal.
+const GTM_INTERNAL = /^gtm\./;
+const isPlumbing = (e) =>
+  !e.name ||
+  GTM_INTERNAL.test(String(e.name)) ||
+  e.name === 'null' ||
+  e.vendor === '_page' ||                                    // page errors get their own rule
+  (e.vendor === 'meta' && !/^(track|trackCustom)$/.test(e.kind ?? '')) ||  // fbq('init', <pixelId>)
+  /^\d{10,}$/.test(String(e.name));                          // bare pixel / measurement IDs
+
 export function ruleDoubleFire({ browser, warehouse }) {
   const out = [];
-  // (a) same event, same marker window, fired more than expected
-  const perMark = {};
+  // (a) identical payloads inside one journey step = a duplicate listener
+  const perStep = {};
   for (const e of browser.events) {
-    const k = `${e.marker || '—'}|${e.vendor}|${e.name}`;
-    (perMark[k] ||= []).push(e);
+    if (isPlumbing(e)) continue;
+    ((perStep[`${e.journey}|${e.marker || '—'}|${e.vendor}|${e.name}`] ||= [])).push(e);
   }
-  for (const [k, list] of Object.entries(perMark)) {
+  const agg = {};
+  for (const [k, list] of Object.entries(perStep)) {
     if (list.length < 2) continue;
-    const [marker, vendor, name] = k.split('|');
-    // identical payloads within 2s = a genuine duplicate, not a legitimate repeat
-    const sig = (e) => JSON.stringify(e.props ?? {});
+    const [, marker, vendor, name] = k.split('|');
     const groups = {};
-    for (const e of list) (groups[sig(e)] ||= []).push(e);
+    for (const e of list) (groups[JSON.stringify(e.props ?? {})] ||= []).push(e);
     for (const g of Object.values(groups)) {
       if (g.length < 2) continue;
-      const span = Math.max(...g.map((x) => x.t || 0)) - Math.min(...g.map((x) => x.t || 0));
+      const ts = g.map((x) => x.t ?? x.wallMs ?? 0);
+      const span = Math.max(...ts) - Math.min(...ts);
       if (span > 2000) continue;
-      out.push(F({
-        cls: 'DOUBLE_FIRE',
-        severity: P1,
-        event: name,
-        title: `\`${name}\` double-fires (${vendor})`,
-        evidence: `${g.length} identical payloads within ${span}ms at step "${marker}".`,
-        impact: 'Inflated volume; every rate computed against it is wrong.',
-        fix: 'Find the duplicate listener — usually an SPA re-render or a handler bound twice.',
-      }));
+      const a = (agg[`${vendor}|${name}`] ||= { vendor, name, steps: [], extra: 0, worst: 0 });
+      a.steps.push(marker);
+      a.extra += g.length - 1;
+      a.worst = Math.max(a.worst, g.length);
     }
+  }
+  for (const a of Object.values(agg)) {
+    out.push(F({
+      cls: 'DOUBLE_FIRE',
+      severity: P1,
+      event: a.name,
+      title: `\`${a.name}\` double-fires (${a.vendor})`,
+      evidence: `${a.extra} redundant payload(s) across ${a.steps.length} step(s); worst case ${a.worst} identical calls within 2s (e.g. "${a.steps[0]}").`,
+      impact: 'Inflated volume; every rate computed against this event is wrong.',
+      fix: 'Find the duplicate listener — usually an SPA re-render or a handler bound twice.',
+    }));
   }
   // (b) warehouse: near-identical event NAMES (Modal Close vs Modal Closed)
   const vols = (warehouse?.volumes || []).filter((v) => Number(v.volume) > 50);
@@ -146,7 +206,10 @@ export function ruleMissingProps({ spec, aliases, browser, warehouse }) {
   for (const exp of browser.expectations) {
     const live = aliases.map[exp.event]?.posthog;
     if (!live || !seen[live]) continue;
-    const want = exp.props || (spec.byName[exp.event]?.properties || []).map((p) => p.name);
+    // The spec sheet mixes real property names with inline footnotes ("*Story bundle only when…").
+    const isRealProp = (name) => /^[a-z][a-z0-9_]*$/.test(name) && name.length <= 40;
+    const want = (exp.props || (spec.byName[exp.event]?.properties || []).map((p) => p.name)).filter(isRealProp);
+    if (!want.length) continue;
     const present = new Set(seen[live].flatMap((p) => Object.keys(p)));
     const presentNorm = new Set([...present].map(normKey));
     const missing = want.filter((w) => !presentNorm.has(normKey(w)));
@@ -362,9 +425,94 @@ export function ruleUnspecified({ aliases, warehouse }) {
     }));
 }
 
+/* ── 12 · COVERAGE_GAP — fires to GA4/Meta, never to PostHog ──────────────── */
+// Generalises the hardcoded GTM_ONLY alias: catches anything the site sends to the
+// marketing stack while product analytics stays blind, whether or not it is in the plan.
+export function ruleCoverageGap({ browser }) {
+  const wire = browser.events.filter((e) => e.source === 'wire');
+  const ph = new Set(wire.filter((e) => e.vendor === 'posthog').map((e) => normKey(e.name)));
+  const ads = {};
+  for (const e of wire) {
+    if (!['ga4', 'meta'].includes(e.vendor)) continue;
+    if (/^(page_view|PageView|user_engagement|scroll)$/i.test(String(e.name))) {
+      // pageview/scroll are handled by their own spec rules; keep this list to custom events
+      if (String(e.name).toLowerCase() !== 'scroll') continue;
+    }
+    const k = normKey(e.name);
+    (ads[k] ||= { name: e.name, count: 0, vendors: new Set() });
+    ads[k].count++;
+    ads[k].vendors.add(e.vendor);
+  }
+  return Object.entries(ads)
+    .filter(([k]) => !ph.has(k))
+    .filter(([, v]) => v.count >= 2)
+    .sort((a, b) => b[1].count - a[1].count)
+    .map(([, v]) => F({
+      cls: 'COVERAGE_GAP', severity: P1, event: v.name,
+      title: `\`${v.name}\` reaches ${[...v.vendors].join('/')} but never PostHog`,
+      evidence: `${v.count} captures to ${[...v.vendors].join(' and ')} during this run; 0 to PostHog.`,
+      impact: 'The ad platform can optimise on this behaviour. The tool you make product decisions in cannot see it.',
+      fix: 'Mirror the event to PostHog through the shared transform layer, or decide deliberately that it is marketing-only and record that.',
+    }));
+}
+
+/* ── 13 · VENDOR_BALANCE — how lopsided is the stack overall ──────────────── */
+export function ruleVendorBalance({ browser }) {
+  const wire = browser.events.filter((e) => e.source === 'wire');
+  if (!wire.length) return [];
+  const types = {};
+  for (const e of wire) (types[e.vendor] ||= new Set()).add(e.name);
+  const ph = types.posthog?.size ?? 0;
+  const ga = types.ga4?.size ?? 0;
+  const cio = types.customerio?.size ?? 0;
+  const out = [];
+  if (ga > ph) {
+    out.push(F({
+      cls: 'VENDOR_BALANCE', severity: P0, event: '(stack)',
+      title: `GA4 receives ${ga} distinct events; PostHog receives ${ph}`,
+      evidence: `Across every journey in this run: ` +
+        Object.entries(types).map(([v, s]) => `${v} ${s.size}`).join(' · ') + '.',
+      impact: 'Product analytics is the thinner dataset. Every product decision is made on the tool with less information.',
+      fix: 'Treat the PostHog payload as the contract and mirror to marketing tools, not the other way round.',
+    }));
+  }
+  const cioTracks = wire.filter((e) => e.vendor === 'customerio' && e.type === 'track').length;
+  if (cio > 0 && cioTracks === 0) {
+    out.push(F({
+      cls: 'VENDOR_BALANCE', severity: P0, event: '(stack)',
+      title: 'Customer.io receives page calls but zero track calls',
+      evidence: `${wire.filter((e) => e.vendor === 'customerio').length} outbound Customer.io calls this run, all of type "page". No track() at all.`,
+      impact: 'All lifecycle messaging depends on server-side/reverse-ETL. No real-time site behaviour reaches the CRM, and the browser path is a silent single point of failure.',
+      fix: 'Decide client vs server event ownership explicitly and document it; wire track() for the behaviours campaigns trigger on.',
+    }));
+  }
+  return out;
+}
+
+/* ── 14 · PAGE_ERROR — a thrown error can kill every handler after it ──────── */
+export function rulePageErrors({ browser }) {
+  const errs = browser.events.filter((e) => e.vendor === '_page');
+  if (!errs.length) return [];
+  const byMsg = {};
+  for (const e of errs) {
+    const m = String(e.props?.message ?? '').split('\n')[0].slice(0, 160);
+    (byMsg[m] ||= { count: 0, markers: new Set() });
+    byMsg[m].count++;
+    byMsg[m].markers.add(e.marker);
+  }
+  return Object.entries(byMsg).map(([msg, v]) => F({
+    cls: 'PAGE_ERROR', severity: P1, event: '(runtime)',
+    title: `Uncaught page error: ${msg.slice(0, 70)}`,
+    evidence: `Thrown ${v.count}× during ${v.markers.size} journey step(s): ${[...v.markers].slice(0, 3).join(', ')}.`,
+    impact: 'An uncaught error aborts the rest of its call stack — any analytics call queued after it never runs.',
+    fix: 'Fix the error, or move analytics calls ahead of the throwing code.',
+  }));
+}
+
 export const ALL_RULES = [
   ruleNeverFires, ruleFiresNotLanded, ruleGtmOnly, ruleDoubleFire, ruleMissingProps,
   ruleNameDrift, ruleIdentity, rulePII, ruleVendorAsymmetry, ruleZombieAndNoise, ruleUnspecified,
+  ruleCoverageGap, ruleVendorBalance, rulePageErrors,
 ];
 
 export function runRules(ctx) {
@@ -375,5 +523,13 @@ export function runRules(ctx) {
     catch (e) { findings.push(F({ cls: 'RULE_ERROR', severity: P2, event: r.name, title: `Rule ${r.name} failed`, evidence: String(e), impact: '—', fix: '—' })); }
   }
   const order = { P0: 0, P1: 1, P2: 2 };
-  return findings.sort((a, b) => order[a.severity] - order[b.severity] || a.cls.localeCompare(b.cls));
+  // The same defect can surface from several journeys; report it once.
+  const seen = new Set();
+  const unique = findings.filter((f) => {
+    const k = `${f.cls}|${f.event}|${f.title}`;
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+  return unique.sort((a, b) => order[a.severity] - order[b.severity] || a.cls.localeCompare(b.cls));
 }

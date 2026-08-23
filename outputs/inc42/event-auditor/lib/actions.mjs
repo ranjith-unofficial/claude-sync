@@ -68,7 +68,9 @@ export async function articleLinks(page, limit = 6) {
     const seen = new Set();
     return [...document.querySelectorAll('a[href]')]
       .map((a) => a.href)
-      .filter((h) => /inc42\.com\/(buzz|features|resources|startups|entrepreneurship)\//.test(h))
+      // a real article has a slug segment after the section; /buzz/ alone is a listing
+      .filter((h) => /inc42\.com\/(buzz|features|resources|startups|entrepreneurship)\/[a-z0-9][a-z0-9-]{10,}\/?(\?|#|$)/.test(h))
+      .map((h) => h.split('?')[0].split('#')[0])
       .filter((h) => !seen.has(h) && seen.add(h))
       .slice(0, n);
   }, limit).catch(() => []);

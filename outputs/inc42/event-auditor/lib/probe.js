@@ -21,8 +21,15 @@
       return out;
     } catch { return '[unserializable]'; }
   };
-  const rec = (vendor, kind, name, props, extra) =>
-    A.sdk.push({ t: now(), vendor, kind, name: name ?? null, props: safe(props), stack: trace(), ...extra });
+  /* Stream to Node as well as buffering locally. window.__AUDIT__ is destroyed on every
+     navigation, so anything only buffered in-page is lost the moment the user clicks a link. */
+  const emit = (r) => { try { window.__AUDIT_EMIT__?.(r); } catch {} };
+  const rec = (vendor, kind, name, props, extra) => {
+    const r = { t: now(), vendor, kind, name: name ?? null, props: safe(props), stack: trace(), ...extra };
+    A.sdk.push(r);
+    emit({ channel: 'sdk', url: location.pathname, ...r });
+    return r;
+  };
 
   // Where in the page did this fire from? Cheap provenance for "who double-fired this".
   function trace() {
@@ -140,6 +147,7 @@
       ];
     } catch {}
     A.identity.push(s);
+    emit({ channel: 'identity', ...s });
     return s;
   }
   window.__AUDIT_SNAPSHOT__ = snapIdentity;
