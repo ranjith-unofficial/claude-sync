@@ -8,6 +8,7 @@
 - [Validation approach](feedback-validation-approach.md) — confirm feasibility first; cross-check against independent ground truth, not curated lists
 - [Ask before assuming](feedback-ask-before-assuming.md) — don't state stale plan dates/memory as confirmed current fact; ask, don't build recommendations on assumptions
 - [Document calibration](feedback-document-calibration.md) — state decisions directly; explain only what prevents real confusion; never narrate rejected alternatives or invent unrequested sections
+- [Deliver in chat](feedback-deliver-in-chat.md) — tables in chat by default; build an Artifact only when he explicitly asks for a doc/page
 - [Always include source links](feedback-always-include-source-links.md) — every reviewable list needs a clickable link to the source doc (resume/article), next to the name, not buried
 - [Completeness audits](feedback-completeness-audits.md) — on reviewed docs, audit line-by-line; surface my own misses first; never ship unauthorised changes
 - [PRD completeness](feedback-prd-completeness.md) — every PRD must cover evidence/data, legal/compliance, and an outside reframe-check, not just mechanics — flag gaps explicitly instead of locking unvalidated decisions
