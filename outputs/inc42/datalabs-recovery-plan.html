@@ -294,20 +294,13 @@
 
   <p>Three quarters take 26+ actions during the trial. <strong>Every failed day-7 charge is a real loss</strong>, not a tyre-kicker we're better off without. This removes a "don't spend money on low-value trials" rule that earlier drafts of this plan had — it described 3.5% of people.</p>
 
-  <h3>We are effectively 100% monthly</h3>
+  <h3>There is only one plan, and it is monthly</h3>
 
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:34%">Plan (payments, 90 days)</th><th>Completed</th></tr></thead>
-      <tbody>
-        <tr><td>Monthly</td><td class="num">4</td></tr>
-        <tr><td>Quarterly</td><td class="num">2</td></tr>
-        <tr><td><strong>Yearly</strong></td><td class="num"><strong>1</strong></td></tr>
-      </tbody>
-    </table>
-  </div>
+  <p>Every self-serve subscription is <strong>₹1,499 + 18% GST = ₹1,768.82, monthly.</strong> One price, no discounting, no annual option, no seats, no tier above Pro.</p>
 
-  <p>The annual and quarterly plans exist and are essentially unsold. So every member receives <strong>twelve pre-debit notifications a year</strong> instead of one — twelve forced re-decisions, each with an exit one tap away.</p>
+  <p>So <strong>every member receives twelve pre-debit notifications a year</strong> — twelve forced re-decisions, each with an exit one tap away. There is currently no way for a customer to choose fewer, and no way for us to offer it.</p>
+
+  <p class="cap"><strong>Data caveat:</strong> PostHog's <code>Pro Membership Type</code> still carries "Quarterly" and "Yearly" values, with 2 and 1 completions in 90 days. These are legacy or manually-created subscriptions, not purchasable plans — don't read them as evidence of an annual option that customers are ignoring.</p>
 
   <h3>The instrumentation can't be trusted on money</h3>
   <ul class="list">
@@ -423,10 +416,13 @@
   <p><strong>Fix immediately regardless:</strong> suppress all dunning to paused customers. Telling someone to re-authorise a mandate they deliberately paused is the worst message in the system.</p>
   <p><strong>Bar:</strong> ≥15% of people who start a cancel choose pause instead.</p>
 
-  <h3>W6 · Move people to annual</h3>
-  <p><strong>One yearly sale in 90 days.</strong> Every member is monthly, which means twelve pre-debit notifications a year instead of one.</p>
-  <p><strong>Change:</strong> offer annual on day 5 of the trial and in the win-back flow, framed as <em>one debit a year instead of twelve.</em> Not as a discount — annual isn't cheaper on Datalabs.</p>
-  <p><strong>Bar:</strong> ≥10% take it. Baseline is effectively zero. <strong>This shrinks the denominator</strong> rather than improving recovery — fewer chances to lose them at all.</p>
+  <h3>W6 · Build a longer billing cycle <span class="chip c-p1">DECISION FIRST</span></h3>
+  <p><strong>This is the only lever here that doesn't exist yet.</strong> There is no annual or quarterly plan to sell — monthly is the only self-serve option. So this isn't a messaging change, it's a pricing and product decision.</p>
+  <p><strong>The argument is exposure, not revenue.</strong> A monthly member gets twelve pre-debit notifications a year. A quarterly member gets four. An annual member gets one. Every one of those notifications is a re-decision we didn't choose to run, presenting our price with no context and an exit one tap away.</p>
+  <p><strong>The smaller version:</strong> quarterly cuts the prompts from twelve to four and asks the customer for ₹5,306 instead of ₹17,626. Materially easier to sell than annual, and it captures most of the benefit.</p>
+  <p><strong>Sell it as fewer interruptions, not savings</strong> — whatever the price, the pitch is <em>one debit instead of twelve.</em></p>
+  <p><strong>Bar:</strong> ≥10% of new trials choose the longer cycle when offered on day 5. <strong>This shrinks the denominator</strong> rather than improving recovery — fewer chances to lose them at all.</p>
+  <p><strong>Do W1–W5 first.</strong> They need no approvals; this needs a pricing call.</p>
 </section>
 
 <!-- ========== 05 ========== -->
@@ -469,7 +465,8 @@
         <tr class="group"><td colspan="4">W5 + W6</td></tr>
         <tr><td class="num">20</td><td>Add pause to the membership page and as the first offer in the cancel flow</td><td><span class="chip c-s">M</span></td><td>≥15% of cancels choose pause</td></tr>
         <tr><td class="num">21</td><td>Make the My Membership page show the real subscription — plan, next charge, pause, cancel</td><td><span class="chip c-s">M</span></td><td>Page shows actual state, not an orders table</td></tr>
-        <tr><td class="num">22</td><td>Offer annual on day 5 of the trial and in the win-back flow</td><td><span class="chip c-s">S</span></td><td>≥10% take it</td></tr>
+        <tr><td class="num">22</td><td><strong>Decide whether to build a longer billing cycle</strong> — quarterly or annual. None exists today; monthly is the only plan.</td><td><span class="chip c-s">DECISION</span></td><td>Pricing call made</td></tr>
+        <tr><td class="num">23</td><td>If yes: build it, and offer it on day 5 of the trial and in the win-back flow</td><td><span class="chip c-s">L</span></td><td>≥10% of new trials choose it</td></tr>
       </tbody>
     </table>
   </div>
@@ -485,6 +482,7 @@
     <li><strong>Who owns each task.</strong> Fill the owner column before circulating.</li>
     <li><strong>Who sends the emails, under whose name.</strong> Someone the customer could plausibly reply to.</li>
     <li><strong>Grace period.</strong> Currently 15 days of free access after a failed payment — half a billing cycle. Decide it deliberately rather than leaving it at the default.</li>
+    <li><strong>Whether to build a longer billing cycle at all</strong> (W6). Monthly is the only plan today, so every member gets twelve cancel prompts a year and we have no way to offer fewer. Quarterly captures most of the benefit at a fraction of the ask.</li>
     <li><strong>How this is reported.</strong> On recovered revenue it's a small number. As the first real evidence of whether Datalabs members renew at all, it's the only instrumentation we have.</li>
   </ul>
 
@@ -495,7 +493,7 @@
       <tbody>
         <tr><td>Redesign the export-limit prompt</td><td><code>Limit Reached</code> fired 8 times for 3 people in 60 days, all on the AI cap. Only 40 people exported anything in 30 days.</td></tr>
         <tr><td>Credit packs as a win-back offer</td><td>Zero purchases since April; two people touched the flow in 30 days. Three of four packs have no purchasable SKU.</td></tr>
-        <tr><td>Annual sold as "twice the credits"</td><td>Credits are not what anyone is short of.</td></tr>
+        <tr><td>Annual sold as "twice the credits"</td><td>Credits are not what anyone is short of — and there is no annual plan to sell. See W6.</td></tr>
         <tr><td>Automated win-back campaign</td><td>Already tried, already failed at 0.2%. Revisit only once a human has proven a message works.</td></tr>
         <tr><td>"Don't chase low-value trials"</td><td>Removed. It described 3.5% of trialists — <strong>nobody</strong> starts a trial and does nothing.</td></tr>
       </tbody>
