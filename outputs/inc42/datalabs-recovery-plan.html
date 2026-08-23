@@ -17,7 +17,7 @@
     --f-display:"Spectral",Georgia,serif;
     --f-body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-    --prose:74ch; --page:1180px;
+    --prose:74ch; --page:1120px;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -59,40 +59,20 @@
   }
   h1 {
     font-family:var(--f-display); font-weight:800;
-    font-size:clamp(2.3rem,5.5vw,3.5rem); line-height:1.04;
+    font-size:clamp(2.3rem,5.5vw,3.4rem); line-height:1.04;
     letter-spacing:-.02em; margin:0 0 18px; max-width:18ch; text-wrap:balance;
   }
   .standfirst {
-    font-family:var(--f-display); font-size:clamp(1.02rem,1.9vw,1.24rem);
+    font-family:var(--f-display); font-size:clamp(1.02rem,1.9vw,1.22rem);
     line-height:1.5; color:var(--ink-2); max-width:64ch; margin:0;
   }
   .meta {
-    display:flex; flex-wrap:wrap; gap:8px 26px; margin-top:26px;
+    display:flex; flex-wrap:wrap; gap:8px 26px; margin-top:24px;
     font-family:var(--f-mono); font-size:11.5px; color:var(--muted);
   }
   .meta b { color:var(--ink-2); font-weight:500; }
 
-  /* summary strip */
-  .strip {
-    display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
-    gap:2px; margin:34px 0 0;
-  }
-  .stat {
-    background:var(--surface); border:1px solid var(--rule);
-    padding:15px 16px 14px;
-  }
-  .stat .k {
-    font-family:var(--f-mono); font-size:10.2px; letter-spacing:.09em;
-    text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;
-  }
-  .stat .v {
-    font-family:var(--f-display); font-weight:800; font-size:1.5rem;
-    line-height:1; font-variant-numeric:tabular-nums; color:var(--ink);
-  }
-  .stat .v.bad { color:var(--p0); }
-  .stat .n { font-size:11.6px; color:var(--muted); display:block; margin-top:6px; line-height:1.35; }
-
-  section { padding-top:56px; }
+  section { padding-top:54px; }
   .sec-num {
     font-family:var(--f-mono); font-size:11.5px; letter-spacing:.14em;
     color:var(--muted); display:block; margin-bottom:12px;
@@ -105,10 +85,10 @@
   }
   h3 {
     font-family:var(--f-body); font-weight:600; font-size:1rem;
-    margin:34px 0 12px; color:var(--ink);
+    margin:32px 0 12px; color:var(--ink);
   }
-  h3:first-of-type { margin-top:26px; }
-  .dek { color:var(--muted); max-width:var(--prose); margin:12px 0 26px; font-size:15.4px; }
+  h3:first-of-type { margin-top:24px; }
+  .dek { color:var(--muted); max-width:var(--prose); margin:12px 0 24px; font-size:15.4px; }
   p { max-width:var(--prose); margin:0 0 15px; }
   a { color:var(--accent); text-underline-offset:2px; }
   a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
@@ -132,7 +112,7 @@
     overflow-x:auto; margin:0 0 12px; border:1px solid var(--rule);
     border-radius:3px; background:var(--surface);
   }
-  table { width:100%; border-collapse:collapse; font-size:14px; line-height:1.5; min-width:660px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; line-height:1.5; min-width:640px; }
   thead th {
     font-family:var(--f-mono); font-size:10.4px; font-weight:500;
     letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
@@ -141,10 +121,14 @@
   }
   tbody td { padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top; color:var(--ink-2); }
   tbody tr:last-child td { border-bottom:none; }
-  tbody td:first-child { color:var(--ink); font-weight:500; white-space:nowrap; }
-  td.wrap:first-child { white-space:normal; }
-  .num { font-family:var(--f-mono); font-variant-numeric:tabular-nums; }
-  .cap { font-size:12.5px; color:var(--muted); max-width:var(--prose); margin:0 0 24px; }
+  tbody td:first-child { color:var(--ink); font-weight:500; }
+  .num { font-family:var(--f-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .cap { font-size:12.5px; color:var(--muted); max-width:var(--prose); margin:0 0 22px; }
+  tr.group td {
+    background:var(--surface-2); font-family:var(--f-mono); font-size:10.4px;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+    padding:9px 14px; font-weight:500;
+  }
 
   .chip {
     display:inline-block; font-family:var(--f-mono); font-size:10.2px;
@@ -156,12 +140,11 @@
   .c-p2{background:var(--p2-soft);color:var(--p2);}
   .c-s{background:var(--dead-soft);color:var(--dead);}
   .c-ok{background:var(--ok-soft);color:var(--ok);}
-  .c-ac{background:var(--accent-soft);color:var(--accent);}
 
   .callout {
     background:var(--surface); border:1px solid var(--rule);
     border-left:3px solid var(--accent); padding:18px 22px;
-    margin:24px 0; max-width:var(--prose); border-radius:0 3px 3px 0;
+    margin:22px 0; max-width:var(--prose); border-radius:0 3px 3px 0;
   }
   .callout .label {
     font-family:var(--f-mono); font-size:10.4px; letter-spacing:.11em;
@@ -170,11 +153,9 @@
   .callout p:last-child { margin-bottom:0; }
   .callout.warn { border-left-color:var(--p0); }
   .callout.warn .label { color:var(--p0); }
-  .callout.grey { border-left-color:var(--rule-strong); }
-  .callout.grey .label { color:var(--muted); }
 
   footer {
-    margin-top:64px; padding-top:20px; border-top:1px solid var(--rule);
+    margin-top:60px; padding-top:20px; border-top:1px solid var(--rule);
     font-family:var(--f-mono); font-size:11.3px; color:var(--muted);
   }
   @media (max-width:640px){ .page{padding:0 18px 70px;} header.mast{padding-top:44px;} }
@@ -184,110 +165,79 @@
 <div class="page">
 
 <header class="mast">
-  <p class="eyebrow">Inc42 Datalabs · Next steps · 23 Aug 2026</p>
+  <p class="eyebrow">Inc42 Datalabs · 23 Aug 2026</p>
   <h1>Datalabs subscription recovery</h1>
-  <p class="standfirst">The first charge fails 42% of the time and nothing ever retries. Four lists of people with dead or paused mandates sit untouched. This is the ordered list of what to do, why, and in what sequence.</p>
+  <p class="standfirst">When a Datalabs payment fails, nothing happens. No second attempt, ever. Some subscriptions expire without a single charge being tried, and dozens of customers have quietly switched off their auto-pay without anyone contacting them. This is what to fix, in order.</p>
   <div class="meta">
-    <span><b>Grounded in</b> Funnel State 2026-07 (Ranjith, 30 Jul)</span>
-    <span><b>Companion to</b> the Razorpay dunning system doc</span>
-    <span><b>Scope</b> Datalabs Pro</span>
-  </div>
-
-  <div class="strip">
-    <div class="stat"><span class="k">Active subs</span><span class="v">31</span><span class="n">48 lifetime payers</span></div>
-    <div class="stat"><span class="k">MRR gross</span><span class="v">₹54,833</span><span class="n">₹94,437 net since launch</span></div>
-    <div class="stat"><span class="k">First charge</span><span class="v bad">57.9%</span><span class="n">was 73.7% in May</span></div>
-    <div class="stat"><span class="k">Retries ever</span><span class="v bad">0</span><span class="n">of 47 failed charges</span></div>
-    <div class="stat"><span class="k">Revoked, live</span><span class="v bad">73</span><span class="n">no failed charge yet</span></div>
-    <div class="stat"><span class="k">LTV lost</span><span class="v bad">₹92,665</span><span class="n">to failed first debits</span></div>
+    <span><b>Based on</b> Funnel State 2026-07</span>
+    <span><b>Scope</b> Datalabs Pro subscriptions</span>
+    <span><b>Owners</b> to be filled in</span>
   </div>
 </header>
 
 <!-- ========== 01 ========== -->
 <section id="primer">
   <span class="sec-num">01 — START HERE</span>
-  <h2>How a Datalabs subscription actually works</h2>
-  <p class="dek">Read this first even if you've worked on Datalabs. Most of the problems below live in the payment plumbing, which almost nobody has had reason to look at.</p>
-
-  <h3>The three moments that matter</h3>
+  <h2>How a Datalabs subscription works</h2>
+  <p class="dek">Worth reading even if you know Datalabs well. The problems below live in the payment plumbing, which almost nobody has had reason to look at.</p>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:14%">When</th><th style="width:24%">What happens</th><th style="width:16%">Amount</th><th>How healthy it is</th></tr></thead>
+      <thead><tr><th style="width:12%">When</th><th style="width:38%">What happens</th><th style="width:14%">Amount</th><th>Health</th></tr></thead>
       <tbody>
         <tr>
           <td><strong>Day 0</strong></td>
-          <td>Customer starts a 7-day trial. To do that they must set up a <strong>mandate</strong> — standing permission for us to debit them later. Razorpay proves it works by charging ₹10.</td>
+          <td>Customer starts a 7-day trial. To do that they set up a <strong>mandate</strong> — standing permission for us to debit them later. Razorpay proves it works by charging ₹10.</td>
           <td class="num">₹10</td>
-          <td><span class="chip c-ok">FINE</span> 228 of 251 customers get a working mandate — 90.8%.</td>
+          <td><span class="chip c-ok">FINE</span><br>228 of 251 customers end up with a working mandate.</td>
         </tr>
         <tr>
           <td><strong>Day 7</strong></td>
           <td><strong>The first real charge.</strong> The trial ends and we attempt the actual subscription debit. This is the moment a trial becomes a paying customer.</td>
           <td class="num">₹1,768.82</td>
-          <td><span class="chip c-p0">BROKEN</span> Only 57.9% succeed, and it's getting worse — 73.7% in May, 53.8% in July.</td>
+          <td><span class="chip c-p0">BROKEN</span><br>Only 57.9% succeed — and falling. It was 73.7% in May.</td>
         </tr>
         <tr>
           <td><strong>Day 37+</strong></td>
           <td>Monthly renewals on the same mandate.</td>
           <td class="num">₹1,768.82</td>
-          <td><span class="chip c-p1">THIN</span> Only 16 subscriptions have ever reached a second charge.</td>
+          <td><span class="chip c-p1">THIN</span><br>Only 16 subscriptions have ever reached a second charge.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <p>Almost everything in this document is about <strong>Day 7</strong>, or about mandates that quietly died before Day 7 ever arrived.</p>
+  <p>Almost everything below is about <strong>Day 7</strong>, or about mandates that quietly died before Day 7 arrived.</p>
 
-  <h3>The words used below</h3>
+  <h3>Six words used throughout</h3>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:26%">Term</th><th>What it means</th></tr></thead>
+      <thead><tr><th style="width:24%">Term</th><th>Meaning</th></tr></thead>
       <tbody>
         <tr>
           <td>Mandate</td>
-          <td>The standing permission a customer gives their bank or UPI app allowing us to debit them automatically. It lives inside <strong>their</strong> GPay / PhonePe / bank app, not in our product. Only they can pause or cancel it.</td>
+          <td>The standing permission a customer gives their bank allowing us to debit them automatically. It lives inside <strong>their</strong> GPay / PhonePe / bank app, not in our product. Only they can pause or cancel it. Razorpay calls it a "token" in logs — same thing.</td>
         </tr>
         <tr>
-          <td>Token</td>
-          <td>Razorpay's word for that mandate in the API and in our logs. "Token cancelled" and "mandate cancelled" mean the same thing.</td>
+          <td>Pre-debit notification</td>
+          <td>An alert NPCI <strong>requires</strong> us to send 24 hours before every debit. It appears in the customer's UPI app naming Inc42 and the amount — <strong>with pause and cancel buttons on the same screen.</strong> Regulation forces us to prompt a re-decision every cycle.</td>
         </tr>
         <tr>
-          <td>The ₹10 authorisation</td>
-          <td>A small real charge at signup whose only job is to prove the mandate works. It is captured, but it isn't revenue.</td>
-        </tr>
-        <tr>
-          <td>Pre-debit notification<br><span style="color:var(--muted);font-size:12.5px">(PDN)</span></td>
-          <td>An alert NPCI <strong>requires</strong> us to send 24 hours before every single debit. It appears in the customer's UPI app naming Inc42 and the amount — <strong>with pause and cancel buttons on the same screen.</strong> So regulation forces us to prompt a re-decision every billing cycle.</td>
-        </tr>
-        <tr>
-          <td>Revoked <span style="color:var(--muted);font-size:12.5px">/ cancelled externally</span></td>
-          <td>The customer killed the mandate inside their UPI app. It's dead. A new one has to be created before we can charge them again.</td>
+          <td>Revoked</td>
+          <td>The customer killed the mandate in their UPI app. It's dead — a new one is needed before we can charge them again.</td>
         </tr>
         <tr>
           <td>Paused</td>
-          <td>The customer temporarily suspended the mandate. <strong>It's still alive.</strong> Only they can resume it — we can't. Very different from revoked, and we currently treat them the same.</td>
+          <td>The customer temporarily suspended the mandate. <strong>It's still alive.</strong> Only they can resume it. Very different from revoked — and we currently treat them the same.</td>
         </tr>
         <tr>
-          <td><strong>Detached mandate</strong></td>
-          <td>Our records say the subscription is active, but there's no working mandate behind it. <strong>No debit will ever be attempted.</strong> The subscription simply expires at the end of its term and nobody notices. 9 live subscriptions and 5 current trials are in this state right now.</td>
+          <td>Detached mandate</td>
+          <td>Our records say the subscription is active, but there's no working mandate behind it. <strong>No debit will ever be attempted.</strong> It just expires and nobody notices.</td>
         </tr>
         <tr>
           <td>Retry</td>
-          <td>A second attempt at a debit that failed. <strong>We have never made one.</strong> 47 failed charges, zero retries.</td>
-        </tr>
-        <tr>
-          <td>Dunning</td>
-          <td>The standard industry term for the sequence of retries and messages that follows a failed payment.</td>
-        </tr>
-        <tr>
-          <td>Grace period</td>
-          <td>How long a customer keeps access after a failure before we cancel them. Currently set to 15 days.</td>
-        </tr>
-        <tr>
-          <td>First-charge capture</td>
-          <td>The percentage of Day-7 charges that succeed. Today 57.9%. This single number is the health of the business.</td>
+          <td>A second attempt at a failed debit. <strong>We have never made one.</strong></td>
         </tr>
       </tbody>
     </table>
@@ -295,46 +245,69 @@
 </section>
 
 <!-- ========== 02 ========== -->
-<section id="principle">
-  <span class="sec-num">02 — SEQUENCING</span>
+<section id="broken">
+  <span class="sec-num">02 — WHAT'S BROKEN</span>
+  <h2>Four problems</h2>
+
+  <h3>1 · A failed payment is final</h3>
+  <p>47 recurring charges have failed since launch. <strong>Not one was ever followed by a second attempt.</strong> Nearly half of those failures were simply insufficient balance on the day — money that would very likely be there a few days later. Meanwhile our own emails tell customers <em>"we'll retry automatically."</em> That flow doesn't exist.</p>
+
+  <h3>2 · Some subscriptions can never be charged at all</h3>
+  <p>A subscription can lose its mandate but stay marked active. It then expires at the end of its term with no debit ever attempted. <strong>Right now 9 live subscriptions (~₹15,919/month) and 5 of the 25 current trials are in this state.</strong> They will die quietly regardless of anything else we do.</p>
+  <p>Separately, a bug lets a subscription go live on a mandate that was never confirmed — the ₹10 goes through, the customer sees "trial started", and the real charge at Day 7 was never going to work. That accounts for <strong>30% of all first-charge failures.</strong></p>
+
+  <h3>3 · We find out about cancellations too late to act</h3>
+  <p>We learn a mandate was cancelled by occasionally polling Razorpay, rather than being told the moment it happens. <strong>In 0 of 91 cases did we know before the next charge had already bounced.</strong> The window where the customer still has access and hasn't really decided anything is gone by the time we notice.</p>
+
+  <h3>4 · Nobody has ever contacted the people affected</h3>
+  <p>Four groups are sitting in our database right now, none of them contacted. When a paused mandate is detected, the system writes a note that literally reads <em>"Monitoring."</em> Nothing else happens.</p>
+
+  <div class="callout warn">
+    <span class="label">What it has cost</span>
+    <p>Lifetime value lost to failed first charges: roughly <strong>₹92,665.</strong> Total the business has earned since launch: <strong>₹94,437.</strong></p>
+    <p>The leak has cost approximately what Datalabs has made.</p>
+  </div>
+</section>
+
+<!-- ========== 03 ========== -->
+<section id="plan">
+  <span class="sec-num">03 — THE PLAN</span>
   <h2>Fix the bucket before refilling it</h2>
 
-  <p>The instinct is to go straight at winning back the customers who cancelled. That's the wrong order. Today a recovered customer walks back into a system where the Day-7 charge fails 42% of the time, nothing ever retries, and some subscriptions lose their mandate and expire without a single debit being attempted.</p>
-
-  <p><strong>So: repair the payment plumbing first, then contact the people we've lost, and only build new product after we've learned something from them.</strong></p>
+  <p>The instinct is to go straight at winning back the customers who cancelled. That's the wrong order — they'd walk back into the same broken system. Repair the plumbing, then contact the people we've lost, then build only what those conversations justify.</p>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:8%"></th><th style="width:26%">What we do</th><th style="width:34%">Why it has to come here</th><th>Move on when</th></tr></thead>
+      <thead><tr><th style="width:7%"></th><th style="width:30%">Step</th><th style="width:37%">Why it comes here</th><th>Move on when</th></tr></thead>
       <tbody>
         <tr>
-          <td><span class="chip c-p0">1st</span></td>
-          <td>Stop subscriptions from dying without ever being charged</td>
-          <td>Some subscriptions lose their mandate but stay marked active, so no debit is ever attempted and they quietly expire. <strong>A retry system can't retry a charge that was never scheduled in the first place.</strong></td>
-          <td>No live subscription is sitting without a working mandate behind it.</td>
+          <td><span class="chip c-p0">1</span></td>
+          <td>Stop subscriptions dying without ever being charged</td>
+          <td>A retry system can't retry a charge that was never scheduled in the first place.</td>
+          <td>No live subscription is sitting without a working mandate.</td>
         </tr>
         <tr>
-          <td><span class="chip c-p0">2nd</span></td>
+          <td><span class="chip c-p0">2</span></td>
           <td>Build a system that tries a failed payment more than once</td>
-          <td>When a debit fails today, nothing happens — ever. We've lost roughly <strong>₹92,665</strong> of lifetime value to failed first charges, against <strong>₹94,437</strong> the business has earned in total. The leak has cost about what we've made.</td>
-          <td>First-charge capture is above 70%. It's 57.9% today.</td>
+          <td>This is where the money is, and it's pure engineering — no copy, no offer, no approvals.</td>
+          <td>First-charge success is above 70%. It's 57.9% today.</td>
         </tr>
         <tr>
-          <td><span class="chip c-p1">3rd</span></td>
-          <td>Find out about cancellations when they happen, not weeks later</td>
-          <td>We learn a mandate was cancelled by polling Razorpay occasionally, rather than being told immediately. <strong>In 0 of 91 cases did we know before the next charge had already bounced.</strong> The window where we could have said something is gone by the time we notice.</td>
-          <td>A cancellation is recorded the same day, before any charge is attempted.</td>
+          <td><span class="chip c-p1">3</span></td>
+          <td>Get told about cancellations immediately</td>
+          <td>Without this we're always cleaning up after a failure instead of preventing one.</td>
+          <td>A cancellation is recorded the same day it happens.</td>
         </tr>
         <tr>
-          <td><span class="chip c-p1">4th</span></td>
-          <td>Email the four lists of affected people, by hand</td>
-          <td>A few dozen people in total. <strong>A person can work through them in an afternoon and will learn more than any dashboard.</strong> Automating this before we know what to say has already been tried here, and failed.</td>
-          <td>Every reply is written down and the reasons are understood.</td>
+          <td><span class="chip c-p1">4</span></td>
+          <td>Email the four affected groups, by hand</td>
+          <td>A few dozen people. One person can work through them in an afternoon and will learn more than any dashboard.</td>
+          <td>Every reply is written down.</td>
         </tr>
         <tr>
-          <td><span class="chip c-p2">5th</span></td>
+          <td><span class="chip c-p2">5</span></td>
           <td>Build new product surfaces</td>
-          <td>At 31 active subscriptions, a campaign engine would be heavier than the thing it protects. Build only what the replies in step 4 justify.</td>
+          <td>At 31 active subscriptions, a campaign system would be heavier than the thing it protects.</td>
           <td>—</td>
         </tr>
       </tbody>
@@ -342,276 +315,177 @@
   </div>
 </section>
 
-<!-- ========== 02 ========== -->
-<section id="p0">
-  <span class="sec-num">02 — P0 · STOP THE BLEEDING</span>
-  <h2>Three bugs, in dependency order</h2>
-  <p class="dek">Each makes the next worth doing. All three are engineering-only — no copy, no offer, no approvals.</p>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:6%">ID</th><th style="width:24%">Task</th><th style="width:34%">The problem</th><th style="width:10%">Size</th><th>Done when</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="num">A1</td>
-          <td class="wrap">Fix silent expiry</td>
-          <td>After a first charge succeeds, <code>requires_manual_renewal</code> flips true and <code>next_payment_date</code> goes null. The subscription expires with <strong>no debit ever attempted.</strong> 100% correlation across all 27 expired trials and all 5 expired payers.</td>
-          <td><span class="chip c-s">M</span></td>
-          <td>No live subscription carries a null next-payment date with an active mandate.</td>
-        </tr>
-        <tr>
-          <td class="num">A2</td>
-          <td class="wrap">Rescue the 14 already detached</td>
-          <td><strong>9 live subscriptions</strong> carry a broken mandate (~₹15,919/mo at risk) and <strong>5 of the 25 current trials</strong> will never be charged. These die whether or not A1 ships.</td>
-          <td><span class="chip c-s">S</span></td>
-          <td>All 14 either repaired or contacted.</td>
-        </tr>
-        <tr>
-          <td class="num">A3</td>
-          <td class="wrap">Close <code>TOKEN_NOT_CONFIRMED</code></td>
-          <td>30% of first-charge failures. All 14 rows were UPI and all 14 had their ₹10 captured 5–6 days earlier — we took money and granted access against a mandate that didn't exist. <strong>Notion says the activation gate shipped; the data shows it still firing on 21 Jul. Verify.</strong></td>
-          <td><span class="chip c-s">M</span></td>
-          <td>Zero occurrences for 30 consecutive days.</td>
-        </tr>
-        <tr>
-          <td class="num">A4</td>
-          <td class="wrap">Suppress dunning on paused</td>
-          <td>Paused mandates are <em>alive</em>. Sending "re-authorize your mandate" to someone who deliberately paused is the worst message in the system. Currently unhandled.</td>
-          <td><span class="chip c-s">S</span></td>
-          <td>Paused state branches before any dunning fires.</td>
-        </tr>
-        <tr>
-          <td class="num">A5</td>
-          <td class="wrap">Fix the retry promise in live copy</td>
-          <td>Transactional messaging says <em>"we'll retry automatically"</em> and cites <em>"2 retries over 48h."</em> That flow does not exist. Either ship it or change the words.</td>
-          <td><span class="chip c-s">S</span></td>
-          <td>Copy matches system behaviour.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ========== 03 ========== -->
+<!-- ========== 04 ========== -->
 <section id="retry">
-  <span class="sec-num">03 — P0 · THE RETRY SYSTEM</span>
-  <h2>47 failed charges, zero retries, ever</h2>
-  <p class="dek">One failed debit is terminal 100% of the time. 111 of 113 billing cycles have exactly one attempt recorded.</p>
+  <span class="sec-num">04 — STEP 2 IN DETAIL</span>
+  <h2>How the retry system should work</h2>
 
   <div class="callout warn">
-    <span class="label">Check this before building anything</span>
-    <p>WooCommerce Subscriptions ships with a failed-payment retry system that is <strong>off by default.</strong> Zero retries across 47 failures is exactly what a disabled retry system looks like. <strong>This may be a setting, not a build.</strong> Confirm before scoping engineering time.</p>
+    <span class="label">Check this before scoping anything</span>
+    <p>WooCommerce Subscriptions ships with a failed-payment retry system that is <strong>switched off by default.</strong> Zero retries across 47 failures is exactly what a disabled system looks like. <strong>This may be a setting, not a build</strong> — confirm first, it changes the estimate enormously.</p>
   </div>
 
-  <h3>B1 — Retry eligibility by failure code</h3>
-  <p>Retrying the wrong failure is worse than not retrying: every attempt generates another bank notification and pushes the customer toward killing the mandate. <strong>30% of our failures are dead mandates — retrying those is pure noise.</strong></p>
+  <h3>Which failures to retry</h3>
+  <p>Retrying the wrong failure is worse than not retrying. Every attempt sends another notification to the customer's bank app — and that notification carries a cancel button.</p>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:32%">Failure</th><th style="width:12%">Share</th><th style="width:16%">Retry?</th><th>Route</th></tr></thead>
+      <thead><tr><th style="width:34%">Why it failed</th><th style="width:12%">Share</th><th style="width:18%">Retry?</th><th>Instead</th></tr></thead>
       <tbody>
-        <tr><td>Insufficient balance</td><td class="num">45%</td><td><span class="chip c-ok">YES — up to 3</span></td><td>Retry schedule, then pay-now link</td></tr>
-        <tr><td><code>TOKEN_NOT_CONFIRMED</code></td><td class="num">30%</td><td><span class="chip c-p0">NEVER</span></td><td>Re-auth — mandate does not exist</td></tr>
-        <tr><td>Mandate inactive / cancelled</td><td class="num">10%</td><td><span class="chip c-p0">NEVER</span></td><td>Winback path</td></tr>
-        <tr><td>Bank declined</td><td class="num">5%</td><td><span class="chip c-p1">ONCE</span></td><td>Then re-auth</td></tr>
-        <tr><td>Card expired / blocked</td><td class="num">—</td><td><span class="chip c-p0">NEVER</span></td><td>Re-auth</td></tr>
+        <tr><td>Not enough money in the account</td><td class="num">45%</td><td><span class="chip c-ok">YES · up to 3</span></td><td>Then send a pay-now link</td></tr>
+        <tr><td>Mandate was never confirmed</td><td class="num">30%</td><td><span class="chip c-p0">NEVER</span></td><td>Ask them to set it up again</td></tr>
+        <tr><td>Mandate cancelled or inactive</td><td class="num">10%</td><td><span class="chip c-p0">NEVER</span></td><td>Win-back message</td></tr>
+        <tr><td>Bank declined</td><td class="num">5%</td><td><span class="chip c-p1">ONCE</span></td><td>Then ask them to set it up again</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="cap">The Notion classifier already makes the transient-vs-dead distinction. The retry layer only has to respect it.</p>
+  <p class="cap"><strong>30% of our failures are dead mandates. Retrying those achieves nothing and annoys the customer.</strong> The existing classifier already tells the two apart — the retry layer just has to respect it.</p>
 
-  <h3>B2 — The schedule</h3>
-  <p>Insufficient balance is a <em>timing</em> problem, not a money problem. UPI AutoPay debits a bank account at one fixed instant with no second look.</p>
+  <h3>When to retry</h3>
+  <p>Insufficient balance is a timing problem, not a money problem. UPI debits the account at one fixed instant with no second look.</p>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:16%">Attempt</th><th style="width:22%">When</th><th>Rationale</th></tr></thead>
+      <thead><tr><th style="width:16%">Attempt</th><th style="width:26%">When</th><th>Why</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td>Day 7, as scheduled</td><td>The original debit</td></tr>
+        <tr><td>1</td><td>Day 7, as scheduled</td><td>The original charge</td></tr>
         <tr><td>2</td><td>+3 days</td><td>Covers short-term cash flow</td></tr>
         <tr><td>3</td><td>+7 days</td><td>Second window</td></tr>
-        <tr><td>4</td><td><strong>Next salary window</strong> (1st–3rd)</td><td>Indian salary credits cluster at month-end and the first few days. <strong>Timing to it will outperform a fixed 48h cadence by a wide margin.</strong></td></tr>
-        <tr><td>Stop</td><td>4 attempts or grace deadline</td><td>Whichever comes first. Grace is 15 days.</td></tr>
+        <tr><td>4</td><td><strong>1st–3rd of the month</strong></td><td>Indian salaries land at month-end. <strong>Timing a retry to payday will beat a fixed schedule by a wide margin.</strong></td></tr>
+        <tr><td>Stop</td><td>After 4, or at 15 days</td><td>Whichever comes first</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout">
-    <span class="label">The constraint nobody mentions</span>
-    <p><strong>Every UPI debit needs a pre-debit notification 24 hours in advance.</strong> So a retry is <em>decide → send PDN → wait 24h → attempt</em>. Two consequences: the cadence can't be tighter than ~48h per attempt, and <strong>every retry puts another cancel prompt in front of the customer</strong>, because the PDN screen in GPay carries pause and cancel buttons. Nationally ~20M mandate revocations a month are driven by failed debits doing exactly this.</p>
-    <p><strong>Action:</strong> confirm with Razorpay whether they auto-fire the PDN on retry or we trigger it. That answer sets the cadence. This is the cap-matters-more-than-count rule: three well-timed attempts with a message alongside beat six silent ones.</p>
-  </div>
-
-  <h3>B3 — Build checklist</h3>
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:6%">ID</th><th style="width:32%">Item</th><th style="width:10%">Size</th><th>Note</th></tr></thead>
-      <tbody>
-        <tr><td class="num">B3a</td><td class="wrap">Confirm WCS auto-retry setting state</td><td><span class="chip c-s">XS</span></td><td>Do this first — may be the entire fix</td></tr>
-        <tr><td class="num">B3b</td><td class="wrap">Confirm PDN-on-retry mechanics with Razorpay</td><td><span class="chip c-s">XS</span></td><td>Sets the minimum interval</td></tr>
-        <tr><td class="num">B3c</td><td class="wrap">Implement eligibility by failure code</td><td><span class="chip c-s">S</span></td><td>Per B1</td></tr>
-        <tr><td class="num">B3d</td><td class="wrap">Implement schedule + hard cap + grace stop</td><td><span class="chip c-s">M</span></td><td>Per B2</td></tr>
-        <tr><td class="num">B3e</td><td class="wrap">Attempt-level logging</td><td><span class="chip c-s">S</span></td><td>Attempt no., timestamp, PDN sent at, failure code, outcome. Without it the schedule can't be tuned.</td></tr>
-        <tr><td class="num">B3f</td><td class="wrap">Stop conditions</td><td><span class="chip c-s">S</span></td><td>Paid · mandate dead · grace expired · max attempts</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ========== 04 ========== -->
-<section id="detect">
-  <span class="sec-num">04 — P1 · DETECTION</span>
-  <h2>We always find out too late</h2>
-
-  <p>Revocations surface through a <strong>polling reconciliation job</strong>, not the <code>token.cancelled</code> webhook. <strong>In 0 of 91 cases did we record the revocation before the next charge had already failed.</strong> The entire winback window — while they still have access and haven't decided anything — is being thrown away.</p>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:6%">ID</th><th style="width:30%">Task</th><th style="width:10%">Size</th><th>Done when</th></tr></thead>
-      <tbody>
-        <tr><td class="num">C1</td><td class="wrap">Wire <code>token.cancelled</code> webhook</td><td><span class="chip c-s">M</span></td><td>Revocation recorded same-day, before any charge attempt</td></tr>
-        <tr><td class="num">C2</td><td class="wrap">Handle <code>paused</code> as a first-class state</td><td><span class="chip c-s">M</span></td><td>Branches on <code>pause_initiated_by</code>; self-pause suppresses dunning and schedules a resume-date nudge</td></tr>
-        <tr><td class="num">C3</td><td class="wrap">Read all three note sources in any churn query</td><td><span class="chip c-s">S</span></td><td>93 <code>customer cancelled</code> notes sit on parent orders and 17 on renewal orders with no counterpart on the subscription record. Reading subscription notes alone misses 110 cancellations.</td></tr>
-      </tbody>
-    </table>
+    <span class="label">The constraint people miss</span>
+    <p>Every UPI debit needs a pre-debit notification <strong>24 hours in advance.</strong> So a retry is: decide → notify → wait a day → attempt. Two consequences.</p>
+    <p>Attempts can't be closer than about 48 hours apart. And <strong>every retry puts another cancel button in front of the customer</strong>, because that notification screen carries one. Across India, roughly 20 million mandates a month are cancelled this way — people killing auto-pay to stop the failed-payment noise.</p>
+    <p><strong>So the cap matters more than the count.</strong> Three well-timed attempts with a message alongside them will beat six silent ones.</p>
   </div>
 </section>
 
 <!-- ========== 05 ========== -->
 <section id="lists">
-  <span class="sec-num">05 — P1 · THE FOUR LISTS</span>
-  <h2>Live today. None contacted.</h2>
+  <span class="sec-num">05 — STEP 4 IN DETAIL</span>
+  <h2>The four groups to contact</h2>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:24%">List</th><th style="width:12%">Size</th><th style="width:30%">State</th><th>Action</th></tr></thead>
+      <thead><tr><th style="width:26%">Group</th><th style="width:12%">Size</th><th style="width:32%">Situation</th><th>What to do</th></tr></thead>
       <tbody>
         <tr>
-          <td>Revoked, no failed charge</td>
-          <td class="num">73 subs</td>
-          <td>Mandate dead, debit date not yet reached, <strong>still have full access</strong>, nothing visibly broken</td>
-          <td>The only cohort where we're ahead of the problem. Contact <strong>before</strong> their next debit date.</td>
+          <td>Cancelled auto-pay, nothing broken yet</td>
+          <td class="num">73</td>
+          <td>Mandate is dead but their next charge date hasn't arrived. <strong>They still have full access and may not remember doing it.</strong></td>
+          <td>The only group where we're ahead of the problem. Contact them <strong>before</strong> their charge date.</td>
         </tr>
         <tr>
-          <td>Paused tokens</td>
-          <td class="num">263 notes</td>
-          <td>Mandate <strong>alive</strong>. System response is a note reading <em>"Monitoring."</em> Nothing fires.</td>
-          <td>Best prospects in the system — they chose the reversible option. Get the distinct count first; 263 is note occurrences from a repeating poll.</td>
+          <td>Paused auto-pay</td>
+          <td class="num">TBC</td>
+          <td>Mandate is <strong>still alive.</strong> They chose the reversible option.</td>
+          <td>Best prospects we have. Send nothing until their resume date, then one nudge. <strong>Never ask them to re-authorise.</strong></td>
         </tr>
         <tr>
-          <td>Live subs, broken mandate</td>
-          <td class="num">9 subs</td>
-          <td>~₹15,919/mo at risk. Will expire silently.</td>
-          <td>Highest value per head. Repair or contact this week.</td>
+          <td>Paying, but mandate is detached</td>
+          <td class="num">9</td>
+          <td>~₹15,919/month. Will expire silently.</td>
+          <td>Highest value per person. Repair or contact this week.</td>
         </tr>
         <tr>
-          <td>Trials already detached</td>
+          <td>Trials that can't convert</td>
           <td class="num">5 of 25</td>
-          <td>Will never convert regardless of anything else</td>
-          <td>Fix the mandate or tell them now.</td>
+          <td>No working mandate. Will never convert.</td>
+          <td>Fix it or tell them now.</td>
         </tr>
       </tbody>
     </table>
   </div>
+  <p class="cap">The paused count needs pulling — the system logged 263 notes, but that's a repeating check writing multiple notes per person, not 263 people.</p>
 
-  <h3>How to contact them</h3>
+  <h3>How to write to them</h3>
   <ul class="list">
-    <li><strong>A person sends these, not a campaign.</strong> Real name, real reply-to, no template header.</li>
-    <li><strong>The automated lane has already been tried and killed.</strong> Customer.io reactivation produced 3 logins from 1,528 visitors — 0.2% against a pre-set 0.8% kill threshold. It's been dark since 6 Jul. The one send that worked was MoEngage at a 37.8% login rate and hasn't been repeated in ten weeks.</li>
-    <li><strong>Recognition, not a pitch.</strong> Most of these people didn't make a decision about Datalabs — they were in GPay doing a mandate cull, or they paused and forgot.</li>
-    <li>Revoked: <em>"Your auto-pay for Datalabs is off. Access runs to {date}. Was that deliberate?"</em> One question, real reply address.</li>
-    <li>Paused: <strong>nothing until their resume date</strong>, then a single nudge.</li>
-    <li><strong>Write down every reply.</strong> That transcript is the segmentation, and it's the only thing that justifies building anything in P2.</li>
+    <li><strong>A person sends these, not a system.</strong> Real name, real reply-to address.</li>
+    <li><strong>Automated reactivation has already been tried here and failed.</strong> A Customer.io send reached 1,528 people and produced 3 logins — 0.2%, against a 0.8% threshold the team had set in advance. It's been switched off since July.</li>
+    <li><strong>Recognise, don't pitch.</strong> Most of these people weren't making a decision about Datalabs — they were tidying up mandates in GPay, or they paused and forgot.</li>
+    <li>Suggested opener: <em>"Your auto-pay for Datalabs is off. Your access runs to {date}. Was that deliberate?"</em> One question.</li>
+    <li><strong>Write down every reply.</strong> That's what tells us whether step 5 is worth building.</li>
   </ul>
 </section>
 
 <!-- ========== 06 ========== -->
-<section id="data">
-  <span class="sec-num">06 — DATA TO PULL</span>
-  <h2>What to ask for, and why</h2>
-  <p class="dek">Ask for one row per subscription rather than a set of answers — you can then re-slice without a second round trip.</p>
+<section id="tasks">
+  <span class="sec-num">06 — THE TASK LIST</span>
+  <h2>Everything, in one place</h2>
+  <p class="dek">Owner column is deliberately blank — fill it before this circulates. A CSV version of this table is at <code>~/ClaudeDocs/inc42/datalabs-recovery-tracker.csv</code>.</p>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:6%">ID</th><th style="width:34%">Ask</th><th>Unblocks</th></tr></thead>
+      <thead><tr><th style="width:6%">ID</th><th style="width:34%">Task</th><th style="width:10%">Size</th><th>Done when</th></tr></thead>
       <tbody>
-        <tr><td class="num">D1</td><td class="wrap">Distinct subscription count behind the 263 paused notes</td><td>Sizing the best list in the system</td></tr>
-        <tr><td class="num">D2</td><td class="wrap">Split all four lists by trial vs payer</td><td>Value per head differs enormously; decides effort allocation</td></tr>
-        <tr><td class="num">D3</td><td class="wrap">Are PDN send timestamps logged?</td><td>Cancel-vs-PDN timing — the most diagnostic test available. If not logged, <strong>start logging today.</strong></td></tr>
-        <tr><td class="num">D4</td><td class="wrap">Razorpay token state history with timestamps</td><td>Current-state-only data answers no timing question</td></tr>
-        <tr><td class="num">D5</td><td class="wrap">Auth0 <code>distinct_id</code> on payment events</td><td>Datalabs shows 278 revenue events against 211 identified persons — payment events carry no email, so we cannot join a cancellation to a person. Prerequisite, not cleanup.</td></tr>
-        <tr><td class="num">D6</td><td class="wrap">Is Woo/Razorpay data in BigQuery, or DB-only?</td><td>Determines who can self-serve future pulls</td></tr>
+        <tr class="group"><td colspan="4">Step 1 — stop subscriptions dying uncharged</td></tr>
+        <tr><td class="num">A1</td><td>Fix the flag that leaves a subscription with no next charge date</td><td><span class="chip c-s">M</span></td><td>No live subscription has an active status without a working mandate</td></tr>
+        <tr><td class="num">A2</td><td>Repair or contact the 14 already affected (9 paying + 5 trials)</td><td><span class="chip c-s">S</span></td><td>All 14 resolved</td></tr>
+        <tr><td class="num">A3</td><td>Stop subscriptions going live on unconfirmed mandates — verify the fix actually shipped</td><td><span class="chip c-s">M</span></td><td>Zero occurrences for 30 days</td></tr>
+        <tr><td class="num">A4</td><td>Correct the email copy that promises retries we don't have</td><td><span class="chip c-s">S</span></td><td>Copy matches reality</td></tr>
+
+        <tr class="group"><td colspan="4">Step 2 — the retry system</td></tr>
+        <tr><td class="num">B1</td><td><strong>Check whether the retry setting is simply switched off</strong></td><td><span class="chip c-s">XS</span></td><td>Answer confirmed in writing</td></tr>
+        <tr><td class="num">B2</td><td>Ask Razorpay whether they send the 24h notification on a retry, or we do</td><td><span class="chip c-s">XS</span></td><td>Answer received</td></tr>
+        <tr><td class="num">B3</td><td>Only retry the failures worth retrying</td><td><span class="chip c-s">S</span></td><td>Rules live and tested</td></tr>
+        <tr><td class="num">B4</td><td>Build the schedule, with a hard stop at 4 attempts or 15 days</td><td><span class="chip c-s">M</span></td><td>Schedule live, cap enforced</td></tr>
+        <tr><td class="num">B5</td><td>Log every attempt — number, time, reason it failed, outcome</td><td><span class="chip c-s">S</span></td><td>Every attempt writes a row</td></tr>
+
+        <tr class="group"><td colspan="4">Step 3 — find out immediately</td></tr>
+        <tr><td class="num">C1</td><td>Let Razorpay tell us the moment a mandate is cancelled, instead of polling</td><td><span class="chip c-s">M</span></td><td>Recorded same day</td></tr>
+        <tr><td class="num">C2</td><td>Treat "paused" differently from "cancelled" and stop all chasing emails to paused customers</td><td><span class="chip c-s">M</span></td><td>Paused handled end to end</td></tr>
+        <tr><td class="num">C3</td><td>Fix churn reporting to read all three places cancellations get logged</td><td><span class="chip c-s">S</span></td><td>110 previously-missed cancellations appear</td></tr>
+
+        <tr class="group"><td colspan="4">Step 4 — the four groups</td></tr>
+        <tr><td class="num">D1</td><td>Pull the real number of paused customers, and split all four groups into trials vs payers</td><td><span class="chip c-s">XS</span></td><td>Counts in hand</td></tr>
+        <tr><td class="num">D2</td><td>Email the 73 before their charge dates</td><td><span class="chip c-s">S</span></td><td>All contacted, replies logged</td></tr>
+        <tr><td class="num">D3</td><td>Schedule a single nudge for each paused customer on their resume date</td><td><span class="chip c-s">S</span></td><td>Scheduled</td></tr>
+        <tr><td class="num">D4</td><td>Start recording when the 24h notification is sent</td><td><span class="chip c-s">XS</span></td><td>Timestamps logged — needed to see whether the notification is what triggers cancellations</td></tr>
+        <tr><td class="num">D5</td><td>Attach a customer identity to payment events</td><td><span class="chip c-s">M</span></td><td>A cancellation can be traced to a person. <strong>We can't do this today.</strong></td></tr>
+
+        <tr class="group"><td colspan="4">Step 5 — only after step 4</td></tr>
+        <tr><td class="num">E1</td><td>Add a way to reach billing from inside Datalabs — there is none today</td><td><span class="chip c-s">M</span></td><td>Plan entry live in the nav</td></tr>
+        <tr><td class="num">E2</td><td>Make the My Membership page show the actual subscription — plan, next charge, pause, cancel</td><td><span class="chip c-s">M</span></td><td>Page shows real state</td></tr>
+        <tr><td class="num">E3</td><td>Show a message inside Datalabs to customers who've cancelled but still have access</td><td><span class="chip c-s">M</span></td><td>Live and measured</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
 <!-- ========== 07 ========== -->
-<section id="p2">
-  <span class="sec-num">07 — P2 · BUILD ONLY AFTER</span>
-  <h2>Two things, gated on P1 learning</h2>
+<section id="closing">
+  <span class="sec-num">07 — DECISIONS &amp; EXCLUSIONS</span>
+  <h2>What needs a call, and what we're not doing</h2>
 
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:28%">Build</th><th style="width:36%">Why</th><th>Gate</th></tr></thead>
-      <tbody>
-        <tr>
-          <td>A route from Datalabs to billing</td>
-          <td>Datalabs nav is Ask Datalabs · My Feed · Companies · Investors · People — <strong>no plan or account entry anywhere.</strong> Meanwhile <code>/my-inc42/my-membership/</code> exists but shows only an orders table, and its Membership block renders the wrong empty state. 33 people have cancelled through our own flow; every cancel on our surface is one we can answer.</td>
-          <td>P0 complete</td>
-        </tr>
-        <tr>
-          <td>In-product prompt for pending-cancel members</td>
-          <td>Once the external-cancel work ships, people who kill the mandate in GPay keep access to period end and <strong>keep using Datalabs daily.</strong> Better channel than any email, costs nothing to reach them.</td>
-          <td>External-cancel build live + P1 replies in hand</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="cap">Note: <code>pending-cancel</code> is currently 0 across all 378 launch-cohort subscriptions — the store writes a note and schedules expiry instead. That's the pre-build state; the Aug external-cancel plan changes it. Confirm before designing against it.</p>
-</section>
-
-<!-- ========== 08 ========== -->
-<section id="not">
-  <span class="sec-num">08 — NOT DOING</span>
-  <h2>Killed, with the reason</h2>
-  <p class="dek">Recorded so they don't get re-raised. Each was a real proposal until the funnel data landed.</p>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:32%">Idea</th><th>Why it's dead</th></tr></thead>
-      <tbody>
-        <tr><td>Rewrite the export-limit modal</td><td><code>Limit Reached</code> fired <strong>8 times for 3 people in 60 days</strong>, all on the AI query cap. Nobody touches the export cap — heaviest user consumed 42 of 100 credits, median 2–6.</td></tr>
-        <tr><td>Credit packs as a winback offer</td><td><strong>Zero top-up orders since 22 Apr.</strong> Three of four advertised packs have no purchasable SKU. <code>Credit Payment</code> has no completion stage, so purchases are structurally unmeasurable.</td></tr>
-        <tr><td>Annual sold as "double your credits"</td><td>Credits are not the binding constraint. Offering more of something nobody consumes isn't an upgrade argument.</td></tr>
-        <tr><td>Value counter on the Export button</td><td>Export adoption is <strong>2.6%</strong>. Wrong surface.</td></tr>
-        <tr><td>Automated WhatsApp / email winback sequence</td><td>Already tried, already failed its own kill criterion at 0.2%. Revisit only after a human has proven the message works.</td></tr>
-        <tr><td>Segmented multi-channel programme</td><td>31 active subscriptions. The programme would be heavier than the thing it protects.</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ========== 09 ========== -->
-<section id="open">
-  <span class="sec-num">09 — OPEN DECISIONS</span>
-  <h2>Needs a call, not analysis</h2>
+  <h3>Four decisions</h3>
   <ul class="list">
-    <li><strong>Who owns each line above.</strong> The table has no owner column on purpose — fill it before this circulates.</li>
-    <li><strong>Who sends the list emails, under whose name.</strong> It should be a person, and it should be a person the recipient could plausibly reply to.</li>
-    <li><strong>Whether the retry work is a setting or a build</strong> — B3a answers it and changes the estimate by an order of magnitude.</li>
-    <li><strong>Grace period length.</strong> 15 days is set. On monthly billing that's half a cycle of free access after a failed debit. Worth a deliberate decision rather than a default.</li>
-    <li><strong>How this is reported.</strong> On recovered revenue it's a small number. Framed as evidence for <em>A9 — members renew</em> and against <em>A10 — the org can't run a recurring-revenue motion</em>, it's the only instrumentation that will ever produce either.</li>
+    <li><strong>Who owns each task.</strong> Fill the owner column before circulating.</li>
+    <li><strong>Who sends the emails, under whose name.</strong> It should be someone the customer could plausibly reply to.</li>
+    <li><strong>Grace period.</strong> Currently 15 days of free access after a failed payment — half a billing cycle. Worth deciding deliberately rather than leaving at the default.</li>
+    <li><strong>How this gets reported.</strong> Measured purely on recovered revenue it's a small number. Measured as the first real evidence of whether Datalabs members renew at all, it's the only instrumentation we have.</li>
   </ul>
 
-  <div class="callout grey">
-    <span class="label">Supersedes</span>
-    <p>The earlier winback strategy artifact (<a href="https://claude.ai/code/artifact/743040c4-1d49-4073-b9fc-428c3a4601e0">743040c4</a>) was written before the funnel data and assumes ~1,045 subscribers, live credit packs, and a binding export cap. <strong>All three are wrong.</strong> Treat this document as the current version and don't circulate that one.</p>
+  <h3>Not doing, and why</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="width:36%">Idea</th><th>Why not</th></tr></thead>
+      <tbody>
+        <tr><td>Redesign the export-limit prompt</td><td>It fired 8 times for 3 people in 60 days. Nobody comes close to the export cap — the heaviest user used 42 of 100 credits, the median 2–6.</td></tr>
+        <tr><td>Sell credit packs to win people back</td><td>Zero credit purchases since April. Three of the four advertised packs have nothing to buy behind them.</td></tr>
+        <tr><td>Sell annual as "twice the credits"</td><td>Credits aren't what anyone is short of.</td></tr>
+        <tr><td>Automated win-back campaign</td><td>Already tried, already failed at 0.2%. Revisit only once a human has proven a message works.</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
 <footer>
-  Sources — Funnel State 2026-07 (PostHog 66351, Razorpay row-level, Metorik, WooCommerce REST) · Razorpay dunning system doc · Datalabs product walkthrough 21 Aug · Ranjith, 23 Aug 2026
+  Sources — Funnel State 2026-07 · Razorpay dunning system doc · Datalabs walkthrough 21 Aug · Ranjith
 </footer>
 
 </div>
