@@ -136,6 +136,7 @@ const isPlumbing = (e) =>
   !e.name ||
   GTM_INTERNAL.test(String(e.name)) ||
   e.name === 'null' ||
+  e.replayed === true ||                                     // dataLayer backlog, not an observed firing
   e.vendor === '_page' ||                                    // page errors get their own rule
   (e.vendor === 'meta' && !/^(track|trackCustom)$/.test(e.kind ?? '')) ||  // fbq('init', <pixelId>)
   /^\d{10,}$/.test(String(e.name));                          // bare pixel / measurement IDs

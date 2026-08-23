@@ -67,10 +67,24 @@
   }
 
   // ---- GTM dataLayer -------------------------------------------------------
+  // window.dataLayer is assigned more than once on this site (the GTM snippet does
+  // `w[l]=w[l]||[]`, and other tags reassign it), so the setter trap fires repeatedly.
+  // Replaying the whole array each time double-counts every entry already recorded and
+  // fabricates "double-fire" findings. Replay only what is genuinely new.
+  const replayed = new WeakSet();
   onGlobal('dataLayer', (dl) => {
     if (!Array.isArray(dl)) return;
-    dl.forEach((e) => rec('gtm', 'dataLayer', e && (e.event || e[0]), e, { replayed: true }));
-    wrap(dl, 'push', (args) => args.forEach((e) => rec('gtm', 'dataLayer', e && (e.event || e[0]), e)));
+    dl.forEach((e) => {
+      if (e && typeof e === 'object') {
+        if (replayed.has(e)) return;
+        replayed.add(e);
+      }
+      rec('gtm', 'dataLayer', e && (e.event || e[0]), e, { replayed: true });
+    });
+    wrap(dl, 'push', (args) => args.forEach((e) => {
+      if (e && typeof e === 'object') replayed.add(e);   // never replay what we saw pushed
+      rec('gtm', 'dataLayer', e && (e.event || e[0]), e);
+    }));
   });
 
   // ---- Meta Pixel ----------------------------------------------------------

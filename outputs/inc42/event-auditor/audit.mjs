@@ -90,7 +90,7 @@ async function runBrowser() {
         events.push({
           vendor: r.vendor, name: r.name, props: r.props ?? {}, t: r.t,
           journey: j.id, marker: actionState.marker, source: 'sdk', kind: r.kind,
-          stack: r.stack, pageUrl: r.url,
+          stack: r.stack, pageUrl: r.url, replayed: r.replayed === true,
         });
       } catch {}
     });
