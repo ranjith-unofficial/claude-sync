@@ -1,0 +1,402 @@
+{
+  "_doc": "spec event -> production reality. Hand-maintained. Regenerate target/live JSON freely; this file is the join.",
+  "map": {
+    "first_visit": {
+      "posthog": "first_visit",
+      "gtm": null,
+      "status": "partial",
+      "note": "fires but 1-4/30d - leaking from GTM dataLayer, not real instrumentation"
+    },
+    "session_started": {
+      "posthog": "session_start",
+      "gtm": null,
+      "status": "partial",
+      "note": "1-4/30d, GTM leak into Live project (Master: Noise)"
+    },
+    "consent_updated": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "no cookie banner event observed; DPDP May-2027 exposure"
+    },
+    "page_viewed": {
+      "posthog": "$pageview",
+      "gtm": "page_view",
+      "status": "implemented",
+      "note": "624K/30d, the only richly-propertied event; capture_pageview=OFF so hand-coded"
+    },
+    "scroll_depth": {
+      "posthog": null,
+      "gtm": "Custom Scroll Depth",
+      "status": "gtm_only",
+      "note": "P1 #5: fires to GTM+Meta only, PostHog gets 0. Also double-fires w/ ScrollDepth-Value-Calculator"
+    },
+    "read_time_logged": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "no read-time beacon observed"
+    },
+    "summary_viewed": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "listen_started": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "CONDITIONAL in spec - confirm audio narration exists"
+    },
+    "story_shared": {
+      "posthog": "Share",
+      "gtm": null,
+      "status": "implemented",
+      "note": "32/30d, Share Platform enum all 6 values valid"
+    },
+    "story_saved": {
+      "posthog": "Save Story",
+      "gtm": null,
+      "status": "partial",
+      "note": "P0: 7 events/30d - near-zero, props fine, firing broken"
+    },
+    "story_unsaved": {
+      "posthog": "Unsave Story",
+      "gtm": null,
+      "status": "missing",
+      "note": "absent from PostHog entirely"
+    },
+    "recommended_clicked": {
+      "posthog": "Recommendation Click",
+      "gtm": null,
+      "status": "implemented",
+      "note": "5,324/30d, Widget Source/Type/Item Number all present"
+    },
+    "tag_clicked": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "inline_cta_clicked": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "nav_clicked": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "autocapture=OFF so nav clicks are invisible"
+    },
+    "listing_viewed": {
+      "posthog": null,
+      "gtm": null,
+      "status": "partial",
+      "note": "subsumed by $pageview + Page Type; no listing_type/page_number"
+    },
+    "listing_load_more": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "home_module_clicked": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "search_initiated": {
+      "posthog": "Search Active",
+      "gtm": null,
+      "status": "partial",
+      "note": "1,607/30d but base bundle only - no surface/scope"
+    },
+    "search_performed": {
+      "posthog": "Search Completed",
+      "gtm": null,
+      "status": "partial",
+      "note": "8,522/30d; Search Query only. No result_count -> zero-result rate unmeasurable"
+    },
+    "search_result_clicked": {
+      "posthog": "Search Click",
+      "gtm": null,
+      "status": "partial",
+      "note": "NAME DRIFT (plan 'Search Result Click'); Result Type='Post' only vs 4 planned values"
+    },
+    "entity_followed": {
+      "posthog": "Follow",
+      "gtm": null,
+      "status": "partial",
+      "note": "P0: 4 events/30d - dead. 'START FOLLOWING' is a headline feature"
+    },
+    "entity_unfollowed": {
+      "posthog": "Unfollow",
+      "gtm": null,
+      "status": "partial",
+      "note": "P0: 1 event/30d - dead"
+    },
+    "feed_viewed": {
+      "posthog": "My Inc42",
+      "gtm": null,
+      "status": "partial",
+      "note": "P0: 1 event/30d; should fire on every My Inc42 view. My Inc42 State='MY FEED' wrong casing"
+    },
+    "feed_filtered": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "list_updated": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "saved_search_updated": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "newsletter_prompt_shown": {
+      "posthog": null,
+      "gtm": null,
+      "status": "partial",
+      "note": "possibly folded into Modal Viewed w/ Modal Type='Newsletter Landing Page' (undocumented value)"
+    },
+    "newsletter_subscribed": {
+      "posthog": "Newsletter Subscribed",
+      "gtm": null,
+      "status": "partial",
+      "note": "1,120/30d; Daily_Newsletter_Status lives on PERSON not event; 'Page Url' casing variant"
+    },
+    "newsletter_unsubscribed": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "newsletter_edition_clicked": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "freewall_shown": {
+      "posthog": "Freewall Lock",
+      "gtm": null,
+      "status": "partial",
+      "note": "59,561/30d in warehouse BUT 12-Aug browser walk saw ZERO on lock render. Modal Name coverage 2.6%"
+    },
+    "freewall_dismissed": {
+      "posthog": "Modal Close",
+      "gtm": null,
+      "status": "partial",
+      "note": "conflated with the Modal Close/Modal Closed duplicate pair"
+    },
+    "freewall_cta_clicked": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "the lock->auth step has no event"
+    },
+    "plus_wall_shown": {
+      "posthog": "Plus Lock",
+      "gtm": null,
+      "status": "partial",
+      "note": "4/30d - likely superseded by Freewall Lock (60K); confirm deprecate"
+    },
+    "plus_page_viewed": {
+      "posthog": null,
+      "gtm": null,
+      "status": "partial",
+      "note": "$pageview w/ Page Type=plus; no source attribution"
+    },
+    "plus_plan_selected": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "plus_checkout_started": {
+      "posthog": "Plus Checkout",
+      "gtm": null,
+      "status": "implemented",
+      "note": "117/30d; Membership Type/Term ID/Checkout State all valid"
+    },
+    "plus_subscribed": {
+      "posthog": "Plus Subscribed",
+      "gtm": null,
+      "status": "partial",
+      "note": "10/30d; key names drift (Plus Next Date / Plus Expiry Date / Plus ConversionID)"
+    },
+    "plus_payment_failed": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "only 'Plus Payment Initiated' (14/30d) exists"
+    },
+    "plus_membership_cancelled": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "P1: Plus Cancellation State absent; churn unmeasurable"
+    },
+    "plus_renewed": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "team_membership_interest": {
+      "posthog": "Form Submission",
+      "gtm": null,
+      "status": "partial",
+      "note": "generic form event; 'Model Type' typo on 61% of rows"
+    },
+    "report_viewed": {
+      "posthog": "Report Interaction",
+      "gtm": null,
+      "status": "implemented",
+      "note": "1,356/30d; NAME DRIFT from plan 'Report View'"
+    },
+    "report_downloaded": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "academy_session_viewed": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "deal_redeemed": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "event_registered": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "sign_in_prompt_shown": {
+      "posthog": "Login Modal",
+      "gtm": null,
+      "status": "partial",
+      "note": "P1 #14: 11,012/30d but PostHog gets {Action,Domain} ONLY while Meta gets all 25 editorial props"
+    },
+    "sign_in_started": {
+      "posthog": null,
+      "gtm": null,
+      "status": "partial",
+      "note": "Login Modal 'User Action'=Email/OTP Submit is the closest; no method-choice event"
+    },
+    "sign_in_completed": {
+      "posthog": "Login",
+      "gtm": null,
+      "status": "partial",
+      "note": "3,136/30d; P0 #1 distinct_id = EMAIL not Auth0 uid"
+    },
+    "register": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "P0: 'Registered' absent from PostHog (only user_signed_up=1). The registration conversion is untracked"
+    },
+    "onboarding": {
+      "posthog": "Plus Onboarding",
+      "gtm": null,
+      "status": "partial",
+      "note": "32/30d, Plus-only; no general post-register onboarding"
+    },
+    "signed_out": {
+      "posthog": "Logout",
+      "gtm": null,
+      "status": "partial",
+      "note": "P0: 12/30d vs Login 3,136. Missing Logout Status. Also P1 #16: posthog.reset() never called"
+    },
+    "account_updated": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "account_deleted": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": "DPDP requirement; sets dnd=true to suppress Customer.io"
+    },
+    "web_push_prompt_shown": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "web_push_granted": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "web_push_denied": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "form_submitted": {
+      "posthog": "Form Submission",
+      "gtm": null,
+      "status": "partial",
+      "note": "5,337/30d; 'Model Type' typo 61% vs 'Modal Type' 39%; Meta CAPI PII (em/ph/fn/ln)"
+    },
+    "outbound_clicked": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "error_shown": {
+      "posthog": null,
+      "gtm": null,
+      "status": "missing",
+      "note": null
+    },
+    "article_published": {
+      "posthog": null,
+      "gtm": null,
+      "status": "server_side",
+      "note": "server->Customer.io only; not browser-observable"
+    }
+  },
+  "unspecified_live_events": {
+    "Private Mode Modal": "152,639/30d. Modal Name/Id/Type only ~56% coverage",
+    "Modal Viewed": "104,050/30d. Scroll Depth property attached (odd)",
+    "Modal Close": "67,510/30d. DUPLICATE of 'Modal Closed' -> double-count risk",
+    "Modal Closed": "5,025/30d. DUPLICATE of 'Modal Close'",
+    "Modal Clicked": "384/30d. Modal click lifecycle",
+    "Pro Payment": "87/30d. Divergent schema vs Plus (DL Page Type, Slug, Pro Membership Type, Payment Stage)",
+    "Plus Payment Initiated": "14/30d, no custom payment props",
+    "Search Close": "503/30d",
+    "ResetPassword": "53/30d",
+    "Qr Scan": "4/30d, carries only 'email'",
+    "User Segment": "1/30d. DEAD - MoEngage segment feed, and MoEngage is REMOVED",
+    "test_event": "GTM/test leak into the LIVE project",
+    "gtm.js": "GTM leak into the LIVE project",
+    "dl_event": "GTM dataLayer leak into the LIVE project",
+    "user_signed_up": "1/30d - the real 'register' signal, wrong name, not wired",
+    "payment_completed": "GTM leak",
+    "subscription_created": "GTM leak"
+  }
+}

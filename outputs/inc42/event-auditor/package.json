@@ -1,0 +1,16 @@
+{
+  "name": "inc42-event-auditor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "End-to-end analytics event auditor: drive the real UI, capture the real payloads, verify ingestion in PostHog, diff against the tracking spec.",
+  "scripts": {
+    "extract": "node tools/extract-spec.mjs",
+    "audit": "node audit.mjs",
+    "audit:browser": "node audit.mjs --only=browser",
+    "audit:warehouse": "node audit.mjs --only=warehouse"
+  },
+  "dependencies": {
+    "playwright": "^1.62.0"
+  }
+}

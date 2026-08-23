@@ -1,0 +1,3563 @@
+{
+  "source": "Inc42 Website - Events & Properties.xlsx",
+  "version": "web-spec-v1.0",
+  "events": [
+    {
+      "event": "first_visit",
+      "group": "Lifecycle & Session",
+      "fires_when": "First-ever hit from a new anonymous device (cookie set)",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "referrer_type",
+          "values": []
+        },
+        {
+          "name": "landing_path",
+          "values": []
+        },
+        {
+          "name": "utm_source / utm_medium / utm_campaign",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "first_seen_at",
+        "acquisition_source"
+      ],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "New-visitor volume; acquisition mix",
+      "notes": "Anonymous device ID; aliases to user on register",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "session_started",
+      "group": "Lifecycle & Session",
+      "fires_when": "New session begins (30-min inactivity or new UTM)",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "referrer_type",
+          "values": [
+            "organic_search",
+            "social",
+            "direct",
+            "newsletter",
+            "referral",
+            "push"
+          ]
+        },
+        {
+          "name": "utm_source/medium/campaign",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "last_session_at"
+      ],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Session baseline; channel attribution",
+      "notes": "Session-level UTM captured here, not per-page",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "consent_updated",
+      "group": "Lifecycle & Session",
+      "fires_when": "User acts on the cookie/consent banner",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "consent_action",
+          "values": [
+            "accept_all",
+            "reject_all",
+            "custom"
+          ]
+        },
+        {
+          "name": "categories",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "consent_state"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Consent rate; DPDP evidence trail",
+      "notes": "EU vendors + DPDP (May-27). Gates non-essential tags",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "page_viewed",
+      "group": "Page & Reading",
+      "fires_when": "Any page finishes loading (SPA route change included)",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": true,
+      "properties": [
+        {
+          "name": "page_type",
+          "values": [
+            "home",
+            "listing",
+            "article",
+            "plus",
+            "account",
+            "newsletter",
+            "report",
+            "static"
+          ]
+        },
+        {
+          "name": "*Story bundle only when page_type=article",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "lifetime_pageviews",
+        "last_active_at"
+      ],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "The universal spine; content reach; §editorial reporting",
+      "notes": "Story group attaches ONLY on article pages; ~70% of all volume",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "scroll_depth",
+      "group": "Page & Reading",
+      "fires_when": "Article scrolled past a threshold (once per view)",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "depth_percent",
+          "values": [
+            "25",
+            "50",
+            "75",
+            "100"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Read-completion curve; content quality",
+      "notes": "Articles only; one fire per threshold per pageview",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "read_time_logged",
+      "group": "Page & Reading",
+      "fires_when": "Active read time on an article (on unload / 30s beacon)",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "active_seconds",
+          "values": []
+        },
+        {
+          "name": "reached_end",
+          "values": [
+            "bool"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Engaged-read time; Plus-content value proof",
+      "notes": "De-dupes with scroll_depth for a true completion metric",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "summary_viewed",
+      "group": "Page & Reading",
+      "fires_when": "The article Summary block enters the viewport / is expanded",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "action",
+          "values": [
+            "viewed",
+            "expanded"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Summary utility; TL;DR adoption",
+      "notes": "The 3-bullet summary at the top of In-Depth pieces",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "listen_started",
+      "group": "Page & Reading",
+      "fires_when": "User plays the audio narration of an article",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Audio adoption",
+      "notes": "CONDITIONAL — only if audio narration exists; else delete",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "story_shared",
+      "group": "Content Engagement",
+      "fires_when": "Share action completed from an article",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "channel",
+          "values": [
+            "whatsapp",
+            "x",
+            "linkedin",
+            "facebook",
+            "copy_link",
+            "email"
+          ]
+        },
+        {
+          "name": "source",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Organic loop; most-shared content",
+      "notes": "Fold in copy_link as a channel value",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "story_saved",
+      "group": "Content Engagement",
+      "fires_when": "Article saved (bookmark)",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "source",
+          "values": [
+            "article",
+            "listing",
+            "home",
+            "search"
+          ]
+        }
+      ],
+      "person_properties": [
+        "saved_stories_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Save intent; My-Inc42 seeding",
+      "notes": "Requires login → also a register trigger for anon users",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "story_unsaved",
+      "group": "Content Engagement",
+      "fires_when": "Saved article removed",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "source",
+          "values": [
+            "article",
+            "saved_stories"
+          ]
+        }
+      ],
+      "person_properties": [
+        "saved_stories_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Save churn",
+      "notes": "Add/remove stay separate (app precedent)",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "recommended_clicked",
+      "group": "Content Engagement",
+      "fires_when": "A card in Recommended-For-You / Read-Next / Deep-Dive is tapped",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "module",
+          "values": [
+            "recommended",
+            "read_next",
+            "deep_dive",
+            "related"
+          ]
+        },
+        {
+          "name": "position",
+          "values": []
+        },
+        {
+          "name": "target_story_id",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "On-site recirculation; module effectiveness",
+      "notes": "Story bundle = the SOURCE story; target_story_id = destination",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "tag_clicked",
+      "group": "Content Engagement",
+      "fires_when": "An inline tag / industry chip on an article is tapped",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "tag",
+          "values": []
+        },
+        {
+          "name": "tag_type",
+          "values": [
+            "topic",
+            "industry",
+            "company",
+            "series"
+          ]
+        },
+        {
+          "name": "source",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Topic-graph navigation",
+      "notes": "Leads to listing_viewed",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "inline_cta_clicked",
+      "group": "Content Engagement",
+      "fires_when": "In-body CTA tapped (Follow-Us, WhatsApp community, related promo)",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "cta",
+          "values": [
+            "follow_us",
+            "whatsapp",
+            "telegram",
+            "promo"
+          ]
+        },
+        {
+          "name": "position",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "In-content CTA yield",
+      "notes": "Generic — keep the enum tight, don't overload",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "nav_clicked",
+      "group": "Discovery & Navigation",
+      "fires_when": "Header / sub-nav / footer link tapped",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "nav_item",
+          "values": []
+        },
+        {
+          "name": "nav_group",
+          "values": [
+            "primary",
+            "secondary",
+            "tag_shortcut",
+            "footer",
+            "hamburger"
+          ]
+        },
+        {
+          "name": "destination",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "IA usage; menu heat",
+      "notes": "One event for the whole persistent header",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "listing_viewed",
+      "group": "Discovery & Navigation",
+      "fires_when": "A listing page loads — CONSOLIDATED across page kinds",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "listing_type",
+          "values": [
+            "category",
+            "tag",
+            "industry",
+            "author",
+            "search"
+          ]
+        },
+        {
+          "name": "listing_value",
+          "values": []
+        },
+        {
+          "name": "page_number",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Section reach; author & topic hub usage",
+      "notes": "State-machine consolidation: one event, not 4 page events",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "listing_load_more",
+      "group": "Discovery & Navigation",
+      "fires_when": "Pagination / infinite-scroll advances on a listing",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "listing_type",
+          "values": []
+        },
+        {
+          "name": "listing_value",
+          "values": []
+        },
+        {
+          "name": "page_number",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Listing depth; feed appetite",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "home_module_clicked",
+      "group": "Discovery & Navigation",
+      "fires_when": "A story/module on the homepage is tapped",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "module",
+          "values": [
+            "hero",
+            "latest",
+            "in_depth",
+            "industry_rail",
+            "newsletter_promo"
+          ]
+        },
+        {
+          "name": "position",
+          "values": []
+        },
+        {
+          "name": "target",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Homepage layout effectiveness",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "search_initiated",
+      "group": "Search",
+      "fires_when": "Global search bar focused / popup opened",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "surface",
+          "values": [
+            "header",
+            "mobile"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Search-funnel top; abandonment (initiated→performed)",
+      "notes": "Mirrors app search funnel",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "search_performed",
+      "group": "Search",
+      "fires_when": "Query submitted",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "query",
+          "values": [
+            "raw"
+          ]
+        },
+        {
+          "name": "search_scope",
+          "values": [
+            "all",
+            "articles",
+            "companies"
+          ]
+        },
+        {
+          "name": "result_count",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Search quality; zero-result rate (result_count=0)",
+      "notes": "Raw query logged — product insight, not PII",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "search_result_clicked",
+      "group": "Search",
+      "fires_when": "A search result is opened",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "query",
+          "values": []
+        },
+        {
+          "name": "position",
+          "values": []
+        },
+        {
+          "name": "result_type",
+          "values": [
+            "article",
+            "company",
+            "tag",
+            "author"
+          ]
+        },
+        {
+          "name": "target_id",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Search relevance (tap position)",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "entity_followed",
+      "group": "Follow & Personalization (My Inc42)",
+      "fires_when": "User follows a company / industry / topic / author",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "entity_type",
+          "values": [
+            "company",
+            "industry",
+            "topic",
+            "author"
+          ]
+        },
+        {
+          "name": "entity_id",
+          "values": []
+        },
+        {
+          "name": "entity_name",
+          "values": []
+        },
+        {
+          "name": "source",
+          "values": [
+            "article",
+            "listing",
+            "my_feed",
+            "onboarding"
+          ]
+        }
+      ],
+      "person_properties": [
+        "followed_companies_count",
+        "followed_industries_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Feed-personalization depth; digest eligibility ⬆",
+      "notes": "The 'START FOLLOWING' feature; anon → register trigger",
+      "critical": false,
+      "upsell": true
+    },
+    {
+      "event": "entity_unfollowed",
+      "group": "Follow & Personalization (My Inc42)",
+      "fires_when": "Unfollow",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "entity_type",
+          "values": []
+        },
+        {
+          "name": "entity_id",
+          "values": []
+        },
+        {
+          "name": "source",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "followed_companies_count",
+        "followed_industries_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Follow churn",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "feed_viewed",
+      "group": "Follow & Personalization (My Inc42)",
+      "fires_when": "My-Inc42 personalized feed opened",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "follow_count",
+          "values": []
+        },
+        {
+          "name": "is_empty",
+          "values": [
+            "bool"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Personalized-feed usage; empty-state rate",
+      "notes": "is_empty drives the 'START FOLLOWING' nudge",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "feed_filtered",
+      "group": "Follow & Personalization (My Inc42)",
+      "fires_when": "Feed filter / tab changed",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "filter_type",
+          "values": [
+            "all",
+            "companies",
+            "industries",
+            "saved"
+          ]
+        },
+        {
+          "name": "filter_value",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Feed navigation patterns",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "list_updated",
+      "group": "Follow & Personalization (My Inc42)",
+      "fires_when": "A custom list is created / renamed / added-to / deleted",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "action",
+          "values": [
+            "created",
+            "renamed",
+            "item_added",
+            "item_removed",
+            "deleted"
+          ]
+        },
+        {
+          "name": "list_id",
+          "values": []
+        },
+        {
+          "name": "list_type",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "lists_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Power-user curation (My Lists)",
+      "notes": "Consolidated CRUD via action enum",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "saved_search_updated",
+      "group": "Follow & Personalization (My Inc42)",
+      "fires_when": "A saved search is created / run / deleted",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "action",
+          "values": [
+            "created",
+            "run",
+            "deleted"
+          ]
+        },
+        {
+          "name": "saved_search_id",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "saved_searches_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Research-intent; Datalabs cross-sell ⬆",
+      "notes": "From /my-inc42/searches/",
+      "critical": false,
+      "upsell": true
+    },
+    {
+      "event": "newsletter_prompt_shown",
+      "group": "Newsletters",
+      "fires_when": "A subscribe prompt is displayed (inline / footer / exit-popup)",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": true,
+      "properties": [
+        {
+          "name": "newsletter_name",
+          "values": []
+        },
+        {
+          "name": "placement",
+          "values": [
+            "inline_article",
+            "footer",
+            "exit_popup",
+            "dedicated_page",
+            "home_promo"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Prompt→subscribe funnel denominator",
+      "notes": "Story bundle when the prompt is inside an article",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "newsletter_subscribed",
+      "group": "Newsletters",
+      "fires_when": "Newsletter subscription confirmed — STANDALONE",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "newsletter_name",
+          "values": [
+            "daily_brief",
+            "weekly_brief",
+            "the_outline",
+            "markets",
+            "ai_shift",
+            "the_checkout",
+            "all"
+          ]
+        },
+        {
+          "name": "placement",
+          "values": []
+        },
+        {
+          "name": "source",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "newsletters_subscribed",
+        "newsletter_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": true
+      },
+      "metric": "#1 ACQUISITION conversion; CRM onboarding trigger",
+      "notes": "Name-keyed for Meta/GA4 conversion + CIO welcome flow",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "newsletter_unsubscribed",
+      "group": "Newsletters",
+      "fires_when": "User unsubscribes (site or one-click)",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "newsletter_name",
+          "values": []
+        },
+        {
+          "name": "source",
+          "values": [
+            "account",
+            "email_link"
+          ]
+        }
+      ],
+      "person_properties": [
+        "newsletters_subscribed",
+        "newsletter_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "List churn; fatigue signal",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "newsletter_edition_clicked",
+      "group": "Newsletters",
+      "fires_when": "'Read the latest edition' opened from the newsletter hub",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "newsletter_name",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Newsletter content pull-through",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "freewall_shown",
+      "group": "Freewall (Register Gate)",
+      "fires_when": "The register-wall blocks further free reading",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "trigger",
+          "values": [
+            "article_quota",
+            "premium_flag"
+          ]
+        },
+        {
+          "name": "quota_used",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Freewall reach; register-conversion denominator ⬆",
+      "notes": "Replaces master's 'Lock Type/register_lock' (was flaky)",
+      "critical": false,
+      "upsell": true
+    },
+    {
+      "event": "freewall_dismissed",
+      "group": "Freewall (Register Gate)",
+      "fires_when": "User closes the freewall without registering",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Freewall friction / abandonment",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "freewall_cta_clicked",
+      "group": "Freewall (Register Gate)",
+      "fires_when": "User taps the register CTA on the freewall",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "cta",
+          "values": [
+            "register",
+            "sign_in"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Freewall → auth funnel",
+      "notes": "Leads to sign_in_started",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "plus_wall_shown",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "Plus-only content/feature is gated behind the paywall",
+      "property_groups": [
+        "Super",
+        "Story"
+      ],
+      "story_conditional": true,
+      "properties": [
+        {
+          "name": "context",
+          "values": [
+            "article",
+            "report",
+            "feature"
+          ]
+        },
+        {
+          "name": "content_id",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Paywall reach; Plus-conversion denominator ⬆",
+      "notes": "Story bundle when gating a premium article",
+      "critical": false,
+      "upsell": true
+    },
+    {
+      "event": "plus_page_viewed",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "The /plus pricing page is viewed",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "source",
+          "values": [
+            "plus_wall",
+            "nav",
+            "article",
+            "report",
+            "email"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Pricing-page reach + source attribution ⬆",
+      "notes": "",
+      "critical": false,
+      "upsell": true
+    },
+    {
+      "event": "plus_plan_selected",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "A pricing plan card CTA ('Become a Member') is tapped",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "plan",
+          "values": [
+            "1yr",
+            "2yr",
+            "3yr"
+          ]
+        },
+        {
+          "name": "price",
+          "values": []
+        },
+        {
+          "name": "discount_pct",
+          "values": []
+        },
+        {
+          "name": "source",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Plan preference; checkout-start intent ⬆",
+      "notes": "",
+      "critical": false,
+      "upsell": true
+    },
+    {
+      "event": "plus_checkout_started",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "Payment / checkout is initiated",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "plan",
+          "values": []
+        },
+        {
+          "name": "price",
+          "values": []
+        },
+        {
+          "name": "payment_method",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": true
+      },
+      "metric": "Checkout-start rate; drop-off before pay ⬆",
+      "notes": "On-site vs redirect — see open item",
+      "critical": false,
+      "upsell": true
+    },
+    {
+      "event": "plus_subscribed",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "Plus payment succeeds — STANDALONE ★",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "plan",
+          "values": []
+        },
+        {
+          "name": "price",
+          "values": []
+        },
+        {
+          "name": "payment_method",
+          "values": []
+        },
+        {
+          "name": "is_renewal",
+          "values": [
+            "bool"
+          ]
+        },
+        {
+          "name": "is_trial_conversion",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "is_plus_member=true",
+        "plus_plan",
+        "plus_status=active",
+        "plus_start_date",
+        "plus_expiry_date",
+        "register_source"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": true
+      },
+      "metric": "★ NORTH-STAR revenue conversion; CRM member-onboarding",
+      "notes": "Name-keyed everywhere; sets all Plus person traits",
+      "critical": true,
+      "upsell": false
+    },
+    {
+      "event": "plus_payment_failed",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "Checkout fails / is declined",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "plan",
+          "values": []
+        },
+        {
+          "name": "error_type",
+          "values": []
+        },
+        {
+          "name": "payment_method",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Payment-failure rate; recovery targeting",
+      "notes": "Client- or server-fired depending on gateway",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "plus_membership_cancelled",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "User cancels / does not renew",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "plan",
+          "values": []
+        },
+        {
+          "name": "reason",
+          "values": []
+        },
+        {
+          "name": "days_active",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "is_plus_member=false",
+        "plus_status=cancelled"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Churn; win-back segment",
+      "notes": "Master had this MISSING — now defined",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "plus_renewed",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "Membership auto/ manual renews",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "plan",
+          "values": []
+        },
+        {
+          "name": "price",
+          "values": []
+        },
+        {
+          "name": "renewal_number",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "plus_expiry_date",
+        "plus_status=active"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Retention / LTV",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "team_membership_interest",
+      "group": "Inc42 Plus (Monetization)",
+      "fires_when": "'Submit your interest' for a team/corp plan",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "company_name",
+          "values": []
+        },
+        {
+          "name": "team_size",
+          "values": []
+        },
+        {
+          "name": "source",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "B2B pipeline ⬆",
+      "notes": "From the /plus team-membership form",
+      "critical": false,
+      "upsell": true
+    },
+    {
+      "event": "report_viewed",
+      "group": "Plus Value Surfaces",
+      "fires_when": "A DataLabs report page is opened",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "report_name",
+          "values": []
+        },
+        {
+          "name": "is_gated",
+          "values": [
+            "bool"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Report reach; Plus value realisation",
+      "notes": "75+ reports; gated ones drive plus_wall_shown",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "report_downloaded",
+      "group": "Plus Value Surfaces",
+      "fires_when": "A report PDF is downloaded (member)",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "report_name",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "reports_downloaded_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Plus value proof; engaged-member signal",
+      "notes": "Gated to members",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "academy_session_viewed",
+      "group": "Plus Value Surfaces",
+      "fires_when": "An Inc42 Academy session is opened",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "session_name",
+          "values": []
+        },
+        {
+          "name": "speaker",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Academy engagement (member perk)",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "deal_redeemed",
+      "group": "Plus Value Surfaces",
+      "fires_when": "A Startup Deal is redeemed by a member",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "deal_name",
+          "values": []
+        },
+        {
+          "name": "deal_partner",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "deals_redeemed_count"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Perk utilisation; retention driver",
+      "notes": "$250K+ deals catalogue",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "event_registered",
+      "group": "Plus Value Surfaces",
+      "fires_when": "User registers for an Inc42 event/summit",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "event_name",
+          "values": []
+        },
+        {
+          "name": "ticket_type",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "events_registered"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": true
+      },
+      "metric": "Event-funnel conversion; lead capture",
+      "notes": "D2C Summit etc.; Meta for paid promo",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "sign_in_prompt_shown",
+      "group": "Auth & Account",
+      "fires_when": "An anonymous user hits a sign-in wall",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "source",
+          "values": [
+            "freewall",
+            "save",
+            "follow",
+            "plus",
+            "account",
+            "comment"
+          ]
+        },
+        {
+          "name": "trigger",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Auth-prompt reach by intent",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "sign_in_started",
+      "group": "Auth & Account",
+      "fires_when": "A sign-in method is chosen",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "method",
+          "values": [
+            "google",
+            "linkedin",
+            "email"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Auth-funnel top",
+      "notes": "Auth0 dependency (per master)",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "sign_in_completed",
+      "group": "Auth & Account",
+      "fires_when": "Auth succeeds → identify / alias merge",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "method",
+          "values": []
+        },
+        {
+          "name": "is_new_account",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "user_id",
+        "email",
+        "is_registered=true",
+        "auth_method"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": true
+      },
+      "metric": "Registration rate; identity-merge point",
+      "notes": "Anon device aliases to Inc42 auth ID here",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "register",
+      "group": "Auth & Account",
+      "fires_when": "First-ever registration — STANDALONE ★",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "method",
+          "values": []
+        },
+        {
+          "name": "register_source=inc42_web",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "is_registered=true",
+        "registration_date",
+        "register_source=inc42_web"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": true,
+        "Meta Pixel": true
+      },
+      "metric": "★ Registration conversion; CRM entry",
+      "notes": "Name-keyed (Meta/GA4 signup conversion + CIO welcome)",
+      "critical": true,
+      "upsell": false
+    },
+    {
+      "event": "onboarding",
+      "group": "Auth & Account",
+      "fires_when": "Post-register preference flow (state machine)",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "status",
+          "values": [
+            "started",
+            "step_completed",
+            "step_skipped",
+            "completed"
+          ]
+        },
+        {
+          "name": "step_name",
+          "values": [
+            "role",
+            "industries",
+            "newsletters",
+            "follow"
+          ]
+        },
+        {
+          "name": "step_answer",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "role",
+        "primary_industry_interest",
+        "onboarding_complete"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Onboarding funnel; personalization seed",
+      "notes": "Consolidated per app convention; confirm flow exists",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "signed_out",
+      "group": "Auth & Account",
+      "fires_when": "User signs out",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [],
+      "person_properties": [],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Account lifecycle",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "account_updated",
+      "group": "Auth & Account",
+      "fires_when": "Profile / email / password / preferences changed",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "fields_changed",
+          "values": [
+            "name",
+            "email",
+            "password",
+            "role",
+            "industries"
+          ]
+        }
+      ],
+      "person_properties": [
+        "(the changed traits)"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Preference drift; digest re-targeting",
+      "notes": "Consolidated CRUD via fields_changed[]",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "account_deleted",
+      "group": "Auth & Account",
+      "fires_when": "Account deletion confirmed",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [],
+      "person_properties": [
+        "dnd=true",
+        "is_registered=false"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Compliance (DPDP); CIO suppression",
+      "notes": "Sets dnd=true → suppresses ALL Customer.io sends",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "web_push_prompt_shown",
+      "group": "Web Push & Ops",
+      "fires_when": "Browser push pre-prompt / OS prompt shown",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "context",
+          "values": [
+            "post_read",
+            "onboarding"
+          ]
+        },
+        {
+          "name": "prompt_type",
+          "values": [
+            "pre_prompt",
+            "os"
+          ]
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Opt-in funnel denominator",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "web_push_granted",
+      "group": "Web Push & Ops",
+      "fires_when": "Browser push permission granted",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "context",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "web_push_opt_in=true"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Push opt-in rate",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "web_push_denied",
+      "group": "Web Push & Ops",
+      "fires_when": "Browser push permission denied",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "context",
+          "values": []
+        }
+      ],
+      "person_properties": [
+        "web_push_opt_in=false"
+      ],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Opt-in funnel; re-prompt eligibility",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "form_submitted",
+      "group": "Web Push & Ops",
+      "fires_when": "A generic site form is submitted (contact/demo/lead)",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "form_type",
+          "values": [
+            "contact",
+            "demo",
+            "lead",
+            "team",
+            "report_gate"
+          ]
+        },
+        {
+          "name": "form_source",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": true,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Lead capture; support demand",
+      "notes": "Keep form_type tight — one event for all forms",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "outbound_clicked",
+      "group": "Web Push & Ops",
+      "fires_when": "An off-site owned destination is opened",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "destination",
+          "values": [
+            "whatsapp_community",
+            "d2c_summit",
+            "brandlabs",
+            "datalabs",
+            "courses"
+          ]
+        },
+        {
+          "name": "source",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": true,
+        "Meta Pixel": false
+      },
+      "metric": "Cross-property flow (community, summits)",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "error_shown",
+      "group": "Web Push & Ops",
+      "fires_when": "A user-facing error / empty state renders",
+      "property_groups": [
+        "Super"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "error_type",
+          "values": [
+            "offline",
+            "404",
+            "payment",
+            "load_fail"
+          ]
+        },
+        {
+          "name": "surface",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": true,
+        "Customer.io": false,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Error-surface map (crashes → Sentry)",
+      "notes": "",
+      "critical": false,
+      "upsell": false
+    },
+    {
+      "event": "article_published",
+      "group": "Content Ops (server-side)",
+      "fires_when": "Editorial publishes an article (server-side → CIO)",
+      "property_groups": [
+        "Story"
+      ],
+      "story_conditional": false,
+      "properties": [
+        {
+          "name": "story_id",
+          "values": []
+        },
+        {
+          "name": "title",
+          "values": []
+        },
+        {
+          "name": "url",
+          "values": []
+        }
+      ],
+      "person_properties": [],
+      "calls_identify": false,
+      "destinations": {
+        "PostHog": false,
+        "Customer.io": true,
+        "GA4": false,
+        "Meta Pixel": false
+      },
+      "metric": "Triggers newsletter / breaking sends",
+      "notes": "Server-side; emitted to Customer.io only",
+      "critical": false,
+      "upsell": false
+    }
+  ],
+  "property_groups": {
+    "Super": {
+      "properties": [
+        "platform=web",
+        "device_type",
+        "browser",
+        "os",
+        "is_registered",
+        "is_plus_member",
+        "membership_tier",
+        "session_source",
+        "page_type"
+      ],
+      "attached_to": "Every event (implicit — never listed per row)"
+    },
+    "Story": {
+      "properties": [
+        "post_id",
+        "story_slug",
+        "story_title",
+        "categories",
+        "story_type",
+        "development_type",
+        "primary_industry",
+        "primary_company",
+        "company_type",
+        "author_name",
+        "author_type",
+        "publishing_date",
+        "story_age_days",
+        "is_plus_content",
+        "is_sponsored",
+        "tags"
+      ],
+      "attached_to": "Content events only: page_viewed(article), scroll_depth, read_time_logged, summary_viewed, listen_started, story_shared, story_saved/unsaved, recommended_clicked, tag_clicked, freewall_shown, plus_wall_shown, article_published (server-enriched)"
+    },
+    "Person": {
+      "properties": [
+        "user_id",
+        "email",
+        "first_name",
+        "last_name",
+        "is_registered",
+        "register_source",
+        "registration_date",
+        "auth_method",
+        "role",
+        "primary_industry_interest",
+        "is_plus_member",
+        "plus_plan",
+        "plus_status",
+        "plus_start_date",
+        "plus_expiry_date",
+        "is_pro_member",
+        "followed_companies_count",
+        "followed_industries_count",
+        "saved_stories_count",
+        "lists_count",
+        "saved_searches_count",
+        "newsletters_subscribed",
+        "newsletter_count",
+        "reports_downloaded_count",
+        "deals_redeemed_count",
+        "web_push_opt_in",
+        "lifetime_pageviews",
+        "last_active_at",
+        "acquisition_source",
+        "consent_state",
+        "dnd",
+        "company_name",
+        "job_title"
+      ],
+      "attached_to": "Set on identify() — PostHog person + Customer.io attributes (not per-event)"
+    }
+  },
+  "dictionary": [
+    {
+      "property": "platform",
+      "group": "Super",
+      "type": "enum",
+      "allowed": [
+        "web"
+      ],
+      "raw_allowed": "web (constant on this surface)"
+    },
+    {
+      "property": "device_type",
+      "group": "Super",
+      "type": "enum",
+      "allowed": [
+        "desktop",
+        "mobile",
+        "tablet"
+      ],
+      "raw_allowed": "desktop / mobile / tablet"
+    },
+    {
+      "property": "browser",
+      "group": "Super",
+      "type": "string",
+      "allowed": [
+        "Chrome",
+        "Safari",
+        "…"
+      ],
+      "raw_allowed": "Chrome / Safari / …"
+    },
+    {
+      "property": "os",
+      "group": "Super",
+      "type": "string",
+      "allowed": [
+        "macOS",
+        "Windows",
+        "iOS",
+        "Android"
+      ],
+      "raw_allowed": "macOS / Windows / iOS / Android"
+    },
+    {
+      "property": "is_registered",
+      "group": "Super",
+      "type": "bool",
+      "allowed": [
+        "true",
+        "false"
+      ],
+      "raw_allowed": "true / false"
+    },
+    {
+      "property": "is_plus_member",
+      "group": "Super",
+      "type": "bool",
+      "allowed": [
+        "true",
+        "false"
+      ],
+      "raw_allowed": "true / false"
+    },
+    {
+      "property": "membership_tier",
+      "group": "Super",
+      "type": "enum",
+      "allowed": [
+        "none",
+        "plus",
+        "pro"
+      ],
+      "raw_allowed": "none / plus / pro"
+    },
+    {
+      "property": "session_source",
+      "group": "Super",
+      "type": "enum",
+      "allowed": [
+        "organic_search",
+        "social",
+        "direct",
+        "newsletter",
+        "referral",
+        "push"
+      ],
+      "raw_allowed": "organic_search / social / direct / newsletter / referral / push"
+    },
+    {
+      "property": "page_type",
+      "group": "Super",
+      "type": "enum",
+      "allowed": [
+        "home",
+        "listing",
+        "article",
+        "plus",
+        "account",
+        "newsletter",
+        "report",
+        "static"
+      ],
+      "raw_allowed": "home / listing / article / plus / account / newsletter / report / static"
+    },
+    {
+      "property": "post_id",
+      "group": "Story",
+      "type": "string",
+      "allowed": [
+        "WordPress post ID — the true key"
+      ],
+      "raw_allowed": "WordPress post ID — the true key (NOT the slug)"
+    },
+    {
+      "property": "story_slug",
+      "group": "Story",
+      "type": "string",
+      "allowed": [
+        "human-readable slug"
+      ],
+      "raw_allowed": "human-readable slug (PostHog readability without ID joins)"
+    },
+    {
+      "property": "story_title",
+      "group": "Story",
+      "type": "string",
+      "allowed": [
+        "headline"
+      ],
+      "raw_allowed": "headline"
+    },
+    {
+      "property": "categories",
+      "group": "Story",
+      "type": "enum",
+      "allowed": [
+        "News",
+        "Features",
+        "Startup Stories",
+        "Resources",
+        "In-Depth"
+      ],
+      "raw_allowed": "News / Features / Startup Stories / Resources / In-Depth"
+    },
+    {
+      "property": "story_type",
+      "group": "Story",
+      "type": "enum",
+      "allowed": [
+        "Exclusive",
+        "Investigative",
+        "Roundup",
+        "Listicle",
+        "Series",
+        "Newsletter",
+        "…"
+      ],
+      "raw_allowed": "Exclusive / Investigative / Roundup / Listicle / Series / Newsletter / …"
+    },
+    {
+      "property": "development_type",
+      "group": "Story",
+      "type": "enum",
+      "allowed": [
+        "Funding",
+        "Layoffs",
+        "IPO",
+        "M&A",
+        "Policy",
+        "Financials",
+        "Business Updates",
+        "…"
+      ],
+      "raw_allowed": "Funding / Layoffs / IPO / M&A / Policy / Financials / Business Updates / … (12-value enum)"
+    },
+    {
+      "property": "primary_industry",
+      "group": "Story",
+      "type": "enum",
+      "allowed": [
+        "Fintech",
+        "Ecommerce",
+        "Enterprisetech",
+        "…"
+      ],
+      "raw_allowed": "Fintech / Ecommerce / Enterprisetech / … (web industry taxonomy)"
+    },
+    {
+      "property": "primary_company",
+      "group": "Story",
+      "type": "string",
+      "allowed": [
+        "Swiggy"
+      ],
+      "raw_allowed": "Swiggy (links content ↔ Datalabs entity)"
+    },
+    {
+      "property": "company_type",
+      "group": "Story",
+      "type": "enum",
+      "allowed": [
+        "Early",
+        "Growth",
+        "Late-stage",
+        "Listed",
+        "Corporate",
+        "Investor",
+        "…"
+      ],
+      "raw_allowed": "Early / Growth / Late-stage / Listed / Corporate / Investor / …"
+    },
+    {
+      "property": "author_name",
+      "group": "Story",
+      "type": "string",
+      "allowed": [
+        "Meha Agarwal"
+      ],
+      "raw_allowed": "Meha Agarwal (bylines; multi-author = array)"
+    },
+    {
+      "property": "author_type",
+      "group": "Story",
+      "type": "enum",
+      "allowed": [
+        "staff",
+        "contributor"
+      ],
+      "raw_allowed": "staff / contributor"
+    },
+    {
+      "property": "publishing_date",
+      "group": "Story",
+      "type": "date",
+      "allowed": [
+        "article publish datetime"
+      ],
+      "raw_allowed": "article publish datetime"
+    },
+    {
+      "property": "story_age_days",
+      "group": "Story",
+      "type": "number",
+      "allowed": [],
+      "raw_allowed": "derived at fire time from publishing_date"
+    },
+    {
+      "property": "is_plus_content",
+      "group": "Story",
+      "type": "bool",
+      "allowed": [
+        "true = behind the Plus paywall"
+      ],
+      "raw_allowed": "true = behind the Plus paywall"
+    },
+    {
+      "property": "is_sponsored",
+      "group": "Story",
+      "type": "bool",
+      "allowed": [
+        "true = BrandLabs",
+        "sponsored"
+      ],
+      "raw_allowed": "true = BrandLabs / sponsored"
+    },
+    {
+      "property": "tags",
+      "group": "Story",
+      "type": "array",
+      "allowed": [
+        "topic",
+        "company",
+        "series tags on the story"
+      ],
+      "raw_allowed": "topic/company/series tags on the story"
+    },
+    {
+      "property": "user_id",
+      "group": "Person",
+      "type": "string",
+      "allowed": [
+        "Inc42 auth ID"
+      ],
+      "raw_allowed": "Inc42 auth ID (identity-merge key)"
+    },
+    {
+      "property": "register_source",
+      "group": "Person",
+      "type": "const",
+      "allowed": [
+        "inc42_web"
+      ],
+      "raw_allowed": "inc42_web (CRM dedupe vs app registrations)"
+    },
+    {
+      "property": "auth_method",
+      "group": "Person",
+      "type": "enum",
+      "allowed": [
+        "google",
+        "linkedin",
+        "email"
+      ],
+      "raw_allowed": "google / linkedin / email"
+    },
+    {
+      "property": "role",
+      "group": "Person",
+      "type": "enum",
+      "allowed": [
+        "founder",
+        "investor",
+        "operator",
+        "…"
+      ],
+      "raw_allowed": "founder / investor / operator / … (maps to app role & web Seniority)"
+    },
+    {
+      "property": "primary_industry_interest",
+      "group": "Person",
+      "type": "enum",
+      "allowed": [
+        "onboarding-declared sector interest"
+      ],
+      "raw_allowed": "onboarding-declared sector interest"
+    },
+    {
+      "property": "plus_plan",
+      "group": "Person",
+      "type": "enum",
+      "allowed": [
+        "1yr",
+        "2yr",
+        "3yr"
+      ],
+      "raw_allowed": "1yr / 2yr / 3yr"
+    },
+    {
+      "property": "plus_status",
+      "group": "Person",
+      "type": "enum",
+      "allowed": [
+        "none",
+        "active",
+        "cancelled",
+        "expired"
+      ],
+      "raw_allowed": "none / active / cancelled / expired"
+    },
+    {
+      "property": "plus_start_date",
+      "group": "Person",
+      "type": "date",
+      "allowed": [
+        "membership start"
+      ],
+      "raw_allowed": "membership start"
+    },
+    {
+      "property": "plus_expiry_date",
+      "group": "Person",
+      "type": "date",
+      "allowed": [
+        "renewal",
+        "suppression date"
+      ],
+      "raw_allowed": "renewal / suppression date"
+    },
+    {
+      "property": "is_pro_member",
+      "group": "Person",
+      "type": "bool",
+      "allowed": [
+        "DataLabs Pro"
+      ],
+      "raw_allowed": "DataLabs Pro (cross-surface flag)"
+    },
+    {
+      "property": "followed_companies_count",
+      "group": "Person",
+      "type": "number",
+      "allowed": [],
+      "raw_allowed": "personalization depth; digest eligibility"
+    },
+    {
+      "property": "followed_industries_count",
+      "group": "Person",
+      "type": "number",
+      "allowed": [
+        "personalization depth"
+      ],
+      "raw_allowed": "personalization depth"
+    },
+    {
+      "property": "saved_stories_count",
+      "group": "Person",
+      "type": "number",
+      "allowed": [
+        "save engagement"
+      ],
+      "raw_allowed": "save engagement"
+    },
+    {
+      "property": "newsletters_subscribed",
+      "group": "Person",
+      "type": "array",
+      "allowed": [
+        "daily_brief",
+        "weekly_brief",
+        "the_outline",
+        "markets",
+        "ai_shift",
+        "the_checkout"
+      ],
+      "raw_allowed": "daily_brief / weekly_brief / the_outline / markets / ai_shift / the_checkout"
+    },
+    {
+      "property": "newsletter_count",
+      "group": "Person",
+      "type": "number",
+      "allowed": [
+        "# of newsletters subscribed"
+      ],
+      "raw_allowed": "# of newsletters subscribed"
+    },
+    {
+      "property": "web_push_opt_in",
+      "group": "Person",
+      "type": "bool",
+      "allowed": [
+        "browser push eligibility"
+      ],
+      "raw_allowed": "browser push eligibility"
+    },
+    {
+      "property": "lifetime_pageviews",
+      "group": "Person",
+      "type": "number",
+      "allowed": [
+        "engagement scoring; freewall quota"
+      ],
+      "raw_allowed": "engagement scoring; freewall quota"
+    },
+    {
+      "property": "last_active_at",
+      "group": "Person",
+      "type": "timestamp",
+      "allowed": [
+        "recency; win-back targeting"
+      ],
+      "raw_allowed": "recency; win-back targeting"
+    },
+    {
+      "property": "acquisition_source",
+      "group": "Person",
+      "type": "string",
+      "allowed": [
+        "first-touch channel"
+      ],
+      "raw_allowed": "first-touch channel"
+    },
+    {
+      "property": "consent_state",
+      "group": "Person",
+      "type": "enum",
+      "allowed": [
+        "accepted",
+        "rejected",
+        "partial"
+      ],
+      "raw_allowed": "accepted / rejected / partial (DPDP)"
+    },
+    {
+      "property": "dnd",
+      "group": "Person",
+      "type": "bool",
+      "allowed": [
+        "true suppresses ALL Customer.io sends"
+      ],
+      "raw_allowed": "true suppresses ALL Customer.io sends (set on account_deleted)"
+    },
+    {
+      "property": "referrer_type",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "organic_search",
+        "social",
+        "direct",
+        "newsletter",
+        "referral",
+        "push"
+      ],
+      "raw_allowed": "organic_search / social / direct / newsletter / referral / push"
+    },
+    {
+      "property": "utm_source",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "campaign attribution"
+      ],
+      "raw_allowed": "campaign attribution (session-scoped)"
+    },
+    {
+      "property": "utm_medium",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "campaign attribution"
+      ],
+      "raw_allowed": "campaign attribution (session-scoped)"
+    },
+    {
+      "property": "utm_campaign",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "campaign attribution"
+      ],
+      "raw_allowed": "campaign attribution (session-scoped)"
+    },
+    {
+      "property": "depth_percent",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "25",
+        "50",
+        "75",
+        "100"
+      ],
+      "raw_allowed": "25 / 50 / 75 / 100"
+    },
+    {
+      "property": "active_seconds",
+      "group": "Event",
+      "type": "number",
+      "allowed": [
+        "engaged read time"
+      ],
+      "raw_allowed": "engaged read time"
+    },
+    {
+      "property": "reached_end",
+      "group": "Event",
+      "type": "bool",
+      "allowed": [
+        "did the reader reach the article end"
+      ],
+      "raw_allowed": "did the reader reach the article end"
+    },
+    {
+      "property": "channel",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "whatsapp",
+        "x",
+        "linkedin",
+        "facebook",
+        "copy_link",
+        "email"
+      ],
+      "raw_allowed": "whatsapp / x / linkedin / facebook / copy_link / email (share destination)"
+    },
+    {
+      "property": "source",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [],
+      "raw_allowed": "CONTEXT-DEPENDENT — valid subset per event. Values: article / listing / home / search / my_feed / freewall / plus_wall / nav / footer / onboarding / email"
+    },
+    {
+      "property": "module",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "recommended",
+        "read_next",
+        "deep_dive",
+        "related",
+        "hero",
+        "latest",
+        "industry_rail",
+        "newsletter_promo"
+      ],
+      "raw_allowed": "recommended / read_next / deep_dive / related / hero / latest / industry_rail / newsletter_promo"
+    },
+    {
+      "property": "position",
+      "group": "Event",
+      "type": "number",
+      "allowed": [
+        "card",
+        "result index"
+      ],
+      "raw_allowed": "card / result index (0-based)"
+    },
+    {
+      "property": "target_story_id",
+      "group": "Event",
+      "type": "string",
+      "allowed": [],
+      "raw_allowed": "destination story of a recirculation click"
+    },
+    {
+      "property": "tag",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "tag string · type = topic",
+        "industry",
+        "company",
+        "series"
+      ],
+      "raw_allowed": "tag string · type = topic / industry / company / series"
+    },
+    {
+      "property": "tag_type",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "tag string · type = topic",
+        "industry",
+        "company",
+        "series"
+      ],
+      "raw_allowed": "tag string · type = topic / industry / company / series"
+    },
+    {
+      "property": "nav_item",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "label · group = primary",
+        "secondary",
+        "tag_shortcut",
+        "footer",
+        "hamburger"
+      ],
+      "raw_allowed": "label · group = primary / secondary / tag_shortcut / footer / hamburger"
+    },
+    {
+      "property": "nav_group",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "label · group = primary",
+        "secondary",
+        "tag_shortcut",
+        "footer",
+        "hamburger"
+      ],
+      "raw_allowed": "label · group = primary / secondary / tag_shortcut / footer / hamburger"
+    },
+    {
+      "property": "listing_type",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "category",
+        "tag",
+        "industry",
+        "author",
+        "search"
+      ],
+      "raw_allowed": "category / tag / industry / author / search"
+    },
+    {
+      "property": "listing_value",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "the category",
+        "tag",
+        "industry",
+        "author identifier"
+      ],
+      "raw_allowed": "the category/tag/industry/author identifier"
+    },
+    {
+      "property": "page_number",
+      "group": "Event",
+      "type": "number",
+      "allowed": [
+        "listing pagination index"
+      ],
+      "raw_allowed": "listing pagination index"
+    },
+    {
+      "property": "query",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "raw search text"
+      ],
+      "raw_allowed": "raw search text (logged — not PII)"
+    },
+    {
+      "property": "search_scope",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "all",
+        "articles",
+        "companies"
+      ],
+      "raw_allowed": "all / articles / companies"
+    },
+    {
+      "property": "result_count",
+      "group": "Event",
+      "type": "number",
+      "allowed": [
+        "results returned"
+      ],
+      "raw_allowed": "results returned (0 = zero-result)"
+    },
+    {
+      "property": "result_type",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "article",
+        "company",
+        "tag",
+        "author"
+      ],
+      "raw_allowed": "article / company / tag / author"
+    },
+    {
+      "property": "entity_type",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "company",
+        "industry",
+        "topic",
+        "author"
+      ],
+      "raw_allowed": "company / industry / topic / author"
+    },
+    {
+      "property": "entity_id",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "followed entity ID + display name"
+      ],
+      "raw_allowed": "followed entity ID + display name"
+    },
+    {
+      "property": "entity_name",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "followed entity ID + display name"
+      ],
+      "raw_allowed": "followed entity ID + display name"
+    },
+    {
+      "property": "filter_type",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "feed & listing filters"
+      ],
+      "raw_allowed": "feed & listing filters"
+    },
+    {
+      "property": "filter_value",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "feed & listing filters"
+      ],
+      "raw_allowed": "feed & listing filters"
+    },
+    {
+      "property": "action",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "CRUD verb — list_updated: created",
+        "renamed",
+        "item_added",
+        "item_removed",
+        "deleted · saved_search: created",
+        "run",
+        "deleted · summary: viewed",
+        "expanded"
+      ],
+      "raw_allowed": "CRUD verb — list_updated: created/renamed/item_added/item_removed/deleted · saved_search: created/run/deleted · summary: viewed/expanded"
+    },
+    {
+      "property": "list_id",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "My-Lists identifiers"
+      ],
+      "raw_allowed": "My-Lists identifiers"
+    },
+    {
+      "property": "list_type",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "My-Lists identifiers"
+      ],
+      "raw_allowed": "My-Lists identifiers"
+    },
+    {
+      "property": "saved_search_id",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "saved-search identifier"
+      ],
+      "raw_allowed": "saved-search identifier"
+    },
+    {
+      "property": "newsletter_name",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "daily_brief",
+        "weekly_brief",
+        "the_outline",
+        "markets",
+        "ai_shift",
+        "the_checkout",
+        "all"
+      ],
+      "raw_allowed": "daily_brief / weekly_brief / the_outline / markets / ai_shift / the_checkout / all"
+    },
+    {
+      "property": "placement",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "inline_article",
+        "footer",
+        "exit_popup",
+        "dedicated_page",
+        "home_promo"
+      ],
+      "raw_allowed": "inline_article / footer / exit_popup / dedicated_page / home_promo"
+    },
+    {
+      "property": "trigger",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "freewall: article_quota",
+        "premium_flag"
+      ],
+      "raw_allowed": "freewall: article_quota / premium_flag"
+    },
+    {
+      "property": "quota_used",
+      "group": "Event",
+      "type": "number",
+      "allowed": [
+        "free articles consumed vs cap"
+      ],
+      "raw_allowed": "free articles consumed vs cap"
+    },
+    {
+      "property": "context",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "plus_wall: article",
+        "report",
+        "feature · push: post_read",
+        "onboarding"
+      ],
+      "raw_allowed": "plus_wall: article / report / feature · push: post_read / onboarding"
+    },
+    {
+      "property": "content_id",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "gated content identifier"
+      ],
+      "raw_allowed": "gated content identifier"
+    },
+    {
+      "property": "plan",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "1yr",
+        "2yr",
+        "3yr"
+      ],
+      "raw_allowed": "1yr / 2yr / 3yr"
+    },
+    {
+      "property": "price",
+      "group": "Event",
+      "type": "number",
+      "allowed": [
+        "displayed price"
+      ],
+      "raw_allowed": "displayed price (₹)"
+    },
+    {
+      "property": "discount_pct",
+      "group": "Event",
+      "type": "number",
+      "allowed": [
+        "offer discount shown"
+      ],
+      "raw_allowed": "offer discount shown"
+    },
+    {
+      "property": "payment_method",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "card",
+        "upi",
+        "netbanking",
+        "wallet"
+      ],
+      "raw_allowed": "card / upi / netbanking / wallet"
+    },
+    {
+      "property": "is_renewal",
+      "group": "Event",
+      "type": "bool",
+      "allowed": [
+        "subscription context flags"
+      ],
+      "raw_allowed": "subscription context flags"
+    },
+    {
+      "property": "is_trial_conversion",
+      "group": "Event",
+      "type": "bool",
+      "allowed": [
+        "subscription context flags"
+      ],
+      "raw_allowed": "subscription context flags"
+    },
+    {
+      "property": "error_type",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "payment",
+        "offline",
+        "404",
+        "load_fail"
+      ],
+      "raw_allowed": "payment / offline / 404 / load_fail"
+    },
+    {
+      "property": "reason",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "cancellation",
+        "churn reason"
+      ],
+      "raw_allowed": "cancellation / churn reason"
+    },
+    {
+      "property": "days_active",
+      "group": "Event",
+      "type": "number",
+      "allowed": [
+        "membership age at cancel"
+      ],
+      "raw_allowed": "membership age at cancel"
+    },
+    {
+      "property": "report_name",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "report title"
+      ],
+      "raw_allowed": "report title"
+    },
+    {
+      "property": "is_gated",
+      "group": "Event",
+      "type": "bool",
+      "allowed": [
+        "report behind Plus"
+      ],
+      "raw_allowed": "report behind Plus"
+    },
+    {
+      "property": "session_name",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "Academy session"
+      ],
+      "raw_allowed": "Academy session"
+    },
+    {
+      "property": "speaker",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "Academy session"
+      ],
+      "raw_allowed": "Academy session"
+    },
+    {
+      "property": "deal_name",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "Startup Deal"
+      ],
+      "raw_allowed": "Startup Deal"
+    },
+    {
+      "property": "deal_partner",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "Startup Deal"
+      ],
+      "raw_allowed": "Startup Deal"
+    },
+    {
+      "property": "event_name",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "Inc42 event registration"
+      ],
+      "raw_allowed": "Inc42 event registration"
+    },
+    {
+      "property": "ticket_type",
+      "group": "Event",
+      "type": "string",
+      "allowed": [
+        "Inc42 event registration"
+      ],
+      "raw_allowed": "Inc42 event registration"
+    },
+    {
+      "property": "method",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "google",
+        "linkedin",
+        "email"
+      ],
+      "raw_allowed": "google / linkedin / email"
+    },
+    {
+      "property": "is_new_account",
+      "group": "Event",
+      "type": "bool",
+      "allowed": [
+        "first registration vs returning sign-in"
+      ],
+      "raw_allowed": "first registration vs returning sign-in"
+    },
+    {
+      "property": "status",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "onboarding: started",
+        "step_completed",
+        "step_skipped",
+        "completed"
+      ],
+      "raw_allowed": "onboarding: started / step_completed / step_skipped / completed"
+    },
+    {
+      "property": "step_name",
+      "group": "Event",
+      "type": "varies",
+      "allowed": [
+        "onboarding: role",
+        "industries",
+        "newsletters",
+        "follow — answer shape varies"
+      ],
+      "raw_allowed": "onboarding: role / industries / newsletters / follow — answer shape varies"
+    },
+    {
+      "property": "step_answer",
+      "group": "Event",
+      "type": "varies",
+      "allowed": [
+        "onboarding: role",
+        "industries",
+        "newsletters",
+        "follow — answer shape varies"
+      ],
+      "raw_allowed": "onboarding: role / industries / newsletters / follow — answer shape varies"
+    },
+    {
+      "property": "fields_changed",
+      "group": "Event",
+      "type": "array",
+      "allowed": [
+        "account_updated: name",
+        "email",
+        "password",
+        "role",
+        "industries"
+      ],
+      "raw_allowed": "account_updated: name / email / password / role / industries"
+    },
+    {
+      "property": "form_type",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "contact",
+        "demo",
+        "lead",
+        "team",
+        "report_gate"
+      ],
+      "raw_allowed": "contact / demo / lead / team / report_gate"
+    },
+    {
+      "property": "form_source",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "contact",
+        "demo",
+        "lead",
+        "team",
+        "report_gate"
+      ],
+      "raw_allowed": "contact / demo / lead / team / report_gate"
+    },
+    {
+      "property": "destination",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "outbound: whatsapp_community",
+        "d2c_summit",
+        "brandlabs",
+        "datalabs",
+        "courses"
+      ],
+      "raw_allowed": "outbound: whatsapp_community / d2c_summit / brandlabs / datalabs / courses"
+    },
+    {
+      "property": "prompt_type",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "pre_prompt",
+        "os"
+      ],
+      "raw_allowed": "pre_prompt / os"
+    },
+    {
+      "property": "consent_action",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "accept_all",
+        "reject_all",
+        "custom · categories[] = analytics",
+        "marketing",
+        "functional"
+      ],
+      "raw_allowed": "accept_all / reject_all / custom · categories[] = analytics/marketing/functional"
+    },
+    {
+      "property": "categories",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "accept_all",
+        "reject_all",
+        "custom · categories[] = analytics",
+        "marketing",
+        "functional"
+      ],
+      "raw_allowed": "accept_all / reject_all / custom · categories[] = analytics/marketing/functional"
+    },
+    {
+      "property": "cta",
+      "group": "Event",
+      "type": "enum",
+      "allowed": [
+        "freewall",
+        "inline: register",
+        "sign_in",
+        "follow_us",
+        "whatsapp",
+        "promo"
+      ],
+      "raw_allowed": "freewall/inline: register / sign_in / follow_us / whatsapp / promo"
+    }
+  ]
+}
