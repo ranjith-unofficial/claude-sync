@@ -42,10 +42,10 @@ body{
   margin:0; padding:0 24px 80px;
   -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:1120px; margin:0 auto}
+.wrap{max-width:1100px; margin:0 auto}
 h1,h2,.label,th,.pill,.mono{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
 
-header.top{border-bottom:2px solid var(--ink); padding:52px 0 20px; margin-bottom:16px}
+header.top{border-bottom:2px solid var(--ink); padding:52px 0 20px; margin-bottom:52px}
 .eyebrow{
   font-family:"IBM Plex Mono",ui-monospace,monospace;
   font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
@@ -58,28 +58,39 @@ h1{font-size:clamp(2rem,5vw,3.1rem); font-weight:700; letter-spacing:-.025em;
   font-size:12.5px; color:var(--ink-3); line-height:1.9;
   display:flex; flex-wrap:wrap; gap:4px 20px; margin:0;
 }
-.legend{
-  font-family:"IBM Plex Mono",ui-monospace,monospace;
-  font-size:11.5px; color:var(--ink-3); margin:0 0 22px;
-  display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center;
+
+h2{
+  font-size:1.02rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+  margin:0 0 6px; display:flex; align-items:baseline; gap:14px;
 }
+h2 .m{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; font-weight:500;
+  color:var(--accent); letter-spacing:.08em; flex:none;
+}
+h2::after{content:""; flex:1; height:1px; background:var(--rule); position:relative; top:-4px}
+.deck{color:var(--ink-2); margin:12px 0 22px; max-width:68ch; font-size:16px}
+section{margin:0 0 56px}
 
 .scroll{overflow-x:auto; border:1px solid var(--rule); background:var(--surface)}
-table{border-collapse:collapse; width:100%; min-width:880px;
+table{border-collapse:collapse; width:100%; min-width:820px;
   font-family:Archivo,"Helvetica Neue",Arial,sans-serif; font-size:13.5px; line-height:1.5}
 th{
   text-align:left; font-weight:600; font-size:11px; letter-spacing:.09em; text-transform:uppercase;
   color:var(--ink-3); padding:13px 14px; border-bottom:1px solid var(--rule);
   background:var(--sunk); vertical-align:bottom; white-space:nowrap;
 }
-td{padding:16px 14px; border-bottom:1px solid var(--rule-soft); vertical-align:top; color:var(--ink-2)}
+td{padding:15px 14px; border-bottom:1px solid var(--rule-soft); vertical-align:top; color:var(--ink-2)}
 tbody tr:last-child td{border-bottom:none}
 td strong{color:var(--ink); font-weight:600}
 td.n{
   font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;
   color:var(--ink-3); font-size:12px; text-align:right; width:34px; padding-right:0;
 }
-.w1{width:17%} .w2{width:33%} .w3{width:21%}
+td.tgt{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;
+  color:var(--ink); font-weight:500; white-space:nowrap; width:104px;
+}
+.w1{width:21%} .w2{width:40%}
 .sub{font-size:12.5px; color:var(--ink-3); display:block; margin-top:6px; line-height:1.45}
 
 .pill{
@@ -88,27 +99,26 @@ td.n{
 }
 .p-ok{background:var(--ok-soft); color:var(--ok)}
 .p-warn{background:var(--warn-soft); color:var(--warn)}
-.p-new{background:var(--accent-soft); color:var(--accent)}
-
-h2{
-  font-size:1.02rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
-  margin:56px 0 6px; display:flex; align-items:baseline; gap:14px;
-}
-h2::after{content:""; flex:1; height:1px; background:var(--rule); position:relative; top:-4px}
-.deck{color:var(--ink-2); margin:14px 0 24px; max-width:66ch; font-size:16.5px}
+.p-crit{background:var(--crit-soft); color:var(--crit)}
 
 .stack{display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule)}
 .stack .item{background:var(--surface); padding:20px 22px; display:grid;
   grid-template-columns:190px 1fr; gap:24px; align-items:start}
-.stack .k{
-  font-family:Archivo,sans-serif; font-size:14px; font-weight:600; color:var(--ink);
-}
+.stack .k{font-family:Archivo,sans-serif; font-size:14px; font-weight:600; color:var(--ink)}
 .stack .k span{
   display:block; font-family:"IBM Plex Mono",ui-monospace,monospace; font-weight:400;
   font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); margin-bottom:6px;
 }
 .stack .v{font-size:15.5px; color:var(--ink-2)}
 .stack .v strong{color:var(--ink); font-weight:600}
+
+.note{border-left:3px solid var(--crit); background:var(--surface); padding:18px 22px; margin:0; font-size:16px}
+.note .label{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--crit); display:block; margin-bottom:8px;
+}
+.note p{margin:0 0 12px} .note p:last-child{margin:0}
+.note ul{margin:0; padding-left:1.15em} .note li{margin-bottom:7px}
 
 footer{
   border-top:2px solid var(--ink); margin-top:56px; padding-top:18px;
@@ -128,106 +138,161 @@ footer{
   <h1>Ranjith's September MOP</h1>
   <p class="meta">
     <span>23 Aug 2026</span>
-    <span>6 goals, all owned by me</span>
-    <span>Source: PMTD MOP 2026.xlsx</span>
+    <span>August close-out + September goals</span>
+    <span>Only goals I am accountable for</span>
   </p>
 </header>
 
-<p class="legend">
-  Only goals where I am accountable. Rows I merely support — identity spine, renewal motion, payment leak, Datalabs lifecycle — are not here.
-  <span class="pill p-new">New</span> not in the ratified sheet
-</p>
+<section>
+  <h2><span class="m">Aug</span> Closing out August</h2>
+  <p class="deck">Four things land by 31 August. Each one is a precondition for a September goal — the events work makes the September targets measurable, the interviews and feedback loops make them steerable.</p>
 
-<div class="scroll">
-  <table>
-    <thead>
-      <tr>
-        <th class="n"></th>
-        <th class="w1">Goal</th>
-        <th class="w2">What lands in September</th>
-        <th class="w3">Stretch</th>
-        <th>Call</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      <tr>
-        <td class="n">01</td>
-        <td><strong>Inc42 App</strong><span class="sub">Carries from the Aug MOP row</span></td>
-        <td>600 activated users · employer + seniority captured at <strong>sign-in</strong> live by 8 Sept · revised design shipped · brief ranking rebuilt on read behaviour, not sector · 30-day clock clears ~20 Sept<span class="sub">Jul asked 5,000. Aug asked 1,000. Reality: 189 users in 9 days pre-marketing. 600 is the rate-based number.</span></td>
-        <td>1,000 activated · D7 return ≥25% · opens per day per user tracked with a September baseline</td>
-        <td><span class="pill p-warn">Watch</span><span class="sub">Needs the deep-link fix and the push fix to land first — both outside product.</span></td>
-      </tr>
-
-      <tr>
-        <td class="n">02</td>
-        <td><strong>Ask Inc42</strong><span class="sub">Consumer AI, all surfaces</span></td>
-        <td>Ask on Inc42.com decided and building — the third surface · Ask query events instrumented · v2 unblocked by raising the API with Anmol in week 1<span class="sub">It has never actually been asked for. Cheapest unblock on this page.</span></td>
-        <td>v2 live with the 3 stored onboarding questions · answer quality measured</td>
-        <td><span class="pill p-ok">On</span><span class="sub">Instrumentation closes one of only two qualifying actions we cannot see at all.</span></td>
-      </tr>
-
-      <tr>
-        <td class="n">03</td>
-        <td><strong>AI agent system</strong> <span class="pill p-new">New</span><span class="sub">Internal platform</span></td>
-        <td>Hiring agent generalised to multi-role and running live for ≥2 roles · platform contract written · per-agent cost instrumented<span class="sub">Detailed below.</span></td>
-        <td>A second agent built on the contract without new plumbing · cost-per-QIA baseline readable in October</td>
-        <td><span class="pill p-warn">Watch</span><span class="sub">DPDP consent scope for candidate data is a real gate, not a formality.</span></td>
-      </tr>
-
-      <tr>
-        <td class="n">04</td>
-        <td><strong>Retention mechanisms</strong><span class="sub">I run it · Utkarsh scores in Oct</span></td>
-        <td>Candidates named and instrumented for 30-day return — alerts, community, report surfaces, Datalabs Weekly · Pulse's legal gate closed and the 15 July approval sent</td>
-        <td>Pulse shipped as a live entrant</td>
-        <td><span class="pill p-warn">Watch</span><span class="sub">Legal gate has been open six weeks. Proposing Pulse ships in Oct, scoped in Sept.</span></td>
-      </tr>
-
-      <tr>
-        <td class="n">05</td>
-        <td><strong>Offering — price probe</strong><span class="sub">With Utkarsh</span></td>
-        <td>A1 probe run on the legacy book (₹4,999–14,999) · ~38 lapsed data-buyers called · read against the pre-registered ~20% pooled bar</td>
-        <td>Tier prices confirmed or reworked, written up</td>
-        <td><span class="pill p-ok">On</span><span class="sub">Only if scheduled in weeks 1–2. Left to week 4 it does not happen.</span></td>
-      </tr>
-
-      <tr>
-        <td class="n">06</td>
-        <td><strong>Sign-up gate decision</strong><span class="sub">Nityam runs the test · the October call is mine</span></td>
-        <td>Success criteria written down <em>before</em> the test reads out</td>
-        <td>—</td>
-        <td><span class="pill p-ok">On</span><span class="sub">Cheap now. Prevents an argument in October.</span></td>
-      </tr>
-
-    </tbody>
-  </table>
-</div>
-
-<h2>The AI agent system</h2>
-<p class="deck">The FY27 plan gives me <span class="mono">Internal AI &amp; Agent Platform — platform</span>, with Prapti on pilots. The ratified September MOP has one AI row and it names only Prapti, so the platform half is committed in the horizon plan and served by no row. This is what it means concretely.</p>
-
-<div class="stack">
-  <div class="item">
-    <div class="k"><span>What ships</span>Multi-role hiring agent</div>
-    <div class="v">The first real agent on the platform, not another pilot. <strong>One workflow, per-role sheet config</strong>, live for at least two roles. Two-step CTC rule implemented as agreed with Utkarsh. The broken experience computation fixed.</div>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th class="n"></th><th class="w1">Goal</th><th class="w2">What done looks like</th><th>Why it gates September</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="n">01</td>
+          <td><strong>Fix the events</strong></td>
+          <td>Broken and missing events fixed; implementation verified to match the plan rather than assumed</td>
+          <td>Nothing in September is measurable until this is true — including the two targets below.</td>
+        </tr>
+        <tr>
+          <td class="n">02</td>
+          <td><strong>Unify the events documentation</strong></td>
+          <td>One master tracking-plan sheet across app, web and Datalabs, replacing the scattered versions</td>
+          <td>Weekly audits have nothing to audit against without a single source.</td>
+        </tr>
+        <tr>
+          <td class="n">03</td>
+          <td><strong>10+ user interviews</strong></td>
+          <td>At least 10 conducted, recorded and stored in the shared folder</td>
+          <td>Sets the qualitative baseline the 25 in September build on.</td>
+        </tr>
+        <tr>
+          <td class="n">04</td>
+          <td><strong>In-app feedback loops + ratings flow</strong></td>
+          <td>Feedback capture and the ratings flow live in the app</td>
+          <td>Moves feedback out of WhatsApp and into the product, so September's volume isn't manual.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="item">
-    <div class="k"><span>What makes it a platform</span>The contract</div>
-    <div class="v">Written down: how a new agent gets <strong>specced, deployed, monitored and costed</strong>. Without this, every agent is a one-off build and the fifth one costs as much as the first.</div>
+</section>
+
+<section>
+  <h2><span class="m">Sep</span> September goals</h2>
+  <p class="deck">Two are numbers, and both need a baseline read in the first week — a target set without one is the mistake August already made.</p>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th class="n"></th><th class="w1">Goal</th><th class="tgt">Target</th><th class="w2">What it means</th><th>Call</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="n">01</td>
+          <td><strong>Activation rate</strong></td>
+          <td class="tgt">25%</td>
+          <td>A quarter of new installs reach the engaged-brief bar, not just complete onboarding<span class="sub">Onboarding completion is already good; the loss is at brief card 1, where only 45% advance.</span></td>
+          <td><span class="pill p-crit">Baseline unknown</span><span class="sub">Current activation rate has never been stated as a rate. Pull it before locking.</span></td>
+        </tr>
+        <tr>
+          <td class="n">02</td>
+          <td><strong>D7 returning users</strong></td>
+          <td class="tgt">≥15%</td>
+          <td>Of users who arrive in a given week, at least 15% come back on day 7</td>
+          <td><span class="pill p-crit">Baseline unknown</span><span class="sub">Could not pull it — PostHog needs re-auth. 15% may be either a stretch or already met.</span></td>
+        </tr>
+        <tr>
+          <td class="n">03</td>
+          <td><strong>User interviews</strong></td>
+          <td class="tgt">25+</td>
+          <td>More than 25 conducted in the month, recorded and stored<span class="sub">Roughly 6 a week — needs a standing slot, not ad-hoc scheduling.</span></td>
+          <td><span class="pill p-ok">On</span></td>
+        </tr>
+        <tr>
+          <td class="n">04</td>
+          <td><strong>Feedback loops</strong></td>
+          <td class="tgt">Running</td>
+          <td>The August build operating as a loop — feedback captured, triaged and visibly acted on, not just collected</td>
+          <td><span class="pill p-ok">On</span></td>
+        </tr>
+        <tr>
+          <td class="n">05</td>
+          <td><strong>Acquisition from the web page</strong></td>
+          <td class="tgt">Grow</td>
+          <td>Web → app acquisition increased: entry points on Inc42.com, mobile-web prompts, repeat-reader and scroll triggers<span class="sub">Needs a number once the August post-launch rate is known.</span></td>
+          <td><span class="pill p-warn">Watch</span><span class="sub">Deep links must be fixed or web traffic keeps landing in Safari, not the app.</span></td>
+        </tr>
+        <tr>
+          <td class="n">06</td>
+          <td><strong>Unified onboarding</strong></td>
+          <td class="tgt">Shipped</td>
+          <td>One onboarding pattern across app, web and Datalabs — same fields, same values, questions skipped if already answered</td>
+          <td><span class="pill p-warn">Watch</span><span class="sub">Datalabs has no onboarding at all today, so this row builds one as well as unifying.</span></td>
+        </tr>
+        <tr>
+          <td class="n">07</td>
+          <td><strong>Ask Inc42</strong></td>
+          <td class="tgt">3rd surface</td>
+          <td>Ask on Inc42.com decided and building · query events instrumented · v2 unblocked by raising the API with Anmol<span class="sub">Carries from my August MOP row — the tracking half never landed.</span></td>
+          <td><span class="pill p-ok">On</span></td>
+        </tr>
+        <tr>
+          <td class="n">08</td>
+          <td><strong>AI agent system</strong></td>
+          <td class="tgt">2 roles live</td>
+          <td>Multi-role hiring agent live, platform contract written, per-agent cost instrumented<span class="sub">Detailed below.</span></td>
+          <td><span class="pill p-warn">Watch</span><span class="sub">DPDP consent scope is a real gate.</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="item">
-    <div class="k"><span>What makes it measurable</span>Cost instrumentation</div>
-    <div class="v">Per-agent cost captured from day one, so the <strong>A11 cost-per-QIA baseline</strong> is readable in October — the first month QIA itself is properly measurable.</div>
+</section>
+
+<section>
+  <h2><span class="m">08</span> The AI agent system</h2>
+  <p class="deck">The FY27 plan gives me <span class="mono">Internal AI &amp; Agent Platform — platform</span>, with Prapti on pilots. The ratified September MOP has one AI row and it names only Prapti, so the platform half is committed in the horizon plan and served by no row.</p>
+
+  <div class="stack">
+    <div class="item">
+      <div class="k"><span>What ships</span>Multi-role hiring agent</div>
+      <div class="v">The first real agent on the platform, not another pilot. <strong>One workflow, per-role sheet config</strong>, live for at least two roles. Two-step CTC rule implemented as agreed with Utkarsh. The broken experience computation fixed.</div>
+    </div>
+    <div class="item">
+      <div class="k"><span>What makes it a platform</span>The contract</div>
+      <div class="v">Written down: how a new agent gets <strong>specced, deployed, monitored and costed</strong>. Without this, every agent is a one-off build and the fifth one costs as much as the first.</div>
+    </div>
+    <div class="item">
+      <div class="k"><span>What makes it measurable</span>Cost instrumentation</div>
+      <div class="v">Per-agent cost captured from day one, so the <strong>cost-per-QIA baseline</strong> is readable in October — the first month QIA itself is properly measurable.</div>
+    </div>
+    <div class="item">
+      <div class="k"><span>What blocks it</span>Two gates</div>
+      <div class="v"><strong>DPDP consent scope for candidate data is unresolved</strong> — it decides whether the agent can process applicant data at all. And the Keka API is a paid add-on, confirmed. Both need answers in week 1.</div>
+    </div>
   </div>
-  <div class="item">
-    <div class="k"><span>What blocks it</span>Two gates</div>
-    <div class="v"><strong>DPDP consent scope for candidate data is unresolved</strong> — this decides whether the hiring agent can process applicant data at all. And the Keka API is a paid add-on, confirmed. Both need answers in week 1.</div>
+</section>
+
+<section>
+  <h2><span class="m">!</span> Before this locks</h2>
+  <div class="note">
+    <span class="label">Two baselines and three rows</span>
+    <p><strong>Pull these in week 1, or goals 01 and 02 are guesses:</strong></p>
+    <ul>
+      <li><strong>Current activation rate.</strong> We have 189 users and know onboarding completion is good and card-1 advance is 45% — but activation has never been expressed as a rate, so 25% has nothing to sit against.</li>
+      <li><strong>Current D7 return.</strong> Not pulled — PostHog needs re-authorising. Until it is, 15% could be a stretch or already cleared.</li>
+    </ul>
+    <p><strong>Also standing against my name in the ratified September MOP.</strong> If these are not mine, they need correcting with Utkarsh on Monday — otherwise they stay tracked to me regardless of this plan: the Datalabs renewal motion, the payment-leak sprint, and the retention-mechanism competition including Pulse.</p>
   </div>
-</div>
+</section>
 
 <footer>
   Frozen for w/c 25 Aug: revised app design · AskInc42 ships · public launch 25–26 Aug<br>
-  Needs Utkarsh's sign-off: the 600 activation target, the AI agent system row, and Pulse moving to October
+  Source: PMTD MOP 2026.xlsx — Aug MOP, Sept MOP (ratified 21 Aug), FY27 Plan — Engines × Tracks
 </footer>
 
 </div>
