@@ -11,13 +11,12 @@
     --accent:#8E1D45; --accent-soft:#F3E4EA;
     --p0:#A8241C; --p0-soft:#FBE6E4;
     --p1:#8A5A00; --p1-soft:#F7EBD6;
-    --p2:#39607F; --p2-soft:#E3EDF4;
     --ok:#1D7A4F; --ok-soft:#E1F0E8;
     --dead:#5C5A66; --dead-soft:#E8E6EC;
     --f-display:"Spectral",Georgia,serif;
     --f-body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-    --prose:74ch; --page:1120px;
+    --prose:74ch; --page:1080px;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -27,7 +26,6 @@
       --accent:#E884A9; --accent-soft:#331722;
       --p0:#E88A82; --p0-soft:#2E1613;
       --p1:#D9A84A; --p1-soft:#2B2113;
-      --p2:#8FBEDC; --p2-soft:#152430;
       --ok:#63C795; --ok-soft:#12291E;
       --dead:#8F8A9C; --dead-soft:#232030;
     }
@@ -39,7 +37,6 @@
     --accent:#E884A9; --accent-soft:#331722;
     --p0:#E88A82; --p0-soft:#2E1613;
     --p1:#D9A84A; --p1-soft:#2B2113;
-    --p2:#8FBEDC; --p2-soft:#152430;
     --ok:#63C795; --ok-soft:#12291E;
     --dead:#8F8A9C; --dead-soft:#232030;
   }
@@ -50,46 +47,41 @@
     font-family:var(--f-body); font-size:16px; line-height:1.62;
     -webkit-font-smoothing:antialiased;
   }
-  .page { max-width:var(--page); margin:0 auto; padding:0 28px 110px; }
+  .page { max-width:var(--page); margin:0 auto; padding:0 28px 100px; }
 
-  header.mast { padding:64px 0 30px; border-bottom:2px solid var(--ink); }
+  header.mast { padding:60px 0 28px; border-bottom:2px solid var(--ink); }
   .eyebrow {
     font-family:var(--f-mono); font-size:11.5px; letter-spacing:.14em;
     text-transform:uppercase; color:var(--accent); margin:0 0 16px;
   }
   h1 {
     font-family:var(--f-display); font-weight:800;
-    font-size:clamp(2.3rem,5.5vw,3.4rem); line-height:1.04;
-    letter-spacing:-.02em; margin:0 0 18px; max-width:18ch; text-wrap:balance;
+    font-size:clamp(2.2rem,5.2vw,3.2rem); line-height:1.05;
+    letter-spacing:-.02em; margin:0 0 16px; max-width:18ch; text-wrap:balance;
   }
   .standfirst {
-    font-family:var(--f-display); font-size:clamp(1.02rem,1.9vw,1.22rem);
-    line-height:1.5; color:var(--ink-2); max-width:64ch; margin:0;
+    font-family:var(--f-display); font-size:clamp(1rem,1.8vw,1.18rem);
+    line-height:1.5; color:var(--ink-2); max-width:62ch; margin:0;
   }
   .meta {
-    display:flex; flex-wrap:wrap; gap:8px 26px; margin-top:24px;
-    font-family:var(--f-mono); font-size:11.5px; color:var(--muted);
+    display:flex; flex-wrap:wrap; gap:8px 24px; margin-top:22px;
+    font-family:var(--f-mono); font-size:11.4px; color:var(--muted);
   }
   .meta b { color:var(--ink-2); font-weight:500; }
 
-  section { padding-top:54px; }
+  section { padding-top:50px; }
   .sec-num {
-    font-family:var(--f-mono); font-size:11.5px; letter-spacing:.14em;
+    font-family:var(--f-mono); font-size:11.4px; letter-spacing:.14em;
     color:var(--muted); display:block; margin-bottom:12px;
     padding-bottom:10px; border-bottom:1px solid var(--rule-strong);
   }
   h2 {
     font-family:var(--f-display); font-weight:600;
-    font-size:clamp(1.5rem,2.9vw,2rem); line-height:1.14;
+    font-size:clamp(1.45rem,2.7vw,1.9rem); line-height:1.14;
     letter-spacing:-.015em; margin:0 0 6px; max-width:30ch; text-wrap:balance;
   }
-  h3 {
-    font-family:var(--f-body); font-weight:600; font-size:1rem;
-    margin:32px 0 12px; color:var(--ink);
-  }
-  h3:first-of-type { margin-top:24px; }
-  .dek { color:var(--muted); max-width:var(--prose); margin:12px 0 24px; font-size:15.4px; }
-  p { max-width:var(--prose); margin:0 0 15px; }
+  .dek { color:var(--muted); max-width:var(--prose); margin:12px 0 22px; font-size:15.2px; }
+  p { max-width:var(--prose); margin:0 0 14px; }
   a { color:var(--accent); text-underline-offset:2px; }
   a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
   strong { font-weight:600; color:var(--ink); }
@@ -98,42 +90,76 @@
     padding:1.5px 5px; border-radius:3px; color:var(--ink-2);
   }
 
-  ul.list {
-    max-width:var(--prose); margin:0 0 18px; padding-left:0; list-style:none;
-    display:flex; flex-direction:column; gap:10px;
+  /* problem block */
+  .prob {
+    background:var(--surface); border:1px solid var(--rule);
+    border-radius:3px; padding:24px 26px; margin:0 0 2px;
   }
-  ul.list > li { position:relative; padding-left:20px; }
-  ul.list > li::before {
-    content:""; position:absolute; left:2px; top:.68em;
-    width:6px; height:1.5px; background:var(--accent);
+  .prob h3 {
+    font-family:var(--f-display); font-weight:600; font-size:1.28rem;
+    line-height:1.25; margin:0 0 4px; color:var(--ink); max-width:34ch;
   }
+  .prob .pid {
+    font-family:var(--f-mono); font-size:11px; font-weight:600;
+    letter-spacing:.1em; color:var(--accent); display:block; margin-bottom:8px;
+  }
+  .prob .evidence {
+    font-size:14.4px; color:var(--muted); margin:0 0 18px; max-width:66ch;
+    padding-bottom:16px; border-bottom:1px solid var(--rule);
+  }
+  .prob .evidence strong { color:var(--ink-2); }
+  .lbl {
+    font-family:var(--f-mono); font-size:10.4px; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--muted); display:block; margin:0 0 10px;
+  }
+  ol.sol {
+    margin:0 0 18px; padding-left:0; list-style:none; max-width:66ch;
+    counter-reset:s; display:flex; flex-direction:column; gap:10px;
+  }
+  ol.sol > li {
+    position:relative; padding-left:30px; font-size:14.8px; color:var(--ink-2);
+  }
+  ol.sol > li::before {
+    counter-increment:s; content:counter(s);
+    position:absolute; left:0; top:.1em;
+    font-family:var(--f-mono); font-size:11px; font-weight:600;
+    color:var(--accent); background:var(--accent-soft);
+    width:19px; height:19px; border-radius:2px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .exp {
+    background:var(--surface-2); border-radius:3px;
+    padding:14px 18px; max-width:66ch; font-size:14.4px; color:var(--ink-2);
+  }
+  .exp .lbl { color:var(--accent); margin-bottom:7px; }
+  .exp p { margin:0; max-width:none; }
+  .exp p + p { margin-top:7px; }
 
   .scroll {
     overflow-x:auto; margin:0 0 12px; border:1px solid var(--rule);
     border-radius:3px; background:var(--surface);
   }
-  table { width:100%; border-collapse:collapse; font-size:14px; line-height:1.5; min-width:600px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; line-height:1.5; min-width:560px; }
   thead th {
     font-family:var(--f-mono); font-size:10.4px; font-weight:500;
     letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
     text-align:left; padding:11px 14px; border-bottom:1px solid var(--rule-strong);
     background:var(--surface-2); white-space:nowrap; vertical-align:bottom;
   }
-  tbody td { padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top; color:var(--ink-2); }
+  tbody td { padding:11px 14px; border-bottom:1px solid var(--rule); vertical-align:top; color:var(--ink-2); }
   tbody tr:last-child td { border-bottom:none; }
   tbody td:first-child { color:var(--ink); font-weight:500; }
   tfoot td {
-    padding:12px 14px; border-top:1px solid var(--rule-strong);
+    padding:11px 14px; border-top:1px solid var(--rule-strong);
     background:var(--surface-2); color:var(--ink); font-weight:600;
   }
   .num { font-family:var(--f-mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
-  .cap { font-size:12.5px; color:var(--muted); max-width:var(--prose); margin:0 0 22px; }
+  .cap { font-size:12.5px; color:var(--muted); max-width:var(--prose); margin:0 0 20px; }
   tr.group td {
     background:var(--surface-2); font-family:var(--f-mono); font-size:10.4px;
     letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
     padding:9px 14px; font-weight:500;
   }
-
   .chip {
     display:inline-block; font-family:var(--f-mono); font-size:10.2px;
     font-weight:500; letter-spacing:.05em; text-transform:uppercase;
@@ -141,40 +167,32 @@
   }
   .c-p0{background:var(--p0-soft);color:var(--p0);}
   .c-p1{background:var(--p1-soft);color:var(--p1);}
-  .c-p2{background:var(--p2-soft);color:var(--p2);}
   .c-s{background:var(--dead-soft);color:var(--dead);}
   .c-ok{background:var(--ok-soft);color:var(--ok);}
 
   .callout {
     background:var(--surface); border:1px solid var(--rule);
-    border-left:3px solid var(--accent); padding:18px 22px;
-    margin:22px 0; max-width:var(--prose); border-radius:0 3px 3px 0;
+    border-left:3px solid var(--accent); padding:17px 21px;
+    margin:20px 0; max-width:var(--prose); border-radius:0 3px 3px 0;
   }
-  .callout .label {
-    font-family:var(--f-mono); font-size:10.4px; letter-spacing:.11em;
-    text-transform:uppercase; color:var(--accent); display:block; margin-bottom:8px;
-  }
+  .callout .lbl { color:var(--accent); }
   .callout p:last-child { margin-bottom:0; }
-  .callout.warn { border-left-color:var(--p0); }
-  .callout.warn .label { color:var(--p0); }
-  .callout.grey { border-left-color:var(--rule-strong); }
-  .callout.grey .label { color:var(--muted); }
 
   .phone {
     background:var(--surface-2); border:1px solid var(--rule-strong);
-    border-radius:6px; padding:14px 16px; margin:14px 0 18px; max-width:46ch;
-    font-family:var(--f-body); font-size:14.5px; color:var(--ink);
+    border-radius:6px; padding:13px 16px; margin:12px 0 16px; max-width:44ch;
+    font-size:14.4px; color:var(--ink);
   }
   .phone .app {
-    font-family:var(--f-mono); font-size:10.2px; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--muted); display:block; margin-bottom:7px;
+    font-family:var(--f-mono); font-size:10px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;
   }
 
   footer {
-    margin-top:60px; padding-top:20px; border-top:1px solid var(--rule);
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--rule);
     font-family:var(--f-mono); font-size:11.3px; color:var(--muted);
   }
-  @media (max-width:640px){ .page{padding:0 18px 70px;} header.mast{padding-top:44px;} }
+  @media (max-width:640px){ .page{padding:0 18px 64px;} header.mast{padding-top:42px;} .prob{padding:20px 18px;} }
   @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
 </style>
 
@@ -183,331 +201,331 @@
 <header class="mast">
   <p class="eyebrow">Inc42 Datalabs · 23 Aug 2026</p>
   <h1>Winning back Datalabs subscribers</h1>
-  <p class="standfirst">When a Datalabs payment fails, nothing happens — no second attempt, ever. Roughly half of what we lose is recoverable, and almost none of it needs persuasion. This is the final set of things to do.</p>
+  <p class="standfirst">Seven problems, what to do about each, and the experiment that tells us whether it worked. Roughly half of what we lose is recoverable — and almost none of it needs persuasion.</p>
   <div class="meta">
-    <span><b>Based on</b> Funnel State 2026-07 + live PostHog (project 66351)</span>
+    <span><b>From</b> live PostHog 66351 + Funnel State 2026-07</span>
     <span><b>Scope</b> retention &amp; win-back only</span>
-    <span><b>Owners</b> to be filled in</span>
   </div>
 </header>
 
 <!-- ========== 01 ========== -->
 <section id="primer">
-  <span class="sec-num">01 — START HERE</span>
-  <h2>How a Datalabs subscription works</h2>
-  <p class="dek">Worth reading even if you know Datalabs well — the problems below live in the payment plumbing, which almost nobody has had reason to look at.</p>
+  <span class="sec-num">01 — CONTEXT</span>
+  <h2>What you need to know first</h2>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:12%">When</th><th style="width:40%">What happens</th><th style="width:14%">Amount</th><th>Health</th></tr></thead>
+      <thead><tr><th style="width:12%">When</th><th style="width:42%">What happens</th><th style="width:14%">Amount</th><th>Health</th></tr></thead>
       <tbody>
         <tr>
           <td><strong>Day 0</strong></td>
-          <td>Customer starts a 7-day trial. To do that they set up a <strong>mandate</strong> — standing permission for us to debit them later. Razorpay proves it works by charging ₹10.</td>
+          <td>7-day trial starts. Customer sets up a <strong>mandate</strong> — standing permission to debit them later. Razorpay proves it works with a ₹10 charge.</td>
           <td class="num">₹10</td>
-          <td><span class="chip c-ok">FINE</span><br>228 of 251 get a working mandate.</td>
+          <td><span class="chip c-ok">FINE</span> 90.8%</td>
         </tr>
         <tr>
           <td><strong>Day 7</strong></td>
-          <td><strong>The first real charge.</strong> The trial ends and we attempt the actual subscription debit. This is the moment a trial becomes a paying customer.</td>
+          <td><strong>First real charge.</strong> The moment a trial becomes a paying customer.</td>
           <td class="num">₹1,768.82</td>
-          <td><span class="chip c-p0">BROKEN</span><br>57.9% succeed, and falling — it was 73.7% in May.</td>
+          <td><span class="chip c-p0">57.9%</span> was 73.7% in May</td>
         </tr>
         <tr>
           <td><strong>Day 37+</strong></td>
-          <td>Monthly renewals on the same mandate.</td>
+          <td>Monthly renewals. Monthly is the <strong>only</strong> plan — no annual, no quarterly, no seats.</td>
           <td class="num">₹1,768.82</td>
-          <td><span class="chip c-p1">THIN</span><br>Only 16 subscriptions have ever reached a second charge.</td>
+          <td><span class="chip c-p1">16 subs</span> ever reached a 2nd charge</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h3>The pre-debit notification — the thing to understand</h3>
-
-  <p><strong>NPCI requires the customer to be notified 24 hours before every single automatic debit.</strong> Not the first one — every one. We trigger it through Razorpay; their UPI app and bank deliver it. It's mandatory. We can't switch it off, delay it, or change what it says.</p>
+  <p><strong>The pre-debit notification.</strong> NPCI requires the customer to be notified 24 hours before <em>every</em> automatic debit. We can't switch it off or change what it says.</p>
 
   <div class="phone">
     <span class="app">GPay · 24 hours before</span>
-    <strong>Inc42 Media</strong> will debit <strong>₹1,768.82</strong> from your account on <strong>14 Sep</strong>.
+    <strong>Inc42 Media</strong> will debit <strong>₹1,768.82</strong> on <strong>14 Sep</strong>.
   </div>
 
-  <p>Tapping it opens the mandate screen inside their UPI app — which carries the controls to <strong>pause</strong> or <strong>revoke</strong>, authorised with their UPI PIN. So the cancel isn't literally on the notification; it's one tap away on the screen the notification opens. The practical effect is the same: <strong>the reminder and the exit arrive together.</strong></p>
+  <p>Tapping it opens the mandate screen, which carries <strong>pause</strong> and <strong>revoke</strong>. So the reminder and the exit arrive together — a cold price with no context, twelve times a year. Nationally this is where ~20 million mandates a month get revoked.</p>
 
-  <p>Three things stack up badly. It's a <strong>cold number with no context</strong> — it says ₹1,768.82 and nothing about what they got for it. <strong>Cancelling feels free and paying doesn't</strong>, because access runs to the end of the period either way. And <strong>we have no presence at that moment</strong> — it happens in someone else's app, on a screen we don't control, and we don't even log when it fires.</p>
-
-  <p>Across India this is where roughly 20 million mandates a month get revoked.</p>
-
-  <h3>Five other words used below</h3>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:24%">Term</th><th>Meaning</th></tr></thead>
-      <tbody>
-        <tr><td>Mandate</td><td>The standing permission a customer gives their bank allowing us to debit automatically. It lives inside <strong>their</strong> GPay / PhonePe / bank app, not in our product. Only they can pause or cancel it. Razorpay calls it a "token" in logs — same thing.</td></tr>
-        <tr><td>Revoked</td><td>The customer killed the mandate in their UPI app. It's dead — a new one is needed before we can charge them again.</td></tr>
-        <tr><td>Paused</td><td>The customer temporarily suspended it. <strong>It's still alive.</strong> Only they can resume. Very different from revoked — and we currently treat them the same.</td></tr>
-        <tr><td>Detached mandate</td><td>Our records say the subscription is active, but there's no working mandate behind it. <strong>No debit will ever be attempted.</strong> It just expires and nobody notices.</td></tr>
-        <tr><td>Retry</td><td>A second attempt at a failed debit. <strong>We have never made one.</strong></td></tr>
-      </tbody>
-    </table>
-  </div>
+  <p><strong>Two words used below.</strong> <em>Revoked</em> = customer killed the mandate; it's dead, a new one is needed. <em>Paused</em> = suspended but still alive; only they can resume it.</p>
 </section>
 
 <!-- ========== 02 ========== -->
-<section id="data">
-  <span class="sec-num">02 — WHAT THE DATA SAYS</span>
-  <h2>Five things we now know, not guess</h2>
-  <p class="dek">Pulled from PostHog project 66351 on 23 Aug, alongside the July funnel analysis.</p>
-
-  <h3>Everyone we'd want back is still using the product</h3>
+<section id="target">
+  <span class="sec-num">02 — THE TARGET</span>
+  <h2>Where 50% recovery comes from</h2>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:34%">User Type (30-day logins)</th><th>People</th></tr></thead>
+      <thead><tr><th style="width:30%">Why the charge failed</th><th style="width:10%">Count</th><th style="width:26%">Fixed by</th><th style="width:14%">Expected</th><th>Recovered</th></tr></thead>
       <tbody>
-        <tr><td>Free</td><td class="num">2,849</td></tr>
-        <tr><td>Pro Trial</td><td class="num">43</td></tr>
-        <tr><td><strong>Pro Member</strong></td><td class="num"><strong>30</strong></td></tr>
-        <tr><td>Plus Member</td><td class="num">17</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p><strong>30 Pro Members logged in over 30 days, against 31 active subscriptions.</strong> Essentially every payer is still showing up. When a renewal fails we are not losing someone who drifted away — we're losing someone who was still using it yesterday.</p>
-
-  <p><strong>And the product already knows who they are.</strong> `User Type` sits on every event. What it has no concept of is <em>failure</em> — there is no "payment failed", "past due" or "mandate cancelled" value. That single missing value is what blocks every in-product message below.</p>
-
-  <h3>Nobody starts a trial and does nothing</h3>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:34%">Actions during the 7-day trial</th><th style="width:20%">Trialists</th><th>Still active after</th></tr></thead>
-      <tbody>
-        <tr><td>Nothing at all</td><td class="num"><strong>0</strong></td><td>—</td></tr>
-        <tr><td>1–5</td><td class="num">9 (3.5%)</td><td>22.2%</td></tr>
-        <tr><td>6–25</td><td class="num">55 (21.4%)</td><td>29.1%</td></tr>
-        <tr><td><strong>26+</strong></td><td class="num"><strong>193 (75.1%)</strong></td><td>41.5%</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p>Three quarters take 26+ actions during the trial. <strong>Every failed day-7 charge is a real loss</strong>, not a tyre-kicker we're better off without. This removes a "don't spend money on low-value trials" rule that earlier drafts of this plan had — it described 3.5% of people.</p>
-
-  <h3>There is only one plan, and it is monthly</h3>
-
-  <p>Every self-serve subscription is <strong>₹1,499 + 18% GST = ₹1,768.82, monthly.</strong> One price, no discounting, no annual option, no seats, no tier above Pro.</p>
-
-  <p>So <strong>every member receives twelve pre-debit notifications a year</strong> — twelve forced re-decisions, each with an exit one tap away. There is currently no way for a customer to choose fewer, and no way for us to offer it.</p>
-
-  <p class="cap"><strong>Data caveat:</strong> PostHog's <code>Pro Membership Type</code> still carries "Quarterly" and "Yearly" values, with 2 and 1 completions in 90 days. These are legacy or manually-created subscriptions, not purchasable plans — don't read them as evidence of an annual option that customers are ignoring.</p>
-
-  <h3>The instrumentation can't be trusted on money</h3>
-  <ul class="list">
-    <li><code>Payment Completed</code> fired <strong>zero times</strong> from mid-June to 13 July, then started working. Any conversion read across that window is wrong.</li>
-    <li><code>Payment Completed_Backend</code> on "Free Trial" shows 291 people in 90 days — that's the <strong>₹10 authorisation, not revenue.</strong> Read as sales it is out by a factor of six.</li>
-    <li>Money must come from Razorpay and Metorik. Nobody should build a revenue view on these events.</li>
-  </ul>
-
-  <h3>We are blind where it matters most</h3>
-  <ul class="list">
-    <li><strong>Session replay, surveys and heatmaps are all switched off</strong> in the Datalabs project. We cannot watch a single person fail at checkout, and we cannot ask one churning customer why. Both are free and need no engineering.</li>
-    <li><strong>We don't log when the pre-debit notification fires</strong> — so we cannot test whether cancellations cluster in the 72 hours after it. That is the single most diagnostic question in this project.</li>
-    <li><strong>Nothing joins a payment to a person.</strong> Payment events carry no identity.</li>
-  </ul>
-</section>
-
-<!-- ========== 03 ========== -->
-<section id="fifty">
-  <span class="sec-num">03 — THE TARGET</span>
-  <h2>Where a 50% win-back rate comes from</h2>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:30%">Why the charge failed</th><th style="width:10%">Count</th><th style="width:28%">The lever</th><th style="width:14%">Expected</th><th>Recovered</th></tr></thead>
-      <tbody>
-        <tr><td>Not enough balance</td><td class="num">18</td><td>Retry, timed to payday</td><td class="num">60%</td><td class="num">~11</td></tr>
-        <tr><td>Mandate never confirmed</td><td class="num">12</td><td>Catch it in minutes, not day 7</td><td class="num">70%</td><td class="num">~8</td></tr>
-        <tr><td>Cancelled / inactive</td><td class="num">4</td><td>In-product reactivate banner</td><td class="num">25%</td><td class="num">~1</td></tr>
-        <tr><td>Bank declined</td><td class="num">2</td><td>One retry, then re-auth</td><td class="num">30%</td><td class="num">~1</td></tr>
+        <tr><td>Not enough balance</td><td class="num">18</td><td>P1 — retry</td><td class="num">60%</td><td class="num">~11</td></tr>
+        <tr><td>Mandate never confirmed</td><td class="num">12</td><td>P2 — catch it early</td><td class="num">70%</td><td class="num">~8</td></tr>
+        <tr><td>Cancelled / inactive</td><td class="num">4</td><td>P3 — reach them</td><td class="num">25%</td><td class="num">~1</td></tr>
+        <tr><td>Bank declined</td><td class="num">2</td><td>P1 — one retry</td><td class="num">30%</td><td class="num">~1</td></tr>
         <tr><td>Other</td><td class="num">4</td><td>—</td><td class="num">—</td><td class="num">0</td></tr>
       </tbody>
       <tfoot><tr><td>Total</td><td class="num">40</td><td></td><td></td><td class="num">~21 = 52%</td></tr></tfoot>
     </table>
   </div>
 
-  <div class="callout">
-    <span class="label">The important part</span>
-    <p><strong>Two rows carry it, and neither is persuasion.</strong> Someone whose mandate never confirmed <em>tried to buy</em> and a bug stopped them — that's completing a purchase, not winning back a customer. Someone with an empty account on one Tuesday hasn't made a decision either.</p>
-    <p>Only the four in row three genuinely chose to leave. There, 20–30% is the honest ceiling and I wouldn't promise more.</p>
+  <p><strong>The top two rows carry it, and neither is persuasion.</strong> Someone whose mandate never confirmed <em>tried to buy</em> and a bug stopped them. Someone with an empty account on one Tuesday hasn't made a decision either. Only the four in row three genuinely chose to leave — and there 20–30% is the honest ceiling.</p>
+</section>
+
+<!-- ========== 03 ========== -->
+<section id="problems">
+  <span class="sec-num">03 — PROBLEMS &amp; SOLUTIONS</span>
+  <h2>Seven problems</h2>
+  <p class="dek">Ordered by what they're worth. P1 and P2 together are 19 of the 21 recovered subscriptions.</p>
+
+  <!-- P1 -->
+  <div class="prob">
+    <span class="pid">P1</span>
+    <h3>A failed payment is never tried again</h3>
+    <p class="evidence"><strong>47 failed charges since launch. Zero retries, ever.</strong> One failed debit is terminal 100% of the time — while our own emails tell customers <em>"we'll retry automatically."</em> Not enough balance is 45% of failures, and UPI debits at one fixed instant with no second look.</p>
+
+    <span class="lbl">Solutions</span>
+    <ol class="sol">
+      <li><strong>Check whether the retry setting is simply off.</strong> WooCommerce Subscriptions ships retry <em>disabled by default</em>. Zero across 47 failures is exactly what that looks like. This may be a config change, not a build.</li>
+      <li><strong>Retry only what's worth retrying.</strong> Balance and bank-declined yes. <strong>Never</strong> an unconfirmed, cancelled or inactive mandate — that's 40% of failures, and each pointless attempt fires another notification with a cancel button on it.</li>
+      <li><strong>Time it to payday.</strong> Day 7 → +3 days → +7 days → <strong>1st–3rd of the month</strong>. Indian salaries land at month-end. Stop at 4 attempts or the 15-day grace deadline.</li>
+      <li><strong>Log every attempt</strong> — number, time, failure code, outcome. Today 111 of 113 cycles have exactly one attempt recorded, so there's nothing to tune against.</li>
+    </ol>
+
+    <div class="exp">
+      <span class="lbl">Experiment</span>
+      <p><strong>Bar:</strong> ≥50% of insufficient-balance failures recover within 15 days.</p>
+      <p>Baseline is 0%, so the read is unambiguous. At ~10–15 failures a month this is a decision with a pre-committed rule, not a significance test. <strong>Worth ~11 of the 21.</strong></p>
+    </div>
+  </div>
+
+  <!-- P2 -->
+  <div class="prob">
+    <span class="pid">P2</span>
+    <h3>We start trials on mandates that were never confirmed</h3>
+    <p class="evidence"><strong>30% of first-charge failures.</strong> All 14 cases were UPI, and all 14 had their ₹10 captured <strong>five or six days before</strong> the charge failed. The ₹10 goes through, the customer sees "trial started", and the real charge was never going to work. We had a week of warning and used none of it.</p>
+
+    <span class="lbl">Solutions</span>
+    <ol class="sol">
+      <li><strong>Don't mark the trial active until the mandate confirms.</strong> Payment capture alone isn't proof — with UPI the ₹10 can capture while the mandate is still pending.</li>
+      <li><strong>Prompt in-session if it doesn't confirm within minutes:</strong> <em>"One step left — approve the auto-pay request in your UPI app."</em> They're still on the page.</li>
+      <li><strong>Resend the mandate request automatically</strong> rather than waiting for them to notice.</li>
+      <li><strong>Daily sweep</strong> for any active subscription without a confirmed mandate. <strong>9 paying subscriptions and 5 of 25 current trials are in that state right now</strong> and will expire without a debit ever being attempted.</li>
+    </ol>
+
+    <div class="exp">
+      <span class="lbl">Experiment</span>
+      <p><strong>Bar:</strong> unconfirmed mandates drop below 10% of failures, from 30%.</p>
+      <p>This is a bug fix, not a campaign. <strong>Worth ~8 of the 21.</strong></p>
+    </div>
+  </div>
+
+  <!-- P3 -->
+  <div class="prob">
+    <span class="pid">P3</span>
+    <h3>When a mandate dies, we have no way to tell them</h3>
+    <p class="evidence"><strong>73 subscriptions are revoked right now with no failed charge yet</strong> — mandate dead, charge date not yet reached, still holding full access. None contacted. And <code>User Type</code>, which already knows Free / Pro Trial / Pro Member / Plus Member, <strong>has no failure state at all.</strong></p>
+
+    <p style="max-width:66ch;font-size:14.8px;">A banner only reaches people who open Datalabs. <strong>We don't know how many of the broken cohort still do</strong> — 30 of 31 <em>payers</em> logged in last month, but that says nothing about someone whose mandate died and who has drifted. So the design has to be a cascade, not a single channel.</p>
+
+    <span class="lbl">Solutions — in reach order</span>
+    <ol class="sol">
+      <li><strong>Add a payment-failure value to <code>User Type</code>.</strong> One property change makes every message below targetable. Nothing else works without it.</li>
+      <li><strong>Day 0 — in-product banner</strong>, for anyone who opens Datalabs. Four states, one component. Free, instant, and it lands while they're using the thing they're about to lose.</li>
+      <li><strong>+48h — WhatsApp</strong>, if they haven't logged in. <strong>We already collect a phone number at checkout.</strong> Utility templates permit failed-payment and subscription notices; ₹0.115 a message. The message carries the fact and a link — no offer, or Meta reclassifies it as marketing.</li>
+      <li><strong>+5 days — email</strong>, if still nothing. Weakest channel: the Customer.io reactivation lane produced <strong>3 logins from 1,528 people (0.2%)</strong> and was killed against its own 0.8% threshold.</li>
+      <li><strong>High value — a person writes.</strong> The 9 detached payers are ~₹15,919/month. Real name, real reply-to.</li>
+    </ol>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th style="width:26%">Mandate state</th><th style="width:44%">What the message says</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Never confirmed</td><td>"One step left — approve the auto-pay request in your UPI app."</td><td>Resend request</td></tr>
+          <tr><td>Revoked</td><td>"Auto-pay is off. Your access ends 14 Sep."</td><td>Turn it back on</td></tr>
+          <tr><td>Payment failed</td><td>"₹1,768.82 didn't go through. We'll try again on 17 Sep."</td><td>Pay now</td></tr>
+          <tr><td>Paused</td><td>"Auto-pay resumes 14 Oct."</td><td>Nothing to do</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="exp">
+      <span class="lbl">Experiment</span>
+      <p><strong>Measure the reach split first.</strong> Of people whose mandate dies, what share opens Datalabs within 7 days? That single number decides how much weight sits on the banner versus WhatsApp — and we don't have it today.</p>
+      <p><strong>Bars:</strong> banner ≥3% reactivation · WhatsApp ≥3% · email beats its 0.2% baseline. Cascade total ≥8%.</p>
+    </div>
+  </div>
+
+  <!-- P4 -->
+  <div class="prob">
+    <span class="pid">P4</span>
+    <h3>We find out too late to do anything</h3>
+    <p class="evidence">Revocations surface through a job that <em>polls</em> Razorpay occasionally, not the webhook that could tell us instantly. <strong>In 0 of 91 cases did we record the revocation before the next charge had already bounced.</strong> The window where the customer still has access and hasn't really decided anything is gone by the time we notice.</p>
+
+    <span class="lbl">Solutions</span>
+    <ol class="sol">
+      <li><strong>Wire the <code>token.cancelled</code> webhook</strong> so cancellation is recorded the same day.</li>
+      <li><strong>Keep polling as a backstop</strong>, not as the primary path.</li>
+      <li><strong>Alert on any active subscription with no next charge date</strong> — that's the silent-expiry case from P2 and it needs a monitor, not a report.</li>
+      <li><strong>Read all three note sources</strong> in churn reporting. 93 "customer cancelled" notes sit on parent orders and 17 on renewal orders with no counterpart on the subscription record — reading subscription notes alone misses 110 cancellations.</li>
+    </ol>
+
+    <div class="exp">
+      <span class="lbl">Experiment</span>
+      <p><strong>Bar:</strong> 100% of revocations recorded before any charge is attempted. Currently 0 of 91.</p>
+      <p>Not really a test — it's the precondition that makes P3 possible at all.</p>
+    </div>
+  </div>
+
+  <!-- P5 -->
+  <div class="prob">
+    <span class="pid">P5</span>
+    <h3>A paused mandate gets treated like a dead one</h3>
+    <p class="evidence">The reconciliation job has logged paused tokens <strong>263 times</strong>, with a note that reads <em>"Monitoring."</em> Nothing fires. A pause is the <strong>opposite</strong> of a cancellation — the mandate is alive, and roughly three in four people who pause a subscription come back.</p>
+
+    <span class="lbl">Solutions</span>
+    <ol class="sol">
+      <li><strong>Suppress all dunning to paused customers, today.</strong> Telling someone to re-authorise a mandate they deliberately paused is the worst message in the system.</li>
+      <li><strong>Branch on <code>pause_initiated_by</code></strong> — a customer-paused mandate can only be resumed by them, so the message differs from one we paused.</li>
+      <li><strong>One nudge on the resume date.</strong> Nothing before it.</li>
+      <li><strong>Offer pause ourselves</strong>, before they reach for cancel in GPay. On the membership page below the plan details, and as the <em>first</em> offer in any cancel flow. Cult.fit's placement, not Netflix's — Datalabs is bought for a project, so taking a break is normal here.</li>
+    </ol>
+
+    <div class="exp">
+      <span class="lbl">Experiment</span>
+      <p><strong>Bar:</strong> ≥15% of people who start a cancel choose pause instead.</p>
+      <p><strong>First, pull the distinct count.</strong> 263 is note occurrences from a repeating poll, not 263 people.</p>
+    </div>
+  </div>
+
+  <!-- P6 -->
+  <div class="prob">
+    <span class="pid">P6</span>
+    <h3>Twelve cancel prompts a year, and we're absent for all of them</h3>
+    <p class="evidence">Monthly is the only plan, so every member gets <strong>twelve pre-debit notifications a year</strong> — twelve times our price appears cold, with no context, next to an exit. <strong>We don't even log when they fire</strong>, so we can't test whether cancellations cluster around them.</p>
+
+    <span class="lbl">Solutions</span>
+    <ol class="sol">
+      <li><strong>Start logging the notification timestamp.</strong> Cheap, and it unlocks the single most diagnostic question in this project: do cancellations spike in the 72 hours after one?</li>
+      <li><strong>Land a message 6–12 hours before it</strong> naming what the membership actually did that cycle. We can't change their screen, but we can land beside it — turning <em>"₹1,768.82?"</em> into <em>"₹1,768.82 for that."</em></li>
+      <li><strong>Day-5 trial message</strong>, before the day-6 notification. They approved ₹10; the alert says ₹1,768.82 — 177× the number they consented to. Sharpest edge in the funnel.</li>
+      <li><strong>Build a longer billing cycle.</strong> <span class="chip c-p1">DECISION</span> None exists today. Quarterly cuts twelve prompts to four and asks for ₹5,306 rather than ₹17,626 — most of the benefit, far less resistance. Sell it as <em>fewer interruptions</em>, not savings.</li>
+    </ol>
+
+    <div class="exp">
+      <span class="lbl">Experiment</span>
+      <p><strong>Bar:</strong> ≥20% fewer cancellations in the 72-hour window after a notification.</p>
+      <p>If a longer cycle ships: ≥10% of new trials choose it. Baseline is zero because it doesn't exist. <strong>This shrinks the denominator</strong> — fewer chances to lose them at all.</p>
+    </div>
+  </div>
+
+  <!-- P7 -->
+  <div class="prob">
+    <span class="pid">P7</span>
+    <h3>Four groups nobody has ever contacted</h3>
+    <p class="evidence">All live today, all identifiable, none written to.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th style="width:30%">Group</th><th style="width:12%">Size</th><th>Situation</th></tr></thead>
+        <tbody>
+          <tr><td>Revoked, nothing broken yet</td><td class="num">73</td><td>Still have full access and may not remember doing it. <strong>The only group where we're ahead of the problem.</strong></td></tr>
+          <tr><td>Paused</td><td class="num">TBC</td><td>Mandate still alive. Best prospects we have.</td></tr>
+          <tr><td>Paying, mandate detached</td><td class="num">9</td><td>~₹15,919/month. Will expire silently.</td></tr>
+          <tr><td>Trials that can't convert</td><td class="num">5 of 25</td><td>No working mandate. Will never convert.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <span class="lbl">Solutions</span>
+    <ol class="sol">
+      <li><strong>A person sends these, not a system.</strong> A few dozen people is an afternoon's work, and the automated lane has already failed here once.</li>
+      <li><strong>Recognise, don't pitch.</strong> Most of them weren't deciding about Datalabs — they were tidying up mandates in GPay. Opener: <em>"Your auto-pay for Datalabs is off. Access runs to {date}. Was that deliberate?"</em> One question.</li>
+      <li><strong>Contact the 73 before their charge dates</strong>, not after. That's the whole advantage.</li>
+      <li><strong>Log every reply verbatim.</strong> That transcript is the segmentation, and it's the only thing that justifies automating any of this later.</li>
+    </ol>
+
+    <div class="exp">
+      <span class="lbl">Experiment</span>
+      <p><strong>Bar:</strong> ≥20% reply rate, and enough reasons recorded to write the automated version.</p>
+    </div>
   </div>
 </section>
 
 <!-- ========== 04 ========== -->
-<section id="levers">
-  <span class="sec-num">04 — THE SIX LEVERS</span>
-  <h2>What to do, in order</h2>
-
-  <h3>W1 · Turn retries on</h3>
-  <p><strong>47 failed charges since launch. Zero retries, ever.</strong> One failed debit is terminal 100% of the time — while our own emails tell customers <em>"we'll retry automatically."</em></p>
-  <p><strong>Check first:</strong> WooCommerce Subscriptions ships with retry <strong>switched off by default.</strong> Zero retries across 47 failures is exactly what that looks like. This may be a setting, not a build.</p>
+<section id="tasks">
+  <span class="sec-num">04 — TASKS</span>
+  <h2>Everything, in one place</h2>
+  <p class="dek">Owner column deliberately blank — fill it before circulating.</p>
 
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:16%">Attempt</th><th style="width:26%">When</th><th>Why</th></tr></thead>
+      <thead><tr><th style="width:6%">#</th><th style="width:40%">Task</th><th style="width:8%">For</th><th style="width:9%">Size</th><th>Done when</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td>Day 7, as scheduled</td><td>The original charge</td></tr>
-        <tr><td>2</td><td>+3 days</td><td>Covers short-term cash flow</td></tr>
-        <tr><td>3</td><td>+7 days</td><td>Second window</td></tr>
-        <tr><td>4</td><td><strong>1st–3rd of the month</strong></td><td>Indian salaries land at month-end. <strong>Timing to payday beats a fixed schedule by a wide margin.</strong></td></tr>
-        <tr><td>Stop</td><td>After 4, or at 15 days</td><td>Whichever comes first</td></tr>
+        <tr class="group"><td colspan="5">This week — cheap, and everything depends on them</td></tr>
+        <tr><td class="num">1</td><td>Check whether the retry setting is simply switched off</td><td>P1</td><td><span class="chip c-s">XS</span></td><td>Confirmed in writing</td></tr>
+        <tr><td class="num">2</td><td>Turn on session replay and surveys — both are off, so we can't watch a failed checkout or ask anyone why</td><td>all</td><td><span class="chip c-s">XS</span></td><td>Both live</td></tr>
+        <tr><td class="num">3</td><td>Start logging when the pre-debit notification fires</td><td>P6</td><td><span class="chip c-s">XS</span></td><td>Timestamps recorded</td></tr>
+        <tr><td class="num">4</td><td>Suppress all dunning to paused customers</td><td>P5</td><td><span class="chip c-s">S</span></td><td>Paused branches first</td></tr>
+        <tr><td class="num">5</td><td>Fix the email copy promising retries we don't have</td><td>P1</td><td><span class="chip c-s">S</span></td><td>Copy matches reality</td></tr>
+        <tr><td class="num">6</td><td>Ask Razorpay who fires the 24h notification on a retry</td><td>P1</td><td><span class="chip c-s">XS</span></td><td>Answer received — sets the cadence</td></tr>
+        <tr><td class="num">7</td><td>Pull the distinct paused count; split all four groups into trials vs payers</td><td>P5 P7</td><td><span class="chip c-s">XS</span></td><td>Counts in hand</td></tr>
+
+        <tr class="group"><td colspan="5">The 19 of 21 — pure engineering, no approvals</td></tr>
+        <tr><td class="num">8</td><td>Fix the flag that leaves a live subscription with no next charge date</td><td>P2</td><td><span class="chip c-s">M</span></td><td>No active sub without a working mandate</td></tr>
+        <tr><td class="num">9</td><td>Repair or contact the 14 already detached (9 paying + 5 trials)</td><td>P2</td><td><span class="chip c-s">S</span></td><td>All 14 resolved</td></tr>
+        <tr><td class="num">10</td><td>Detect an unconfirmed mandate within minutes and prompt in-session</td><td>P2</td><td><span class="chip c-s">M</span></td><td>Unconfirmed below 10% of failures</td></tr>
+        <tr><td class="num">11</td><td>Retry only the failures worth retrying</td><td>P1</td><td><span class="chip c-s">S</span></td><td>Rules live and tested</td></tr>
+        <tr><td class="num">12</td><td>Build the retry schedule with a hard stop at 4 attempts or 15 days</td><td>P1</td><td><span class="chip c-s">M</span></td><td>Cap enforced</td></tr>
+        <tr><td class="num">13</td><td>Log every retry attempt</td><td>P1</td><td><span class="chip c-s">S</span></td><td>Every attempt writes a row</td></tr>
+
+        <tr class="group"><td colspan="5">Reaching them</td></tr>
+        <tr><td class="num">14</td><td><strong>Add a payment-failure value to <code>User Type</code></strong></td><td>P3</td><td><span class="chip c-s">S</span></td><td>Front end can tell broken from healthy</td></tr>
+        <tr><td class="num">15</td><td>Measure what share of the broken cohort opens Datalabs within 7 days</td><td>P3</td><td><span class="chip c-s">XS</span></td><td>Number in hand — it sets the channel weighting</td></tr>
+        <tr><td class="num">16</td><td>Build the four-state in-product banner</td><td>P3</td><td><span class="chip c-s">M</span></td><td>Live, ≥3% reactivation</td></tr>
+        <tr><td class="num">17</td><td>Set up WhatsApp utility templates for mandate-dead and payment-failed</td><td>P3</td><td><span class="chip c-s">M</span></td><td>Sending at +48h to non-returners</td></tr>
+        <tr><td class="num">18</td><td>Attach a customer identity to payment events</td><td>P3</td><td><span class="chip c-s">M</span></td><td>A cancellation traces to a person. <strong>Can't today.</strong></td></tr>
+        <tr><td class="num">19</td><td>Wire the <code>token.cancelled</code> webhook</td><td>P4</td><td><span class="chip c-s">M</span></td><td>Same-day detection</td></tr>
+
+        <tr class="group"><td colspan="5">People and product</td></tr>
+        <tr><td class="num">20</td><td>Email the 73 before their charge dates; log every reply</td><td>P7</td><td><span class="chip c-s">S</span></td><td>All contacted</td></tr>
+        <tr><td class="num">21</td><td>One nudge per paused customer, on their resume date</td><td>P5</td><td><span class="chip c-s">S</span></td><td>Scheduled</td></tr>
+        <tr><td class="num">22</td><td>Add pause to the membership page and as the first cancel offer</td><td>P5</td><td><span class="chip c-s">M</span></td><td>≥15% of cancels pause</td></tr>
+        <tr><td class="num">23</td><td>Make My Membership show the real subscription — plan, next charge, pause, cancel</td><td>P5</td><td><span class="chip c-s">M</span></td><td>Shows actual state, not an orders table</td></tr>
+        <tr><td class="num">24</td><td>Day-5 trial message and a value message before each notification</td><td>P6</td><td><span class="chip c-s">S</span></td><td>Sending</td></tr>
+        <tr><td class="num">25</td><td><strong>Decide whether to build a longer billing cycle</strong></td><td>P6</td><td><span class="chip c-p1">DECISION</span></td><td>Pricing call made</td></tr>
       </tbody>
     </table>
   </div>
-
-  <p><strong>Only retry what's worth retrying.</strong> Not-enough-balance yes, up to 3. Bank declined once. <strong>Never</strong> retry an unconfirmed, cancelled or inactive mandate — that's 40% of failures and retrying them achieves nothing while generating another notification with a cancel button on it.</p>
-  <p><strong>Bar:</strong> ≥50% of insufficient-balance failures recover within 15 days. Baseline is 0%, so the read is unambiguous. <strong>Worth ~11 of the 21.</strong></p>
-
-  <h3>W2 · Catch the unconfirmed mandate in minutes, not on day 7</h3>
-  <p>All 14 unconfirmed cases had their ₹10 captured <strong>five or six days before</strong> the charge failed. We had a week of warning and used none of it. The ₹10 goes through, the customer sees "trial started", and the real charge was never going to work.</p>
-  <p><strong>Change:</strong> if the mandate isn't confirmed within minutes of the ₹10, prompt in-session, resend the request, and don't tell them the trial has started.</p>
-  <p><strong>Bar:</strong> unconfirmed drops below 10% of failures, from 30%. <strong>Worth ~8 of the 21</strong> — and it's a bug fix, not a campaign.</p>
-
-  <h3>W3 · An in-product banner instead of email</h3>
-  <p>Every one of our 31 payers logged in during the last 30 days. No trialist is inactive. <strong>They all come to us — we don't need to chase them.</strong></p>
-  <p><strong>Change:</strong> add a payment-failure value to <code>User Type</code>. It already carries Free / Pro Trial / Pro Member / Plus Member. One property change makes every message below targetable.</p>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:26%">Mandate state</th><th style="width:44%">Banner</th><th>Action</th></tr></thead>
-      <tbody>
-        <tr><td>Never confirmed</td><td>"One step left — approve the auto-pay request in your UPI app."</td><td>Resend request</td></tr>
-        <tr><td>Cancelled / inactive</td><td>"Auto-pay is off. Your access ends 14 Sep."</td><td>Turn it back on</td></tr>
-        <tr><td>Payment failed</td><td>"₹1,768.82 didn't go through. We'll try again on 17 Sep."</td><td>Pay now</td></tr>
-        <tr><td>Paused</td><td>"Auto-pay resumes 14 Oct."</td><td>Nothing to do</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p><strong>Bar: ≥3% reactivation.</strong> The baseline is the <strong>0.2%</strong> the Customer.io email lane produced before it was killed against its own 0.8% threshold. That's a 15× bar on a channel that has already failed here once.</p>
-
-  <h3>W4 · Work the standing lists by hand</h3>
-  <p>Four groups, live today, <strong>none ever contacted.</strong></p>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:28%">Group</th><th style="width:12%">Size</th><th>Situation</th></tr></thead>
-      <tbody>
-        <tr><td>Cancelled, nothing broken yet</td><td class="num">73</td><td>Mandate dead, charge date not yet reached. <strong>Still have full access and may not remember doing it.</strong> The only group where we're ahead of the problem.</td></tr>
-        <tr><td>Paused auto-pay</td><td class="num">TBC</td><td>Mandate <strong>still alive.</strong> They chose the reversible option. Best prospects we have.</td></tr>
-        <tr><td>Paying, mandate detached</td><td class="num">9</td><td>~₹15,919/month. Will expire silently.</td></tr>
-        <tr><td>Trials that can't convert</td><td class="num">5 of 25</td><td>No working mandate. Will never convert.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p class="cap">The paused count needs pulling — the system logged 263 notes, but that's a repeating check writing several notes per person, not 263 people.</p>
-
-  <p><strong>A person sends these, not a system.</strong> Real name, real reply-to. A few dozen people is an afternoon's work, and the automated lane has already failed here. Opener: <em>"Your auto-pay for Datalabs is off. Your access runs to {date}. Was that deliberate?"</em> One question. <strong>Write down every reply</strong> — that's what tells us whether anything else is worth building.</p>
-
-  <h3>W5 · Offer pause before they reach for cancel</h3>
-  <p>Roughly three in four people who pause a subscription come back. Razorpay supports it natively. We don't handle it at all — when a paused mandate is detected the system writes a note reading <em>"Monitoring."</em></p>
-  <p><strong>Placement:</strong> on the membership page below the plan details, and as the <strong>first</strong> offer in any cancel flow. Cult.fit's model, not Netflix's — Datalabs is bought for a project, so taking a break is normal behaviour here, not an escape hatch.</p>
-  <p><strong>Fix immediately regardless:</strong> suppress all dunning to paused customers. Telling someone to re-authorise a mandate they deliberately paused is the worst message in the system.</p>
-  <p><strong>Bar:</strong> ≥15% of people who start a cancel choose pause instead.</p>
-
-  <h3>W6 · Build a longer billing cycle <span class="chip c-p1">DECISION FIRST</span></h3>
-  <p><strong>This is the only lever here that doesn't exist yet.</strong> There is no annual or quarterly plan to sell — monthly is the only self-serve option. So this isn't a messaging change, it's a pricing and product decision.</p>
-  <p><strong>The argument is exposure, not revenue.</strong> A monthly member gets twelve pre-debit notifications a year. A quarterly member gets four. An annual member gets one. Every one of those notifications is a re-decision we didn't choose to run, presenting our price with no context and an exit one tap away.</p>
-  <p><strong>The smaller version:</strong> quarterly cuts the prompts from twelve to four and asks the customer for ₹5,306 instead of ₹17,626. Materially easier to sell than annual, and it captures most of the benefit.</p>
-  <p><strong>Sell it as fewer interruptions, not savings</strong> — whatever the price, the pitch is <em>one debit instead of twelve.</em></p>
-  <p><strong>Bar:</strong> ≥10% of new trials choose the longer cycle when offered on day 5. <strong>This shrinks the denominator</strong> rather than improving recovery — fewer chances to lose them at all.</p>
-  <p><strong>Do W1–W5 first.</strong> They need no approvals; this needs a pricing call.</p>
 </section>
 
 <!-- ========== 05 ========== -->
-<section id="tasks">
-  <span class="sec-num">05 — THE TASK LIST</span>
-  <h2>Everything, in one place</h2>
-  <p class="dek">Owner column deliberately blank — fill it before this circulates. CSV version at <code>~/ClaudeDocs/inc42/datalabs-recovery-tracker.csv</code>.</p>
-
-  <div class="scroll">
-    <table>
-      <thead><tr><th style="width:6%">ID</th><th style="width:36%">Task</th><th style="width:10%">Size</th><th>Done when</th></tr></thead>
-      <tbody>
-        <tr class="group"><td colspan="4">Do this week — cheap, and everything else depends on it</td></tr>
-        <tr><td class="num">01</td><td><strong>Check whether the retry setting is simply switched off</strong></td><td><span class="chip c-s">XS</span></td><td>Answer confirmed in writing</td></tr>
-        <tr><td class="num">02</td><td>Turn on session replay and surveys in the Datalabs project</td><td><span class="chip c-s">XS</span></td><td>Both live — we can watch a failed checkout and ask a churning customer why</td></tr>
-        <tr><td class="num">03</td><td>Start logging when the pre-debit notification fires</td><td><span class="chip c-s">XS</span></td><td>Timestamps recorded</td></tr>
-        <tr><td class="num">04</td><td>Suppress all dunning to paused customers</td><td><span class="chip c-s">S</span></td><td>Paused branches before any message sends</td></tr>
-        <tr><td class="num">05</td><td>Correct the email copy promising retries we don't have</td><td><span class="chip c-s">S</span></td><td>Copy matches reality</td></tr>
-        <tr><td class="num">06</td><td>Ask Razorpay whether they send the 24h notification on a retry, or we do</td><td><span class="chip c-s">XS</span></td><td>Answer received — it sets the retry cadence</td></tr>
-
-        <tr class="group"><td colspan="4">W1 + W2 — 19 of the 21 recovered subscriptions</td></tr>
-        <tr><td class="num">07</td><td>Fix the flag that leaves a live subscription with no next charge date</td><td><span class="chip c-s">M</span></td><td>No active subscription without a working mandate</td></tr>
-        <tr><td class="num">08</td><td>Repair or contact the 14 already affected (9 paying + 5 trials)</td><td><span class="chip c-s">S</span></td><td>All 14 resolved</td></tr>
-        <tr><td class="num">09</td><td>Detect an unconfirmed mandate within minutes of the ₹10 and prompt in-session</td><td><span class="chip c-s">M</span></td><td>Unconfirmed below 10% of failures</td></tr>
-        <tr><td class="num">10</td><td>Only retry the failures worth retrying</td><td><span class="chip c-s">S</span></td><td>Rules live and tested</td></tr>
-        <tr><td class="num">11</td><td>Build the retry schedule, hard stop at 4 attempts or 15 days</td><td><span class="chip c-s">M</span></td><td>Schedule live, cap enforced</td></tr>
-        <tr><td class="num">12</td><td>Log every attempt — number, time, reason it failed, outcome</td><td><span class="chip c-s">S</span></td><td>Every attempt writes a row</td></tr>
-
-        <tr class="group"><td colspan="4">W3 — the in-product channel</td></tr>
-        <tr><td class="num">13</td><td><strong>Add a payment-failure value to <code>User Type</code></strong></td><td><span class="chip c-s">S</span></td><td>Front end can tell a broken subscription from a healthy one</td></tr>
-        <tr><td class="num">14</td><td>Build the four-state banner</td><td><span class="chip c-s">M</span></td><td>Live and measured against the 0.2% email baseline</td></tr>
-        <tr><td class="num">15</td><td>Attach a customer identity to payment events</td><td><span class="chip c-s">M</span></td><td>A cancellation can be traced to a person. <strong>We can't do this today.</strong></td></tr>
-
-        <tr class="group"><td colspan="4">W4 — the four groups</td></tr>
-        <tr><td class="num">16</td><td>Pull the distinct paused count; split all four groups into trials vs payers</td><td><span class="chip c-s">XS</span></td><td>Counts in hand</td></tr>
-        <tr><td class="num">17</td><td>Email the 73 before their charge dates</td><td><span class="chip c-s">S</span></td><td>All contacted, every reply logged</td></tr>
-        <tr><td class="num">18</td><td>Schedule one nudge per paused customer, on their resume date</td><td><span class="chip c-s">S</span></td><td>Scheduled</td></tr>
-        <tr><td class="num">19</td><td>Let Razorpay tell us the moment a mandate is cancelled, instead of polling</td><td><span class="chip c-s">M</span></td><td>Recorded same day — today it's 0 of 91 before the charge already failed</td></tr>
-
-        <tr class="group"><td colspan="4">W5 + W6</td></tr>
-        <tr><td class="num">20</td><td>Add pause to the membership page and as the first offer in the cancel flow</td><td><span class="chip c-s">M</span></td><td>≥15% of cancels choose pause</td></tr>
-        <tr><td class="num">21</td><td>Make the My Membership page show the real subscription — plan, next charge, pause, cancel</td><td><span class="chip c-s">M</span></td><td>Page shows actual state, not an orders table</td></tr>
-        <tr><td class="num">22</td><td><strong>Decide whether to build a longer billing cycle</strong> — quarterly or annual. None exists today; monthly is the only plan.</td><td><span class="chip c-s">DECISION</span></td><td>Pricing call made</td></tr>
-        <tr><td class="num">23</td><td>If yes: build it, and offer it on day 5 of the trial and in the win-back flow</td><td><span class="chip c-s">L</span></td><td>≥10% of new trials choose it</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ========== 06 ========== -->
 <section id="closing">
-  <span class="sec-num">06 — DECISIONS &amp; EXCLUSIONS</span>
-  <h2>What needs a call, and what's out of scope</h2>
+  <span class="sec-num">05 — DECISIONS &amp; EXCLUSIONS</span>
+  <h2>What needs a call</h2>
 
-  <h3>Four decisions</h3>
-  <ul class="list">
-    <li><strong>Who owns each task.</strong> Fill the owner column before circulating.</li>
-    <li><strong>Who sends the emails, under whose name.</strong> Someone the customer could plausibly reply to.</li>
-    <li><strong>Grace period.</strong> Currently 15 days of free access after a failed payment — half a billing cycle. Decide it deliberately rather than leaving it at the default.</li>
-    <li><strong>Whether to build a longer billing cycle at all</strong> (W6). Monthly is the only plan today, so every member gets twelve cancel prompts a year and we have no way to offer fewer. Quarterly captures most of the benefit at a fraction of the ask.</li>
-    <li><strong>How this is reported.</strong> On recovered revenue it's a small number. As the first real evidence of whether Datalabs members renew at all, it's the only instrumentation we have.</li>
-  </ul>
-
-  <h3>Not doing, and why</h3>
   <div class="scroll">
     <table>
-      <thead><tr><th style="width:38%">Idea</th><th>Why not</th></tr></thead>
+      <thead><tr><th style="width:34%">Decision</th><th>Why it's open</th></tr></thead>
       <tbody>
-        <tr><td>Redesign the export-limit prompt</td><td><code>Limit Reached</code> fired 8 times for 3 people in 60 days, all on the AI cap. Only 40 people exported anything in 30 days.</td></tr>
-        <tr><td>Credit packs as a win-back offer</td><td>Zero purchases since April; two people touched the flow in 30 days. Three of four packs have no purchasable SKU.</td></tr>
-        <tr><td>Annual sold as "twice the credits"</td><td>Credits are not what anyone is short of — and there is no annual plan to sell. See W6.</td></tr>
-        <tr><td>Automated win-back campaign</td><td>Already tried, already failed at 0.2%. Revisit only once a human has proven a message works.</td></tr>
-        <tr><td>"Don't chase low-value trials"</td><td>Removed. It described 3.5% of trialists — <strong>nobody</strong> starts a trial and does nothing.</td></tr>
+        <tr><td>Owner per task</td><td>Column left blank on purpose.</td></tr>
+        <tr><td>Who signs the emails</td><td>Someone the customer could plausibly reply to.</td></tr>
+        <tr><td>Grace period length</td><td>15 days of free access after a failed payment is half a billing cycle. Decide it, don't inherit it.</td></tr>
+        <tr><td>Longer billing cycle</td><td>Doesn't exist. Quarterly captures most of the benefit at a fraction of the ask.</td></tr>
+        <tr><td>How this is reported</td><td>On recovered revenue it's small. As the first evidence of whether Datalabs members renew at all, it's the only instrumentation we have.</td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="callout grey">
-    <span class="label">Out of scope for this document</span>
-    <p>Acquisition and conversion work is deliberately excluded here, but two findings are large and shouldn't be lost: <strong>513 people clicked upgrade on a "Pro Contacts" plan in 90 days and not one reached checkout</strong>, and <strong>people who use two advanced filters in week one return at 41.9% against 10.4% for those who use none</strong>, with only 11.3% ever using one. Both belong in a separate conversation.</p>
+  <div class="callout">
+    <span class="lbl">Deliberately excluded</span>
+    <p>This covers retention and win-back only. Two acquisition findings are too large to lose: <strong>513 people clicked upgrade on a "Pro Contacts" plan in 90 days and not one reached checkout</strong>, and <strong>people who use two advanced filters in week one return at 41.9% versus 10.4% for those who use none</strong> — with only 11.3% ever using one. Separate conversation.</p>
   </div>
 </section>
 
 <footer>
-  Sources — PostHog project 66351 (23 Aug) · Funnel State 2026-07 · Razorpay dunning system doc · Datalabs walkthrough 21 Aug
+  PostHog 66351 (23 Aug) · Funnel State 2026-07 · Razorpay dunning system doc · Datalabs walkthrough 21 Aug
 </footer>
 
 </div>
