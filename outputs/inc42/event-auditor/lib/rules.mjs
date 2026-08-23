@@ -510,10 +510,65 @@ export function rulePageErrors({ browser }) {
   }));
 }
 
+/* ── 15 · NEVER_IDENTIFIED — authenticated on the site, anonymous in analytics ── */
+// PostHog mints a UUIDv7 for anonymous visitors. If an authenticated journey ran and the
+// distinct_id still matches that shape on every snapshot, identify() never fired — the
+// session is logged in to the site and anonymous to analytics.
+const ANON_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export function ruleNeverIdentified({ browser }) {
+  const authJourneys = new Set(browser.journeys
+    .filter((j) => ['logged-in', 'logout'].includes(j.id) && !j.error && !j.result?.skipped)
+    .map((j) => j.id));
+  if (!authJourneys.size) return [];
+
+  const snaps = (browser.identity || [])
+    .filter((s) => authJourneys.has(s.journey) && s.posthog_distinct_id);
+  if (!snaps.length) return [];
+
+  const out = [];
+  const ids = [...new Set(snaps.map((s) => String(s.posthog_distinct_id)))];
+  const allAnon = ids.every((id) => ANON_UUID.test(id));
+  if (allAnon) {
+    out.push(F({
+      cls: 'NEVER_IDENTIFIED', severity: P0, event: '(identity)',
+      title: 'Logged in to the site, anonymous in PostHog',
+      evidence: `Across ${snaps.length} snapshots in an authenticated session, every \`distinct_id\` was an `
+        + `anonymous UUID (e.g. ${ids[0]}). Never an email, never an Auth0 id. \`identify()\` did not fire.`,
+      impact: 'Logged-in behaviour cannot be attributed to a person. Every funnel that joins anonymous reading '
+        + 'to a known user breaks here, and this is the mechanism behind the low web identification rate.',
+      fix: 'Call posthog.identify() with the Auth0 uid on every page load for an authenticated user, not only at '
+        + 'the moment of login. Keep email as a $set property.',
+    }));
+  }
+  if (ids.length > 1) {
+    out.push(F({
+      cls: 'NEVER_IDENTIFIED', severity: P1, event: '(identity)',
+      title: `The same signed-in user carries ${ids.length} different distinct_ids`,
+      evidence: `Observed: ${ids.map((i) => i.slice(0, 13) + '…').join(', ')} — one per browser context, with no identify() to merge them.`,
+      impact: 'One person is counted as several. Person-level metrics and any retention or frequency number are inflated.',
+      fix: 'Identify on load so contexts converge on the Auth0 uid.',
+    }));
+  }
+  const cioNull = snaps.filter((s) => s.cio_user_id == null).length;
+  if (cioNull === snaps.length) {
+    out.push(F({
+      cls: 'NEVER_IDENTIFIED', severity: P0, event: '(identity)',
+      title: 'Customer.io holds a guest token for a signed-in user',
+      evidence: `\`analytics.user().id()\` was null in all ${snaps.length} authenticated snapshots. The saved session `
+        + 'also carries a `gist.web.usingGuestUserToken` key in localStorage.',
+      impact: 'Every browser-side Customer.io event is attributed to a guest. Lifecycle messaging depends entirely on '
+        + 'server-side/reverse-ETL, with no real-time site behaviour and no client-side fallback.',
+      fix: 'Call the Customer.io identify() on auth, and document client vs server event ownership.',
+    }));
+  }
+  return out;
+}
+
 export const ALL_RULES = [
   ruleNeverFires, ruleFiresNotLanded, ruleGtmOnly, ruleDoubleFire, ruleMissingProps,
   ruleNameDrift, ruleIdentity, rulePII, ruleVendorAsymmetry, ruleZombieAndNoise, ruleUnspecified,
-  ruleCoverageGap, ruleVendorBalance, rulePageErrors,
+  ruleCoverageGap, ruleVendorBalance, rulePageErrors, ruleNeverIdentified,
 ];
 
 export function runRules(ctx) {
