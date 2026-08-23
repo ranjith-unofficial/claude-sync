@@ -1,0 +1,254 @@
+{
+  "_doc": "Which journey is EXPECTED to trigger each live event from 'Audit | Jun 2026'. null journey = no journey reaches it, so silence is not evidence of a defect. `requires` names a field in that journey's result which must be truthy for the trigger to have actually occurred - a journey can run to completion without ever reaching the condition. `navigates` marks triggers where the click leaves the page, so a missing event may be a flush failure rather than a missing handler.",
+  "map": {
+    "$pageview": {
+      "journey": "article-read",
+      "destination": "posthog",
+      "trigger": "any page load"
+    },
+    "Private Mode Modal": {
+      "journey": "article-read",
+      "destination": "posthog",
+      "trigger": "modal on load"
+    },
+    "Modal Viewed": {
+      "journey": "article-read",
+      "destination": "posthog",
+      "trigger": "any modal render",
+      "requires": {
+        "journey": "freewall",
+        "field": "lockedAt"
+      }
+    },
+    "Modal Close": {
+      "journey": "freewall",
+      "destination": "posthog",
+      "trigger": "closing a modal",
+      "requires": {
+        "journey": "freewall",
+        "field": "lockedAt"
+      }
+    },
+    "Modal Closed": {
+      "journey": "freewall",
+      "destination": "posthog",
+      "trigger": "closing a modal (duplicate name)",
+      "requires": {
+        "journey": "freewall",
+        "field": "lockedAt"
+      }
+    },
+    "Modal Clicked": {
+      "journey": "freewall",
+      "destination": "posthog",
+      "trigger": "click inside a modal",
+      "requires": {
+        "journey": "freewall",
+        "field": "lockedAt"
+      }
+    },
+    "Freewall Lock": {
+      "journey": "freewall",
+      "destination": "posthog",
+      "trigger": "register gate renders",
+      "requires": {
+        "journey": "freewall",
+        "field": "lockedAt"
+      }
+    },
+    "Login Modal": {
+      "journey": "freewall",
+      "destination": "posthog",
+      "trigger": "auth modal open/close",
+      "requires": {
+        "journey": "freewall",
+        "field": "lockedAt"
+      }
+    },
+    "Plus Lock": {
+      "journey": "article-read",
+      "destination": "posthog",
+      "trigger": "premium gate renders on an article"
+    },
+    "Search Active": {
+      "journey": "search",
+      "destination": "posthog",
+      "trigger": "search box focused",
+      "requires": {
+        "journey": "search",
+        "field": "opened"
+      }
+    },
+    "Search Completed": {
+      "journey": "search",
+      "destination": "posthog",
+      "trigger": "query submitted",
+      "requires": {
+        "journey": "search",
+        "field": "typed"
+      }
+    },
+    "Search Click": {
+      "journey": "search",
+      "destination": "posthog",
+      "trigger": "search result opened",
+      "requires": {
+        "journey": "search",
+        "field": "clicked"
+      },
+      "navigates": true
+    },
+    "Search Close": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "search dismissed",
+      "why": "no journey dismisses the search overlay"
+    },
+    "Recommendation Click": {
+      "journey": "recirculation",
+      "destination": "posthog",
+      "trigger": "recommended card tapped",
+      "requires": {
+        "journey": "recirculation",
+        "field": "rec"
+      },
+      "navigates": true
+    },
+    "Share": {
+      "journey": "share",
+      "destination": "posthog",
+      "trigger": "share action on an article",
+      "requires": {
+        "journey": "share",
+        "field": "opened"
+      },
+      "navigates": true
+    },
+    "Login": {
+      "journey": "logged-in",
+      "destination": "posthog",
+      "trigger": "auth succeeds"
+    },
+    "Logout": {
+      "journey": "logged-in",
+      "destination": "posthog",
+      "trigger": "sign out"
+    },
+    "Save Story": {
+      "journey": "logged-in",
+      "destination": "posthog",
+      "trigger": "bookmark an article"
+    },
+    "Follow": {
+      "journey": "logged-in",
+      "destination": "posthog",
+      "trigger": "follow an entity"
+    },
+    "Unfollow": {
+      "journey": "logged-in",
+      "destination": "posthog",
+      "trigger": "unfollow"
+    },
+    "My Inc42": {
+      "journey": "logged-in",
+      "destination": "posthog",
+      "trigger": "personalised feed opened"
+    },
+    "Newsletter Subscribed": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "subscription confirmed",
+      "why": "journey deliberately stops before submit - would create a real subscriber"
+    },
+    "Registered": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "first registration",
+      "why": "would create a real account"
+    },
+    "Form Submission": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "any site form",
+      "why": "would create a real lead"
+    },
+    "Plus Checkout": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "checkout initiated",
+      "why": "payment path not driven"
+    },
+    "Plus Payment Initiated": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "payment started",
+      "why": "payment path not driven"
+    },
+    "Plus Subscribed": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "payment succeeds",
+      "why": "would create a real charge"
+    },
+    "Plus Onboarding": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "post-purchase flow",
+      "why": "requires a real membership"
+    },
+    "Plus Bottom Bar": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "unknown",
+      "why": "Jun audit could not locate it either"
+    },
+    "Report Interaction": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "report opened",
+      "why": "gated surface, needs a member session"
+    },
+    "ResetPassword": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "password reset",
+      "why": "would send a real email"
+    },
+    "Qr Scan": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "QR landing",
+      "why": "offline entry point"
+    },
+    "User Segment": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "MoEngage segment sync",
+      "why": "MoEngage is REMOVED from the stack"
+    },
+    "Unsave Story": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "remove a bookmark",
+      "why": "needs a saved story first"
+    },
+    "Guide View": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "unknown",
+      "why": "Jun audit could not locate it either"
+    },
+    "Cart Abandon": {
+      "journey": null,
+      "destination": "server",
+      "trigger": "backend",
+      "why": "server-side, not browser-observable"
+    },
+    "Pro Payment": {
+      "journey": null,
+      "destination": "posthog",
+      "trigger": "DataLabs Pro payment",
+      "why": "different property, would create a real charge"
+    }
+  }
+}

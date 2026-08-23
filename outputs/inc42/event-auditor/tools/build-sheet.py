@@ -54,7 +54,9 @@ def latest_run():
     if not runs:
         return None, None
     d = Path(runs[-1])
-    return json.loads((d / "raw.json").read_text()), json.loads((d / "findings.json").read_text())
+    drift_p = d / "drift.json"
+    drift = json.loads(drift_p.read_text()) if drift_p.exists() else []
+    return json.loads((d / "raw.json").read_text()), json.loads((d / "findings.json").read_text()), drift
 
 def header(ws, row, cols):
     for i, (label, width) in enumerate(cols, start=1):
@@ -86,13 +88,16 @@ def main(out_path):
     target = load("spec/target.json")
     aliases = load("spec/aliases.json")
     live = load("spec/live.json")
-    raw, findings = latest_run()
+    raw, findings, drift = latest_run()
 
     amap = aliases["map"]
     unspecd = aliases.get("unspecified_live_events", {})
     live_by_name = {e["live_name"]: e for e in live["events"] if e.get("live_name")}
 
+    coverage = load("spec/coverage.json")
+
     # what the browser actually saw, per live event name
+    observed_by_name = {}
     seen = {}
     run_stamp = "not run"
     if raw:
@@ -103,6 +108,8 @@ def main(out_path):
             seen.setdefault(str(e.get("name")), {"vendors": set(), "count": 0})
             seen[str(e["name"])]["vendors"].add(e["vendor"])
             seen[str(e["name"])]["count"] += 1
+            o = observed_by_name.setdefault(str(e.get("name")), {"vendors": {}})
+            o["vendors"][e["vendor"]] = o["vendors"].get(e["vendor"], 0) + 1
 
     wb = Workbook()
 
@@ -117,11 +124,17 @@ def main(out_path):
         ("What this is", "One register for inc42.com editorial + Inc42 Plus. It replaces the 47-tab 'Inc42 Analytics | Master' "
                          "and the separate 'Inc42 Website - Events & Properties' spec. Every event appears exactly once, with "
                          "what it is SUPPOSED to do next to what it ACTUALLY does."),
+        ("Reference", "'Inc42 Analytics | Master.xlsx' -> tab 'Audit | Jun 2026' (leftmost = newest; the only tab carrying live "
+                      "production names, 30-day volumes and statuses). The July tabs were checked and are not it: 'Inc42 App | "
+                      "July 26' is the APP with 2 events referencing MoEngage/Mixpanel/Amplitude (removed vendors), and "
+                      "'Inc42 Property Groups | July 26' has property groups but no events."),
         ("Why it exists", "The two previous sheets each held one half of the truth and neither was complete. The plan is "
                           "snake_case; production is Title Case. Only 2 of 63 event names match on their own, so nothing "
                           "could be reconciled by eye."),
         ("", ""),
         ("Tabs", ""),
+        ("  Re-Audit vs June", "Every event from 'Audit | Jun 2026' re-tested in a live browser two months on. "
+                              "Is that audit still true, and what moved?"),
         ("  Event Register", "THE table. All planned events + every live event that was never planned. Status, live name, "
                              "30-day volume, and whether the browser audit actually observed it."),
         ("  Property Dictionary", "Every property defined once, with its group, type, allowed values, and live coverage."),
@@ -135,6 +148,14 @@ def main(out_path):
         ("  missing", "Planned. Nothing fires anywhere."),
         ("  unplanned", "Live in production, absent from every plan. Ungoverned."),
         ("  server_side", "Emitted server-side; not observable from the browser."),
+        ("", ""),
+        ("Verdicts", ""),
+        ("  regressed", "June called it healthy with real volume. The journey reached its trigger and it produced nothing."),
+        ("  misrouted", "Fires reliably — to GA4/Meta, never to PostHog. June read the low PostHog volume as a firing problem."),
+        ("  still broken", "June flagged it; the trigger was reached; still nothing."),
+        ("  recovered", "June flagged it; it fires now. The June finding is stale."),
+        ("  new", "Live now, absent from the June tab entirely."),
+        ("  not tested", "The trigger never occurred, or the journey needs credentials. NOT evidence of a defect."),
         ("", ""),
         ("Browser verified", "'yes' means the automated audit drove the real UI and captured the payload on the wire during "
                              "the run below. Blank does NOT mean broken — it can mean the journey never reached the trigger. "
@@ -157,7 +178,57 @@ def main(out_path):
             ws.row_dimensions[r].height = max(15, 13 * (body.count("\n") + 1 + len(body) // 105))
         r += 1
 
-    # ══ 2 · Event Register ══════════════════════════════════════════════════
+    # ══ 2 · Re-Audit vs June ════════════════════════════════════════════════
+    ws = wb.create_sheet("Re-Audit vs June")
+    cols = [("Event (live name)", 26), ("June 2026 status", 20), ("June 30d vol", 12),
+            ("Journey that covers it", 20), ("Trigger driven", 30), ("Seen now", 22),
+            ("Verdict", 20), ("What this means", 62), ("Pri", 6)]
+    titleblock(ws, "Re-Audit vs 'Audit | Jun 2026'",
+               f"Every event from the Master sheet's latest tab, re-tested in a live browser on {run_stamp}. "
+               "'not tested' rows are honest gaps, not defects — the trigger never occurred or the journey needs credentials.", cols)
+    header(ws, 4, cols)
+    r = 5
+    VERDICT_TONE = {"misrouted": "missing", "regressed since June": "missing", "unchanged": "partial",
+                    "new": "partial", "improved since June": "ok", "not tested": "unplanned",
+                    "unchanged, unverified": "unplanned"}
+    cov_map = coverage["map"]
+    drift_by_event = {d["event"]: d for d in drift}
+    ordering = {"P0": 0, "P1": 1, "P2": 2}
+    for dft in sorted(drift, key=lambda x: (ordering[x["severity"]], x["event"])):
+        ev_name = dft["event"]
+        c = cov_map.get(ev_name, {})
+        obsd = observed_by_name.get(ev_name)
+        put(ws, r, 1, ev_name, F_MONO)
+        put(ws, r, 2, str(dft.get("junStatus") or ""), F_MUTE)
+        put(ws, r, 3, dft.get("junVol") or None, F_BODY, TOPR)
+        put(ws, r, 4, c.get("journey") or "— none reaches it", F_MUTE)
+        put(ws, r, 5, c.get("trigger") or c.get("why") or "", F_MUTE)
+        put(ws, r, 6, (", ".join(f"{k} ×{v}" for k, v in obsd["vendors"].items()) if obsd else "nothing"), F_MONO)
+        put(ws, r, 7, dft["verdict"], tone=VERDICT_TONE.get(dft["verdict"]))
+        put(ws, r, 8, dft["title"], F_BODY)
+        put(ws, r, 9, dft["severity"], tone=dft["severity"])
+        r += 1
+    ws.auto_filter.ref = f"A4:I{r-1}"
+    r += 1
+    ws.cell(row=r, column=1, value="EVENTS THAT NEEDED NO FLAG").font = F_SECT
+    r += 1
+    for ev in live["events"]:
+        nm = ev.get("live_name")
+        if not nm or nm in drift_by_event or ev.get("noise"):
+            continue
+        obsd = observed_by_name.get(nm)
+        put(ws, r, 1, nm, F_MONO)
+        put(ws, r, 2, str(ev.get("status") or ""), F_MUTE)
+        put(ws, r, 3, ev.get("volume_30d") or None, F_BODY, TOPR)
+        put(ws, r, 4, (cov_map.get(nm) or {}).get("journey") or "", F_MUTE)
+        put(ws, r, 5, (cov_map.get(nm) or {}).get("trigger") or "", F_MUTE)
+        put(ws, r, 6, (", ".join(f"{k} ×{v}" for k, v in obsd["vendors"].items()) if obsd else "nothing"), F_MONO)
+        put(ws, r, 7, "confirmed firing" if obsd else "", tone="ok" if obsd else None)
+        put(ws, r, 8, "Observed reaching PostHog this run." if obsd else "", F_MUTE)
+        put(ws, r, 9, "", F_MUTE)
+        r += 1
+
+    # ══ 3 · Event Register ══════════════════════════════════════════════════
     ws = wb.create_sheet("Event Register")
     cols = [("Group", 22), ("Event (plan)", 26), ("Live name (PostHog)", 24), ("Also fires as", 22),
             ("Status", 13), ("30d volume", 11), ("Browser\nverified", 10), ("Destinations", 15),
@@ -381,6 +452,7 @@ def main(out_path):
     print(f"saved  {out_path}")
     print(f"       Event Register      {n_plan} planned + {n_live} unplanned")
     print(f"       Property Dictionary {len(target['dictionary'])} properties")
+    print(f"       Re-Audit vs June    {len(drift)} flagged")
     print(f"       Findings            {len(findings or [])}")
     print(f"       Scroll Depth        {len(rows)} implementations + PostHog (none)")
 

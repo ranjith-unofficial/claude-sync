@@ -9,13 +9,16 @@ const runs = fs.readdirSync(path.join(ROOT, 'runs')).filter((d) => /^\d{4}/.test
 const run = process.argv[2] || runs.at(-1);
 const raw = JSON.parse(fs.readFileSync(path.join(ROOT, 'runs', run, 'raw.json'), 'utf8'));
 const findings = JSON.parse(fs.readFileSync(path.join(ROOT, 'runs', run, 'findings.json'), 'utf8'));
+const driftPath = path.join(ROOT, 'runs', run, 'drift.json');
+const drift = fs.existsSync(driftPath) ? JSON.parse(fs.readFileSync(driftPath, 'utf8')) : [];
 const readJSON = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const target = readJSON('spec/target.json');
 const spec = { ...target, byName: Object.fromEntries(target.events.map((e) => [e.event, e])) };
 
 const html = `<title>Inc42 Event Audit</title>
 ${reportStyles()}
-${reportBody({ spec, aliases: readJSON('spec/aliases.json'), browser: raw.browser, warehouse: raw.warehouse, findings, stamp: run, days: 30 })}`;
+${reportBody({ spec, aliases: readJSON('spec/aliases.json'), browser: raw.browser, warehouse: raw.warehouse, findings, drift,
+  coverage: readJSON('spec/coverage.json'), stamp: run, days: 30 })}`;
 
 const out = process.argv[3] || path.join(ROOT, 'runs', run, 'artifact.html');
 fs.writeFileSync(out, html);

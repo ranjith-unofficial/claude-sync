@@ -143,7 +143,7 @@ tr.r-ok td:first-child{box-shadow:inset 3px 0 var(--ok)}
 </style>`;
 }
 
-export function reportBody({ spec, aliases, browser, warehouse, findings, stamp, days }) {
+export function reportBody({ spec, aliases, browser, warehouse, findings, drift = [], coverage, stamp, days }) {
   const statuses = Object.values(aliases.map).reduce((a, v) => ((a[v.status] = (a[v.status] || 0) + 1), a), {});
   const totalSpec = Object.keys(aliases.map).length;
   const bySev = (s) => findings.filter((f) => f.severity === s);
@@ -235,6 +235,26 @@ export function reportBody({ spec, aliases, browser, warehouse, findings, stamp,
     <div class="tile"><span class="v">${bySev('P2').length}</span><span class="l">P2</span><span class="s">${SEV_NOTE.P2}</span></div>
     <div class="tile acc"><span class="v">${Object.keys(types).length}</span><span class="l">Vendors</span><span class="s">seen on the wire</span></div>
   </div>
+
+  ${drift.length ? `<div class="h2wrap"><h2>Re-audit vs the June 2026 audit</h2>
+    <p class="h2sub">Every event from the Master sheet's latest tab (<code>Audit | Jun 2026</code>), re-tested live two months on.
+    "Not tested" rows are honest gaps — the trigger never occurred, or the journey needs credentials — not defects.</p></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Event</th><th>June status</th><th class="num">June 30d</th><th>Seen now</th><th>Verdict</th><th>What it means</th></tr></thead>
+    <tbody>${drift.map((d) => {
+      const tone = { 'misrouted': 'bad', 'regressed since June': 'bad', 'unchanged': 'warn',
+                     'new': 'warn', 'improved since June': 'ok' }[d.verdict] ?? 'na';
+      const obs = browser.events.filter((e) => e.source === 'wire' && !e.replayed && e.name === d.event);
+      const byV = obs.reduce((a, e) => ((a[e.vendor] = (a[e.vendor] || 0) + 1), a), {});
+      const seenTxt = Object.keys(byV).length
+        ? Object.entries(byV).map(([v, c]) => `${v} ×${c}`).join(', ') : '<span class="dim">nothing</span>';
+      return `<tr class="r-${tone}"><td><code>${esc(d.event)}</code></td>
+        <td class="dim">${esc(String(d.junStatus ?? ''))}</td>
+        <td class="num">${d.junVol ? n(d.junVol) : '<span class="dim">—</span>'}</td>
+        <td class="mono" style="font-size:12px">${seenTxt}</td>
+        <td><span class="tag ${tone}">${esc(d.verdict)}</span></td>
+        <td class="note-cell" style="max-width:420px">${md(d.title)}</td></tr>`;
+    }).join('')}</tbody></table></div>` : ''}
 
   <div class="h2wrap"><h2>Findings</h2>
     <p class="h2sub">Ranked by whether the defect blocks a decision, distorts a number, or is hygiene.</p></div>

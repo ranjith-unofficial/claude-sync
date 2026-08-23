@@ -14,6 +14,7 @@ import { decodeRequest } from './lib/vendors.mjs';
 import { state as actionState } from './lib/actions.mjs';
 import * as ph from './lib/posthog.mjs';
 import { runRules } from './lib/rules.mjs';
+import { runMasterRules } from './lib/rules-master.mjs';
 import { renderReport } from './lib/report.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -40,6 +41,7 @@ const readJSON = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const target = readJSON('spec/target.json');
 const aliases = readJSON('spec/aliases.json');
 const liveSheet = readJSON('spec/live.json');
+const coverage = readJSON('spec/coverage.json');
 const spec = { ...target, byName: Object.fromEntries(target.events.map((e) => [e.event, e])) };
 
 /* ── browser phase ─────────────────────────────────────────────────────── */
@@ -203,16 +205,24 @@ async function runWarehouse(browserRun) {
   const warehouse = ONLY === 'browser' ? null : await runWarehouse(browser);
 
   const findings = runRules({ spec, aliases, liveSheet, browser, warehouse });
+  // Second pass, referenced against the Master sheet's latest tab ('Audit | Jun 2026'):
+  // is that audit still true, and what moved in the two months since?
+  const drift = runMasterRules({ live: liveSheet, coverage, browser, warehouse });
 
   fs.writeFileSync(path.join(outDir, 'raw.json'), JSON.stringify({ browser, warehouse }, null, 2));
   fs.writeFileSync(path.join(outDir, 'findings.json'), JSON.stringify(findings, null, 2));
-  const html = renderReport({ spec, aliases, liveSheet, browser, warehouse, findings, stamp, days: DAYS });
+  fs.writeFileSync(path.join(outDir, 'drift.json'), JSON.stringify(drift, null, 2));
+  const html = renderReport({ spec, aliases, liveSheet, browser, warehouse, findings, drift, coverage, stamp, days: DAYS });
   const htmlPath = path.join(outDir, 'report.html');
   fs.writeFileSync(htmlPath, html);
 
   const counts = findings.reduce((a, f) => ((a[f.severity] = (a[f.severity] || 0) + 1), a), {});
   log(`\n▶ ${findings.length} findings — P0:${counts.P0 || 0}  P1:${counts.P1 || 0}  P2:${counts.P2 || 0}`);
   for (const f of findings.filter((x) => x.severity === 'P0').slice(0, 10)) log(`   P0 · ${f.title}`);
+  const dc = drift.reduce((a, f) => ((a[f.severity] = (a[f.severity] || 0) + 1), a), {});
+  log(`\n▶ vs 'Audit | Jun 2026' — ${drift.length} items — P0:${dc.P0 || 0}  P1:${dc.P1 || 0}  P2:${dc.P2 || 0}`);
+  for (const f of drift.filter((x) => x.severity !== 'P2').slice(0, 12)) log(`   ${f.severity} · ${f.cls.padEnd(20)} ${f.title}`);
+
   log(`\n  report  ${htmlPath}`);
   log(`  raw     ${path.join(outDir, 'raw.json')}\n`);
 })();
