@@ -13,7 +13,7 @@ export default {
   async run(page, ctx) {
     await page.goto('https://inc42.com/', { waitUntil: 'domcontentloaded' });
     await settle(page, 3000);
-    const links = await articleLinks(page, 8);
+    const links = await articleLinks(page, 15);
     if (!links.length) return { skipped: 'no article links' };
 
     let lockedAt = null;
@@ -34,7 +34,7 @@ export default {
     }
 
     if (!lockedAt) {
-      ctx.log('freewall never appeared in 8 articles — quota may be higher, or gate is off');
+      ctx.log(`freewall never appeared in ${links.length} articles — quota may be higher, variant-gated, or off`);
       return { lockedAt: null, articlesRead: links.length };
     }
 

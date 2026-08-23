@@ -125,14 +125,19 @@
       "navigates": true
     },
     "Login": {
-      "journey": "logged-in",
+      "journey": null,
       "destination": "posthog",
-      "trigger": "auth succeeds"
+      "trigger": "auth succeeds",
+      "why": "the session is captured by login.mjs in a separate browser, so the Login event fires outside the audit run"
     },
     "Logout": {
-      "journey": "logged-in",
+      "journey": "logout",
       "destination": "posthog",
-      "trigger": "sign out"
+      "trigger": "sign out",
+      "requires": {
+        "journey": "logout",
+        "field": "out"
+      }
     },
     "Save Story": {
       "journey": "logged-in",

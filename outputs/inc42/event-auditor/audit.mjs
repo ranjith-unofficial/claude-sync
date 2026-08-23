@@ -27,6 +27,8 @@ const HEADED = arg('headed', 'true') !== 'false';
 const DAYS = Number(arg('days', 30));
 const PICK = arg('journeys', '').split(',').map((s) => s.trim()).filter(Boolean);
 const WAIT_INGEST = Number(arg('ingest-wait', 120)); // seconds before verifying
+const USE_AUTH = process.argv.includes('--auth');
+const AUTH_STATE = path.join(ROOT, '.auth', 'state.json');
 
 /* inc42.com serves HTTP 201 + application/octet-stream to any UA containing
    "HeadlessChrome" — a bot-mitigation rule. Without this override every headless
@@ -53,7 +55,13 @@ async function runBrowser() {
     const mod = (await import(path.join(dir, f))).default;
     if (!PICK.length || PICK.includes(mod.id)) journeys.push(mod);
   }
-  log(`\n▶ browser phase — ${journeys.length} journey(s), ${HEADED ? 'headed' : 'headless'}`);
+  const haveAuth = fs.existsSync(AUTH_STATE);
+  if (USE_AUTH && !haveAuth) {
+    log('\n  ✗ --auth given but .auth/state.json is missing. Run `node login.mjs` first.');
+  }
+  const authOn = USE_AUTH && haveAuth;
+  log(`\n▶ browser phase — ${journeys.length} journey(s), ${HEADED ? 'headed' : 'headless'}` +
+      (authOn ? ', authenticated journeys enabled' : ''));
 
   const browser = await chromium.launch({
     headless: !HEADED,
@@ -70,12 +78,22 @@ async function runBrowser() {
 
   for (const j of journeys) {
     log(`\n  ── ${j.name}`);
+    // Anonymous journeys must stay anonymous — the freewall and every logged-out funnel
+    // only exist for a signed-out visitor. Only auth:'user' journeys get the saved session.
+    const wantsAuth = j.auth === 'user';
+    if (wantsAuth && !authOn) {
+      log(`     skipped — needs a session. Run \`node login.mjs\` then \`node audit.mjs --auth\`.`);
+      journeyResults.push({ id: j.id, name: j.name, result: { skipped: 'no saved session (.auth/state.json)' }, error: null });
+      for (const e of j.expect || []) expectations.push({ ...e, journey: j.id, critical: spec.byName[e.event]?.critical ?? false });
+      continue;
+    }
     const ctx = await browser.newContext({
       viewport: { width: 1440, height: 900 },
       userAgent: REAL_UA,
       locale: 'en-IN',
       timezoneId: 'Asia/Kolkata',
       extraHTTPHeaders: { 'accept-language': 'en-IN,en;q=0.9' },
+      ...(wantsAuth ? { storageState: AUTH_STATE } : {}),
     });
     // Streamed from the probe. Bound before addInitScript so it exists on first document.
     await ctx.exposeBinding('__AUDIT_EMIT__', (src, r) => {
