@@ -195,16 +195,16 @@ footer{
         <tr>
           <td class="n">01</td>
           <td><strong>Activation rate</strong></td>
-          <td class="tgt">25%</td>
+          <td class="tgt">20% → 25%</td>
           <td>A quarter of new installs reach the engaged-brief bar, not just complete onboarding<span class="sub">Onboarding completion is already good; the loss is at brief card 1, where only 45% advance.</span></td>
-          <td><span class="pill p-crit">Baseline unknown</span><span class="sub">Current activation rate has never been stated as a rate. Pull it before locking.</span></td>
+          <td><span class="pill p-ok">Credible</span><span class="sub">+5 points on a base that already works. The card-1 fix alone should carry most of it.</span></td>
         </tr>
         <tr>
           <td class="n">02</td>
           <td><strong>D7 returning users</strong></td>
-          <td class="tgt">≥15%</td>
+          <td class="tgt">&lt;5% → 15%</td>
           <td>Of users who arrive in a given week, at least 15% come back on day 7</td>
-          <td><span class="pill p-crit">Baseline unknown</span><span class="sub">Could not pull it — PostHog needs re-auth. 15% may be either a stretch or already met.</span></td>
+          <td><span class="pill p-crit">3× — the hard one</span><span class="sub">Every other target on this page is incremental. This one is not. See below.</span></td>
         </tr>
         <tr>
           <td class="n">03</td>
@@ -223,8 +223,8 @@ footer{
         <tr>
           <td class="n">05</td>
           <td><strong>Acquisition from the web page</strong></td>
-          <td class="tgt">Grow</td>
-          <td>Web → app acquisition increased: entry points on Inc42.com, mobile-web prompts, repeat-reader and scroll triggers<span class="sub">Needs a number once the August post-launch rate is known.</span></td>
+          <td class="tgt">0.36% → 0.6%</td>
+          <td>Web → app acquisition nearly doubled: entry points on Inc42.com, mobile-web prompts, repeat-reader and scroll triggers</td>
           <td><span class="pill p-warn">Watch</span><span class="sub">Deep links must be fixed or web traffic keeps landing in Safari, not the app.</span></td>
         </tr>
         <tr>
@@ -289,15 +289,24 @@ footer{
 </section>
 
 <section>
-  <h2><span class="m">!</span> Before this locks</h2>
+  <h2><span class="m">!</span> The one target that isn't incremental</h2>
+  <p class="deck">Activation goes up five points on a base that already works. Web acquisition roughly doubles off a very small number. <strong>D7 has to triple.</strong> 15% is an ordinary figure for a daily-news app — it is the jump that is hard, not the destination.</p>
+
   <div class="note">
-    <span class="label">Two baselines and three rows</span>
-    <p><strong>Pull these in week 1, or goals 01 and 02 are guesses:</strong></p>
+    <span class="label">What has to be true for D7 to move</span>
     <ul>
-      <li><strong>Current activation rate.</strong> We have 189 users and know onboarding completion is good and card-1 advance is 45% — but activation has never been expressed as a rate, so 25% has nothing to sit against.</li>
-      <li><strong>Current D7 return.</strong> Not pulled — PostHog needs re-authorising. Until it is, 15% could be a stretch or already cleared.</li>
+      <li><strong>Push has to actually fire.</strong> It never has. The payload is silent, and a silent push is never delivered once the app is force-killed — the fix is an APS alert payload. This is likely the single biggest D7 lever on the list, and it is a bug fix, not a feature.</li>
+      <li><strong>Read stories must never be re-served.</strong> Reopen at story six. Same content on every open trains people down to once a day, then to zero.</li>
+      <li><strong>Relevance has to come from behaviour.</strong> Sector personalisation is dead — 86% of articles carry no sector — so read behaviour and dwell are the only signals left.</li>
+      <li><strong>Deep links have to work</strong>, or the newsletter cannot pull anyone back into the app at all.</li>
     </ul>
-    <p><strong>Also standing against my name in the ratified September MOP.</strong> If these are not mine, they need correcting with Utkarsh on Monday — otherwise they stay tracked to me regardless of this plan: the Datalabs renewal motion, the payment-leak sprint, and the retention-mechanism competition including Pulse.</p>
+    <p>Three of those four sit outside the September build: they are August's bug fixes. If they do not land, 15% is not reachable by anything done inside the month.</p>
+    <p><strong>Recommendation:</strong> carry it the way Utkarsh asked for every goal — <strong>practical 8–10%, ambitious 15%</strong>. A single 3× number with no floor under it reads as a miss in October even if D7 doubles.</p>
+  </div>
+
+  <div class="note" style="margin-top:22px">
+    <span class="label">Still against my name in the ratified sheet</span>
+    <p>If these are not mine, they need correcting with Utkarsh on Monday — otherwise they stay tracked to me regardless of this plan: the <strong>Datalabs renewal motion</strong>, the <strong>payment-leak sprint</strong>, and the <strong>retention-mechanism competition including Pulse</strong>.</p>
   </div>
 </section>
 
