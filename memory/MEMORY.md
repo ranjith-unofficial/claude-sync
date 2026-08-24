@@ -52,6 +52,7 @@
 
 - [INC42 Morning Tape (daily brief)](project-inc42-morning-tape.md) — 7am IST cloud routine, 3 properties in one artifact; HogQL rules: explicit dates only, per-day-then-average baselines
 - [INC42 Weekly Team Leads Sync](project-inc42-weekly-team-leads-sync.md) — recurring cross-team status (payments/dunning events, cost optimization, Data Labs pipelines, unification, D2C); 24 Aug: sector-tagging now daily, landing pages move to Akshay, Azure has 1 month of credits left
+- [INC42 app v2 — full scope, all sources](project-inc42-app-v2-scope-full.md) — reconciles 6 threads (24 Aug closed scope, Satya sessions, Ravi critique, brief images, the separate PROPOSED flags/feedback/ratings list, instrumentation); flags data-contradicted items (dead Rate button, MCP blocked, loader latency risk) and the TWO unreconciled v2 scope lists
 - [INC42 Salesforce evaluation](project-inc42-salesforce-evaluation.md) — 24 Aug scoping call, Data 360 + Marketing Cloud + Slack Enterprise pitched for data unification; no decision, two follow-ups planned (Marketing Cloud+Slack Thu, subscriber lifecycle TBD)
 
 ## INC42 data warehouse

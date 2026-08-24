@@ -1,0 +1,75 @@
+---
+name: project-inc42-app-v2-scope-full
+description: "Full INC42 app v2 release scope reconciled from every source — Weekly App Review (24 Aug, closed), the two 20 Aug Satya design sessions, Ravi Kumar's critique, and the separate still-PROPOSED flags/feedback/ratings list — with data-check flags on which items are contradicted by behaviour data"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 59cedaa8-a793-4cf6-9ab8-edd7339fa0a4
+  modified: 2026-08-24T17:28:40.253Z
+---
+
+Built 2026-08-24 at Ranjith's request ("everything you know — all meetings, in-person discussion, previous documents — what should be in app v2"). Two scope threads exist and are **NOT reconciled with each other** — flag this to Ranjith/Utkarsh before treating either as complete.
+
+## Thread 1 — the "real" v2, CLOSED 2026-08-24 in Weekly App Review
+Designs due Wed 26 Aug, release target 31 Aug (Utkarsh flagged this may slip to first week of Sept). Source: [[project-inc42-launch]] (24 Aug section), meeting id `d8fac763-3f4a-42a5-8fae-c77a03f1c628`.
+
+1. **Explore → renamed "News"** — more prominence to news/article section; brief stays a feature, not the hero; left-to-right tab order kept, no center-tab pattern
+2. **Homepage banner inventory** replaces the calendar/greeting block — team-controlled banner (CIO/Nityam/Ranjith editable), used to educate users on what "brief" is; the image below the banner stays backend-fetched, not personalizable
+3. **Brief card redesign** — fix the "first image/first title vs first card" contradiction; add "personalized to you" messaging/loader before brief renders
+4. **Data Labs filters redesign** (company sorting/filters)
+5. **App-update banner fix** + a soft "update now" pop-up (explicitly **not** a forced/blocking update — rejected on the call as bad UX; only a dismissable prompt)
+6. **Dark mode** — committed within 15–30 days; ambiguous whether it ships in the 31 Aug cut or slips past it
+7. **Article page + company page redesign**
+8. **Explore/News page cleanup** — remove the auto-popping filter (not user-initiated, flagged as a bad pattern)
+9. **Singular deep-linking permanent fix** — install Singular SDK pieces directly in-app rather than relying on the current fragile setup; see [[project-inc42-deep-linking]]
+10. **Double-tap-to-exit** on back button (prevents accidental app exit)
+11. **Notifications: 1–2/day 1:1 news-based push, sector-segmented** not blanket; editor pings Slack for breaking/important stories, team builds the push manually for now (no automation yet)
+12. **PostHog A/B test setup**: brief-first vs explore-first ingest, shorter version, for second half of September
+
+## Thread 2 — pulled forward from the 20 Aug Satya design sessions (predates and feeds #3 above)
+Source: meetings `64110c9d...` (Brief Page UI Enhancements) and `66923cf1...` (Brief Card UX Optimization), cross-checked against [[project-inc42-app-behaviour]]'s data.
+
+13. Progress indicator on brief cards ("4/8, tap for next") — ✅ data-supported
+14. Remove past-brief/calendar card; single entry point + "Continue where you left" for incomplete users — ✅ data-supported
+15. Editorial rewrites brief headline/content so it reads as a series of stories, not one article — ✅ data-supported
+16. ⚠️ **Hide "Read full article" on brief cards** — protects brief completion but deletes 54 genuine reads (94% never return once they leave); prefer adding a **return path** ("back to your brief · 4 left") over hiding the button outright
+17. ⚠️ **Relocate "Rate" to the freed space** — the rate control has **1 user in 8 days**, already flagged dead on the 1 Aug QA list. Verify it actually fires before promoting it or running interviews on "rate visibility."
+18. ⚠️ **"Personalizing for you" loader before brief renders** — adds latency in front of the exact step that already loses 55% of users (card 1), on a surface where 9 users hit `load_failed`. Test, don't ship on assumption.
+19. ❌ **Article-access MCP as a paid tier** — do not scope for v2. §11 of [[project-inc42-strategy-utkarsh]] explicitly rules out a second demand-side product line, and third-party data exposure needs a DPDP pass first.
+20. ⏸️ **Articles/Companies as top-level tabs "powered by Data Labs"** — deferred until the brief-habit thesis is validated; today's meeting effectively re-confirmed this by keeping News (not Companies) as the co-equal tab with Brief.
+
+## Thread 3 — Ravi Kumar's outside-in critique (21 Aug) — not yet decided, should inform v2 design calls
+Source: [[project-inc42-app-ravi-critique]]. His core challenge — **merge Brief+Explore, go vertical not horizontal (Jacob's Law)** — was raised and explicitly discussed at today's 24 Aug review; Utkarsh kept them separate (see Thread 1 #1) and the horizontal-vs-vertical brief-card debate was left unresolved ("leaving it to people for now"). His smaller UI fixes are still open and cheap to fold in:
+
+21. Streak: show the 1-day streak **first**, then ask to sign in to save it (currently backwards — asks before any gratification)
+22. Article progress bar should run to the end of the **article**, not the end of the page
+23. Companies tab should **lead with search**, not a discovery scroll
+24. Changing a filter tab should **reset scroll to top**
+25. "Recently funded" widget should show **amount raised + valuation**, not the generic card
+26. **iOS push fix**: switch from silent/remote push to an **APS alert payload** (title/body/sound, ID in `data`) — root-cause fix for "push never fired"; independent of UI v2 but should ship alongside since notifications are explicitly in scope (Thread 1 #11)
+
+## Thread 4 — sector-based brief images, decided twice, still unbuilt
+Source: [[project-inc42-brief-images]]. Decided with Utkarsh 12 Aug, reconfirmed by Ranjith 24 Aug. Owner **Anmol**, no Asana ticket filed as of 24 Aug. ⚠️ Check sector coverage on briefs specifically before commissioning a full image set — 86% of articles carry no sector app-wide ([[project-inc42-content-personalization]]), so "dominant sector" may resolve to nothing for most briefs.
+
+## Thread 5 — the OTHER "v2" scope, still PROPOSED not locked, NOT mentioned in today's 24 Aug close
+Source: [[project-inc42-app-v2-release]] (session-authored 21–23 Aug, still tagged "ask before citing as agreed"). This is a **separate 10-item list** — feature flags, app-update mechanics, feedback loop, Play ratings — that has not been folded into or reconciled against Thread 1's closed scope. Someone (Ranjith/Utkarsh) needs to decide whether this ships as part of the same v2, or as v2.1:
+
+- PostHog feature flags (fail-closed, proxied endpoint) — owner Ritvik, currently **halted**
+- App-config endpoint + build-number version gate (soft-prompt Android; **do not force-gate iOS**, 1.0 is locked with no update path until build ≥41)
+- Play In-App Update API (flexible + immediate tiers)
+- OTA feasibility check (expo-updates/CodePush) — highest-leverage item, feasibility still unconfirmed
+- CIO in-app feedback prompt at brief-completion (median 78s), never after full-article webview exit
+- Native "Send feedback" entry point, flag-gated
+- In-app Play Store review flow, Android-only, behaviour-gated (≥3 completed briefs, no crash, ≥2 sessions) — **not** a sentiment-gate, that's a Play policy violation
+- Review-reply alerting via Play Console API → n8n
+
+## Thread 6 — instrumentation that should ride along with any v2 rebuild
+Source: [[project-inc42-app-behaviour]]. Not a UI item, but breaks measurement of the v2 changes above if skipped:
+
+- Fix `app_installed` under-fire (~5% of users never fire it)
+- Fix `summary_expanded` on `company_page` — wrongly carries `story_id` instead of `company_id`
+- Instrument `decode` (the AI explainer) — zero telemetry today despite being the core positioning
+- Confirm error taxonomy via SQL, not the PostHog panel (it only samples recent values — 403s may be silently swallowed client-side)
+- Add `update_prompt_shown/dismissed/cta_tapped/update_completed` events if Thread 5's update-prompt work ships, or uptake is unmeasurable
+
+**How to apply:** when asked "what's in v2," lead with Thread 1 (what's actually closed and dated) and flag Threads 2–4 as feeding into it. Explicitly surface the Thread 1/Thread 5 non-reconciliation and the ⚠️/❌ data-contradicted items rather than presenting everyone's wishlist as equally decided.
