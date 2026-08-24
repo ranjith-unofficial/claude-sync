@@ -5,6 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: d8963308-0bb1-4e90-a221-f2c4311ce0ba
+  modified: 2026-08-24T14:41:33.057Z
 ---
 
 **Utkarsh's FY27 Plan — Engines × Tracks**, LOCKED 2026-08-21. The authoritative horizon plan (Aug 2026→Mar 2027). File: `~/Downloads/PMTD MOP 2026.xlsx`, tab "FY27 Plan — Engines × Tracks" (the only tab to reference; the MOP tabs are per-month operating plans that SERVE these tracks). Supersedes/overarches [[project-inc42-strategy-utkarsh]]. Griffin is out of scope.
@@ -51,3 +52,16 @@ Implication for [[project-inc42-funnel-analysis]] / the unification sheet: our "
 - **QIA likely shifts 30-day → 7-day** for faster feedback loops.
 - Onboarding fields/values to be unified across platforms; skip questions already answered.
 - Ideas raised: MCP connector for Inc42 content as an acquisition play; shift IP ticket acquisition from ~70–80% paid to 50/50 organic via the audience engine.
+
+---
+
+**Sep MOP artifact** (built from this call): https://claude.ai/code/artifact/3c67e85a-aaed-47c3-bb57-4bd5eb366607 — 5 Aug close-out items + 9 (now 13) September goals, "only goals Ranjith is accountable for."
+
+**Utkarsh's feedback on the Sep MOP draft — 24 Aug 2026.** Deliberately excludes "when are we launching Pulse" (out of scope for this MOP). Added as rows 10–13 in the artifact; row-1-equivalent (employer/seniority capture) explained in chat but NOT yet folded into Goal 06 — pending Ranjith's call.
+- **Employer+seniority capture must happen at app SIGN-IN, not signup.** 198 app persons have `role` captured; ZERO have an `employer` property — org type is literally half the QIA-qualified bar ([[project-inc42-strategy-utkarsh]]'s "role+company" definition). Sign-in outnumbers register 119:29 (~4:1) — a signup-only ask permanently caps capture at ~¼ of touchpoints. Sep goal 06 (Unified onboarding) is adjacent but doesn't name this.
+- **App events already emit but never reach the warehouse** — `app_session`, watchlist, search/profile-view. Wiring them in recovers 3 QIA-qualifying actions at once. Depends on Sep goal 01 (fix the events) landing first.
+- **Unified Inc42 frontend changes** discussed in a 24 Aug meeting — blocked on the whole team agreeing one unification plan first. No further detail captured on that meeting yet.
+- **Reverse ETL to Customer.io + PostHog** — sequenced after Sep goal 02 (unify tracking docs); can't run on today's uncorrected property set.
+- **DataLabs lifecycle journeys + the new DataLabs newsletter are missing from the MOP entirely** — no owner, no target, needs scoping before the Monday lock.
+
+**How to apply:** treat rows 10–13 in the Sep MOP as unowned gaps needing assignment before Monday's lock, not committed work yet. Re-check with Ranjith whether Goal 06 gets amended for the sign-in/employer point once he's decided.
