@@ -14,6 +14,7 @@
 - [PRD completeness](feedback-prd-completeness.md) — every PRD must cover evidence/data, legal/compliance, and an outside reframe-check, not just mechanics — flag gaps explicitly instead of locking unvalidated decisions
 - [Shared system safety](feedback-shared-system-safety.md) — on INC42 n8n/team sheets touch only the named object, and PROVE non-interference with a diff, don't just assert it
 - [Analytics depth](feedback-analytics-depth.md) — funnels must report what users DID next, not where they stopped; and verify an absence with full-history SQL before asserting it (taxonomy panels only sample)
+- [Artifact design — minimal](feedback-artifact-design-minimal.md) — audit/report artifacts: one font, minimal color, tables not colored cards; corrected after an over-designed HTML report
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE, verified 15 Aug — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — install base still small (15 vs 50 unreconciled); paid ruled out, banners→store direct, feedback moves in-app; iOS live but listing has only 1 screenshot, fix blocked on build ≥41; + Aug 14 Product & Data call commitments; team: Utkarsh, Ritvik, Animesh, Nityam, Amit

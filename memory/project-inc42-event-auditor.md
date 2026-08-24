@@ -43,3 +43,29 @@ Findings classified P0/P1/P2. Output → `runs/<ts>/report.html` + `findings.jso
 
 Related: [[reference-inc42-vendor-stack]], [[reference-inc42-posthog-projects]], [[nexloid-product]]
 (this is Nexloid's diagnose step, proven on a site we control).
+
+
+**"Not tested" events, 24 Aug — reasons, not one blanket cause:**
+- **Freewall never rendered** (6 events: Freewall Lock, Login Modal, Modal Viewed/Clicked/Close/Closed) —
+  15 anonymous articles read, register-gate never appeared. Real trigger (article count? variant?) still unknown.
+- **Follow / Unfollow** — Follow button selector matched nothing on article page or a company page fallback.
+  Unfollow cascades from this (needs an existing follow first).
+- **Logout** — was a tool bug, not a real gap: the `loggedOut` verification field was added to the journey
+  *after* the run that produced the saved data, so that run's result predates the field. Separately confirmed
+  outside the tool that the sign-out did work (auth cookies cleared) but `posthog.reset()` was NOT called —
+  this finding is real, just needs a fresh run to be classified correctly.
+- **Qr Scan** — offline entry point, no URL exists to test this way.
+- **User Segment** — fed by MoEngage, which is REMOVED from the stack. Should be deprecated from the plan,
+  not chased as a bug.
+
+**Auth session:** `node login.mjs` opens a real Chrome window for Ranjith to sign in himself (Google/LinkedIn) —
+the tool never sees a password. Session saved to `.auth/state.json` (gitignored, chmod 600). Reused via
+`node audit.mjs --auth`. The `logout` journey is gated behind `--include-logout` because signing out
+invalidates that saved session server-side for all future runs.
+
+**Biggest finding from the authenticated run (23 Aug):** fully signed in on the site (`user_logged_in=1`,
+WordPress + Auth0 cookies all set), but `posthog.get_distinct_id()` stayed an anonymous UUID across every
+snapshot — `identify()` never fires for a logged-in session. Customer.io held a `gist.web.usingGuestUserToken`
+the whole time too. This is a stronger version of the 12-Aug finding (which said distinct_id = email, i.e. at
+least identified) and is the likely mechanism behind the low web identification rate in
+[[project-inc42-funnel-analysis]].
