@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 59cedaa8-a793-4cf6-9ab8-edd7339fa0a4
-  modified: 2026-08-24T17:41:12.062Z
+  modified: 2026-08-24T18:03:02.473Z
 ---
 
 Built 2026-08-24 at Ranjith's request ("everything you know — all meetings, in-person discussion, previous documents — what should be in app v2"). Two scope threads exist and are **NOT reconciled with each other** — flag this to Ranjith/Utkarsh before treating either as complete.
@@ -30,7 +30,7 @@ Designs due Wed 26 Aug, release target 31 Aug (Utkarsh flagged this may slip to 
 Source: meetings `64110c9d...` (Brief Page UI Enhancements) and `66923cf1...` (Brief Card UX Optimization), cross-checked against [[project-inc42-app-behaviour]]'s data.
 
 13. Progress indicator on brief cards ("4/8, tap for next") — ✅ data-supported
-14. Remove past-brief/calendar card; single entry point + "Continue where you left" for incomplete users — ✅ data-supported
+14. 🔴 **CORRECTED — do NOT remove the past-brief/calendar card.** Original 20 Aug plan was "remove the card, single entry point." Ranjith overrode this: keep the card, only change its CTA copy (from whatever reads "Read today's brief" today) to **"Continue where you left."** A label/copy change only, not a structural removal. Update anywhere this was recorded as "remove past-brief card" (the app-behaviour memory's ✅ data-supported checklist, the v2 tracking Google Sheet row 3) to reflect this correction.
 15. Editorial rewrites brief headline/content so it reads as a series of stories, not one article — ✅ data-supported
 16. ⚠️ **Hide "Read full article" on brief cards** — protects brief completion but deletes 54 genuine reads (94% never return once they leave); prefer adding a **return path** ("back to your brief · 4 left") over hiding the button outright
 17. ⚠️ **Relocate "Rate" to the freed space** — the rate control has **1 user in 8 days**, already flagged dead on the 1 Aug QA list. Verify it actually fires before promoting it or running interviews on "rate visibility."
@@ -66,6 +66,7 @@ Source: [[project-inc42-app-v2-release]] (session-authored 21–23 Aug, still ta
 ## Thread 6 — instrumentation that should ride along with any v2 rebuild
 Source: [[project-inc42-app-behaviour]]. Not a UI item, but breaks measurement of the v2 changes above if skipped:
 
+- **Data Labs filters returning incorrect/no results — investigate whether Elasticsearch is functioning correctly** (indexing, query, uptime). Flagged by Ranjith 24 Aug. ⚠️ Distinct from the OTHER Elasticsearch item — server consolidation for cost savings, owned by Ranjith per [[project-inc42-weekly-team-leads-sync]] — don't conflate the two; this one is a functional correctness bug, that one is infra cost cleanup.
 - Fix `app_installed` under-fire (~5% of users never fire it)
 - Fix `summary_expanded` on `company_page` — wrongly carries `story_id` instead of `company_id`
 - Instrument `decode` (the AI explainer) — zero telemetry today despite being the core positioning
