@@ -16,6 +16,7 @@
 - [Analytics depth](feedback-analytics-depth.md) — funnels must report what users DID next, not where they stopped; and verify an absence with full-history SQL before asserting it (taxonomy panels only sample)
 - [Artifact design — minimal](feedback-artifact-design-minimal.md) — audit/report artifacts: one font, minimal color, tables not colored cards; corrected after an over-designed HTML report
 - [Memory precise dates](feedback-memory-precise-dates.md) — give meeting/review memories a verified date in-body, cross-link when two memories may be the same event; caught after a 17-vs-20-Aug PostHog review split
+- [Proactive recall](feedback-proactive-recall.md) — on "what have we discussed / have you incorporated X" questions, sweep and cross-reference memory myself before answering; don't wait for Ranjith to catch what I missed
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE, verified 15 Aug — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — install base still small (15 vs 50 unreconciled); paid ruled out, banners→store direct, feedback moves in-app; iOS live but listing has only 1 screenshot, fix blocked on build ≥41; + Aug 14 Product & Data call commitments; **+ 24 Aug Weekly App Review: v2 scope closed (news rename, homepage banner, brief redesign), release 31 Aug, Sep target 5,000 installs/20% activation, activation redefined as brief+60s median, notifications → 1-2/day sector-segmented**; team: Utkarsh, Ritvik, Animesh, Nityam, Amit
