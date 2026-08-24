@@ -333,12 +333,14 @@
           <td>73 subscriptions revoked right now, no failed charge yet, none contacted. <code>User Type</code> has no failure state. A banner alone won't reach the drifted — 30 of 31 payers logged in last month, but that's payers, not this cohort.</td>
           <td><ul class="fx">
             <li>Add a payment-failure value to <code>User Type</code> — prerequisite for everything below</li>
-            <li>Day 0: in-product banner, 4 states (never confirmed / revoked / payment failed / paused)</li>
-            <li>+48h: WhatsApp utility template if no login (₹0.115/msg, fact + link only, no offer)</li>
-            <li>+5 days: email — weakest channel, CIO lane got 0.2% vs its 0.8% bar and was killed</li>
+            <li>Day 0: banner, WhatsApp, and email fire together, not staggered — a small cohort, no reason to wait</li>
+            <li>In-product banner, 4 states (never confirmed / revoked / payment failed / paused)</li>
+            <li>WhatsApp utility template (₹0.115/msg, fact + link only, no offer)</li>
+            <li>Email too — weakest channel historically (CIO lane got 0.2% vs its 0.8% bar, killed) but free to include</li>
+            <li>Give each channel its own tracked link, so the per-channel bars below still read cleanly even though they launch together</li>
             <li>High value: a person writes directly to the 9 detached payers (~₹15,919/mo)</li>
           </ul></td>
-          <td>Measure reach split first (% opening Datalabs within 7 days of mandate death). Bars: banner ≥3%, WhatsApp ≥3%, email beats 0.2%, cascade ≥8%.</td>
+          <td>Measure reach split first (% opening Datalabs within 7 days of mandate death). Bars: banner ≥3%, WhatsApp ≥3%, email beats 0.2%, combined ≥8%.</td>
           <td class="num">~1</td>
         </tr>
 
@@ -397,6 +399,19 @@
       </tbody>
     </table>
   </div>
+
+  <p class="cap"><strong>P3 — what each message says, by mandate state.</strong> All three channels below fire together on Day 0; the copy is what differs.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="width:26%">Mandate state</th><th style="width:44%">What the message says</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>Never confirmed</td><td>"One step left — approve the auto-pay request in your UPI app."</td><td>Resend request</td></tr>
+        <tr><td>Revoked</td><td>"Auto-pay is off. Your access ends 14 Sep."</td><td>Turn it back on</td></tr>
+        <tr><td>Payment failed</td><td>"₹1,768.82 didn't go through. We'll try again on 17 Sep."</td><td>Pay now</td></tr>
+        <tr><td>Paused</td><td>"Auto-pay resumes 14 Oct."</td><td>Nothing to do</td></tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
 <!-- ========== 04 ========== -->
@@ -429,7 +444,7 @@
         <tr><td class="num">14</td><td><strong>Add a payment-failure value to <code>User Type</code></strong></td><td>P3</td><td><span class="chip c-s">S</span></td><td>Prerequisite — nothing below is targetable without this property</td><td>Front end can tell broken from healthy</td></tr>
         <tr><td class="num">15</td><td>Measure what share of the broken cohort opens Datalabs within 7 days</td><td>P3</td><td><span class="chip c-s">XS</span></td><td>Decides how much weight sits on the banner vs. WhatsApp — unknown today</td><td>Number in hand — it sets the channel weighting</td></tr>
         <tr><td class="num">16</td><td>Build the four-state in-product banner</td><td>P3</td><td><span class="chip c-s">M</span></td><td>Cheapest, fastest channel — reaches anyone who's still opening the product</td><td>Live, ≥3% reactivation</td></tr>
-        <tr><td class="num">17</td><td>Set up WhatsApp utility templates for mandate-dead and payment-failed</td><td>P3</td><td><span class="chip c-s">M</span></td><td>Catches the drifted cohort a banner can't reach — phone number already collected at checkout</td><td>Sending at +48h to non-returners</td></tr>
+        <tr><td class="num">17</td><td>Set up WhatsApp utility templates for mandate-dead and payment-failed</td><td>P3</td><td><span class="chip c-s">M</span></td><td>Catches the drifted cohort a banner can't reach — phone number already collected at checkout</td><td>Sending same day as the banner and email, with a tracked link</td></tr>
         <tr><td class="num">18</td><td>Attach a customer identity to payment events</td><td>P3</td><td><span class="chip c-s">M</span></td><td>A cancellation can't be traced to a person today</td><td>A cancellation traces to a person. <strong>Can't today.</strong></td></tr>
         <tr><td class="num">19</td><td>Wire the <code>token.cancelled</code> webhook</td><td>P4</td><td><span class="chip c-s">M</span></td><td>We currently learn of 0 of 91 revocations before the next charge has already bounced</td><td>Same-day detection</td></tr>
 
