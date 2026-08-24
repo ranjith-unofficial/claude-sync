@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 59cedaa8-a793-4cf6-9ab8-edd7339fa0a4
-  modified: 2026-08-24T17:30:44.468Z
+  modified: 2026-08-24T17:38:26.637Z
 ---
 
 Built 2026-08-24 at Ranjith's request ("everything you know — all meetings, in-person discussion, previous documents — what should be in app v2"). Two scope threads exist and are **NOT reconciled with each other** — flag this to Ranjith/Utkarsh before treating either as complete.
@@ -72,6 +72,7 @@ Source: [[project-inc42-app-behaviour]]. Not a UI item, but breaks measurement o
 - Confirm error taxonomy via SQL, not the PostHog panel (it only samples recent values — 403s may be silently swallowed client-side)
 - Add `update_prompt_shown/dismissed/cta_tapped/update_completed` events if Thread 5's update-prompt work ships, or uptake is unmeasurable
 - **App load is slow; 429 too-many-requests errors observed; Datadog shows a 4.77% overall error rate** (surfaced 21 Aug, [[project-inc42-unification]]-adjacent funnel session, meeting id `417df34b...`) — verify under low-network conditions, not yet confirmed fixed as of 24 Aug.
+- **Flag/exclude internal users in PostHog** — from Utkarsh's PostHog review ([[project-inc42-posthog-review]], date uncertain 17–20 Aug, only this one pointer captured of "a lot of others"). Likely root cause of three now-corrected metrics (69/31 Explore split, 7s median, 41% entry rate) that were measurement artifacts, not real product problems — mechanism (person property / cohort / IP rule) still undecided. ⚠️ Any other pointers from that same review, once recovered, should be re-verified against real data before being treated as confirmed fixes — this review's own numbers were wrong three times already.
 
 ## Thread 7 — AskInc42, a separate major feature with its own 17-decision PRD, NOT mentioned in the 24 Aug v2 close
 Source: [[project-inc42-askinc42]], PRD v6 at `AskInc42_PRD_v6.docx` / artifact `320582bd-1b52-495f-9980-92310d6621e8`. Sequencing was locked 31 Jul: **AskInc42 ships before [[project-inc42-social-intelligence]] (Pulse)** — but it was not raised in today's Weekly App Review, and Thread 1's "v2" scope contains nothing that matches it. Two live possibilities: it's meant to land in this same v2 cut and got dropped from the agenda, or it's tracked as its own separate release. Flag before assuming either.
