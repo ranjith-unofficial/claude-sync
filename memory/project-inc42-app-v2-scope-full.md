@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 59cedaa8-a793-4cf6-9ab8-edd7339fa0a4
-  modified: 2026-08-24T17:28:40.253Z
+  modified: 2026-08-24T17:30:44.468Z
 ---
 
 Built 2026-08-24 at Ranjith's request ("everything you know — all meetings, in-person discussion, previous documents — what should be in app v2"). Two scope threads exist and are **NOT reconciled with each other** — flag this to Ranjith/Utkarsh before treating either as complete.
@@ -71,5 +71,32 @@ Source: [[project-inc42-app-behaviour]]. Not a UI item, but breaks measurement o
 - Instrument `decode` (the AI explainer) — zero telemetry today despite being the core positioning
 - Confirm error taxonomy via SQL, not the PostHog panel (it only samples recent values — 403s may be silently swallowed client-side)
 - Add `update_prompt_shown/dismissed/cta_tapped/update_completed` events if Thread 5's update-prompt work ships, or uptake is unmeasurable
+- **App load is slow; 429 too-many-requests errors observed; Datadog shows a 4.77% overall error rate** (surfaced 21 Aug, [[project-inc42-unification]]-adjacent funnel session, meeting id `417df34b...`) — verify under low-network conditions, not yet confirmed fixed as of 24 Aug.
 
-**How to apply:** when asked "what's in v2," lead with Thread 1 (what's actually closed and dated) and flag Threads 2–4 as feeding into it. Explicitly surface the Thread 1/Thread 5 non-reconciliation and the ⚠️/❌ data-contradicted items rather than presenting everyone's wishlist as equally decided.
+## Thread 7 — AskInc42, a separate major feature with its own 17-decision PRD, NOT mentioned in the 24 Aug v2 close
+Source: [[project-inc42-askinc42]], PRD v6 at `AskInc42_PRD_v6.docx` / artifact `320582bd-1b52-495f-9980-92310d6621e8`. Sequencing was locked 31 Jul: **AskInc42 ships before [[project-inc42-social-intelligence]] (Pulse)** — but it was not raised in today's Weekly App Review, and Thread 1's "v2" scope contains nothing that matches it. Two live possibilities: it's meant to land in this same v2 cut and got dropped from the agenda, or it's tracked as its own separate release. Flag before assuming either.
+
+Locked scope if/when it does ship:
+- **v1 placement: brief-end** (swap the existing "Explore Trending Stories" carousel for Ask chips, same cards + new CTA, not a new block) **+ Watchlist/company page** Ask entry points; article-detail secondary
+- Logged-in only; auto-fires the seeded question on tap (or post-login)
+- Two modes: **Fast** (cached, target 5s / never exceeds 10s) vs **Deep** (Datalab-grounded, never exceeds 30s) — current backend runs 8–25s, already over the Fast ceiling
+- Chat history persistent + thumbs up/down feedback
+- 5 personas (Founder / Investor / Operator / BD & Partnerships / Other), each with a distinct question "lens," not exact templates
+- No paid gating for now (earlier Free/Plus tier idea dropped)
+- Response format: ~150–200 words, no Markdown tables, tappable citation cards not inline links
+- Delayed-response push notification if the app is closed before an answer finishes
+- ⚠️ **DPDP gap**: live Privacy Policy §5.1 already names AI features as active, but no LLM sub-processor is disclosed anywhere and no DPA/zero-retention terms exist on file — raise with Utkarsh independent of the main 3-phase DPDP engagement, don't wait for it.
+- Brief-end placement is "pending data," not fully confirmed — needs `brief_completed` rate pulled from the warehouse before being locked as primary (this data likely now exists per [[project-inc42-app-behaviour]]'s 18% completion figure — worth closing this loop).
+
+## Thread 8 — older items, surfaced across July, not confirmed done or reconciled as of 24 Aug
+Carry these forward rather than treating Thread 1 as the complete list — they predate the recent run of meetings and nobody has said they shipped.
+
+- **Card copy fix, still open as of 29 Jul**: "✦ Read more (takes 30 seconds)" is contradictory (open-ended "read more" + a promised end time) and fights the app's anti-infinite-scroll positioning. Recommended, not yet confirmed: **`30-sec summary`** or **`Summary · 30 sec`** for the summary block, with the full article getting its own separate **`Read full story →`** CTA. Directly overlaps Thread 1 #3 (brief card redesign) — fold in.
+- **Sector-tagging P0s** ([[project-inc42-content-personalization]]): 86% of articles have no `Company_Industries` → sector personalization is structurally dead, not a bug. Fix tagging or drop sector selection from onboarding; add the 6 unmapped industry values (Social Media, Ride Hailing, Quick Commerce, AR/VR, Kitchenware, TBD) to the sector map; add a per-topic diversity cap so briefs aren't monotone (currently a Deals follower gets 10/10 Deals articles). Same root cause as Thread 4's sector-image problem.
+- **20-item QA bug list shared 1 Aug, zero confirmed fixed as of 29 Jul** ([[project-inc42-open-items]]) — the ones not already folded into Threads 1–3 above: onboarding notification-permission prompt moved to 2nd screen; Continue button stays enabled with a "choose at least two sectors" validation error instead of being disabled; remove em dashes app-wide; shrink brief-card title; Streak page spacing/overlap fix + keep both nav arrows visible but disable the unavailable direction; company filter bottom sheet capped to 50–70% screen height; Sort By swaps "Headcount Change" → "Total Revenue"; reduce top whitespace on Featured Article; move the bottom nav/CTA action section up; drop "Today's Brief" label from the brief header, keep only branding; "Saving..." should persist until the save action actually completes, not show "Saved" early; tighten spacing around name/Enterprise tag on Companies-in-the-News; guest users must hit a login prompt on interaction (currently don't). Plus 3 follow-ups: tag inline-article-mention opens with a distinct source/campaign so they're separable in analytics; finalize Articles/Companies pill order with Editorial; create a CRM doc listing identified CRM use cases.
+- **Cross-platform onboarding unification**: skip onboarding questions already answered on another Inc42 property, unify field/value conventions across web/app/DataLabs (raised 21 Aug, [[project-inc42-fy27-plan]]-adjacent planning session) — distinct from, but related to, the "unified navigation" item Team Leads Sync flagged as needing its own one-pager.
+
+## Possible unreconciled overlap — flag, don't assume
+**"B2"** ([[project-inc42-app-placement]], 10 Aug, owner Satya) — placing Inc42 editorial/news content inside the app, design-only so far. This sounds like it could be the same initiative as Thread 1 #1 (Explore → News rename, more prominence to the news section) under an earlier working name, or it could be a separate, narrower placement decision. Never explicitly reconciled in any session since. Ask Ranjith/Satya directly before assuming either.
+
+**How to apply:** when asked "what's in v2," lead with Thread 1 (what's actually closed and dated) and flag Threads 2–4 and 6–8 as feeding into or predating it. Explicitly surface the Thread 1/Thread 5/Thread 7 non-reconciliation, the "B2" naming overlap, and the ⚠️/❌ data-contradicted items rather than presenting everyone's wishlist as equally decided.
