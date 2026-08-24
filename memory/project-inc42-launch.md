@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 9528bcb6-d611-479f-9459-97ac0adfb878
-  modified: 2026-08-20T13:49:13.482Z
+  modified: 2026-08-24T17:00:07.911Z
 ---
 
 Ranjith is driving the **Inc42 mobile app launch** end to end.
@@ -117,5 +117,13 @@ Primary success metric is **Day 1 / Week 1 installs**.
 **Scope Ranjith owns:** onboarding flow, industry/sector selection, news personalization, company tracking, funnel estimation, product metrics, PRDs, analytics, and the T&C + Privacy Policy app amendments.
 
 **GTM:** grounded in *verified* Inc42 channel metrics (not assumptions). Cold-reader-first copy across LinkedIn, Instagram, X, email.
+
+**2026-08-24 Weekly App Review (Ranjith + Utkarsh + Animesh + Nityam) — v2 scope closed, September targets locked.**
+- **v2 scope closed today; designs due Wednesday (26 Aug); release by 31 Aug.** Items: explore renamed to "news" (kept in tab order, no center-tab pattern; brief stays a feature, not the hero), homepage banner inventory replacing the calendar/greeting space to educate on brief, brief card redesign, Data Labs filters, app-update banner fix, dark mode within 15–30 days. This is a separate, distinct scope from the flags/feedback/ratings 10-item list in [[project-inc42-app-v2-release]] (still PROPOSED) — don't merge the two lists.
+- **Notifications: move to 1–2/day 1:1 news-based push** on breaking/important stories (editor flags via Slack), sector-segmented over blanket blasts — supersedes the "universal, not sector-targeted" cadence agreed 12 Aug above. CIO LLM actions + batch processing for personalized brief titles floated as a later step.
+- **September target: 5,000 installs, ~20% activation (~2,000)** via amplified basic campaigns — no brand campaign yet. Brand/full launch pushed to **mid-October** (post-Dussehra), tied to the D2C Retreat and Griffin shoots. Install CPI benchmark ~₹100–150.
+- **Activation redefined: brief completed + minimum 60 seconds, measured on median (not average).** Use this definition going forward, not raw completion.
+- Ranjith's opens: share v2 scope list, finalize designs by Wed, add a forced/prominent app-update prompt in v2, fix Singular deep-linking with a permanent in-app integration ([[project-inc42-deep-linking]]), set up a shorter brief-first-vs-explore-first A/B via PostHog for second-half September.
+- Utkarsh's opens: send the app download link/ready-message for team sharing, plan the October brand launch, propose budget options to hit the 5,000 install target.
 
 Related: [[project-inc42-legal-compliance]], [[project-inc42-content-personalization]], [[reference-inc42-vendor-stack]].
