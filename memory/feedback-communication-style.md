@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: feedback
   originSessionId: 9528bcb6-d611-479f-9459-97ac0adfb878
-  modified: 2026-08-03T19:39:12.538Z
+  modified: 2026-08-24T09:53:55.857Z
 ---
 
 **Default response style for Ranjith — crisp and practical:**
@@ -31,3 +31,5 @@ metadata:
 **Jargon/stats without explanation breaks comprehension, even in "deep" content (2026-08-03):** on [[project-daily-signal]], a line like "Beats its own larger 1.6T-parameter Pro model on agent benchmarks (82.7% Terminal-Bench) — a cost/efficiency play" was flagged as unreadable — he said "I'm unable to understand anything from here." He still wants depth (more angles per story: why/who wins/who loses/what to learn), but every sentence must read like it's explained over coffee, not like an analyst report — drop unexplained benchmark names/param counts/acronyms unless the number itself is the point, and always land on a plain one-line "why it matters." Depth = more angles, not denser vocabulary. This applies as a default, not just when he explicitly asks for "explain like I'm 10."
 
 **Tabular/visual over prose — stated as a standing rule, "remember this always" (2026-08-04):** after receiving a long-form magazine-style artifact (essay paragraphs synthesizing brand patterns, even with pull-quotes and section headers), he asked for the same content rebuilt as tables/visual layouts — long connecting paragraphs are hard to consume even when well-argued. This is stronger than "no paragraphs in chat" ([[feedback-communication-style]] above) — it extends to artifacts/documents too: default to tables, comparison grids, or card layouts with structured rows over narrative essay sections, even for qualitative/analytical content (brand positioning, "why them" synthesis) that might otherwise read naturally as prose. If a genuine narrative thread is needed to connect the data, keep it to one short intro line per section, not paragraphs — put the actual content in the table/visual, not around it.
+
+**Reinforced a third time (2026-08-24), [[project-inc42-datalabs-winback]]:** a "Seven problems" section built as narrative cards — one card per problem, each with an evidence paragraph, a labelled solutions list, and an experiment callout — drew the same complaint: "not so convincing... this could be prepared in tabular column." Rebuilt as one table (Problem | Evidence | Fix | Experiment bar | Worth), bullet lists nested inside the Fix cell. Pattern is now confirmed, not a one-off: any set of several similar items each carrying sub-details (a list of problems, competitors, risks, options) defaults to a table with the sub-details as nested bullets in a cell — even when each item is already internally well-structured with its own labels/bullets, that per-item structure doesn't substitute for a shared table.

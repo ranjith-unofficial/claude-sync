@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 72387b56-834c-4778-99ee-da11505342fe
-  modified: 2026-08-21T08:44:56.901Z
+  modified: 2026-08-24T09:53:34.942Z
 ---
 
 **Inc42 Morning Tape** — daily one-screen analytics brief across the three properties, built 21 Aug 2026.
@@ -28,3 +28,9 @@ metadata:
 Also: mobile events arrive late. App counts drifted +1/+2 between two queries 30 min apart, ~14h after the day closed. A 7am run may slightly under-count the app.
 
 Standing data-trust issues it re-checks each run — see [[project-inc42-funnel-analysis]] and [[project-inc42-posthog-review]] for context.
+
+**⚠ OPEN: the page design violates [[feedback-artifact-design-minimal]]** (feedback given 2026-08-23/24, after this was built).
+The published page and the routine prompt both specify the style he has since rejected on a different report: an IBM Plex Serif+Sans+Mono trio, severity-striped cards with colored left borders, colored delta chips, and KPI stat tiles with big colored numbers. Per that feedback it should be one plain sans, near-grayscale, severity as a plain text label, and findings as a table rather than cards.
+**Fixing it means editing the routine prompt too** (`RemoteTrigger` action `update`, section 6 of the prompt) — otherwise the next 7am run regenerates the rejected style. Flagged to Ranjith 2026-08-24; not changed without his go-ahead.
+
+An artifact is still the right vehicle here despite [[feedback-deliver-in-chat]] — he explicitly asked for "a morning viewer dashboard or something", and it is a standing daily page rather than a one-off answer.

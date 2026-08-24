@@ -5,6 +5,7 @@ metadata:
   node_type: memory
   type: feedback
   originSessionId: 1b85df8c-b255-4a10-9994-1dbcc66c6987
+  modified: 2026-08-24T09:54:05.544Z
 ---
 
 When Ranjith gives me a document someone has reviewed (e.g. Utkarsh's compliance review) and asks whether the changes are incorporated, he wants a **line-by-line audit against every single item** — not a summary.
@@ -19,3 +20,5 @@ When Ranjith gives me a document someone has reviewed (e.g. Utkarsh's compliance
 **Why:** these are legal/compliance documents where a single missed clause causes a store rejection. He is accountable for them and cannot verify every line himself, so a falsely confident "all done" is worse than a slow, honest audit.
 
 **How to apply:** before answering "is it all in?", actually re-read the source, grep the target, and produce a status table. If the PDF/DOCX exports are stale relative to the source, say so — don't imply they're current. Pairs with [[feedback-validation-approach]] and [[feedback-communication-style]].
+
+**Self-inflicted miss, not just a review miss (2026-08-24), [[project-inc42-datalabs-winback]]:** this applies to restructuring my own output, not only auditing someone else's. Collapsing seven narrative "problem cards" into one summary table silently dropped a nested reference table (exact message copy per mandate state) that lived inside one of the cards — it didn't fit the new column layout and got left out without noticing. Only caught because Ranjith kept probing the doc and I re-diffed old content against new. **How to apply:** any time I restructure/reformat a doc (reorganizing sections, collapsing cards into a table, merging content), grep the old version for named facts/tables/copy and confirm each one still appears in the new version before calling it done — reformatting is exactly the moment detail silently disappears, not just review of external material.
