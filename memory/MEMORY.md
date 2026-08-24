@@ -56,6 +56,7 @@
 - [Project: Daily Signal briefing](project-daily-signal.md) — separate from above; full 20-section AI/product-decision/geopolitics artifact, calendar-strip UI, cloud-scheduled 9am IST, push-notified
 - [Project: INC42 hiring agent](project-inc42-hiring-agent.md) — AI agent scores Keka applicants; v1 = score-only; Keka API is a paid add-on (confirmed), DPDP consent-scope question unresolved, Notion MCP pending for Yash's meeting notes; now going MULTI-ROLE (one workflow, per-role sheet config) + two-step CTC rule agreed with Utkarsh + experience computation found broken
 - [Project: INC42 Product Trainee hiring](project-inc42-product-trainee.md) — Ranjith's own role, 545 Keka applicants, criteria locked (internships COUNT, cap ₹5L, presentation not a gate); PT Calibration tab awaiting his 20 blind grades before any spend
+- [PT hiring — interview assignment doc](project-inc42-product-trainee-assignment.md) — 2-part interview stage (take-home diagnosis + live no-prep round), open rubric, artifact b1120c11
 - [Project: DPDP compliance](project-dpdp-compliance.md) — 3-phase engagement, tech leads Prapti & Ashish, May 2027 deadline; Aug 11 quote ₹15L→₹10L+GST but all-in ~₹30L w/ consent mgr + security tools — Ranjith stalling until minimum requirement is known; vendor naming (KavachOne/Shivang vs "Mitigator") unresolved
 - [Project: AI agents](project-ai-agents.md) — sales/support/qualification agents, voice AI, consulting
 - [ranjith.tech](reference-ranjith-tech.md) — personal site + security audit findings
