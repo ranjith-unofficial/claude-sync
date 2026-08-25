@@ -260,211 +260,255 @@
 
   <header>
     <h1>Dunning Decision Map</h1>
-    <p>How a Datalabs Pro payment or mandate event routes to a treatment — the same 8 cases from the working sheet, drawn as one mechanism instead of fifteen columns.</p>
+    <p>Every exact Razorpay status Datalabs Pro can receive, where it maps, and exactly what the customer sees. The map below is the index; each card after it is the full picture for one case — mapping, banner, and guardrail together.</p>
   </header>
 
   <section>
-    <h2>Flow</h2>
-    <figure>
-      <div class="diagram-frame">
-        <svg class="flow" viewBox="0 0 1150 760" role="img" aria-label="All 8 states: a Razorpay payment or mandate event classifies by its exact status into Transient, Needs Re-auth, or Cancellation, each splitting into First payment, Renewal, and — for Needs Re-auth — the on-hold edge case and Cancellation's External/Voluntary split, converging on a shared Terminal state.">
-
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.6" />
-            </marker>
-          </defs>
-
-          <!-- Entry -->
-          <rect x="475" y="16" width="200" height="46" rx="5" class="node-box entry-box" />
-          <text x="575" y="44" text-anchor="middle" class="node-label" font-weight="600">Charge attempt / webhook</text>
-
-          <!-- fan-out connectors with exact status codes -->
-          <path d="M 500,62 C 400,100 220,100 150,128" class="connector" marker-end="url(#arrow)" />
-          <text x="300" y="106" text-anchor="middle" class="code-label mono-label">GATEWAY_ERROR</text>
-
-          <path d="M 575,62 L 575,128" class="connector" marker-end="url(#arrow)" />
-          <text x="575" y="90" text-anchor="middle" class="code-label mono-label">token: initiated / expired / rejected / cancelled</text>
-          <text x="575" y="103" text-anchor="middle" class="code-label mono-label">→ RECURRING_TOKEN_NOT_CONFIRMED</text>
-
-          <path d="M 650,62 C 750,100 880,100 950,128" class="connector" marker-end="url(#arrow)" />
-          <text x="880" y="76" text-anchor="middle" class="code-label mono-label">token.cancelled (external)</text>
-          <text x="880" y="113" text-anchor="middle" class="code-label mono-label">/ our own cancel-at-period-end API (voluntary)</text>
-
-          <!-- Track headers -->
-          <rect x="50"  y="130" width="200" height="46" rx="5" class="node-box" />
-          <text x="150" y="158" text-anchor="middle" class="track-title">Transient</text>
-
-          <rect x="475" y="130" width="200" height="46" rx="5" class="node-box" />
-          <text x="575" y="158" text-anchor="middle" class="track-title">Needs Re-auth</text>
-
-          <rect x="850" y="130" width="200" height="46" rx="5" class="node-box" />
-          <text x="950" y="158" text-anchor="middle" class="track-title">Cancellation</text>
-
-          <!-- header -> leaf connectors -->
-          <path d="M 120,176 C 108,200 98,212 90,228" class="connector" marker-end="url(#arrow)" />
-          <path d="M 180,176 C 205,200 230,212 250,228" class="connector" marker-end="url(#arrow)" />
-
-          <path d="M 505,176 C 465,200 435,212 410,228" class="connector" marker-end="url(#arrow)" />
-          <path d="M 575,176 L 575,228" class="connector" marker-end="url(#arrow)" />
-          <path d="M 645,176 C 685,200 715,212 740,228" class="connector" marker-end="url(#arrow)" />
-
-          <path d="M 895,176 C 895,200 895,212 895,228" class="connector" marker-end="url(#arrow)" />
-          <path d="M 990,176 C 1000,200 1010,212 1015,228" class="connector" marker-end="url(#arrow)" />
-
-          <!-- ===== Leaves: Transient ===== -->
-          <rect x="20" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
-          <text x="90" y="250" text-anchor="middle" class="leaf-title">First payment</text>
-          <text x="90" y="266" text-anchor="middle" class="leaf-detail pending-text">Access: Cut †</text>
-          <text x="90" y="280" text-anchor="middle" class="leaf-detail">4× retry · 7d</text>
-
-          <rect x="180" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
-          <text x="250" y="250" text-anchor="middle" class="leaf-title">Renewal</text>
-          <text x="250" y="266" text-anchor="middle" class="leaf-detail ok-text">Access: Live</text>
-          <text x="250" y="280" text-anchor="middle" class="leaf-detail">retries: OPEN</text>
-
-          <!-- ===== Leaves: Needs Re-auth ===== -->
-          <rect x="340" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
-          <text x="410" y="250" text-anchor="middle" class="leaf-title">First payment</text>
-          <text x="410" y="266" text-anchor="middle" class="leaf-detail never-text">Access: Cut</text>
-          <text x="410" y="280" text-anchor="middle" class="leaf-detail">0 retry · 7d→15d</text>
-
-          <rect x="505" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
-          <text x="575" y="250" text-anchor="middle" class="leaf-title">Renewal</text>
-          <text x="575" y="266" text-anchor="middle" class="leaf-detail never-text">Access: Cut</text>
-          <text x="575" y="280" text-anchor="middle" class="leaf-detail">0 retry · 7d→15d</text>
-
-          <rect x="670" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
-          <text x="740" y="250" text-anchor="middle" class="leaf-title" font-size="11">Renewal, on-hold</text>
-          <text x="740" y="266" text-anchor="middle" class="leaf-detail">unchanged —</text>
-          <text x="740" y="280" text-anchor="middle" class="leaf-detail">cycle continues</text>
-
-          <!-- ===== Leaves: Cancellation ===== -->
-          <rect x="820" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
-          <text x="890" y="250" text-anchor="middle" class="leaf-title">External</text>
-          <text x="890" y="266" text-anchor="middle" class="leaf-detail ok-text">Access: Live</text>
-          <text x="890" y="280" text-anchor="middle" class="leaf-detail">to paid-through date</text>
-
-          <rect x="945" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
-          <text x="1015" y="250" text-anchor="middle" class="leaf-title">Voluntary</text>
-          <text x="1015" y="266" text-anchor="middle" class="leaf-detail ok-text">Access: Live</text>
-          <text x="1015" y="280" text-anchor="middle" class="leaf-detail">to paid-through date</text>
-
-          <!-- Converge to Terminal -->
-          <path d="M 410,294 C 410,480 480,610 520,668" class="connector" marker-end="url(#arrow)" />
-          <path d="M 575,294 L 575,668" class="connector" marker-end="url(#arrow)" />
-          <text x="575" y="470" text-anchor="middle" class="arrow-label">grace / 15d attempts exhausted</text>
-
-          <path d="M 890,294 C 890,480 700,610 640,668" class="connector" marker-end="url(#arrow)" />
-          <path d="M 1015,294 C 1015,480 680,630 630,668" class="connector" marker-end="url(#arrow)" />
-          <text x="900" y="440" text-anchor="middle" class="arrow-label">end date passes,</text>
-          <text x="900" y="453" text-anchor="middle" class="arrow-label">no reactivation</text>
-
-          <path d="M 170,294 C 170,460 350,610 480,665" class="connector undoc" marker-end="url(#arrow)" />
-          <text x="230" y="440" text-anchor="middle" class="arrow-label" font-style="italic">path undocumented in source</text>
-
-          <rect x="475" y="670" width="200" height="56" rx="5" class="node-box terminal-box" />
-          <text x="575" y="692" text-anchor="middle" class="node-label" font-weight="600">Terminal</text>
-          <text x="575" y="708" text-anchor="middle" class="node-label">Resubscribe only — no free trial</text>
-
-        </svg>
-      </div>
-      <figcaption>
-        All 8 states, drawn as one mechanism. Every charge or webhook carries an <b>exact Razorpay status</b> — shown on the arrows — which classifies it into Transient, Needs Re-auth, or Cancellation; each then splits by who it happened to, since that's what changes the access decision. † First-payment-transient's "Access: Cut" is Claude's proposal, not yet confirmed — see the flag on that row in the table. Not drawn: a successful charge, re-authorization, or ₹10 reactivation exits any track immediately and clears all messaging. What happens if Transient retries exhaust at Day 7 is not specified anywhere in the source doc — flagged, not guessed.
-      </figcaption>
-    </figure>
-  </section>
-
-  <section>
-    <h2>Reference — the 8 cases</h2>
-    <div class="table-wrap">
-      <table>
+    <h2>The status map — every exact Razorpay signal, and where it goes</h2>
+    <div class="map-wrap">
+      <table class="maptable">
         <thead>
           <tr>
-            <th>Case</th>
-            <th>Razorpay trigger</th>
-            <th>Access</th>
-            <th>Retries / touches</th>
-            <th>Grace → attempts</th>
-            <th>Banner</th>
-            <th>Status</th>
+            <th>Razorpay status / trigger</th>
+            <th>Maps to case</th>
+            <th>Track</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="case">First payment — Transient<span class="sub">Day 7, trial → paid</span></td>
             <td class="mono">GATEWAY_ERROR</td>
-            <td><span class="pill pill-cut">Cut</span><span class="flag">Claude: should likely be Live, to match Renewal-Transient — unconfirmed</span></td>
-            <td>4× charge retries — Day 0, 1, 3, 6</td>
-            <td>7d → 7d</td>
-            <td><b>Pay now</b> — "Your ₹1,768.82 payment didn't go through"</td>
-            <td><span class="pill pill-open">Proposed</span></td>
+            <td>First payment — Transient · Renewal — Transient</td>
+            <td><span class="track-tag t-transient">Transient</span></td>
           </tr>
           <tr>
-            <td class="case">First payment — Dead mandate<span class="sub">Day 7, trial → paid</span></td>
-            <td class="mono">RECURRING_TOKEN_NOT_CONFIRMED</td>
-            <td><span class="pill pill-cut">Cut</span></td>
-            <td>0 retries — 7 re-auth nudges</td>
-            <td>7d → 15d</td>
-            <td><b>Activate now</b> — "Activate your account to start your trial"</td>
-            <td><span class="pill pill-confirmed">Confirmed</span></td>
+            <td class="mono">Token status: <b>initiated</b> (unconfirmed) → error <b>RECURRING_TOKEN_NOT_CONFIRMED</b></td>
+            <td>First payment — Dead mandate</td>
+            <td><span class="track-tag t-reauth">Needs Re-auth</span></td>
           </tr>
           <tr>
-            <td class="case">Renewal — Dead mandate<span class="sub">existing payer</span></td>
-            <td class="mono">token expired / rejected / cancelled → RECURRING_TOKEN_NOT_CONFIRMED</td>
-            <td><span class="pill pill-cut">Cut</span></td>
-            <td>0 retries — 7 re-auth nudges</td>
-            <td>7d → 15d</td>
-            <td><b>Update payment method</b> — "Your auto-pay stopped working"</td>
-            <td><span class="pill pill-confirmed">Confirmed</span></td>
+            <td class="mono">Token status: <b>expired</b> / <b>rejected</b> / <b>cancelled</b> → error <b>RECURRING_TOKEN_NOT_CONFIRMED</b></td>
+            <td>Renewal — Dead mandate</td>
+            <td><span class="track-tag t-reauth">Needs Re-auth</span></td>
           </tr>
           <tr>
-            <td class="case">Renewal — dies mid-recovery<span class="sub">edge case, already on-hold</span></td>
-            <td class="mono">token.cancelled (sub on-hold)</td>
-            <td><span class="pill pill-note">Unchanged</span></td>
-            <td>0 — existing cadence continues, clock not restarted</td>
-            <td>whatever's left</td>
-            <td>Same as Renewal — Dead mandate</td>
-            <td><span class="pill pill-note">Structural</span></td>
+            <td class="mono"><b>token.cancelled</b> webhook — subscription was <b>ON-HOLD</b> when it arrived</td>
+            <td>Renewal — dies mid-recovery (edge case)</td>
+            <td><span class="track-tag t-reauth">Needs Re-auth</span></td>
           </tr>
           <tr>
-            <td class="case">Renewal — Transient<span class="sub">existing payer</span></td>
-            <td class="mono">GATEWAY_ERROR</td>
-            <td><span class="pill pill-live">Live</span></td>
-            <td>OPEN — count not yet set</td>
-            <td>n/a</td>
-            <td><b>Pay now</b> — "we'll retry automatically"</td>
-            <td><span class="pill pill-open">Open</span></td>
+            <td class="mono"><b>token.cancelled</b> webhook — subscription was <b>ACTIVE</b> when it arrived</td>
+            <td>Cancellation — External</td>
+            <td><span class="track-tag t-cancel">Cancellation</span></td>
           </tr>
           <tr>
-            <td class="case">Cancellation — External</td>
-            <td class="mono">token.cancelled (sub active)</td>
-            <td><span class="pill pill-live">Live to paid-through date</span></td>
-            <td>n/a — customer-initiated, unlimited, honored late</td>
-            <td>n/a</td>
-            <td><b>Reactivate ₹10</b> — "Your auto-pay is off"</td>
-            <td><span class="pill pill-note">Unchanged</span></td>
+            <td class="mono">n/a — our own API call, <b>POST /subscriptions/{id}/cancel-at-period-end</b> (not a Razorpay status)</td>
+            <td>Cancellation — Voluntary</td>
+            <td><span class="track-tag t-cancel">Cancellation</span></td>
           </tr>
           <tr>
-            <td class="case">Cancellation — Voluntary</td>
-            <td class="mono">n/a — our own API</td>
-            <td><span class="pill pill-live">Live to paid-through date</span></td>
-            <td>Same as external</td>
-            <td>n/a</td>
-            <td><b>Reactivate ₹10</b> — "Your subscription is ending on {date}"</td>
-            <td><span class="pill pill-note">Unchanged</span></td>
-          </tr>
-          <tr>
-            <td class="case">Terminal</td>
-            <td class="mono">n/a — our cron / WCS auto-transition</td>
-            <td><span class="pill pill-cut">None</span></td>
-            <td>0 — sequence exit only</td>
-            <td>n/a</td>
-            <td><b>Resubscribe</b> — "Your subscription has ended"</td>
-            <td><span class="pill pill-note">Unchanged</span></td>
+            <td class="mono">n/a — our own auto-cancel cron, or WCS's own end-date auto-transition (not a Razorpay status)</td>
+            <td>Terminal</td>
+            <td><span class="track-tag t-terminal">Terminal</span></td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Every case, in full — mapping, banner, and guardrail together</h2>
+    <div class="case-grid">
+
+      <div class="case-card t-transient">
+        <div class="card-head">
+          <div>
+            <h3>First payment — Transient</h3>
+            <div class="card-sub">Day 7, trial → paid conversion</div>
+          </div>
+          <span class="pill pill-open">Proposed</span>
+        </div>
+        <span class="trigger-chip">GATEWAY_ERROR</span>
+        <div class="map-strip">
+          <div class="step"><span class="k">Access</span><span class="v cut">Cut *</span></div>
+          <div class="step"><span class="k">Retries</span><span class="v">4×, Day 0/1/3/6</span></div>
+          <div class="step"><span class="k">Grace → Attempts</span><span class="v">7d → 7d</span></div>
+        </div>
+        <div class="banner-mock">
+          <div class="bm-eyebrow">In-app banner</div>
+          <div class="bm-head">Your ₹1,768.82 payment didn't go through</div>
+          <div class="bm-body">We'll try again automatically — {N} attempts left before {Day 7 date}. Add funds or update your payment method to keep your trial results and saved filters.</div>
+          <span class="bm-cta">Pay now</span>
+          <div class="bm-fomo">FOMO: countdown "X attempts · Y days left" — loss-anchored on saved trial filters/results, not an invented discount.</div>
+        </div>
+        <div class="card-guardrail">* Claude's proposal, not yet confirmed: never cut access for a funds-only issue — the mandate is fine, and this contradicts how Renewal — Transient is treated below. <b>Never ask this customer to re-authorize.</b></div>
+      </div>
+
+      <div class="case-card t-reauth">
+        <div class="card-head">
+          <div>
+            <h3>First payment — Dead mandate</h3>
+            <div class="card-sub">Day 7, trial → paid conversion</div>
+          </div>
+          <span class="pill pill-confirmed">Confirmed</span>
+        </div>
+        <span class="trigger-chip">token initiated (unconfirmed) → RECURRING_TOKEN_NOT_CONFIRMED</span>
+        <div class="map-strip">
+          <div class="step"><span class="k">Access</span><span class="v cut">Cut</span></div>
+          <div class="step"><span class="k">Retries</span><span class="v">0 — 7 re-auth nudges</span></div>
+          <div class="step"><span class="k">Grace → Attempts</span><span class="v">7d → 15d</span></div>
+        </div>
+        <div class="banner-mock">
+          <div class="bm-eyebrow">In-app banner</div>
+          <div class="bm-head">Activate your account to start your trial</div>
+          <div class="bm-body">Your mandate didn't go through, so your trial hasn't started. Re-authorize now — it won't charge you until {trial-end date}.</div>
+          <span class="bm-cta">Activate now</span>
+          <div class="bm-fomo">FOMO: "Day N of 7" framing — every day waited is trial time not used.</div>
+        </div>
+        <div class="card-guardrail"><b>Never</b> grant access on an unconfirmed mandate — the ₹92,665 bug. <b>Never</b> retry the dead token; re-auth is the only path back.</div>
+      </div>
+
+      <div class="case-card t-reauth">
+        <div class="card-head">
+          <div>
+            <h3>Renewal — Dead mandate</h3>
+            <div class="card-sub">existing paying customer</div>
+          </div>
+          <span class="pill pill-confirmed">Confirmed</span>
+        </div>
+        <span class="trigger-chip">token expired / rejected / cancelled → RECURRING_TOKEN_NOT_CONFIRMED</span>
+        <div class="map-strip">
+          <div class="step"><span class="k">Access</span><span class="v cut">Cut</span></div>
+          <div class="step"><span class="k">Retries</span><span class="v">0 — 7 re-auth nudges</span></div>
+          <div class="step"><span class="k">Grace → Attempts</span><span class="v">7d → 15d</span></div>
+        </div>
+        <div class="banner-mock">
+          <div class="bm-eyebrow">In-app banner</div>
+          <div class="bm-head">Your auto-pay stopped working</div>
+          <div class="bm-body">Your bank cancelled your mandate. You have {N} days left of access — update your payment method now so nothing's interrupted.</div>
+          <span class="bm-cta">Update payment method</span>
+          <div class="bm-fomo">FOMO: their own usage numbers, not generic copy — "You have 12 saved companies and 340 AI credits used this month. Reactivate before {deadline} to keep them."</div>
+        </div>
+        <div class="card-guardrail"><b>Never</b> retry the dead token. <b>Never</b> tell this customer "we'll retry automatically" — that's only true for a transient failure.</div>
+      </div>
+
+      <div class="case-card t-reauth">
+        <div class="card-head">
+          <div>
+            <h3>Renewal — dies mid-recovery</h3>
+            <div class="card-sub">edge case: cancel arrives while already on-hold</div>
+          </div>
+          <span class="pill pill-note">Structural</span>
+        </div>
+        <span class="trigger-chip">token.cancelled webhook — subscription was ON-HOLD</span>
+        <div class="map-strip">
+          <div class="step"><span class="k">Access</span><span class="v">unchanged</span></div>
+          <div class="step"><span class="k">Retries</span><span class="v">0 — existing cadence continues</span></div>
+          <div class="step"><span class="k">Grace → Attempts</span><span class="v">whatever's left, not restarted</span></div>
+        </div>
+        <div class="banner-mock">
+          <div class="bm-eyebrow">In-app banner</div>
+          <div class="bm-head">Same banner as Renewal — Dead mandate, above</div>
+          <div class="bm-body">No new campaign triggers — the subscription just stays on the track it was already on.</div>
+        </div>
+        <div class="card-guardrail"><b>Never</b> restart the grace/attempts clock. <b>Never</b> switch this subscription onto the winback track — that's reserved for subscriptions that were ACTIVE at the moment of cancellation.</div>
+      </div>
+
+      <div class="case-card t-transient">
+        <div class="card-head">
+          <div>
+            <h3>Renewal — Transient</h3>
+            <div class="card-sub">existing paying customer</div>
+          </div>
+          <span class="pill pill-open">Open</span>
+        </div>
+        <span class="trigger-chip">GATEWAY_ERROR</span>
+        <div class="map-strip">
+          <div class="step"><span class="k">Access</span><span class="v live">Live</span></div>
+          <div class="step"><span class="k">Retries</span><span class="v">OPEN — count not yet set</span></div>
+          <div class="step"><span class="k">Grace → Attempts</span><span class="v">n/a</span></div>
+        </div>
+        <div class="banner-mock">
+          <div class="bm-eyebrow">In-app banner</div>
+          <div class="bm-head">Payment failed — we'll retry automatically</div>
+          <div class="bm-body">₹1,768.82 didn't go through. No action needed yet, but you can pay now to avoid any delay.</div>
+          <span class="bm-cta">Pay now</span>
+          <div class="bm-fomo">FOMO: deliberately low-urgency — nothing is actually at risk yet, don't manufacture panic.</div>
+        </div>
+        <div class="card-guardrail"><b>Never</b> suspend or cut access on a transient failure. <b>Never</b> ask this customer to re-authorize — nothing is wrong with their mandate.</div>
+      </div>
+
+      <div class="case-card t-cancel">
+        <div class="card-head">
+          <div>
+            <h3>Cancellation — External</h3>
+            <div class="card-sub">customer killed the mandate in their UPI/bank app</div>
+          </div>
+          <span class="pill pill-note">Unchanged</span>
+        </div>
+        <span class="trigger-chip">token.cancelled webhook — subscription was ACTIVE</span>
+        <div class="map-strip">
+          <div class="step"><span class="k">Access</span><span class="v live">Live to paid-through date</span></div>
+          <div class="step"><span class="k">Retries</span><span class="v">n/a — ₹10 reactivate, unlimited, honored late</span></div>
+          <div class="step"><span class="k">Grace → Attempts</span><span class="v">n/a</span></div>
+        </div>
+        <div class="banner-mock">
+          <div class="bm-eyebrow">In-app banner</div>
+          <div class="bm-head">Your auto-pay is off</div>
+          <div class="bm-body">You have access until {end date} — after that you'll lose your saved companies, filters, and AI credits. Reactivate for ₹10 to keep everything exactly as it is.</div>
+          <span class="bm-cta">Reactivate (₹10)</span>
+          <div class="bm-fomo">FOMO: live countdown to the real end date + explicit ₹10-vs-what-you'd-lose contrast — the one banner where a countdown is honest, because there's a real deadline behind it.</div>
+        </div>
+        <div class="card-guardrail"><b>Never</b> create a renewal order against an already-cancelled mandate. <b>Never</b> cut access before the paid-through date ends.</div>
+      </div>
+
+      <div class="case-card t-cancel">
+        <div class="card-head">
+          <div>
+            <h3>Cancellation — Voluntary</h3>
+            <div class="card-sub">customer clicks cancel-at-period-end in-app</div>
+          </div>
+          <span class="pill pill-note">Unchanged</span>
+        </div>
+        <span class="trigger-chip">n/a — our own API, not a Razorpay status</span>
+        <div class="map-strip">
+          <div class="step"><span class="k">Access</span><span class="v live">Live to paid-through date</span></div>
+          <div class="step"><span class="k">Retries</span><span class="v">same as External</span></div>
+          <div class="step"><span class="k">Grace → Attempts</span><span class="v">n/a</span></div>
+        </div>
+        <div class="banner-mock">
+          <div class="bm-eyebrow">In-app banner</div>
+          <div class="bm-head">Your subscription is ending on {date}</div>
+          <div class="bm-body">Same loss framing as External, minus the "auto-pay is off" copy — they chose this themselves.</div>
+          <span class="bm-cta">Reactivate (₹10)</span>
+          <div class="bm-fomo">FOMO: same live countdown + loss contrast as External.</div>
+        </div>
+        <div class="card-guardrail">Same guardrails as Cancellation — External, above.</div>
+      </div>
+
+      <div class="case-card t-terminal">
+        <div class="card-head">
+          <div>
+            <h3>Terminal</h3>
+            <div class="card-sub">grace/attempts exhausted, or end date passed unrecovered</div>
+          </div>
+          <span class="pill pill-note">Unchanged</span>
+        </div>
+        <span class="trigger-chip">n/a — our own cron / WCS auto-transition, not a Razorpay status</span>
+        <div class="map-strip">
+          <div class="step"><span class="k">Access</span><span class="v cut">None</span></div>
+          <div class="step"><span class="k">Retries</span><span class="v">0 — sequence exit only</span></div>
+          <div class="step"><span class="k">Grace → Attempts</span><span class="v">n/a</span></div>
+        </div>
+        <div class="banner-mock">
+          <div class="bm-eyebrow">In-app banner</div>
+          <div class="bm-head">Your subscription has ended</div>
+          <div class="bm-body">Start a new subscription to get back into Datalabs Pro. Note: this won't include a free trial.</div>
+          <span class="bm-cta">Resubscribe</span>
+          <div class="bm-fomo">FOMO: none, deliberately — a dead account has no real deadline left; manufacturing urgency here reads as desperate.</div>
+        </div>
+        <div class="card-guardrail"><b>Never</b> message again once terminal. <b>Never</b> give a resubscribe a second free trial — that's the exact cancel/resubscribe farming loop the trial-strip rule exists to prevent.</div>
+      </div>
+
     </div>
   </section>
 
