@@ -169,6 +169,75 @@
     color: var(--pending);
   }
 
+  /* ---- Status map (legend) ---- */
+  .map-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+  table.maptable { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px; }
+  table.maptable thead th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); font-weight: 600; padding: 10px 14px; border-bottom: 1px solid var(--line);
+    background: var(--code-bg); white-space: nowrap;
+  }
+  table.maptable tbody td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.maptable tbody tr:last-child td { border-bottom: none; }
+  table.maptable tbody tr:hover { background: var(--accent-soft); }
+
+  .track-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; }
+  .track-tag::before { content: ""; width: 8px; height: 8px; border-radius: 99px; background: currentColor; }
+  .track-tag.t-transient { color: var(--ok); }
+  .track-tag.t-reauth { color: var(--never); }
+  .track-tag.t-cancel { color: var(--accent); }
+  .track-tag.t-terminal { color: var(--muted); }
+
+  /* ---- Case cards ---- */
+  .case-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); gap: 20px; }
+  .case-card {
+    --track: var(--line);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--track);
+    border-radius: 10px;
+    padding: 22px 24px;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .case-card.t-transient { --track: var(--ok); }
+  .case-card.t-reauth { --track: var(--never); }
+  .case-card.t-cancel { --track: var(--accent); }
+  .case-card.t-terminal { --track: var(--muted); }
+
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card-head h3 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.005em; }
+  .card-head .card-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  .trigger-chip {
+    display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 11.5px;
+    padding: 5px 10px; border-radius: 6px; background: var(--code-bg); border: 1px solid var(--line);
+    color: var(--ink); line-height: 1.5; word-break: break-word;
+  }
+
+  .map-strip { display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; row-gap: 10px; }
+  .map-strip .step {
+    display: flex; flex-direction: column; gap: 3px; padding: 0 14px; border-right: 1px solid var(--line);
+  }
+  .map-strip .step:first-child { padding-left: 0; }
+  .map-strip .step:last-child { border-right: none; }
+  .map-strip .step .k { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .map-strip .step .v { font-size: 13px; font-weight: 600; }
+  .map-strip .step .v.live { color: var(--ok); }
+  .map-strip .step .v.cut { color: var(--never); }
+
+  .banner-mock { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--code-bg); }
+  .banner-mock .bm-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 6px; }
+  .banner-mock .bm-head { font-weight: 700; font-size: 14px; margin-bottom: 4px; text-wrap: balance; }
+  .banner-mock .bm-body { font-size: 12.5px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+  .banner-mock .bm-cta { display: inline-block; padding: 7px 16px; border-radius: 6px; background: var(--accent); color: #fff; font-size: 12.5px; font-weight: 600; }
+  .banner-mock .bm-fomo { font-size: 11px; color: var(--pending); margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); }
+
+  .card-guardrail { font-size: 12px; color: var(--never); border-top: 1px solid var(--line); padding-top: 12px; }
+  .card-guardrail b { font-weight: 700; }
+  .card-status { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--muted); }
+
   /* ---- Guardrails ---- */
   .guardrails { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
   .guard-card {
