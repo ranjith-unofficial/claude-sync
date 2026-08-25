@@ -1,8 +1,11 @@
 ---
 name: project-inc42-pt-interview-guide
-description: "Product Trainee interview question bank, weighted to the locked rubric — reusable for any shortlisted candidate; includes the Jatin Saluja probes"
-metadata:
+description: "Product Trainee interview question bank, weighted to the locked rubric — reusable for any shortlisted candidate; includes the Jatin Saluja probes + outcome (Reject)"
+metadata: 
+  node_type: memory
   type: project
+  originSessionId: d24005df-e6e1-488d-acdd-350881372d2e
+  modified: 2026-08-25T12:21:38.529Z
 ---
 
 Interview guide for the **Product Trainee** role Ranjith is hiring for his own team. Built 2026-08-23 for **Jatin Saluja** (rank 10 of 235, fit 77) but the bucket structure is **reusable for every candidate down the shortlist** — swap the resume-specific probes. See [[project-inc42-product-trainee]] for the screening run that produced the ranking.
@@ -68,4 +71,16 @@ Real strengths, and they map unusually well onto Ranjith's own stack: an **n8n a
 
 ⚠️ **His resume link in the sheet is dead** — Keka signs document URLs with an Azure SAS token that expired 19 Aug; all 235 links now 403. Local copy: `<scratchpad 88ba76e1>/pool_resumes/890a5eb0-6edf-4f66-be69-94ea36413253.pdf`. Fix pending: re-point the column at stable Keka candidate-profile URLs.
 
-Related: [[project-inc42-product-trainee]], [[project-inc42-hiring-agent]], [[feedback-deliver-in-chat]], [[feedback-always-include-source-links]].
+### Jatin Saluja — INTERVIEW OUTCOME (2026-08-25): Reject
+
+Both halves of the decision rule failed. Figs 10% did not survive questioning — he couldn't isolate which of 2-3 simultaneous changes caused it, had no funnel data, and failed a basic analytics follow-up ("comfortable with SQL" but answered "I don't know" to a practical query question). Trust Mapping (the 76%/84% claim) was never reached live due to time, but given the pattern below should be treated as unverified/likely inflated, not benefit-of-the-doubt.
+
+New findings beyond the pre-interview probes:
+- His "user persona / segmentation" work was literal ad-targeting parameters (age 28-30, homeowners) relabeled as research — not personas.
+- Had no prior knowledge of Inc42's actual product; asked to look it up live, still could not describe it correctly after searching.
+- Live practical test (diagnose low app installs on a real Inc42 page): jumped straight to guesses ("wrong audience," "slow load") without ever asking for funnel numbers — the exact "weak" pattern the guide predicted in advance.
+- One genuine positive: consistently honest about gaps ("I don't know," self-corrected a claim about building a chatbot) rather than bluffing — but this honesty is what exposed the resume/reality gap rather than closing it.
+
+**Confirms the standing risk noted 2026-08-23**: rank 10 of 235, and the resume-inflation pattern (projected-as-measured language, buzzword-heavy AI bullets) is likely to repeat further down the shortlist. Weight "can he unpack his own numbers unprompted" harder in future live rounds rather than discovering it live each time.
+
+Related: [[project-inc42-product-trainee]], [[project-inc42-hiring-agent]], [[feedback-deliver-in-chat]], [[feedback-always-include-source-links]], [[feedback-interview-feedback-format]].

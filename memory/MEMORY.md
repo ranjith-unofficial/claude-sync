@@ -17,6 +17,7 @@
 - [Artifact design — minimal](feedback-artifact-design-minimal.md) — audit/report artifacts: one font, minimal color, tables not colored cards; corrected after an over-designed HTML report
 - [Memory precise dates](feedback-memory-precise-dates.md) — give meeting/review memories a verified date in-body, cross-link when two memories may be the same event; caught after a 17-vs-20-Aug PostHog review split
 - [Proactive recall](feedback-proactive-recall.md) — on "what have we discussed / have you incorporated X" questions, sweep and cross-reference memory myself before answering; don't wait for Ranjith to catch what I missed
+- [Interview feedback format](feedback-interview-feedback-format.md) — candidate feedback needs plain-language summary for HR + PM-lens detailed version, both together
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE, verified 15 Aug — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — install base still small (15 vs 50 unreconciled); paid ruled out, banners→store direct, feedback moves in-app; iOS live but listing has only 1 screenshot, fix blocked on build ≥41; + Aug 14 Product & Data call commitments; **+ 24 Aug Weekly App Review: v2 scope closed (news rename, homepage banner, brief redesign), release 31 Aug, Sep target 5,000 installs/20% activation, activation redefined as brief+60s median, notifications → 1-2/day sector-segmented**; team: Utkarsh, Ritvik, Animesh, Nityam, Amit
@@ -68,7 +69,7 @@
 - [CTC parsing rule for hiring sheet](feedback-hiring-sheet-ctc-parsing.md) — plain numbers are LPA not thousands; implausibly low values (≈≤2) are bad data, exclude don't guess
 - [Project: INC42 Agent Platform](project-inc42-agent-platform.md) — internal Slack AI agents as shared infra; Ranjith owns product, Utkarsh sponsors; 25-agent catalogue, demand-gated with pre-written kill conditions
 - [Project: INC42 Product Trainee hiring](project-inc42-product-trainee.md) — Ranjith's own role, 545 Keka applicants, criteria locked (internships COUNT, cap ₹5L, presentation not a gate); PT Calibration tab awaiting his 20 blind grades before any spend
-- [PT interview guide](project-inc42-pt-interview-guide.md) — reusable bucket-by-bucket question bank weighted to the rubric, + Jatin Saluja's 3 claims to verify
+- [PT interview guide](project-inc42-pt-interview-guide.md) — reusable bucket-by-bucket question bank weighted to the rubric; Jatin Saluja interviewed 25 Aug → REJECTED (resume outscored candidate)
 - [PT hiring — interview assignment doc](project-inc42-product-trainee-assignment.md) — 2-part interview stage (take-home diagnosis + live no-prep round), open rubric, artifact b1120c11
 - [Project: DPDP compliance](project-dpdp-compliance.md) — 3-phase engagement, tech leads Prapti & Ashish, May 2027 deadline; Aug 11 quote ₹15L→₹10L+GST but all-in ~₹30L w/ consent mgr + security tools — Ranjith stalling until minimum requirement is known; vendor naming (KavachOne/Shivang vs "Mitigator") unresolved
 - [Project: AI agents](project-ai-agents.md) — sales/support/qualification agents, voice AI, consulting
