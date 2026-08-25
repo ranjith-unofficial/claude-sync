@@ -110,8 +110,14 @@
   svg.flow .ok-text { fill: var(--ok); font-weight: 600; }
   svg.flow .never-box { stroke: var(--never); fill: var(--never-soft); }
   svg.flow .never-text { fill: var(--never); font-weight: 600; }
+  svg.flow .pending-text { fill: var(--pending); font-weight: 600; }
   svg.flow .entry-box { stroke: var(--accent); fill: var(--accent-soft); }
   svg.flow .terminal-box { stroke: currentColor; fill: var(--code-bg); stroke-dasharray: 3 3; }
+  svg.flow .leaf-box { fill: var(--paper); stroke: currentColor; stroke-width: 1.1; opacity: 0.95; }
+  svg.flow .leaf-title { font-weight: 600; font-size: 12px; }
+  svg.flow .leaf-detail { font-size: 10.5px; }
+  svg.flow .code-label { font-size: 10.5px; fill: var(--muted); }
+  svg.flow .undoc { stroke-dasharray: 3 4; opacity: 0.4; }
 
   figcaption { font-size: 13px; color: var(--muted); max-width: 72ch; }
   figcaption b { color: var(--ink); font-weight: 600; }
@@ -192,7 +198,7 @@
     <h2>Flow</h2>
     <figure>
       <div class="diagram-frame">
-        <svg class="flow" viewBox="0 0 900 640" role="img" aria-label="A Razorpay payment or mandate event is classified into one of three tracks — Transient, Needs Re-auth, or Cancellation — each with its own access policy and recovery mechanism, converging on a shared Terminal state when the grace or attempts window runs out.">
+        <svg class="flow" viewBox="0 0 1150 760" role="img" aria-label="All 8 states: a Razorpay payment or mandate event classifies by its exact status into Transient, Needs Re-auth, or Cancellation, each splitting into First payment, Renewal, and — for Needs Re-auth — the on-hold edge case and Cancellation's External/Voluntary split, converging on a shared Terminal state.">
 
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -201,81 +207,101 @@
           </defs>
 
           <!-- Entry -->
-          <rect x="350" y="18" width="200" height="46" rx="5" class="node-box entry-box" />
-          <text x="450" y="46" text-anchor="middle" class="node-label" font-weight="600">Charge attempt / webhook</text>
+          <rect x="475" y="16" width="200" height="46" rx="5" class="node-box entry-box" />
+          <text x="575" y="44" text-anchor="middle" class="node-label" font-weight="600">Charge attempt / webhook</text>
 
-          <!-- fan-out connectors with status-code labels -->
-          <path d="M 400,64 C 380,95 220,95 170,122" class="connector" marker-end="url(#arrow)" />
-          <text x="270" y="98" text-anchor="middle" class="arrow-label mono-label">GATEWAY_ERROR</text>
+          <!-- fan-out connectors with exact status codes -->
+          <path d="M 500,62 C 400,100 220,100 150,128" class="connector" marker-end="url(#arrow)" />
+          <text x="300" y="106" text-anchor="middle" class="code-label mono-label">GATEWAY_ERROR</text>
 
-          <path d="M 450,64 L 450,122" class="connector" marker-end="url(#arrow)" />
-          <text x="450" y="96" text-anchor="middle" class="arrow-label mono-label">token dead</text>
+          <path d="M 575,62 L 575,128" class="connector" marker-end="url(#arrow)" />
+          <text x="575" y="90" text-anchor="middle" class="code-label mono-label">token: initiated / expired / rejected / cancelled</text>
+          <text x="575" y="103" text-anchor="middle" class="code-label mono-label">→ RECURRING_TOKEN_NOT_CONFIRMED</text>
 
-          <path d="M 500,64 C 520,95 680,95 730,122" class="connector" marker-end="url(#arrow)" />
-          <text x="640" y="98" text-anchor="middle" class="arrow-label mono-label">token.cancelled (active)</text>
+          <path d="M 650,62 C 750,100 880,100 950,128" class="connector" marker-end="url(#arrow)" />
+          <text x="790" y="90" text-anchor="middle" class="code-label mono-label">token.cancelled (external)</text>
+          <text x="790" y="103" text-anchor="middle" class="code-label mono-label">/ our own cancel-at-period-end API (voluntary)</text>
 
           <!-- Track headers -->
-          <rect x="50"  y="124" width="220" height="46" rx="5" class="node-box" />
-          <text x="160" y="152" text-anchor="middle" class="track-title">Transient</text>
+          <rect x="50"  y="130" width="200" height="46" rx="5" class="node-box" />
+          <text x="150" y="158" text-anchor="middle" class="track-title">Transient</text>
 
-          <rect x="340" y="124" width="220" height="46" rx="5" class="node-box" />
-          <text x="450" y="152" text-anchor="middle" class="track-title">Needs Re-auth</text>
+          <rect x="475" y="130" width="200" height="46" rx="5" class="node-box" />
+          <text x="575" y="158" text-anchor="middle" class="track-title">Needs Re-auth</text>
 
-          <rect x="630" y="124" width="220" height="46" rx="5" class="node-box" />
-          <text x="740" y="152" text-anchor="middle" class="track-title">Cancellation</text>
+          <rect x="850" y="130" width="200" height="46" rx="5" class="node-box" />
+          <text x="950" y="158" text-anchor="middle" class="track-title">Cancellation</text>
 
-          <!-- down connectors to access-state -->
-          <path d="M 160,170 L 160,222" class="connector" marker-end="url(#arrow)" />
-          <path d="M 450,170 L 450,222" class="connector" marker-end="url(#arrow)" />
-          <path d="M 740,170 L 740,222" class="connector" marker-end="url(#arrow)" />
+          <!-- header -> leaf connectors -->
+          <path d="M 120,176 C 108,200 98,212 90,228" class="connector" marker-end="url(#arrow)" />
+          <path d="M 180,176 C 205,200 230,212 250,228" class="connector" marker-end="url(#arrow)" />
 
-          <!-- Access-state nodes (the highlighted distinction) -->
-          <rect x="60"  y="224" width="200" height="44" rx="5" class="node-box ok-box" />
-          <text x="160" y="251" text-anchor="middle" class="node-label ok-text">Access stays live</text>
+          <path d="M 505,176 C 465,200 435,212 410,228" class="connector" marker-end="url(#arrow)" />
+          <path d="M 575,176 L 575,228" class="connector" marker-end="url(#arrow)" />
+          <path d="M 645,176 C 685,200 715,212 740,228" class="connector" marker-end="url(#arrow)" />
 
-          <rect x="360" y="224" width="180" height="44" rx="5" class="node-box never-box" />
-          <text x="450" y="251" text-anchor="middle" class="node-label never-text">Access cut same day</text>
+          <path d="M 895,176 C 895,200 895,212 895,228" class="connector" marker-end="url(#arrow)" />
+          <path d="M 990,176 C 1000,200 1010,212 1015,228" class="connector" marker-end="url(#arrow)" />
 
-          <rect x="630" y="224" width="220" height="44" rx="5" class="node-box ok-box" />
-          <text x="740" y="245" text-anchor="middle" class="node-label ok-text">Access live to</text>
-          <text x="740" y="260" text-anchor="middle" class="node-label ok-text">paid-through date</text>
+          <!-- ===== Leaves: Transient ===== -->
+          <rect x="20" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
+          <text x="90" y="250" text-anchor="middle" class="leaf-title">First payment</text>
+          <text x="90" y="266" text-anchor="middle" class="leaf-detail pending-text">Access: Cut †</text>
+          <text x="90" y="280" text-anchor="middle" class="leaf-detail">4× retry · 7d</text>
 
-          <!-- down connectors to treatment -->
-          <path d="M 160,268 L 160,322" class="connector" marker-end="url(#arrow)" />
-          <path d="M 450,268 L 450,322" class="connector" marker-end="url(#arrow)" />
-          <path d="M 740,268 L 740,322" class="connector" marker-end="url(#arrow)" />
+          <rect x="180" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
+          <text x="250" y="250" text-anchor="middle" class="leaf-title">Renewal</text>
+          <text x="250" y="266" text-anchor="middle" class="leaf-detail ok-text">Access: Live</text>
+          <text x="250" y="280" text-anchor="middle" class="leaf-detail">retries: OPEN</text>
 
-          <!-- Treatment nodes -->
-          <rect x="40"  y="324" width="240" height="58" rx="5" class="node-box" />
-          <text x="160" y="348" text-anchor="middle" class="node-label">Retry charge ×4</text>
-          <text x="160" y="365" text-anchor="middle" class="node-label">over 7 days</text>
+          <!-- ===== Leaves: Needs Re-auth ===== -->
+          <rect x="340" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
+          <text x="410" y="250" text-anchor="middle" class="leaf-title">First payment</text>
+          <text x="410" y="266" text-anchor="middle" class="leaf-detail never-text">Access: Cut</text>
+          <text x="410" y="280" text-anchor="middle" class="leaf-detail">0 retry · 7d→15d</text>
 
-          <rect x="330" y="324" width="240" height="58" rx="5" class="node-box" />
-          <text x="450" y="348" text-anchor="middle" class="node-label">0 retries — 7 re-auth</text>
-          <text x="450" y="365" text-anchor="middle" class="node-label">nudges over 15 days</text>
+          <rect x="505" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
+          <text x="575" y="250" text-anchor="middle" class="leaf-title">Renewal</text>
+          <text x="575" y="266" text-anchor="middle" class="leaf-detail never-text">Access: Cut</text>
+          <text x="575" y="280" text-anchor="middle" class="leaf-detail">0 retry · 7d→15d</text>
 
-          <rect x="620" y="324" width="240" height="58" rx="5" class="node-box" />
-          <text x="740" y="348" text-anchor="middle" class="node-label">₹10 reactivate link</text>
-          <text x="740" y="365" text-anchor="middle" class="node-label">unlimited, honored late</text>
+          <rect x="670" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
+          <text x="740" y="250" text-anchor="middle" class="leaf-title" font-size="11">Renewal, on-hold</text>
+          <text x="740" y="266" text-anchor="middle" class="leaf-detail">unchanged —</text>
+          <text x="740" y="280" text-anchor="middle" class="leaf-detail">cycle continues</text>
 
-          <!-- Recovery escape hatch (dashed side note) -->
-          <path d="M 280,353 L 330,353" class="connector" stroke-dasharray="2 3" marker-end="url(#arrow)" />
-          <path d="M 570,353 L 620,353" class="connector" stroke-dasharray="2 3" marker-end="url(#arrow)" />
+          <!-- ===== Leaves: Cancellation ===== -->
+          <rect x="820" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
+          <text x="890" y="250" text-anchor="middle" class="leaf-title">External</text>
+          <text x="890" y="266" text-anchor="middle" class="leaf-detail ok-text">Access: Live</text>
+          <text x="890" y="280" text-anchor="middle" class="leaf-detail">to paid-through date</text>
 
-          <!-- Converge into Terminal -->
-          <path d="M 160,382 C 160,460 330,500 400,528" class="connector" marker-end="url(#arrow)" />
-          <path d="M 450,382 L 450,528" class="connector" marker-end="url(#arrow)" />
-          <path d="M 740,382 C 740,460 570,500 500,528" class="connector" marker-end="url(#arrow)" />
-          <text x="450" y="500" text-anchor="middle" class="arrow-label">grace / attempts window exhausted</text>
+          <rect x="945" y="230" width="140" height="64" rx="5" class="node-box leaf-box" />
+          <text x="1015" y="250" text-anchor="middle" class="leaf-title">Voluntary</text>
+          <text x="1015" y="266" text-anchor="middle" class="leaf-detail ok-text">Access: Live</text>
+          <text x="1015" y="280" text-anchor="middle" class="leaf-detail">to paid-through date</text>
 
-          <rect x="250" y="530" width="400" height="60" rx="5" class="node-box terminal-box" />
-          <text x="450" y="554" text-anchor="middle" class="node-label" font-weight="600">Terminal</text>
-          <text x="450" y="572" text-anchor="middle" class="node-label">Resubscribe only — no second free trial</text>
+          <!-- Converge to Terminal -->
+          <path d="M 410,294 C 410,480 480,610 520,668" class="connector" marker-end="url(#arrow)" />
+          <path d="M 575,294 L 575,668" class="connector" marker-end="url(#arrow)" />
+          <text x="575" y="470" text-anchor="middle" class="arrow-label">grace / 15d attempts exhausted</text>
+
+          <path d="M 890,294 C 890,480 700,610 640,668" class="connector" marker-end="url(#arrow)" />
+          <path d="M 1015,294 C 1015,480 680,630 630,668" class="connector" marker-end="url(#arrow)" />
+          <text x="900" y="440" text-anchor="middle" class="arrow-label">end date passes,</text>
+          <text x="900" y="453" text-anchor="middle" class="arrow-label">no reactivation</text>
+
+          <path d="M 170,294 C 170,460 350,610 480,665" class="connector undoc" marker-end="url(#arrow)" />
+          <text x="230" y="440" text-anchor="middle" class="arrow-label" font-style="italic">path undocumented in source</text>
+
+          <rect x="475" y="670" width="200" height="56" rx="5" class="node-box terminal-box" />
+          <text x="575" y="692" text-anchor="middle" class="node-label" font-weight="600">Terminal</text>
+          <text x="575" y="708" text-anchor="middle" class="node-label">Resubscribe only — no free trial</text>
 
         </svg>
       </div>
       <figcaption>
-        Every charge or webhook classifies into one of three tracks by its exact Razorpay status. The tracks diverge on one question — <b>does access stay on while we try to recover it</b> — and converge on the same terminal state once time runs out. Not drawn: at any point a successful charge, re-authorization, or ₹10 reactivation exits the track immediately and clears all messaging.
+        All 8 states, drawn as one mechanism. Every charge or webhook carries an <b>exact Razorpay status</b> — shown on the arrows — which classifies it into Transient, Needs Re-auth, or Cancellation; each then splits by who it happened to, since that's what changes the access decision. † First-payment-transient's "Access: Cut" is Claude's proposal, not yet confirmed — see the flag on that row in the table. Not drawn: a successful charge, re-authorization, or ₹10 reactivation exits any track immediately and clears all messaging. What happens if Transient retries exhaust at Day 7 is not specified anywhere in the source doc — flagged, not guessed.
       </figcaption>
     </figure>
   </section>
