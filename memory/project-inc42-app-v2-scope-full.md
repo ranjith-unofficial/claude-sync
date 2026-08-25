@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 59cedaa8-a793-4cf6-9ab8-edd7339fa0a4
-  modified: 2026-08-24T18:06:35.341Z
+  modified: 2026-08-25T03:52:45.765Z
 ---
 
 Built 2026-08-24 at Ranjith's request ("everything you know — all meetings, in-person discussion, previous documents — what should be in app v2"). Two scope threads exist and are **NOT reconciled with each other** — flag this to Ranjith/Utkarsh before treating either as complete.
@@ -109,6 +109,27 @@ Source: [[project-inc42-fy27-plan]] (authoritative, supersedes [[project-inc42-s
 - **Unified front-end changes across web/app/DataLabs are explicitly blocked** pending the whole team agreeing one unification plan first (per Utkarsh's 24 Aug MOP feedback, referencing the same-day Team Leads Sync discussion) — so the "unified navigation" one-pager Thread 8 flagged isn't just undone, it's structurally gated.
 - **Ask (AskInc42) "streaming/fast mode + in-app" is recorded as already shipped 21 Aug** in the FY27 plan's Locks — this may mean some version of Fast mode already exists independent of Thread 7's full brief-end-carousel-swap PRD. Reconcile what's live today against the PRD before assuming Thread 7 is entirely unbuilt.
 - **Reassurance, not a live conflict**: the 13 Aug strategy corpus (§11) once called the app "a PILOT, not the committed strategy — few hundred users, no store listing." The 21 Aug FY27 plan, which is more recent and explicitly LOCKED, states plainly **"App is the primary acquisition + engagement surface."** The later, locked doc supersedes the earlier one — no reconciliation needed, just don't cite the "app is a pilot" framing as current.
+
+## Thread 10 — Ranjith's own canonical v2 scope doc, 19 Aug — found 25 Aug, was missing from the tracking sheet entirely
+Source: `~/Downloads/Inc42 App v2 Scope.md`. 11 workstreams, built directly on [[project-inc42-posthog-review]]'s 17 Aug findings + an 18 Aug deep-linking Slack thread + the event dictionary v1.4. This is a MORE authoritative source than the meeting-transcript compilation Threads 1–9 were built from — reconcile against it, don't just append.
+
+| # | Item | Priority | Status vs Threads 1–9 |
+|---|------|----------|------------------------|
+| 1 | Updated events (full instrumentation reconciliation) | **P0** | Became the 25 Aug Asana ticket; overlaps but is more complete than Thread 6 |
+| 2 | Datalabs fixes | ⚠️ needs input, undefined in the doc itself | Likely the same gap as the 25 Aug "Investigate Elasticsearch — Data Labs filters" ticket — the doc explicitly says "not yet specified," Ranjith's Elasticsearch instruction may be the missing detail |
+| 3 | AskInc42 v2 (3 stored onboarding Qs, web search stays on) | P1 | Matches Thread 7, adds detail: blocked on an API from Anmol not yet raised, and on feature flags (currently halted) |
+| 4 | **Dummy screen before 7am** (brief hasn't dropped yet) | P2 | **NOT in Threads 1–9 or the sheet at all.** Open decision: countdown placeholder vs show-yesterday's-brief-with-banner |
+| 5 | Tap-again-to-exit | P3 | Matches Thread 1 #10 |
+| 6 | Deep linking (newsletter links open Safari not app) | **P0** | Matches Thread 1 #9 / [[project-inc42-deep-linking]], with a fuller root-cause writeup (CIO click-tracker breaks Universal/App Links) |
+| 7 | Singular setup revision (campaign=None attribution) | **P0** | Not previously in the v2 threads as its own item — was only in acquisition/tracking memories. Time-critical, was tied to the D2C Summit date |
+| 8 | Brief page — design revisit | P1 | Matches Thread 1 #3 / Thread 2, adds the data backing (cover→brief 41%, 7s median) |
+| 9 | **Separating Datalabs** (own surface/section — nav split? separate app?) | ⚠️ needs input | **NOT in Threads 1–9 or the sheet.** Explicitly gates item #10. Relation to the One-Inc42 unification direction unconfirmed |
+| 10 | Redesign Datalabs + article section | P2 | Overlaps Thread 1 #7, blocked on #9 |
+| 11 | Sector images + Dark mode | P2 | Matches Thread 1 #6 / Thread 4, same 86%-sector-tag-gap caveat |
+
+**Genuinely new items to add to the tracking sheet**: #4 (dummy screen before 7am) and #9 (separating Datalabs) have no prior representation anywhere in Threads 1–9. #2 (Datalabs fixes, undefined) and #7 (Singular setup revision) should be added as their own explicit rows rather than left folded into other items.
+
+**Open questions the doc itself flags, still unresolved as of 19 Aug:** what exactly is broken in #2 · full scope/intent of #9 · owners for #4/#8/#10/#11 (Satya?) · confirm P0 order is #1/#6/#7 · #11 fix-tagging vs generic-fallback vs dark-mode-only · #4 countdown vs show-previous.
 
 ## Possible unreconciled overlap — flag, don't assume
 **"B2"** ([[project-inc42-app-placement]], 10 Aug, owner Satya) — placing Inc42 editorial/news content inside the app, design-only so far. This sounds like it could be the same initiative as Thread 1 #1 (Explore → News rename, more prominence to the news section) under an earlier working name, or it could be a separate, narrower placement decision. Never explicitly reconciled in any session since. Ask Ranjith/Satya directly before assuming either.
