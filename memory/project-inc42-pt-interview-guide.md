@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: d24005df-e6e1-488d-acdd-350881372d2e
-  modified: 2026-08-25T12:21:38.529Z
+  modified: 2026-08-26T05:03:22.690Z
 ---
 
 Interview guide for the **Product Trainee** role Ranjith is hiring for his own team. Built 2026-08-23 for **Jatin Saluja** (rank 10 of 235, fit 77) but the bucket structure is **reusable for every candidate down the shortlist** — swap the resume-specific probes. See [[project-inc42-product-trainee]] for the screening run that produced the ranking.
@@ -82,5 +82,17 @@ New findings beyond the pre-interview probes:
 - One genuine positive: consistently honest about gaps ("I don't know," self-corrected a claim about building a chatbot) rather than bluffing — but this honesty is what exposed the resume/reality gap rather than closing it.
 
 **Confirms the standing risk noted 2026-08-23**: rank 10 of 235, and the resume-inflation pattern (projected-as-measured language, buzzword-heavy AI bullets) is likely to repeat further down the shortlist. Weight "can he unpack his own numbers unprompted" harder in future live rounds rather than discovering it live each time.
+
+## Dhruv Kathpal — candidate-specific (2026-08-26)
+
+IIT (ISM) Dhanbad, B.Tech Environmental Engineering, graduated May/Jun 2026 · ~2 years across 6 internships (TMRW/Aditya Birla current, Mailmodo, DAO Studio, + others) · co-founded D2C merch brand Dope Squad (200 units, ~₹1L revenue). No fit score/rank recorded from the sheet. Resume PDF: `~/Downloads/Dhruv_Kathpal_26_2__1___1_.pdf`.
+
+**Interview outcome (2026-08-26): Reject** — Ranjith's stated main reason: **unable to clearly articulate what he thought or wanted to convey** — answers ran long, drifted off-topic, needed repeated redirection back to the actual question; given this feedback directly in the interview.
+
+Secondary reason: **resume vs. live discussion mismatch** — resume states precise multi-metric lifts for his current flagship project (WROGN AI-generated PDP key highlights: +4.44% RPU, +6.34% ABS, +1.86% Purchase Rate, +0.51% ATC), but live he could not recall the actual PDP→cart conversion number (the metric the project targeted) and needed to check a sheet. Less severe than Jatin's case — the process behind the claim (session-level A/B test, ~14-day run, hypothesis cross-validated against a sister Aditya Birla brand TIGC) was credible under questioning, just the topline number wasn't owned cold.
+
+**What held up well / genuine strengths:** real hands-on breadth (6 internships/brands in 2 years, not observation); technical analytics depth that survived a hard live question (GA4 web-vs-app architecture — correctly distinguished crash/performance data via Firebase, mobile session splitting by OS, ~70-80% event reuse); personally wrote 25+ tracking events for a live B2B product (My Orders / returns-management rebuild across 7 Shopify brands); volunteered an honest example of a data-backed change that underperformed and is still under RCA (unprompted, matches Ranjith's stated bar); solid unprompted knowledge of what Inc42 actually does (unlike Jatin); best live-practical-exercise performance of the two candidates interviewed so far (structured, value-first ideas on the Inc42 signup problem, not pure guesswork).
+
+**Gaps in the interview itself, not necessarily the candidate:** salary expectation was never discussed; AI tool-building depth (model choice, RAG-equivalent) wasn't hard-tested — only analytics/events depth was; Dope Squad unit economics (margin/COGS) wasn't drilled into as planned.
 
 Related: [[project-inc42-product-trainee]], [[project-inc42-hiring-agent]], [[feedback-deliver-in-chat]], [[feedback-always-include-source-links]], [[feedback-interview-feedback-format]].

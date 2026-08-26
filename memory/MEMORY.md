@@ -69,7 +69,7 @@
 - [CTC parsing rule for hiring sheet](feedback-hiring-sheet-ctc-parsing.md) — plain numbers are LPA not thousands; implausibly low values (≈≤2) are bad data, exclude don't guess
 - [Project: INC42 Agent Platform](project-inc42-agent-platform.md) — internal Slack AI agents as shared infra; Ranjith owns product, Utkarsh sponsors; 25-agent catalogue, demand-gated with pre-written kill conditions
 - [Project: INC42 Product Trainee hiring](project-inc42-product-trainee.md) — Ranjith's own role, 545 Keka applicants, criteria locked (internships COUNT, cap ₹5L, presentation not a gate); PT Calibration tab awaiting his 20 blind grades before any spend
-- [PT interview guide](project-inc42-pt-interview-guide.md) — reusable bucket-by-bucket question bank weighted to the rubric; Jatin Saluja interviewed 25 Aug → REJECTED (resume outscored candidate)
+- [PT interview guide](project-inc42-pt-interview-guide.md) — reusable bucket-by-bucket question bank; Jatin Saluja (25 Aug) + Dhruv Kathpal (26 Aug) both interviewed → both REJECTED
 - [PT hiring — interview assignment doc](project-inc42-product-trainee-assignment.md) — 2-part interview stage (take-home diagnosis + live no-prep round), open rubric, artifact b1120c11
 - [Project: DPDP compliance](project-dpdp-compliance.md) — 3-phase engagement, tech leads Prapti & Ashish, May 2027 deadline; Aug 11 quote ₹15L→₹10L+GST but all-in ~₹30L w/ consent mgr + security tools — Ranjith stalling until minimum requirement is known; vendor naming (KavachOne/Shivang vs "Mitigator") unresolved
 - [Project: AI agents](project-ai-agents.md) — sales/support/qualification agents, voice AI, consulting
