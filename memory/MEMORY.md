@@ -58,6 +58,7 @@
 - [INC42 Weekly Team Leads Sync](project-inc42-weekly-team-leads-sync.md) — recurring cross-team status (payments/dunning events, cost optimization, Data Labs pipelines, unification, D2C); 24 Aug: sector-tagging now daily, landing pages move to Akshay, Azure has 1 month of credits left
 - [INC42 app v2 — full scope, all sources](project-inc42-app-v2-scope-full.md) — reconciles 6 threads (24 Aug closed scope, Satya sessions, Ravi critique, brief images, the separate PROPOSED flags/feedback/ratings list, instrumentation); flags data-contradicted items (dead Rate button, MCP blocked, loader latency risk) and the TWO unreconciled v2 scope lists
 - [INC42 Salesforce evaluation](project-inc42-salesforce-evaluation.md) — 24 Aug scoping call, Data 360 + Marketing Cloud + Slack Enterprise pitched for data unification; no decision, two follow-ups planned (Marketing Cloud+Slack Thu, subscriber lifecycle TBD)
+- [26 Aug v2 scoping sync](project-inc42-app-v2-sync-26aug.md) — 5-page scope due 27 Aug; card/explore hypotheses; live bugs (race condition, iOS back-button build52); Satya comms breakdown; AskInc42 overlay plan; events-unification consultant hire
 
 ## INC42 data warehouse
 - [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026, 328K contacts/75K companies, powers contact_360/company_360 + Customer.io reverse ETL
