@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: d8963308-0bb1-4e90-a221-f2c4311ce0ba
-  modified: 2026-08-24T14:41:33.057Z
+  modified: 2026-08-26T06:16:17.350Z
 ---
 
 **Utkarsh's FY27 Plan — Engines × Tracks**, LOCKED 2026-08-21. The authoritative horizon plan (Aug 2026→Mar 2027). File: `~/Downloads/PMTD MOP 2026.xlsx`, tab "FY27 Plan — Engines × Tracks" (the only tab to reference; the MOP tabs are per-month operating plans that SERVE these tracks). Supersedes/overarches [[project-inc42-strategy-utkarsh]]. Griffin is out of scope.
@@ -65,3 +65,5 @@ Implication for [[project-inc42-funnel-analysis]] / the unification sheet: our "
 - **DataLabs lifecycle journeys + the new DataLabs newsletter are missing from the MOP entirely** — no owner, no target, needs scoping before the Monday lock.
 
 **How to apply:** treat rows 10–13 in the Sep MOP as unowned gaps needing assignment before Monday's lock, not committed work yet. Re-check with Ranjith whether Goal 06 gets amended for the sign-in/employer point once he's decided.
+
+**Row 14 added 26 Aug 2026 — Search functionality + visibility.** Ranjith's own addition (not Utkarsh's), framed explicitly as an engagement lever, not a discovery/UX nice-to-have. No baseline, target, surface (app/web/Datalabs) or owner specified yet — flagged "New — needs scoping" rather than a number invented for it.
