@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 59cedaa8-a793-4cf6-9ab8-edd7339fa0a4
-  modified: 2026-08-25T04:06:18.831Z
+  modified: 2026-08-27T09:21:51.299Z
 ---
 
 Built 2026-08-24 at Ranjith's request ("everything you know — all meetings, in-person discussion, previous documents — what should be in app v2"). Two scope threads exist and are **NOT reconciled with each other** — flag this to Ranjith/Utkarsh before treating either as complete.
@@ -77,6 +77,22 @@ Source: [[project-inc42-app-behaviour]]. Not a UI item, but breaks measurement o
 - Add `update_prompt_shown/dismissed/cta_tapped/update_completed` events if Thread 5's update-prompt work ships, or uptake is unmeasurable
 - **App load is slow; 429 too-many-requests errors observed; Datadog shows a 4.77% overall error rate** (surfaced 21 Aug, [[project-inc42-unification]]-adjacent funnel session, meeting id `417df34b...`) — verify under low-network conditions, not yet confirmed fixed as of 24 Aug.
 - **Flag/exclude internal users in PostHog** — now fully specified in the 25 Aug events-fix ticket (source: [[project-inc42-posthog-review]], confirmed 17 Aug, full doc at `~/Downloads/Posthog Review 2026 08 17.md`): add an `is_internal` person property (@inc42.com + pre-Aug-12 cohort) + a PostHog cohort applied as the default dashboard filter.
+
+**Events-fix Asana ticket, finalized scope (25 Aug):** https://app.asana.com/1/176734136274/project/1216274779493698/task/1217810326370973 — Ritvik, project Inc42 App. Went through two revisions same day: first draft was a wide multi-column table (unreadable), rebuilt as 5 short bulleted sections; then Ranjith cut it further to **only unambiguous, ready-to-build fixes** — anything needing a prior "verify/confirm" step was dropped from the ticket entirely, not just reworded. Final scope, 10 items across 5 groups:
+- Dead/duplicate events: remove `brief_open_today` (dead since Jul 13); dedupe `story_unsaved`+`company_untracked`+`industry_untracked` into one (all duplicate `watchlist_entity_removed`)
+- Add to v1.5 dictionary (firing, undocumented): `walkthrough`, `brief_story_rated`, `sign_in_prompt_shown`, `share_initiated`, `push_priming_dismissed`, `app_installed`
+- Property fixes: missing `onboarding.step_name` values (watchlist/push_prompt/signin_prompt); implement `brief_page_opened.is_edition_switch`; exclude `auth_callback` from `deep_link_opened`
+- Internal-user exclusion: `is_internal` person property + "Internal & beta" cohort as default dashboard filter
+- North star: define `completed_engaged` = `brief_completed` WHERE `duration_sec >= 60`, report that instead of raw completion
+
+**Deliberately dropped from the ticket — real findings, not yet a task, offered to file separately (Ranjith hadn't answered as of 25 Aug):**
+- `decode` — needs Ranjith to confirm whether it's even shipped before scoping the instrumentation fix
+- `interest_captured`/`locked_feature_tapped`/`watchlist_limit_hit` (monetization dataset) — needs confirming the gates exist in the build
+- `push_delivered` — the review's own #1-ranked action item, but the actual fix depends on why push is dark (integration unfinished vs deliberately held), unknown
+- `brief_fallback_shown`/`rating_prompt_shown`/`force_update_shown` — needs confirming intentional vs not shipped
+- `brief_opened.source` (only ever "organic") — needs confirming deep-link attribution wiring
+- register-vs-sign-in anomaly (110 signed in, only 25 registered) — needs verifying which is true before it's actionable
+If any of these get confirmed, they still need their own ticket — this list is not tracked in Asana anywhere yet.
 - **Fix streak: count same-day on first login/signup** — on first login the streak should register for that day, not start blank until day 2. New instruction, 24 Aug. Asana ticket created 25 Aug: https://app.asana.com/1/176734136274/project/1216274779493698/task/1217799709962157
 
 ## Thread 7 — AskInc42, a separate major feature with its own 17-decision PRD, NOT mentioned in the 24 Aug v2 close
