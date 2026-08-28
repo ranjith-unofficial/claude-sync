@@ -1,0 +1,686 @@
+<title>Inc42 App PRD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#faf8f3; --surface:#ffffff; --ink:#1c1b18; --ink-muted:#6e6858; --ink-faint:#9b9686;
+  --border:#e6e1d6; --border-strong:#d3ccbc;
+  --accent:#2b4c6f; --accent-soft:#e7eef3; --accent-ink:#17324a;
+  --production:#3a6b4c; --production-soft:#e6efe8;
+  --sprint:#b8622a; --sprint-soft:#f5e9df;
+  --backlog:#5b5a9c; --backlog-soft:#eaeaf4;
+  --reference:#6e6858; --reference-soft:#efece4;
+  --archive:#948c7a; --archive-soft:#f0ede5;
+  --flag:#a6412e; --flag-soft:#f6e5e1;
+  --code-bg:#f1ede2;
+  --shadow: 0 1px 2px rgba(28,27,24,0.06), 0 4px 16px rgba(28,27,24,0.05);
+}
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme: dark){
+    --bg:#171613; --surface:#1f1e1a; --ink:#ece7db; --ink-muted:#a89f8c; --ink-faint:#756d5c;
+    --border:#332f27; --border-strong:#453f34;
+    --accent:#8fb6da; --accent-soft:#232d38; --accent-ink:#cfe1f2;
+    --production:#8fc4a3; --production-soft:#1f2e25;
+    --sprint:#e0a06b; --sprint-soft:#332920;
+    --backlog:#adacd9; --backlog-soft:#26253a;
+    --reference:#b3ab98; --reference-soft:#26241d;
+    --archive:#9c9482; --archive-soft:#24221b;
+    --flag:#e2887a; --flag-soft:#33231f;
+    --code-bg:#26241d;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 20px rgba(0,0,0,0.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171613; --surface:#1f1e1a; --ink:#ece7db; --ink-muted:#a89f8c; --ink-faint:#756d5c;
+  --border:#332f27; --border-strong:#453f34;
+  --accent:#8fb6da; --accent-soft:#232d38; --accent-ink:#cfe1f2;
+  --production:#8fc4a3; --production-soft:#1f2e25;
+  --sprint:#e0a06b; --sprint-soft:#332920;
+  --backlog:#adacd9; --backlog-soft:#26253a;
+  --reference:#b3ab98; --reference-soft:#26241d;
+  --archive:#9c9482; --archive-soft:#24221b;
+  --flag:#e2887a; --flag-soft:#33231f;
+  --code-bg:#26241d;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 20px rgba(0,0,0,0.35);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Public Sans", -apple-system, "Segoe UI", sans-serif;
+  font-size:16px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:"Fraunces", Georgia, serif; font-weight:600; color:var(--ink);
+  text-wrap:balance; line-height:1.2; margin:0 0 0.5em;
+}
+a{color:var(--accent);}
+code, .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:0.88em;}
+code{background:var(--code-bg); padding:0.1em 0.4em; border-radius:4px;}
+pre{background:var(--code-bg); padding:14px 16px; border-radius:8px; overflow-x:auto; border:1px solid var(--border);}
+pre code{background:none; padding:0;}
+
+.layout{display:flex; max-width:1280px; margin:0 auto;}
+.sidebar{
+  width:280px; flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto;
+  padding:28px 20px 60px; border-right:1px solid var(--border);
+}
+.sidebar-title{font-family:"Fraunces",serif; font-size:1.05rem; font-weight:600; margin-bottom:2px;}
+.sidebar-sub{font-size:0.78rem; color:var(--ink-faint); margin-bottom:22px;}
+.nav-group{margin-bottom:18px;}
+.nav-group-label{
+  font-size:0.7rem; text-transform:uppercase; letter-spacing:0.07em; font-weight:600;
+  color:var(--ink-faint); margin-bottom:6px; padding-left:2px;
+}
+.nav-group a{
+  display:block; font-size:0.86rem; color:var(--ink-muted); text-decoration:none;
+  padding:4px 8px 4px 10px; border-left:2px solid transparent; border-radius:0 4px 4px 0;
+}
+.nav-group a:hover{background:var(--surface); color:var(--ink);}
+.nav-group.production a{border-left-color:transparent;}
+.nav-group.production a:hover{border-left-color:var(--production);}
+.nav-group.sprint a:hover{border-left-color:var(--sprint);}
+.nav-group.backlog a:hover{border-left-color:var(--backlog);}
+.nav-group.reference a:hover{border-left-color:var(--reference);}
+.nav-group.archive a:hover{border-left-color:var(--archive);}
+
+.main{flex:1; min-width:0; padding:44px 56px 120px; max-width:900px;}
+@media (max-width:900px){
+  .layout{flex-direction:column;}
+  .sidebar{position:relative; height:auto; width:100%; border-right:none; border-bottom:1px solid var(--border);}
+  .main{padding:32px 22px 90px;}
+}
+
+.doc-header{margin-bottom:36px; padding-bottom:28px; border-bottom:1px solid var(--border);}
+.doc-header .eyebrow{
+  font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent);
+  font-weight:600; margin-bottom:10px;
+}
+.doc-header h1{font-size:2.3rem; margin-bottom:10px;}
+.doc-header p{color:var(--ink-muted); font-size:1.02rem; max-width:60ch;}
+.meta-row{display:flex; gap:18px; flex-wrap:wrap; margin-top:16px; font-size:0.82rem; color:var(--ink-faint);}
+
+section.tier{margin-bottom:56px;}
+.tier-head{display:flex; align-items:baseline; gap:12px; margin-bottom:6px;}
+.tier-head h2{font-size:1.6rem; margin:0;}
+.tier-desc{color:var(--ink-muted); font-size:0.95rem; margin-bottom:28px; max-width:64ch;}
+
+.pill{
+  display:inline-block; font-family:"Public Sans",sans-serif; font-size:0.68rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.05em; padding:3px 9px; border-radius:20px;
+}
+.pill.production{background:var(--production-soft); color:var(--production);}
+.pill.sprint{background:var(--sprint-soft); color:var(--sprint);}
+.pill.backlog{background:var(--backlog-soft); color:var(--backlog);}
+.pill.reference{background:var(--reference-soft); color:var(--reference);}
+.pill.archive{background:var(--archive-soft); color:var(--archive);}
+.pill.flag{background:var(--flag-soft); color:var(--flag);}
+
+article.doc{
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:30px 32px; margin-bottom:22px; box-shadow:var(--shadow);
+  scroll-margin-top:20px;
+}
+article.doc > .doc-meta{
+  display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;
+  margin-bottom:18px; padding-bottom:16px; border-bottom:1px solid var(--border);
+}
+article.doc h3{font-size:1.28rem; margin:0;}
+article.doc .owner-line{font-size:0.8rem; color:var(--ink-faint); margin-top:3px;}
+article.doc h4{font-size:1.03rem; margin-top:26px;}
+article.doc h5{font-size:0.92rem; font-family:"Public Sans",sans-serif; font-weight:700; margin:18px 0 6px; color:var(--ink);}
+article.doc p{margin:0 0 12px; max-width:70ch;}
+article.doc ul, article.doc ol{margin:0 0 14px; padding-left:22px;}
+article.doc li{margin-bottom:5px;}
+article.doc li::marker{color:var(--ink-faint);}
+
+.callout{
+  border-left:3px solid var(--accent); background:var(--accent-soft); border-radius:0 8px 8px 0;
+  padding:12px 16px; margin:14px 0; font-size:0.92rem;
+}
+.callout.flag{border-left-color:var(--flag); background:var(--flag-soft);}
+.callout .callout-label{font-weight:700; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:4px;}
+.callout.flag .callout-label{color:var(--flag);}
+.callout:not(.flag) .callout-label{color:var(--accent);}
+
+table{width:100%; border-collapse:collapse; margin:14px 0 18px; font-size:0.88rem;}
+.table-wrap{overflow-x:auto; margin:14px 0 18px;}
+.table-wrap table{margin:0;}
+th{
+  text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em;
+  color:var(--ink-faint); font-weight:600; padding:7px 12px; border-bottom:2px solid var(--border-strong);
+  white-space:nowrap;
+}
+td{padding:8px 12px; border-bottom:1px solid var(--border); vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+td code{white-space:nowrap;}
+
+.divider-line{border:none; border-top:1px solid var(--border); margin:22px 0;}
+
+.tag-row{display:flex; flex-wrap:wrap; gap:6px; margin:10px 0;}
+.tag{
+  font-family:"IBM Plex Mono",monospace; font-size:0.76rem; background:var(--code-bg);
+  border:1px solid var(--border); padding:2px 8px; border-radius:5px; color:var(--ink-muted);
+}
+
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+@media (max-width:640px){.two-col{grid-template-columns:1fr;}}
+.col-box{background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:14px 16px;}
+.col-box h5{margin-top:0;}
+
+.archive-item{border-bottom:1px solid var(--border); padding:16px 0;}
+.archive-item:last-child{border-bottom:none;}
+.archive-item h4{margin-bottom:4px; font-size:1.05rem;}
+.archive-item .arch-meta{font-size:0.78rem; color:var(--ink-faint); margin-bottom:8px;}
+.archive-item p{font-size:0.92rem; margin-bottom:8px;}
+
+.toc-jump{position:fixed; bottom:24px; right:24px; z-index:5;}
+.toc-jump a{
+  display:flex; align-items:center; justify-content:center; width:44px; height:44px;
+  background:var(--surface); border:1px solid var(--border-strong); border-radius:50%;
+  box-shadow:var(--shadow); color:var(--ink-muted); text-decoration:none; font-size:1.1rem;
+}
+
+.findings-box{
+  background:var(--surface); border:1.5px solid var(--flag); border-radius:10px;
+  padding:24px 26px; margin-bottom:44px;
+}
+.findings-box h2{color:var(--flag); font-size:1.35rem; margin-bottom:4px;}
+.findings-box > p.lead{color:var(--ink-muted); margin-bottom:18px; font-size:0.93rem;}
+.finding{padding:14px 0; border-top:1px solid var(--border);}
+.finding:first-of-type{border-top:none;}
+.finding h4{font-size:0.98rem; margin-bottom:6px; font-family:"Public Sans",sans-serif; font-weight:700;}
+.finding p{font-size:0.9rem; margin:0 0 6px; max-width:none;}
+.finding .verdict{font-size:0.8rem; color:var(--ink-faint); font-style:italic;}
+
+.empty-note{
+  display:flex; gap:10px; align-items:center; background:var(--reference-soft); border-radius:8px;
+  padding:10px 14px; font-size:0.85rem; color:var(--ink-muted); margin-bottom:10px;
+}
+</style>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">Inc42 App PRD</div>
+    <div class="sidebar-sub">Consolidated · 28 Aug 2026</div>
+
+    <div class="nav-group"><a href="#findings" style="font-weight:700;color:var(--flag);">⚑ Flagged conflicts</a></div>
+
+    <div class="nav-group production">
+      <div class="nav-group-label">Production / current</div>
+      <a href="#doc-prd-v3">Master PRD (v3, canonical)</a>
+      <a href="#doc-launch-infra">Launch Infrastructure — Final</a>
+      <a href="#doc-ranking">Article Ranking Logic</a>
+      <a href="#doc-streaks">Streak &amp; Rewards</a>
+      <a href="#doc-account-deletion">Account Deletion</a>
+      <a href="#doc-singular">Singular Deep-Link Config</a>
+      <a href="#doc-privacy">Privacy Policy</a>
+      <a href="#doc-tou">Terms of Use</a>
+    </div>
+
+    <div class="nav-group sprint">
+      <div class="nav-group-label">Next sprint / active</div>
+      <a href="#doc-v2-scope">App v2 Scope (19 Aug)</a>
+      <a href="#doc-askinc42">AskInc42</a>
+      <a href="#doc-brief-image">Brief Title + Image Gen</a>
+      <a href="#doc-notif-permissions">Notification Permissions</a>
+      <a href="#doc-events-consolidated">Events — Consolidated Fix List</a>
+      <a href="#doc-events-new">Events — Earlier Fix Draft</a>
+      <a href="#doc-rating">App Store Rating Prompt</a>
+    </div>
+
+    <div class="nav-group backlog">
+      <div class="nav-group-label">Backlog / proposed</div>
+      <a href="#doc-pulse">Pulse (Social Intelligence) v2</a>
+      <a href="#doc-feature-flag">Feature Flag Rollout Strategy</a>
+    </div>
+
+    <div class="nav-group reference">
+      <div class="nav-group-label">Reference</div>
+      <a href="#doc-app-store-checklist">App Store Submission Checklist</a>
+      <a href="#doc-signin-sheet">Sign-in Bottom Sheet Copy</a>
+      <a href="#doc-survey">User Interview Survey</a>
+    </div>
+
+    <div class="nav-group archive">
+      <div class="nav-group-label">Archive / superseded</div>
+      <a href="#doc-archive">All archived drafts →</a>
+      <a href="#doc-structural">Empty / cleanup items</a>
+    </div>
+  </nav>
+
+  <main class="main">
+    <header class="doc-header">
+      <div class="eyebrow">Inc42 App · Consolidated reference</div>
+      <h1>Everything in the App Master PRD, organized</h1>
+      <p>The source document — <em>Copy of Inc42 App Master PRD</em> — has 45 tabs with no consistent structure: current specs, superseded drafts, and rough notes sit side by side with no labels. This reorganizes all of it by <strong>what's actually true today</strong>: what's live, what's being built next, what's proposed but uncommitted, what's living reference material, and what's been superseded — read in full, tab by tab, nothing skipped.</p>
+      <div class="meta-row">
+        <span>Source: 45 tabs, ~15,000 lines, read in full</span>
+        <span>·</span>
+        <span>Built for Ranjith · 28 Aug 2026</span>
+      </div>
+    </header>
+
+    <section class="findings-box" id="findings">
+      <h2>⚑ Things that need a decision, not just a read</h2>
+      <p class="lead">Four places where the source document contradicts itself — genuinely different mechanisms describing the same job, not just old-vs-new. Worth resolving with Utkarsh/eng before anyone treats one of these as ground truth.</p>
+
+      <div class="finding">
+        <h4>1. There are four different Brief-ranking formulas in this document</h4>
+        <p><strong>Master PRD §4.4</strong> (the doc's own "canonical" spec) describes a 3-stage model: editorial hand-pins the lead story → an <strong>LLM</strong> ranks the rest of the candidate pool → a deterministic tracked-company/sector boost re-orders on top. The standalone <strong>Article Ranking Logic</strong> tab — which reads like a locked, precise spec (exact weights, a real 90-day popularity dataset) — describes something else entirely: a <em>pure deterministic</em> formula (<code>TopicAff + SectorAff + Popularity</code>, no LLM step at all). The archived <strong>Brief_Personalization_logic</strong> doc has a third mechanism (5-tier Editorial Importance score + "Full-Match Primacy" priority group), and WIP's <strong>v0_Brief Personalization</strong> has a fourth (per-ICP Signal Score tables). None of these four fully match.</p>
+        <p class="verdict">This doc places the standalone Article Ranking Logic tab in Production, since it reads as the most current and precisely specified — but that's a best guess from the text, not a confirmed fact. Worth a direct check with eng on which formula is actually implemented.</p>
+      </div>
+
+      <div class="finding">
+        <h4>2. Notification logic is split across three non-overlapping documents</h4>
+        <p>The Master PRD §8.5 defines <em>what</em> gets pushed and the fatigue rules (grouping, caps, quiet hours). The standalone <strong>Notification Permissions &amp; Re-Ask Logic</strong> doc defines <em>the ask flow</em> (first prompt, re-ask cooldowns) — no content rules. The WIP <strong>Notification Strategy PRD</strong> defines a specific timed reminder cascade (7:30am → 11:30am → 6pm) and a full Brief state machine that appears nowhere else. These three don't conflict, but no single current document has the whole picture, and the WIP doc's exact reminder times aren't confirmed as still-current anywhere else.</p>
+      </div>
+
+      <div class="finding">
+        <h4>3. Two independent events-fix audits, not fully reconciled</h4>
+        <p><strong>New_event_sheet_Changes</strong> flags architecture-level bugs (no PostHog/Customer.io person profile for anonymous users, so every logged-out property update fails silently; properties bundled incorrectly; email leaking into event payloads). <strong>Events Sheet — Consolidated Change List</strong> (the most recently named, last tab in the doc) flags a different, non-overlapping set of fixes, including the Customer.io anonymous→login merge bug. They read like two separate audits done at different times — the Consolidated list does not supersede the first one's P0 items.</p>
+      </div>
+
+      <div class="finding">
+        <h4>4. "App V2" is not an empty tab — it's a live 19 Aug scope doc</h4>
+        <p>The top-level "App V2" tab looked structurally empty on a first pass (no markdown headings), but it actually contains a full, dated (2026-08-19) 11-workstream scope document with owners and priorities — one of the most current things in the whole file. It's placed under Next Sprint here.</p>
+      </div>
+    </section>
+
+    <!-- ======================= PRODUCTION ======================= -->
+    <section class="tier" id="production">
+      <div class="tier-head"><span class="pill production">Production</span><h2>Current — source of truth today</h2></div>
+      <p class="tier-desc">What the app is actually built on right now. The Master PRD tab explicitly self-labels as canonical and supersedes every earlier PRD tab in the doc.</p>
+
+      <article class="doc" id="doc-prd-v3">
+        <div class="doc-meta">
+          <div><h3>Inc42 App — v1 PRD (Final v3)</h3><div class="owner-line">Owner: Utkarsh · Status: canonical — single source of truth for v1</div></div>
+          <span class="pill production">Canonical</span>
+        </div>
+        <p>The app in one page: <strong>Brief</strong> (a finite, personalized morning brief that ends), <strong>Explore</strong> (~30K-article archive + Datalabs' 70K-company graph, pull-only), <strong>Watchlist</strong> (what you track + its movements), <strong>Company profiles</strong> (glanceable Datalabs depth). Audience: Founder · Investor · Startup Operator · BD &amp; Partnerships · Other. Because it's a native app that can't hotfix, everything tunable — caps, cadence, ranking, copy, taxonomy, flags — lives in server-side remote config, with a force-update/min-version gate as insurance.</p>
+
+        <h4>Design principles</h4>
+        <ul>
+          <li><strong>Finite before infinite</strong> — opens to the Brief, ends with "Done for today," no feed continuation</li>
+          <li><strong>Depth on demand</strong> — headline → Decode → full article → entity profile, each by choice</li>
+          <li><strong>Watchlist is the personalization engine, not an algorithm</strong> — explicit choices, no behavioral feed</li>
+          <li><strong>Shown, not narrated</strong> — visible "relevant because…" attribution, no covert personalization</li>
+          <li><strong>Signal-dense cards, not image-forward</strong>; must beat inc42.com mobile; everything is Inc42 (no external aggregation)</li>
+        </ul>
+
+        <h4>Information architecture</h4>
+        <p>3 bottom tabs — <strong>Brief · Explore · Watchlist</strong> — plus a global search and account avatar in the top bar (neither is a tab, no hamburger menu). Article reader is a full-screen modal from anywhere; company profile is a shared tap-target; Ask Inc42 is a mode, not a tab (dormant in v1).</p>
+
+        <h4>Onboarding &amp; auth</h4>
+        <p>5 screens (~45–75s): welcome → role/ICP → 7 clubbed sector groups (pick ≤3, <strong>locked 2026-07-04</strong>) → watchlist seeds (≥1 required, 3 recommended, skip-with-friction) → done. No "Pick Topics" step in v1. Anonymous use is allowed; a soft sign-in sheet triggers only on a gated action (follow, ~5 profile views, 3rd save) and merges local data. iOS must offer Apple + Google + email (Guideline 4.8 — Google-only gets rejected); Android ships Google + email.</p>
+        <div class="table-wrap"><table>
+          <tr><th>Group</th><th>Child sectors</th></tr>
+          <tr><td>Ecommerce &amp; D2C</td><td>Ecommerce, D2C, Logistics, Travel</td></tr>
+          <tr><td>Consumer</td><td>Consumer Services, Foodtech, Media &amp; Entertainment, Travel Tech, Edtech, Health Tech, Agritech</td></tr>
+          <tr><td>Fintech</td><td>Fintech, Cryptocurrency, Digital Brokerage, Insurance Aggregators &amp; Comparison</td></tr>
+          <tr><td>Enterprise &amp; SaaS</td><td>Enterprise Services, Enterprise Tech, Cybersecurity, Real Estate Tech</td></tr>
+          <tr><td>AI</td><td>AI, AI Governance</td></tr>
+          <tr><td>Deeptech</td><td>Clean/Climate Tech, Space Tech, Semiconductors, Advanced Hardware, Manufacturing, EVs</td></tr>
+          <tr><td>Startup Ecosystem</td><td>Startup Ecosystem (article-tag-only, never boosts company results)</td></tr>
+        </table></div>
+        <div class="callout"><span class="callout-label">Unresolved in the sheet</span>"Travel" appears under both Ecommerce &amp; D2C and Consumer (double-boost risk) and "Web3" maps to no group — recommended → Fintech.</div>
+
+        <h4>Brief (the hero)</h4>
+        <p>A finite, relevance-ranked stack of 6–8 cards. Mon–Fri daily + Sat weekly recap + Sun off, pushed ~7–8am local. Resting state is a <strong>cover screen</strong>; opening it enters a full-screen swipe-up story flow, one card per screen, ending at Done. Card anatomy: signal-type tag, headline, byline, 3-bullet Smart Brevity body (or a deterministic funding block), ⭐ watchlist hit, 🎯 + "relevant because…" label, ✨ Decode, a free suggested-question chip, Read Full Story.</p>
+        <p><strong>Cover rules:</strong> the daily edition line is a real editorial hook, not a table-of-contents label ("Late-stage fintech is back: two mega-rounds in one week."); a "relevant to you" pre-glance surfaces when boosted cards exist; the greeting must match local time or be dropped; a dry, factual missed-day recovery line ("You missed Thursday. It's still here.") — no guilt register.</p>
+        <p><strong>Editorial governance:</strong> the headline + 3-bullet summary are written by editorial <em>alongside</em> publishing the source article — same hand, same moment, no net-new daily workload. The cover/push edition line is the one genuinely net-new editorial input per day. The LLM's v1 jobs are ranking and on-demand Decode, not summary generation — LLM-assisted bullet drafting is a v1.1 option.</p>
+
+        <h5>Streaks (mechanic locked 2026-07-04; reward model locked 2026-07-05)</h5>
+        <p>Earned on <em>completing</em> the brief (not opening). No dedicated streak push — folds into the completion nudge. Sat counts, Sun never breaks it, no paid streak-repair ever. Daily surface = a substance counter (cover row + Explore strip): <code>Day N · tier · X stories · Y companies tracked</code>. A rare full-screen milestone fires only at Day 1/7/30/100 — payload is substance + tier promotion only, no share/unlock (reserved for a later rewards layer). Tiers — Reader → Regular → Insider → Ecosystem Native — are <strong>sticky</strong>: a streak reset never strips the tier, only the daily number.</p>
+
+        <h4>Explore</h4>
+        <p>The archive + company graph, pull-only — not a discovery feed (the Brief owns "today"). Layout: search → Today's Datalabs signals rail (collapsed) → Articles/Companies switch → sub-nav pill strip → feed → recently viewed. Any industry tap anywhere lands on a <strong>Sector landing</strong> — Explore pre-scoped to that one sector, not a heavy dashboard. 17 canonical sectors shared between editorial tags and Datalabs' <code>company_sector</code>.</p>
+
+        <h4>Watchlist</h4>
+        <p>The Following + Saved surface. Track only Companies + Sectors in v1 (people/funds need profiles → v1.1+, investor before person). Free caps ~15 companies + 5 sectors; hitting a cap shows a soft "more depth coming," never a hard wall. Recent Alerts = last 20 in view, 90-day rolling history behind "See all."</p>
+
+        <h4>Company entity profile</h4>
+        <p>Order: Header → Funding → People → On Inc42 → Ask-stub (dormant). <strong>Launch depth locked = V2+</strong> (V2 Deep + headline historical P&amp;L — YoY Revenue/Expense/Profit-Loss, ~3–5yr trend): a deliberate, accepted partial overlap with Datalabs Pro's web product, traded for app wow-factor, while full balance sheet / expense line-items / ratios / cap table / valuation history stay Pro-reserved. The tier boundary is always a server-side field mask, never baked into the client.</p>
+
+        <h4>Cross-cutting surfaces</h4>
+        <p><strong>Decode vs. "In 30 seconds":</strong> Decode is always a live, user-triggered AI explainer (brief cards, Explore Decode action, profile Ask-stub) — soft-capped, non-blocking, always teaser-and-routes to the article. The pre-written one-line card summary is a <em>separate</em>, editorial/deterministic thing named <strong>"In 30 seconds"</strong> (provisional wording) — explicitly not Decode, to protect the "not an aggregator" line. "Signal" stays reserved for the data vocabulary (signal-type tags, the Datalabs signals rail, the data team's Signal Engine) and is never used for the AI explainer.</p>
+
+        <div class="table-wrap"><table>
+          <tr><th>#</th><th>Push</th><th>Cadence</th><th>Trigger</th></tr>
+          <tr><td>1</td><td>Morning Brief</td><td>1×/day, ~7–8am local</td><td>The daily drop — copy is the hand-written edition line, never "Your Brief is ready"</td></tr>
+          <tr><td>2</td><td>Brief completion nudge</td><td>≤1/day, non-openers only</td><td>Doubles as the streak nudge — no separate streak push</td></tr>
+          <tr><td>3</td><td>Breaking</td><td>≤1/day</td><td>Manual / editorial, not algorithmic</td></tr>
+          <tr><td>4</td><td>Watchlist digest</td><td>1×/day, grouped</td><td>Deterministic daily digest of tracked-entity movements — no LLM, no real-time in v1</td></tr>
+          <tr><td>5</td><td>Winback</td><td>≤1/week</td><td>Lapsed users only</td></tr>
+        </table></div>
+        <p>Significance-gated (only funding/M&amp;A/leadership/major policy/marquee coverage make the digest — routine mentions go to the ledger only); quiet hours 10pm–7am local; Customer.io local-time send is disabled if a message also carries a daily rate-limit or A/B variant, so all push A/B tests run as two server-side-assigned messages instead.</p>
+        <p>v1 = Free tier only. Plus/Pro reserved in code, no paywall, no "Pro/Plus/Premium/Subscribe/₹" wording anywhere — interest capture only, activates via Apple IAP in v1.1.</p>
+
+        <h4>Success metrics (v1)</h4>
+        <p>D7 ≥30% · D30 ≥15% · Brief completion ≥40% (= final card reached) · push opt-in ≥55% · watchlist completion ≥30% · Decode usage ≥15% of opened stories · search/DAU ≥0.3 · Datalabs profile views/DAU ≥0.2 (M1) → 0.5 (M3) · crash-free ≥99.5%.</p>
+
+        <h4>Rollout &amp; risk</h4>
+        <p>(a) 48-hour TestFlight founding-reader wave (top ~2K Daily Brief openers), then (b) staged Play rollout 10%→50%→100%, gated on crash-free rate and brief-completion. Key risks: editorial capacity (largely absorbed — the only true net-new work is the daily edition line); the Explore hybrid search backend is unverified and its 20-query reality check is launch-gating; India Android OEM background-kill can silently drop the Morning Brief (instrumented from day one, see Launch Infra).</p>
+      </article>
+
+      <article class="doc" id="doc-launch-infra">
+        <div class="doc-meta">
+          <div><h3>Inc42 App — Launch Infrastructure &amp; Measurement (Final)</h3><div class="owner-line">Owner: Utkarsh · Status: final spec for build handoff</div></div>
+          <span class="pill production">Canonical</span>
+        </div>
+        <p>Companion to the Master PRD: names the vendors and measurement/attribution/push infra the PRD's §8.5/§9 assume but never specify.</p>
+        <div class="table-wrap"><table>
+          <tr><th>Layer</th><th>Vendor</th><th>Note</th></tr>
+          <tr><td>Attribution / MMP</td><td><strong>Singular</strong></td><td>AppsFlyer = named backup. Free tier: 15k paid conversions/mo, self-serve</td></tr>
+          <tr><td>Push / CRM</td><td><strong>Customer.io only</strong></td><td>MoEngage deferred to a delivery-rate trip-wire, not dropped</td></tr>
+          <tr><td>Ad networks at launch</td><td>Meta + Google</td><td>Apple Search Ads not at launch → Firebase Analytics <em>is</em> launch-blocking</td></tr>
+          <tr><td>Product analytics</td><td>PostHog</td><td>Mobile SDKs, unified web→app funnels</td></tr>
+          <tr><td>Crash</td><td>Firebase Crashlytics</td><td>Tracks the ≥99.5% crash-free target</td></tr>
+          <tr><td>iOS attribution</td><td>SKAN 4</td><td>6-tier "highest-value reached" ladder, optimized to <code>brief_completed</code></td></tr>
+          <tr><td>Web↔app identity</td><td>Inc42 auth user ID; anon device UUID pre-registration</td><td><strong>Open: eng owner</strong> — the one unresolved point</td></tr>
+          <tr><td>DPDP consent gate</td><td>Deferred</td><td>Not legally required until May 13 2027; ATT still ships at launch</td></tr>
+        </table></div>
+        <p>The binding constraint: several pieces must be in the <strong>submitted binary</strong> at App Store review (the PRD's "we can't hotfix" rule) — a missing SDK means a full resubmission cycle.</p>
+
+        <h5>SKAN conversion-value schema (locked)</h5>
+        <div class="table-wrap"><table>
+          <tr><th>Value</th><th>Milestone</th></tr>
+          <tr><td>0</td><td>Install</td></tr>
+          <tr><td>1</td><td>Onboarding complete</td></tr>
+          <tr><td>2</td><td>Brief opened</td></tr>
+          <tr><td>3</td><td><strong>Brief completed</strong> — the ad-optimization target</td></tr>
+          <tr><td>4</td><td>Push opt-in (watchlist-add is the fallback)</td></tr>
+          <tr><td>5</td><td>Registered (optional, highest value)</td></tr>
+        </table></div>
+        <p>India Android OEM delivery is the accepted real risk: ~51% of Indian handsets are Chinese-OEM devices whose background-kill breaks bare FCM, and Customer.io has no amplification fallback. Mitigation: instrument delivery-rate by device OEM from day one; if it drops below tolerance, MoEngage Push Amplification Plus is the pre-scoped fast-follow fix (not a default).</p>
+      </article>
+
+      <article class="doc" id="doc-ranking">
+        <div class="doc-meta">
+          <div><h3>Article Ranking Logic — Personalized Daily Brief</h3></div>
+          <span class="pill production">Likely current</span>
+        </div>
+        <div class="callout flag"><span class="callout-label">See flagged conflict #1</span>This reads as the most precisely specified ranking doc in the file — but it describes a different mechanism than the Master PRD's own §4.4. Treat as probably-current, confirm with eng.</div>
+        <p>Two signals from the user (Followed Topics, Followed Sectors) combine with per-article Development_Type and Company_Industries, plus two fixed popularity tables built from a real 90-day co-read study (a crowd-level prior — News/Consumer sit at 1.0, everything else scaled beneath).</p>
+        <div class="table-wrap"><table>
+          <tr><th>Term</th><th>Formula</th></tr>
+          <tr><td>TopicAff</td><td>1.0 if article's topic ∈ followed topics; else max affinity; 0 if none set</td></tr>
+          <tr><td>SectorAff</td><td>Σ (parent multiplier × parent affinity) across each unique parent sector in the article</td></tr>
+          <tr><td>Pop</td><td>½·topicPopularity + ½·sectorPopularity</td></tr>
+          <tr><td>Score</td><td><code>1.0·TopicAff + 0.6·SectorAff + 0.15·Pop</code></td></tr>
+        </table></div>
+        <p>Ranked by score then recency. <strong>Editorial Override:</strong> an "App Featured Article" flag (default No) places a story above all ranking rules entirely; multiple featured articles tie-break by publish time. Edge cases are all handled by the same formula — no topics set, no sectors set, neither set, article missing a field — everything degrades gracefully to popularity + recency rather than breaking.</p>
+      </article>
+
+      <article class="doc" id="doc-streaks">
+        <div class="doc-meta"><div><h3>Streak &amp; Rewards</h3></div></div>
+        <p>One count per active day regardless of how many briefs are completed that day; a missed calendar day resets the streak to 0, restarting from 1. A day is marked active the moment the user completes their first brief. Badges and reader levels are one-time and permanent — climbing back to a milestone day after a reset does not re-award an already-earned badge. The calendar view marks active days, today, and missed days, plus a monthly "% days active" summary.</p>
+      </article>
+
+      <article class="doc" id="doc-account-deletion">
+        <div class="doc-meta"><div><h3>Account Deletion</h3><div class="owner-line">Owner: Ranjith · Surfaces: iOS, Android, Web, Datalabs</div></div></div>
+        <p>Driven by Apple 5.1.1(v) (in-app deletion, not deactivation-only), Google Play's public-URL requirement, and DPDP's right-to-erasure (30-day completion window). States: <code>active</code> → <code>pending_deletion</code> (restorable 72 hours, signed out everywhere) → <code>deleted</code> (permanent).</p>
+        <p>Deleting on any platform signs the user out of iOS, Android, Web, and Datalabs. Web deletion lives at <code>inc42.com/delete-account</code>, usable without the app (login itself serves as identity verification). Sign in with Apple tokens are revoked only after permanent deletion at Day 3 — revoking immediately would break restoration; never revoking risks App Store rejection.</p>
+        <p>The instant <code>deletion_pending = true</code>, the user is excluded from every newsletter, campaign, push, and automated journey — every marketing campaign must filter on this flag. On permanent deletion, Customer.io, PostHog, Firebase, and Singular all receive deletion requests.</p>
+        <div class="callout"><span class="callout-label">Still open</span>What happens to a Datalabs Pro/Team subscriber's billing on deletion (terms currently say deletion doesn't cancel payment obligations); whether Team admins can orphan seats by deleting; whether restoration on login should be automatic + a confirmation toast (recommended).</div>
+      </article>
+
+      <article class="doc" id="doc-singular">
+        <div class="doc-meta"><div><h3>Singular Deep-Link Configuration — Inc42 Brief</h3></div></div>
+        <p>Custom scheme <code>inc42brief://</code>, handled app-side by <code>src/core/linking/mapInboundUrl.ts</code>. Configure each Singular Link's "If app is already installed, go to:" field with the plain deep link (no manual encoding) — encoding is only needed when hand-building a Singular URL with the <code>_dl</code> query parameter, and the two formats must never be mixed.</p>
+        <div class="table-wrap"><table>
+          <tr><th>Destination</th><th>Deep link</th></tr>
+          <tr><td>Brief</td><td><code>inc42brief://brief</code></td></tr>
+          <tr><td>Brief Reader (today)</td><td><code>inc42brief://brief/read</code></td></tr>
+          <tr><td>Specific Brief (by ID)</td><td><code>inc42brief://brief/read?briefId={id}</code></td></tr>
+          <tr><td>Brief by date</td><td><code>inc42brief://brief/read?briefDate={YYYY-MM-DD}</code></td></tr>
+          <tr><td>Explore — Articles</td><td><code>inc42brief://explore?mode=articles</code></td></tr>
+          <tr><td>Explore — Companies</td><td><code>inc42brief://explore?mode=companies</code></td></tr>
+          <tr><td>Article detail</td><td><code>inc42brief://article/{slug}</code></td></tr>
+          <tr><td>Company detail</td><td><code>inc42brief://company/{slug}</code></td></tr>
+          <tr><td>Watchlist</td><td><code>inc42brief://watchlist</code></td></tr>
+        </table></div>
+        <p>Canonical web article URLs (<code>inc42.com/{category}/{slug}/</code>) also open the matching article when App Links are correctly verified. Testing matrix requires both app-installed and app-not-installed (deferred deep link) passes for every destination above.</p>
+      </article>
+
+      <article class="doc" id="doc-privacy">
+        <div class="doc-meta"><div><h3>Inc42 App — Privacy Policy</h3></div></div>
+        <p>Ideope Media Pvt. Ltd. licenses the App exclusively to Inc42 Plus Media Pvt. Ltd. ("Inc42 Group"). Covers two groups: <strong>App Users</strong>, and <strong>Listed Individuals</strong> — founders/executives whose <em>name and designation only</em> appear in company pages (no work email, phone, or LinkedIn), governed jointly with a separate Contact Data Policy.</p>
+        <h5>What's collected</h5>
+        <p>From users: identity data, account data, onboarding preferences (role/sectors/topics), activity (saves, tracked entities, brief reads, streaks), support correspondence. No payment info is collected (no in-app subscriptions) and there's no user-generated content. Automatically: device info, a device-level ID generated on first open + advertising IDs where permitted, IP/network info, usage/search data, coarse IP-derived location only (no GPS), install attribution.</p>
+        <h5>Legal basis &amp; consent</h5>
+        <p>DPDP has no GDPR-style "legitimate interest" basis — analytics runs on consent. <strong>Analytics/tracking begin firing from first open, including pre-account browsing</strong>, ahead of in-app consent controls that are still being built; until then, users can only limit tracking through device settings and the ATT prompt.</p>
+        <h5>Third-party processors named</h5>
+        <div class="tag-row">
+          <span class="tag">GCP — hosting</span><span class="tag">Auth0 — sign-in</span><span class="tag">PostHog — analytics</span>
+          <span class="tag">Singular — attribution</span><span class="tag">Firebase Crashlytics</span><span class="tag">Firebase/GA4 — ads measurement</span>
+          <span class="tag">Customer.io — push</span><span class="tag">Cloudflare — CDN</span><span class="tag">AWS S3 — storage</span>
+        </div>
+        <p>Cross-border transfers to the US (Auth0, Firebase, Singular, Customer.io) and EU/US (PostHog) are covered by data processing agreements. The App does not serve third-party ads and does not use AI-generated content features.</p>
+        <h5>Rights, retention, breach</h5>
+        <p>DPDP rights (access, correction, erasure, consent withdrawal, nomination on death/incapacity, grievance) via <code>grievance+datalabs@inc42.com</code>, or in-app deletion. EU/EEA users additionally get GDPR portability/restriction/objection rights. 30-day response window. Account data: active-account lifetime + 3 years; inactive accounts deactivate after 12 months; usage logs 24 months; support records 3 years. Breach notification follows DPDP Data Protection Board timelines.</p>
+        <div class="callout"><span class="callout-label">Open in the doc itself</span>Section 15 (Session Replay) is explicitly marked <em>pending confirmation</em> — include only if PostHog session replay is actually enabled, and if so it must match the Apple privacy label and Play Data Safety form. Effective date is still a placeholder (<code>[DATE]</code>).</div>
+      </article>
+
+      <article class="doc" id="doc-tou">
+        <div class="doc-meta"><div><h3>Inc42 App — Terms of Use</h3></div></div>
+        <p>Governs the App specifically (separate from, but consistent with, the website's terms). Registration required only for save/track/Streaks — browsing needs no account. One account per person; Inc42 may deactivate accounts inactive 12+ months, with notice.</p>
+        <h5>Streaks &amp; Rewards (Section 9) — the load-bearing clause</h5>
+        <p>Explicitly <strong>no monetary value</strong> — not virtual currency, not property, not redeemable/transferable/sellable. Streaks reset on a missed day; badges and reader levels are retained. Inc42 can introduce, modify, suspend, reset, or discontinue any Streaks feature at its sole discretion, without notice or liability, and reserves the right to freeze or forfeit streaks/badges/rewards for gaming, multi-accounting, or artificial completion.</p>
+        <h5>Anti-AI-training clause (13.2) — notable</h5>
+        <p>Users are explicitly barred from using any App data/content to train, fine-tune, or validate any AI/ML/LLM model, by any access method (manual, API, or scraping), for any purpose commercial or not; from using App data as a substitute for or competitor to the App or Datalabs; and from aggregating App data into a resellable dataset.</p>
+        <h5>Liability, jurisdiction, deletion</h5>
+        <p>"As-is," no data-accuracy warranty, explicitly not investment advice, liability capped at <strong>₹1,000 total</strong>. Governing law = India, exclusive jurisdiction = New Delhi courts. Deletion is available in-app or via <code>support@inc42.com</code>; because the Inc42 identity is shared across App/Web/Datalabs, deleting in one place can affect access to the others — uninstalling the app alone does not delete the account.</p>
+      </article>
+    </section>
+
+    <!-- ======================= NEXT SPRINT ======================= -->
+    <section class="tier" id="sprint">
+      <div class="tier-head"><span class="pill sprint">Next sprint</span><h2>Active work — the current build cycle</h2></div>
+      <p class="tier-desc">Dated, owned, and in motion right now — including the 19 Aug v2 scope doc, which was miscategorized as an empty tab on a first pass.</p>
+
+      <article class="doc" id="doc-v2-scope">
+        <div class="doc-meta">
+          <div><h3>Inc42 App — v2 Scope</h3><div class="owner-line">Owner: Ranjith · Draft for team alignment · 19 Aug 2026</div></div>
+          <span class="pill sprint">19 Aug 2026</span>
+        </div>
+        <p>11 workstreams, sourced from the 17 Aug PostHog first-week review and the 18 Aug deep-linking Slack thread.</p>
+        <div class="table-wrap"><table>
+          <tr><th>Item</th><th>Type</th><th>Owner</th><th>Priority</th></tr>
+          <tr><td>Updated events (fire dark events, reconcile off-spec ones)</td><td>Instrumentation</td><td>Ranjith + Eng</td><td><strong>P0</strong></td></tr>
+          <tr><td>Datalabs filter fixes</td><td>Bug/backend</td><td>⚠️ unassigned</td><td>⚠️ needs input</td></tr>
+          <tr><td>AskInc42 v2 (3 stored onboarding Qs)</td><td>Feature</td><td>Ritvik</td><td>P1</td></tr>
+          <tr><td>Dummy screen before 7am publish</td><td>UX</td><td>Design + Eng</td><td>P2</td></tr>
+          <tr><td>Tap-again-to-exit (Android)</td><td>UX</td><td>Eng</td><td>P3</td></tr>
+          <tr><td>Deep linking fix (newsletter → app)</td><td>Bug</td><td>Nityam + Eng</td><td><strong>P0</strong></td></tr>
+          <tr><td>Singular setup revision</td><td>Attribution</td><td>Eng + Marketing</td><td><strong>P0</strong></td></tr>
+          <tr><td>Brief page — design revisit</td><td>UX/CRO</td><td>Design</td><td>P1</td></tr>
+          <tr><td>Separating Datalabs (IA)</td><td>Architecture</td><td>⚠️ unassigned</td><td>⚠️ needs input</td></tr>
+          <tr><td>Redesign Datalabs + article section</td><td>Design</td><td>Design (Satya?)</td><td>P2, blocked on above</td></tr>
+          <tr><td>Sector images + dark mode</td><td>UX</td><td>Design + Eng</td><td>P2</td></tr>
+        </table></div>
+
+        <h5>Deep linking — root cause (P0)</h5>
+        <p>Newsletter links open in Safari instead of the app. The Customer.io click-tracker redirect breaks Universal/App Links, because iOS checks the app association against the <em>first tapped domain</em> (the tracker, not in AASA) rather than the final destination. Fix: route newsletter article links through Singular smart links, verify AASA/assetlinks.json have no redirect, and either stop wrapping app-destined links in the CIO tracker or register the tracker domain.</p>
+
+        <h5>Singular setup revision — root cause (P0)</h5>
+        <p>Same root cause as deep linking: campaign always arrives as <code>None</code> because links aren't routed through a properly configured smart link. Time-critical for campaign attribution (e.g. Summit QR installs currently unattributable).</p>
+
+        <h5>Brief page redesign — the data (P1)</h5>
+        <p>99 users saw the cover, 41 tapped in (<strong>41% cover→brief conversion</strong> — the single biggest funnel drop); median completion time was 7 seconds, with half of "completions" under 10s, meaning the brief is being flicked past, not read. Plan: treat the cover as a conversion surface (stronger CTA or auto-advance into card 1), redesign the card flow so a genuine read is the default path, instrument against a redefined <code>completed_engaged</code> metric (≥60s). Watch-item: Explore currently beats Brief 69%–31% — re-read once the entry cliff is fixed; if Explore still wins with a working brief entry, that's a real v1.1 strategy signal, not a bug.</p>
+
+        <h5>Sector images — the blocker</h5>
+        <p><strong>86% of articles currently carry no sector tag</strong> — the same gap that already shelved sector personalization elsewhere. Sector-based card imagery only covers ~14% of cards unless tagging is fixed first; the doc frames this as three explicit options (fix tagging first / ship a generic fallback / defer sector images and ship dark mode alone) rather than a decision already made.</p>
+
+        <h5>Diagnostic table (same tab, later pass)</h5>
+        <p>A second, data-dense table in this same source tab adds baseline→target numbers per problem area — several explicitly flagged as needing reconciliation before a target can even be set (conflicting reads on Card 1→2 drop-off: 45% vs 80% depending on which pull is used; full-article-exit return rate 6% vs 48%). Worth pulling into the actual sprint tracker rather than treating the targets in the summary table above as locked.</p>
+      </article>
+
+      <article class="doc" id="doc-askinc42">
+        <div class="doc-meta">
+          <div><h3>AskInc42 — PRD</h3><div class="owner-line">v1 shipped (brief-end swap + Watchlist/company page) · v2 owner: Ritvik Sethi</div></div>
+          <span class="pill sprint">v2 in progress</span>
+        </div>
+        <p>Extends Inc42's existing web AskInc42 into the app — deliberately <em>not</em> a blank chat box, since app readers are in consumption mode (getting through the brief), not research mode. Two rules govern every placement: never show a blank box, and every surface already implies a question.</p>
+        <div class="table-wrap"><table>
+          <tr><th>Decision</th><th>What it locks</th></tr>
+          <tr><td>D1</td><td>Visible to every reader, logged in or not, with different flows</td></tr>
+          <tr><td>D5</td><td>5 placements in v1: story card, article, company page, sector page, Watchlist — no dedicated tab</td></tr>
+          <tr><td>D8</td><td>No paid version — Fast and Deep modes both free</td></tr>
+          <tr><td>D9</td><td>Primary guardrail: Ask must not reduce brief completion (cohort comparison)</td></tr>
+          <tr><td>D13</td><td>A surface's entity is the primary context for the <em>entire thread</em>, sticky until the reader explicitly diverts</td></tr>
+          <tr><td>D14</td><td>Every response ≤150–200 words, no Markdown tables, sources as tappable citation cards not inline links</td></tr>
+          <tr><td>D15</td><td>Latency: Fast mode targets 5s / hard max 10s; Deep mode hard max 30s</td></tr>
+          <tr><td>D16</td><td>Personas = the 5 real onboarding roles (Founder/Investor/Operator/BD/Other), not a placeholder 3-way split</td></tr>
+        </table></div>
+        <p>Generation happens once per article at publish time — AI drafts one title per persona from a Topic × Persona rubric, the editor sees and can edit them in the same publish action (no separate approval queue). If a reader closes the app before a response finishes, a push notification delivers it. <strong>Current backend latency runs 8–25 seconds under load</strong> — already over the Fast-mode ceiling; closing that gap is an engineering dependency this PRD flags but doesn't solve.</p>
+        <p><strong>v2 scope:</strong> 3 stored onboarding questions to personalize answers, web search staying on via Perplexity. Blocked on an API from Anmol — not yet raised with him — and on feature flags, which are currently halted.</p>
+      </article>
+
+      <article class="doc" id="doc-brief-image">
+        <div class="doc-meta"><div><h3>Brief Title, Push Notification &amp; Image — Generation Logic</h3><div class="owner-line">Owner: Ranjith · Reviewer: Utkarsh · Status: decisions closed</div></div></div>
+        <p>Every title and push is generated — nothing pre-written (statics go blind and kill CTR within days). One generation per sector/topic per day (not per user — rejected as 4,000 generations/day at 500 users), capped at ≤17 generations/day total. One model call returns 4 fields: <code>title</code> (60 char), <code>subheader</code> (70), <code>push_title</code> (32), <code>push_body</code> (100) — kept in one call specifically so the header and the notification never contradict each other.</p>
+        <p>At render, each user gets the highest-ranked sector/topic among what's actually in <em>their</em> delivered 8 articles that day — read from the real brief, not onboarding preferences alone, or the header can say "Fintech" over an ecommerce-heavy brief.</p>
+        <h5>Image — locked</h5>
+        <p>Featured article exists → its lead image. No featured article → editorial's uploaded poster for the day. Neither → default image. No <code>lead_article_id</code>, no separate image-selection logic needed — title and image agree by construction on featured days.</p>
+        <div class="callout"><span class="callout-label">Flagged in the doc itself</span>The topic ranking table (§2.5) was inferred from headlines, not a real CMS topic field — the export carried no topic column. Re-export with the actual <code>Development_Type</code> tag before locking those numbers. Separately, 17% of articles have no sector and surface only via the topic layer — the same tagging gap referenced in the v2 scope doc's sector-images blocker.</div>
+      </article>
+
+      <article class="doc" id="doc-notif-permissions">
+        <div class="doc-meta"><div><h3>Notification Permissions &amp; Re-Ask Logic</h3></div></div>
+        <p>One native OS prompt only, fired once on the Brief page post-auth. After that, all re-asks are in-app soft-asks only (bottom sheet, "Turn on" / "Not now"). Re-ask triggers: following an entity while alerts are off ("Get alerts on {entity}?"), or a 2+ day gap with brief notifications off ("You missed {N} briefs"). Caps: 30-day cooldown between any re-asks, lifetime cap of 2 dismissals, never stack two asks in one session.</p>
+      </article>
+
+      <article class="doc" id="doc-events-consolidated">
+        <div class="doc-meta"><div><h3>Events Sheet — Consolidated Change List</h3></div></div>
+        <p>The most recently structured events-fix list — grouped as fixes (build wrong, spec unchanged), restructures, new events, property changes, identify-call changes, and one flagged engineering bug.</p>
+        <h5>The one flagged as "the big one"</h5>
+        <div class="callout flag"><span class="callout-label">#19 — Identity merge bug</span>Customer.io does not merge the anonymous profile into the identified profile on login — it creates a second profile instead. Confirmed on two live profiles sharing the same <code>anonymous_id</code> but different <code>cio_id</code>s. Result: pre-login history is stranded, duplicate CIO profiles pile up, lifecycle/attribution data gets orphaned. PostHog's merge works correctly — this is isolated to Customer.io's identify-at-login flow.</div>
+        <p>Other notable items: <code>story_shared</code> needs to split into <code>share_initiated</code> (icon tap) and <code>story_shared</code> (sheet completion) so a real completion rate becomes measurable; <code>watchlist_entity_removed</code> was incorrectly split into two events (<code>company_untracked</code>/<code>sector_untracked</code>) and should collapse back; <code>watchlist_count</code> needs to include saved articles, not just tracked entities; <code>deep_link_opened</code> should carry real UTM parameters instead of the current inconsistent <code>attribution_source</code>/<code>attribution_campaign</code> fields.</p>
+      </article>
+
+      <article class="doc" id="doc-events-new">
+        <div class="doc-meta"><div><h3>New_event_sheet_Changes</h3></div></div>
+        <div class="callout"><span class="callout-label">Not superseded by the list above</span>See flagged conflict #3 — this is a separate audit with its own P0 items that don't appear in the Consolidated list.</div>
+        <p><strong>P0 — architecture:</strong> no PostHog/Customer.io person profile is ever created for anonymous users, so every logged-out <code>setPersonProperties()</code> call fails silently (affects push opt-in state, preferences, onboarding completion, streak data — nine separate event-to-property mappings listed as broken). Separately, <code>setPersonProperties()</code> calls send large unrelated property bundles instead of just what changed, and raw <code>email</code> currently leaks into every event payload instead of living only as a person property.</p>
+        <p><strong>Other flagged bugs:</strong> <code>streak_milestone_viewed</code> fires on non-milestone days (confirmed live on Day 2 and Day 3); <code>tracked_sector_count</code> holds a stale value and doesn't reset to 0 when sectors are untracked; a missing <code>edition_type</code> property (weekday/weekend/weekly_recap) on every brief-related event makes it impossible to separate the three edition types in analytics; <code>dnd</code> only resets correctly on re-sign-in via the App, not Web or Datalabs.</p>
+      </article>
+
+      <article class="doc" id="doc-rating">
+        <div class="doc-meta"><div><h3>Inc42 Rating Prompt — Placement Plan</h3></div></div>
+        <p>Trigger on a value moment, never a raw store pop-up. Gate: ≥2 distinct active days, ≥3 briefs completed, no app error this session, not a past reviewer. Highest-signal trigger wins: Streak Day 7 (fires once ever, right after the reward celebration; Day 30/100 as fallback) beats share/save actions, which beat ~100% article completion. Tapping "Rate us" fires the <em>native</em> review flow (iOS <code>SKStoreReviewController</code> / Android Play In-App Review) — never leaves the app. "No Thanks" applies an escalating cooldown: 30 → 60 → 120 days.</p>
+      </article>
+    </section>
+
+    <!-- ======================= BACKLOG ======================= -->
+    <section class="tier" id="backlog">
+      <div class="tier-head"><span class="pill backlog">Backlog</span><h2>Proposed — not committed</h2></div>
+      <p class="tier-desc">Real, detailed product thinking that hasn't been greenlit for a build slot yet.</p>
+
+      <article class="doc" id="doc-pulse">
+        <div class="doc-meta">
+          <div><h3>PRD — Inc42 Pulse (Social Intelligence) v2.0</h3><div class="owner-line">Owners: Ranjith (product/AI) · Utkarsh (research/decisions) · Nityam (design) · Editorial · Status: draft for review, 30 Jul 2026</div></div>
+          <span class="pill backlog">v2.0 combined</span>
+        </div>
+        <p>Inc42 reports what happened; Pulse packages what the ecosystem is <em>saying</em> about it — top LinkedIn/X posts from ~200 allowlisted ecosystem voices, filtered by an LLM, synthesized into 1–2 line summaries, <strong>100% editorially reviewed before anything publishes</strong>. Not a feed: no comments, no user-generated content, no infinite scroll, no following individual people.</p>
+        <p>This version explicitly merges two earlier parallel drafts (Ranjith's product-mechanics PRD and a separate research/legal/supply-data track) — the reconciliation, not a replacement of either.</p>
+        <h5>The framing pivot (§1.1)</h5>
+        <p>Originally modeled as an <em>efficiency</em> job ("save time scrolling"). An independent 5-model review reframed it: three of five models read the real driver as <strong>status maintenance</strong> — knowing what matters, so you're not the one who missed it. That reframe is load-bearing: under a status framing, named voices become non-negotiable ("Nithin Kamath argued X" carries status; "an investor said X" doesn't), controversy beats consensus, and sharing becomes the product's actual point, not a vanity metric.</p>
+        <div class="callout"><span class="callout-label">The doc's own honesty check</span>The team's main disconfirming-demand evidence — a 0.046% pain-mention rate found by mining 77K posts — is explicitly called out as a weak instrument under the status framing, since people don't publicly admit to status anxiety. The doc's own conclusion: down-weight that null, don't treat it as real disconfirmation, and add a status-framed variant to any future user-research test. The premise stays formally <code>ASSUMPTION — UNVALIDATED</code> and gates on a Phase-2 research check.</div>
+        <h5>Locked decisions</h5>
+        <div class="tag-row">
+          <span class="tag">D1 name = Pulse</span><span class="tag">D2 Free teaser + Plus/Pro depth</span><span class="tag">D3 LLM synthesis + 100% manual approval</span>
+          <span class="tag">D6 matching = enrichment, not a gate</span><span class="tag">D7 ~200-voice allowlist, sector personalized</span>
+          <span class="tag">D8 quotes switchable behind a flag</span><span class="tag">D9 phased cadence</span><span class="tag">D13 ship v1 on a sheet, not a custom app</span>
+        </div>
+        <h5>How matching actually works (D6)</h5>
+        <p>Measured over 60 days: only ~13% of quality ecosystem commentary corresponds to anything Inc42 already published — 86.5% is orphan, and the orphan half is the <em>more</em> differentiated half (87–92% absent from editorial vs. 26–73% for hard-news topics). So a story match is enrichment, not a gate: unmatched items flow to the Pulse section; matched items additionally power in-article Pulse.</p>
+        <h5>Cadence (D9)</h5>
+        <p><strong>Phase 1</strong> rides the morning Brief as 2–3 cards after the editorial cards — no new session, no new push permission, cut-off ~8pm the prior evening. <strong>Phase 2</strong> is a dedicated evening edition (deliberately not morning, so it never competes with the Brief), starting ~6:30pm — a reachability decision, not a freshness one, since later sends are fresher but lose the audience. Graduation from Phase 1→2 requires ≥15% engagement of Brief-opening sessions sustained 4 weeks, ≥5 approved items on ≥85% of days, and no holdout regression.</p>
+        <h5>Legal (§13) — the hardest gate</h5>
+        <p>LinkedIn's User Agreement prohibits both scraping and use of scraped data (LinkedIn won a permanent injunction against hiQ on breach of contract); ingestion runs via Apify/twitterapi.io with no license or safe harbor. India's §52 fair-dealing copyright exception is a closed list (unlike the US's open factor test), and "reporting current events" is enumerated — synthesis is much stronger ground than reproduction. Quotes are being built behind a flag specifically because of this: ship synthesis-first, turn quotes on only if counsel clears rung 3 of a 4-rung format ladder. If counsel lands on rung 4 (per-voice consent), the doc explicitly says this PRD doesn't survive contact as written — it would need to descope to a 20–40-voice consenting editorial franchise instead.</p>
+        <h5>Kill criteria</h5>
+        <p>Engagement &lt;5% of all Brief-opening sessions sustained 4 weeks, with reach ≥50% (people saw it and didn't want it) → disconfirms the demand hypothesis, folds supply back into editorial, no Phase 2.</p>
+      </article>
+
+      <article class="doc" id="doc-feature-flag">
+        <div class="doc-meta"><div><h3>AskInc42 Feature Flag Rollout Strategy (PostHog)</h3></div></div>
+        <p>PostHog's React Native SDK is already live in the app project (146258), collecting since 1 Jul 2026 — but <strong>zero feature flags exist</strong> in that project today (2 legacy flags exist only in the unrelated DataLabs Web project). All rollout mechanisms needed (percentage rollout, sticky bucketing, person-property targeting, cohorts, individual dogfooding, multivariate) are already supported — no SDK work required, only flag creation.</p>
+        <p>Three React Native gotchas flagged for whoever builds this: flags cache indefinitely on-device (call <code>reloadFeatureFlagsAsync()</code> on every launch/foreground); bucketing can silently flip after login since <code>distinct_id</code> changes on <code>identify()</code>; and the first-launch flag read returns <code>undefined</code> before the initial <code>/flags</code> call resolves, so a naive truthy check can flicker the UI on cold start. Recommended rollout ladder: internal 100% → pilot 1% → 5% → 25% → 100%, with a server-side kill switch live at every stage.</p>
+      </article>
+    </section>
+
+    <!-- ======================= REFERENCE ======================= -->
+    <section class="tier" id="reference">
+      <div class="tier-head"><span class="pill reference">Reference</span><h2>Living material — not roadmap items</h2></div>
+
+      <article class="doc" id="doc-app-store-checklist">
+        <div class="doc-meta"><div><h3>App Store Submission Checklist</h3><div class="owner-line">Owner: Ranjith + Animesh · The longest-lead GTM item</div></div></div>
+        <p><strong>Apple:</strong> listing copy blocked on an unowned GTM copy pack; privacy nutrition labels declaring PostHog/Singular/Customer.io/Firebase; ATT purpose string; Sign in with Apple (mandatory per Guideline 4.8); in-app account deletion; App Review demo account that reaches the brief without a real Inc42 login; TestFlight external beta review (~24–48h) ahead of the founding-reader wave; a clean 3–5 day submission buffer including one rejection cycle; an Apple featuring nomination submitted at launch (realistic payoff is v1.1+, costs nothing to ask).</p>
+        <p><strong>Google Play:</strong> matching data-safety form; staged rollout configured 10%→50%→100%; pre-registration explicitly skipped (payoff didn't justify the setup for this timeline).</p>
+        <p><strong>Cross-store gates before "Ready for sale":</strong> the Task #17 search reality-check passed; Singular SKAN schema live with Meta/Google app IDs registered; Crashlytics + PostHog + Customer.io verified on release builds; deep/universal links resolving end to end.</p>
+      </article>
+
+      <article class="doc" id="doc-signin-sheet">
+        <div class="doc-meta"><div><h3>Sign-in Bottom Sheet Copy</h3></div></div>
+        <p>Six context-specific variants (save article, track company, track sector, build watchlist, view streak, general) — each pairs a headline naming the specific gated action with a subhead selling the payoff and a reassurance pill ("We'll save this article the moment you're in"), rather than one generic "please sign in" sheet.</p>
+      </article>
+
+      <article class="doc" id="doc-survey">
+        <div class="doc-meta"><div><h3>Inc42 App User Feedback Survey</h3></div></div>
+        <p>14-question instrument covering open frequency, tenure, cross-product use, what people actually do on open, Brief experience/usefulness, streak awareness, Explore usage, and a closing 30–45 min interview opt-in (incentivized with a free month of Datalabs Pro).</p>
+      </article>
+    </section>
+
+    <!-- ======================= ARCHIVE ======================= -->
+    <section class="tier" id="doc-archive">
+      <div class="tier-head"><span class="pill archive">Archive</span><h2>Superseded — condensed, kept for what's genuinely different</h2></div>
+      <p class="tier-desc">Nothing below is current. Each entry says what it was and, where it matters, what it contains that the current spec doesn't restate.</p>
+
+      <div class="archive-item">
+        <h4>App PRD Final v2 (5 Jul 2026) &amp; App PRD Final (v1, 21 Jun 2026)</h4>
+        <div class="arch-meta">Superseded by PRD Final v3</div>
+        <p>Both are earlier full passes of the same master PRD; v3 carries their content forward. v2's §14 Decisions Log is a genuinely useful dated audit trail of how the ranking engine, streak model, and notification model each evolved through 2026-06-13 → 2026-07-05 — worth keeping as history if anyone needs to know <em>why</em> a current rule exists, even though the rules themselves are superseded by v3's own text.</p>
+      </div>
+
+      <div class="archive-item">
+        <h4>Brief_Personalization_logic (nested under App PRD Final v1)</h4>
+        <div class="arch-meta">Superseded by the current Article Ranking Logic doc — but contains detail that doc lacks</div>
+        <p>A 5-tier Editorial Importance score (10–50) plus a "Full-Match Primacy" mechanic that promotes any story matching <em>every</em> signal a user set into a priority group above all other ranking. Its real value: per-topic-type tier-scoring tables with exact dollar/₹ thresholds (e.g. Funding: Tier 2 ≥$40M or creates a unicorn; M&amp;A: Tier 1 reserved for genuinely sector-restructuring deals; IPO: Tier 1 = issuer valuation ≥$5B) — this granularity doesn't exist anywhere else in the document, including the current locked ranking spec. If Editorial Importance scoring is still live in any form, this is the only place its actual thresholds are written down.</p>
+      </div>
+
+      <div class="archive-item">
+        <h4>Old PRDs folder — App PRD v1, Brief Tab, Explore PRD, Other Surfaces</h4>
+        <div class="arch-meta">The doc's own pre-existing archive, correctly organized as such</div>
+        <p><strong>App PRD v1</strong> (16 May 2026 concept lock) is the earliest full concept doc — six rounds of persona testing and two LLM Council reviews, the source of the "Then it ends." positioning line and the original name/tab-label decisions. <strong>Brief Tab</strong> (11 Jun 2026) holds the most detailed surviving spec of the 3-tier content validator (deterministic hard gate → selective LLM entailment judge on high-risk items → mandatory human review on red-category items) — this validator detail is not repeated in the current Master PRD, which only references it briefly. <strong>Explore PRD</strong> and <strong>Other Surfaces</strong> (both 19 Jun 2026) are earlier, simpler passes fully absorbed into the current PRD's Explore/Watchlist/Profile sections.</p>
+      </div>
+
+      <div class="archive-item">
+        <h4>Launch Infra (non-final, 6–7 Jul 2026)</h4>
+        <div class="arch-meta">Superseded by Launch Infra Final</div>
+        <p>Same vendor decisions, earlier polish pass. The App Store Submission Checklist is nested under this tab in the source but is itself still live — promoted to Reference above.</p>
+      </div>
+
+      <div class="archive-item">
+        <h4>App V2 - Social Intelligence (v1.0, 27 Jul 2026)</h4>
+        <div class="arch-meta">Superseded by Pulse PRD v2.0 — confirmed no unique content</div>
+        <p>The earlier standalone Pulse draft (2×/day publish, quotes-by-default). Pulse v2.0 is a strict superset — it adds the D1–D15 decision log, the full legal/compliance section, cost envelope, and kill criteria that this draft doesn't have.</p>
+      </div>
+
+      <div class="archive-item">
+        <h4>WIP folder — 11 tabs</h4>
+        <div class="arch-meta">Draft/rough material, not committed roadmap</div>
+        <p><strong>Inc42 First-Open Walkthrough</strong> (draft v0.2) — a 4-stop dimmed-spotlight tour introducing Brief/Streak/Explore/Watchlist on first open. <strong>FAQ's</strong> — user-facing streak and general FAQ copy, already written and ready to ship whenever the FAQ surface exists. <strong>Inc42 App Analytics PRD</strong> (Jun 2026) — the original, more rigorous event-taxonomy reference (explicit completion definitions, identity-stitching rules, a PII-minimization section for search queries) that the two current events-fix tabs build on top of rather than replace. <strong>Growth &amp; GTM Strategy</strong> — a channel-by-channel acquisition plan (website banners, newsletter placements, social, events, email) predating the more targeted 5-lever beta plan already tracked separately. <strong>Ask In42</strong> + <strong>Context-Aware PRD</strong> — backend latency/context-injection engineering specs for AskInc42 (deprecating n8n for DB lookups, page-context resolution logic) that sit underneath the AskInc42 product PRD in Next Sprint. <strong>My Inc42 Relevance Engine</strong> + <strong>Interpretation Layer Framework</strong> — see flagged conflict #1; a materially different personalization model (two-layer Relevance+Emphasis, plus an L0–L4 "interpretation depth" ladder with a per-article-type eligibility matrix) not reflected in the current locked ranking spec. <strong>Onboarding Flow (MyInc42 v1)</strong> — an earlier onboarding sequence (name+role first, brief-first, personalize-after) superseded by the current PRD's role→sectors→watchlist flow. <strong>Notifications (Notification Strategy PRD)</strong> — see flagged conflict #2; a concrete timed reminder cascade and Brief state machine not reconciled into the current spec. <strong>Rough</strong> — a bare 4-line article-count-by-category note. <strong>v0_Brief Personalization</strong> — an earlier per-ICP Signal Score ranking scheme, superseded. <strong>Conversation History Arch</strong> — a backend sequencing-bug fix for AskInc42 (load session history before query classification) — implementation-level, still relevant if AskInc42 v2 work touches this pipeline.</p>
+      </div>
+    </section>
+
+    <section class="tier" id="doc-structural">
+      <div class="tier-head"><h2>Structural cleanup</h2></div>
+      <div class="empty-note">⚠ <strong>Feature Flags</strong> (plural, inside the WIP folder) — genuinely empty, just a header. Candidate for deletion.</div>
+      <p style="font-size:0.88rem;color:var(--ink-muted);">Two tabs looked empty on a first structural pass and turned out not to be: <strong>App V2</strong> was actually the full 19 Aug scope doc (now in Next Sprint), and <strong>sign-in bottom sheet</strong> had real copy (now in Reference). Only <strong>Feature Flags</strong> in the WIP folder is actually blank.</p>
+    </section>
+
+  </main>
+</div>
