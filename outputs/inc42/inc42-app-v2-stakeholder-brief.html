@@ -1,0 +1,562 @@
+<title>Brief to Habit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #f5f4f1;
+    --paper-raised: #ffffff;
+    --ink: #1c1b19;
+    --ink-muted: #6a655e;
+    --ink-faint: #97918a;
+    --line: #ddd9d1;
+    --accent: #a8461f;
+    --accent-soft: #a8461f14;
+    --accent-soft-line: #a8461f3d;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1a1917;
+      --paper-raised: #211f1c;
+      --ink: #ece8e2;
+      --ink-muted: #a39c92;
+      --ink-faint: #726c64;
+      --line: #38352f;
+      --accent: #e08a5c;
+      --accent-soft: #e08a5c1f;
+      --accent-soft-line: #e08a5c4d;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #1a1917;
+    --paper-raised: #211f1c;
+    --ink: #ece8e2;
+    --ink-muted: #a39c92;
+    --ink-faint: #726c64;
+    --line: #38352f;
+    --accent: #e08a5c;
+    --accent-soft: #e08a5c1f;
+    --accent-soft-line: #e08a5c4d;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 6rem;
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 3rem 1.25rem 4rem; }
+  }
+
+  /* ---------- Header ---------- */
+
+  .kicker {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 1rem;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 2.7rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.1rem;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  .dek {
+    font-size: 1.14rem;
+    color: var(--ink-muted);
+    max-width: 60ch;
+    margin: 0 0 2.2rem;
+    text-wrap: pretty;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    padding-bottom: 2.4rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2.6rem;
+  }
+  .meta-row span b { color: var(--ink-muted); font-weight: 600; }
+
+  /* ---------- Intro / frame paragraph ---------- */
+
+  .frame p {
+    font-size: 1.04rem;
+    max-width: 66ch;
+  }
+  .frame p + p { margin-top: 1rem; }
+
+  /* ---------- Stat strip ---------- */
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 2.4rem 0 2.6rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat {
+    padding: 1.3rem 1.2rem 1.3rem 0;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child { border-right: none; padding-right: 0; }
+  .stat .num {
+    font-family: var(--serif);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    font-size: 1.9rem;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .stat .lbl {
+    font-size: 0.86rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--line); padding: 1.1rem 0; }
+    .stat:last-child { border-bottom: none; }
+  }
+
+  .reconcile-note {
+    font-size: 0.86rem;
+    color: var(--ink-faint);
+    border-left: 2px solid var(--accent-soft-line);
+    padding-left: 0.9rem;
+    margin: -1.2rem 0 2.6rem;
+  }
+
+  /* ---------- Section headings ---------- */
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 3.6rem 0 0.4rem;
+    color: var(--ink);
+  }
+  .section-sub {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    margin: 0 0 2rem;
+    max-width: 58ch;
+  }
+
+  /* ---------- Journey items ---------- */
+
+  .journey { border-top: 1px solid var(--line); }
+
+  .item {
+    display: grid;
+    grid-template-columns: 2.6rem 1fr;
+    gap: 0.2rem 1.2rem;
+    padding: 1.9rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 560px) {
+    .item { grid-template-columns: 1fr; }
+    .item-num { margin-bottom: 0.2rem; }
+  }
+
+  .item-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--ink-faint);
+    padding-top: 0.15rem;
+  }
+
+  .item h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.08rem;
+    margin: 0 0 0.5rem;
+    color: var(--ink);
+  }
+
+  .item .problem {
+    color: var(--ink-muted);
+    font-size: 0.98rem;
+    margin: 0 0 0.75rem;
+    max-width: 62ch;
+  }
+  .item .problem b { color: var(--ink); font-weight: 600; }
+
+  .ships {
+    margin: 0 0 0.6rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .ships li {
+    font-size: 0.96rem;
+    padding-left: 1.05rem;
+    position: relative;
+  }
+  .ships li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
+  }
+
+  .caveat {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    background: var(--accent-soft);
+    border-left: 2px solid var(--accent-soft-line);
+    padding: 0.55rem 0.8rem;
+    margin: 0.7rem 0 0;
+    border-radius: 0 3px 3px 0;
+  }
+  .caveat b { color: var(--ink); }
+
+  /* ---------- Experiments list ---------- */
+
+  .exp-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .exp-list li {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1rem;
+    font-size: 0.98rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .exp-list li:last-child { border-bottom: none; }
+  .exp-list .tag {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  @media (max-width: 560px) {
+    .exp-list li { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+
+  .note-block {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    margin-top: 1.3rem;
+    max-width: 62ch;
+  }
+
+  /* ---------- Open items table ---------- */
+
+  .open-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .open-list li {
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.98rem;
+  }
+  .open-list li:first-child { border-top: 1px solid var(--line); }
+  .open-list b { color: var(--ink); }
+  .open-list .why { color: var(--ink-muted); }
+
+  /* ---------- Timing ---------- */
+
+  .timing {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    margin: 1.4rem 0 0;
+  }
+  .timing div { flex: 1; min-width: 200px; }
+  .timing .t-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+  }
+  .timing .t-val { font-size: 1.02rem; }
+
+  /* ---------- Conclusion ---------- */
+
+  .conclusion {
+    margin-top: 3.2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.22rem;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 58ch;
+  }
+
+  a { color: var(--accent); }
+
+  ::selection { background: var(--accent-soft-line); }
+</style>
+
+<div class="page">
+
+  <p class="kicker">INC42 App &middot; Product &middot; v2</p>
+  <h1>Get people from one brief to a daily habit</h1>
+  <p class="dek">A pass across the whole first-time journey — welcome, brief, explore, company, and the moment right after finishing — built to close the gap between what the app promises and what the screen actually delivers.</p>
+
+  <div class="meta-row">
+    <span>Owner: <b>Ranjith, Product</b></span>
+    <span>Target release: <b>31 Aug</b> (may move to first week of Sep)</span>
+    <span>Status: <b>scope for review</b></span>
+  </div>
+
+  <div class="frame">
+    <p>The app's whole pitch is "cut the noise — get your day in a few minutes instead of scrolling the internet for it." Right now, once someone is actually inside the app, the product doesn't consistently make good on that. Nothing tells them what they just got. Explore and Company feel like separate, less-finished apps bolted onto the brief. And the screen right after finishing celebrates a streak but never says the thing that got them here in the first place.</p>
+    <p>v2 is not a re-skin. It's a rebuild of that path — open, understand what you got, come back tomorrow — end to end.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="num">65%</span><span class="lbl">of people who see the brief cover now open it — up from 55% five days ago, before any of this ships</span></div>
+    <div class="stat"><span class="num">90&ndash;97%</span><span class="lbl">advance rate on every card past the first one — the brief itself reads fine once someone's in it</span></div>
+    <div class="stat"><span class="num">0</span><span class="lbl">times push notifications have delivered, ever, to the 114 users who already said yes to them</span></div>
+  </div>
+  <p class="reconcile-note">Two other numbers — exactly how many people drop at card 1, and whether opening the full article ends the session — are showing conflicting reads across two different data pulls. Not quoting either here until that's reconciled; the fixes below don't wait on it.</p>
+
+  <h2>What's changing</h2>
+  <p class="section-sub">In the order a person actually moves through the app.</p>
+
+  <div class="journey">
+
+    <div class="item">
+      <div class="item-num">01</div>
+      <div>
+        <h3>Welcome &amp; onboarding</h3>
+        <p class="problem">Most quitters quit here — 16 of the 27 people who bail on the guided tour bail on its very first step. Worse, people who <i>finish</i> the tour still can't say what "Brief" is — an outside reviewer couldn't answer it after using the whole app. The tour also inflates Explore's usage numbers, so today's "Explore is winning" read isn't fully trustworthy either.</p>
+        <ul class="ships">
+          <li>Rewrite the walkthrough to actually explain the value — "your day, in one place, under two minutes" — not just click through screens</li>
+          <li>Fix onboarding sequencing already flagged in QA (notification-permission prompt, sector-selection validation)</li>
+        </ul>
+        <p class="caveat"><b>Hold, not build:</b> the homepage banner slot has zero recorded usage anywhere in the data — no signal either way to design against. Recommend parking it this cycle rather than committing design time on a guess.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">02</div>
+      <div>
+        <h3>Brief card — getting people to open it</h3>
+        <p class="problem">The card doesn't read as a curated set of stories today — one generic image regardless of topic, and copy that promises "read more" and a 30-second end time in the same breath.</p>
+        <ul class="ships">
+          <li>Two hero-card layouts, running as an A/B rather than betting on one design</li>
+          <li>2&ndash;3 article thumbnails on the card so a brief visibly reads as a curated list, not a single story</li>
+          <li>Sector-based default images, replacing the one shared fallback image (agreed twice already, owner Anmol, still unbuilt)</li>
+          <li>Fix the contradictory card copy; separate the summary CTA from a distinct "read full story" CTA</li>
+          <li>A diversity cap so one sector can't dominate an edition</li>
+        </ul>
+        <p class="caveat"><b>Depends on:</b> both the sector images and the diversity cap need real sector tags to work from — 86% of articles carry none today. Fix that first or both resolve to nothing for most briefs.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">03</div>
+      <div>
+        <h3>Reading the brief</h3>
+        <p class="problem">Once someone leaves a card to read the full article, there's a real chance the session just ends there instead of going back to the brief — we're reconciling two very different reads on how often, so the fix is being built regardless of the exact number.</p>
+        <ul class="ships">
+          <li>A return path back into the brief ("back to your brief &middot; 4 left") instead of just removing the exit</li>
+          <li>Fix the article progress bar — today it tracks the page, not the article</li>
+          <li>A/B a story strip on the brief page, on vs. off</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">04</div>
+      <div>
+        <h3>The moment right after finishing</h3>
+        <p class="problem">Today, finishing a brief shows a streak counter, then drops straight into "Explore Trending Stories." It never says the one thing that actually matters: <i>you're caught up, and you didn't have to go dig through the internet for it.</i> The exact reason someone opened the app never gets paid off.</p>
+        <ul class="ships">
+          <li>Lead the completion screen with that payoff, before the streak/gamification layer</li>
+          <li>A/B a personalized completion animation, with vs. without</li>
+          <li>In-app store-rating prompt, right at this moment — gated on behaviour (3+ completed briefs, no crash, 2+ sessions), never on a "did you enjoy this?" question, which Play's policy forbids before the native review sheet</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">05</div>
+      <div>
+        <h3>Explore — making it feel considered</h3>
+        <p class="problem">Explore is a flat, chronological list today, and it reads that way. About half of all visits end with zero taps — early read is that's a fast scan, not people stuck, but we don't have the instrumentation yet to tell content quality from a measurement gap. About 1 in 3 searches return nothing.</p>
+        <ul class="ships">
+          <li>Move from a flat list to signal-based cards — companies surfaced by real movement (funding, hiring, headcount/revenue change), not just recency</li>
+          <li>Remove the auto-popping filter; reset scroll to top on a filter change</li>
+          <li>Investigate the search/filter failures — likely an indexing issue underneath, not a UI one</li>
+        </ul>
+        <p class="caveat"><b>Sequencing:</b> the signal-based layout is a hypothesis, self-rated ~30&ndash;40% validated on a 100-company sample against the real base of ~75,000. Shipping first as a flagged, presentation-only layer to test on real traffic — not a full rebuild yet.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">06</div>
+      <div>
+        <h3>Explore &rsaquo; Company</h3>
+        <p class="problem">Company data is the single deepest thing anyone does in the app — 683 company-section views from just 34 users — but the path inside it leaks hard: a 30-point drop from funding data to financials, then another 24-point drop to key people.</p>
+        <ul class="ships">
+          <li>Redesign the company page to surface financials and key people together, not behind separate taps</li>
+          <li>Companies tab leads with search instead of a discovery scroll</li>
+          <li>"Recently funded" widget shows amount raised and valuation instead of a generic card</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">07</div>
+      <div>
+        <h3>Notifications</h3>
+        <p class="problem">Push has never once delivered, to anyone, despite 114 users already opting in.</p>
+        <ul class="ships">
+          <li>Root-cause iOS fix — switch from a silent push to a proper alert payload, so it renders even when the app has been force-killed</li>
+          <li>Move to 1&ndash;2/day, sector-segmented rather than blanket, editor-flagged for breaking stories</li>
+        </ul>
+        <p class="caveat"><b>Depends on:</b> sector tagging (above) and the deep-link fix (below) — a notification that opens Safari instead of the app defeats the point of fixing it.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">08</div>
+      <div>
+        <h3>App-update banner</h3>
+        <p class="problem">There's currently no way to get a fix in front of installed users without a full store review cycle, and the update banner itself is passive.</p>
+        <ul class="ships">
+          <li>Soft, dismissable "update now" prompt — after splash, before the brief renders; never mid-brief, never forced</li>
+          <li>Build-number based version gate, server-controlled</li>
+        </ul>
+        <p class="caveat"><b>Hard constraint:</b> iOS cannot be force-gated at all right now. 1.0 is locked at build 40 with no update path until build ≥41 ships — a forced gate would lock iOS users out entirely.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">09</div>
+      <div>
+        <h3>Store review prompt</h3>
+        <p class="problem">No way to collect a Play Store rating in-app today — at this install count, a couple of early 1-stars set the visible score for months.</p>
+        <ul class="ships">
+          <li>Native in-app review prompt, Android-only for now</li>
+          <li>Gated on behaviour (3+ completed briefs, no crash, 2+ sessions) — not a sentiment question, which is a Play policy violation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">10</div>
+      <div>
+        <h3>Bug fixes</h3>
+        <p class="problem">A mix of small live defects and a carried-forward QA backlog, folded into this release rather than tracked separately.</p>
+        <ul class="ships">
+          <li>Double-tap-to-exit on the back button, to stop accidental app exits</li>
+          <li>Save/Rate race condition — rapid taps silently drop the save</li>
+          <li>iOS back button dead after 3&ndash;4 card advances (seen on TestFlight build 52, unconfirmed whether fixed in 54)</li>
+          <li>Streak icon intermittently showing "&ndash;" instead of the count</li>
+          <li>Brief/Explore icon assets intermittently failing to load</li>
+          <li>Plus the ~20-item QA list from Aug 1, still not confirmed fixed</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>Experiments running alongside this</h2>
+  <p class="section-sub">Nothing above ships as a single irreversible bet — most of it is A/B'd, and copy/config changes are moved onto Customer.io so they don't need an app release to change.</p>
+
+  <ul class="exp-list">
+    <li><span class="tag">A/B</span><span>Brief card — two hero-card layouts</span></li>
+    <li><span class="tag">A/B</span><span>Completion screen — with vs. without a personalized animation</span></li>
+    <li><span class="tag">A/B</span><span>Brief page — story strip, on vs. off</span></li>
+    <li><span class="tag">A/B, light</span><span>Explore — a top-fold-only test; not a full-section experiment, the signal layout isn't validated enough for that yet</span></li>
+    <li><span class="tag">Customer.io</span><span>Onboarding copy moves onto CIO's native virtual-tour feature — wording changes stop needing an app release</span></li>
+    <li><span class="tag">Customer.io</span><span>Feedback prompt and the rating card are both server-driven through CIO for the same reason</span></li>
+  </ul>
+  <p class="note-block">One honest caveat: at ~189 users, none of these A/B tests reach statistical significance on their own. Treat this layer as release safety and a kill switch first, directional signal second — not as "we'll have a verdict" by launch.</p>
+
+  <h2>What's not locked yet</h2>
+  <p class="section-sub">Surfacing these so this doesn't read as more decided than it is.</p>
+
+  <ul class="open-list">
+    <li><b>Sector tagging</b> is a single blocker behind three items above at once — brief images, the diversity cap, and sector-segmented notifications. <span class="why">86% of articles carry no sector today.</span></li>
+    <li><b>Deep-linking</b> (routing through Singular) — notifications, update prompts and newsletter links all currently risk opening Safari instead of the app. <span class="why">This is a prerequisite for #07 and #08, not a parallel workstream.</span></li>
+    <li><b>Feature flags</b> (PostHog, fail-closed) — the update banner, the review gate and the in-app messaging above are all designed to run behind flags. <span class="why">That infra work is currently paused and needs an explicit go.</span></li>
+    <li><b>Instrumentation fixes</b> — without these we can tell that something shipped, not whether it worked. <span class="why">Brief open rate and completion aren't cleanly measurable yet.</span></li>
+    <li><b>Dark mode</b> — committed separately within 15&ndash;30 days. <span class="why">Unclear whether it lands inside this release or after it.</span></li>
+    <li><b>AskInc42</b> (the AI Q&amp;A feature) is sequenced as its own, separate release. <span class="why">Flagging so it isn't assumed to be part of this scope.</span></li>
+    <li><b>Scope reconciliation</b> — the update banner, review prompt and notification infra above were proposed separately from the brief/explore/company redesign that was closed on 24 Aug. <span class="why">This document treats all of it as one v2 for readability — worth an explicit confirm that's the actual intent.</span></li>
+  </ul>
+
+  <h2>Timing</h2>
+  <div class="timing">
+    <div>
+      <div class="t-label">Release</div>
+      <div class="t-val">Target 31 Aug &mdash; may move to first week of Sep</div>
+    </div>
+    <div>
+      <div class="t-label">September goal</div>
+      <div class="t-val">5,000 installs &middot; ~20% activation (~2,000)</div>
+    </div>
+    <div>
+      <div class="t-label">Activation, redefined</div>
+      <div class="t-val">Brief completed + median 60s+ read, not raw completion</div>
+    </div>
+  </div>
+
+  <p class="conclusion">None of the screen changes above matter if the notification, deep-link and sector-tagging fixes underneath them don't ship too — the redesign gets someone to try the brief again; the infrastructure is what makes sure they actually see it.</p>
+
+</div>
