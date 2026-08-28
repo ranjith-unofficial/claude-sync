@@ -198,20 +198,20 @@
     color: var(--ink-faint);
     width: 1.6rem;
   }
-  table.grid .area-col { font-weight: 700; width: 11rem; }
+  table.grid .area-col { font-weight: 700; width: 10.5rem; }
   table.grid td ul {
     margin: 0;
     padding-left: 1.05rem;
   }
   table.grid td ul li { margin-bottom: 0.3rem; }
   table.grid td ul li:last-child { margin-bottom: 0; }
-  table.grid .depends {
+  table.grid .note-line {
     display: block;
     margin-top: 0.5rem;
     font-size: 0.85rem;
     color: var(--ink-muted);
   }
-  table.grid .depends b { color: var(--ink); }
+  table.grid .note-line b { color: var(--ink); }
   table.grid .tag-cell {
     font-size: 0.74rem;
     font-weight: 600;
@@ -347,28 +347,28 @@
 
   <p class="kicker">INC42 App &middot; Product &middot; v2</p>
   <h1>Get people from one brief to a daily habit</h1>
-  <p class="dek">A pass across the whole first-time journey — welcome, brief, explore, company, and the moment right after finishing — built to close the gap between what the app promises and what the screen actually delivers.</p>
+  <p class="dek">A pass across the whole first-time journey (welcome, brief, explore, company, and the moment right after finishing), built to close the gap between what the app promises and what the screen actually delivers.</p>
 
   <div class="meta-row">
-    <span>Owner: <b>Ranjith, Product</b></span>
+    <span>Owner: <b>Product</b></span>
     <span>Target release: <b>31 Aug</b> (may move to first week of Sep)</span>
     <span>Status: <b>scope for review</b></span>
   </div>
 
   <div class="frame">
-    <p>The app's whole pitch is "cut the noise — get your day in a few minutes instead of scrolling the internet for it." Right now, once someone is actually inside the app, the product doesn't consistently make good on that. Nothing tells them what they just got. Explore and Company feel like separate, less-finished apps bolted onto the brief. And the screen right after finishing celebrates a streak but never says the thing that got them here in the first place.</p>
-    <p>v2 is not a re-skin. It's a rebuild of that path — open, understand what you got, come back tomorrow — end to end.</p>
+    <p>The app's whole pitch is simple: cut the noise, get your day in a few minutes instead of scrolling the internet for it. Right now, once someone is actually inside the app, the product doesn't consistently make good on that. Nothing tells them what they just got. Explore and Company feel like separate, less-finished apps bolted onto the brief. And the screen right after finishing celebrates a streak but never says the thing that got them here in the first place.</p>
+    <p>v2 is not a re-skin. It's a rebuild of that path: open, understand what you got, come back tomorrow, end to end.</p>
   </div>
 
   <div class="stats">
-    <div class="stat"><span class="num">65%</span><span class="lbl">of people who see the brief cover now open it — up from 55% five days ago, before any of this ships</span></div>
-    <div class="stat"><span class="num">90&ndash;97%</span><span class="lbl">advance rate on every card past the first one — the brief itself reads fine once someone's in it</span></div>
+    <div class="stat"><span class="num">65%</span><span class="lbl">of people who see the brief cover now open it, up from 55% five days ago, before any of this ships</span></div>
+    <div class="stat"><span class="num">90&ndash;97%</span><span class="lbl">advance rate on every card past the first one. The brief itself reads fine once someone's in it.</span></div>
     <div class="stat"><span class="num">0</span><span class="lbl">times push notifications have delivered, ever, to the 114 users who already said yes to them</span></div>
   </div>
-  <p class="reconcile-note">Two other numbers — exactly how many people drop at card 1, and whether opening the full article ends the session — are showing conflicting reads across two different data pulls. Not quoting either here until that's reconciled; the fixes below don't wait on it.</p>
+  <p class="reconcile-note">Two other numbers (exactly how many people drop at card 1, and whether opening the full article ends the session) are showing conflicting reads across two different data pulls. Not quoting either here until that's reconciled. The fixes below don't wait on it.</p>
 
-  <h2>What's changing — at a glance</h2>
-  <p class="section-sub">In the order a person actually moves through the app. Full detail on each row continues below.</p>
+  <h2>What's changing, at a glance</h2>
+  <p class="section-sub">In the order a person actually moves through the app. Kept high level on purpose. Full detail on each row continues below.</p>
 
   <div class="table-wrap">
     <table class="grid">
@@ -376,103 +376,98 @@
       <tr>
         <td class="num-col">01</td>
         <td class="area-col">Walkthrough</td>
-        <td>Hardcoded in custom app code — every copy or step change needs a full app release</td>
-        <td>Move it onto Customer.io's native virtual-tour feature, so steps and copy change without shipping a new build. That's the whole reason — manageability, not a response to the tour's drop-off numbers.</td>
+        <td>Hardcoded in custom app code, so every copy or step change needs a full app release</td>
+        <td>Move it onto Customer.io, so it can be updated any time without shipping a new build</td>
       </tr>
       <tr>
         <td class="num-col">02</td>
         <td class="area-col">Welcome screen</td>
-        <td>⚠️ Not yet defined</td>
-        <td>Still need your input on what this screen should actually convey, from a first-time user's perspective — not guessing at content here<span class="depends"><b>Hold:</b> homepage banner — zero usage data to justify it this cycle</span></td>
+        <td>Doesn't clearly convey the problem we solve or the solution we offer</td>
+        <td>Redesign the visual to make the pitch more compelling and clear up front<span class="note-line"><b>Holding for now:</b> the homepage banner, since there's no usage data yet to design against</span></td>
       </tr>
       <tr>
         <td class="num-col">03</td>
         <td class="area-col">Brief card</td>
-        <td>Needs to read as a curated, personalized edition, not a single generic story</td>
-        <td>Same card, three hero-treatment directions in Satya's Figma explore (small chart / masthead photo / big "8 stories today" numeral) &mdash; all carry a live "N reading now" badge, a stats row, 3 story previews, "+N more inside," and "OPEN TODAY'S BRIEF"<span class="depends"><b>Note:</b> sector-based imagery is a separate, unconfirmed track &mdash; none of the explored variants use sector-specific art yet</span></td>
+        <td>Reads as one generic story, not a curated, personalized edition</td>
+        <td>Redesign the card with a few visual variations and A/B test them to find what works</td>
       </tr>
       <tr>
         <td class="num-col">04</td>
         <td class="area-col">Resuming an unfinished brief</td>
-        <td>Re-opening the app mid-brief looks identical to never having started it</td>
-        <td>Card and CTA change once you've started &mdash; e.g. "CONTINUE &middot; 4 OF 8" with "4 read &middot; 4 to go, about 2 minutes." Direction is settled (already explored in Figma, 6 variants); exact treatment still being finalized</td>
+        <td>If someone starts a brief but doesn't finish it, reopening the app looks exactly like they never started at all</td>
+        <td>Show progress and a clear "continue" option on the card once someone has started</td>
       </tr>
       <tr>
         <td class="num-col">05</td>
         <td class="area-col">Full-article return path</td>
-        <td>Whether people come back after tapping into a full article is unclear &mdash; two data pulls disagree how often this happens</td>
-        <td>Add a way back into the brief from the full article; fix article progress bar; story-strip A/B<span class="depends"><b>Open:</b> not yet designed &mdash; distinct from the resume feature above</span></td>
+        <td>People who tap into the full article from a brief card often don't come back to finish the rest of it</td>
+        <td>Add a clear way back into the brief after reading the full article</td>
       </tr>
       <tr>
         <td class="num-col">06</td>
         <td class="area-col">Completion moment</td>
-        <td>Streak shown, but the screen never says "you're caught up &mdash; no scrolling needed"</td>
-        <td>Lead with that payoff before gamification; animation A/B; rating prompt slotted here</td>
+        <td>Finishing a brief only shows a streak count. It never says what the person actually got.</td>
+        <td>Lead with that payoff before the streak, and add a rating prompt right here</td>
       </tr>
       <tr>
         <td class="num-col">07</td>
-        <td class="area-col">Explore — layout</td>
-        <td>Reads as a flat, dated list</td>
-        <td>Signal-based cards (funding/hiring/headcount moves), not just recency<span class="depends"><b>Sequencing:</b> signal layout ~30&ndash;40% validated, ships as a flagged layer first</span></td>
+        <td class="area-col">Explore, layout</td>
+        <td>Feels flat and monotonous. Same layout, same order, nothing personalized.</td>
+        <td>Show companies and stories based on what's actually moving, not just recency</td>
       </tr>
       <tr>
         <td class="num-col">08</td>
-        <td class="area-col">Explore — search</td>
+        <td class="area-col">Explore, search</td>
         <td>About 1 in 3 searches return nothing</td>
-        <td>Investigate/fix &mdash; likely an indexing issue underneath, not a UI one</td>
+        <td>Investigate and fix, likely a backend indexing issue</td>
       </tr>
       <tr>
         <td class="num-col">09</td>
         <td class="area-col">Explore &rsaquo; Company</td>
-        <td>A lot of people who check a company's funding data don't go on to check its financials, and fewer still reach key people</td>
-        <td>Surface financials + key people together, instead of separate taps; search-first companies tab; funded widget shows amount/valuation</td>
+        <td>Funding, financials and key people sit behind separate taps, so most people stop after the first section</td>
+        <td>Bring financials and key people into one connected view</td>
       </tr>
       <tr>
         <td class="num-col">10</td>
-        <td class="area-col">Notifications</td>
-        <td>Push has delivered zero times ever, to 114 users who already opted in</td>
-        <td>iOS alert-payload fix (root cause); move to 1&ndash;2/day, sector-segmented<span class="depends"><b>Depends on:</b> sector tagging (deep-linking is already fixed)</span></td>
+        <td class="area-col">App-update prompt</td>
+        <td>No way today to prompt existing users to update the app</td>
+        <td>Add a simple prompt letting people know a new version is available</td>
       </tr>
       <tr>
         <td class="num-col">11</td>
-        <td class="area-col">App-update banner</td>
-        <td>No way to reach installed users without a full store review cycle</td>
-        <td>Soft dismissable prompt, pre-brief; build-number version gate<span class="depends"><b>Hard constraint:</b> iOS cannot be force-gated &mdash; locked at build 40</span></td>
+        <td class="area-col">Store review prompt</td>
+        <td>No way to ask for a rating in-app today, on either platform</td>
+        <td>Ask happy users only (a few completed briefs, no crashes) to rate the app, on Android and iOS</td>
       </tr>
       <tr>
         <td class="num-col">12</td>
-        <td class="area-col">Store review prompt</td>
-        <td>No in-app rating collection on either platform; a few early 1-stars would set the score for months</td>
-        <td><b>Android:</b> Play In-App Review API, behaviour-gated. <b>iOS:</b> SKStoreReviewController, same behaviour gate &mdash; but Apple caps it at 3 prompts/365 days with no callback on whether the user actually rated</td>
+        <td class="area-col">Bug fixes</td>
+        <td>A set of known bugs, including that push notifications don't work at all today</td>
+        <td>Fixed in this release. Full list in the detail section below.</td>
       </tr>
       <tr>
         <td class="num-col">13</td>
-        <td class="area-col">Bug fixes</td>
-        <td>Live defects plus a carried-forward QA backlog</td>
-        <td>Auto-popping Explore filter, filter-tab change not resetting scroll to top, notification-opened story not returning properly, double-tap-to-exit, Save/Rate race condition, iOS back-button, streak icon, asset loads, ~20-item QA backlog</td>
-      </tr>
-      <tr>
-        <td class="num-col">14</td>
         <td class="area-col">Dark mode</td>
-        <td>&mdash;</td>
-        <td>User requirement &mdash; full dark theme across the app, confirmed in scope for this release</td>
+        <td>Not tied to a specific problem</td>
+        <td>User requirement. Full dark theme across the app, already confirmed in scope.</td>
       </tr>
     </table>
   </div>
 
-  <h2>What's changing — in detail</h2>
-  <p class="section-sub">Same fourteen items, with the full reasoning behind each.</p>
+  <h2>What's changing, in detail</h2>
+  <p class="section-sub">Same thirteen items, with the reasoning behind each.</p>
 
   <div class="journey">
 
     <div class="item">
       <div class="item-num">01</div>
       <div>
-        <h3>Walkthrough (post-signup)</h3>
-        <p class="problem">Hardcoded in custom app code today — every copy or step change needs a full app release. This is a manageability move, not a response to the tour's drop-off numbers (those are a separate, real problem — see the Welcome screen item next, and the onboarding-sequencing fix below).</p>
+        <h3>Walkthrough</h3>
+        <p class="problem">Today the guided tour is built directly into the app's code, so every wording or step change needs a new app release.</p>
         <ul class="ships">
-          <li>Move it off custom code onto <b>Customer.io's native virtual-tour feature</b> — steps and copy change without shipping a new app build</li>
-          <li>Fix onboarding sequencing already flagged in QA (notification-permission prompt, sector-selection validation)</li>
+          <li>Move it onto Customer.io's native tour feature, so it can be updated any time without a new app build</li>
+          <li>This is purely about making updates easier. It is not a response to any drop-off numbers, which is a separate, real problem covered in the Welcome screen and onboarding items</li>
+          <li>Also fix onboarding sequencing already flagged in QA: notification-permission prompt timing, sector-selection validation</li>
         </ul>
       </div>
     </div>
@@ -481,26 +476,25 @@
       <div class="item-num">02</div>
       <div>
         <h3>Welcome screen</h3>
-        <p class="problem">⚠️ Not yet defined. Still need input on what this screen should actually convey, from a first-time user's perspective — deliberately not guessing at content here.</p>
+        <p class="problem">The welcome screen today doesn't clearly convey the problem we solve or the solution we offer, so the app's value doesn't land in the first few seconds.</p>
         <ul class="ships">
-          <li>Pending that input</li>
+          <li>Redesign the visual to make the pitch more compelling and obvious up front</li>
         </ul>
-        <p class="caveat"><b>Hold, not build:</b> the homepage banner slot has zero recorded usage anywhere in the data — no signal either way to design against. Recommend parking it this cycle rather than committing design time on a guess.</p>
+        <p class="caveat"><b>Holding, not building:</b> the homepage banner. There's no usage data yet to design against, so we're parking it this cycle instead of guessing.</p>
       </div>
     </div>
 
     <div class="item">
       <div class="item-num">03</div>
       <div>
-        <h3>Brief card — getting people to open it</h3>
-        <p class="problem">The card doesn't read as a curated set of stories today — one generic image regardless of topic, and copy that promises "read more" and a 30-second end time in the same breath.</p>
+        <h3>Brief card</h3>
+        <p class="problem">The brief card today reads as one generic story rather than a curated set, and doesn't feel personalized.</p>
         <ul class="ships">
-          <li>Same underlying card, three hero-treatment directions being explored in Satya's Figma (V0 small chart backdrop, V1 full masthead-style photo, V3 a large "8" with "STORIES TODAY" overlaid) — running as an A/B rather than betting on one design</li>
-          <li>All three carry the same real content: a live "N reading now" badge, edition date + "you track" pill, a stats row (₹ moved / IPO filings / sectors), 3 story previews with sector tags, "+N more stories inside," and "OPEN TODAY'S BRIEF"</li>
-          <li>Fix the contradictory card copy; separate the summary CTA from a distinct "read full story" CTA</li>
-          <li>A diversity cap so one sector can't dominate an edition</li>
+          <li>Redesign the card with a few visual directions already explored, run them as an A/B test, and keep whichever performs best</li>
+          <li>Fix the contradictory card copy, and give the summary and the full article separate, clear calls to action</li>
+          <li>Add a cap so one topic can't dominate a single edition</li>
         </ul>
-        <p class="caveat"><b>Note:</b> sector-based default images are a separate, unconfirmed idea (agreed with Utkarsh 12 Aug, still unbuilt, owner Anmol) — none of the explored hero variants use sector-specific art today, and it needs real sector tags to work from (86% of articles carry none). Flagging as a distinct track, not bundled into the card redesign above.</p>
+        <p class="caveat"><b>Separate track:</b> sector-based imagery is a distinct, unconfirmed idea, not part of this redesign yet. It also needs real sector tags to work from, which most articles don't have today.</p>
       </div>
     </div>
 
@@ -508,10 +502,10 @@
       <div class="item-num">04</div>
       <div>
         <h3>Resuming an unfinished brief</h3>
-        <p class="problem">Re-opening the app after starting but not finishing today's brief looks identical to never having opened it — the card and CTA don't reflect where you actually are.</p>
+        <p class="problem">If someone starts a brief but doesn't finish it, opening the app again looks exactly like they never started at all. There's no way to pick up where they left off.</p>
         <ul class="ships">
-          <li>Card and CTA change once you've started a brief — e.g. "CONTINUE &middot; 4 OF 8" with "4 read &middot; 4 to go, about 2 minutes" shown directly on the card</li>
-          <li>Already explored in Satya's Figma with 6 treatments (CTA-only, a progress bar on the banner, an index of what's left, a full resume state, and a separate "rolled over — yesterday unfinished" case) — direction is settled, exact treatment still being finalized</li>
+          <li>Show progress and a clear "continue" option on the card once someone has started a brief, instead of the same "open today's brief" state every time</li>
+          <li>A few treatments already explored for this; direction is settled, exact one still being finalized</li>
         </ul>
       </div>
     </div>
@@ -520,11 +514,9 @@
       <div class="item-num">05</div>
       <div>
         <h3>Full-article return path</h3>
-        <p class="problem">Once someone leaves a card to read the full article, there's a real chance the session just ends there instead of going back to the brief — we're reconciling two very different reads on how often, so the fix is being built regardless of the exact number. This is a separate, not-yet-designed question from the resume feature above.</p>
+        <p class="problem">When someone taps into the full article from a brief card, they often don't come back to finish the rest of that day's brief. Two data pulls disagree on exactly how often, so we're not quoting a number, but the fix is worth building regardless.</p>
         <ul class="ships">
-          <li>A return path back into the brief ("back to your brief &middot; 4 left") instead of just removing the exit</li>
-          <li>Fix the article progress bar — today it tracks the page, not the article</li>
-          <li>A/B a story strip on the brief page, on vs. off</li>
+          <li>Add a clear way back into the brief after reading the full article, instead of the exit being the last step</li>
         </ul>
       </div>
     </div>
@@ -532,12 +524,11 @@
     <div class="item">
       <div class="item-num">06</div>
       <div>
-        <h3>The moment right after finishing</h3>
-        <p class="problem">Today, finishing a brief shows a streak counter, then drops straight into "Explore Trending Stories." It never says the one thing that actually matters: <i>you're caught up, and you didn't have to go dig through the internet for it.</i> The exact reason someone opened the app never gets paid off.</p>
+        <h3>Completion moment</h3>
+        <p class="problem">Finishing a brief today only shows a streak count. It never tells the person what they actually got: that they're caught up, and didn't need to spend time scrolling elsewhere for news.</p>
         <ul class="ships">
-          <li>Lead the completion screen with that payoff, before the streak/gamification layer</li>
-          <li>A/B a personalized completion animation, with vs. without</li>
-          <li>In-app store-rating prompt, right at this moment — gated on behaviour (3+ completed briefs, no crash, 2+ sessions), never on a "did you enjoy this?" question, which Play's policy forbids before the native review sheet</li>
+          <li>Lead the finish screen with that message, before the streak</li>
+          <li>Ask for an app rating right here, since it's the moment people feel best about the app, not after they've left it</li>
         </ul>
       </div>
     </div>
@@ -545,22 +536,22 @@
     <div class="item">
       <div class="item-num">07</div>
       <div>
-        <h3>Explore — layout</h3>
-        <p class="problem">Explore is a flat, chronological list today, and it reads that way. About half of all visits end with zero taps — early read is that's a fast scan, not people stuck, but we don't have the instrumentation yet to tell content quality from a measurement gap.</p>
+        <h3>Explore, layout</h3>
+        <p class="problem">Explore feels flat and monotonous today: same layout, same order, nothing about it feels considered or personalized.</p>
         <ul class="ships">
-          <li>Move from a flat list to signal-based cards — companies surfaced by real movement (funding, hiring, headcount/revenue change), not just recency</li>
+          <li>Show companies and stories based on what's actually moving (funding, hiring, and similar signals), not just what's most recent</li>
         </ul>
-        <p class="caveat"><b>Sequencing:</b> the signal-based layout is a hypothesis, self-rated ~30&ndash;40% validated on a 100-company sample against the real base of ~75,000. Shipping first as a flagged, presentation-only layer to test on real traffic — not a full rebuild yet.</p>
+        <p class="caveat"><b>Still early:</b> this is being tested on real traffic first, not shipped as a full rebuild yet.</p>
       </div>
     </div>
 
     <div class="item">
       <div class="item-num">08</div>
       <div>
-        <h3>Explore — search</h3>
-        <p class="problem">About 1 in 3 searches return nothing. A separate problem from the layout above, not the same fix.</p>
+        <h3>Explore, search</h3>
+        <p class="problem">About 1 in 3 searches on Explore return nothing. A separate problem from the layout above, and a separate fix.</p>
         <ul class="ships">
-          <li>Investigate and fix — likely an indexing issue underneath, not a UI one</li>
+          <li>Investigate and fix. Likely a backend indexing issue, not a UI problem.</li>
         </ul>
       </div>
     </div>
@@ -569,11 +560,11 @@
       <div class="item-num">09</div>
       <div>
         <h3>Explore &rsaquo; Company</h3>
-        <p class="problem">Company data is the single deepest thing anyone does in the app — 683 company-section views from just 34 users. But a lot of people who check a company's funding data don't go on to check its financials, and fewer still reach key people — those sit as separate taps today instead of one connected view.</p>
+        <p class="problem">Company pages don't make it easy to go deeper. Funding, financials and key people all sit behind separate taps today, so most people stop after the first section.</p>
         <ul class="ships">
-          <li>Redesign the company page to surface financials and key people together, not behind separate taps</li>
-          <li>Companies tab leads with search instead of a discovery scroll</li>
-          <li>"Recently funded" widget shows amount raised and valuation instead of a generic card</li>
+          <li>Bring financials and key people into one connected view instead of separate taps</li>
+          <li>Make search the primary way into the Companies tab, instead of a discovery scroll</li>
+          <li>Show funding amount and valuation directly on the "recently funded" widget</li>
         </ul>
       </div>
     </div>
@@ -581,37 +572,43 @@
     <div class="item">
       <div class="item-num">10</div>
       <div>
-        <h3>Notifications</h3>
-        <p class="problem">Push has never once delivered, to anyone, despite 114 users already opting in.</p>
+        <h3>App-update prompt</h3>
+        <p class="problem">There's no way today to prompt existing users to update to a newer version of the app.</p>
         <ul class="ships">
-          <li>Root-cause iOS fix — switch from a silent push to a proper alert payload, so it renders even when the app has been force-killed</li>
-          <li>Move to 1&ndash;2/day, sector-segmented rather than blanket, editor-flagged for breaking stories</li>
+          <li>Add a simple, dismissable prompt letting people know a new version is available, shown before the brief opens</li>
+          <li>Cannot be a forced update on iOS right now, since the current version has no update path yet</li>
         </ul>
-        <p class="caveat"><b>Depends on:</b> sector tagging (above). Deep-linking (Singular) is already fixed, so a notification tap now opens the app rather than Safari.</p>
       </div>
     </div>
 
     <div class="item">
       <div class="item-num">11</div>
       <div>
-        <h3>App-update banner</h3>
-        <p class="problem">There's currently no way to get a fix in front of installed users without a full store review cycle, and the update banner itself is passive.</p>
+        <h3>Store review prompt</h3>
+        <p class="problem">There's no way today to ask users for a rating inside the app, on either platform. At this install count, a couple of early low ratings would set the visible score for months.</p>
         <ul class="ships">
-          <li>Soft, dismissable "update now" prompt — after splash, before the brief renders; never mid-brief, never forced</li>
-          <li>Build-number based version gate, server-controlled</li>
+          <li>Ask for a rating only from people who've had a good experience (a few completed briefs, no crashes), not from everyone</li>
+          <li>Android uses Play's native review prompt. iOS uses Apple's equivalent, which is capped at 3 times a year with no way to know if the person actually rated.</li>
         </ul>
-        <p class="caveat"><b>Hard constraint:</b> iOS cannot be force-gated at all right now. 1.0 is locked at build 40 with no update path until build ≥41 ships — a forced gate would lock iOS users out entirely.</p>
       </div>
     </div>
 
     <div class="item">
       <div class="item-num">12</div>
       <div>
-        <h3>Store review prompt</h3>
-        <p class="problem">No way to collect a rating in-app today, on either platform — at this install count, a couple of early 1-stars set the visible score for months.</p>
+        <h3>Bug fixes</h3>
+        <p class="problem">A set of smaller known issues, folded into this release rather than tracked separately.</p>
         <ul class="ships">
-          <li><b>Android:</b> Play In-App Review API, behaviour-gated</li>
-          <li><b>iOS:</b> <code>SKStoreReviewController</code> — same behaviour gate (3+ completed briefs, no crash, 2+ sessions), not a sentiment question, which is a Play policy violation. Apple caps this at 3 prompts/365 days and gives no callback on whether the user actually rated.</li>
+          <li>Push notifications aren't delivering at all today despite people opting in. Fixing the root cause and moving to 1 or 2 relevant alerts a day instead of none.</li>
+          <li>Explore's filter popping open on its own instead of on request</li>
+          <li>Changing a filter tab not resetting scroll to top</li>
+          <li>Opening a brief story from a notification not returning properly</li>
+          <li>Double tap to exit, to stop accidental app exits</li>
+          <li>A save and rate race condition, where fast taps silently drop the save</li>
+          <li>iOS back button going dead after a few cards</li>
+          <li>Streak icon occasionally showing a dash instead of the count</li>
+          <li>Some icons intermittently failing to load</li>
+          <li>Plus a backlog of about 20 more items already logged</li>
         </ul>
       </div>
     </div>
@@ -619,28 +616,9 @@
     <div class="item">
       <div class="item-num">13</div>
       <div>
-        <h3>Bug fixes</h3>
-        <p class="problem">A mix of small live defects and a carried-forward QA backlog, folded into this release rather than tracked separately.</p>
-        <ul class="ships">
-          <li>Explore's auto-popping filter — not user-initiated, should only show on request</li>
-          <li>Changing a filter tab doesn't reset scroll to top</li>
-          <li>Opening a brief story directly from a notification doesn't return properly</li>
-          <li>Double-tap-to-exit on the back button, to stop accidental app exits</li>
-          <li>Save/Rate race condition — rapid taps silently drop the save</li>
-          <li>iOS back button dead after 3&ndash;4 card advances (seen on TestFlight build 52, unconfirmed whether fixed in 54)</li>
-          <li>Streak icon intermittently showing "&ndash;" instead of the count</li>
-          <li>Brief/Explore icon assets intermittently failing to load</li>
-          <li>Plus the ~20-item QA list from Aug 1, still not confirmed fixed</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="item-num">14</div>
-      <div>
         <h3>Dark mode</h3>
         <ul class="ships">
-          <li>User requirement — full dark theme across the app, confirmed in scope for this release</li>
+          <li>User requirement. Full dark theme across the app, already confirmed in scope for this release.</li>
         </ul>
       </div>
     </div>
@@ -648,21 +626,21 @@
   </div>
 
   <h2>Experiments running alongside this</h2>
-  <p class="section-sub">Nothing above ships as a single irreversible bet — most of it is A/B'd, and copy/config changes are moved onto Customer.io so they don't need an app release to change.</p>
+  <p class="section-sub">Nothing above ships as a single irreversible bet. Most of it is A/B tested, and copy or config changes are moved onto Customer.io so they don't need an app release to change.</p>
 
   <div class="table-wrap">
     <table class="grid">
       <tr><th>Type</th><th>What's being tested</th></tr>
-      <tr><td class="tag-cell">A/B</td><td>Brief card — two hero-card layouts</td></tr>
-      <tr><td class="tag-cell">A/B</td><td>Completion screen — with vs. without a personalized animation</td></tr>
-      <tr><td class="tag-cell">A/B</td><td>Brief page — story strip, on vs. off</td></tr>
-      <tr><td class="tag-cell">A/B, light</td><td>Explore — a top-fold-only test; not a full-section experiment, the signal layout isn't validated enough for that yet</td></tr>
-      <tr><td class="tag-cell">Customer.io</td><td>Virtual walkthrough moves off custom code onto CIO's native tour feature — steps and copy change without an app release</td></tr>
-      <tr><td class="tag-cell">Customer.io</td><td>Feature flags run on Customer.io — the update banner, review gate and in-app messaging are all configured through it, not a separate flagging tool</td></tr>
-      <tr><td class="tag-cell">Customer.io</td><td>Feedback prompt and the rating card are both server-driven through CIO for the same reason</td></tr>
+      <tr><td class="tag-cell">A/B</td><td>Brief card: a few visual layouts, tested against each other</td></tr>
+      <tr><td class="tag-cell">A/B</td><td>Completion screen: with vs. without a personalized animation</td></tr>
+      <tr><td class="tag-cell">A/B</td><td>Brief page: a story strip, on vs. off</td></tr>
+      <tr><td class="tag-cell">A/B, light</td><td>Explore: a small test on the top section only. The full layout isn't validated enough yet for a bigger test.</td></tr>
+      <tr><td class="tag-cell">Customer.io</td><td>The walkthrough moves off custom code onto Customer.io, so steps and copy can change without an app release</td></tr>
+      <tr><td class="tag-cell">Customer.io</td><td>Feature flags run on Customer.io too. The update prompt, review gate and in-app messaging are all configured through it, not a separate tool.</td></tr>
+      <tr><td class="tag-cell">Customer.io</td><td>The feedback prompt and rating card are also server-driven through Customer.io, for the same reason</td></tr>
     </table>
   </div>
-  <p class="note-block">One honest caveat: at ~189 users, none of these A/B tests reach statistical significance on their own. Treat this layer as release safety and a kill switch first, directional signal second — not as "we'll have a verdict" by launch.</p>
+  <p class="note-block">One honest caveat: at about 189 users, none of these A/B tests reach statistical significance on their own. Treat this layer as release safety and a kill switch first, and directional signal second, not as a guarantee we'll have a clear verdict by launch.</p>
 
   <h2>What's not locked yet</h2>
   <p class="section-sub">Surfacing these so this doesn't read as more decided than it is.</p>
@@ -670,25 +648,25 @@
   <div class="table-wrap">
     <table class="grid">
       <tr><th>Blocker</th><th>Why it matters</th></tr>
-      <tr><td class="area-col">Sector tagging</td><td class="why-col">A single blocker behind three items at once — brief images, the diversity cap, and sector-segmented notifications. 86% of articles carry no sector today.</td></tr>
+      <tr><td class="area-col">Sector tagging</td><td class="why-col">A single blocker behind three things at once: brief images, the topic diversity cap, and sector-segmented notifications. Most articles carry no sector today.</td></tr>
       <tr><td class="area-col">Instrumentation fixes</td><td class="why-col">Without these we can tell that something shipped, not whether it worked. Brief open rate and completion aren't cleanly measurable yet.</td></tr>
-      <tr><td class="area-col">Scope reconciliation</td><td class="why-col">The update banner, review prompt and notification infra were proposed separately from the brief/explore/company redesign closed on 24 Aug. This doc treats all of it as one v2 for readability — worth an explicit confirm that's the actual intent.</td></tr>
+      <tr><td class="area-col">Scope reconciliation</td><td class="why-col">The app-update prompt, review prompt and notification work were originally proposed separately from the brief, explore and company redesign. This document treats it all as one v2 for readability. Worth an explicit confirm that's the actual intent.</td></tr>
     </table>
   </div>
-  <p class="note-block"><b>Resolved since scoping began:</b> deep-linking (Singular) is fixed — notification and update-prompt taps now open the app, not Safari. <b>Explicitly excluded from this version:</b> AskInc42, the AI Q&amp;A feature — sequenced as its own, separate release.</p>
+  <p class="note-block"><b>Resolved since scoping began:</b> deep linking is fixed. Notification and update-prompt taps now open the app, not the browser. <b>Explicitly excluded from this version:</b> AskInc42, the AI question-and-answer feature, which is sequenced as its own separate release.</p>
 
   <h2>Timing</h2>
   <div class="table-wrap">
     <table class="grid">
       <tr><th>Release</th><th>September goal</th><th>Activation, redefined</th></tr>
       <tr>
-        <td>Target 31 Aug &mdash; may move to first week of Sep</td>
-        <td>5,000 installs &middot; ~20% activation (~2,000)</td>
-        <td>Brief completed + median 60s+ read, not raw completion</td>
+        <td>Target 31 Aug (may move to first week of Sep)</td>
+        <td>5,000 installs, about 20% activation (about 2,000)</td>
+        <td>Brief completed plus a median 60 seconds or more read, not raw completion</td>
       </tr>
     </table>
   </div>
 
-  <p class="conclusion">None of the screen changes above matter if the notification and sector-tagging fixes underneath them don't ship too — the redesign gets someone to try the brief again; the infrastructure is what makes sure they actually see it.</p>
+  <p class="conclusion">None of the screen changes above matter if the notification and sector-tagging fixes underneath them don't ship too. The redesign gets someone to try the brief again. The infrastructure is what makes sure they actually see it.</p>
 
 </div>
