@@ -382,59 +382,65 @@
       <tr>
         <td class="num-col">02</td>
         <td class="area-col">Brief card</td>
-        <td>Generic image regardless of topic; contradictory "read more (30s)" copy</td>
-        <td>Two hero-card A/B, 2&ndash;3 thumbnails, sector-based images, diversity cap, copy fix<span class="depends"><b>Depends on:</b> sector tagging &mdash; 86% of articles untagged</span></td>
+        <td>Needs to read as a curated, personalized edition, not a single generic story</td>
+        <td>Same card, three hero-treatment directions in Satya's Figma explore (small chart / masthead photo / big "8 stories today" numeral) &mdash; all carry a live "N reading now" badge, a stats row, 3 story previews, "+N more inside," and "OPEN TODAY'S BRIEF"<span class="depends"><b>Note:</b> sector-based imagery is a separate, unconfirmed track &mdash; none of the explored variants use sector-specific art yet</span></td>
       </tr>
       <tr>
         <td class="num-col">03</td>
-        <td class="area-col">Reading the brief</td>
-        <td>Full article may be a session-ending exit &mdash; two data pulls disagree how often</td>
-        <td>Return path back into the brief; fix article progress bar; story-strip A/B</td>
+        <td class="area-col">Resuming an unfinished brief</td>
+        <td>Re-opening the app mid-brief looks identical to never having started it</td>
+        <td>Card and CTA change once you've started &mdash; e.g. "CONTINUE &middot; 4 OF 8" with "4 read &middot; 4 to go, about 2 minutes." Direction is settled (already explored in Figma, 6 variants); exact treatment still being finalized</td>
       </tr>
       <tr>
         <td class="num-col">04</td>
+        <td class="area-col">Full-article return path</td>
+        <td>Whether people come back after tapping into a full article is unclear &mdash; two data pulls disagree how often this happens</td>
+        <td>Add a way back into the brief from the full article; fix article progress bar; story-strip A/B<span class="depends"><b>Open:</b> not yet designed &mdash; distinct from the resume feature above</span></td>
+      </tr>
+      <tr>
+        <td class="num-col">05</td>
         <td class="area-col">Completion moment</td>
         <td>Streak shown, but the screen never says "you're caught up &mdash; no scrolling needed"</td>
         <td>Lead with that payoff before gamification; animation A/B; rating prompt slotted here</td>
       </tr>
       <tr>
-        <td class="num-col">05</td>
+        <td class="num-col">06</td>
         <td class="area-col">Explore</td>
         <td>Flat chronological list; ~50% zero-tap visits; 1 in 3 searches return nothing</td>
         <td>Signal-based cards (funding/hiring/headcount); remove auto-pop filter; fix search<span class="depends"><b>Sequencing:</b> signal layout ~30&ndash;40% validated, ships as a flagged layer first</span></td>
       </tr>
       <tr>
-        <td class="num-col">06</td>
+        <td class="num-col">07</td>
         <td class="area-col">Explore &rsaquo; Company</td>
         <td>Deepest engagement in the app, but a 30pt then 24pt funnel drop inside it</td>
         <td>Surface financials + key people together; search-first companies tab; funded widget shows amount/valuation</td>
       </tr>
       <tr>
-        <td class="num-col">07</td>
+        <td class="num-col">08</td>
         <td class="area-col">Notifications</td>
         <td>Push has delivered zero times ever, to 114 users who already opted in</td>
         <td>iOS alert-payload fix (root cause); move to 1&ndash;2/day, sector-segmented<span class="depends"><b>Depends on:</b> sector tagging (deep-linking is already fixed)</span></td>
       </tr>
       <tr>
-        <td class="num-col">08</td>
+        <td class="num-col">09</td>
         <td class="area-col">App-update banner</td>
         <td>No way to reach installed users without a full store review cycle</td>
         <td>Soft dismissable prompt, pre-brief; build-number version gate<span class="depends"><b>Hard constraint:</b> iOS cannot be force-gated &mdash; locked at build 40</span></td>
       </tr>
       <tr>
-        <td class="num-col">09</td>
+        <td class="num-col">10</td>
         <td class="area-col">Store review prompt</td>
         <td>No in-app rating collection; a few early 1-stars would set the score for months</td>
         <td>Native prompt, Android-only, behaviour-gated (not sentiment-gated)</td>
       </tr>
       <tr>
-        <td class="num-col">10</td>
+        <td class="num-col">11</td>
         <td class="area-col">Bug fixes</td>
         <td>Live defects plus a carried-forward QA backlog</td>
         <td>Double-tap-to-exit, Save/Rate race condition, iOS back-button, streak icon, asset loads, ~20-item QA backlog</td>
       </tr>
       <tr>
-        <td class="num-col">11</td>
+        <td class="num-col">12</td>
         <td class="area-col">Dark mode</td>
         <td>No funnel data ties to this — a satisfaction/parity ask, not a measured fix</td>
         <td>Full dark theme across the app — confirmed in scope for this release</td>
@@ -443,7 +449,7 @@
   </div>
 
   <h2>What's changing — in detail</h2>
-  <p class="section-sub">Same ten items, with the full reasoning behind each.</p>
+  <p class="section-sub">Same twelve items, with the full reasoning behind each.</p>
 
   <div class="journey">
 
@@ -467,21 +473,32 @@
         <h3>Brief card — getting people to open it</h3>
         <p class="problem">The card doesn't read as a curated set of stories today — one generic image regardless of topic, and copy that promises "read more" and a 30-second end time in the same breath.</p>
         <ul class="ships">
-          <li>Two hero-card layouts, running as an A/B rather than betting on one design</li>
-          <li>2&ndash;3 article thumbnails on the card so a brief visibly reads as a curated list, not a single story</li>
-          <li>Sector-based default images, replacing the one shared fallback image (agreed twice already, owner Anmol, still unbuilt)</li>
+          <li>Same underlying card, three hero-treatment directions being explored in Satya's Figma (V0 small chart backdrop, V1 full masthead-style photo, V3 a large "8" with "STORIES TODAY" overlaid) — running as an A/B rather than betting on one design</li>
+          <li>All three carry the same real content: a live "N reading now" badge, edition date + "you track" pill, a stats row (₹ moved / IPO filings / sectors), 3 story previews with sector tags, "+N more stories inside," and "OPEN TODAY'S BRIEF"</li>
           <li>Fix the contradictory card copy; separate the summary CTA from a distinct "read full story" CTA</li>
           <li>A diversity cap so one sector can't dominate an edition</li>
         </ul>
-        <p class="caveat"><b>Depends on:</b> both the sector images and the diversity cap need real sector tags to work from — 86% of articles carry none today. Fix that first or both resolve to nothing for most briefs.</p>
+        <p class="caveat"><b>Note:</b> sector-based default images are a separate, unconfirmed idea (agreed with Utkarsh 12 Aug, still unbuilt, owner Anmol) — none of the explored hero variants use sector-specific art today, and it needs real sector tags to work from (86% of articles carry none). Flagging as a distinct track, not bundled into the card redesign above.</p>
       </div>
     </div>
 
     <div class="item">
       <div class="item-num">03</div>
       <div>
-        <h3>Reading the brief</h3>
-        <p class="problem">Once someone leaves a card to read the full article, there's a real chance the session just ends there instead of going back to the brief — we're reconciling two very different reads on how often, so the fix is being built regardless of the exact number.</p>
+        <h3>Resuming an unfinished brief</h3>
+        <p class="problem">Re-opening the app after starting but not finishing today's brief looks identical to never having opened it — the card and CTA don't reflect where you actually are.</p>
+        <ul class="ships">
+          <li>Card and CTA change once you've started a brief — e.g. "CONTINUE &middot; 4 OF 8" with "4 read &middot; 4 to go, about 2 minutes" shown directly on the card</li>
+          <li>Already explored in Satya's Figma with 6 treatments (CTA-only, a progress bar on the banner, an index of what's left, a full resume state, and a separate "rolled over — yesterday unfinished" case) — direction is settled, exact treatment still being finalized</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">04</div>
+      <div>
+        <h3>Full-article return path</h3>
+        <p class="problem">Once someone leaves a card to read the full article, there's a real chance the session just ends there instead of going back to the brief — we're reconciling two very different reads on how often, so the fix is being built regardless of the exact number. This is a separate, not-yet-designed question from the resume feature above.</p>
         <ul class="ships">
           <li>A return path back into the brief ("back to your brief &middot; 4 left") instead of just removing the exit</li>
           <li>Fix the article progress bar — today it tracks the page, not the article</li>
@@ -491,7 +508,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">04</div>
+      <div class="item-num">05</div>
       <div>
         <h3>The moment right after finishing</h3>
         <p class="problem">Today, finishing a brief shows a streak counter, then drops straight into "Explore Trending Stories." It never says the one thing that actually matters: <i>you're caught up, and you didn't have to go dig through the internet for it.</i> The exact reason someone opened the app never gets paid off.</p>
@@ -504,7 +521,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">05</div>
+      <div class="item-num">06</div>
       <div>
         <h3>Explore — making it feel considered</h3>
         <p class="problem">Explore is a flat, chronological list today, and it reads that way. About half of all visits end with zero taps — early read is that's a fast scan, not people stuck, but we don't have the instrumentation yet to tell content quality from a measurement gap. About 1 in 3 searches return nothing.</p>
@@ -518,7 +535,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">06</div>
+      <div class="item-num">07</div>
       <div>
         <h3>Explore &rsaquo; Company</h3>
         <p class="problem">Company data is the single deepest thing anyone does in the app — 683 company-section views from just 34 users — but the path inside it leaks hard: a 30-point drop from funding data to financials, then another 24-point drop to key people.</p>
@@ -531,7 +548,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">07</div>
+      <div class="item-num">08</div>
       <div>
         <h3>Notifications</h3>
         <p class="problem">Push has never once delivered, to anyone, despite 114 users already opting in.</p>
@@ -544,7 +561,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">08</div>
+      <div class="item-num">09</div>
       <div>
         <h3>App-update banner</h3>
         <p class="problem">There's currently no way to get a fix in front of installed users without a full store review cycle, and the update banner itself is passive.</p>
@@ -557,7 +574,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">09</div>
+      <div class="item-num">10</div>
       <div>
         <h3>Store review prompt</h3>
         <p class="problem">No way to collect a Play Store rating in-app today — at this install count, a couple of early 1-stars set the visible score for months.</p>
@@ -569,7 +586,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">10</div>
+      <div class="item-num">11</div>
       <div>
         <h3>Bug fixes</h3>
         <p class="problem">A mix of small live defects and a carried-forward QA backlog, folded into this release rather than tracked separately.</p>
@@ -585,7 +602,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">11</div>
+      <div class="item-num">12</div>
       <div>
         <h3>Dark mode</h3>
         <p class="problem">No funnel data ties to this one — it's a satisfaction/parity ask from the design sessions, not a fix for a measured drop-off.</p>
