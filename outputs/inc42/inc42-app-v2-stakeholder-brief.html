@@ -383,12 +383,12 @@
         <td class="num-col">02</td>
         <td class="area-col">Welcome screen</td>
         <td>Doesn't clearly convey the problem we solve or the solution we offer</td>
-        <td>Redesign the visual to make the pitch more compelling and clear up front<span class="note-line"><b>Holding for now:</b> the homepage banner, since there's no usage data yet to design against</span></td>
+        <td>Redesign the visual to make the pitch more compelling and clear up front</td>
       </tr>
       <tr>
         <td class="num-col">03</td>
         <td class="area-col">Brief card</td>
-        <td>Reads as one generic story, not a curated, personalized edition</td>
+        <td>Reads as one generic story or article, not a curated, personalized edition</td>
         <td>Redesign the card with a few visual variations and A/B test them to find what works</td>
       </tr>
       <tr>
@@ -401,52 +401,64 @@
         <td class="num-col">05</td>
         <td class="area-col">Full-article return path</td>
         <td>People who tap into the full article from a brief card often don't come back to finish the rest of it</td>
-        <td>Add a clear way back into the brief after reading the full article</td>
+        <td>Remove the "read full article" button and simplify the card. Tapping the center of the card opens the full article directly.</td>
       </tr>
       <tr>
         <td class="num-col">06</td>
         <td class="area-col">Completion moment</td>
         <td>Finishing a brief only shows a streak count. It never says what the person actually got.</td>
-        <td>Lead with that payoff before the streak, and add a rating prompt right here</td>
+        <td>Lead with that payoff before the streak</td>
       </tr>
       <tr>
         <td class="num-col">07</td>
         <td class="area-col">Explore, layout</td>
-        <td>Feels flat and monotonous. Same layout, same order, nothing personalized.</td>
-        <td>Show companies and stories based on what's actually moving, not just recency</td>
+        <td>The Articles and Companies tabs at the top of Explore take up a lot of space, leaving less room for the card view listing below</td>
+        <td>Optimize and minimize that top section, so there's more room for a better card view</td>
       </tr>
       <tr>
         <td class="num-col">08</td>
+        <td class="area-col">Explore &rsaquo; article</td>
+        <td>Feels flat and monotonous. Same layout, same order.</td>
+        <td>Show companies and stories based on what's actually moving, not just recency</td>
+      </tr>
+      <tr>
+        <td class="num-col">09</td>
         <td class="area-col">Explore, search</td>
         <td>About 1 in 3 searches return nothing</td>
         <td>Investigate and fix, likely a backend indexing issue</td>
       </tr>
       <tr>
-        <td class="num-col">09</td>
+        <td class="num-col">10</td>
         <td class="area-col">Explore &rsaquo; Company</td>
         <td>Funding, financials and key people sit behind separate taps, so most people stop after the first section</td>
         <td>Bring financials and key people into one connected view</td>
       </tr>
       <tr>
-        <td class="num-col">10</td>
+        <td class="num-col">11</td>
         <td class="area-col">App-update prompt</td>
         <td>No way today to prompt existing users to update the app</td>
         <td>Add a simple prompt letting people know a new version is available</td>
       </tr>
       <tr>
-        <td class="num-col">11</td>
+        <td class="num-col">12</td>
         <td class="area-col">Store review prompt</td>
         <td>No way to ask for a rating in-app today, on either platform</td>
         <td>Ask happy users only (a few completed briefs, no crashes) to rate the app, on Android and iOS</td>
       </tr>
       <tr>
-        <td class="num-col">12</td>
+        <td class="num-col">13</td>
+        <td class="area-col">Heatmaps and session recordings</td>
+        <td>No way today to see how people actually behave inside the app</td>
+        <td>Implement heatmaps and session recordings to understand real usage patterns</td>
+      </tr>
+      <tr>
+        <td class="num-col">14</td>
         <td class="area-col">Bug fixes</td>
         <td>A set of known bugs, including that push notifications don't work at all today</td>
         <td>Fixed in this release. Full list in the detail section below.</td>
       </tr>
       <tr>
-        <td class="num-col">13</td>
+        <td class="num-col">15</td>
         <td class="area-col">Dark mode</td>
         <td>Not tied to a specific problem</td>
         <td>User requirement. Full dark theme across the app, already confirmed in scope.</td>
@@ -455,7 +467,7 @@
   </div>
 
   <h2>What's changing, in detail</h2>
-  <p class="section-sub">Same thirteen items, with the reasoning behind each.</p>
+  <p class="section-sub">Same fifteen items, with the reasoning behind each.</p>
 
   <div class="journey">
 
@@ -488,7 +500,7 @@
       <div class="item-num">03</div>
       <div>
         <h3>Brief card</h3>
-        <p class="problem">The brief card today reads as one generic story rather than a curated set, and doesn't feel personalized.</p>
+        <p class="problem">The brief card today reads as one generic story or article rather than a curated set, and doesn't feel personalized.</p>
         <ul class="ships">
           <li>Redesign the card with a few visual directions already explored, run them as an A/B test, and keep whichever performs best</li>
           <li>Fix the contradictory card copy, and give the summary and the full article separate, clear calls to action</li>
@@ -516,7 +528,8 @@
         <h3>Full-article return path</h3>
         <p class="problem">When someone taps into the full article from a brief card, they often don't come back to finish the rest of that day's brief. Two data pulls disagree on exactly how often, so we're not quoting a number, but the fix is worth building regardless.</p>
         <ul class="ships">
-          <li>Add a clear way back into the brief after reading the full article, instead of the exit being the last step</li>
+          <li>Remove the separate "read full article" button, simplifying the card</li>
+          <li>Tapping the center of the card opens the full article directly, instead of a dedicated button</li>
         </ul>
       </div>
     </div>
@@ -528,7 +541,6 @@
         <p class="problem">Finishing a brief today only shows a streak count. It never tells the person what they actually got: that they're caught up, and didn't need to spend time scrolling elsewhere for news.</p>
         <ul class="ships">
           <li>Lead the finish screen with that message, before the streak</li>
-          <li>Ask for an app rating right here, since it's the moment people feel best about the app, not after they've left it</li>
         </ul>
       </div>
     </div>
@@ -537,6 +549,17 @@
       <div class="item-num">07</div>
       <div>
         <h3>Explore, layout</h3>
+        <p class="problem">The Articles and Companies tabs at the top of Explore take up a lot of space today, leaving less room for the card view listing below.</p>
+        <ul class="ships">
+          <li>Optimize and minimize that top section, so there's more room for a better card view</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">08</div>
+      <div>
+        <h3>Explore &rsaquo; article</h3>
         <p class="problem">Explore feels flat and monotonous today: same layout, same order, nothing about it feels considered or personalized.</p>
         <ul class="ships">
           <li>Show companies and stories based on what's actually moving (funding, hiring, and similar signals), not just what's most recent</li>
@@ -546,7 +569,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">08</div>
+      <div class="item-num">09</div>
       <div>
         <h3>Explore, search</h3>
         <p class="problem">About 1 in 3 searches on Explore return nothing. A separate problem from the layout above, and a separate fix.</p>
@@ -557,7 +580,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">09</div>
+      <div class="item-num">10</div>
       <div>
         <h3>Explore &rsaquo; Company</h3>
         <p class="problem">Company pages don't make it easy to go deeper. Funding, financials and key people all sit behind separate taps today, so most people stop after the first section.</p>
@@ -570,7 +593,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">10</div>
+      <div class="item-num">11</div>
       <div>
         <h3>App-update prompt</h3>
         <p class="problem">There's no way today to prompt existing users to update to a newer version of the app.</p>
@@ -582,7 +605,7 @@
     </div>
 
     <div class="item">
-      <div class="item-num">11</div>
+      <div class="item-num">12</div>
       <div>
         <h3>Store review prompt</h3>
         <p class="problem">There's no way today to ask users for a rating inside the app, on either platform. At this install count, a couple of early low ratings would set the visible score for months.</p>
@@ -594,7 +617,19 @@
     </div>
 
     <div class="item">
-      <div class="item-num">12</div>
+      <div class="item-num">13</div>
+      <div>
+        <h3>Heatmaps and session recordings</h3>
+        <p class="problem">There's no way today to see how people actually behave inside the app: where they tap, where they get stuck, where they drop off mid-screen.</p>
+        <ul class="ships">
+          <li>Implement heatmaps and session recordings to understand real usage patterns</li>
+        </ul>
+        <p class="caveat"><b>Note:</b> this runs on the analytics tool already in the app, so it doesn't add a new vendor.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-num">14</div>
       <div>
         <h3>Bug fixes</h3>
         <p class="problem">A set of smaller known issues, folded into this release rather than tracked separately.</p>
@@ -614,11 +649,12 @@
     </div>
 
     <div class="item">
-      <div class="item-num">13</div>
+      <div class="item-num">15</div>
       <div>
         <h3>Dark mode</h3>
         <ul class="ships">
           <li>User requirement. Full dark theme across the app, already confirmed in scope for this release.</li>
+          <li>Add an Appearance section under Profile settings, where users can switch between dark and light</li>
         </ul>
       </div>
     </div>
