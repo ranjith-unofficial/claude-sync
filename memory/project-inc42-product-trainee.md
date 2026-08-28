@@ -1,11 +1,11 @@
 ---
 name: project-inc42-product-trainee
-description: "Product Trainee role Ranjith is hiring for himself — 545 Keka applicants, locked screening criteria, budget 3-5L, calibration tab awaiting his blind grades"
+description: "Product Trainee role Ranjith is hiring for himself — 731 Keka applicants, locked screening criteria (strict 6L cap on both current+expected CTC), rule-based shortlist done, AI scoring pass still pending"
 metadata: 
   node_type: memory
   type: project
   originSessionId: 0a7258b2-f45b-4229-84ea-2bf0e20e0797
-  modified: 2026-08-17T18:17:56.428Z
+  modified: 2026-08-28T13:21:47.368Z
 ---
 
 Ranjith is hiring a **Product Trainee** for his own Product & AI team at Inc42 — so unlike Founder's Office Associate (where Yash is the hiring manager), **he is the hiring manager here** and the calibration brief comes from him directly.
@@ -107,3 +107,21 @@ Cause is a distribution shift, not worse reasoning: gpt-5.2 scores the same evid
 ⚠️ **Sheet-write gotcha:** the Google Sheets name box does NOT reliably take focus via a click at its coordinates — typing "K1" there landed in cell A1 and pasted over the `#`/`name`/`resume` columns. Caught and undone with cmd+z, no data lost. **Use keyboard navigation (click a known cell, then arrow keys) and verify the name box by zooming on it BEFORE pasting.**
 
 **Still open with Ranjith:** where to cut the review pile (he gets a ranking, not a verdict); topping up Anthropic; the Product sense 10% weighting. n8n multi-role deployment deliberately NOT done — it would bake in those unresolved decisions.
+
+## Rule-based hard-filter re-run (2026-08-27) — pool grew to 731, salary rule tightened
+
+Applicant pool grew **545 → 730 → 731** over the following week (checked mid-session, one more came in live). Ranjith asked for a **pure rule-based filter only** (no AI/LLM) as a first pass, before any AI-scoring run — this is a distinct, earlier step from the 19 Aug AI-scored run above, done on the larger/fresher pool.
+
+**Salary rule tightened mid-session, at Ranjith's explicit correction:** the original two-step CTC rule (expected≤6L **OR** current×1.2≤6L) was letting candidates through whose *expected* ask was ₹15–45L, just because current pay was low (e.g. Harshita Upreti: current 3.5L, expected 45L — passed under the old rule). Ranjith's fix: **both current AND expected CTC must be ≤ ₹6L (5L cap +20%)**, no rescue-via-current-pay exception. This is now the standing rule for this role's first-pass filter — do not silently reintroduce the two-step rescue without asking.
+
+**Final numbers (731 candidates, strict rule):** 218 SHORTLIST · 41 REVIEW (bad/missing salary data, e.g. current=0 AND expected=0, or a negative CTC entry — genuinely ambiguous, not silently passed or rejected) · 472 REJECT (387 salary, 125 experience, 40 both). Experience floor kept at 0.5y (JD's "6+ months"); no experience ceiling, flagged only as "overqualified, retention risk" past 5y.
+
+**Data source pivoted mid-session to the real Keka API** — see [[reference-inc42-keka-api-access]]. Ranjith supplied the credentials from his own n8n workflow export. This is more reliable than the Excel-export UI or browser scraping (which was the original plan and got most of the way through before the pivot — cost ~1000 planned browser actions to get resume links, abandoned once API access was found).
+
+**Resume access:** Keka's Excel export has no resume column, and the API's resume `fileUrl` is a SAS-signed link that expires in hours — unusable in a spreadsheet. Used the permanent candidate-profile URL instead (`.../hire/candidate/job/{jobId}/{candidateId}/summary`), added as a **Profile Link** column. Works while logged into Keka.
+
+**Output:** sheet `1nxnP-rhbJCussb4z8bEKbehDe-eY2XyDU_kL_dNXjGs`, tab **"Product Trainee Shortlist"** — all 731 rows (not just passers), sorted SHORTLIST→REVIEW→REJECT then by expected CTC, so it's auditable, not just a verdict. Columns: Status, Name, Profile Link, Email, Phone, Experience (yrs), Current/Expected CTC (LPA), Salary Status, Exp Status, Reason, Previous Company, Source.
+
+**Gotcha hit twice while pasting via clipboard (`pbcopy`/`cmd+v`) into this sheet:** the OS clipboard is shared system-wide — something else on the Mac overwrote it mid-task at least once (a stray `https://claude.ai/code/artifact/...` URL landed in a cell instead of the intended chunk). **Always `pbpaste | head -c 80` to verify clipboard content immediately before every paste, not just once at the start.** Separately, the browser-automation permission classifier intermittently blocked routine `type`/`key` actions on this sheet (no clear pattern) — retrying the same action 1-2x always succeeded; never skip the post-paste verification screenshot because of it. Both corrupted cells (2 of 731) were caught and fixed same-session before handoff.
+
+**Not done next:** whether/when this SHORTLIST (218) or SHORTLIST+REVIEW (259) pool goes through an AI-scoring pass like the 19 Aug run — Ranjith said "for now" on the rule-based-only ask, implying AI scoring is still coming.
