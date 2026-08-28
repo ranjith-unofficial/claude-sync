@@ -161,6 +161,68 @@
     margin: -1.2rem 0 2.6rem;
   }
 
+  /* ---------- Tables ---------- */
+
+  .table-wrap {
+    overflow-x: auto;
+    margin: 0 0 1rem;
+    border-top: 1px solid var(--line);
+  }
+  table.grid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  table.grid th {
+    text-align: left;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 0.7rem 0.9rem 0.6rem 0;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  table.grid td {
+    vertical-align: top;
+    padding: 0.85rem 0.9rem 0.85rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  table.grid td:first-child, table.grid th:first-child { padding-left: 0; }
+  table.grid tr:last-child td { border-bottom: none; }
+  table.grid .num-col {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-faint);
+    width: 1.6rem;
+  }
+  table.grid .area-col { font-weight: 700; width: 11rem; }
+  table.grid td ul {
+    margin: 0;
+    padding-left: 1.05rem;
+  }
+  table.grid td ul li { margin-bottom: 0.3rem; }
+  table.grid td ul li:last-child { margin-bottom: 0; }
+  table.grid .depends {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+  }
+  table.grid .depends b { color: var(--ink); }
+  table.grid .tag-cell {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+    width: 8rem;
+  }
+  table.grid .why-col { color: var(--ink-muted); }
+
   /* ---------- Section headings ---------- */
 
   h2 {
@@ -254,79 +316,12 @@
   }
   .caveat b { color: var(--ink); }
 
-  /* ---------- Experiments list ---------- */
-
-  .exp-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-  }
-  .exp-list li {
-    display: grid;
-    grid-template-columns: 9rem 1fr;
-    gap: 1rem;
-    font-size: 0.98rem;
-    padding-bottom: 0.9rem;
-    border-bottom: 1px solid var(--line);
-  }
-  .exp-list li:last-child { border-bottom: none; }
-  .exp-list .tag {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  @media (max-width: 560px) {
-    .exp-list li { grid-template-columns: 1fr; gap: 0.25rem; }
-  }
-
   .note-block {
     font-size: 0.9rem;
     color: var(--ink-muted);
     margin-top: 1.3rem;
     max-width: 62ch;
   }
-
-  /* ---------- Open items table ---------- */
-
-  .open-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-  }
-  .open-list li {
-    padding: 0.95rem 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 0.98rem;
-  }
-  .open-list li:first-child { border-top: 1px solid var(--line); }
-  .open-list b { color: var(--ink); }
-  .open-list .why { color: var(--ink-muted); }
-
-  /* ---------- Timing ---------- */
-
-  .timing {
-    display: flex;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-    margin: 1.4rem 0 0;
-  }
-  .timing div { flex: 1; min-width: 200px; }
-  .timing .t-label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 0.4rem;
-  }
-  .timing .t-val { font-size: 1.02rem; }
 
   /* ---------- Conclusion ---------- */
 
@@ -372,8 +367,83 @@
   </div>
   <p class="reconcile-note">Two other numbers — exactly how many people drop at card 1, and whether opening the full article ends the session — are showing conflicting reads across two different data pulls. Not quoting either here until that's reconciled; the fixes below don't wait on it.</p>
 
-  <h2>What's changing</h2>
-  <p class="section-sub">In the order a person actually moves through the app.</p>
+  <h2>What's changing — at a glance</h2>
+  <p class="section-sub">In the order a person actually moves through the app. Full detail on each row continues below.</p>
+
+  <div class="table-wrap">
+    <table class="grid">
+      <tr><th></th><th>Area</th><th>Problem</th><th>What's shipping</th></tr>
+      <tr>
+        <td class="num-col">01</td>
+        <td class="area-col">Welcome &amp; onboarding</td>
+        <td>16 of 27 tour quitters bail at step 1; even finishers can't say what "Brief" is</td>
+        <td>Rewrite tour copy to explain the value; fix QA-flagged onboarding sequencing<span class="depends"><b>Hold:</b> homepage banner — zero usage data to justify it this cycle</span></td>
+      </tr>
+      <tr>
+        <td class="num-col">02</td>
+        <td class="area-col">Brief card</td>
+        <td>Generic image regardless of topic; contradictory "read more (30s)" copy</td>
+        <td>Two hero-card A/B, 2&ndash;3 thumbnails, sector-based images, diversity cap, copy fix<span class="depends"><b>Depends on:</b> sector tagging &mdash; 86% of articles untagged</span></td>
+      </tr>
+      <tr>
+        <td class="num-col">03</td>
+        <td class="area-col">Reading the brief</td>
+        <td>Full article may be a session-ending exit &mdash; two data pulls disagree how often</td>
+        <td>Return path back into the brief; fix article progress bar; story-strip A/B</td>
+      </tr>
+      <tr>
+        <td class="num-col">04</td>
+        <td class="area-col">Completion moment</td>
+        <td>Streak shown, but the screen never says "you're caught up &mdash; no scrolling needed"</td>
+        <td>Lead with that payoff before gamification; animation A/B; rating prompt slotted here</td>
+      </tr>
+      <tr>
+        <td class="num-col">05</td>
+        <td class="area-col">Explore</td>
+        <td>Flat chronological list; ~50% zero-tap visits; 1 in 3 searches return nothing</td>
+        <td>Signal-based cards (funding/hiring/headcount); remove auto-pop filter; fix search<span class="depends"><b>Sequencing:</b> signal layout ~30&ndash;40% validated, ships as a flagged layer first</span></td>
+      </tr>
+      <tr>
+        <td class="num-col">06</td>
+        <td class="area-col">Explore &rsaquo; Company</td>
+        <td>Deepest engagement in the app, but a 30pt then 24pt funnel drop inside it</td>
+        <td>Surface financials + key people together; search-first companies tab; funded widget shows amount/valuation</td>
+      </tr>
+      <tr>
+        <td class="num-col">07</td>
+        <td class="area-col">Notifications</td>
+        <td>Push has delivered zero times ever, to 114 users who already opted in</td>
+        <td>iOS alert-payload fix (root cause); move to 1&ndash;2/day, sector-segmented<span class="depends"><b>Depends on:</b> sector tagging (deep-linking is already fixed)</span></td>
+      </tr>
+      <tr>
+        <td class="num-col">08</td>
+        <td class="area-col">App-update banner</td>
+        <td>No way to reach installed users without a full store review cycle</td>
+        <td>Soft dismissable prompt, pre-brief; build-number version gate<span class="depends"><b>Hard constraint:</b> iOS cannot be force-gated &mdash; locked at build 40</span></td>
+      </tr>
+      <tr>
+        <td class="num-col">09</td>
+        <td class="area-col">Store review prompt</td>
+        <td>No in-app rating collection; a few early 1-stars would set the score for months</td>
+        <td>Native prompt, Android-only, behaviour-gated (not sentiment-gated)</td>
+      </tr>
+      <tr>
+        <td class="num-col">10</td>
+        <td class="area-col">Bug fixes</td>
+        <td>Live defects plus a carried-forward QA backlog</td>
+        <td>Double-tap-to-exit, Save/Rate race condition, iOS back-button, streak icon, asset loads, ~20-item QA backlog</td>
+      </tr>
+      <tr>
+        <td class="num-col">11</td>
+        <td class="area-col">Dark mode</td>
+        <td>No funnel data ties to this — a satisfaction/parity ask, not a measured fix</td>
+        <td>Full dark theme across the app — confirmed in scope for this release</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>What's changing — in detail</h2>
+  <p class="section-sub">Same ten items, with the full reasoning behind each.</p>
 
   <div class="journey">
 
@@ -384,6 +454,7 @@
         <p class="problem">Most quitters quit here — 16 of the 27 people who bail on the guided tour bail on its very first step. Worse, people who <i>finish</i> the tour still can't say what "Brief" is — an outside reviewer couldn't answer it after using the whole app. The tour also inflates Explore's usage numbers, so today's "Explore is winning" read isn't fully trustworthy either.</p>
         <ul class="ships">
           <li>Rewrite the walkthrough to actually explain the value — "your day, in one place, under two minutes" — not just click through screens</li>
+          <li>Move the walkthrough off custom code onto <b>Customer.io's native virtual-tour feature</b> — steps and copy change without an app release</li>
           <li>Fix onboarding sequencing already flagged in QA (notification-permission prompt, sector-selection validation)</li>
         </ul>
         <p class="caveat"><b>Hold, not build:</b> the homepage banner slot has zero recorded usage anywhere in the data — no signal either way to design against. Recommend parking it this cycle rather than committing design time on a guess.</p>
@@ -468,7 +539,7 @@
           <li>Root-cause iOS fix — switch from a silent push to a proper alert payload, so it renders even when the app has been force-killed</li>
           <li>Move to 1&ndash;2/day, sector-segmented rather than blanket, editor-flagged for breaking stories</li>
         </ul>
-        <p class="caveat"><b>Depends on:</b> sector tagging (above) and the deep-link fix (below) — a notification that opens Safari instead of the app defeats the point of fixing it.</p>
+        <p class="caveat"><b>Depends on:</b> sector tagging (above). Deep-linking (Singular) is already fixed, so a notification tap now opens the app rather than Safari.</p>
       </div>
     </div>
 
@@ -513,50 +584,61 @@
       </div>
     </div>
 
+    <div class="item">
+      <div class="item-num">11</div>
+      <div>
+        <h3>Dark mode</h3>
+        <p class="problem">No funnel data ties to this one — it's a satisfaction/parity ask from the design sessions, not a fix for a measured drop-off.</p>
+        <ul class="ships">
+          <li>Full dark theme across the app — confirmed in scope for this release</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
   <h2>Experiments running alongside this</h2>
   <p class="section-sub">Nothing above ships as a single irreversible bet — most of it is A/B'd, and copy/config changes are moved onto Customer.io so they don't need an app release to change.</p>
 
-  <ul class="exp-list">
-    <li><span class="tag">A/B</span><span>Brief card — two hero-card layouts</span></li>
-    <li><span class="tag">A/B</span><span>Completion screen — with vs. without a personalized animation</span></li>
-    <li><span class="tag">A/B</span><span>Brief page — story strip, on vs. off</span></li>
-    <li><span class="tag">A/B, light</span><span>Explore — a top-fold-only test; not a full-section experiment, the signal layout isn't validated enough for that yet</span></li>
-    <li><span class="tag">Customer.io</span><span>Onboarding copy moves onto CIO's native virtual-tour feature — wording changes stop needing an app release</span></li>
-    <li><span class="tag">Customer.io</span><span>Feedback prompt and the rating card are both server-driven through CIO for the same reason</span></li>
-  </ul>
+  <div class="table-wrap">
+    <table class="grid">
+      <tr><th>Type</th><th>What's being tested</th></tr>
+      <tr><td class="tag-cell">A/B</td><td>Brief card — two hero-card layouts</td></tr>
+      <tr><td class="tag-cell">A/B</td><td>Completion screen — with vs. without a personalized animation</td></tr>
+      <tr><td class="tag-cell">A/B</td><td>Brief page — story strip, on vs. off</td></tr>
+      <tr><td class="tag-cell">A/B, light</td><td>Explore — a top-fold-only test; not a full-section experiment, the signal layout isn't validated enough for that yet</td></tr>
+      <tr><td class="tag-cell">Customer.io</td><td>Virtual walkthrough moves off custom code onto CIO's native tour feature — steps and copy change without an app release</td></tr>
+      <tr><td class="tag-cell">Customer.io</td><td>Feature flags run on Customer.io — the update banner, review gate and in-app messaging are all configured through it, not a separate flagging tool</td></tr>
+      <tr><td class="tag-cell">Customer.io</td><td>Feedback prompt and the rating card are both server-driven through CIO for the same reason</td></tr>
+    </table>
+  </div>
   <p class="note-block">One honest caveat: at ~189 users, none of these A/B tests reach statistical significance on their own. Treat this layer as release safety and a kill switch first, directional signal second — not as "we'll have a verdict" by launch.</p>
 
   <h2>What's not locked yet</h2>
   <p class="section-sub">Surfacing these so this doesn't read as more decided than it is.</p>
 
-  <ul class="open-list">
-    <li><b>Sector tagging</b> is a single blocker behind three items above at once — brief images, the diversity cap, and sector-segmented notifications. <span class="why">86% of articles carry no sector today.</span></li>
-    <li><b>Deep-linking</b> (routing through Singular) — notifications, update prompts and newsletter links all currently risk opening Safari instead of the app. <span class="why">This is a prerequisite for #07 and #08, not a parallel workstream.</span></li>
-    <li><b>Feature flags</b> (PostHog, fail-closed) — the update banner, the review gate and the in-app messaging above are all designed to run behind flags. <span class="why">That infra work is currently paused and needs an explicit go.</span></li>
-    <li><b>Instrumentation fixes</b> — without these we can tell that something shipped, not whether it worked. <span class="why">Brief open rate and completion aren't cleanly measurable yet.</span></li>
-    <li><b>Dark mode</b> — committed separately within 15&ndash;30 days. <span class="why">Unclear whether it lands inside this release or after it.</span></li>
-    <li><b>AskInc42</b> (the AI Q&amp;A feature) is sequenced as its own, separate release. <span class="why">Flagging so it isn't assumed to be part of this scope.</span></li>
-    <li><b>Scope reconciliation</b> — the update banner, review prompt and notification infra above were proposed separately from the brief/explore/company redesign that was closed on 24 Aug. <span class="why">This document treats all of it as one v2 for readability — worth an explicit confirm that's the actual intent.</span></li>
-  </ul>
+  <div class="table-wrap">
+    <table class="grid">
+      <tr><th>Blocker</th><th>Why it matters</th></tr>
+      <tr><td class="area-col">Sector tagging</td><td class="why-col">A single blocker behind three items at once — brief images, the diversity cap, and sector-segmented notifications. 86% of articles carry no sector today.</td></tr>
+      <tr><td class="area-col">Instrumentation fixes</td><td class="why-col">Without these we can tell that something shipped, not whether it worked. Brief open rate and completion aren't cleanly measurable yet.</td></tr>
+      <tr><td class="area-col">Scope reconciliation</td><td class="why-col">The update banner, review prompt and notification infra were proposed separately from the brief/explore/company redesign closed on 24 Aug. This doc treats all of it as one v2 for readability — worth an explicit confirm that's the actual intent.</td></tr>
+    </table>
+  </div>
+  <p class="note-block"><b>Resolved since scoping began:</b> deep-linking (Singular) is fixed — notification and update-prompt taps now open the app, not Safari. <b>Explicitly excluded from this version:</b> AskInc42, the AI Q&amp;A feature — sequenced as its own, separate release.</p>
 
   <h2>Timing</h2>
-  <div class="timing">
-    <div>
-      <div class="t-label">Release</div>
-      <div class="t-val">Target 31 Aug &mdash; may move to first week of Sep</div>
-    </div>
-    <div>
-      <div class="t-label">September goal</div>
-      <div class="t-val">5,000 installs &middot; ~20% activation (~2,000)</div>
-    </div>
-    <div>
-      <div class="t-label">Activation, redefined</div>
-      <div class="t-val">Brief completed + median 60s+ read, not raw completion</div>
-    </div>
+  <div class="table-wrap">
+    <table class="grid">
+      <tr><th>Release</th><th>September goal</th><th>Activation, redefined</th></tr>
+      <tr>
+        <td>Target 31 Aug &mdash; may move to first week of Sep</td>
+        <td>5,000 installs &middot; ~20% activation (~2,000)</td>
+        <td>Brief completed + median 60s+ read, not raw completion</td>
+      </tr>
+    </table>
   </div>
 
-  <p class="conclusion">None of the screen changes above matter if the notification, deep-link and sector-tagging fixes underneath them don't ship too — the redesign gets someone to try the brief again; the infrastructure is what makes sure they actually see it.</p>
+  <p class="conclusion">None of the screen changes above matter if the notification and sector-tagging fixes underneath them don't ship too — the redesign gets someone to try the brief again; the infrastructure is what makes sure they actually see it.</p>
 
 </div>
