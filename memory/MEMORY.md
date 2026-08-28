@@ -65,11 +65,13 @@
 - [26 Aug v2 scoping sync](project-inc42-app-v2-sync-26aug.md) — 5-page scope due 27 Aug; live bugs (race condition, iOS back-button build52)
 - [INC42 app feedback survey (WhatsApp)](project-inc42-app-feedback-survey.md) — 28 Aug redesign of Animesh's Tally form into a 15-Q funnel screener; sent, awaiting rebuild
 - [28 Aug design prompts for Satya](project-inc42-app-v2-satya-design-prompts.md) — 3 screens; rating-flow split required, sentiment-gating is a policy violation
+- [Brief gratification/explore redesign concept](project-inc42-app-brief-gratification-redesign.md) — from 3 Wispr calls (26-27 Aug); Brief→Gratification→Explore as separated beats, screen-by-screen spec
 
 ## INC42 data warehouse
 - [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026, powers contact_360/company_360
 
 ## Other work
+- [Project: Meeting intelligence agent](project-meeting-agent.md) — analyzes every meeting + zero-auto-execute Slack CTI approval loop; architecture locked 27-28 Aug, no access granted yet
 - [Project: Personal AI ops / morning brief](project-personal-ai-ops.md) — phased daily-brief system: email digest+doc gap-check now, Slack next
 - [Project: Daily Signal briefing](project-daily-signal.md) — separate 20-section AI/product/geopolitics artifact, cloud-scheduled 9am IST
 - [Project: INC42 hiring agent](project-inc42-hiring-agent.md) — scores Keka applicants; going MULTI-ROLE + two-step CTC rule agreed with Utkarsh

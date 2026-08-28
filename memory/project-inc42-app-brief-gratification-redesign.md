@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 43f2af93-d997-425d-ace1-dc28c1bcdd2e
-  modified: 2026-08-28T13:23:21.822Z
+  modified: 2026-08-28T13:23:28.765Z
 ---
 
 Source: 3 Wispr Flow recordings — **"Optimizing Wispr Brief Design"** (27 Aug 2026, 07:53-08:11 IST, meeting id `1f7caee8-771c-4b9f-b523-21c6e0f0c018`), **"Brief Card Design Refresh"** (26 Aug, `b83ed5f9-51b0-4cac-9dd9-4b604261f7da`), **"Improving Brief Page Conversion"** (26 Aug, `669e5f6a-29ea-451e-8ced-655fdc2d5b65`). Drafted into a Slack message for Satya + Rithvik. Supplements [[project-inc42-app-v2-scope-full]] and [[project-inc42-app-v2-sync-26aug]] with more concrete, screen-level detail from the actual transcripts (not just meeting-notes summaries).
@@ -32,6 +32,7 @@ Source: 3 Wispr Flow recordings — **"Optimizing Wispr Brief Design"** (27 Aug 
 **Completion / "thank you" / gratification screen**
 - Must be its own beat: tell the user plainly "we collated this so you didn't have to" (the time-saved payoff) before showing anything else.
 - Today's flow (streak animation → straight into "Explore Trending Stories") blurs gratification and explore-more together — root cause of the "was that enough?" feeling. Separate them.
+- **Fleshed out further same day (28 Aug) in a separate session** — see [[project-inc42-app-v2-satya-design-prompts]]: a full 5-variant rotating gratification message system (time/effort, curation/authority, identity/streak, personal relevance, cumulative/weekly), cycled deterministically so the payoff doesn't go stale by day 4-5.
 
 **After gratification — explore surface**
 - Sector-based "more this week" for followed sectors; fallback to ranking-driven "more relevant to you" if nothing fresh there.
