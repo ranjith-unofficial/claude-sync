@@ -54,6 +54,7 @@
 - [Datalabs dunning decision map](project-inc42-datalabs-dunning-map.md) — 8-case status→treatment map from the engineering spec; sheet tabs "Dunning System"/"Dunning - Simple" + artifact 7ff69804; 7d grace/15d attempts LOCKED 25 Aug; open: first-payment-transient access policy, renewal-transient retry count
 - [INC42 PostHog projects](reference-inc42-posthog-projects.md) — project IDs: 53557 editorial web / 66351 DataLabs / 146258 app; shared Prapti account switches mid-session (always restore); no GA4/BigQuery CLI
 - [INC42 event auditor](project-inc42-event-auditor.md) — automated browser+warehouse event audit; 5/63 events properly implemented; GA4 sees more than PostHog; scroll has 3 parallel impls and 0 to PostHog
+- [INC42 tracking master sheet review (27 Aug 2026)](project-inc42-tracking-master-review.md) — gap review of the combined "One Inc42 - Analytics | Master Sheet"; Scroll Depth marked (Paused) contradicts locked strategy, no employer/seniority property anywhere, App has zero Ask instrumentation, web tabs' Destinations columns are stale (no PostHog/CIO)
 - [INC42 Datalabs win-back plan](project-inc42-datalabs-winback.md) — payment-failure/churn diagnosis + 7-problem fix plan; Day-7 charge success 57.9% (was 73.7% May); ~21/40 projected recovery, 0% shipped; P3 banner+WhatsApp+email now fire simultaneously Day 0; artifact efaafcd9
 
 - [INC42 Morning Tape (daily brief)](project-inc42-morning-tape.md) — 7am IST cloud routine, 3 properties in one artifact; HogQL rules: explicit dates only, per-day-then-average baselines
