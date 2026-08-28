@@ -78,7 +78,7 @@
 - [FOA candidate shortlist (25 Aug)](project-inc42-foa-candidate-shortlist.md) — re-verified top 5 to schedule; scorer missed real issues + best-fit candidate
 - [CTC parsing rule for hiring sheet](feedback-hiring-sheet-ctc-parsing.md) — plain numbers are LPA not thousands; implausibly low values are bad data
 - [Project: INC42 Agent Platform](project-inc42-agent-platform.md) — internal Slack AI agents as shared infra; 25-agent catalogue, demand-gated
-- [Project: INC42 Product Trainee hiring](project-inc42-product-trainee.md) — Ranjith's own role, 545 applicants, criteria locked
+- [Project: INC42 Product Trainee hiring](project-inc42-product-trainee.md) — Ranjith's own role, 731 applicants, strict 6L cap rule-filter done (218 shortlist), AI scoring still pending
 - [PT interview guide](project-inc42-pt-interview-guide.md) — bucket-by-bucket question bank; two candidates interviewed, both REJECTED
 - [PT hiring — interview assignment doc](project-inc42-product-trainee-assignment.md) — 2-part stage (take-home + live), open rubric, artifact b1120c11
 - [Project: DPDP compliance](project-dpdp-compliance.md) — 3-phase engagement, May 2027 deadline; Ranjith stalling until minimum requirement known
@@ -90,6 +90,7 @@
 - [Nexloid open questions](nexloid_open_questions.md) — unresolved: OAuth scope class, unevidenced "2 hrs saved" pricing basis, false-positive rate
 
 ## Reference
+- [INC42 Keka API access](reference-inc42-keka-api-access.md) — direct Keka Hire API creds (found in n8n workflow export); curl instead of browser scraping
 - [Account identities](reference-account-identities.md) — Claude Code runs as ranjith@ranjith.tech (NOT datalabs@inc42.com); Asana/PostHog differ
 - [Tools & stack](reference-tools-stack.md) — Figma, PostHog, GA4, BigQuery, n8n, Docker, VPS
 - [Figma MCP limits](reference-figma-mcp-limits.md) — Starter+View seat = 20 tool calls/MONTH; check budget before any Figma build
