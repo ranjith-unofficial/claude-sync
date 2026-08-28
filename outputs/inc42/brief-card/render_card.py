@@ -20,6 +20,30 @@ FWD = re.compile(r'\b(could|would|may |might|signals?|marks?|set[s]? (?:a|the) (
                  r'indicat|suggest|reflect|underscore|comes? (?:as|amid|after)|amid|positions?|'
                  r'aims? to|expects?|is expected|plans? to|likely|paving|bigger test)\b', re.I)
 NUM = re.compile(r'\d')
+
+# A money figure only counts as "moved today" if it is a transaction, not a market size.
+# Without this the tile picks up TAM/cumulative-tracker numbers (e.g. a 2030 export target).
+AGGREGATE = re.compile(
+    r'\b(cumulative|combined|collectively|market cap|market capitalisation|market capitalization|'
+    r'valuation|valued at|projected|estimated|expected to (?:reach|become|touch)|'
+    r'by 20[2-9]\d|market (?:size|opportunity)|TAM|ecosystem|industry is|sector is|'
+    r'is worth|worth (?:around|about|nearly)?\s?\$?[\d,]+\s?(?:Bn|Billion)\b)', re.I)
+TRANSACTION = re.compile(
+    r'\b(raise[sd]?|raising|bags?|nets?|secures?|lands?|mops? up|invests?|investment|infuses?|'
+    r'acquires?|acquisition|buys?|bought|sells?|sold|offloads?|stake|deal|round|funding|'
+    r'IPO size|issue size|files? for|to raise|picks? up)\b', re.I)
+# recurring aggregate explainers that should never source a headline number
+TRACKER = re.compile(r'\b(Tracker|New-Age Tech Stocks|Weekly Funding|Funding Galore)\b', re.I)
+# multi-company roundups: the number is a sum across many startups, not one deal
+ROUNDUP = re.compile(
+    r'(\bTop \d+\b|\bThis Week\b|\bLast Week\b|\bH[12] 20\d\d\b|\bQ[1-4] 20\d\d\b|\bWeekly\b|'
+    r'\b(?:startups|companies|firms)\s+(?:raised|raise|have raised|bagged)\b|'
+    r'\b\d+\s+(?:startups|companies)\b|\bMeet The\b|\bin the first half\b|\bso far in\b)', re.I)
+# income-statement figures are not deals
+STATEMENT = re.compile(
+    r'\b(revenue|net loss|net profit|topline|top line|bottom line|EBITDA|PAT|'
+    r'operating (?:revenue|loss)|GMV|gross merchandise|sales (?:rose|grew|fell)|'
+    r'loss (?:narrow|widen|declin|rose)|profit (?:rose|surged|jump|declin|fell))', re.I)
 STOP = set('the a an in of to and for as at on its with from over after by is are was were '
            'that this it has have had will be been but or not'.split())
 
@@ -97,29 +121,45 @@ def clip(s, n=64):
 def build_tiles(day_items, tracked=()):
     """Returns list of (value, label) tiles. Never emits a zero/blank tile."""
     tiles = []
-    # 1. biggest attributed number of the day
+    # 1. biggest *transaction* of the day
+    DEAL_TAGS = {'Startup Funding & Investments', 'Startup Mergers & Acquisitions',
+                 'Startup IPO', 'Business Updates', 'Fund Launches'}
     best = (0, None)
     for rec, summ in day_items:
-        pool = [rec['article_title']] + (summ or [])
-        m = max(amounts(' '.join(pool)), default=0)
-        if m > best[0]: best = (m, rec)
+        if rec['development_tag'] not in DEAL_TAGS: continue
+        if TRACKER.search(rec['article_title']) or ROUNDUP.search(rec['article_title']): continue
+        if not companies(rec): continue          # tile needs a single named counterparty
+        for txt in [rec['article_title']] + (summ or []):
+            # must name a transaction; must not be a market size, a roundup sum,
+            # or an income-statement figure
+            if AGGREGATE.search(txt) or ROUNDUP.search(txt) or STATEMENT.search(txt): continue
+            if not TRANSACTION.search(txt): continue
+            m = max(amounts(txt), default=0)
+            if m > best[0]: best = (m, rec)
     if best[1] is not None:
         who = (companies(best[1]) or [None])[0]
-        tiles.append((fmt_cr(best[0]), ('%s · biggest today' % who) if who else 'biggest today'))
+        tiles.append((fmt_cr(best[0]), ('%s deal' % who) if who else 'biggest deal'))
 
     # 2. funding rounds -- suppressed entirely when none
     fr = [(r, s) for r, s in day_items if r['development_tag'] == 'Startup Funding & Investments']
     if fr:
-        tot = sum(max(amounts(' '.join([r['article_title']] + (s or []))), default=0) for r, s in fr)
-        lbl = 'funding round' + ('s' if len(fr) != 1 else '')
-        tiles.append((str(len(fr)), lbl + (' · ' + fmt_cr(tot) if tot > 0 else '')))
+        def deal_amt(r, s):
+            if ROUNDUP.search(r['article_title']) or TRACKER.search(r['article_title']): return 0
+            vals = [max(amounts(t), default=0) for t in [r['article_title']] + (s or [])
+                    if TRANSACTION.search(t) and not AGGREGATE.search(t)
+                    and not ROUNDUP.search(t) and not STATEMENT.search(t)]
+            return max(vals, default=0)
+        tot = sum(deal_amt(r, s) for r, s in fr)
+        lbl = 'round' + ('s' if len(fr) != 1 else '')
+        tiles.append((str(len(fr)) + (' · ' + fmt_cr(tot) if tot > 0 else ''), lbl + ' raised'))
 
     # 3. companies in the news / watchlist hook
     allc = set()
     for r, _ in day_items: allc.update(companies(r))
     if allc:
         hit = len(allc & set(tracked))
-        tiles.append((str(len(allc)), 'companies' + (' · %d you track' % hit if hit else '')))
+        tiles.append((str(len(allc)) + (' · %d' % hit if hit else ''),
+                      'companies' + (' · you track' if hit else '')))
     return tiles
 
 
@@ -127,7 +167,7 @@ def render(day, items, tracked=()):
     dt = datetime.date(*map(int, day.split('-')))
     nice = dt.strftime('%a, %d %b')
     thin = len(items) < 5
-    W = 66
+    W = 78
     L = ['─' * W, 'TODAY\'S EDITION · 7:00 AM'.ljust(W - len(nice)) + nice, '─' * W]
 
     if not thin:
