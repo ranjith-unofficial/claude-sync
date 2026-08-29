@@ -485,6 +485,35 @@ stated as "every morning":
 Craft note: setting a line to ~0.5 white opacity to de-emphasise it reads as **disabled**,
 not as an accent. Use the peach accent colour at full opacity instead.
 
+## W4 — fifteen welcome variations across three families
+
+**Key copy resolution:** naming a **count** ("8 stories") misleads and breaks; naming a
+**product** ("the Brief") builds equity — the Morning Brew / Robinhood Snacks move. So
+Inc42's own marketing line **"Cut the noise. Get the Brief."** is usable verbatim, and
+makes app and banners finally say the same thing. Cadence is always "every morning",
+never a duration.
+
+**SET 1 · PLAIN** (type only, row y=26170) — five copy directions:
+P1 "Cut the noise. / Get the Brief." (brand line, second line in peach) · P2 "Know what's
+moving Indian startups." + triad · P3 "Changing how you follow Indian startups." · P4
+"Everything Indian startups did today. / **Briefly.**" · P5 "Start every morning ahead."
+with a labelled "The Brief" block.
+
+**SET 2 · WITH IMAGES** (row y=27115) — I1 photo-top + copy below · I2 full-bleed photo
+with scrim · I3 floating tilted brief card · I4 two-photo split labelled THE NEWS /
+THE COMPANIES · THE NUMBERS · I5 circular photo mask. Photos are placeholder (Picsum) —
+swap for Inc42 editorial art.
+
+**SET 3 · VISUAL ELEMENTS** (no photography, row y=28060) — V1 sector constellation (five
+segmented rings with Lucide icons) · V2 layered card stack · V3 noise-to-signal (faded
+lines funnelling into a white THE BRIEF card) · V4 glowing orb on deep ink · V5 ticker
+grid of real companies and deal values.
+
+Craft notes: a photo scrim needs a **three-stop** gradient (0 → 0.75 → 0.96) over ~70% of
+the frame; a two-stop scrim left white text illegible on a light sky. V3 is the strongest
+articulation of "cut the noise" because it *shows* the noise being cut rather than saying
+it; V5 is the strongest proof that the product covers real companies and real money.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
