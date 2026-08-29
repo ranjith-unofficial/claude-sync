@@ -1,11 +1,11 @@
 ---
 name: project-inc42-mixpanel-gtm-tag-forensics
-description: "29 Aug 2026 — GTM tag-level forensics on the Mixpanel PII leak: exact trigger/PII mapping across all 37 tags, Amplitude confirmed dead (blocks the Plus Subscribed leak specifically), dated exposure window via Wayback's own capture of the GTM container"
+description: "29 Aug 2026 — GTM tag-level forensics on the Mixpanel PII leak, plus the higher-priority discovery that GA4 gets the same PII sitewide on every page view (a Google ToS violation, property-suspension risk); decisions on next steps"
 metadata: 
   node_type: memory
   type: project
   originSessionId: 73542b43-99df-491b-a583-06fb51da089c
-  modified: 2026-08-29T10:34:13.328Z
+  modified: 2026-08-29T11:53:53.431Z
 ---
 
 Follow-up to [[project-inc42-mixpanel-legacy-finding]] — Ranjith confirmed directly with Inc42 that Mixpanel
@@ -56,9 +56,29 @@ GA4 `page_view` call (not just the previously-flagged "App Banner Viewed") also 
 name/email/phone/employer bundle as GA4 user-properties on every page load for a logged-in session. Same
 shared-props GTM mechanism, wider blast radius than scoped in [[project-inc42-mixpanel-legacy-finding]].
 
+**GA4 PII is the top-priority fact now, ahead of Mixpanel (Ranjith's call, 29 Aug).** The GA4 `page_view`
+leak above isn't scoped to 5-6 specific actions like the Mixpanel one — it fires sitewide, every page view,
+for any logged-in user. And it's not just a DPDP/privacy-law exposure: sending PII into GA4 violates
+Google's own Terms of Service, which carries a separate real risk of Google suspending the property
+outright. Whoever gets looped in on this should hear the GA4 point first, not Mixpanel.
+
+**Two decisions made (Ranjith, 29 Aug), not left open:**
+1. **Do not empirically fire Plus Subscribed to confirm the Amplitude-crash inference.** The code-order
+   deduction is already ~90% established; firing it for real risks a genuine `mida.converted()` ad-billing
+   side effect to settle something already strongly inferred. Leave it as an inference unless someone
+   specifically needs empirical certainty for a legal filing.
+2. **Containment is blocked on finding a name, not a technical step.** Neither Google identity checked has
+   GTM publish rights for `GTM-WBHJLKR`. Next action is organizational: find who at Inc42 has publish
+   rights, today, and get both the Mixpanel tags and the GA4 PII issue in front of them together — they're
+   almost certainly the same underlying GTM logic (the shared props object), so one container publish likely
+   fixes both.
+
 **How to apply:** treat "6 leaking events" (the prior finding) as superseded — it's 5 confirmed-live
 (Login, Newsletter Subscribed, Form Submission, Plus Onboarding, Inc42 Onboarding) + 1 low-volume-but-real
-(User Segment) + 1 probably-inert (Plus Subscribed, blocked by the Amplitude bug, not verified live).
-Whoever scopes the DPDP/legal exposure should use "at least 2 years" (Jul 2024 → Aug 2026) as the dated
-floor, not the true origin — Wayback simply has nothing earlier for the GTM resource itself. Related:
-[[project-inc42-mixpanel-legacy-finding]], [[reference-inc42-vendor-stack]], [[project-dpdp-compliance]].
+(User Segment) + 1 probably-inert (Plus Subscribed, blocked by the Amplitude bug, not verified live — and
+per decision 1 above, will stay unverified). Treat the GA4 sitewide leak as the lead item when escalating,
+not a footnote to Mixpanel. Whoever scopes the DPDP/legal exposure should use "at least 2 years" (Jul 2024 →
+Aug 2026) as the dated floor, not the true origin — Wayback simply has nothing earlier for the GTM resource
+itself. Next action is identifying the GTM-WBHJLKR publish-rights owner, not further agent investigation.
+Related: [[project-inc42-mixpanel-legacy-finding]], [[reference-inc42-vendor-stack]],
+[[project-dpdp-compliance]].
