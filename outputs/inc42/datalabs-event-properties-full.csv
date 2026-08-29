@@ -1,0 +1,824 @@
+ITM conventions to track clicks,,https://docs.google.com/spreadsheets/d/1mbgbZPQjUgroGo8Zt1ljXZwclNYXuxrRaxJYk_ba38I/edit#gid=332896096,
+Property Group,Property Name,Property Description,Sample Values
+Page,Page URL,The full URL of the page being visited by the user.,www.inc42.com/company/flipkart
+Page,Page Title,The title of the page as defined in the HTML <title> tag.,Flipkart | DataLabs by Inc42
+Page,Slug,The part of the URL that identifies the specific page (usually after the domain).,flipkart
+Page,Domain,Platform where user is interacting,"[Inc42,
+Inc42 DataLabs]"
+Page,Sidebar State,Indicates whether the sidebar is open or closed.,"[Open,
+Closed]"
+Page,DL Page Type,"Type of the page within Datalabs (e.g., profile, search, etc.).","[Home,
+Ask Datalabs,
+Pricing,
+Payment,
+Edit Company Profile,
+My Feed,
+Company Search,
+Investor Search,
+Industry Search,
+Location Search,
+Funding Search,
+Acquisition Search,
+Report Search,
+Company Profile,
+Investor Profile,
+Person Profile,
+Industry Profile,
+Location Profile,
+Report Profile,
+My List,
+My Search,
+Company List,
+Investor List
+Show All
+Company Saved Search,
+My Inc42,
+My Alerts,
+Programmatic Company List,
+Company Listicle,
+Disclaimer
+People Search]"
+Page,DL Page Property Type,Category of the property associated with the page,"[My Feed,
+Pricing,
+Payment,
+Disclaimer,
+Report_Page_Type,
+Alert_Type,
+Company_Financial,
+Inc42,
+Datalabs,
+Settings,
+Company_Overview,
+Company_Funding,
+Company_Captable,
+Company_Investment,
+Company_Aquisition,
+Company_KeyPeople]"
+Page,DL Page Property Value,The value related to the page property type,"[My Feed : {General, Personalised},
+Pricing : {Main, Book Demo},
+Payment : {Checkout, Payment Initiated, Payment Completed}
+Disclaimer : {Data Disclaimer, Research Report Disclaimer, Data Updation Policy},
+Report_Page_Type : {About Report, View Report},
+Alert_Type : {Industry}
+Company_Financial : {Profit&Loss, Balance Sheet, Cash Flow, Financial Ratios},
+Inc42 : {My Feed, Saved Stories, Membership Library, Recently Viewed},
+Datalabs : {My Lists, Saved Search, My Alerts, Recently Viewed},
+Settings : {My Membership, My Account}
+Company_Captable : {Captable Charts, Detailed Cap Table, }]"
+Page,Profile Tab Type,The type of tab being viewed on a profile page,"[Overview,
+Financials,
+Funding,
+Investment,
+Acquisition,
+Latest Stories,
+Insights,
+Companies,
+Key People,
+Captable]"
+Page,Profile Tab Property Type,The category of the property associated with the profile tab.,(Financial_Period - Financial_Type)
+Page,Profile Tab Property Value,The specific value related to the property type.,"[Yearly - Standalone], 
+[Quaterly - Standalone], 
+[Yearly - Consolidated], 
+[Quaterly - Consolidated]"
+User (every event),User State,"Indicates whether the user is logged in, or in guest mode.","[Guest,
+Logged-in]"
+User (every event),User Type,The type of user,"[Guest,
+Pro Trial
+Free,
+Plus Member,
+Pro Member,
+Pro Team Member]"
+User (every event),User_Profile_Fixed,"Fixed profile of a user, which category does the user lies in","[Founder,
+Investor,
+Sales & Marketing,
+Market Researcher]"
+User (every event),User_Profile_Variable,"Current interet of a user, which category does the user lies in","[Founder,
+Investor,
+Sales & Marketing,
+Market Researcher]"
+User (Identify),User ID,The unique identifier assigned to the user.,"[""12345""]"
+User (Identify),Register Source,The platform through which the user registered.,"[Inc42 Datalabs,
+Inc42]"
+User (Identify),Login Method,The method the user used to log in,"[Email,
+Gmail,
+Linkedin]"
+User (Identify),Email,The email address of the user.,abc@gmail.com
+User (Identify),First Name,The first name of the user.,Madhur
+User (Identify),Last Name,The last name of the user.,Garg
+User (Identify),Company Name,The name of the user's company.,Inc42
+User (Identify),Phone Number,The contact phone number of the user.,7774049811
+User (Identify),Linkedin,Linkedin profile URL,https://www.linkedin.com/in/madhurgarg96/
+User (Identify),Industry,"The industry the user is interested in or works in (e.g., ecommerce, fintech).",Ecommerce
+User (Identify),Company Type,The type of company,Late Stage Startup
+User (Identify),Seniority,The seniority level of the user,Founder
+User (Identify),Company Function,The function or department of the user,Product
+User (Identify),Trial Start Date,The date on which user's trial starts,12.02.2026
+User (Identify),Trial End Date,The date on which user's trial ends,12.02.2026
+User (Identify),Datalabs Onboarding Complete,Indicates if the user has completed the onboarding process for Datalabs.,"[Yes,
+No]"
+User (user meta only),industry_alert_subscribed,Indicates whether the user is subscribed to industry alerts.,"[yes,
+no]"
+User (user meta only),datalabs_popup_pro,Identify is a user is Pro user,"[true,
+false]"
+User (user meta only),datalabs_popup_existing_user,Identify users who had onboarded on the platform before 30th Jun 2025,"[true,
+false]"
+User (user meta only),datalabs_popup_feed_page,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_company_profile,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_company_search,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_investor_search,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_funding_search,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_acquistion_search,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_report_search,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_industry_search,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_location_search,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_mylist,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+User (user meta only),datalabs_popup_saved_search,"Identify users who have seen information modal on ""My Feed"" page","[true,
+false]"
+Pro,Pro Membership Type,Membership type brought by the user,"DL Pro - Annual Membership
+DL Pro - Quarterly Membership
+DL Pro - Monthly Membership"
+Pro,Pro Subscription ID,Subscription ID of pro membership,"""123456"""
+Pro,Pro Term ID,Term ID of pro membership,"""123456"""
+Pro,Pro Membership Start Date,Start date of pro membership,"Wed, Sep 11, 2024 7:41 AM"
+Pro,Pro Membership End Date,End date of pro membership,"Wed, Sep 11, 2024 7:41 AM"
+Pro,Pro Membership Recurring Date,Recurring date of pro membership,"Wed, Sep 11, 2024 7:41 AM"
+Pro,Pro Recurring Payment,Boolean value to get status of recurring payment status,"[yes,
+no]"
+Pro,Pro Charge Amount,Charge amount of pro membership,1234.23
+Pro,Pro Charge Currency,Charge currency of pro membership,INR
+Pro,Pro Email,Email ID with which pro membership has been bought,user.name@domain.com
+Pro,Pro Conversion ID,Conversion ID of pro membership,"""123456"""
+Device,Device Type,The type of device being used,"[Mobile,
+Tablet, 
+Desktop]"
+Device,Model,The specific model of the device,"[""Samsung Galaxy S24, 
+iPhone 14""]"
+Interaction,Filter Property Type,The type of filter applied by the user,"Person_Search, [updated: person_name]
+City [updated: city]
+State:  [updated: state]
+Angel_Investor:  [updated: is_angel_investor]
+Stealth: [updated: is_under_stealth]
+Total_Experience: [updated: years_of_experience_min, years_of_experience_max]
+Current_Organisation: [updated: organisation]
+Current_Sector: [updated: current_sector]
+Current_Seniority: [updated: current_seniority]
+Current_Function: [updated: current_function]
+Current_Tenure: [updated: current_tenure_min, current_tenure_max]
+Past_Seniority: [updated: past_seniority]
+Past_Function: [updated: past_function]
+Past_Sector: [updated: past_sector]
+Highest_Qualification: [updated: highest_qualification]
+Institution: [updated: institution]
+Degree_Name: [updated: degree_name]
+Invested_Company: [updated: invested_company]
+Invested_Sector: [updated: investment_sector]
+Investment_Type: [updated: investment_type]
+Investment_Stage: [updated: invested_stage]
+Investor_Investment_Count_Min: [updated: investor_investment_count_min]
+Investor_Investment_Count_Max:  [updated: investor_investment_count_max]
+Exit_Count_Min: [updated: exit_count_min]
+Exit_Count_Max: [updated: exit_count_max]
+Portfolio_Count_Min: [updated: count_of_portfolio_companies_min]
+Portfolio_Count_Max: [updated: count_of_portfolio_companies_max]
+
+
+Suggested_Search
+
+headcount_change_Last_3_Month
+web_traffic_last_3_month
+glassdoor_rating_overall
+glassdoor_rating_culture
+glassdoor_rating_diversity
+glassdoor_rating_work_life_balance
+glassdoor_rating_senior_management
+glassdoor_rating_compensation
+glassdoor_rating_career_opportunity
+glassdoor_rating_friend_recommendation
+glassdoor_rating_CEO_approval
+
+traffic_monthly_visits
+traffic_visit_duration
+traffic_pages_per_visit
+traffic_bounce_rate
+traffic_split_direct
+traffic_split_organic
+traffic_split_paid
+traffic_split_referrals
+traffic_split_display
+traffic_split_social
+traffic_split_email
+
+Total_Revenue_Min
+Total_Revenue_Max
+Net_Profit_Margin_Min
+Net_Profit_Margin_Max
+Total_Expense_Min
+Total_Expense_Max
+Profit_Before_Tax_Min
+Profit_Before_Tax_Max
+Profit_After_Tax_Min
+Profit_After_Tax_Max
+Total_Tax_Expense_Min
+Total_Tax_Expense_Max
+
+funding_type
+funding_date_min
+funding_date_max
+amount_raised_min
+amount_raised_max
+investor_count_min
+investor_count_max
+funded_company_name
+funded_sector
+funded_city
+funded_state
+investor_names
+investor_type
+
+acquisition_date_min
+acquisition_date_max
+acquisition_amount_min
+acquisition_amount_max
+acquisition_type
+acquirer_name
+acquirer_sector
+acquirer_type
+acquirer_city
+acquirer_state
+acquiree_name
+acquiree_sector
+acquiree_type
+acquiree_city
+acquiree_state
+
+Company_Search
+Founded_Date_min
+Founded_Date_max
+Company_Sector
+Company_Sub_Sector
+Company_Sub_Sector_1
+Company_Sub_Sector_2
+City
+State
+Country
+Founder_Count_Min
+Founder_Count_Max
+Team_Size_Min
+Team_Size_Max
+Investor_Name
+Amount_Raised_In_USD_Min
+Amount_Raised_In_USD_Max
+Last_Funding_Type
+Last_Funding_Amount_Min
+Last_Funding_Amount_Max
+Last_Funding_Date_From
+Last_Funding_Date_To
+Funding_Round_Count_Min
+Funding_Round_Count_Max
+Investor_Count_Min
+Investor_Count_Max
+Company_Investment_Stage (Funding_Stage)
+Company_Type
+Company_Investment_Count_Min
+Company_Investment_Count_Max
+Total_Investment_Amount_Min
+Total_Investment_Amount_Max
+Last_Investment_Date_From
+Last_Investment_Date_To
+Acquisition_Count_Min
+Acquisition_Count_Max
+Total_Acquisition_Amount_Min
+Total_Acquisition_Amount_Max
+Last_Acquisition_Date_From
+Last_Acquisition_Date_To
+
+Investor_Search
+Investor_Type
+Investor_Investment_Count_Min
+Investor_Investment_Count_Max
+Exit_Count_Min
+Exit_Count_Max
+Portfolio_Count_Min
+Portfolio_Count_Max
+Invested_Sector
+Investment_Type
+Investment_Stage
+Invested_Company
+
+Report_Sector
+Report_Type
+Publishing_Year
+"
+Interaction,Filter Property Value,The value selected for the applied filter,"Person_Search : {Kunal Shah}
+City: {Bangaluru}
+State:  {Karnataka}
+Angel_Investor: {Yes, No}
+Stealth: {Yes, No}
+Total_Experience: {1}
+Current_Organisation: {Zomato}
+Current_Sector: {Ecommerce}
+Current_Seniority: {Founder}
+Current_Function: {Accounting}
+Current_Tenure_Min: {3}
+Current_Tenure_Max: {3}
+Past_Seniority: {Founder}
+Past_Function: {Accounting}
+Past_Sector: {Ecommerce}
+Highest_Qualification: {Bachelors}
+Institution: {IIT Bombay}
+Degree_Name: {B.Com}
+Invested_Company: {Flipkart}
+Invested_Sector: {Ecommerce}
+Investment_Type: {Seed}
+Investment_Stage:  {Seed Stage}
+Investor_Investment_Count_Min: {2}
+Investor_Investment_Count_Max: {5}
+Exit_Count_Min: {2}
+Exit_Count_Max: {8}
+Portfolio_Count_Min: {8}
+Portfolio_Count_Max: {10}
+
+Suggested_Search : {Profitable Startups}
+
+funding_type : {Seed}
+funding_date_min : {01/01/2025}
+funding_date_max : {08/04/2025}
+amount_raised_min : {1000}
+amount_raised_max : {100000}
+investor_count_min : {2}
+investor_count_max : {5}
+funded_company_name : {Flipkart}
+funded_sector : {Fintech}
+funded_city : {Gurgaon}
+funded_state : {Haryana}
+investor_names : {Accel}
+investor_type : {Venture Capital}
+
+acquisition_date_min : {01/01/2025}
+acquisition_date_max : {01/01/2025}
+acquisition_amount_min : {01/01/2025}
+acquisition_amount_max : {01/01/2025}
+acquisition_type : {Acqui-Hire}
+acquirer_name : {Flipkart}
+acquirer_sector : {Ecommerce}
+acquirer_type : {Series D}
+acquirer_city : {Bangalore}
+acquirer_state : {Karnataka}
+acquiree_name : {Myntra}
+acquiree_sector : {Ecommerce}
+acquiree_type : Series A}
+acquiree_city : {Gurgaon}
+acquiree_state : {Haryana}
+
+Company_Search : {Flipkart}
+Founded_Date_min : {2012}
+Founded_Date_max : {2023}
+Company_Sector : {Ecommerce}
+Company_Sub_Sector : {Vertical Marketplace}
+Company_Sub_Sector_1 : {F&B}
+Company_Sub_Sector_2 : {Gifts}
+City : {Bangaluru}
+State : {Karnataka}
+Country : {India}
+Founder_Count_Min : {1}
+Founder_Count_Max : {2}
+Team_Size_Min : {50}
+Team_Size_Max : {1000}
+Investor_Name : {Seqoia Capital}
+Total_Funding_Amount_Min : {10000000}
+Total_Funding_Amount_Max : {50000000}
+Last_Funding_Type : {Series A}
+Last_Funding_Amount_Min : {1000000}
+Last_Funding_Amount_Max : {5000000}
+Last_Funding_Date_From : {01-01-2012}
+Last_Funding_Date_To : {31-12-2023}
+Funding_Round_Count_Min : {2}
+Funding_Round_Count_Max : {10}
+Investor_Count_Min : {1}
+Investor_Count_Max : {4}
+Total_Revenue_Min : {10000}
+Total_Revenue_Max : {100000}
+Net_Profit_Margin_Min : {5}
+Net_Profit_Margin_Max : {10}
+Company_Investment_Count_Min : {2}
+Company_Investment_Count_Max : {5}
+Funding_Stage : {Seed Stage}
+Company_Type : {Funded}
+Investment_Amount_Min : {1000}
+Investment_Amount_Max : {10000}
+Last_Investment_Date_From : {01-01-2024}
+Last_Investment_Date_To : {30-01-2024}
+Acquisition_Count_Min : {1}
+Acquisition_Count_Max : {3}
+Acquisition_Amount_Min : {1000}
+Acquisition_Amount_Max : {100000}
+Last_Acquisition_Date_From : {01-01-2024}
+Last_Acquisition_Date_To : {30-01-2024}
+
+Investor_Search : {Kunal Shah}
+Investor_Type : {Angel}
+Investor_Investment_Count_Min : {2}
+Investor_Investment_Count_Max : {5}
+Exit_Count_Min : {1}
+Exit_Count_Max : {4}
+Portfolio_Count_Min : {2}
+Portfolio_Count_Max : {5}
+Invested_Sector : {Ecommerce}
+Investment_Type : {Seed}
+Investment_Stage : {Seed Stage}
+Invested_Company : {Flipkart}
+
+Report_Sector : {Fintech, Ecommer, Agritech}
+Report_Type : {Ecosystem Report, Funding Report}
+Publishing_Year : {2024, 2023, 2022}"
+Interaction,Customise Column Properties,List of customized column fields applied by use in the data table view.,"[""List of column names""]"
+Interaction,Advanced Filter State,The state of advanced filter view on search page,"[True,
+False]"
+Interaction,Table Name,The name of the table being viewed or interacted with.,"[Company Search,
+Investor Search,
+Funding Search,
+Acquisition Search,
+Company List,
+My List,
+Company Saved Search
+People Search]"
+Interaction,Table Sort Column Name,The column by which the table is being sorted.,"Name of column on which sorting action is performed. Example
+List View : ""Amount Raised""
+Card View : ""Total Funding : High to Low"""
+Interaction,Lock Type,The type of freewall that is shown to users,"Short Lock
+Long Lock"
+Interaction,Lock Interaction ,The type of freewall that is shown to users,"Load
+Click"
+Interaction,Trial Type,Type of trial offered to user,14 days_without CC_50 credits
+Interaction,Trial Stage,The present stage of user in pro trial,"Trial_Started
+Reminder_Popup1
+Reminder_Popup2
+Trial_End_Confirmation
+Trial_End_Confirmed"
+Interaction,Table Sort Orderby,The sorting order of the table ,Sort by ascending or descending order
+Interaction,Data Type,The type of data being interacted with,"[Company, 
+Contact
+Investor,
+All]"
+Interaction,Table View,View of the table at the time of interaction,"[Table, Card]"
+Interaction,Pagination Page Number,The current page number in the pagination sequence.,Page Number
+Interaction,Section Name,The section type being interacted with,"Company Profile
+Financial Tab : {Financial Highlight, Profit&Loss Charts, Balance Sheet Charts, Cash Flow Charts, Financial Ratio Charts},
+Funding Tab : {Funding Charts},
+Investment Tab : {Investment Charts},
+Acquisition Tab : {Acquisition Charts}
+Key People: (Key People, Key Exits)
+Captable Tab: {Captable Charts, Event Based Captable View}
+
+Industry/Location Profile
+Insight Tab : {Funding Charts, Investment Charts, Acquisition By Charts, Acquisition Of Charts}
+                       {Funding Table, Investment Table, Acquisitions Of Table, Acquisition By Table}"
+Interaction,Tab Name,The name of the sub-tab within a section ,"Name of the Tab in Table : {Eg: Shareholding Split, Valuation Over Years}"
+Content,Data Visualisation,The type of data visualization being used ,"[Cumulative,
+Year over Year,
+Breakdown]"
+Content,Metric Type,The type of metric being tracked ,"[Amount,
+Count]"
+Content,Chart Type,The type of chart displayed ,"[Donut Chart,
+Floated Chart,
+Combo Chart,
+Bar Chart,
+Line Chart,
+Tablular]"
+Content,Date Range,The selected date range for the data or report ,"[Monthly,
+Yearly,
+Daily,
+Weekly,
+Quaterly,
+Bi-Yearly]"
+Interaction,Form Type,The type of form used by the user ,"[Contact Us,
+Report Us,
+View Report,
+Download Report]"
+Interaction,Advanced Filter State,The state of advanced filters ,"[Open,
+Closed]"
+Interaction,Datalab Onboarding State,The current stage of the user in the onboarding process for Datalabs.,"Onboarding Step 2
+Onboarding Step 3
+Onboarding Complete"
+Interaction,Search Type,The type of search being performed ,"[AI Search,
+Global Search, 
+List Search,
+Saved Search,
+Quick Add,
+Report Search,
+Industry Search,
+Location Search,
+Ask Datalabs]"
+Interaction,Search Source,The origin or source of the search query ,"[Global Header (previously ""Header""),
+Hero Section (previously ""Home Page""),
+Page Header,
+Empty Table,
+Prompt_Add to List]"
+Interaction,Search Content,The content shown in the active search state,"[Suggested Prompts,
+Trending Companies,
+Trending Investors,
+Trending People]"
+Interaction,Search Query,The specific search query input by the user.,"[""Input text at time of search""]"
+Interaction,Checkbox Type,The type of checkbox used in a form or filter ,"[Single, 
+All, 
+Maximum, 
+Deselect]"
+Interaction,Selection Source,The source of the selection ,"[Table Row, 
+Table Header,
+Page Header]"
+Interaction,Selection Status,The status of the selection ,"[True, 
+False]"
+Interaction,List Interaction Type,The type of interaction with a list ,"[Add To Watchlist,
+Remove From Watchlist,
+Add To List Click,
+Add To List Complete,
+Create List Click,
+Create List Complete,
+Remove Item Click,
+Remove Item Complete,
+Delete List Click,
+Delete List Complete]"
+Interaction,List ID,The unique identifier for the list being interacted with.,"[List ID 1, List ID 2...]"
+Interaction,List Type,The type of list created or interacted with,"[Company,
+Investor,
+All]"
+Interaction,List Interaction Source,The source of the list interaction,"[Watchlist,
+Table Header,
+Table Row,
+Page Header,
+Profile Header,
+Quick Add,
+Quick Add_Empty Table,
+Prompt_Add to List,
+Prompt_Create List]"
+Interaction,Edit Type,The item type on which edit action is performed ,"[List, 
+Saved Search,
+Personal Information,
+Profile]"
+Interaction,Edit Item ID,The unique identifier for the item being edited.,"[List ID, 
+Search ID,
+User ID]"
+Interaction,Edit Field,The specific field being edited,"[Name,
+Description,
+First Name,
+Last Name,
+Phone,
+Designation,
+Job Seniority,
+Function,
+Company Name,
+Company Type,
+Industry Type,
+State,
+Country]"
+Interaction,Edit Status,The status of the edit ,"[Start,
+Completed,
+Canceled]"
+Interaction,Edit Source,The source of the edit action ,"[Table Row,
+Page Header,
+Section Header]"
+Interaction,Saved Search Type,The type of saved search ,"[Company, 
+Investor]"
+Interaction,Search Search Source,The type of filter user interacts with,"[Save Search Click,
+Save Search Complete,
+Saved Search Updated,
+Clear Changes,
+Create New Search Click,
+Delete Saved Search Click,
+Delete Saved Search Complete]"
+Interaction,Saved Search ID,The unique identifier for the saved search.,"[Saved Search ID 1, Saved Search ID 2...]"
+Interaction,Saved Search Interaction Type,The source from which the saved search originated ,"[Save Search Click,
+Save Search Complete,
+Saved Search Updated,
+Clear Changes,
+Create New Search Click,
+Delete Saved Search Click,
+Delete Saved Search Complete]"
+Interaction,Access Type,The type of access being granted or requested ,"[View,
+Download]"
+Interaction,Access URL,The URL where the access was requested or granted.,"[""inc42.com/report/report-name""]
+[""assets.inc42.com/report/report-name""]"
+Interaction,Report Name,The name of the report being viewed or downloaded.,[Name of report being interacted with]
+Interaction,Set Sidebar State,Action to set the sidebar to a specific state ,"[Open,
+Close]"
+Interaction,Alert Type,The type of alert being set ,"[Industry Feed,
+List,
+Saved Search]"
+Interaction,Alert Status,The status of the alert,"[True, False]"
+Interaction,Alert Content,The specific content of the alert,"[Industry_Feed : Ecommerce, Fintech, Healthtech
+List : List ID
+Saved Search : Saved Search ID]"
+Interaction,Verification Stage,When user submits one step on verification flow,"[Company Profile,
+Company Funding,
+Company Investments,
+Company Acquisitions,
+Company Summary]"
+Interaction,Verification Type,Data in verification flow,[Company Profile]
+Interaction,Button Interaction,The status of the button action ,"[Click,
+Enable,
+Disable]"
+Interaction,Button Type,"[Click,
+Enable,
+Disable]","[Post Interaction (Event) : Up Vote,
+Post Interaction (Event) : Down Vote,
+Post Interaction (Event) : Share,
+Post Interaction (Event) : Download,
+
+Click Interaction (Event) : Personalise,
+Click Interaction (Event) : Download,
+Click Interaction (Event) : Follow,
+Click Interaction (Event) : Save,
+Click Interaction (Event) : Manage Topic,
+Click Interaction (Event) : Load More,
+Click Interaction (Event) : Filter,
+Click Interaction (Event) : Change Password,
+Click Interaction (Event) : Help,
+Click Interaction (Event) : Credit,
+Click Interaction (Event) : Listicle Lock
+Click Interaction (Event) : Pro Lock
+]"
+Interaction,Button Content,"Name of the button clicked (Follow, Filter)","Personalise : {Open, Apply}
+Download : {MCA_Incorporation, MCA_Financial, MCA_Annual, MCA_Others, Company Snapshot, Chart, Table}
+Follow : {Ecommerce, Fintech, Edtech etc.}
+Filter : {View All, Stories, Videos}
+Help : {Contact Us, Report An Issue}
+Credit : {View Credit, Buy Credit}
+Pro Lock: {Company snapshot, Export, Download MCA, Navbar, Advance Filter, Unlock List, Pagination, Download}"
+Interaction,Post ID,ID of post on which user interacts on feed,[ 12345 ]
+Interaction,Feed Filter Type,Type of filter selected,"signal
+user_profile_variable
+use_case
+company_sector
+company_type
+funding_stage
+portfolio_company
+competitor"
+Interaction,Feed Filter Value,Value selected in feed filter type,"signal : {Sector & Trend}
+user_profile_variable : {Investor}
+use_case : {Networking}
+company_sector : {Ecommerce}
+company_type : {Funded}
+funding_stage : {Seed Stage}
+portfolio_company : {Flipkart, Zomato, Swiggy}
+competitor : {Flipkart, Zomato, Swiggy}"
+Interaction,Modal Type,Type of pro lock modal,"[Button,
+Banner,
+Paywall,
+Filter,
+Popup,
+Free_Tier_Lock]"
+Interaction,Modal Name,Name of the pro lock modal,"Button : {Navbar Button, Download Snapshot Button, Download Chart Button, Download Table Button, Download MCA Button, View Full Statement Button, View Tab Button, View Companies}
+Banner : {In-section Banner}
+Paywall : {Funding Rounds, Investors, Investment Rounds, Acquisition Rounds, Pagination}
+Filter : {Industry, Financial, Investment & Acquisition, etc.}
+Free_Tier_Lock : {Monthly_Free_Expired}
+Popup: {Trial_Started, Reminder_Popup1, Reminder_Popup2, Trial_End_Confirmation, Trial_End_Confirmed, Company snapshot, Export, Download MCA, Navbar, Advance Filter, Unlock List, Pagination, Download,  upgrade_pro_contact
+}"
+Interaction,Payment Stage,Stages of payment completion for pro membership,"Upgrade_To_Pro_Clicked
+Checkout Started
+Payment Initiated
+Payment Cancelled
+Payment Completed
+Payment Completed_Backend"
+Interaction,Pro Membership Type,Type of pro membership opted by the user,"Datalabs Pro - Annual
+Datalabs Pro - Quarter"
+Interaction,Pro Cancellation State,Cancellation state for pro membership,"Cancel Membership Initiated
+Cancel Membership Confirmed
+Disable Auto-Renewal Initiated
+Disable Auto-Renewal Confirmed"
+Interaction,Plus Cancellation State,Cancellation state for plus membership,"Cancel Membership Initiated
+Cancel Membership Confirmed
+Disable Auto-Renewal Initiated
+Disable Auto-Renewal Confirmed"
+Interaction,Credit Payment Stage,Stages of payment completion for credit topup,"Buy Credits
+Checkout Started
+Payment Cancelled
+Payment Completed"
+Interaction,Credit Topup Plan,Type of plan opted for credit topup,"100 credit for INR 1000
+250 credit for INR 2500
+500 credit for INR 4500
+1000 credit for INR 8000"
+Interaction,Export Stage,Stage of export interaction,"Export Button Click
+Export Requested
+Export Cancelled
+Export Complete
+Download File
+Download Sample CSV
+Insufficient Credits
+Export Failed
+Not Found"
+Interaction,Export Type,Type of export requested,"Custom Results
+First N Results
+Sample CSV
+Contact"
+Interaction,Prompt Type,How the prompt is feeded,"{Manual suggested,
+AI suggested,
+User prompt}"
+Interaction,Prompt,The actual prompt fed into the AI Agent,"{Prompt,
+Written}"
+Interaction,Response Feedback,Feedback submitted by user on querry answer,"{Positive,
+Negative}"
+Interaction,Interaction Type,Interaction on the AI Agent page,"{New Chat, 
+Click}"
+Interaction,Click Type,Types of buttons available while using AI agent,"{Source Button, 
+Source Link, 
+Copy}"
+Interaction,File Format,Format of file exported,"xlsx, num"
+Interaction,Profiles Exported,Number of entities requested to be exported,eg. 70
+Interaction,Scroll Percentage,Percentage of page scrolled,"eg: 25%, 50%, 75%, 90%, 100%"
+Interaction,Booking Stage,Stage of booking the demo call,"Started, Completed"
+Lifecycle Envelope,product,REQUIRED. The campaign scoping allow-list. Every Datalabs campaign filters on this.,"datalabs_pro
+datalabs_pro_contacts
+credit_topup"
+Lifecycle Envelope,product_id,REQUIRED. WooCommerce product id behind `product`.,"521881 (Pro)
+550076-550079 (Contacts addons)
+534724 (credit topup)"
+Lifecycle Envelope,subscription_id,REQUIRED. Enables per-subscription sequencing and send-once dedupe.,"""557476"""
+Lifecycle Envelope,payment_method,"REQUIRED. Mandate-revoked copy must say ""re-authorise"", not ""update card"".","upi_autopay
+card
+other"
+Lifecycle Envelope,currency,"REQUIRED. ISO code, from the order.",INR
+Lifecycle Envelope,plan_interval,"REQUIRED. In the ENVELOPE, not the Subscription group: a receipt triggered by pro_billing cannot reach pro_subscription attributes mid-journey (CIO limit, verified 2026-08-07). Never hardcode a cycle in copy — 18% of live subs are non-monthly.","month
+quarter
+year"
+Lifecycle Envelope,plan_interval_count,"REQUIRED. Interval multiplier. Exists because of mis-provisioned day/1, day/3, day/365 subs (E12).",1
+Lifecycle Envelope,next_charge_at,"REQUIRED (nullable). In the ENVELOPE: receipts and the mandate-revoked comm render ""next charge on X"" but are triggered by pro_billing, which cannot reach pro_subscription mid-journey. Profile attribute would race the event.",2026-09-06T14:06:16Z
+Lifecycle Envelope,occurred_at,"REQUIRED. TRUE event time, not receipt time — webhooks lag and retry.",2026-08-07T14:06:16Z
+Lifecycle Envelope,source,REQUIRED. Which system of record emitted it.,"woocommerce
+razorpay"
+Lifecycle Envelope,schema_version,REQUIRED. Segment Protocols pattern — makes every downstream tally trivial.,2
+Subscription,subscription_stage,The business meaning of the state change. NOT a WooCommerce status.,"trial_started
+charge_upcoming
+cancel_scheduled
+mandate_revoked
+access_ended_voluntary
+access_ended_involuntary
+reactivated"
+Subscription,trial_end_at,When the 7-day trial ends and the first charge is attempted.,2026-08-13T14:06:16Z
+Subscription,current_period_end_at,End of the paid-through period.,2026-09-06T14:06:16Z
+Subscription,next_charge_amount,"FROM THE ORDER, never a constant. 31.7% of renewals are a different amount than ₹1,768.82.",1768.82
+Subscription,renewal_count,WooCommerce renewal_orders_count. Distinguishes first charge from renewal — in WooCommerce the post-trial first charge IS a renewal order.,"0
+1
+2"
+Subscription,mandate_status,Razorpay autopay mandate. 100 subs have had this revoked externally with NO status change.,"active
+revoked
+paused
+none"
+Billing,billing_stage,The business meaning of the payment outcome.,"purchase_succeeded
+first_charge_succeeded
+renewal_succeeded
+first_charge_failed
+renewal_failed
+checkout_abandoned
+refunded"
+Billing,order_id,WooCommerce order id.,"""567497"""
+Billing,order_type,Parent order (checkout) vs renewal order (recurring charge).,"parent
+renewal"
+Billing,amount,"Actual amount charged or attempted, from the order. Never a constant.",1768.82
+Billing,renewal_count,As above. Present on both events so copy can branch without a join.,"0
+1
+2"
+Billing,failure_reason,Gateway message on failure stages. Empty otherwise.,mandate_revoked_by_customer
+Onboarding,onboarding_stage,"Onboarding progress. Adds step_1, absent from the current enum.","step_1
+step_2
+step_3
+completed"
+Onboarding,register_source,Journey A scoping — must not fire on generic Inc42 registration.,"datalabs
+inc42"
+Onboarding,entry_page_type,Journey B vs C assignment. MUST also persist as a user property.,"company_profile
+report_profile
+company_search
+investor_search
+other"
+Onboarding,registration_page_url,Full URL of the registration page.,https://inc42.com/company/razorpay/
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+,,,
+Colour Code,Feature,,
+ABCDEFG,Live Properties,,
+ABCDEFG,Backlog,,
+ABCDEFG,,,
+ABCDEFG,Captable,,
+ABCDEFG,,,
+ABCDEFG,,,
+ABCDEFG,,,
