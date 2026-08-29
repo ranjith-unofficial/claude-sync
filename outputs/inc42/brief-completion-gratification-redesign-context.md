@@ -159,7 +159,35 @@ feedback that the reference search itself had lost the plot — pulling isolated
 patterns (badges, percentiles, crests) rather than understanding what the screen
 actually needs to *say*.
 
-## Where this landed (current working hypothesis, NOT yet built)
+## V13 — make the AVOIDED EFFORT visible (the breakthrough round)
+
+Diagnosis that unlocked it: every prior round showed the *result* (8 stories, caught up)
+but never showed *what the reader escaped*, so effort-saved stayed an abstract caption
+number. Five builds: (A) Pile vs Pick — 15 faded ragged rows collapsing to 8 clean ones;
+(B) **Time as Physical Mass** — a 510px muted column vs a 14px bright sliver, baseline
+aligned, so the scale occupies real screen space instead of being read as text;
+(C) **Labor Ledger** — "While you were asleep / Our newsroom did the reading" + itemised
+work + "Filed 6:00 AM · Inc42 newsroom" signature; (D) struck-through chore list of what
+you skipped; (E) tangled scribble vs one straight arrow (built, but the scribbles came
+out as smooth parallel waves — reads decorative, weakest of the five).
+**User verdict:** B and C are the direction. A explicitly rejected ("not able to relate
+what is that"). Asked for C's newsroom message to be **more concise**, delivered with
+B's visual force — and, critically, for the **streak to be stitched in as the reward**:
+"this is what you have done, and as a reward, we are giving. Your streak also increases."
+
+## V14 — the stitched three-beat arc (current direction)
+
+Narrative locked as: **we did the work → here's what it saved you → here's what you
+earned.** Streak is now the *consequence* of finishing, shown ticking up in front of the
+user (+1 today / 3 → 4), not a separate widget bolted on. Three builds:
+- **V14-1 Stitched Narrative** — newsroom line, then the time-mass columns, then Day 4 +
+  week dots. Reads top-to-bottom as one story.
+- **V14-2 Reward First** — inverts it: streak "3 → 4" is the hero, week dots, then a
+  compact "HOW YOU GOT HERE" proof table (read 15 / kept 8 / 78 sec / ~73 min).
+- **V14-3 Three Beats** — explicit `WE DID` / `YOU SAVED` / `YOU EARNED` section labels,
+  hairline-separated, most legible structure, horizontal bars for the time contrast.
+
+## Earlier hypothesis (superseded by V13/V14)
 
 The one thing that worked (Monarch) has **no badge, no seal, no percentile, no
 comparison stat, no forward-pull chip, no social-proof line** — just a plain checkmark
