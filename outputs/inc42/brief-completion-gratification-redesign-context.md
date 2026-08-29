@@ -541,6 +541,33 @@ artefact rather than a UI mock.
 Brief. 3d is the clearest read in one glance; 3e is the most *specific* about what the
 noise actually is, which makes the claim concrete rather than abstract.
 
+## Trust layer (row y=31840)
+
+Three strongest welcome screens cloned and layered with trust elements — **T1 orbit**,
+**T2 hero card**, **T3 side-by-side** — plus a **TRUST KIT** reference frame (`134:2`)
+listing every element with its placement, why it works, and what it needs to be true.
+
+Ranked by credibility bought per pixel:
+1. **Independence — "No sponsored stories. Ever."** The strongest signal available to a
+   news product, and it costs nothing. Says the Brief cannot be bought. SHIPPABLE.
+2. **Liveness — "Filed 6:00 AM today"** Nielsen's *current content* trust factor: proves a
+   person did work this morning rather than a feed refreshing. Needs the real filing time.
+3. **Risk removal — "Free · No card · One Brief a day, no spam"** Sits under the CTA and
+   kills three objections at once, including the unspoken fear of notification spam.
+4. **First-hand reporting — "Reported first-hand by Inc42's newsroom"** The single most
+   under-used asset across every version; it is what separates Inc42 from aggregators.
+5. **Provenance — "Reporting Indian startups since 20XX"** ⚠️ the founding year was used
+   unverified in an earlier draft — must be confirmed, never guessed.
+6. **Third-party proof — store ratings.** Only worth showing while genuinely above ~4.3.
+7. **Scale — "Read by founders, operators and investors"** deliberately worded without a
+   number so it never goes stale; add a figure only if large and current.
+8. **Data provenance — "Numbers from Inc42 DataLabs"** backs the "numbers" third of the
+   triad and quietly advertises DataLabs.
+9. **Named people — bylines/newsroom faces.** Highest ceiling, heaviest to build.
+
+**Limit: two or three per screen.** Past that they stop reading as confidence and start
+reading as persuasion, which costs trust rather than building it.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
