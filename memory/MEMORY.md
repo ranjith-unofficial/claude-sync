@@ -67,6 +67,7 @@
 - [INC42 analytics team briefs (28 Aug)](project-inc42-analytics-team-briefs.md) — 4-employee PostHog/CIO dark-events audit + intern knowledge-base brief; artifact at ~/ClaudeDocs/inc42/
 - [DataLabs onboarding CIO cross-check — RESOLVED](project-inc42-datalabs-onboarding-cio-crosscheck.md) — properly-scoped result 48.7% synced/51.3% broken (sheet's "66%" not confirmed); App has zero AskInc42-equivalent telemetry
 - [INC42 app analytics audit (29 Aug)](project-inc42-app-analytics-audit.md) — push_delivered/decode confirmed dead, push_opened near-dead, 4 of 9 sheet bugs fixed; "Application ___" events are PostHog SDK's own duplicate autocapture (same $lib as app_opened)
+- [Decode does not exist](project-inc42-decode-does-not-exist.md) — confirmed 29 Aug: Decode is unbuilt spec, not a tracking gap; corrects two earlier audits
 - [INC42 Mixpanel legacy finding (29 Aug)](project-inc42-mixpanel-legacy-finding.md) — live undisclosed first-party Mixpanel on inc42.com since 2023, unconfirmed PII exposure, contradicts vendor-stack "verified" note
 - [INC42 Mixpanel GTM tag forensics (29 Aug)](project-inc42-mixpanel-gtm-tag-forensics.md) — GA4 leaks same PII sitewide (Google ToS risk, top priority) > Mixpanel 7/37 tags; need named GTM-publish owner
 - [INC42 Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 charge success 57.9% (was 73.7%); ~21/40 projected recovery, 0% shipped; artifact efaafcd9
