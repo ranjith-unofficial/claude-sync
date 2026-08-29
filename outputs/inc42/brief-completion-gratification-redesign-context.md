@@ -275,6 +275,36 @@ What was borrowed, and what was deliberately not:
   orange asset — "30 MORNINGS / Nothing that mattered in Indian startups got past me" +
   Inc42 wordmark — with WhatsApp / LinkedIn / X / Copy targets.
 
+## V20 / V21 — the current lead design
+
+**V19 (the Cult.fit-style report card) was rejected:** a dark card on orange went muddy,
+a 2×2 tile grid read as a dashboard rather than a reward, and nothing gave a reason to
+return. Three fixes established in V20 and carried forward:
+1. **One glowing focal element**, never a grid of equal tiles. Stats demoted to a thin
+   inline row (78s · 8 · 2/2) — they are context, not the event.
+2. **Luminosity needs contrast** — a bloom/glow behind the hero.
+3. **Something visibly UNFINISHED** as the return hook, with a named unlock.
+
+**V21 is the current lead** (`94:4`), built from V20-C and translated to brand colour:
+- **The week ring IS the hero** — 7 segments, 4 lit white with a bloom on today's, 3 left
+  at low opacity. The incompleteness is the pull, and it doubles as the achievement.
+  Centre reads "4 / OF 7 MORNINGS".
+- **Brand orange radial-gradient ground**, not dark ink.
+- **Radial ray lines removed** — Ranjith: they "don't make a lot of sense". They were
+  decoration carrying no information. Light confetti retained, kept away from the ring.
+- **The missed-sector rail lives on the SAME screen** — `ELSEWHERE TODAY · 10 STORIES`,
+  one segmented ring per sector (Travel Tech 3 / Healthtech 2 / SaaS 4 / D2C 1), so the
+  reward and the stories you missed are a single moment.
+- **Named unlock**: "UNLOCKS SUNDAY — Your first weekly recap · 3 to go".
+
+Icon note: the D2C shopping-bag icon read as a **padlock** at 42px (second time this
+happened — also in V18). Replaced with a parcel (white box + two ribbon lines in the
+background orange). Always render-check small icons at actual size.
+
+⚠️ **The weekly recap is currently a promise with nothing behind it.** If the unlock hook
+ships, that recap must exist by day 7 — a broken unlock costs more trust than never
+promising one.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
