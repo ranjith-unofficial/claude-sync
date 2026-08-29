@@ -215,6 +215,25 @@ had no comparison:**
   "Cleantech — quiet today" with a dash instead of a tick, and is framed as valuable:
   "Cleantech was quiet today — that's worth knowing too."
 
+## V17 — story rail, earlier streak, and solving the daily-repeat problem
+
+- **"+2 more worth knowing" became a story rail.** The uncovered/lower-relevance stories
+  now render as tappable Instagram-style circles with unread rings (PhonePe, Meesho,
+  Zepto, Smartworks) and a "tap to flick through the rest of today" hint. Tapping opens
+  a full story viewer (V17-2): segmented progress bar, company header, "OUTSIDE YOUR
+  SECTORS" tag, headline + standfirst, "Read the full story", swipe for next. This turns
+  the leftover news from an announcement into a browsable surface.
+- **Streak moved onto beat 1** as a compact strip (7 small dots + "DAY 4" + gold "+1"),
+  so gratification starts at the moment of completion rather than waiting for beat 3.
+  Beat 3 still carries the full streak + cumulative-hours payoff.
+- **The daily-repeat problem.** The V16-2 itemised ledger is too heavy to show every
+  day — it becomes a **weekly / milestone** screen. Beat 2 daily gets lighter rotating
+  framings instead: **2a effort** ("6 hours of reporting → 78 seconds of yours. That's
+  the trade.") and **2b verification** ("Every number in today's brief was checked" —
+  funding figures verified 6 / claims sourced on record 4 / numbers corrected
+  pre-publish 2, signed Inc42 Newsroom). Each mode needs a real backing field
+  (reporting hours, claims checked, corrections) or that mode must not fire that day.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
