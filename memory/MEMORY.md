@@ -8,6 +8,7 @@
 - [Validation approach](feedback-validation-approach.md) — confirm feasibility first; cross-check independent ground truth
 - [Ask before assuming](feedback-ask-before-assuming.md) — don't state stale memory as current fact; ask, don't assume
 - [Document calibration](feedback-document-calibration.md) — state decisions directly; never invent unrequested content
+- [No empty container tabs](feedback-no-empty-container-tabs.md) — a grouping level needs 3+ items and its own content; collapse single-child wrappers
 - [Deliver in chat](feedback-deliver-in-chat.md) — tables in chat by default; Artifact only when explicitly asked
 - [Always include source links](feedback-always-include-source-links.md) — every reviewable list needs a clickable source link
 - [Completeness audits](feedback-completeness-audits.md) — audit line-by-line, surface own misses, never ship unauthorised changes
