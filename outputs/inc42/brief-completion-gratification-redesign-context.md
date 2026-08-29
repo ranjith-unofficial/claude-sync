@@ -395,6 +395,31 @@ cloned from the edited R5 so his layout is preserved:
 Recommended: **A as the default, B within 3 days of the record, C on the day it is beaten.**
 Never show a bare record comparison.
 
+## W — Welcome / onboarding screen (extending the value story upstream)
+
+The live welcome screen (frame `Frame 1686562350`, in the **Inc42-App-2026** file, not the
+draft) reads "Introducing Brief / A Short Read Built Around The Sectors & Topics You
+Follow" over a phone mockup, with a PERSONALIZE MY FEED CTA. Problem: "Introducing Brief"
+is product-centric and states no value — it names the feature rather than the outcome.
+
+Four replacements built **in the draft file** (row y=23335), to be moved across:
+- **W1 · Outcome-led** — keeps the phone mockup, changes the promise to *"Never miss what
+  moves your sectors"*, adds a proof strip (8 STORIES / 90s TO READ / Daily AT 8 AM).
+  Lowest-risk edit: same layout as today, better words.
+- **W2 · Sector-led** — reuses the **segmented sector rings from the completion screen**
+  (Fintech / E-commerce / SaaS / Healthtech with Lucide icons). *"Pick your sectors. We'll
+  cover all of them."* + the quiet-sector promise + "REPORTED FIRST-HAND BY INC42'S
+  NEWSROOM". Strategically the strongest: what you pick at signup is visually the same
+  object you are rewarded against every morning, so onboarding and reward reinforce.
+- **W3 · Noise → signal** — the pile-to-pick visual (14 faded lines funnelling into 8
+  bright ones): *"Everything gets published. Only eight reach you."* Note this visual was
+  rejected on the completion screen ("can't relate to it") but works here, because
+  onboarding is exactly where you EXPLAIN the mechanism.
+- **W4 · Stakes-led** — leads with ₹2,400 Cr and an itemised ledger (funding rounds 6 /
+  IPO filings 3 / acquisitions 2 / stories that affect you 8), then *"Know all of it by
+  8:01 AM."* Highest-conviction for a founder/VC, but depends on a live daily ₹ figure and
+  needs a quiet-day fallback.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
