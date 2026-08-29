@@ -130,6 +130,76 @@ The demand is for a **topic and filter** experience. The engine only does name l
 
 ---
 
+## 5b. Replay of real user queries — what actually breaks
+
+57 of the most-searched real DataLabs web queries (last 30d) were replayed against the live entity API, plus 31 targeted cross-POV probes. Latency at polite pacing: **p50 398ms, p90 504ms**.
+
+**Only 1 of 57 returned nothing.** Hard zeros are rare on this endpoint — the failure mode is wrong answers, not empty ones.
+
+### Genuine index gaps — companies that simply are not there
+
+| Query | Searches / users (30d) | Result |
+|---|---|---|
+| `brewnexa technologies` | **20 / 1 user** | Technologies33, Atishrri Technologiess… Brewnexa absent; even the bare token `brewnexa` returns only "Brewex" |
+| `hustle hard ventures` | **14 / 1 user** | Hustleio, Hustlezy, Hustle Cowork — absent |
+| `emerging ledger` | **13 / 1 user** | LEDGERS, Emerging Five, Emerging Coders — absent |
+| `alphavector` | **11 / 1 user** | **0 rows** — the only hard zero in the set |
+
+**58 searches from 4 users chasing companies that are not in the database.** This is the web equivalent of the `shipr` rage-loop, and it is the one place where "add missing content" is genuinely the fix.
+
+### Legal names are separate records, not aliases — 0 of 4 resolve
+
+| Query | Returns | Should resolve to |
+|---|---|---|
+| `Kiranakart` | "Kiranakart" — exists as its **own unlinked company record** | Zepto |
+| `Eternal Limited` | Eternal Capital | Zomato (its actual current legal name) |
+| `Bundl Technologies` | Template Bundle | Swiggy |
+| `ANI Technologies` | Animeria Technologies | Ola |
+
+### Topic queries return name-substring noise, confirming there is no sector field in the match
+
+| Query | Top 3 |
+|---|---|
+| `fintech` | MyLead FinTech, Spay Fintech, Fintech Magic |
+| `ai startups` | Legal Startups, Sandbox Startups, Unboxing Startups |
+| `series a` | SeriesX Marketing, BEV Series, A3 Services |
+| `unicorns` | Technovation Unicorns, Unicornus Maximus, Unicorn Mark |
+| `green hydrogen` | Hydrogen Gentech |
+
+It is matching the *word* in company names. It is not matching the *sector*.
+
+### Correction — person search is not broken; the client is
+
+An earlier read of this data suggested person search was failing. It is not. The API returns people correctly, at rank 1 of their own array:
+
+| Query | `person` array, position 1 |
+|---|---|
+| `aman gupta` | **Aman Gupta** |
+| `tanmay bhat` | **Tanmay Bhat** |
+| `deepinder goyal` | **Deepinder Goyal** |
+
+The defect is **presentation**: the response is 20 companies + 10 people + 20 investors, and `main.min.js` **flattens and re-sorts all three into one list**. So a user searching a person's name sees up to 20 irrelevant companies before the correct person. Typed results exist; the client throws the typing away.
+
+This strengthens §9.4 — return typed groups and render them as groups. Do not flatten.
+
+### Data quality: duplicate person records
+
+`aman gupta` returns **"Aman Gupta" four times**; `deepinder goyal` returns "Deepinder Goyal" twice. The person table has duplicates, which also consume the 10-row cap.
+
+### Ranking defects visible in real queries
+
+| Query | Problem |
+|---|---|
+| `ultravio` | "Hosting Ultraso" ranks **above** "Ultraviolette Automotive" — prefix match loses to a typo match |
+| `sugar` | SUGAR Cosmetics only rank 3, behind Sugar Watchers and Orange Sugar |
+| `apax` | Apex, Appx, Apex — typo-matched away from Apax Partners |
+| `vip` | Vipralok, VipraLabs — VIP Industries absent |
+| `inox` | Maruti Inox, Inox Importers — INOX absent |
+
+Rule 2 in §9.3 (exact > prefix > token > typo) fixes all five.
+
+---
+
 ## 6. Scale
 
 | Metric | App | DataLabs web |
@@ -154,7 +224,9 @@ Honest note on impact: zero results do **not** cause immediate abandonment — 8
 | 4 | No topic/sector/tag search anywhere | All | `fintech` is the #1 web query |
 | 5 | No aliases, no run-together handling | All | `Eternal Limited`, `waghbakri`, `tbotek` |
 | 6 | Search quality is unmeasurable | DataLabs, app | no result count on DataLabs; no latency anywhere |
-| 7 | Genuine index gaps | Entity search | small residual — `birdeye`, `myjar` |
+| 7 | Genuine index gaps | Entity search | Brewnexa, Hustle Hard Ventures, Emerging Ledger, Alphavector — 58 searches, 4 users |
+| 8 | Client flattens typed results, burying people behind 20 companies | Web | `main.min.js` merges companies+people+investors into one list |
+| 9 | Duplicate person records consume the result cap | DataLabs data | "Aman Gupta" ×4, "Deepinder Goyal" ×2 |
 
 Note the ordering. Every prior diagnosis started at #7.
 
@@ -176,6 +248,18 @@ Note the ordering. Every prior diagnosis started at #7.
 **Expected effect:** if the non-determinism analysis is right, this alone removes a large share of the 19.7% / 35.8% zero rates — because those searches were never really zero. It also tells you what the *true* zero rate is, which is what Stages 1–2 should be scoped against.
 
 **Do not skip the instrumentation.** Right now nobody can prove whether a fix worked.
+
+### Stage 0b — three more fixes that need no search engine
+
+| Fix | Detail | Effort |
+|---|---|---|
+| **Stop flattening typed results** | `main.min.js` merges companies + people + investors into one sorted list, burying the correct person behind 20 companies. Render the three arrays as three labelled groups. The API already returns them typed | S |
+| **Add the 4 known missing companies** | Brewnexa, Hustle Hard Ventures, Emerging Ledger, Alphavector — 58 searches from 4 users chasing records that do not exist | XS |
+| **De-duplicate the person table** | "Aman Gupta" appears 4×, "Deepinder Goyal" 2×; duplicates eat the 10-row cap | S |
+
+### Stage 0c — alias table, ~200 rows, no engine required
+
+Even on the current API, a lookup table mapping legal and former names to the canonical entity would fix an entire failure class: Kiranakart → Zepto, Eternal Limited → Zomato, Bundl Technologies → Swiggy, ANI Technologies → Ola, Lava International → Lava, Jar → MyJar. Seed from the DataLabs legal-name field; hand-curate the top 200 brands.
 
 ---
 
