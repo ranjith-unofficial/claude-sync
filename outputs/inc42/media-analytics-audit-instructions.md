@@ -1,98 +1,114 @@
-# Inc42 Media (Website) Analytics Audit — Instructions
+# Inc42 Media (Website) Analytics Audit — Execute This Now
 
-**Owner:** [assign name]
-**Objective:** Find every event PostHog and Customer.io are actually receiving from inc42.com that is NOT accurately described in the master tracking sheet — either a completely new/untracked event, or a planned event firing with the wrong name/properties/destination.
+## READ THIS BEFORE ANYTHING ELSE
 
-This document is written so you can follow it top to bottom with no prior context. Every step says exactly where to click.
+This is a task to execute immediately using your tools. It is not a document to edit, reformat, review, or summarize back.
 
----
+**Your deliverable is real data**, produced by actually querying PostHog and Customer.io — not by reading this file and describing what you would do.
 
-## Part A — Access you need before you start
+### DO
+- Actually run PostHog queries against project 53557 and get real event names, real volumes, real property payloads.
+- Actually read the existing event-auditor findings (Ranjith has them — ask if you don't) before doing manual work that tool already did.
+- Actually open the Google Sheet tabs named below and read every row.
+- Actually check Customer.io's live event data, using browser tools if no direct API/MCP access exists.
+- Write your findings into the two new Sheet tabs specified in Part D — that is the finished deliverable.
+- If you hit a login wall or missing tool access, stop and say exactly what's blocked, then wait. Do not proceed on guesses.
 
-1. **Google account** with access to the master Sheet below.
-2. **PostHog** login (EU cluster) with access to the website project.
-3. **Customer.io** login with access to the Inc42 Media (website) workspace.
-4. **Ask Ranjith for the latest event-auditor report** (`report.html` + `findings.json`) — this is a tool that already ran automated browser tests against the live site and lives on his machine, not somewhere you can open directly. Get this BEFORE you start Part C — it saves you re-testing things that are already answered.
+### DO NOT
+- Do NOT edit, rewrite, restructure, or "clean up" this instructions file. It is reference material for you to follow, not your output.
+- Do NOT respond with a plan, an outline, or a description of the steps you're about to take instead of taking them.
+- Do NOT infer or guess what PostHog/Customer.io are receiving based on what the sheet's Destinations column claims — it's already known to be stale (see Part B2).
+- Do NOT report "I've reviewed the sheet and instructions" as if that were progress. Progress is filled rows in the output tabs (Part D).
+- Do NOT fabricate volumes, property names, or "typical" payloads. If you can't query it, say so.
+- If your first instinct after reading this is to touch `media-analytics-audit-instructions.md` itself, that is the wrong action — stop and re-read this section.
 
-If you can't get any of these, stop and ask before doing manual work you'd otherwise redo.
-
----
-
-## Part B — Open and read the source files
-
-### B1. Open the master sheet
-
-1. Open: https://docs.google.com/spreadsheets/d/1n6r5QXe-9Pq1uAWMKRe7zSgLHSejASzAq-BAqeI3L6Y/edit
-2. Click the tab **"Inc42 - Media - Events"** at the bottom. ~30 rows: Event Name, Triggers, Trigger Type (Frontend/Backend), Event Property Groups, Custom Event Properties, Triggers Identify Call?, Definition, Destinations.
-3. Click the tab **"Inc42 - Media - Events Properties"** next to it. This lists sample values for every property, grouped into Property Group 1, Property Group 2, User Data Fields, Custom Properties, Plus Properties. Skim once so you recognize property names later.
-
-### B2. Known issues — verify current state, do NOT log these as new discoveries
-
-- **Destinations column is stale.** Nearly every row lists GA4, Mixpanel, MoEngage, Amplitude, Meta Ads as destinations. MoEngage's SDK is stubbed out (removed, migrated to Customer.io); Mixpanel and Amplitude were never part of the real stack at all. The tools actually live on the site are **PostHog and Customer.io** — yet across all ~30 rows, PostHog appears as a destination on exactly one row ("Login Modal"). Your job is to find out what PostHog and Customer.io ARE actually receiving (regardless of what this column claims), not to trust this column.
-- **Two rows look like an accidental duplicate**: "Newsletter Subscribed" and a row literally named "s" — same trigger, same properties, same destinations. Confirm they're duplicates and flag for cleanup; don't spend audit time treating "s" as a separate real event.
-- **"Scroll Depth (Paused)"** — row shows GA4 as the only destination, nothing to PostHog. The event-auditor findings (see Part A4) found THREE separate scroll-depth implementations on the live site with different property formats and none reaching PostHog. Confirm this is still the case.
-- **Logged-in users may not be identified in PostHog** — a prior check found `distinct_id` stays an anonymous UUID even when someone is fully signed in (WordPress + Auth0 cookies present). If still true, every "per-user" number you pull from PostHog for logged-in behavior is unreliable — flag this loudly rather than quietly reporting volumes as if they're clean.
-- **"Plus Lock"** was previously found firing ~22 times per browsing session to GA4 and 0 times to PostHog. Confirm current state.
-
-### B3. Make your own working copy
-
-1. Right-click the "Inc42 - Media - Events" tab → **Duplicate**. Rename to **"Media Audit — [Your Name]"**.
-2. Add columns to the right: `Live in PostHog?`, `Live in Customer.io?`, `Actual Name if Different`, `Actual Properties`, `Classification`, `Recommendation`.
+**The three questions this task exists to answer, and nothing less than this counts as done:**
+1. How many events does PostHog/Customer.io actually show for inc42.com, and what are they, with what real volume?
+2. For every event that IS in the sheet — is it firing the way the sheet says (same name, same properties, same destinations), or has it drifted?
+3. Which events are firing that have NO row in the sheet at all?
 
 ---
 
-## Part C — Read the existing event-auditor findings FIRST
+## Part A — Access and tools
 
-Before manually querying PostHog, open the file Ranjith gave you (`report.html`, or read `findings.json`). This tool already ran 6 scripted user journeys against the live site and found:
-- Only 5 of 63 planned events are properly implemented; 24 partial, 32 missing.
-- GA4 receives MORE distinct event types than PostHog on the same journeys (autocapture is off, so nothing fills gaps automatically).
-- Customer.io receives only page-view calls, zero `track()` (custom event) calls.
-- Several "not tested" events had specific reasons (e.g. the freewall/register-gate never rendered during the test runs, so Freewall Lock/Login Modal/Modal Viewed never got a chance to fire) — read these reasons so you don't waste time assuming those are simply broken.
-
-Treat this as your starting checklist, not something to redo from scratch. Your manual work in Parts D–E should focus on: (1) confirming these findings are still accurate today, and (2) finding events outside what those 6 scripted journeys covered — e.g. paid-membership flows, logged-in-only pages, anything behind a form.
-
----
-
-## Part D — Pull the real event list from PostHog and Customer.io
-
-1. Log into PostHog. Confirm the project switcher (top-left) shows the **Inc42 website project** (project **53557, "Inc42 | Live"**) — not the App or DataLabs project. Re-check this every time you return to PostHog during the task; it can silently switch.
-2. Left sidebar → **Data Management → Events**. Set the date range to **last 90 days**. This lists every distinct event name PostHog has actually received, including undocumented ones.
-3. Copy every event name into a plain list (a new Google Doc or a sheet tab called "PostHog Raw List").
-4. For unfamiliar events, click in → view recent live occurrences → click one → expand its full property payload. Copy/screenshot this — you need real properties, not a guess from the name.
-5. Log into Customer.io, confirm you're in the **website workspace**, open **Activity Log / Data Pipelines → Events**, and repeat steps 3–4 for whatever it shows.
+1. **PostHog access** to project **53557, "Inc42 | Live"** (EU cloud). If not authenticated, run the PostHog authentication tool (`mcp__plugin_posthog_posthog__authenticate`) or invoke the `posthog:querying-posthog-data` skill. **Confirm this project is active before every query** — this account has multiple INC42 projects and silently reverts mid-session.
+2. **Customer.io access** for the website workspace. No dedicated MCP — use browser automation (`ToolSearch` query `"select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__get_page_text,mcp__claude-in-chrome__find"`). If a logged-in session doesn't already exist, stop and ask Ranjith to log in first — never type a password yourself.
+3. **The existing event-auditor findings.** A Playwright-based tool already ran 6 scripted browser journeys against inc42.com and produced `~/ClaudeDocs/inc42/event-auditor/runs/<latest>/report.html` and `findings.json`. Read this file directly (`Read` tool) before doing any manual PostHog/CIO work — do not re-derive what it already answered:
+   - Only 5 of 63 planned events properly implemented; 24 partial, 32 missing.
+   - GA4 receives MORE distinct event types than PostHog on identical journeys (autocapture is off).
+   - Customer.io receives only page-view calls, zero `track()` calls.
+   - Specific "not tested" events have documented reasons (e.g. the freewall/register-gate never rendered during the test runs) — read these before assuming those events are simply broken.
+   Your manual work should (a) confirm these are still true today and (b) find events outside the 6 scripted journeys (paid flows, logged-in-only pages, forms).
+4. **Google Sheet access** to the sheet below. Pull tab contents as real data via the CSV export trick — navigate to `https://docs.google.com/spreadsheets/d/1n6r5QXe-9Pq1uAWMKRe7zSgLHSejASzAq-BAqeI3L6Y/export?format=csv&gid=<gid>` for a given tab (get each tab's gid by reading `.docs-sheet-tab` click-through URL hashes via `javascript_tool`) — then read the downloaded CSV with the `Read` tool. Do not screen-scrape a rendered spreadsheet when a real CSV is one navigation away.
 
 ---
 
-## Part E — Match everything and fill in your working tab
+## Part B — Read the source tabs
 
-1. Go back to "Media Audit — [Your Name]."
-2. For each row, check your PostHog/Customer.io raw lists for an exact or near-name match. Website event names are Title Case with spaces ("Newsletter Subscribed," "Recommendation Click") — watch for a live event firing under a slightly different label, capitalization, or with the words reordered.
-3. Fill `Actual Properties`, `Classification` (Confirmed correct / Renamed / Property mismatch / Broken-not firing / Dead-test event), and `Recommendation` (update sheet to match reality / fix production / needs product owner decision / no action) for every row you check.
-4. For anything with no sheet row at all, add it to the new-events table in Part F instead of forcing it into an existing row.
+Sheet: https://docs.google.com/spreadsheets/d/1n6r5QXe-9Pq1uAWMKRe7zSgLHSejASzAq-BAqeI3L6Y
+
+1. Read tab **"Inc42 - Media - Events"** in full (~30 rows): Event Name, Triggers, Trigger Type, Event Property Groups, Custom Event Properties, Triggers Identify Call?, Definition, Destinations.
+2. Read tab **"Inc42 - Media - Events Properties"** in full — the property/sample-value dictionary.
+3. **Already-confirmed issues — verify current state, do not rediscover as new findings:**
+   - Destinations column lists GA4/Mixpanel/MoEngage/Amplitude/Meta Ads on nearly every row. MoEngage is removed from the real stack (stubbed SDK); Mixpanel/Amplitude were never real. PostHog and Customer.io are the tools actually live on the site, yet PostHog appears as a destination on exactly 1 of ~30 rows ("Login Modal").
+   - "Newsletter Subscribed" and a row literally named "s" have identical trigger/properties/destinations — likely an accidental duplicate.
+   - "Scroll Depth (Paused)" lists GA4 only, nothing to PostHog — the event-auditor found three separate scroll-depth implementations on the live site, none reaching PostHog.
+   - A prior check found `distinct_id` stays an anonymous UUID even for fully signed-in users (WordPress + Auth0 cookies present) — if still true, every "per-user" PostHog number for logged-in behavior is unreliable.
+   - "Plus Lock" was previously found firing ~22×/session to GA4 and 0× to PostHog.
 
 ---
 
-## Part F — Log genuinely new events
+## Part C — Query PostHog and Customer.io for the real event list
 
-New tab, **"Media — New Events Found,"** with these exact headers:
+1. Confirm active PostHog project = 53557.
+2. Run:
+   ```sql
+   SELECT event, count() AS volume, min(timestamp) AS first_seen
+   FROM events
+   WHERE timestamp > now() - INTERVAL 90 DAY
+   GROUP BY event
+   ORDER BY volume DESC
+   ```
+   via the `posthog:querying-posthog-data` skill. This is your real event list. Filter out PostHog-internal events (`$pageview`, `$autocapture`, etc.) unless the sheet expects one.
+3. For anything unmatched against Part B, or with an unexpected volume, run:
+   ```sql
+   SELECT properties FROM events WHERE event = '<event_name>' ORDER BY timestamp DESC LIMIT 10
+   ```
+   and record the actual property keys/values.
+4. Using browser tools, open Customer.io's website workspace → Activity Log / Data Pipelines → Events. Extract the distinct event list and any visible counts via `get_page_text`/`read_page`. Click into unfamiliar events for raw payloads the same way.
 
-| Event name (as seen live) | Platform (PostHog / Customer.io) | First seen | Volume (30 days) | Matches a sheet row? (N — confirmed not in sheet) | Actual properties captured | Classification | Recommendation |
+---
+
+## Part D — Produce your two deliverable tabs
+
+Using browser automation on the live Google Sheet:
+
+**Tab 1 — "Media Audit — [Agent Run Date]"**: duplicate of "Inc42 - Media - Events," with columns added and filled for every existing row: `Live in PostHog? (Y/N + volume)`, `Live in Customer.io? (Y/N)`, `Actual Name if Different`, `Actual Properties`, `Classification`, `Recommendation`.
+
+**Tab 2 — "Media — New Events Found"**: new tab, one row per event with no corresponding sheet row at all:
+
+| Event name (as seen live) | Platform (PostHog / Customer.io) | First seen | Volume (30 days) | Matches a sheet row? (N) | Actual properties captured | Classification | Recommendation |
 |---|---|---|---|---|---|---|---|
 
----
-
-## Part G — Priority checks (do these even if you haven't finished everything else)
-
-1. **MoEngage/Mixpanel/Amplitude dead-vendor check.** Confirm none of these three are actually receiving live data — check the site's GTM container and page source for any non-commented-out script tag referencing them. A `grep`/search for the vendor name alone isn't enough — commented-out code will falsely show up as a "hit." If you find any of them still live, that's a P0 (data going somewhere nobody's monitoring) — report immediately.
-2. **Identify-call check.** Sign into inc42.com yourself in a fresh browser session, then check PostHog's live event stream for your session — does `distinct_id` switch from an anonymous UUID to something tied to your account? If not, report as P0 — every logged-in analytics number is unreliable until this is fixed.
-3. **Scroll depth reconciliation.** Confirm how many separate scroll-depth implementations currently exist on the site and whether any reaches PostHog. If nothing reaches PostHog, note this explicitly — it directly contradicts a locked company strategy decision to restore scroll depth as a real metric, so flag it as a priority, not a routine finding.
-4. **Duplicate Newsletter Subscribed rows** — confirm and note for sheet cleanup (low priority, just don't skip logging it).
+Classification options: Confirmed correct / Renamed / Property mismatch / Broken-not firing / Dead-test event.
+Recommendation options: update sheet to match reality / fix production / needs product owner decision / no action.
 
 ---
 
-## Part H — Finishing up
+## Part E — Priority checks (do these even before finishing the general sweep)
 
-1. Confirm both new tabs (`Media Audit — [Your Name]` and `Media — New Events Found`) are fully filled in.
-2. Don't edit the original "Inc42 - Media - Events" / "Inc42 - Media - Events Properties" tabs.
-3. Message Ranjith with a link to the sheet, which tabs you added, and a one-line summary of any P0s from Part G.
-4. Hand this to the cross-project consolidator (Employee 4) as soon as it's done — don't wait to be asked.
+1. **Dead-vendor check.** Using browser tools, check inc42.com's live page source and GTM container for any non-commented-out script referencing MoEngage, Mixpanel, or Amplitude. A text match on a commented-out script is a false positive — confirm it's not inside `<!-- -->` or `//`. If any is genuinely still live, report immediately as a standalone finding.
+2. **Identify-call check.** If you can access an authenticated session (or ask Ranjith to provide one), check whether PostHog's `distinct_id` for that session is the anonymous UUID or tied to the account. Report as a standalone finding either way — this affects how every other number in this audit should be interpreted.
+3. **Scroll-depth reconciliation.** Confirm from PostHog query results whether any scroll-depth event reaches PostHog at all. If not, flag this as priority — restoring it is a locked company strategy item, not a routine gap.
+4. **Duplicate "Newsletter Subscribed"/"s" rows** — confirm and note for sheet cleanup (low priority, log it, don't spend more time than that).
+
+---
+
+## Part F — When you're done
+
+Confirm, explicitly, in your final response:
+- Both output tabs exist and are fully filled.
+- Results of the three Part E priority checks, stated plainly.
+- Any blockers hit and what's needed to proceed if incomplete.
+
+Do not describe this as "instructions reviewed" or "sheet read." Report actual completion state of the two tabs and the priority checks.
