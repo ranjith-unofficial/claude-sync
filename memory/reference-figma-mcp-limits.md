@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: reference
   originSessionId: ef11cc53-5cf2-4546-8887-4d4fa24655b1
-  modified: 2026-08-28T20:11:44.352Z
+  modified: 2026-08-29T07:24:19.787Z
 ---
 
 Figma MCP access is metered by **plan + seat**, and writes count against it. As of 2026-08-17, `ranjith.m@inc42.com` is on **Starter plan, View seat = 20 tool calls per MONTH**, and that quota was exhausted mid-task (the `get_figjam` read succeeded, the first `use_figma` write returned an upgrade paywall).
@@ -23,3 +23,5 @@ Exempt from the cap (always callable): `whoami`, `generate_figma_design`, `add_c
 **Same-day follow-up:** Utkarsh approved a "full access" seat request for `ranjith.m@inc42.com` on the **Inc42** org team (confirmed by Figma's own "Seat request approved" email). Reconnecting Figma via Claude Code's `/mcp` command re-authenticated successfully ("Connected to claude.ai Figma") but `whoami` still only listed "Ranjith M's team" (Starter/View) and a fresh `createFrame` test on the `Inc42-App-2026` file still threw the same read-only error.
 
 **Corrected finding:** the Chrome browser session on the same file (`vKuPUMuhLos0rC1AFR5cWq`, "Inc42-App-2026") is ALSO view-only, not edit — initially misread as edit-capable because the Share button and Properties/Layers panels render for viewers too. The real tell is Figma's bottom-toolbar **"Ask to edit"** button, which was present from the very first screenshot. Confirmed view-only by: right-click canvas menu has no "Paste"/"Paste here" option, and pressing `R` + dragging to draw a rectangle created nothing. So the org-level seat upgrade (Full/Dev) does not automatically grant edit on a specific file — file-level sharing is a separate permission layer, and this file still lists the account as Viewer. Fix has to happen in Figma itself: click "Ask to edit" in-app and have the file owner approve, or have an editor explicitly re-share the file as Editor. Neither an MCP reconnect nor browser automation can bypass this. Don't re-attempt writes on a file until the user confirms file-level edit access was actually granted (check for "Ask to edit" being GONE from the toolbar, not just seat/plan status).
+
+**Resolved, 29 Aug 2026 later same day:** `whoami` now shows a second plan — **"Inc42" team, seat "Full", tier "pro"** — alongside the old "Ranjith M's team" View/Starter. The Inc42 seat had simply taken time to propagate; no further reconnect was needed once it landed. `use_figma` write access confirmed working on `dAsaTgNj0xh25w2OGaurZo` ("App - Draft Screen", a blank personal draft file) — `createFrame` succeeded immediately, no read-only error. Note this was a file Ranjith owns/created himself, so it may have had editor access all along regardless of seat; the `vKuPUMuhLos0rC1AFR5cWq` team file's access is still unverified post-seat-upgrade — check `whoami` for the Inc42 plan and retest write access on that specific file before assuming it's also unblocked.
