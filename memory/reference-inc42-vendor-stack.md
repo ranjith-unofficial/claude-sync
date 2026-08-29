@@ -5,6 +5,7 @@ metadata:
   node_type: memory
   type: reference
   originSessionId: 1b85df8c-b255-4a10-9994-1dbcc66c6987
+  modified: 2026-08-29T10:10:51.973Z
 ---
 
 The **verified** Inc42 vendor stack (checked against live inc42.com HTML on 2026-07-13, not taken from docs). Several team assumptions were wrong, so **verify before asserting**.
@@ -18,6 +19,8 @@ The **verified** Inc42 vendor stack (checked against live inc42.com HTML on 2026
 | **Singular** | **App only** | US | SKAN-aggregated only, no device-level ID sharing. |
 | **Firebase** (Analytics, Crashlytics, FCM) | **App only** | US | |
 | **Auth0** + Sign in with Apple + **Google Sign-In** | Both | US | Google Sign-In DOES ship in v1 alongside SIWA. |
+
+⚠ **CORRECTION, 29 Aug 2026** — Mixpanel is NOT dead. Confirmed live on production inc42.com right now: two real project tokens (branched by URL path, DataLabs vs. rest of site) baked directly into the server-rendered `<head>`, first-party, not a GTM/ad/iframe injection. Wayback history: live ≤2020–late 2022, removed ~9 months, reinstated mid/late 2023, live continuously since — predates the current team and predates PostHog on the page by ~a year. `track_pageview` is off; something (likely a GTM tag) calls `mixpanel.track()` on real interactions — unconfirmed whether PII rides along, given a separate confirmed GTM-fed leak ("App Banner Viewed" sends raw email/name/phone to GA4 via the same layer). See [[project-inc42-mixpanel-legacy-finding]]. Do not cite "Mixpanel never used" as current fact until this is resolved/removed.
 
 **Hard-won lesson:** a naive `grep` for a vendor name on a page **counts commented-out dead code as live**. MoEngage showed 30 "hits" while being fully disabled. Always strip `<!-- -->` **and** `//` comments before concluding a script is running. Control-test with a vendor you know is absent (Singular/Firebase returned 0 live hits on the website, which validated the method).
 
