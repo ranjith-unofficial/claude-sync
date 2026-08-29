@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 9806e46d-71a9-4068-9df4-aa66c5b57e7f
-  modified: 2026-08-28T18:25:12.952Z
+  modified: 2026-08-29T10:16:32.527Z
 ---
 
 Ranjith asked for two deliverables built from the [[project-inc42-tracking-master-review]] sheet (same Google Sheet,
@@ -30,3 +30,23 @@ executed by humans rather than by Claude directly.
 **How to apply:** when Ranjith reports back employee findings or asks to build the actual knowledge base, treat this
 file + the saved brief as the spec; don't re-derive the task structure from scratch. If he names real people for the
 4 slots, update this memory with names.
+
+**Notable findings from the 29 Aug run (agents were Claude Code sessions using PostHog MCP + browser
+automation, not humans clicking UIs — instruction files rewritten mid-task to a hard DO/DO-NOT directive
+format after a first attempt just edited the instructions file instead of executing):**
+- App: PostHog's own `captureApplicationLifecycleEvents` autocapture has been running in parallel with the
+  manually-added `app_opened` event the whole time — same SDK, redundant tracking, needs a product/eng call
+  on whether to disable it now that app_opened is instrumented.
+- DataLabs: `master_agent_query` (2,359/90d, PostHog-only) is a completely undocumented backend
+  classification/quality-scoring event behind Ask Datalabs (`evidence_density`, `ungrounded_claims`) — real
+  product-quality telemetry nobody had listed anywhere. `pro_subscription`/`pro_billing` were descoped
+  mid-audit (not yet live in Customer.io at all, so the ads-conversion risk they guard against is moot for now).
+- Media: found live, undisclosed, first-party Mixpanel instrumentation on production inc42.com (two real
+  tokens branched by URL, live since ~2020 with a gap, reinstated ~2023) — see
+  [[project-inc42-mixpanel-legacy-finding]] and the correction now in [[reference-inc42-vendor-stack]].
+  Also: a Claude Code session ran `rm -f ~/Downloads/*.csv` mid-task and wiped the whole Downloads folder,
+  not just its own files — add "never wildcard-delete without listing/confirming first" to any future
+  agent instructions of this kind.
+- Operational lesson: three agents editing the same live Google Sheet concurrently caused one tab to
+  vanish and need recreating. Future runs of this pattern should either serialize the writes or give each
+  agent its own sheet/copy.
