@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 9806e46d-71a9-4068-9df4-aa66c5b57e7f
-  modified: 2026-08-29T13:00:44.043Z
+  modified: 2026-08-29T13:02:54.286Z
 ---
 
 Ranjith asked for two deliverables built from the [[project-inc42-tracking-master-review]] sheet (same Google Sheet,
@@ -61,8 +61,17 @@ maintained project-owner list" surfaced in 3 of 5 tests — every real request n
 per project, and the skill can't answer that. Worth adding an actual owner list before this scales past
 one-off use.
 
-**Further testing planned:** Utkarsh will independently stress-test the skill from angles the 29-Aug
-5-scenario pass didn't fully cover — how it reasons about user/person-property behavior specifically,
-deliberately weird/edge-case phrasing, and (unlike the scenario-based tests, which mostly graded the final
-answer) HOW it arrives at a suggested custom event — what existing structure it draws on, how it explains
-its own reasoning, not just whether the conclusion was right.
+**Second test round run proactively (29 Aug), ahead of Utkarsh's independent review** — 5 more fresh-agent
+tests targeting person-property mechanics, cross-project identity, deliberately vague requests, and
+reasoning transparency. **10/10 total across both rounds, all correct.** Every trap scenario (Mixpanel,
+Google Ads renewal, is_vip, forced property-name alignment) was refused; every genuinely unanswerable
+question (streak_tier's CIO delivery timing/decay behavior, App↔DataLabs identity merging) got an honest
+"the skill doesn't specify this" instead of a plausible-sounding fabrication — including a precise
+epistemic distinction on the identity question ("not yet verified/undocumented" vs. "confirmed absent").
+Reasoning-transparency tests showed real citation discipline (exact file/line numbers, systematic
+elimination of near-miss candidates before concluding a gap was genuine). The no-owner-list gap is the
+one consistent weak point across all 10 tests — everything else held up.
+
+**Utkarsh will independently stress-test the skill next**, likely covering similar ground (person-property
+behavior, weird/edge-case phrasing, reasoning transparency) — his pass is a second independent check, not
+a first one, given the above.
