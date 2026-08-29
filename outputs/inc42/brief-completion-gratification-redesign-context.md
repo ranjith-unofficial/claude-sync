@@ -514,6 +514,33 @@ the frame; a two-stop scrim left white text illegible on a light sky. V3 is the 
 articulation of "cut the noise" because it *shows* the noise being cut rather than saying
 it; V5 is the strongest proof that the product covers real companies and real money.
 
+## W5 — 15 refinements of the three strongest welcome directions
+
+Ranjith singled out **"Every corner of the Indian startup world."** as the line that works,
+asked for more sectors represented, and said "In one Brief, every morning" was too subtle —
+so the second line now carries the brand line **"Cut the noise. Get the Brief."** on almost
+every version. Sector coverage widened from 5 to 9-14 (fintech, e-commerce, SaaS,
+healthtech, edtech, logistics, mobility, agritech, consumer, gaming, AI, travel, D2C,
+cleantech), using Lucide icons throughout.
+
+**V1 SET · constellation** (row y=29005): 1a wider constellation (10 bubbles) · 1b tidy
+3×4 icon grid · 1c icons with sector names · 1d sector word-cloud (type only, varying
+size/opacity) · **1e orbit — eight sector bubbles circling a white "THE BRIEF" core.**
+1e is the strongest: it makes the value proposition *structural* — every sector feeds into
+one Brief — rather than asserting it in copy.
+
+**V2 SET · card stack** (row y=29950): 2a deeper stack with real headline and sector tags ·
+2b fanned hand of five · **2c single hero card** (white, orange top-rule, dateline, sector
+tags, newsroom credit) · 2d descending feed stack · 2e swipe deck with an 8-segment
+progress bar and "1 OF 8". 2c is the most credible — it looks like a real published
+artefact rather than a UI mock.
+
+**V3 SET · noise to signal** (row y=30895): 3a tighter funnel · 3b drawn funnel walls ·
+3c converging curves into one bright line · **3d side-by-side WITHOUT vs WITH INC42** ·
+3e noise as labelled chips (PR launches, listicles, press releases) collapsing into the
+Brief. 3d is the clearest read in one glance; 3e is the most *specific* about what the
+noise actually is, which makes the claim concrete rather than abstract.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
