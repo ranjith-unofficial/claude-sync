@@ -187,6 +187,38 @@ user (+1 today / 3 → 4), not a separate widget bolted on. Three builds:
 - **V14-3 Three Beats** — explicit `WE DID` / `YOU SAVED` / `YOU EARNED` section labels,
   hairline-separated, most legible structure, horizontal bars for the time contrast.
 
+## V15 / V16 — the 3-beat flow (current direction)
+
+Clutter was diagnosed as a symptom of forcing the whole arc onto one static screen, so
+it became a **flow**: `1 · THE MOMENT` → `2 · THE VALUE` → `3 · THE REWARD`.
+
+Two things the user said were missing and are now the spine:
+- **Effort + authenticity.** Not "15 published". The alternative is not merely slower, it
+  is *unverifiable* — the cost line reads "hunting across tabs — and sources you can't
+  vouch for", against "Reported first-hand. Checked before it reached you."
+- **Coverage completeness per opted-in sector.** Counted per sector (Fintech ✓ 5 /
+  E-commerce ✓ 3), so "this is what I asked for and I got all of it" is legible, with
+  "+N more worth knowing" for stories beyond the followed sectors.
+
+**V16 refinements after the user said V15-2 still wasn't compelling and V15-3's reward
+had no comparison:**
+- **Derive the number, never assert it.** V16-2 itemises work the reader recognises
+  doing — check six news sites 22 min / sort the PR from real news 18 / check who's
+  actually funded 15 / work out what it means 18 — and lets the 73 min total build
+  itself, then flips to a white card: "WITH INC42 / 78 seconds." The list doubles as the
+  authenticity argument, shown as labour rather than claimed.
+- **The streak must buy something.** V16-3 converts the streak into cumulative time
+  returned: "Four mornings has bought you 4 hrs 52 min of your own mornings, back",
+  with the arithmetic shown (73 min × 4 days), plus a forward hook ("a full day back
+  before the month is out"). Streak alone was a number going up; this gives it meaning.
+- **Quiet-sector edge case handled** (V16-1): a followed sector with no news renders as
+  "Cleantech — quiet today" with a dash instead of a tick, and is framed as valuable:
+  "Cleantech was quiet today — that's worth knowing too."
+
+⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
+~73 min figure by the streak length, so any error in the base estimate is amplified and
+displayed far more prominently. Measure ~73 min before shipping any cumulative version.
+
 ## Earlier hypothesis (superseded by V13/V14)
 
 The one thing that worked (Monarch) has **no badge, no seal, no percentile, no
