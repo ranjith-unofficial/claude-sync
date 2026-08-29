@@ -23,16 +23,20 @@
 - [Survey question design](feedback-survey-question-design.md) — funnel order, unaided-before-aided, functional recall not self-report, no unapproved options
 - [Stakeholder doc writing](feedback-stakeholder-doc-writing.md) — no em-dashes, no internal names, keep summary tables truly high-level, verify sourcing, verify doc pastes with a screenshot
 - [Asana ticket project tagging](feedback-asana-ticket-project-tagging.md) — Inc42 app tickets go in the Inc42 App project, not Product | Backlog; no "reported by Ranjith" in descriptions
+- [Entry-point instrumentation](feedback-entry-point-instrumentation.md) — don't infer which UI element fired an event from adjacency; check for a real distinguishing property first
+- [Push back in design discussions](feedback-push-back-in-design-discussions.md) — check proposals against data instead of validating each in turn; give concrete mockups not abstractions
+- [UI mockup: research first](feedback-ui-mockup-research-first.md) — browse Dribbble/real app screenshots before designing any UI mockup; never hide comparison variants behind a click-to-reveal toggle, show all at full scale
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — install base small; v2 scope closed 24 Aug, release 31 Aug, Sep target 5,000 installs/20% activation; team: Utkarsh, Ritvik, Animesh, Nityam, Amit
 - [INC42 app behaviour (post-launch data)](project-inc42-app-behaviour.md) — 189 real users 12–20 Aug; all brief loss at card 1 (45% advance); full article is a one-way door (94% never return); median 78s; push never fired
+- [INC42 app Explore deep-dive (25-29 Aug)](project-inc42-app-explore-deep-dive.md) — Explore article/company funnels healthy; search rage-loop is P0; calendar-vs-carousel entry points unmeasurable; segmentation: light Explore-first sessions retain best (70% D1); "Beyond Brief" homepage redesign resolved
 - [INC42 app critique by Ravi Kumar (21 Aug)](project-inc42-app-ravi-critique.md) — "what is Brief?" unanswerable; merge Brief+Explore; go vertical; iOS silent-push root cause
 - [INC42 app acquisition plan](project-inc42-app-acquisition.md) — 5 beta levers → public launch 25–26 Aug on Product Hunt; sizing/gates/attribution open
 - [INC42 app v2 release scope](project-inc42-app-v2-release.md) — PROPOSED: feature flags, app-update mechanics, feedback loop, Play ratings; don't force-update iOS until build ≥41
 - [INC42 ways of working](project-inc42-ways-of-working.md) — Asana Product Master/Backlog, daily standup, monthly/weekly plan, recurring-audit checklist
 - [Project: INC42 legal & compliance](project-inc42-legal-compliance.md) — T&C + Privacy Policy, 12 locked decisions, 7-day account-deletion model
-- [Project: INC42 content & personalization](project-inc42-content-personalization.md) — LOCKED ranking formula; 86% of articles have no sector → personalization is dead
+- [Project: INC42 content & personalization](project-inc42-content-personalization.md) — LOCKED ranking formula; the "86% no sector" figure is CORRECTED (was field-specific) — 67.7% of articles are fully company+sector tagged, 91% resolve in DataLabs
 - [Project: INC42 app structure](project-inc42-app-structure.md) — CONFIRMED IA: 3-tab nav (Brief/Explore/Watchlist), persistent header, brief-end carousel
 - [Project: INC42 AskInc42](project-inc42-askinc42.md) — ships before Pulse; v1 = brief-end swap + Watchlist/company page; artifact 065326a9
 - [AskInc42 — next week tasks](project-inc42-askinc42-next-week.md) — owner Ritvik Sethi; feature flags HALTED; v2 blocked on an API from Anmol
@@ -50,7 +54,7 @@
 - [INC42 app tracking links](reference-inc42-app-tracking-links.md) — store URLs, UTM→Singular mapping; referrer carries no campaign to GA4
 - [INC42 market maps (17 Aug)](project-inc42-market-maps.md) — indianvcs.com/maps + marketmapmaker.app; our edge is DataLabs data; intent unconfirmed
 - [INC42 PostHog review (17 Aug, CONFIRMED)](project-inc42-posthog-review.md) — dark/off-spec events, no internal-user exclusion; became 25 Aug events-fix ticket
-- [INC42 brief card images](project-inc42-brief-images.md) — sector-based images agreed 12 Aug; owner Anmol, unbuilt; 86% of articles have no sector
+- [INC42 brief card images](project-inc42-brief-images.md) — sector-based images agreed 12 Aug; owner Anmol, unbuilt; sector coverage claim CORRECTED, see [[project-inc42-content-personalization]]
 - [INC42 brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary is the ONLY 93%-covered field (sector 58%), bullet 2 is the payload, 2 of 3 dummy stat tiles uncomputable; real defect is row ORDERING (28% coherence), not the summary
 - [INC42 app deep linking](project-inc42-deep-linking.md) — newsletter links fail (Safari not app); root cause CIO click-tracker; fix via Singular
 - [INC42 analytics stitching architecture](project-inc42-analytics-stitching.md) — cookie-ID resolver web→app; keep PostHog workspaces separate, unify downstream
@@ -64,13 +68,14 @@
 - [INC42 Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 charge success 57.9% (was 73.7%); ~21/40 projected recovery, 0% shipped; artifact efaafcd9
 - [INC42 Morning Tape (daily brief)](project-inc42-morning-tape.md) — 7am IST cloud routine, 3 properties in one artifact
 - [INC42 Weekly Team Leads Sync](project-inc42-weekly-team-leads-sync.md) — cross-team status; 24 Aug: sector-tagging daily, Azure 1 month credits left
-- [INC42 app v2 — full scope, all sources](project-inc42-app-v2-scope-full.md) — reconciles 6 threads; flags data-contradicted items + two unreconciled scope lists
+- [INC42 app v2 — full scope, all sources](project-inc42-app-v2-scope-full.md) — reconciles 11 threads incl. new "Beyond Brief" homepage redesign (Thread 11); flags data-contradicted items + two unreconciled scope lists
 - [INC42 Salesforce evaluation](project-inc42-salesforce-evaluation.md) — 24 Aug scoping call, Data 360 + Marketing Cloud pitched; no decision
 - [26 Aug v2 scoping sync](project-inc42-app-v2-sync-26aug.md) — 5-page scope due 27 Aug; live bugs (race condition, iOS back-button build52)
 - [INC42 app feedback survey (WhatsApp)](project-inc42-app-feedback-survey.md) — 28 Aug redesign of Animesh's Tally form into a 15-Q funnel screener; sent, awaiting rebuild
 - [28 Aug design prompts for Satya](project-inc42-app-v2-satya-design-prompts.md) — 3 screens; rating-flow split required, sentiment-gating is a policy violation
 - [Brief gratification/explore redesign concept](project-inc42-app-brief-gratification-redesign.md) — from 3 Wispr calls (26-27 Aug); Brief→Gratification→Explore as separated beats, screen-by-screen spec
 - [INC42 app v2 stakeholder doc](project-inc42-app-v2-stakeholder-doc.md) — the authored 15-item stakeholder scope doc (Google Doc "V2 - Final" tab + artifact 00608a57); new decisions made while authoring (full-article tap-center, Explore split, heatmaps/session recordings added, dark mode appearance toggle, notifications folded into bugs)
+- [Explore tab (Articles+Companies) design direction](project-inc42-explore-articles-companies-design.md) — Brief-vs-Story naming RESOLVED (keep Brief), Companies cards = fixed shell not shape-per-signal (Crunchbase/Tracxn precedent); 8+8 UI-variation artifact, mid-iteration, NOT yet approved by Ranjith
 
 ## INC42 data warehouse
 - [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026, powers contact_360/company_360
@@ -105,3 +110,4 @@
 - [Aug 8 AI session plan](aug8_ai_session_plan.md) — 2nd-yr AI&DS workshop; pre-session survey done, remind re: post-session form
 - [Claude sync across Macs](reference-claude-sync-setup.md) — memory/skills/settings symlinked into iCloud + git backup; never run both Macs at once
 - [INC42 Asana IDs](reference-inc42-asana-ids.md) — workspace 176734136274, Inc42 App project 1216274779493698, Product | Backlog 1202454202198945, Ritvik Sethi user gid
+- [INC42 open ledger Google Sheet](reference-inc42-open-ledger-sheet.md) — ledger also lives as tab "Open Ledger (27 Aug)" in the "Test" spreadsheet (same one as App V2 Roadmap/Dunning tabs); CSV + Sheet now both need updating

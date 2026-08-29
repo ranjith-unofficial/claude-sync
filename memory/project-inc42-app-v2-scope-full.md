@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 59cedaa8-a793-4cf6-9ab8-edd7339fa0a4
-  modified: 2026-08-27T09:21:51.299Z
+  modified: 2026-08-29T07:46:33.761Z
 ---
 
 Built 2026-08-24 at Ranjith's request ("everything you know — all meetings, in-person discussion, previous documents — what should be in app v2"). Two scope threads exist and are **NOT reconciled with each other** — flag this to Ranjith/Utkarsh before treating either as complete.
@@ -147,6 +147,14 @@ Source: `~/Downloads/Inc42 App v2 Scope.md`. 11 workstreams, built directly on [
 **Genuinely new items to add to the tracking sheet**: #4 (dummy screen before 7am) and #9 (separating Datalabs) have no prior representation anywhere in Threads 1–9. #2 (Datalabs fixes, undefined) and #7 (Singular setup revision) should be added as their own explicit rows rather than left folded into other items.
 
 **Open questions the doc itself flags, still unresolved as of 19 Aug:** what exactly is broken in #2 · full scope/intent of #9 · owners for #4/#8/#10/#11 (Satya?) · confirm P0 order is #1/#6/#7 · #11 fix-tagging vs generic-fallback vs dark-mode-only · #4 countdown vs show-previous.
+
+## Thread 11 — "Beyond Brief" homepage redesign, design conclusion reached 29 Aug via PostHog deep-dive
+Source: [[project-inc42-app-explore-deep-dive]]. Not yet raised in a Utkarsh-facing meeting — a design conversation Ranjith worked through directly, resulting in a concrete resolved proposal:
+- Remove the calendar strip from the Brief home page; consolidate to the "Past Briefs" carousel as the sole past-navigation entry point (both currently exist, split is unmeasurable — see the deep-dive memory).
+- Add unread/started/read visual states to Past Briefs cards, derivable from existing `brief_opened`/`brief_completed` events, no new instrumentation needed.
+- Add a "companies mentioned in today's brief" module, framed as a standalone unit ("Today's Startup Movers," not "Mentioned today" — the latter presupposes brief-reading context the target non-Brief-reading audience won't have), using real cards (name + one fact) not bare chips, placed directly below the Today's Edition card so it's visible without completing or even opening the brief.
+- Sequencing: ship the calendar/Past-Briefs consolidation first (low risk), the companies-mentioned module second (needs a company-name alias table + source-tagging + editorial sign-off on sensitive mentions first), a rotating "Beyond Brief" filter-teaser last (needs a content-freshness rule from Content/DataLabs that doesn't exist yet).
+- This directly unblocks on the sector/company-tagging correction in [[project-inc42-content-personalization]] — previously thought infeasible, now confirmed viable (67.7% of articles fully tagged, 91-94% DataLabs match rate).
 
 ## Possible unreconciled overlap — flag, don't assume
 **"B2"** ([[project-inc42-app-placement]], 10 Aug, owner Satya) — placing Inc42 editorial/news content inside the app, design-only so far. This sounds like it could be the same initiative as Thread 1 #1 (Explore → News rename, more prominence to the news section) under an earlier working name, or it could be a separate, narrower placement decision. Never explicitly reconciled in any session since. Ask Ranjith/Satya directly before assuming either.

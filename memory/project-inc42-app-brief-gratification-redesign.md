@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 43f2af93-d997-425d-ace1-dc28c1bcdd2e
-  modified: 2026-08-28T13:23:28.765Z
+  modified: 2026-08-29T07:47:36.147Z
 ---
 
 Source: 3 Wispr Flow recordings — **"Optimizing Wispr Brief Design"** (27 Aug 2026, 07:53-08:11 IST, meeting id `1f7caee8-771c-4b9f-b523-21c6e0f0c018`), **"Brief Card Design Refresh"** (26 Aug, `b83ed5f9-51b0-4cac-9dd9-4b604261f7da`), **"Improving Brief Page Conversion"** (26 Aug, `669e5f6a-29ea-451e-8ced-655fdc2d5b65`). Drafted into a Slack message for Satya + Rithvik. Supplements [[project-inc42-app-v2-scope-full]] and [[project-inc42-app-v2-sync-26aug]] with more concrete, screen-level detail from the actual transcripts (not just meeting-notes summaries).
@@ -20,7 +20,7 @@ Source: 3 Wispr Flow recordings — **"Optimizing Wispr Brief Design"** (27 Aug 
 - Header (date/greeting) currently too visually dominant over brief content — needs a more refined pass.
 - Calendar/past-briefs: don't remove outright — collapse behind a small "past briefs" pill button, only expand on tap. Validate real usage before cutting it.
 - Sector chips (e.g. e-commerce/fintech/pain-tech row) must route to the actual article/topic, not be decorative — confirmed dead-click risk.
-- "Brief" as a word may not land with news readers — "story"/"quick read" floated, not decided.
+- "Brief" as a word may not land with news readers — "story"/"quick read" floated, not decided. **Resolved 27-29 Aug in the Explore-tab design-direction thread** — see [[project-inc42-explore-articles-companies-design]]: keep "Brief" (Quartz Daily Brief precedent), fix via a segmented Instagram/Snapchat-style progress bar instead of a rename; "Story" would collide with Inc42's own tag vocabulary.
 
 **Inside the brief (story cards)**
 - Tap to advance, not scroll — final.
