@@ -1,5 +1,5 @@
 {
-  "model": "sonnet",
+  "model": "opus[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -26,13 +26,13 @@
       }
     ]
   },
+  "enabledPlugins": {
+    "posthog@claude-plugins-official": true
+  },
   "effortLevel": "high",
   "tui": "fullscreen",
   "theme": "dark",
   "remoteControlAtStartup": false,
   "autoUploadSessions": false,
-  "agentPushNotifEnabled": true,
-  "enabledPlugins": {
-    "posthog@claude-plugins-official": true
-  }
+  "agentPushNotifEnabled": true
 }
