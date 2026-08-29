@@ -234,6 +234,23 @@ had no comparison:**
   pre-publish 2, signed Inc42 Newsroom). Each mode needs a real backing field
   (reporting hours, claims checked, corrections) or that mode must not fire that day.
 
+## V18 — the rail is SECTORS, with segmented rings
+
+- **"Also worth knowing" is sector-level, not company-level.** The rail answers "what
+  happened in the sectors I don't follow" — Travel Tech, Healthtech, SaaS, D2C — rather
+  than naming individual companies. Header reads `ELSEWHERE TODAY` / `10 STORIES`.
+- **Segmented rings: one arc per story.** A sector with 3 stories renders as a 3-segment
+  ring, 4 stories as 4, 1 story as a near-full ring — so story volume per sector is
+  countable at a glance before tapping, using the familiar unread-story-ring convention.
+  Implemented with `ellipse.arcData` (startingAngle / endingAngle / innerRadius), one
+  ellipse per segment with a small angular gap between them.
+- **Drawn sector icons** (vector, no asset dependency): paper plane = Travel Tech, plus =
+  Healthtech, stacked layers = SaaS, shopping bag = D2C. Note: the first bag attempt read
+  as a padlock — fixed by making the body a trapezoid (wider at top) with the handle arc
+  clear above it. Any new sector icon needs the same read-check.
+- **Inc42 masthead** added at the top of beat 1 (wordmark, letter-spaced, hairline rule
+  beneath), so the branding sits on the screen without a badge or seal.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
