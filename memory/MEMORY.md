@@ -66,6 +66,7 @@
 - [INC42 tracking master sheet review (27 Aug)](project-inc42-tracking-master-review.md) — Scroll Depth (Paused) contradicts strategy, no employer property, zero Ask instrumentation
 - [INC42 analytics team briefs (28 Aug)](project-inc42-analytics-team-briefs.md) — 4-employee PostHog/CIO dark-events audit + intern knowledge-base brief; artifact at ~/ClaudeDocs/inc42/
 - [INC42 Mixpanel legacy finding (29 Aug)](project-inc42-mixpanel-legacy-finding.md) — live undisclosed first-party Mixpanel on inc42.com since 2023, unconfirmed PII exposure, contradicts vendor-stack "verified" note
+- [INC42 Mixpanel GTM tag forensics (29 Aug)](project-inc42-mixpanel-gtm-tag-forensics.md) — 7 of 37 tags leak PII, Amplitude dead/blocks Plus Subscribed leak, dated floor ≥Jul 2024, no GTM access to contain
 - [INC42 Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 charge success 57.9% (was 73.7%); ~21/40 projected recovery, 0% shipped; artifact efaafcd9
 - [INC42 Morning Tape (daily brief)](project-inc42-morning-tape.md) — 7am IST cloud routine, 3 properties in one artifact
 - [INC42 Weekly Team Leads Sync](project-inc42-weekly-team-leads-sync.md) — cross-team status; 24 Aug: sector-tagging daily, Azure 1 month credits left
