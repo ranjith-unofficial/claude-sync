@@ -420,6 +420,33 @@ Four replacements built **in the draft file** (row y=23335), to be moved across:
   8:01 AM."* Highest-conviction for a founder/VC, but depends on a live daily ₹ figure and
   needs a quiet-day fallback.
 
+## W2 — welcome screens, minimal copy (current set)
+
+**V24 is FINALISED** for the completion screen (state-dependent streak pill on Ranjith's
+tightened R5 layout). Welcome-screen work continues from there.
+
+Feedback that shaped this set: too much text kills attention — few words, but impactful;
+drop the faint blurred paper/geometric background shapes; and do **not** reuse the same
+layout — image and button placement can differ entirely, as long as colour and type stay
+on brand. Five built (draft file, row y=24280), each under ~10 words of body copy and no
+two sharing a structure:
+- **A · The Number** — a 250px "8", then *"stories a morning. That's the whole thing."*
+  CTA floats mid-lower, not glued to the bottom.
+- **B · Photo Split** — full-bleed photograph across the top 430px with a real headline
+  over a scrim, orange lower half, *"Caught up by 8:01."*, and a **full-width black CTA bar
+  flush to the bottom edge** (no margin) — the biggest layout departure.
+- **C · Sector Grid** — six sector cards (two shown selected in white, four unselected),
+  *"Your sectors. Covered daily."* CTA below the grid.
+- **D · Type Poster** — no imagery at all: `8 STORIES` / `90 SECONDS` / `0 MISSED` stacked
+  as left-aligned rules, the zero in peach. White CTA on orange. Six words total.
+- **E · The Card** — a single large tilted brief card with photo, real headline and sector
+  tags, floating on orange; *"This. Every morning."* Shows the product with no phone frame.
+
+**Images:** `upload_assets` works — request N upload URLs with `nodeIds`, then POST the
+bytes as multipart `file=@...` to each `submitUrl`; the image is placed as a fill on the
+target node automatically. Photos in B and E are placeholder imagery (Picsum) and must be
+swapped for Inc42's own art before use.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
