@@ -51,7 +51,7 @@ The user was looking for Shiprocket. Inc42 has 522 articles matching "shiprocket
 
 Same query length, same content behind it — only the typing speed differs. Rows for 9+ chars have n=3–12 and are noise.
 
-**The backing API rate-limits by IP and the penalty persists.** In testing, a burst of 25 back-to-back requests returned **25× HTTP 429**, and the block persisted for several minutes afterwards, affecting the browser on the same IP too. (This block was induced by deliberately abnormal load — but an app firing one request per keystroke, across users sharing office or carrier NAT, is exposed to exactly this.)
+**The backing API rate-limits by IP and the penalty is long-lived.** In testing, a burst of 25 back-to-back requests returned **25× HTTP 429**, after which every request from that IP — including from a normal browser session on the same connection — was refused for **over 20 minutes continuously**. This is not a short cooldown; a client that trips the limit is locked out well beyond a single session. (This block was induced by deliberately abnormal load — but an app firing one request per keystroke, across users sharing office or carrier NAT, is exposed to exactly this.)
 
 ---
 
