@@ -24,4 +24,13 @@ Investigated 30 Aug 2026 with live API replay + PostHog. **The dominant cause of
 
 Deliverable: `~/ClaudeDocs/inc42/app-search-root-cause.md` — staged fix plan (client-side debounce/error-state first, then AND-first query semantics, then coverage + engine replacement).
 
+
+**Cross-POV extension (30 Aug, same session).** Tested all three surfaces, not just the app:
+- **Inc42 Media (articles)** = WordPress `LIKE '%term%'`, no word boundaries, date-ordered, p50 ~5.0s. `EMS` returns **16,860** articles (matches syst-ems/it-ems), `chai` returns **13,110** (matches chai-rman), `Accel` 9,419 (accel-erator). No aliases: `Zomato` 4,695 vs `Eternal Limited` 115; `Zepto` 1,400 vs `Zepto Pvt Ltd` 39.
+- **DataLabs web** = 5,913 searches by 686 users in 30d (10x the app), and `Search Completed` carries **no result count and no latency** — failure rate is entirely unmeasurable there.
+- **Biggest product gap: intent is thematic, engine is entity-only.** `fintech` is the #1 DataLabs web query (15 distinct users); `ai startups`, `series a`, `unicorns`, `health`, `solar` all in the top 70. App equivalent is the cleantech cluster (green hydrogen, carbon credit, BESS). Entity search matches name only, so all of these return nothing useful.
+- **Rate-limit lockout is host-wide and long:** after tripping it, EVERY `datalabs-api.inc42.com` endpoint (global-search, new-search, factsheet, tooltip) was refused from that IP for 30+ min, from a normal browser too; the DataLabs company list renders empty. (I induced it with abnormal load — thresholds unknown, behaviour verified.)
+
+Master deliverable: `~/ClaudeDocs/inc42/inc42-search-diagnosis-and-plan.md` — supersedes the app-only doc. Contains the Typesense index schema, query plan (AND-first, exact>prefix>token>typo, relevance floor, no token-dropping), typed grouped response shape, 4-stage rollout, and acceptance criteria.
+
 Relates to [[project-inc42-app-explore-deep-dive]] (search rage-loop P0), [[project-inc42-app-analytics-audit]], [[feedback-validation-approach]].
