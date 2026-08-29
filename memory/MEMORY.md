@@ -78,7 +78,8 @@
 - [INC42 app v2 — full scope, all sources](project-inc42-app-v2-scope-full.md) — reconciles 11 threads incl. new "Beyond Brief" homepage redesign (Thread 11); flags data-contradicted items + two unreconciled scope lists
 - [INC42 Salesforce evaluation](project-inc42-salesforce-evaluation.md) — 24 Aug scoping call, Data 360 + Marketing Cloud pitched; no decision
 - [26 Aug v2 scoping sync](project-inc42-app-v2-sync-26aug.md) — 5-page scope due 27 Aug; live bugs (race condition, iOS back-button build52)
-- [INC42 app feedback survey (WhatsApp)](project-inc42-app-feedback-survey.md) — 28 Aug redesign of Animesh's Tally form into a 15-Q funnel screener; sent, awaiting rebuild
+- [INC42 app feedback survey (WhatsApp)](project-inc42-app-feedback-survey.md) — 28 Aug redesign of Animesh's Tally form into a 15-Q funnel screener; live, 4 responses as of 30 Aug
+- [INC42 app user interviews (30 Aug)](project-inc42-app-user-interviews.md) — only 4 screener responses, all launch cohort; contradictions + 30/45-min interview guide, run order Mohit→Amal→Kishore→Sastry
 - [28 Aug design prompts for Satya](project-inc42-app-v2-satya-design-prompts.md) — 3 screens; rating-flow split required, sentiment-gating is a policy violation
 - [Brief gratification/explore redesign concept](project-inc42-app-brief-gratification-redesign.md) — from 3 Wispr calls (26-27 Aug); Brief→Gratification→Explore as separated beats, screen-by-screen spec
 - [INC42 app v2 stakeholder doc](project-inc42-app-v2-stakeholder-doc.md) — the authored 15-item stakeholder scope doc (Google Doc "V2 - Final" tab + artifact 00608a57); new decisions made while authoring (full-article tap-center, Explore split, heatmaps/session recordings added, dark mode appearance toggle, notifications folded into bugs)

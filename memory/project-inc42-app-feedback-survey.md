@@ -34,6 +34,8 @@ Ranjith wants to gather feedback from Inc42 App users via WhatsApp: collect basi
 12. Interest + incentive ask (Yes/No, DataLabs Pro stated plainly)
 13-15. Name, WhatsApp number, preferred day/time
 
+**UPDATE 30 Aug 2026**: the form went live and collected responses into the Google Sheet "Inc42 App | Feedback" (id `10ftNlSE1RtGXVjFXlskr0CQIjeXqGlPB28VwJ94kEh8`). Only **4 responses** as of 30 Aug. The shipped version kept most of the redesigned set but **dropped the interview-consent question**. Respondents, contradictions and the interview guide are in [[project-inc42-app-user-interviews]].
+
 **Status**: Ranjith sent Animesh a short message pointing to the revised questions + a summary of what was missing (functional recall vs self-report, funnel ordering, dropped file-upload/"add to Explore" questions). Awaiting Animesh to rebuild in Tally; Ranjith will review before it goes out. Ritvik is cc'd on the Slack thread but not yet directly involved in this specific form.
 
 **How to apply**: when asked about this form's status, check whether Animesh has rebuilt it before assuming the old 9-question version is still live. If asked to extend or re-open this design, reuse the methodology in [[feedback-survey-question-design]] rather than re-deriving from scratch.
