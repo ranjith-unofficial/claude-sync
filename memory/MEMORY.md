@@ -51,6 +51,7 @@
 - [INC42 market maps (17 Aug)](project-inc42-market-maps.md) — indianvcs.com/maps + marketmapmaker.app; our edge is DataLabs data; intent unconfirmed
 - [INC42 PostHog review (17 Aug, CONFIRMED)](project-inc42-posthog-review.md) — dark/off-spec events, no internal-user exclusion; became 25 Aug events-fix ticket
 - [INC42 brief card images](project-inc42-brief-images.md) — sector-based images agreed 12 Aug; owner Anmol, unbuilt; 86% of articles have no sector
+- [INC42 brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary is the ONLY 93%-covered field (sector 58%), bullet 2 is the payload, 2 of 3 dummy stat tiles uncomputable; real defect is row ORDERING (28% coherence), not the summary
 - [INC42 app deep linking](project-inc42-deep-linking.md) — newsletter links fail (Safari not app); root cause CIO click-tracker; fix via Singular
 - [INC42 analytics stitching architecture](project-inc42-analytics-stitching.md) — cookie-ID resolver web→app; keep PostHog workspaces separate, unify downstream
 - [INC42 funnel analysis](project-inc42-funnel-analysis.md) — QIA ~2,100 is a 90d floor; identification cliff (web 0.42%/DataLabs 0.16%); artifact dfd082a1
