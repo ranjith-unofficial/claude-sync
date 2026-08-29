@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 9806e46d-71a9-4068-9df4-aa66c5b57e7f
-  modified: 2026-08-29T10:11:08.423Z
+  modified: 2026-08-29T10:21:11.215Z
 ---
 
 During the [[project-inc42-analytics-team-briefs]] Media audit, Ranjith flagged a live Mixpanel POST as
@@ -33,8 +33,20 @@ Apple nutrition-label disclosures and [[project-inc42-legal-compliance]] / [[pro
 provider lists. An undisclosed vendor silently collecting site-wide browsing data for years is a
 compliance exposure, not just a stale spreadsheet row.
 
-**How to apply:** don't treat "Mixpanel isn't used" as current fact anywhere (Play Data Safety copy,
-DPDP scoping, vendor lists) until this is resolved. Before anyone removes the script, the GTM tag/trigger
-behind the `.track()` call needs to be found and checked for PII — removing it blind loses the chance to
-audit what's already been collected. Whoever owns DPDP compliance scoping should probably be looped in
-directly rather than this staying inside the analytics-audit thread.
+⚠ **CONFIRMED 29 Aug 2026 — this is an active PII exposure, not a hypothetical.** Traced the compiled GTM
+container (GTM-WBHJLKR, publicly served): 37 Custom HTML tags reference Mixpanel, each gated on a Custom
+Event trigger (`dataLayer.push({event: "<name>"})`). Resolved 6 so far, all confirmed sending full PII via
+`mixpanel.identify(email)` + `mixpanel.people.set(...)`: **Plus Subscribed, Newsletter Subscribed, Form
+Submission, Login, Plus Onboarding, Inc42 Onboarding.** The Login tag alone fires ~10,500×/90 days — this
+is routine, continuous exposure, not a rare conversion-moment leak. Payload per event: email (as
+distinct_id), phone, first/last/full name, seniority, designation, company name, personal/work email, UID
+— built from the same shared props object also confirmed feeding GA4 ("App Banner Viewed") and, per code
+reference only (live execution unconfirmed as of 29 Aug), possibly Amplitude too.
+
+**How to apply:** this is no longer analytics-audit housekeeping. Two parallel tracks needed: (1) technical
+containment — pause the identified GTM tags, low-risk single-container-publish action; (2) compliance/legal
+escalation — loop in whoever owns [[project-dpdp-compliance]] directly, today. Don't treat "Mixpanel isn't
+used" as current fact anywhere (Play Data Safety copy, DPDP scoping, vendor lists) until this is resolved.
+Exposure-window scoping (when these specific GTM tags were published — separate from the base `<script>`
+init block's ~2023 Wayback date) and the remaining 31 tags' PII-leak status were still being investigated
+as of 29 Aug — check for updates before treating the incident as fully scoped.
