@@ -251,6 +251,30 @@ had no comparison:**
 - **Inc42 masthead** added at the top of beat 1 (wordmark, letter-spaced, hairline rule
   beneath), so the branding sits on the screen without a badge or seal.
 
+## V19 — the report-card pattern (from a Cult.fit reference)
+
+Reference supplied by Ranjith: a Cult.fit post-class "Reports" screen — session header
+(class name, date, duration), a dark card carrying a logo-in-burst, "You did great
+today!", a 2×2 stat tile grid (duration / class rank / energy score / calories), and
+SHARE YOUR ACHIEVEMENT as the primary CTA. Saved at
+`~/Downloads/WhatsApp Image 2026-08-29 at 20.48.01.jpeg`.
+
+What was borrowed, and what was deliberately not:
+- **Achievement lives on a distinct CARD**, an object sitting on the page rather than
+  being the page — a deep-ink card on the brand orange, which also supplies the depth
+  and contrast earlier rounds kept asking for.
+- **2×2 stat tile grid** carries several dimensions at once instead of one hero number:
+  READ TIME 78 sec / STORIES READ 8 / SECTORS COVERED 2 of 2 / DAY STREAK 4 (streak
+  tinted gold). This is the most direct answer to "tell me what I achieved".
+- **Session-record framing** — "TODAY'S BRIEF · FRI 29 AUG · 8 STORIES" gives it the
+  quality of a record you accumulate.
+- **Sharing was NOT copied wholesale.** For a founder/VC audience "I read the news" is
+  not socially shareable — it signals nothing. So the daily card's CTA is *Save today's
+  report* (private record), and the SHARE flow is reserved for **streak milestones**
+  (day 7 / 30 / 100), where diligence is the thing actually worth signalling: a portrait
+  orange asset — "30 MORNINGS / Nothing that mattered in Indian startups got past me" +
+  Inc42 wordmark — with WhatsApp / LinkedIn / X / Copy targets.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
