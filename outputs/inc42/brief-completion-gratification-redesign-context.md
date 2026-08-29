@@ -336,6 +336,39 @@ rather than the reader: bigger, defensible, and the same for everyone.
 - **E · Proportion Bar** — one track for everything published with a bright sliver for the
   brief: "You read the 7% that mattered." Most intuitive at a glance.
 
+## V23 — stakes not effort, ring-framing options, real icons
+
+**1. New value line: STAKES, not effort.** Every prior attempt measured the *cost avoided*
+(time, words, newsroom hours). For a founder/VC the more persuasive thing is what they now
+KNOW — the size of the activity they are on top of: **"₹2,400 Cr of funding news in your
+sectors · 3 IPO filings · 2 acquisitions · 8 stories."** Crucially this needs no new
+tracking and no timing of the user: funding amounts, IPO filings and acquisitions are
+already attached to articles in DataLabs. Alternative framing built as R5 — consequence:
+*"Skip a morning and you'd have missed 3 funding rounds in the sectors you follow —
+worth ₹2,400 Cr."*
+
+**2. Ring-centre framings built for comparison** (ring geometry identical, 7 segments,
+4 lit — only the centre label changes):
+- **R1** `4 / DAY STREAK` — streak only
+- **R2** `4 / OF 7 THIS WEEK` — week progress (the V21 original)
+- **R3** `3 / MORNINGS TO GO` — remaining framing
+- **R4** `4 / DAY STREAK` + `4 of 7 this week` — both, streak leading
+- **R5** `4 / DAY STREAK` + a `BEST · 12` pill — adds personal record as a second
+  gratification dimension
+Note the ring itself always encodes the WEEK; only the number's meaning changes. R4 is the
+only one where the number and the ring can disagree once a streak exceeds 7 days — needs
+a rule for streak > 7 (ring stays weekly, number keeps climbing).
+
+**3. Real icons.** Sector icons are now genuine **Lucide** icons (ISC-licensed) — plane,
+heart-pulse, cloud, shopping-bag — fetched from the pinned CDN
+(`unpkg.com/lucide-static@0.544.0/icons/<name>.svg`) and rendered via
+**`figma.createNodeFromSvg()`**, then `rescale()`d and centred. Important technique note:
+Figma's `vectorPaths` parser rejects both commas and arc (`a`) commands, so hand-passing
+SVG path data fails — `createNodeFromSvg` handles full SVG properly and is the right tool
+for any real icon set.
+
+**4. Copy:** "ELSEWHERE TODAY" → **"WHAT ELSE MOVED TODAY"**.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
