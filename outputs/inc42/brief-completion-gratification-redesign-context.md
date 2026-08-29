@@ -447,6 +447,44 @@ bytes as multipart `file=@...` to each `submitUrl`; the image is placed as a fil
 target node automatically. Photos in B and E are placeholder imagery (Picsum) and must be
 swapped for Inc42's own art before use.
 
+## W3 — welcome screens, research-led (current set)
+
+Ranjith's rejections of the W2 set, all confirmed as real anti-patterns by Mobbin research:
+- **"8 stories a morning — what is stories?"** Feature-nouns mean nothing to a first-time
+  user. SCMP does exactly this ("five must-read articles curated for you daily") and it is
+  the same trap.
+- **Hard counts are misleading** — "8 stories / 90 seconds" breaks when a weekly recap runs
+  10+. Finimize's "**minutes a day**" is the pattern that never breaks.
+- **Pre-selected sector cards were rejected** — every app that shows topic chips (Medium,
+  Perplexity, Bluesky) makes it a *real interactive step* with its own Save/Next. The
+  rejected grid borrowed the affordance without the function.
+- The product is **more than Brief** — articles, company pages, DataLabs — and the welcome
+  screen must convey that breadth without a feature list.
+
+**Research findings that drove the redesign:**
+- Serious news apps are **type-only, no mockup**: NYT *"Understand your world."*, X *"See
+  what's happening"*. The promise is about the reader's state, never the app's mechanics.
+- **A triad conveys breadth without a spec sheet** — Fidelity *"Invest. Save. Spend. Plan."*
+  Here **"the news, the companies, the numbers"** signals articles / company pages /
+  DataLabs without naming a single feature.
+- FotMob *"Changing how you follow football."* is the closest structural model — wordmark,
+  one sentence, one button.
+- Product screenshots are the minority in professional apps; they appear mainly in consumer
+  fintech.
+
+**Five built** (draft file, row y=25225), all type-led, zero counts, no chips, cadence
+stated as "every morning":
+- **A · NYT model** — *"Know what's moving Indian startups."* + the triad as subhead.
+- **B · Triad hero** — "The news. / The companies. / The numbers." stacked large, third line
+  in peach, then *"All of it, every morning."*
+- **C · One sentence** — *"Changing how you follow Indian startups."* Nothing else.
+- **D · Type as image** — "Know what's moving." at 78px, "moving." in peach.
+- **E · Masthead** — newspaper rules + "REPORTING INDIAN STARTUPS SINCE 2014" +
+  *"Understand the Indian startup ecosystem."*
+
+Craft note: setting a line to ~0.5 white opacity to de-emphasise it reads as **disabled**,
+not as an accent. Use the peach accent colour at full opacity instead.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
