@@ -1,12 +1,20 @@
 ---
 name: project-inc42-datalabs-onboarding-cio-crosscheck
-description: "In-progress CIO-vs-PostHog onboarding completion sync cross-check for the DataLabs audit — what's done, what's still open"
+description: "RESOLVED — CIO-vs-PostHog onboarding completion sync cross-check for the DataLabs audit, properly scoped to the completer cohort"
 metadata: 
   node_type: memory
   type: project
   originSessionId: 89944606-7a76-4026-a114-806b40d5dc68
-  modified: 2026-08-29T10:46:02.682Z
+  modified: 2026-08-29T13:21:46.119Z
 ---
+
+RESOLVED 2026-08-29. Final answer: of the 1,988 CIO profiles matched to the PostHog completer sample, 968 have `Datalabs Onboarding Complete = Yes` in Customer.io — **48.7% synced / 51.3% broken**, properly scoped to the same completer cohort PostHog used. This refutes the sheet's exact "66% broken" figure (actual breakage is materially lower, ~51%) but confirms real, substantial breakage exists — roughly half of confirmed onboarding completions never land correctly in CIO. Sheet remark should be updated to this measured number + methodology (2,000/5,082 alphabetic sample → CIO manual segment id 24 → intersected with the attribute filter via CIO's segment builder, using the ref-click workaround for its phantom-row UI bug), not the old 68%-of-all-profiles figure.
+
+Also resolved: checked PostHog project 146258 (Inc42 App) full event schema for an AskInc42 equivalent to `master_agent_query` — none exists. App side has only client search events (`search_performed`/`search_initiated`/`search_result_tapped`), no backend query-classification/quality-scoring event at all. Confirms App's Ask feature has zero backend telemetry today.
+
+Housekeeping still open: temporary CIO segment "[Analysis] PostHog onboarding-completers sample - 29 Aug 2026" (id 24, DataLabs workspace 208719) was left in place per its own "safe to delete after review" description — not deleted, flagged to user.
+
+--- Original mid-task notes below (kept for method detail) ---
 
 Mid-task state as of 2026-08-29, DataLabs analytics audit follow-up (session interrupted while building the CIO cross-filter segment).
 
