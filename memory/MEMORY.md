@@ -68,7 +68,7 @@
 - [DataLabs onboarding CIO cross-check — IN PROGRESS](project-inc42-datalabs-onboarding-cio-crosscheck.md) — PostHog 99.03% confirmed; CIO-side segment (id 24) built, final % blocked on a CIO segment-builder UI bug; resume from there
 - [INC42 app analytics audit (29 Aug)](project-inc42-app-analytics-audit.md) — push_delivered/decode confirmed dead, push_opened near-dead, 4 of 9 sheet bugs fixed; "Application ___" events are PostHog SDK's own duplicate autocapture (same $lib as app_opened)
 - [INC42 Mixpanel legacy finding (29 Aug)](project-inc42-mixpanel-legacy-finding.md) — live undisclosed first-party Mixpanel on inc42.com since 2023, unconfirmed PII exposure, contradicts vendor-stack "verified" note
-- [INC42 Mixpanel GTM tag forensics (29 Aug)](project-inc42-mixpanel-gtm-tag-forensics.md) — 7 of 37 tags leak PII, Amplitude dead/blocks Plus Subscribed leak, dated floor ≥Jul 2024, no GTM access to contain
+- [INC42 Mixpanel GTM tag forensics (29 Aug)](project-inc42-mixpanel-gtm-tag-forensics.md) — GA4 leaks same PII sitewide (Google ToS risk, top priority) > Mixpanel 7/37 tags; need named GTM-publish owner
 - [INC42 Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 charge success 57.9% (was 73.7%); ~21/40 projected recovery, 0% shipped; artifact efaafcd9
 - [INC42 Morning Tape (daily brief)](project-inc42-morning-tape.md) — 7am IST cloud routine, 3 properties in one artifact
 - [INC42 Weekly Team Leads Sync](project-inc42-weekly-team-leads-sync.md) — cross-team status; 24 Aug: sector-tagging daily, Azure 1 month credits left
