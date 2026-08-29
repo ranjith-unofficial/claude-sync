@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 9806e46d-71a9-4068-9df4-aa66c5b57e7f
-  modified: 2026-08-29T11:56:39.706Z
+  modified: 2026-08-29T13:00:44.043Z
 ---
 
 Ranjith asked for two deliverables built from the [[project-inc42-tracking-master-review]] sheet (same Google Sheet,
@@ -60,3 +60,9 @@ uncertain point across all 5 tests was flagged honestly rather than guessed. One
 maintained project-owner list" surfaced in 3 of 5 tests — every real request needs to know who signs off
 per project, and the skill can't answer that. Worth adding an actual owner list before this scales past
 one-off use.
+
+**Further testing planned:** Utkarsh will independently stress-test the skill from angles the 29-Aug
+5-scenario pass didn't fully cover — how it reasons about user/person-property behavior specifically,
+deliberately weird/edge-case phrasing, and (unlike the scenario-based tests, which mostly graded the final
+answer) HOW it arrives at a suggested custom event — what existing structure it draws on, how it explains
+its own reasoning, not just whether the conclusion was right.
