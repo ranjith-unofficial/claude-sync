@@ -305,6 +305,37 @@ background orange). Always render-check small icons at actual size.
 ships, that recap must exist by day 7 — a broken unlock costs more trust than never
 promising one.
 
+## V22 — solving the read-time measurement problem
+
+**The problem Ranjith raised:** measured read time is fragile to compute. A user opens
+the brief, backgrounds it, comes back, reads a few cards, leaves, finishes later.
+Stitching that into an honest per-user number is hard, easy to get wrong, and easy to
+inflate accidentally.
+
+**The fix: stop measuring the user, measure the content.** Every metric below is computed
+at publish time from the articles themselves — identical for every reader, no timers, no
+session stitching, no backgrounding edge cases:
+- **Word counts** — exact, already in the CMS. `12,400 words published → 840 in your brief`.
+- **Reading-time estimates** — the standard words-per-minute convention every publisher
+  already uses ("5 min read"). Label it as an estimate, never as a stopwatch.
+- **Compression ratio** — derived from the two word counts, so it needs no new data.
+- Only **editorial hours** (the "6 hrs reporting" framing) needs a new field editorial
+  would have to track; everything else is already computable today.
+
+This is also a *better* number than measured read time, because it describes the articles
+rather than the reader: bigger, defensible, and the same for everyone.
+
+**Five treatments built (V22-A…E), identical screen, only the value block differs:**
+- **A · Words Condensed** — two stacked bars, 12,400 vs 840 words, "Same day. 15× fewer words."
+- **B · Reading Estimate** — `47 min → 90 sec`, with the honest footnote "estimated from
+  word count — not a stopwatch".
+- **C · Editorial Effort** — `6 hrs reporting / 47 min of writing / 90 sec for you` +
+  "Our newsroom did the reading, and handed you the short version." Best expression of the
+  editorial-labour framing, but needs the reporting-hours field to exist.
+- **D · Compression Ratio** — `15×` as a hero stat, word counts as the supporting line.
+- **E · Proportion Bar** — one track for everything published with a bright sliver for the
+  brief: "You read the 7% that mattered." Most intuitive at a glance.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
