@@ -21,6 +21,7 @@
 - [Interview feedback format](feedback-interview-feedback-format.md) — plain-language summary for HR + PM-lens detail, both together
 - [Sheets clipboard paste safety](feedback-sheets-clipboard-paste-safety.md) — verify OS clipboard content right before every paste into a Sheet, not just once
 - [Survey question design](feedback-survey-question-design.md) — funnel order, unaided-before-aided, functional recall not self-report, no unapproved options
+- [Stakeholder doc writing](feedback-stakeholder-doc-writing.md) — no em-dashes, no internal names, keep summary tables truly high-level, verify sourcing, verify doc pastes with a screenshot
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — install base small; v2 scope closed 24 Aug, release 31 Aug, Sep target 5,000 installs/20% activation; team: Utkarsh, Ritvik, Animesh, Nityam, Amit
@@ -67,6 +68,7 @@
 - [INC42 app feedback survey (WhatsApp)](project-inc42-app-feedback-survey.md) — 28 Aug redesign of Animesh's Tally form into a 15-Q funnel screener; sent, awaiting rebuild
 - [28 Aug design prompts for Satya](project-inc42-app-v2-satya-design-prompts.md) — 3 screens; rating-flow split required, sentiment-gating is a policy violation
 - [Brief gratification/explore redesign concept](project-inc42-app-brief-gratification-redesign.md) — from 3 Wispr calls (26-27 Aug); Brief→Gratification→Explore as separated beats, screen-by-screen spec
+- [INC42 app v2 stakeholder doc](project-inc42-app-v2-stakeholder-doc.md) — the authored 15-item stakeholder scope doc (Google Doc "V2 - Final" tab + artifact 00608a57); new decisions made while authoring (full-article tap-center, Explore split, heatmaps/session recordings added, dark mode appearance toggle, notifications folded into bugs)
 
 ## INC42 data warehouse
 - [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026, powers contact_360/company_360
