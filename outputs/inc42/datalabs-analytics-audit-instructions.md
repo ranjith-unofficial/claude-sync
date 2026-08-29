@@ -31,7 +31,7 @@ This is a task to execute immediately using your tools. It is not a document to 
 ## Part A — Access and tools
 
 Before starting, confirm you have:
-1. **PostHog access** to project **66351, "Inc42 Datalabs | Live"** (EU cloud). If not authenticated, run the PostHog authentication tool now (`mcp__plugin_posthog_posthog__authenticate`) or invoke the `posthog:querying-posthog-data` skill, which will handle it. **Do not proceed past Part C without confirming this project is the active one** — this PostHog account has multiple INC42 projects and silently reverts to a different one mid-session; re-check before every query, not just once.
+1. **PostHog access** to project **66351, "Inc42 Datalabs | Live"** (EU cloud). **PostHog is already connected via MCP in this session — do not wait on a fresh OAuth link or re-authenticate.** Just invoke the `posthog:querying-posthog-data` skill (or the already-connected MCP tools directly) and confirm project 66351 is active. **Do not proceed past Part C without confirming this project is the active one** — this PostHog account has multiple INC42 projects and silently reverts to a different one mid-session; re-check before every query, not just once.
 2. **Customer.io access** for the DataLabs workspace. There is no dedicated MCP for this — use browser automation (`claude-in-chrome` tools: load with `ToolSearch` query `"select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__get_page_text,mcp__claude-in-chrome__find"`). If no logged-in session exists and credentials would be required, **stop and ask Ranjith to log in first** — never type a password yourself.
 3. **Google Sheets access** to the sheet below — via browser automation, the same way. If you need to pull tab contents as data rather than screenshots, you can navigate directly to `https://docs.google.com/spreadsheets/d/1n6r5QXe-9Pq1uAWMKRe7zSgLHSejASzAq-BAqeI3L6Y/export?format=csv&gid=<gid>` for a given tab's gid (get gids by reading `.docs-sheet-tab` elements' click-through URL hash via `javascript_tool`, same method as pulling any other tab) — this downloads a real CSV you can then read with the `Read` tool, which is far more reliable than screen-scraping a spreadsheet UI.
 
@@ -92,14 +92,11 @@ Sheet: https://docs.google.com/spreadsheets/d/1n6r5QXe-9Pq1uAWMKRe7zSgLHSejASzAq
 
 ---
 
-## Part E — Priority: verify the two money events before finishing the general sweep
+## Part E — `pro_subscription` / `pro_billing`: OUT OF SCOPE for this audit
 
-`pro_subscription` and `pro_billing` carry a hard rule: **no ads platform should ever receive them**, because a failed renewal must never fire a Meta/Google "purchase" conversion.
+Do NOT investigate `pro_subscription` or `pro_billing` any further — no PostHog property checks, no Meta/Google Ads conversion checks, no Customer.io campaign trigger checks. This was originally in scope but has been descoped: these two events don't exist in Customer.io yet, so the ads-conversion risk they were meant to guard against isn't live either.
 
-1. From your Part C query results, confirm `pro_subscription` fires with `subscription_stage, trial_end_at, current_period_end_at, next_charge_amount, renewal_count, mandate_status`, and `pro_billing` fires with `billing_stage, order_id, order_type, amount, renewal_count, failure_reason`.
-2. Using browser tools, check Meta Ads Manager (Events Manager) and Google Ads (Tools → Conversions) for whether either event, or any Customer.io event fed by them, is configured as a conversion source.
-3. In Customer.io, open any live campaign triggered by `pro_billing` and check whether its trigger condition filters on `billing_stage`/`subscription_stage`, or just on the bare event name (which cannot distinguish success from failure).
-4. **If either check in step 2 or 3 comes back positive, report it immediately as a standalone message — do not wait for the rest of the audit to finish.** This is a live business-risk finding, not a line item.
+**In your Part F final report, state plainly: "`pro_subscription` and `pro_billing` are not covered by this audit — descoped."** Do not silently drop them; call this out explicitly so nobody mistakes their absence from your report for a clean pass.
 
 ---
 
@@ -107,7 +104,7 @@ Sheet: https://docs.google.com/spreadsheets/d/1n6r5QXe-9Pq1uAWMKRe7zSgLHSejASzAq
 
 Confirm, explicitly, in your final response:
 - Both output tabs exist and are fully filled (not partially — every original row has a verdict).
-- The Part E money-event check result, stated plainly (pass/fail, with evidence).
+- The explicit descope note from Part E: `pro_subscription`/`pro_billing` not covered.
 - Any blockers you hit (missing login, missing tool access) and what you need to proceed if incomplete.
 
 Do not describe this as "instructions reviewed" or "sheet read" — report actual completion state of the two tabs and the money-event check.
