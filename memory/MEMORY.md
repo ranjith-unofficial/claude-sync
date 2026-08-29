@@ -22,6 +22,7 @@
 - [Sheets clipboard paste safety](feedback-sheets-clipboard-paste-safety.md) — verify OS clipboard content right before every paste into a Sheet, not just once
 - [Survey question design](feedback-survey-question-design.md) — funnel order, unaided-before-aided, functional recall not self-report, no unapproved options
 - [Stakeholder doc writing](feedback-stakeholder-doc-writing.md) — no em-dashes, no internal names, keep summary tables truly high-level, verify sourcing, verify doc pastes with a screenshot
+- [Asana ticket project tagging](feedback-asana-ticket-project-tagging.md) — Inc42 app tickets go in the Inc42 App project, not Product | Backlog; no "reported by Ranjith" in descriptions
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — install base small; v2 scope closed 24 Aug, release 31 Aug, Sep target 5,000 installs/20% activation; team: Utkarsh, Ritvik, Animesh, Nityam, Amit
@@ -102,3 +103,4 @@
 - [Marketing skill install](marketing_skill_install.md) — unified `marketing` skill, vendor-API/chat-privacy guardrails
 - [Aug 8 AI session plan](aug8_ai_session_plan.md) — 2nd-yr AI&DS workshop; pre-session survey done, remind re: post-session form
 - [Claude sync across Macs](reference-claude-sync-setup.md) — memory/skills/settings symlinked into iCloud + git backup; never run both Macs at once
+- [INC42 Asana IDs](reference-inc42-asana-ids.md) — workspace 176734136274, Inc42 App project 1216274779493698, Product | Backlog 1202454202198945, Ritvik Sethi user gid
