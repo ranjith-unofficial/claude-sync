@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 9806e46d-71a9-4068-9df4-aa66c5b57e7f
-  modified: 2026-08-29T10:16:32.527Z
+  modified: 2026-08-29T11:56:39.706Z
 ---
 
 Ranjith asked for two deliverables built from the [[project-inc42-tracking-master-review]] sheet (same Google Sheet,
@@ -50,3 +50,13 @@ format after a first attempt just edited the instructions file instead of execut
 - Operational lesson: three agents editing the same live Google Sheet concurrently caused one tab to
   vanish and need recreating. Future runs of this pattern should either serialize the writes or give each
   agent its own sheet/copy.
+
+**Skill built and rigorously tested (29 Aug).** `~/.claude/skills/inc42-analytics/` — personal, this machine
+only (Ranjith's choice). Passed 6/6 test scenarios: the original acceptance test plus 5 independent
+fresh-agent tests run afterward (no shared context with the build), including two adversarial "trap"
+scenarios — requesting Mixpanel as a destination, and requesting a Google Ads conversion off `pro_billing`.
+Both were correctly refused with the skill's own stated reasoning quoted back, not just hedged. Every
+uncertain point across all 5 tests was flagged honestly rather than guessed. One real recurring gap: "no
+maintained project-owner list" surfaced in 3 of 5 tests — every real request needs to know who signs off
+per project, and the skill can't answer that. Worth adding an actual owner list before this scales past
+one-off use.
