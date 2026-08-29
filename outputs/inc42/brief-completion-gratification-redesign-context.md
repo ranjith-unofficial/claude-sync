@@ -369,6 +369,32 @@ for any real icon set.
 
 **4. Copy:** "ELSEWHERE TODAY" → **"WHAT ELSE MOVED TODAY"**.
 
+## V24 — Ranjith's edit to R5, and fixing the "BEST" pill
+
+**Ranjith edited V23-R5 directly in the file.** His changes: deleted the entire middle
+value block (the consequence copy), deleted the second divider rule, and pulled the sector
+rail, unlock card and footer up (rail label 582→454, unlock 722→594). Result is a much
+tighter screen: ring → headline → sector rail → unlock. **Treat that tightened layout as
+the current baseline.**
+
+**The "BEST · 12" pill was broken on two counts:** it is unexplained ("best" of what?), and
+it is actively demotivating — on day 4 it tells the reader they have done better before,
+at precisely the moment meant to feel rewarding. A static personal-record comparison is
+negative for most of its lifetime, since a user is below their record on almost every day.
+
+**Fix: a state-dependent pill that is always positive.** Four states built (V24-A…D), all
+cloned from the edited R5 so his layout is preserved:
+- **A · Everyday** — `+1 TODAY` (white 18% pill). Immediate reward, no comparison needed.
+- **B · Nearing record** — `2 DAYS TO YOUR BEST`, fires only when the record is genuinely
+  within reach (≤3 days). Turns the record into a target instead of a shortfall.
+- **C · Record day** — `YOUR LONGEST YET` in solid gold with dark text. The one moment the
+  record is worth mentioning at all.
+- **D · No pill** — 7 week dots instead. Clean, but the dots restate what the ring already
+  shows (4 of 7), so it is redundant — weakest of the four.
+
+Recommended: **A as the default, B within 3 days of the record, C on the day it is beaten.**
+Never show a bare record comparison.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
