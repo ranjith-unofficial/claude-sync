@@ -5,21 +5,23 @@ metadata:
   node_type: memory
   type: reference
   originSessionId: b2024af5-d7ba-4821-944c-c16a524e5e85
-  modified: 2026-08-20T13:46:19.326Z
+  modified: 2026-08-29T17:30:00.000Z
 ---
 
 Verified 2026-08-20 by reading `~/.claude.json` and calling each connection's identity endpoint. **Do not assume the session email from context — check.**
 
 | Surface | Identity |
 |---|---|
-| **Claude Code login** | **`ranjith@ranjith.tech`** (accountUuid `c0857c0a-6c64-400f-8d70-e37549e81597`, created 27 Jan 2026, google_play_subscription billing) |
+| **Claude Code login** | **CHANGED 2026-08-29: now `datalabs@inc42.com`** (accountUuid `4f28d046-e8d7-476e-a0bb-0422208cd6cd`, org `datalabs@inc42.com's Organization`, organizationRole **admin**). Was `ranjith@ranjith.tech` (accountUuid `c0857c0a-...`) on 20 Aug. **This is the SHARED Inc42 Max account** — Ranjith flagged 29 Aug that it is shared across multiple teams. |
 | Asana | `ranjith.m@ink42.com` — gid `1216274906880251` |
 | Fathom | `ranjith.m@inc42.com` |
 | PostHog | `prapti@inc42.com` (Prapti Rastogi) |
 | Wispr Flow | "Ranjith M", no email exposed |
 | Figma | `ranjith@ranjith.tech` for the v2 vision board; `ranjith.m@inc42.com` is quota-exhausted — see [[reference-figma-mcp-limits]] |
 
-**The session context block says `datalabs@inc42.com`. That is NOT the login.** The only email in `~/.claude.json` is `ranjith@ranjith.tech`. I asserted datalabs@inc42.com from context and Ranjith corrected it — read the config, don't trust the context line.
+**As of 2026-08-29 the context block and the login AGREE: both are `datalabs@inc42.com`.** This reversed since 20 Aug, when context said datalabs and the login was ranjith@ranjith.tech. The lesson stands either way: read `~/.claude.json`, don't infer.
+
+**Consequence (29 Aug):** every claude.ai MCP connector on this account — Wispr Flow (all meetings incl. interviews and 1:1s), Google Drive, Asana, Figma, PostHog — is reachable by anyone using the shared login. Only `mobbin` is configured as a LOCAL mcpServer in `~/.claude.json`; locally-configured servers are single-tenant, cloud connectors are not. The `Inc42 Morning Tape` cloud routine (`trig_01TivYHQj3K7XSj2xA2JADxe`) was created by this shared account.
 
 **Three consequences that have already bitten:**
 
