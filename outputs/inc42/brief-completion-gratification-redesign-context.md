@@ -605,6 +605,29 @@ the reader failed to select, and never mention obligation even to deny it. Order
   segments), week progress moved to seven dots beneath. Reads bolder and simpler; the
   streak becomes the object rather than the progress geometry.
 
+## V26 — streak UIs × section-copy options, plus the reveal animation
+
+**Four streak treatments** (row y=33730), each paired with a different discovery-section
+label so both variables can be judged in place:
+- **26a · Flame + number** / `ALSO MOVING TODAY` — universal streak language, reads
+  instantly; the label never mentions sectors at all, which fully dissolves the
+  "am I missing something I follow?" problem.
+- **26b · Bare numeral** (150px, no container) / `ELSEWHERE IN THE ECOSYSTEM` — week
+  reduced to a thin seven-segment bar underneath.
+- **26c · Tally marks** — seven vertical bars, four lit, today's glowing / `THE WIDER
+  PICTURE`. Most tactile and the most obviously *countable*.
+- **26d · Day plate** — a calendar-tile with an orange cap / `ALSO WORTH KNOWING`.
+
+**Animation** — eight progressive-reveal stage frames built in Figma (x=2200 onward,
+named `ANIM 1 · land` … `ANIM 8 · complete`), screenshotted and assembled into a GIF with
+PIL, including two cross-fade tweens between each state:
+`~/ClaudeDocs/inc42/brief-card/inc42-streak-reveal.gif`
+Sequence: land → flame in → **shows yesterday's 3** → **ticks to 4 with the burst** →
+headline → your sectors → discovery → complete (long hold).
+The key beat is stage 3→4: the streak is shown at its *previous* value first, then
+increments on screen, so the reward visibly happens rather than being reported. To change
+timing, edit the `plan` list of `(frame index, milliseconds)` pairs in the assembly script.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
