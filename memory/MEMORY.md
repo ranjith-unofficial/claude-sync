@@ -42,7 +42,7 @@
 - [Project: INC42 AskInc42](project-inc42-askinc42.md) — ships before Pulse; v1 = brief-end swap + Watchlist/company page; artifact 065326a9
 - [AskInc42 — next week tasks](project-inc42-askinc42-next-week.md) — owner Ritvik Sethi; feature flags HALTED; v2 blocked on an API from Anmol
 - [INC42 knowledge repo (VectorDB)](project-inc42-knowledge-repo.md) — 9 MD docs + 8-tab Google Doc; 11 IPs verified live; 33 locked decisions
-- [Master PRD update rules](reference-inc42-master-prd-update-rules.md) — READ BEFORE editing the Inc42 App Master PRD doc: supersede check, one PRD per thing, archive never delete
+- [Master PRD update skill](reference-inc42-master-prd-skill.md) — load the `inc42-master-prd` skill BEFORE editing that doc; two copies exist and have diverged
 - [INC42 app placement ("B2")](project-inc42-app-placement.md) — placing editorial content in-app; design owner Satya, ties to unification unconfirmed
 - [INC42 Azure credits](project-inc42-azure-credits.md) — ₹16.84L left, burn ~₹8L/mo → dry ~11 Oct 2026
 - [Project: INC42 Social Intelligence "Pulse"](project-inc42-social-intelligence.md) — ships after AskInc42; v2.0 PRD draft; D1-D15 locked; 200-voice allowlist
@@ -73,7 +73,7 @@
 - [App event validation (30 Aug)](project-inc42-app-event-validation.md) — watchlist free-tier cap unenforced in prod (10x overage), card_viewed missing edition_date on all events, Application_ SDK-duplicate confirmed zero-risk to disable, 4th PII pattern (app_opened email)
 - [Media event validation (30 Aug)](project-inc42-media-event-validation.md) — corrects 3 of the full-redo's own findings (lifetime vs. live); live 11-day modal-tracking regression (fastest fix); Inc42 Onboarding is top PII leak AND a dead-end funnel (no completion state)
 - [INC42 app analytics audit (29 Aug)](project-inc42-app-analytics-audit.md) — push_delivered/decode confirmed dead, push_opened near-dead, 4 of 9 sheet bugs fixed; "Application ___" events are PostHog SDK's own duplicate autocapture (same $lib as app_opened)
-- [App live feature status (30 Aug)](project-inc42-app-live-feature-status.md) — what is actually live vs specced; Decode ships as "30 sec summary"; no rate control exists; push still open
+- [App live feature status (30 Aug)](project-inc42-app-live-feature-status.md) — what is actually live vs specced; the doc's names are not the team's names (Decode = 30 sec summary, "Rate" = like/dislike); push delivery still open
 - [INC42 Mixpanel legacy finding (29 Aug)](project-inc42-mixpanel-legacy-finding.md) — live undisclosed first-party Mixpanel on inc42.com since 2023, unconfirmed PII exposure, contradicts vendor-stack "verified" note
 - [INC42 Mixpanel GTM tag forensics (29 Aug)](project-inc42-mixpanel-gtm-tag-forensics.md) — GA4 leaks same PII sitewide (Google ToS risk, top priority) > Mixpanel 7/37 tags; need named GTM-publish owner
 - [INC42 Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 charge success 57.9% (was 73.7%); ~21/40 projected recovery, 0% shipped; artifact efaafcd9
