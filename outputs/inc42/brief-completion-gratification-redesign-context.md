@@ -827,3 +827,34 @@ timer means something.
 
 Craft note: the base V26b streak block has to be lifted (numeral y=110 → 86, label
 282 → 256) before any treatment taller than ~30px will clear the section divider at y=396.
+
+## Row L — the LIVE card, edited (row y=40890)
+
+Ranjith's instruction after V29: keep the live card in the same fashion and edit on top of
+it. Four removals: **THE DECODE label, 30-SEC READ, Read full article, and the heart/Rate
+control**. Structure preserved exactly — dark rounded hero card holding the image and the
+headline, white body, three labelled bullets with orange markers, relevance pill.
+
+The four removals delete the entire eyebrow row, which is what was holding the bullet block
+together — so each variant answers that hole differently:
+- **L1 · Clean cut** — removals only, plus hairline dividers between the bullets and a
+  full-width dark split reaction bar at the bottom edge. Smallest possible diff.
+- **L2 · Tinted panel** — the three bullets sit in a peach panel with numbered orange
+  chips; reaction becomes two large 56px buttons, filled `More` and outlined `Less`.
+- **L3 · Asked, not offered** — the relevance line is promoted off the image into a proper
+  row under the card; the reaction bar carries a question, `WAS THIS WORTH YOUR MORNING?`,
+  above the two options.
+- **L4 · Stat lead** — the deal figure `₹35 Cr · SERIES A · D2C` occupies the space the
+  decode row used to, so the removal replaces itself with something of value.
+
+Bookmark and share move onto the hero as glass circles in all four — that is what frees the
+bottom edge for the reaction alone, which is how it gets more prominent without adding
+chrome. Recommendation: **L4**, with L1 as the minimum-change fallback.
+
+⚠️ **Figma craft trap that cost four rebuilds here.** A TEXT node's `.height` is NOT
+readable from a script — it reports the pre-render value (2 lines where 3 will render), so
+any manual `y += t.height` stacking silently overlaps, and re-reading it in a later call
+does not fix it. The only reliable approach is auto-layout, and it needs all three of:
+the text at a FIXED width (`resize(w,10)` + `textAutoResize='HEIGHT'`, never
+`layoutSizingHorizontal='FILL'`, which truncates), `row.layoutSizingVertical='HUG'`, and
+`text.layoutSizingVertical='HUG'`. Omit the HUG calls and rows render clipped to two lines.
