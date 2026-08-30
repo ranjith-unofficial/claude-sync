@@ -858,3 +858,30 @@ does not fix it. The only reliable approach is auto-layout, and it needs all thr
 the text at a FIXED width (`resize(w,10)` + `textAutoResize='HEIGHT'`, never
 `layoutSizingHorizontal='FILL'`, which truncates), `row.layoutSizingVertical='HUG'`, and
 `text.layoutSizingVertical='HUG'`. Omit the HUG calls and rows render clipped to two lines.
+
+## Row M — Clean Cut modernised (row y=41960)
+
+Ranjith picked **L1 · Clean Cut** as the base, with three notes: the horizontal hairline
+dividers between bullets read as a table and date the card; the filled orange square marker
+should be a circle and smaller (or replaced with something better consumed); and the dash
+after the label should be a colon. He separately noted the older Figma file uses a glass
+bottom bar but explicitly did **not** ask for glass here — the solid bar stays.
+
+Five ways to separate three points without drawing a line between them. Hero card,
+relevance pill and reaction bar are identical across all five; only the bullet block moves:
+- **M1 · Small dot + colon** — 7px orange dot, 24px gaps, `What's new:`. The literal
+  execution of his note, smallest change from Clean Cut.
+- **M2 · Eyebrow label** — no marker at all; the label becomes a 9.5px orange caps eyebrow
+  on its own line with the body beneath at full 342px width. The most modern and the most
+  editorial, and the longest measure so the copy breathes.
+- **M3 · Left rule** — a 3px vertical rule per block, orange on the payload bullet and pale
+  on the other two. Vertical marks read modern where horizontal rules read tabular.
+- **M4 · Soft blocks** — each point sits on its own rounded surface, the middle one tinted
+  peach. Separation by surface rather than by line.
+- **M5 · Numbered chip** — a 20px outlined orange circle with 1/2/3. Keeps the sequence
+  legible without a table.
+
+The star glyph inside the relevance pill was also swapped for the same small orange dot —
+at 12px the star rendered as an orange blob and repeated exactly the problem he flagged.
+
+Recommendation: **M2**, with M1 as the literal-note fallback.
