@@ -6,13 +6,63 @@
 
 ---
 
+## 0. CORRECTIONS after Ranjith's review (30 Aug)
+
+Three things in the first version of this document were wrong or overstated. They are corrected here and in place below.
+
+### C1. There is a **fourth** search system — `global-search-v2` — and it is the good one
+
+My testing hit `POST /header/global-search` (v1), which inc42.com's header uses. **DataLabs uses `POST /header/global-search-v2`**, a different endpoint with a different response shape (`results[]` with `entity_type`, plus `did_you_mean` and `applied_filters`). That is why my report said `lava mobile` returns "Vaca Mobiles" while the DataLabs UI showed "No results found" — **two different engines, same query.** Ranjith's screenshots were right; my report described the wrong endpoint for that surface.
+
+Measured side by side:
+
+| Query | v1 — inc42.com header | v2 — DataLabs |
+|---|---|---|
+| `zomato` | 11 rows: Zomato, Zocalo, Zosito | **1: Zomato** |
+| `zomto` | 2: Zomato, TOMTO LEMON | **Zomato + `did_you_mean:"zomato"`** |
+| `zomatoo` | 4: Zomato, GoMaxoo, Somato Publications | **Zomato + `did_you_mean:"zomato"`** |
+| `shipr` | 13: Shippr, Shiproute, Shiprocket | **Shiprocket rank 1** |
+| `airbound` | 11: Airbound, Airborne, Abound | **1: Airbound** |
+| `fintech` | 20: MyLead FinTech, Spay Fintech… | **`Fintech (INDUSTRY)` + filter `{company:{sector:["Fintech"]}}`** |
+| `green hydrogen` | 20: Hydrogen Gentech, Silver Hydrogen Peroxide | **filter `{sector:["Energy"], sub_1:["Hydrogen"]}`** |
+| `iifl finance` | 20 rows of noise | **0** |
+| `wagh bakri` | 20 rows of noise | **0** |
+| `lava mobile` | 20 rows of noise | **0** |
+| `tbotek` | 7: JBTEK, Design Totke | **0** |
+
+**v2 already does most of what §9 proposed building** — typo correction with `did_you_mean`, entity typing, and topic-to-sector resolution (`fintech` → a sector filter, `green hydrogen` → Energy/Hydrogen). It is live, and inc42.com is not using it.
+
+**v2's one real defect:** it passes the *entire* query string as a single `company_search` value — `{"company":{"company_search":["iifl finance"]}}` — so any multi-word query needs an exact full-name match or returns nothing. No tokenisation, no partial phrase match. That single behaviour explains every "No results found" screenshot: `iifl finance`, `wagh bakri`, `lava mobile`. It also explains why run-together `tbotek` fails.
+
+### C2. The rate-limit lockout was self-inflicted and is not a user-facing problem
+
+I induced it with deliberately abnormal parallel load (hundreds of requests, 6 threads). **Ranjith could not reproduce it manually, and normal use will not hit it.** It should not have been presented as a live severity. The verified fact is narrow: the endpoint has an IP-level limit that, once tripped by abuse-level traffic, locks out the whole `datalabs-api` host for ~30 minutes. That is worth knowing for load-testing and for any server-side batch job — it is **not** an explanation for what users are seeing. Demoted from root cause #1.
+
+### C3. The typing-speed table is a correlation, not a demonstrated cause
+
+The numbers are real — they come from PostHog, not from an assumption — and the pattern survives splitting by scope:
+
+| Scope | Fast (<400ms gap) | Slow (>1500ms gap) |
+|---|---|---|
+| Articles | 60.7% zero (n=28) | 35.1% zero (n=74) |
+| Companies | 40.0% zero (n=110) | 17.8% zero (n=191) |
+
+But **the causal story I attached to it (rate limiting) is not supported**, and one person typing at two speeds cannot reproduce a population-level correlation — Ranjith tried and correctly saw no difference. There is also an unresolved confound: fast keystrokes are mid-word fragments of a longer intended word, and slow ones are more often complete words, so the two groups differ in content, not only in timing. Treat the table as a signal worth explaining, not as evidence for a mechanism.
+
+**What does survive without a causal claim** is the non-determinism: the same user, same scope, same query string, repeated within seconds, returns 0 one time and >0 another — 57.1% of repeated company queries and 75.0% of repeated article queries. The `shipr → 5 → 0` sequence is a direct observation, not an inference. The most likely cause is a **client-side response race** — per-keystroke requests resolving out of order and a stale response overwriting a good one — which matches the "race condition" already logged as a live bug in the 26 Aug v2 scoping sync. It is not the rate limiter.
+
+**The fix does not change:** debounce plus cancel in-flight requests kills a response race and request flooding alike.
+
+---
+
 ## 1. What is actually running
 
 There is no single search system. There are three, none of them a search engine.
 
 | Surface | Backend | What it matches on |
 |---|---|---|
-| Company / person / investor (web + likely app) | `POST datalabs-api.inc42.com/header/global-search` body `{"keyword":"…"}` | Entity **name only**. Returns ≤20 companies + ≤10 people + ≤20 investors |
+| Company / person / investor — **inc42.com header** | `POST datalabs-api.inc42.com/header/global-search` (**v1**) body `{"keyword":"…"}` | Entity **name only**, fuzzy. Returns ≤20 companies + ≤10 people + ≤20 investors |
+| Company / person / investor — **DataLabs** | `POST datalabs-api.inc42.com/header/global-search-v2` body `{"keyword":"…"}` | Returns `results[]` with `entity_type`, plus `did_you_mean` and `applied_filters`. Typo-corrects and resolves topics to sector filters — but matches the **whole query string as one exact phrase** |
 | Company list + filters | `POST datalabs-api.inc42.com/company/new-search` body `{filter,from,size,sort,sortby,search_url,is_inc42}` | Structured filters |
 | Articles (Inc42 Media) | Plain **WordPress** search (`?s=` / `wp-json/wp/v2/search`) | SQL `LIKE '%term%'` over title + body, **ordered by date** |
 | Relevance ranking | Done **in the browser** — `main.min.js` re-sorts the response with `name.toLowerCase().includes(query)` then alphabetically | — |
@@ -218,7 +268,8 @@ Honest note on impact: zero results do **not** cause immediate abandonment — 8
 
 | # | Cause | Surface | Evidence |
 |---|---|---|---|
-| 1 | Request-per-keystroke floods a rate-limited API; failures render as "0 results" | App | 57–75% non-determinism; 9× zero rate when typing fast |
+| 1 | Per-keystroke requests resolve out of order; a stale response overwrites a good one and renders as "0 results" | App | 57–75% non-determinism on identical repeated queries; `shipr → 5 → 0` observed directly |
+| 1b | **v2 matches the whole query as one exact phrase**, so every multi-word query returns 0 | DataLabs | `iifl finance`, `wagh bakri`, `lava mobile` → 0, filter shows `company_search:["<whole string>"]` |
 | 2 | Multi-word queries OR-match and flood the result cap | Entity search | hit@1 20% → 4% → 0% |
 | 3 | Article search is `LIKE` with no word boundaries, no relevance, 5s latency | Inc42 Media | `EMS` → 16,860; `chai` → 13,110 |
 | 4 | No topic/sector/tag search anywhere | All | `fintech` is the #1 web query |
@@ -263,17 +314,37 @@ Even on the current API, a lookup table mapping legal and former names to the ca
 
 ---
 
-## 9. Revised approach — one index, one endpoint
+## 9. Revised approach — **use v2 everywhere, fix its phrase handling**
 
-The three-system split is the structural problem. Companies, people, investors and articles should live in **one index**, served by **one endpoint**, returning **typed, scored** results.
+**This section is rewritten after the C1 finding.** The original plan was to stand up a new search engine. That is no longer the first move: Inc42 has already built most of it. `global-search-v2` does typo correction, entity typing, and topic-to-sector resolution today, on production, for DataLabs. inc42.com is still on v1, and the app is on neither.
 
-Corpus is small: ~75,000 companies + ~55,562 articles + people + investors. This is a small-index problem, not a big-data one.
+### 9.0 The actual plan, in order
 
-### 9.1 Engine
+| # | Fix | Why | Effort |
+|---|---|---|---|
+| 1 | **Tokenise the query in v2** instead of passing the whole string as one `company_search` value | This one change fixes `iifl finance`, `wagh bakri`, `lava mobile`, `matter motor`, `third wave` — every "No results found" screenshot. AND across tokens, then fall back to the best single-token match rather than to nothing | **S — highest value in this document** |
+| 2 | **Add a `name_squash` field** (lowercased, spaces and punctuation stripped) | Fixes `tbotek`, `waghbakri`, `ofbusiness` | S |
+| 3 | **Migrate inc42.com header search from v1 to v2** | Gets typo correction, `did_you_mean` and sector resolution on the main site for free. Retires the fuzzy-noise engine that produces "Vaca Mobiles" | M |
+| 4 | **Point the app at v2** | Same benefit for the app; also removes whatever it is on today | M |
+| 5 | **Surface `did_you_mean` and `applied_filters` in the UI** | v2 already returns them and no surface renders them. `zomto` → "Showing results for **zomato**"; `fintech` → a sector chip, not a list | S |
+| 6 | Replace WordPress article search | The 5-second, date-ordered, no-typo article path is untouched by any of the above | L |
+| 7 | Alias table (Kiranakart→Zepto, Eternal→Zomato, Bundl→Swiggy, ANI→Ola) | Fixes the legal-name class | S |
+
+Items 1, 2, 5 and 7 are changes to a service that already exists. Only item 6 needs new infrastructure.
+
+### 9.1 On replacing the engine
+
+**Do not start here.** If, after items 1–5, the regression set still fails, then a dedicated engine (Typesense or Meilisearch — the corpus is only ~75K companies + 55,562 articles) is the right answer, and the index schema and query plan below still stand. But v2 already demonstrates typo tolerance, entity typing and sector resolution in production, so the case for rebuilding is much weaker than the first version of this document claimed.
+
+The one place new infrastructure is clearly justified is **article search** (item 6) — WordPress `LIKE` at 5 seconds cannot be tuned into a search engine.
+
+### 9.2 Reference index schema (only if item 1–5 prove insufficient, and for article search)
+
+### 9.3 Engine
 
 **Recommend Typesense** (or Meilisearch). Both give typo tolerance, prefix matching, synonyms, faceting and field weighting as configuration rather than code, and serve sub-50ms at this corpus size. Azure AI Search is capable but the Azure credits (₹16.84L) run dry around 11 Oct 2026 — a poor home for a permanent dependency. Algolia is the zero-ops option if hosting is unwelcome; the site already has dead Algolia markup, so someone once started this.
 
-### 9.2 Index schema
+### 9.4 Index schema
 
 ```
 collection: inc42_search
@@ -291,7 +362,7 @@ collection: inc42_search
   popularity    float     # funding raised, pageviews - the tiebreaker
 ```
 
-### 9.3 Query plan
+### 9.5 Query plan
 
 ```
 query_by         : name, aliases, name_squash, sectors, tags, body
@@ -312,7 +383,7 @@ The three rules that fix the observed failures:
 
 Also: **word-boundary tokenisation** kills the `EMS` → 16,860 and `chai` → 13,110 problem outright, because `chai` stops matching `chairman`.
 
-### 9.4 Response shape
+### 9.6 Response shape
 
 ```json
 { "query": "fintech",
@@ -328,20 +399,20 @@ Also: **word-boundary tokenisation** kills the `EMS` → 16,860 and `chai` → 1
 
 Typed groups solve two problems at once: the app stops needing separate Companies/Articles tabs that behave differently, and a topic query like `fintech` can resolve to **a filter, not a list** — which is what those 15 users actually wanted.
 
-### 9.5 Ingestion
+### 9.7 Ingestion
 
 - Companies / people / investors: nightly full rebuild from the DataLabs DB (75K rows is minutes), plus webhook upserts on edit.
 - Articles: WordPress `save_post` hook → upsert. Backfill all 55,562 once.
 - Aliases: seed from DataLabs legal-name and former-name fields; hand-curate the top 200 brands. Start with the known misses — Lava International ↔ Lava Mobiles, Zomato ↔ Eternal, TBO Tek, IIFL Finance, Jar ↔ MyJar, Wagh Bakri.
 
-### 9.6 Zero-result state — never a blank screen
+### 9.8 Zero-result state — never a blank screen
 
 - "Did you mean **X**?" from the top typo candidate
 - Cross-type hint: "No articles — but 3 companies match"
 - Trending / recently viewed as fallback
 - Fire `search_no_results` with the query, so the gap list stays live instead of needing another manual audit
 
-### 9.7 Rollout
+### 9.9 Rollout
 
 | Stage | Scope | Risk |
 |---|---|---|
