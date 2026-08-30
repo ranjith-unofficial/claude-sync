@@ -1143,3 +1143,36 @@ is the only surface that rewards a reader with no goal at all.
 ⚠️ L5 needs an editorial reason line per company, which does not exist as a field. It could
 be derived (never raised + founded before 2010 + profitable) but the sentence itself is
 writing, not data.
+
+## Row M — the card is the problem, not the page (row y=57000, current)
+
+Ranjith on row L: still bland, still a listicle, still monotonous when you look at any single
+card. L1 (sectors first) was the only one with promise. The real ask is **card design
+variety** — different card styles within one page — not another page concept.
+
+**The reference class that solves this is stock and crypto apps**, because they have the same
+problem (a data row that must feel alive): Apple Stocks, Bloomberg At A Glance, Coinbase,
+Yahoo Finance and Binance all **put a shape inside the row** — a sparkline, a filled area, a
+coloured delta chip.
+
+**The unlock for Inc42:** the one shape every company has is **how often Inc42 has written
+about them**. Funding history exists for 13%, traffic for 44%, but editorial coverage exists
+for every company reachable from the news by construction. So the card can carry a chart even
+when there is no money data at all.
+
+**M0 · Card style library** (x=0) — ten treatments: 01 Ticker row (spark + delta chip) ·
+02 Glance tile (3-up) · 03 Dark hero (one company owns the width) · 04 Split colour (the
+monogram becomes the graphic) · 05 Timeline (last three moves) · 06 Milestone (for companies
+with no numbers) · 07 Sector cluster (overlapping marks) · 08 Comparison (two companies, one
+bar each) · 09 Coverage (86 stories + 12-month bar chart) · 10 Pull quote (editorial voice,
+not a data row).
+
+**M1 / M2** are two pages assembled from mixes of those styles — a sectors page and a
+happening page. Neither repeats a card style more than twice.
+
+The governing rule written on the library frame: **mix three or four styles per page, never
+repeat one more than about three times.** A card style repeated past that becomes the
+wallpaper it was meant to replace.
+
+⚠️ Styles 06 and 10 carry written lines, not fields. 09 needs a per-company monthly story
+count, which the CMS can produce but is not currently exposed.
