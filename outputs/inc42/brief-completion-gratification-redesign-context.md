@@ -568,6 +568,30 @@ Ranked by credibility bought per pixel:
 **Limit: two or three per screen.** Past that they stop reading as confidence and start
 reading as persuasion, which costs trust rather than building it.
 
+## V25 — the two-zone sector fix (more important than the circle)
+
+Ranjith's diagnosis of V24: the sector rail reads as **unfinished business**. "WHAT ELSE
+MOVED TODAY · 10 STORIES" never says the reader's own sectors are done, and never says the
+rest is optional — so it lands as "there's more… what is this?", which is anxiety at the
+exact moment meant to deliver closure.
+
+**Fix — split the rail into two explicitly labelled zones** (row y=32785):
+- **`YOUR SECTORS — ALL COVERED`** (peach label) — ticked chips with counts:
+  ✓ Fintech 5 · ✓ E-commerce 3. Closure is stated *first*, and is unambiguous.
+- **`NOT YOUR SECTORS`** … **`OPTIONAL`** (right-aligned, low contrast) — the other-sector
+  rings, closed by: *"Nothing you need to read — just so you know the whole ecosystem, not
+  only your corner."*
+
+That last line is the whole fix: it converts the section from an implied to-do list into
+ecosystem awareness. Order matters — **closure first, awareness second, obligation never.**
+
+**Circle treatments built:**
+- **25a · Week ring + core** — the V24 segmented ring with a soft inner disc behind the
+  number, plus the `+1 TODAY` pill inside the ring.
+- **25b · Solid disc + dots** — a filled white disc with the number in brand orange (no
+  segments), week progress moved to seven dots beneath. Reads bolder and simpler; the
+  streak becomes the object rather than the progress geometry.
+
 ⚠️ **Compounding-estimate risk:** the weekly "4 hrs 52 min" multiplies the unverified
 ~73 min figure by the streak length, so any error in the base estimate is amplified and
 displayed far more prominently. Measure ~73 min before shipping any cumulative version.
