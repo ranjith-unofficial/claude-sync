@@ -1072,3 +1072,40 @@ Decisions taken inside the brief's gaps:
 ⚠️ Same tabular-numerals caveat as the profile page: the plugin API cannot set
 `font-variant-numeric`, so the funding column in B is proportional in the mockup and must be
 switched to lining/tabular figures in the build or the amounts will not align.
+
+## Row K — Companies tab rethought as a browse surface (row y=54140, current)
+
+Ranjith rejected the row-list version outright: monotonous, static, too much to consume and
+none of it relevant at the moment of consumption, and not premium. He asked for the **page
+as a concept** to be redefined, not just the card.
+
+**The diagnosis:** a uniform 112px row repeated fifty times is a lookup tool, and nobody
+browses a lookup tool. Mobbin confirms none of the premium browse surfaces use one uniform
+list — Fable blocks colour tiles then cuts to a full-bleed moment; Matter runs a single
+Staff Pick with "a new selection will be ready tomorrow"; Mindvalley ranks with ordinals;
+Goodreads and Blinkist use collections with counts. **Rhythm change is the mechanism.**
+
+In all five concepts the A–Z directory moves behind Search, which is where lookup belongs.
+
+- **K1 · The browse magazine** — three shelves, three card shapes: MOVING THIS WEEK (rail of
+  large event cards), THE CHART (ranked five), COLLECTIONS (2×2 colour tiles with counts),
+  closing on "Search all 74,000 companies".
+- **K2 · The chart** — the whole page is a ranking with a period switcher; top three get a
+  large treatment with 34px ordinals, four to eight compact. Rank creates narrative, so the
+  page is never uniform.
+- **K3 · The question deck** — opens with "74,000 Indian companies. Start somewhere." and
+  four questions, each with a three-logo preview and a count. The most direct answer to
+  "make people open something".
+- **K4 · The daily five** — one editorially chosen company as a full-bleed hero with a
+  written reason, four beneath, closing on "Tomorrow's five lands at 7 AM". Refresh is
+  promised, so monotony is impossible by construction. Matter's model.
+- **K5 · The two-up grid** — tiles instead of rows, broken every six by a full-width dark
+  editorial band (IPO WATCH). Denser and more scannable, least editorial effort.
+
+Recommendation: **K4 for the top of the page, K1's shelves beneath it.** K4 is the only one
+that changes daily without anyone maintaining it and gives a reason to return; K3 is the
+strongest for a first-time or logged-out visitor with no idea where to start.
+
+⚠️ K1 and K4 need an editorial or rules layer that does not exist yet — "today's five" and
+the collection membership have to be generated daily. K2 and K5 run off DataLabs fields
+alone. That is the real cost difference between the concepts.
