@@ -772,3 +772,29 @@ The five devices:
 
 Note 29-1, 29-2, 29-4 and 29-5 need **no photograph at all**, which matters while per-story
 art is still unbuilt.
+
+## V30 — logged-out completion screen, four options (row y=38740)
+
+The structural problem, which the first single-frame attempt missed: signed out, the streak
+is only kept for the current date, so **a returning reader sees the same "1" every
+morning**. The reward stops being a reward by about day three, and the login prompt becomes
+wallpaper. All four variants are clones of `V26b Bare numeral` with only the streak block
+and the CTA changed.
+
+- **OUT-A · Day 1, ends tonight** — numeral 1, gold `ENDS TONIGHT` pill, week dots removed,
+  "Signed out — we only keep today's streak." over `Log in to save my streak`. Honest and
+  shippable against storage as it works today, but identical every morning.
+- **OUT-B · The week that cannot fill** — numeral 1 with the seven week dots faded and the
+  gold caption `THE REST ONLY FILL ONCE YOU LOG IN`. Teaches the mechanic. (Craft note:
+  a dashed stroke on a 14x4 dot renders as noise — use a faded solid fill instead.)
+- **OUT-C · Claim what you already read** — an outline numeral **4** over
+  `MORNINGS ON THIS PHONE` + "None of them saved.", CTA `Log in to claim 4 mornings`.
+  Needs only a device-local counter (anonymous, no auth), and the hook **grows** with every
+  return instead of being stuck at 1. On day one it degrades gracefully into OUT-A.
+  ⚠️ Only ship it if logging in genuinely backfills the streak to that number — otherwise
+  it is a promise the product breaks at the moment of signup.
+- **OUT-D · No number at all** — drops the streak entirely for signed-out readers;
+  "You're all caught up." as the hero with "Streaks start when you log in." Removes the
+  stuck-number problem but has the weakest pull.
+
+Recommendation: **C, with A as its day-one state**, subject to the backfill check.
