@@ -73,7 +73,7 @@
 - [App event validation (30 Aug)](project-inc42-app-event-validation.md) — watchlist free-tier cap unenforced in prod (10x overage), card_viewed missing edition_date on all events, Application_ SDK-duplicate confirmed zero-risk to disable, 4th PII pattern (app_opened email)
 - [Media event validation (30 Aug)](project-inc42-media-event-validation.md) — corrects 3 of the full-redo's own findings (lifetime vs. live); live 11-day modal-tracking regression (fastest fix); Inc42 Onboarding is top PII leak AND a dead-end funnel (no completion state)
 - [INC42 app analytics audit (29 Aug)](project-inc42-app-analytics-audit.md) — push_delivered/decode confirmed dead, push_opened near-dead, 4 of 9 sheet bugs fixed; "Application ___" events are PostHog SDK's own duplicate autocapture (same $lib as app_opened)
-- [Decode = "30 sec summary"](reference-inc42-30-sec-summary-naming.md) — the feature ships under that name; never say Decode. Corrects my earlier "not built" note
+- [App live feature status (30 Aug)](project-inc42-app-live-feature-status.md) — what is actually live vs specced; Decode ships as "30 sec summary"; no rate control exists; push still open
 - [INC42 Mixpanel legacy finding (29 Aug)](project-inc42-mixpanel-legacy-finding.md) — live undisclosed first-party Mixpanel on inc42.com since 2023, unconfirmed PII exposure, contradicts vendor-stack "verified" note
 - [INC42 Mixpanel GTM tag forensics (29 Aug)](project-inc42-mixpanel-gtm-tag-forensics.md) — GA4 leaks same PII sitewide (Google ToS risk, top priority) > Mixpanel 7/37 tags; need named GTM-publish owner
 - [INC42 Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 charge success 57.9% (was 73.7%); ~21/40 projected recovery, 0% shipped; artifact efaafcd9
