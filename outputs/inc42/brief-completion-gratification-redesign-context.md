@@ -885,3 +885,46 @@ The star glyph inside the relevance pill was also swapped for the same small ora
 at 12px the star rendered as an orange blob and repeated exactly the problem he flagged.
 
 Recommendation: **M2**, with M1 as the literal-note fallback.
+
+## Row G — Gen Z register, and the card-one drop (row y=43030)
+
+Ranjith rejected row M: still not a complete card, the black More/Less bar at the bottom is
+not convincing, and the whole thing is "not enticing me to read". He asked for heavy Gen Z
+reference work, and added the real problem — **~50% of readers never reach card 2**, and
+he wants an in-depth answer to how people are moved forward.
+
+**The research finding that reframed it.** Every microlearning/card app that successfully
+keeps people moving ends the card with one large forward action: Deepstash `Continue`,
+Duolingo `CHECK`, Mimo `Continue`, Liven `Complete lesson`, Life Reset `Next Lesson →`
+(with "1 of 8" up top), Speak `TAP TO CONTINUE`, Quizlet showing the next card's edge.
+**Inc42's card has no forward affordance at all** — the bottom slot was spent first on
+`Read full article` and then, in my own rows, on the reaction bar. That is very likely a
+large part of the 50%: nothing on the screen says a next card exists.
+
+So the priority inverted: **the forward move takes the primary bottom slot, and the
+reaction demotes to two quiet 38-40px ghost circles labelled "Useful?"** — which also
+resolves the black-bar objection. Visual register is near-black `#0C0C0E`, surface
+`#18171B`, brand orange kept as the only accent (no new hue family), chunky fully-rounded
+pills, `2 OF 8` chip in the header.
+
+Cards also carry **two points instead of three** — a shorter card is itself part of the
+fix, since a card that fills the screen reads as the whole thing.
+
+Four mechanisms:
+- **G1 · The continue button** — `UP NEXT` + the next story's headline, then a full-width
+  orange `Next story →` pill. Closest to the proven pattern.
+- **G2 · The peek** — the story sits on a card with the next card's edge visible at the
+  right, plus "Swipe for the next story". Teaches the gesture physically (Quizlet).
+- **G3 · The stack** — deck edges peeking below the card and
+  `6 MORE STORIES IN TODAY'S BRIEF` beside a 60px orange arrow. Makes the remainder feel
+  small and finishable.
+- **G4 · The next story strip** — a 122px strip at the bottom carrying the next story's
+  thumbnail, `UP NEXT` and its headline; the whole strip is the tap target. Curiosity gap
+  does the work rather than a generic button.
+
+Recommendation: **G4 for the mechanism, G1's button as the fallback**, and G2's peek added
+to **card 1 only** as a one-time teaching device, since the data says the loss is entirely
+at card 1→2 with no fatigue curve afterwards.
+
+Do not add timed auto-advance — readers read at different speeds and news is not Stories.
+Keep tap-right, swipe-left and the button all live as three targets for the same action.
