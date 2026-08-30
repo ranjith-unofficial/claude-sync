@@ -1,6 +1,6 @@
 ---
 name: project-inc42-datalabs-banner-logic
-description: "Datalabs dunning BANNER logic — 16 scenarios mapped scenario -> event -> banner copy -> CTA label -> landing destination, in the 'Test' spreadsheet tab Sheet14; adds 8 lifecycle states the 8-case decision map never covered, plus 5 blocking decisions"
+description: "Datalabs dunning BANNER logic — scenario -> event -> banner copy -> CTA label -> landing destination, in the 'Test' spreadsheet tab Sheet14. LOCKED 30 Aug: failure-only scope, phased 1/2/3, six scenarios deliberately not shown. Plus the no-update-payment-method-on-UPI finding and 5 blocking decisions"
 metadata:
   node_type: memory
   type: project
@@ -63,3 +63,27 @@ counts and grace windows). Locked copy is reproduced verbatim and marked LOCKED;
 beside it rather than overwriting it. See also [[project-inc42-datalabs-dunning]],
 [[project-inc42-datalabs-winback]], [[feedback-status-map-ui-treatment]],
 [[feedback-sheets-clipboard-paste-safety]].
+
+
+## SCOPE NARROWED, 30 Aug 2026 (same day, later in the session) — this supersedes the 16-banner layout above
+
+**Ranjith's call, verbatim reasoning:** *"We will not show the banner in all the scenarios. We will only show the banner only for payment failure, not everything... right now it gets overwhelmed when people see. I'm okay, but people do get overwhelmed. So let's start with majority of cases followed by the other ones."*
+
+**The test that decides inclusion:** a banner appears only when **money is at risk RIGHT NOW** AND **the user can fix it from the banner**. That test alone cut 6 of the 16.
+
+**Phasing, now live in the sheet as a Phase column (A) with the rows reordered):**
+- **Phase 1 — S5, S9, S4.** S5 (insufficient balance, 18 of 40) + S9 (dead mandate at first charge, 16 of 40 = 12 unconfirmed + 4 cancelled/inactive) = **34 of 40 first-charge failures (85%), 34 of 47 of all failed charges (72%)**. The real argument for this exact pair is not volume: they are the **two different mechanisms** (retry-and-wait vs re-authorise), so every later scenario becomes a copy variant on an existing rail rather than new engineering.
+- **Phase 2 — S6, S7, S10.** Small volumes, but S10 hits existing payers and 30 of 31 payers logged in within 30 days.
+- **Phase 3 — S12, S13, S8, S11.** Escalation copy only, no new plumbing.
+- **Not shown — S1, S2, S3, S14, S15, S16.** Kept in the sheet with the reason, not deleted.
+
+**S4 was argued INTO Phase 1 as the exception to the failure-only rule, and Ranjith did not answer the question — I proceeded on my own recommendation and flagged it.** The argument: a detached subscription (`requires_manual_renewal=true`, `next_payment_date` null) **never produces a failed charge at all** because no debit is ever attempted, so under a strict failure-only rule it gets no surface ever and just expires silently. 9 live subs, ~₹15,919/mo, plus 5 of 25 current trials. **If Ranjith later says out, it is one row to move.**
+
+**Two consequences of the cut that are recorded in the sheet and should not be quietly forgotten:**
+- **S1 was the only message that lands before the NPCI pre-debit-notification revoke screen (P6).** Regulation forces a monthly re-decision 12 times a year and there is now no in-product answer to it. Revisit if cancels are shown to cluster in the 72h after the PDN — still untestable, we do not log the PDN timestamp.
+- **S3 shows no banner but its LADDER RULE IS NOT OPTIONAL.** A paused subscriber must still suppress every Phase 1/2 banner and every dunning send. Today paused subscribers get dunning meant for cancellations.
+- **S14 (91 external cancels) is named in the sheet as the first candidate to revisit** — largest single cohort in the whole dunning problem.
+
+**Precedence ladder was rebuilt at the same time** (rows 36-47, now 4 columns) with a "Does it render a banner in the current scope?" column. **The ladder is unchanged as logic** — every step is still evaluated in order, because a higher step suppressing a lower one is the entire point; only which steps *render* changed.
+
+**Sheet layout after the rescope:** A1:N25 scenarios (14 cols, Phase added as column A) · A27:D34 destinations · A36:D47 ladder · A50:D53 telemetry · A56:D62 open decisions. Columns A:N at 210px, wrapped, top-aligned.

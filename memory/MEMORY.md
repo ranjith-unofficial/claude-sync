@@ -68,7 +68,7 @@
 - [Funnel analysis](project-inc42-funnel-analysis.md) — QIA ~2,100 is a 90d floor; identification cliff web 0.42%/DataLabs 0.16%
 - [Datalabs dunning & win-back](project-inc42-datalabs-dunning.md) — 48 lifetime payers/31 active; ₹92,665 LTV lost to failed debits
 - [Datalabs dunning decision map](project-inc42-datalabs-dunning-map.md) — 8-case status→treatment map; 7d grace/15d LOCKED 25 Aug
-- [Datalabs banner logic (30 Aug)](project-inc42-datalabs-banner-logic.md) — 16 scenarios → event → banner → CTA → landing, tab Sheet14; no "update payment method" exists on UPI AutoPay
+- [Datalabs banner logic (30 Aug)](project-inc42-datalabs-banner-logic.md) — LOCKED failure-only + phased; tab Sheet14; no "update payment method" exists on UPI AutoPay
 - [PostHog projects](reference-inc42-posthog-projects.md) — 53557 editorial web / 66351 DataLabs / 146258 app
 - [Event auditor](project-inc42-event-auditor.md) — 5/63 events properly implemented; scroll 0% to PostHog
 - [Tracking master sheet review (27 Aug)](project-inc42-tracking-master-review.md) — Scroll Depth contradicts strategy, zero Ask instrumentation
