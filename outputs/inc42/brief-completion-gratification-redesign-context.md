@@ -1040,3 +1040,35 @@ numerals** (`font-variant-numeric: tabular-nums`) are specified by the brief but
 set through the plugin API, so the mockups use proportional figures — the build must turn
 them on or the funding and traffic columns will not align. And the tier labels on canvas are
 illustrations of data density, not claims about those companies' real DataLabs records.
+
+## Explore › Companies tab (row y=52840)
+
+Brief at `~/ClaudeDocs/inc42/companies-tab-card-designer-prompt.md`. Full app chrome on
+every mockup — orange Explore header, ARTICLE | COMPANIES segmented control, filter pill
+row with the filter icon, 3-tab nav with Explore active.
+
+Built: **A** All pill (figure slot empty) · **B** Recently Funded · **C** IPO Bound ·
+**D** expanded at signals_count 1 · **E** expanded at signals_count 6 · **F** the guides
+drawn across D and E · **G** watchlist control in all four states · **H** empty filter result.
+
+Decisions taken inside the brief's gaps:
+- **The pill row reorders so the active pill is always first.** With five pills at 390 wide
+  the row overflows, and the first build silently dropped the active pill off-screen. A
+  selected filter scrolling into view is also what a real list does.
+- **A text figure needs a smaller size than a numeric one.** `DRHP filed` at the 19px used
+  for `$450 Mn` collided with the meta line and wrapped. IPO stage sets at 15.5px Bold; the
+  rule "one figure, larger than supporting text" holds without a fixed size.
+- **The three facts on a signals-6 card are label-left / value-right rows on hairlines**,
+  not a grid — so a company with two facts loses a row rather than leaving a hole.
+- **The star is the only watchlist control, in both states.** Expanded it gains the word
+  `Track` / `Tracking`; it is never swapped for a separate TRACK button. G states this on
+  the frame.
+- **The empty state names why it is empty** ("Only three funded companies are IPO bound this
+  quarter…") and offers **Clear the last filter** before Clear all — undoing one filter is
+  almost always what the reader wants.
+- Descriptions are trimmed to a single line at ~46 characters; two lines collide with the
+  star and chevron at the 112px row pitch.
+
+⚠️ Same tabular-numerals caveat as the profile page: the plugin API cannot set
+`font-variant-numeric`, so the funding column in B is proportional in the mockup and must be
+switched to lining/tabular figures in the build or the amounts will not align.
