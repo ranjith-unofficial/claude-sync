@@ -1109,3 +1109,37 @@ strongest for a first-time or logged-out visitor with no idea where to start.
 ⚠️ K1 and K4 need an editorial or rules layer that does not exist yet — "today's five" and
 the collection membership have to be generated daily. K2 and K5 run off DataLabs fields
 alone. That is the real cost difference between the concepts.
+
+## Row L — the reader who arrives with no intention (row y=55500, current)
+
+Ranjith's gap in row K: every concept there is event-led, which serves an investor or founder
+who came looking for something specific. It leaves out the visitor who "just wants to see
+what else is happening", or a general list, or simply the companies in their sector. Two
+audiences, and K only served one.
+
+- **L1 · Sectors first** — the page opens as sectors, not companies. `YOUR SECTORS` first
+  (outlined in brand, with a "4 raised this week" micro-line), then every other sector as a
+  plain counted row, closing on "Browse all companies A–Z". Direct answer to "companies in
+  my sector".
+- **L2 · The activity feed** — uncurated reverse-chronological stream of everything that
+  happened, grouped TODAY / YESTERDAY / SATURDAY with hour stamps, pills for
+  Everything / My sectors / Funding. Literal answer to "what else is happening", and
+  infinite, so it satisfies aimless scrolling.
+- **L3 · The directory, done properly** — the count stated (74,388), sticky letter headers,
+  compact rows and an A–Z scrubber down the right edge. Answers "a general list of what is
+  available"; monotony is fine here because lookup is the job.
+- **L4 · One page, two zones** — `WHAT'S HAPPENING` (three event rows + "See everything that
+  moved") above a full-bleed divider, then `OR JUST LOOK AROUND` (sector grid + A–Z entry).
+  Both intents on one scroll with no mode switch to discover.
+- **L5 · Serendipity** — one company at a time with a written reason it is interesting
+  ("Profitable since 1996. Has never raised a rupee."), a black **Show me another** shuffle,
+  and sector chips. Pure aimless browsing.
+
+Recommendation: **L4 is the shape of the page** — it needs no mode switch and neither
+audience has to know what they want first. Feed L2 into its top zone and L1 into its bottom
+zone, and keep L3 behind the A–Z row. L5 is the strongest single addition on top, because it
+is the only surface that rewards a reader with no goal at all.
+
+⚠️ L5 needs an editorial reason line per company, which does not exist as a field. It could
+be derived (never raised + founded before 2010 + profitable) but the sentence itself is
+writing, not data.
