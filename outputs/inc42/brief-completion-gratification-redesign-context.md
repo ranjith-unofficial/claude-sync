@@ -798,3 +798,32 @@ and the CTA changed.
   stuck-number problem but has the weakest pull.
 
 Recommendation: **C, with A as its day-one state**, subject to the backfill check.
+
+## V31 — honest urgency on the logged-out streak (row y=39810)
+
+**OUT-C is dead.** Ranjith: the product cannot backfill past mornings, so "Log in to claim
+4 mornings" is a promise that breaks at signup. The only true mechanic is that today's
+streak is held until midnight and then dropped, so every treatment works off that real
+deadline. Five, deliberately spanning tones:
+
+- **T1 · Live countdown (urgent)** — a dark pill under DAY STREAK with a clock and
+  `08 : 42 : 19`, caption `UNTIL TODAY'S STREAK RESETS`, CTA `Log in before midnight`.
+- **T2 · The day draining (neutral)** — a gold bar depleting between `NOW` and `11:59 PM`.
+  Same deadline, no ticking digits. CTA `Keep today's streak`.
+- **T3 · The fading number (show, don't tell)** — the numeral itself is filled with a
+  white-to-transparent gradient so it is visibly dissolving; caption
+  `FADING · GONE AT MIDNIGHT`. The only one that carries the idea without stating it.
+- **T4 · The ledger (formal)** — the numeral becomes a gold **0** over `MORNINGS SAVED`,
+  with "You have read four. None of them are on an account." States the loss as fact and
+  promises nothing. ⚠️ It puts a zero on a screen whose job is to reward completion.
+- **T5 · Tomorrow is locked (polite, forward-looking)** — `1 TODAY` solid beside a dashed
+  `2 TOMORROW` with a padlock; "Log in tonight and tomorrow picks up from two." The only
+  variant that names what the reader gains rather than what they lose.
+
+Recommendation: **T5 as the default, T1 only in evening sessions** when the deadline is
+genuinely close — the urgency escalates with real time remaining instead of shouting all
+day. That is also the honest answer to "should there be a timer": yes, but only when the
+timer means something.
+
+Craft note: the base V26b streak block has to be lifted (numeral y=110 → 86, label
+282 → 256) before any treatment taller than ~30px will clear the section divider at y=396.
