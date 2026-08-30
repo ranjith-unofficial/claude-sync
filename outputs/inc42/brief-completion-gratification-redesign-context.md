@@ -964,3 +964,39 @@ The four forward mechanisms:
 
 Recommendation: **H4 as the default, H3 on card 1 only** as a one-time gesture lesson,
 since the loss is entirely at card 1→2 with no fatigue curve afterwards.
+
+## Rows A–F — Brief page: MOVING TODAY and DEEP DIVES (rows y=45300 onward)
+
+New brief from Ranjith: two new sections below the existing Brief page, each defined by a
+**rule that re-runs daily against content we already own**, never by a content bucket.
+Base screen referenced: `4316:4729` in Inc42-App-2026 (orange header, white sheet, dark
+cards, black pill CTA, 3-tab nav) — matched, and built only in the draft file.
+
+Deliverables on canvas:
+- **A** (x=0) full Brief page, cold / logged out · **B** (x=450) logged in, with the
+  `2 you track` pill on the brief card and an `On your watchlist` badge on the Zepto card
+- **C1–C4** (y=47200) MOVING TODAY supply ladder: 6+ / 3–5 / widened 48h window / absent
+- **D** (y=47780) card anatomy at 2x, annotated, reason line called out in orange
+- **E1 / E2 / E5** (y=48420) DEEP DIVES selector rules 1, 2 and 5
+- **F** (y=48980) the connective moment, with a dotted link from the Zepto card down to
+  "Because Zepto moved today"
+
+Decisions taken while building:
+- **The reason line is set in brand orange at 15.5px Black** — larger than the company
+  name. It is the thing being read, so it outranks the entity.
+- **Rail cards are 162×196 at a 174px pitch**, which leaves a deliberate ~22px peek of the
+  third card at 390 wide. Six cards never fit; the peek is what says "scrolls".
+- **The 48h widening is stated on the section**, as a `LAST 48 HOURS` pill beside the
+  header, never silently applied.
+- **C4 shows Past Briefs closing straight into Deep Dives** — the honest picture of a
+  non-render, with no gap or placeholder.
+- **E5 is a single upcoming-issue card** (`THE CHECKOUT · Lands Tuesday` + `Notify me`),
+  not an empty shelf.
+- Company marks are **coloured monograms**, not fake logos — honest, and it matches the
+  91.2% DataLabs-resolution reality where art may or may not exist.
+- Header subline is generated from the day's set (`2 raises · 2 results · 1 IPO filing`),
+  which changes daily by construction and needs no login.
+
+⚠️ Placeholder art: the hero, past-brief and deep-dive images are reused crops from earlier
+rounds and one still carries faint baked-in headline text. Swap for real editorial art
+before this goes to anyone outside the team.
