@@ -1000,3 +1000,43 @@ Decisions taken while building:
 ⚠️ Placeholder art: the hero, past-brief and deep-dive images are reused crops from earlier
 rounds and one still carries faint baked-in headline text. Swap for real editorial art
 before this goes to anyone outside the team.
+
+## Company profile page — one shell, four fills (rows y=50200 and y=51900)
+
+Brief saved at `~/ClaudeDocs/inc42/company-profile-page-designer-prompt.md`. Template picked
+by the API's `signals_count` (1–6), never by per-field null checks. The data-poor profile is
+the default case — half of all companies are T1 — so it was designed first.
+
+Built only in the draft file; `955:16300` in Inc42-App-2026 was read but not touched (it is
+the Explore **list**, not a profile — it shows the current logo + chip + blurb +
+"Read more" card the brief describes).
+
+- **A · T1** Sleepy Owl Coffee — identity, full description, articles. No numbers anywhere.
+- **B · T2** The Whole Truth — plus one traffic figure.
+- **C · T3** Perfios — clamped description, funding, founders, traffic, articles.
+- **D · T4** Lenskart — plus financials and corporate.
+- **E** is the row read across: orange guides drawn on canvas at the shared shell landmarks
+  (top bar ends, 64px logo tile, name baseline, first block rule) prove the shell is
+  identical on all four.
+- **F1/F2** funding block collapsed and expanded (all six rounds).
+- **G1/G2** watchlist star off and on, with a `Tracking` pill and the line
+  "On your Watchlist. You'll see it in Moving Today." — which ties the toggle to
+  [[Moving Today]] rather than leaving it an orphan action.
+- **H** company not found.
+
+Decisions taken inside the brief's gaps:
+- **T1's page is carried by making ON INC42 the hero** — a full-bleed lead article card plus
+  three list rows plus an "All 12 stories" row. The description runs at 16px/25 instead of
+  T3/T4's clamped 15px/23. Same shell, different weight, so T1 reads as composed rather
+  than as T4 minus blocks.
+- **Every block leads with exactly one large figure** (42px Black) with its change indicator
+  to the right — traffic, funding total, revenue. Never a metric grid.
+- **The expand only exists when there is something behind it.** F2's "All 6 rounds" is not
+  chrome; on a company with one round the control is absent.
+- Company marks are coloured monograms on the neutral tile, not scraped logos.
+
+⚠️ Two things not deliverable in Figma and worth stating to whoever builds it: **tabular
+numerals** (`font-variant-numeric: tabular-nums`) are specified by the brief but cannot be
+set through the plugin API, so the mockups use proportional figures — the build must turn
+them on or the funding and traffic columns will not align. And the tier labels on canvas are
+illustrations of data density, not claims about those companies' real DataLabs records.
