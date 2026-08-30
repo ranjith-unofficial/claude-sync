@@ -30,6 +30,7 @@
 - [UI mockup: research first](feedback-ui-mockup-research-first.md) — browse real screenshots first; show all variants at full scale
 - [Report structure](feedback-report-structure.md) — methodology up front; group findings holistically per bucket, never split across cross-cutting sections
 - [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, additive framing, build don't describe
+- [Analytics destination scope](feedback-analytics-destination-scope.md) — event status only vs PostHog + Customer.io; ignore Mixpanel/MoEngage/GA4/Ads/UserGuiding entirely
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — v2 scope closed 24 Aug, release 31 Aug, Sep target 5,000 installs/20% activation
