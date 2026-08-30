@@ -131,3 +131,4 @@
 - [INC42 Asana IDs](reference-inc42-asana-ids.md) — workspace 176734136274, Inc42 App project 1216274779493698
 - [INC42 open ledger Sheet](reference-inc42-open-ledger-sheet.md) — also tab "Open Ledger (27 Aug)" in "Test" spreadsheet
 - [INC42 app story card redesign (30 Aug)](project-inc42-app-story-card-redesign.md) — V28 set on real article copy; live "Rate" heart is a dead control; logged-out streak state
+- [Feedback & rating system (30 Aug)](project-inc42-app-feedback-rating-system.md) — two decoupled systems; PRD's old "Enjoying Inc42?" gate was Play-illegal, now superseded
