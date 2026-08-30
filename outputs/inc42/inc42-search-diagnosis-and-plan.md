@@ -30,6 +30,22 @@ Measured side by side:
 | `lava mobile` | 20 rows of noise | **0** |
 | `tbotek` | 7: JBTEK, Design Totke | **0** |
 
+### Worked example — `airbound`, reproduced end to end
+
+Ranjith's screenshot of `inc42.com/#inc-search-popup` shows Profiles: **Airbound, Abound, Airborne, Airmount Logistics** + "Show More". Reproduced exactly:
+
+| Step | Output |
+|---|---|
+| v1 API raw order (11 companies) | Airbound, Airborne, Abound, HireBound, Airmount Logistics, Around Always, Wizbound Technologies, Inbound Aerospace, Inbound WebHub, All Around Polymer, Around the Globe Repz |
+| After `main.min.js` re-sort (substring match first, then alphabetical) | **Airbound, Abound, Airborne, Airmount Logistics**, All Around Polymer, Around Always, … |
+| What the UI shows | exactly those four, then "Show More" — **matches the screenshot** |
+| **v2, same query** | **`Airbound` — one result, nothing else** |
+
+Two things this proves:
+
+1. The browser-side re-sort in `main.min.js` is **real and load-bearing** — it is the only reason Airbound ranks first at all, since the API returned Airborne second. It is compensating for the server's ranking. An earlier version of this document recommended simply deleting it; that would make v1 *worse*. It should be removed only as part of moving to v2, which returns correct order from the server.
+2. Every one of the three wrong profiles a user sees — Abound, Airborne, Airmount Logistics — disappears on v2. The noise is a v1 artefact, not a data problem.
+
 **v2 already does most of what §9 proposed building** — typo correction with `did_you_mean`, entity typing, and topic-to-sector resolution (`fintech` → a sector filter, `green hydrogen` → Energy/Hydrogen). It is live, and inc42.com is not using it.
 
 **v2's one real defect:** it passes the *entire* query string as a single `company_search` value — `{"company":{"company_search":["iifl finance"]}}` — so any multi-word query needs an exact full-name match or returns nothing. No tokenisation, no partial phrase match. That single behaviour explains every "No results found" screenshot: `iifl finance`, `wagh bakri`, `lava mobile`. It also explains why run-together `tbotek` fails.
