@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 43f2af93-d997-425d-ace1-dc28c1bcdd2e
-  modified: 2026-08-29T07:47:36.147Z
+  modified: 2026-08-30T10:31:46.816Z
 ---
 
 Source: 3 Wispr Flow recordings — **"Optimizing Wispr Brief Design"** (27 Aug 2026, 07:53-08:11 IST, meeting id `1f7caee8-771c-4b9f-b523-21c6e0f0c018`), **"Brief Card Design Refresh"** (26 Aug, `b83ed5f9-51b0-4cac-9dd9-4b604261f7da`), **"Improving Brief Page Conversion"** (26 Aug, `669e5f6a-29ea-451e-8ced-655fdc2d5b65`). Drafted into a Slack message for Satya + Rithvik. Supplements [[project-inc42-app-v2-scope-full]] and [[project-inc42-app-v2-sync-26aug]] with more concrete, screen-level detail from the actual transcripts (not just meeting-notes summaries).
@@ -47,6 +47,33 @@ Source: 3 Wispr Flow recordings — **"Optimizing Wispr Brief Design"** (27 Aug 
 
 ## Process note (from 27 Aug "Team Catch-up", `0210d748-490c-4662-abb9-b687ad7ef822`)
 Utkarsh's feedback on the brief card has stayed subjective ("not impactful") without structural specifics, which is what's blocking Satya from proceeding. Ranjith's action: give Satya concrete data-point direction per company bucket (IPO/funded/early-stage) via Prapti, then push Utkarsh for approval citing the dev block. This Slack message (this memory) is meant to be that concrete, structural brief.
+
+## Designed out in Figma, 29-30 Aug 2026
+The gratification screen above went from concept to ~26 rounds of built comps in the
+**"App - Draft Screen"** Figma file (`dAsaTgNj0xh25w2OGaurZo`) — all exploration lives on
+that one page, deliberately kept off the live `Inc42-App-2026` file. Full round-by-round
+history, every rejected direction with the reason, and the standing constraints are in
+**`~/ClaudeDocs/inc42/brief-completion-gratification-redesign-context.md`** — read that
+before touching this again, it is the source of truth.
+
+Where it landed: **V24 finalised** (streak with a state-dependent pill — `+1 TODAY` daily,
+a countdown only when the record is within reach, `YOUR LONGEST YET` on the day it breaks;
+never a bare personal-record comparison, which is demotivating on most days). **V25/V26**
+carry the sector fix and alternative streak UIs (flame / bare numeral / tally / day plate).
+An 8-stage reveal animation was assembled at
+`~/ClaudeDocs/inc42/brief-card/inc42-streak-reveal.gif` — its key beat shows the streak at
+*yesterday's* value then increments on screen, so the reward visibly happens.
+
+Three findings from that work worth carrying anywhere near this screen:
+- **Measured read time is the wrong metric** — users background the brief and return, so
+  per-user timing is fragile. Derive value from CONTENT instead (word counts, standard
+  words-per-minute estimates); it needs no telemetry and is identical for every reader.
+- **A partially-filled ring reads as "you're only 10% done"** — it collides with the
+  universal progress-ring convention and fights a completion message.
+- **Never frame the extra content by what the reader did not select.** "NOT YOUR SECTORS /
+  OPTIONAL" made Ranjith feel he was missing something he followed; `ALSO WORTH KNOWING` /
+  `ALSO MOVING TODAY` are additive and do not. Closure first, discovery second, obligation
+  never. See [[feedback-design-review-ranjith]].
 
 ## Status
 Only **2-3 article preview cards** and the **progress indicator** are confirmed for the current build. Everything under "gratification screen" and "explore surface" is direction for a later build, not this release.

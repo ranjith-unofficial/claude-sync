@@ -27,6 +27,7 @@
 - [Entry-point instrumentation](feedback-entry-point-instrumentation.md) — don't infer which UI element fired an event from adjacency; check for a real distinguishing property first
 - [Push back in design discussions](feedback-push-back-in-design-discussions.md) — check proposals against data instead of validating each in turn; give concrete mockups not abstractions
 - [UI mockup: research first](feedback-ui-mockup-research-first.md) — browse Dribbble/real app screenshots before designing any UI mockup; never hide comparison variants behind a click-to-reveal toggle, show all at full scale
+- [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, additive framing only, decoration must mean something, build don't describe
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — install base small; v2 scope closed 24 Aug, release 31 Aug, Sep target 5,000 installs/20% activation; team: Utkarsh, Ritvik, Animesh, Nityam, Amit
@@ -116,6 +117,7 @@
 - [Account identities](reference-account-identities.md) — Claude Code runs as ranjith@ranjith.tech (NOT datalabs@inc42.com); Asana/PostHog differ
 - [Tools & stack](reference-tools-stack.md) — Figma, PostHog, GA4, BigQuery, n8n, Docker, VPS
 - [Figma MCP limits](reference-figma-mcp-limits.md) — Starter+View seat = 20 tool calls/MONTH; check budget before any Figma build
+- [Figma MCP build techniques](reference-figma-mcp-build-techniques.md) — createNodeFromSvg for real icons, upload_assets for photos, arcData segmented rings, GIF from stage frames
 - [Doc generation](reference-doc-generation.md) — PDF via headless Chrome; DOCX via python-docx (textutil flattens tables!)
 - [Oura health artifact](reference-oura-health-artifact.md) — Health Signals dashboard + daily 7am refresh routine
 - [Marketing skill install](marketing_skill_install.md) — unified `marketing` skill, vendor-API/chat-privacy guardrails
