@@ -28,6 +28,7 @@
 - [Entry-point instrumentation](feedback-entry-point-instrumentation.md) — don't infer UI source from adjacency, check a real property
 - [Push back in design discussions](feedback-push-back-in-design-discussions.md) — check proposals against data, give concrete mockups
 - [UI mockup: research first](feedback-ui-mockup-research-first.md) — browse real screenshots first; show all variants at full scale
+- [Report structure](feedback-report-structure.md) — methodology up front; group findings holistically per bucket, never split across cross-cutting sections
 - [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, additive framing, build don't describe
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)
