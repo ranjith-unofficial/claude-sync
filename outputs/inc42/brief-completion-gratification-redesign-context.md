@@ -675,3 +675,56 @@ implicitly through wording alone.
   certificate crest, generic ornamental badges.
 - All exploration must stay on the **App - Draft Screen** file only — never on the live
   `Inc42-App-2026` file or any page other collaborators are using.
+
+## V26b-OUT — logged-out streak state (30 Aug)
+
+Cloned from `V26b Bare numeral` into `V26b-OUT · LOGGED OUT` (draft file, x=1800 y=33730).
+Same screen, three changes: the numeral reads **1**, only the first of the seven week dots
+is lit, and the unlock card is replaced by a loss-framed pair — a gold line
+**"This streak disappears at midnight."** over a solid white CTA
+**"Log in to save my streak"**, closed by "Takes 10 seconds · keeps every morning you have
+read". This is the one place in the product where loss framing is correct: the streak
+genuinely is unsaved, so naming the deadline is honest rather than manufactured pressure.
+
+## V27 / V28 — the STORY CARD (a different screen from the completion screen)
+
+Row V27 (y=35530) was the first pass at the in-brief story card and is superseded.
+Ranjith's rejection of V27-1: too many elements, no article image, and the newsroom
+byline / "30-sec read" / filed time are not relevant inside the brief. He also flagged the
+real blocker — What's new / Why it matters / The detail are long and will not fit.
+
+**Row V28 (y=36600) is the current set**, and it changed method: it uses a REAL Inc42
+story rather than invented copy — Ola Electric's ₹95.81 Cr PLI-Auto incentive, post id
+570511, its real featured image, and its three real summary bullets at **19 / 27 / 20
+words**. Designing against the actual lengths is what makes the space problem legible.
+
+Five answers to "the body is too long":
+- **28-1 Over the image** — the photograph is the whole card behind a three-stop scrim, so
+  the ~210px the image block used to occupy is recovered and all three bullets fit.
+- **28-2 Headline does bullet 1's job** — drops What's new entirely. Backed by the corpus
+  finding that bullet 1 repeats a median 50% of the headline's words; the two survivors
+  then run at 15px instead of 13.5px.
+- **28-3 Two taps, one story** — the story spans two cards, shown by splitting segment 2 of
+  the progress bar in half. Buys a 31px headline.
+- **28-4 Expand in place** — The detail collapses to a single tappable row carrying its own
+  teaser ("₹7,240 Cr in battery-cell PLI also in play") with a chevron.
+- **28-5 Thumbnail + long body** — image demoted to a 96px thumb beside a company block
+  with a Follow control; maximum room for text, and only Why it matters is accented.
+
+All five drop the byline/filed-time/read-time chrome, move bookmark and share onto the
+image as glass buttons, and carry the reaction pair inline.
+
+**Reaction control (research-backed, applies to every variation):** the live control is a
+heart labelled "Rate" that must be tapped before like/dislike appear — structurally the
+same dead control Netflix shipped and then fixed. Netflix's move from 5 stars to 2 thumbs
+raised rating volume 200%; YouTube shipped the *word* under the thumb; Particle, Blinkist
+and Apple News all keep both halves visible and frame the negative as a feed preference
+("Less", "Suggest less like this"), never as a verdict. Hence **"More like this" /
+"Less like this", both visible, single tap, words not icons.** The existing negative
+bottom sheet (`2290:1180` in the live file, misnamed "Delete · 1 · Confirm popup") is
+good and should stay as the second step of the Less path; there is no positive-path sheet
+designed at all.
+
+⚠️ Per-story photography does not exist as a pipeline yet (sector images agreed 12 Aug,
+owner Anmol, unbuilt). 28-1 and 28-2 depend on a real image per story; 28-3/4/5 degrade
+gracefully without one. Confirm the art pipeline before picking a photo-led direction.
