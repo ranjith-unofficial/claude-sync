@@ -582,8 +582,21 @@ exact moment meant to deliver closure.
   rings, closed by: *"Nothing you need to read — just so you know the whole ecosystem, not
   only your corner."*
 
-That last line is the whole fix: it converts the section from an implied to-do list into
-ecosystem awareness. Order matters — **closure first, awareness second, obligation never.**
+**Corrected after review — the first attempt at zone 2 was still wrong.** "NOT YOUR
+SECTORS" defines the section by what the reader *didn't* pick (a deficit frame),
+"OPTIONAL" implies an obligation exists somewhere, and "Nothing you need to read"
+protests too much — naming an obligation is what invokes it. Net effect was still
+"am I missing something I follow?"
+
+**Final copy — additive, never subtractive:**
+- Zone 1: `YOUR SECTORS — ALL COVERED` + ticked chips with counts
+- Zone 2: **`ALSO WORTH KNOWING`** (peach, reused from V17 where it tested well) with the
+  "OPTIONAL" tag deleted entirely, closed by an invitation rather than a denial:
+  *"Tap any sector for a quick look."*
+
+**Rule that came out of this:** describe the extra content by what it *adds*, never by what
+the reader failed to select, and never mention obligation even to deny it. Order stays
+**closure first, discovery second, obligation never.**
 
 **Circle treatments built:**
 - **25a · Week ring + core** — the V24 segmented ring with a soft inner disc behind the
