@@ -728,3 +728,47 @@ designed at all.
 ⚠️ Per-story photography does not exist as a pipeline yet (sector images agreed 12 Aug,
 owner Anmol, unbuilt). 28-1 and 28-2 depend on a real image per story; 28-3/4/5 degrade
 gracefully without one. Confirm the art pipeline before picking a photo-led direction.
+
+## V29 — story card rebuilt as identity devices (30 Aug, current set)
+
+**V28 was rejected wholesale.** Ranjith's verdict, in order: V28-1 was too bright to read,
+the More/Less pills were misaligned, the text was not readable, and "the UI is not at all
+convincing, it is not making any sense." Asked directly, he named the root cause as
+**no visual identity** — the layout was fine but nothing looked designed or looked like
+Inc42 — and said to **start clean** rather than salvage any of the five.
+
+Two craft notes banked from that round: the thumb icon and its label were 5px out of
+vertical centre inside the pill (centre both against the pill box, and set the label to
+`WIDTH_AND_HEIGHT` so the pair can be centred as a unit); and pushing the scrim hard
+enough to read white text over Inc42's bright studio photography destroys the photograph,
+which kills the text-over-image direction outright.
+
+**Precedent pulled before building (Mobbin):** Blinkist Shorts (whole card is one flat
+brand colour, payload is a pull-quote, thumbs pair permanently visible), Life Reset (one
+enormous orange numeral on near-black), Formula 1 (oversized black headline plus a red
+category chip), The Atlantic (display type on a black ground), Instagram Stories (in the
+story format the reaction lives at the bottom edge as chrome, not as a button in the
+content).
+
+**The system, shared by all five (row y=37670):** masthead, 8-segment progress bar, and a
+**full-width split reaction bar flush to the bottom edge** — 84px tall, halved by a
+hairline, `More like this` / `Less like this` with thumbs, both always visible.
+**"Read full article" is deleted entirely** (9% usage, and Ranjith said to ignore it).
+Bookmark and share sit as glass circles in the top-right.
+
+The five devices:
+- **29-1 The orange plate** — the whole card is brand orange, no photograph. Identity is
+  the colour itself; every card in the brief is a plate of Inc42 orange.
+- **29-2 The number plate** — near-black, the figure at 72px in `#FF6B3D`, then a
+  `HOW IT ADDS UP` bar chart of the FY24/FY25/FY26 tranches. Strongest claim to being
+  *Inc42's* card, because the graphic device is the data nobody else holds.
+- **29-3 The masthead poster** — full-bleed photo, a hard seam, and an orange category
+  plate straddling it under an oversized headline.
+- **29-4 The filed record** — cream ground, a white document card with an orange top rule,
+  tabular label/value rows and a `VERIFIED · INC42 DATALABS` footer. Reads as a record you
+  are being handed rather than a feed item.
+- **29-5 The split plate** — orange top half carrying the headline, cream bottom half
+  carrying the body, with a circular sector token straddling the seam.
+
+Note 29-1, 29-2, 29-4 and 29-5 need **no photograph at all**, which matters while per-story
+art is still unbuilt.
