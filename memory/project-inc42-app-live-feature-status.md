@@ -17,12 +17,12 @@ The feature specced as **"Decode" ships as the "30 sec summary"**. Decode was an
 ## Confirmed NOT in the app
 **Monetization gates** — specced as dormant and Apple-safe in §8.6, not built. **Dark mode, sector images, app-update prompt, store review prompt, heatmaps, Pulse** — all v2 or backlog.
 
-## There is no rate control
-Ranjith, verbatim: *"What is rate control in Brief? There's no rate control as such."* The row claiming one has been removed. Note this contradicts the `brief_story_rated` event, which fires — that discrepancy is unexplained and worth chasing when the event dictionary is next reconciled.
+## The "Rate" control is the like and dislike
+Confirmed 30 Aug. The v1 PRD's "Rate" control on brief cards is the **thumbs up and down shown when a story is opened**. It is **live**, and it fires `brief_story_rated`. Nobody calls it a rate control, which is why it briefly got deleted from the inventory as a feature that "does not exist". Usage is tiny: one user in eight days.
 
 ## Still open
 **Push delivery.** Not delivering despite opt-ins; root cause believed known on iOS. Confirm dead vs misconfigured before scoping the fix.
 
-**Why this memory exists:** I built that table by reading the specification, and the spec describes things that were never made. Ranjith's response was *"there are a lot of such things."* Two of my rows were wrong in opposite directions — I called a live feature "not built" because I did not recognise its name, and I invented a feature that does not exist because the spec mentioned it.
+**Why this memory exists:** I built that table by reading the specification, and the spec describes things that were never made. Ranjith's response was *"there are a lot of such things."* Two of my rows were wrong in opposite directions — I called two live features missing because I did not recognise the names this document uses for them: the 30 sec summary (written as "Decode") and the like/dislike on a story (written as the "Rate" control).
 
 **How to apply:** never infer from a spec that a feature exists, and never infer from an unfamiliar name or a zero-fire event that it does not. Ask what the team calls it and whether it is in the build. See [[reference-inc42-master-prd-update-rules]].
