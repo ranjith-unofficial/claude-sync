@@ -928,3 +928,39 @@ at card 1→2 with no fatigue curve afterwards.
 
 Do not add timed auto-advance — readers read at different speeds and news is not Stories.
 Keep tap-right, swipe-left and the button all live as three targets for the same action.
+
+## Row H — the corrections on row G (row y=44100, current)
+
+Ranjith's notes on G: the card did not feel personalised to him; the **Inc42 wordmark and
+the TODAY'S BRIEF tagline had been dropped** and must come back; **all four G screens had
+lost "The detail"**, so only two of the three points were shown; the layout was not well
+aligned; **G3's stack read as scroll/swipe-up rather than swipe-left**; and G2's peek was
+the right idea but poorly represented.
+
+What changed, applied to all four:
+- **Masthead restored** — `Inc42 | TODAY'S BRIEF · 3 AUG` with `2 / 8` on the right, over
+  the 8-segment bar.
+- **Personalisation is stated, not implied** — an avatar chip plus
+  *"In your brief because you follow **Sauce.vc**"* as its own row directly under the
+  progress bar, and the sector chip reads `YOUR SECTOR · D2C` (additive framing).
+- **All three points return** — What's new / Why it matters / The detail.
+- **One grid.** Image, chip, headline and every body line share the same 24 / 366 margins;
+  nothing is inset differently from anything else. This was the actual alignment defect.
+- **The reaction moved up beside the sector chip**, so the entire bottom of the screen
+  belongs to the forward move. This is also what makes room for three points.
+
+The four forward mechanisms:
+- **H1 · Next story strip** — 116px strip with the next story's thumbnail, `UP NEXT · 3 OF 8`
+  and its headline; the whole strip is the target.
+- **H2 · Horizontal deck** — the remaining stories drawn as small cards laid out **to the
+  right**, under `STILL TO COME` / `6 MORE`, with an orange arrow. Fixes G3's vertical
+  misread: direction is now unambiguous.
+- **H3 · The peek, properly** — the next story sits to the right with its own thumbnail and
+  skeleton lines, dimmed behind a gradient, and a 58px orange **seam button** straddles the
+  boundary, plus `SWIPE LEFT FOR STORY 3` with chevrons. Teaches the gesture.
+- **H4 · The named next button** — a 74px orange block carrying `NEXT · 3 OF 8` and the
+  next story's actual headline, "Zomato's ₹2,000 Cr bet". One target, and the reason to
+  tap it is written inside it.
+
+Recommendation: **H4 as the default, H3 on card 1 only** as a one-time gesture lesson,
+since the loss is entirely at card 1→2 with no fatigue curve afterwards.
