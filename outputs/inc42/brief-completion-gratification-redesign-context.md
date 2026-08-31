@@ -1273,3 +1273,43 @@ what a company *is*, but only Inc42 can show what was *written* about it this we
 ⚠️ Caveats: install counts are a floor, not usage. Absence was established by Play Store
 search, which is good evidence but not exhaustive. No traffic or revenue data was obtained,
 so "how well they are doing" here means adoption and design posture, not business performance.
+
+## Row Q — premiumness, on the structures that worked (row y=61700, current)
+
+Ranjith: P2 (many rails) and P5 (the map) are directionally right but do not feel premium.
+Structure is unchanged in row Q; only the craft moves.
+
+**What was actually costing the premium feel — four diagnoses, applied to all six frames:**
+1. **The full-bleed orange header.** 196px of saturated brand at the top of every screen,
+   shouting before any content speaks. Replaced by a quiet wordmark on the page ground, with
+   the tab pair as underlined text rather than filled pills. This is the single biggest lever.
+2. **Accent inflation.** Orange had been on the header, the chips, the figures, the CTAs and
+   the nav — thirty appearances. Now three per screen: the active tab underline, one block in
+   the map, the nav dot.
+3. **Borders doing the work of space.** Every card had a 1px hairline. Replaced by tone,
+   shadow or plain air depending on the language.
+4. **One typeface for everything.** Inter throughout reads as an unstyled app. A display face
+   on the headings gives the page a voice — legitimate for a publisher.
+
+Four languages, each a complete system:
+- **Q1 · Editorial paper** — `#FAF7F2` ground, **Instrument Serif** headings, warm neutral
+  tiles, hairline rules. Reads like the print edition of a magazine.
+- **Q2 · Gallery dark** — `#0E0D0F`, **Playfair Display** headings, warm-white type, marks
+  floating on near-black. Museum wall.
+- **Q3 · Swiss index** — pure white, **Archivo**, square corners, rules top and bottom,
+  wide-tracked micro-caps, numerals right-aligned. Feels like a well-set annual report.
+- **Q4 · Tonal soft** — `#F1EEE9` ground, white cards with a 7% shadow and **no borders at
+  all**, DM Sans, 26px radii. Quietest of the four.
+- **Q5 / Q6** — the map in the paper and dark languages. The mosaic now runs a tonal ladder
+  (one orange block, then warm neutrals descending) instead of seven tints of orange, and the
+  counts are set in the display face.
+
+Recommendation: **Q1 for the app.** It is the only one of the four that is unmistakably a
+publisher rather than a fintech or a database, which is the actual differentiator against
+Tracxn and Crunchbase. Q2 is the strongest single screen but a dark Explore inside an
+otherwise light app needs the whole app to follow. Q3 is the most information-dense if the
+tab ever has to carry the full directory.
+
+⚠️ **Instrument Serif / Playfair / Archivo / DM Sans are not Inc42's brand fonts.** The real
+font is Gilroy, which is not installed in this Figma environment. Whatever language is picked
+has to be re-set in the actual brand face before anyone judges the type.
