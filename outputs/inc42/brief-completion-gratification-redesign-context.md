@@ -1343,3 +1343,37 @@ twelve real marks, a hook on every card.
 ⚠️ The hook lines are written, not queried. B and E in particular are editorial sentences.
 Before this ships either a writer produces them or they reduce to templates driven by
 sub-sector and founded year — which the 100% fields can do, at the cost of some charm.
+
+## Row S — the Explore page in the app's OWN language (row y=64400, current)
+
+Ranjith's criticism of R1, and it was correct on the point that matters: the paper-and-serif
+language of rows Q and R **has nothing to do with how the rest of the Inc42 app is built.**
+I designed a system in isolation instead of extending the one that exists. He also flagged
+that the R1 cards were large but empty — the left side dead.
+
+**Both problems have one root cause and one fix.** Going back to the live Brief page
+(`4316:4729`) the app's card system is: white card, ~14–16px radius, faint border and a very
+soft shadow, **an image thumbnail on the left**, an orange micro-tag pill, a bold headline, a
+grey byline row. *Every card in the app is visually full because it carries an image.* Company
+cards had none — hence the dead left side.
+
+**The fix: the company's latest Inc42 article supplies the image.** Any company reachable from
+the news has coverage, and every article has a featured image. So a company card becomes the
+app's existing article card, with the **company logo as a 28px badge overlapping the corner of
+the article thumbnail** — which also ties the entity to the story visually.
+
+- **S1 · List** — filter pills, `Moving this week`, four company cards in the app's anatomy,
+  a `Browse by sector` 2×3 grid with counts, and a black `All 74,388 companies` pill.
+- **S2 · Hero + list** — same but led by a full-bleed company hero built on the app's existing
+  "Beyond the Brief" hero card, with the logo badge on the scrim.
+
+Both use the app's real chrome — orange header, ARTICLE | COMPANIES white pill control,
+rounded white sheet, black pill CTA, three-tab nav.
+
+Article thumbnails are real Inc42 featured images pulled live from the WP API; logos are the
+real marks.
+
+**Standing lesson worth keeping:** before designing a new surface for this app, open the live
+screens first and extract the existing card anatomy, radii, tag style and shadow. Two full
+rows (Q and R) were spent on a language that could never ship because it did not belong to
+the product.
