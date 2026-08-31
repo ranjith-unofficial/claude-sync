@@ -1313,3 +1313,33 @@ tab ever has to carry the full directory.
 ⚠️ **Instrument Serif / Playfair / Archivo / DM Sans are not Inc42's brand fonts.** The real
 font is Gilroy, which is not installed in this Figma environment. Whatever language is picked
 has to be re-set in the actual brand face before anyone judges the type.
+
+## Row R — real logos, and a reason to tap (row y=63000, current)
+
+Two asks on top of Q1: give every card something intriguing about the company, and use real
+logos instead of monogram letters.
+
+**Logos are now real.** Pulled live from `https://www.google.com/s2/favicons?domain=<domain>&sz=128`,
+composited onto a white tile at 104px inside 144px with padding. Sixteen fetched, **two
+rejected** — Perfios returned a generic globe and Ather a black square — so twelve are in use:
+Zepto, Groww, Zerodha, CRED, Acko, Blinkit, Rapido, Meesho, boAt, Wakefit, Lenskart, Cars24.
+For production this should come from DataLabs' own logo field; the favicon service is a
+stand-in that happens to resolve about 85% of the time.
+
+**The hook.** Every card carries one line in the display italic answering "why would I tap
+this?", and **which hook appears is decided by the rail** — the same principle as "the pill
+decides the figure", so it is never blank and never repeated twice on a screen:
+- **A · The sub-sector** — "Credit-card bill payments" (100% field)
+- **B · The claim** — "Thirty years old. Never raised." (works with zero numbers)
+- **C · With description** — two lines of what they do, the unused 100% field
+- **D · The latest story** — our own last headline, always available
+- **E · Age and standing** — founded year turned into a sentence
+- **F · The figure** — only on rails where the figure *is* the rail
+- **G · The rail tile** — the same idea at 236px, so a hook still fits at rail width
+
+**R1** is the Q1 page rebuilt: three rails (Fintech · Quick commerce · Consumer brands),
+twelve real marks, a hook on every card.
+
+⚠️ The hook lines are written, not queried. B and E in particular are editorial sentences.
+Before this ships either a writer produces them or they reduce to templates driven by
+sub-sector and founded year — which the 100% fields can do, at the cost of some charm.
