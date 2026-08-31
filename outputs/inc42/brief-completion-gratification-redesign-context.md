@@ -1207,3 +1207,36 @@ quiet list → count card. Five different shapes, no chart anywhere, nothing inv
 The principle worth keeping: **impact from type scale, colour blocking and composition rather
 than from charts** — which is also the only thing that survives when a company has no
 numbers, i.e. most of them.
+
+## Row P — making it feel like Explore (row y=60300, current)
+
+Ranjith's note on row N: it reads like a dedicated page about a few companies, not an Explore
+section. Nothing on it signals that 74,000 more sit behind it, and there is no room for
+self-directed wandering.
+
+**The diagnosis:** big cards mean few items on screen, and few items reads as "this is the
+content" rather than "this is a sample". Scale has to be shown, not stated — through
+quantity on screen, counts on everything, and the number of different ways in.
+
+- **P1 · The wall** — dense 5-across logo grid broken by sector headers, each with its count
+  and a `9,640 →`. Thirty companies visible at once, and it is obviously a fragment.
+- **P2 · Many rails** — five rails on one screen, each a different axis (By sector · In
+  Bengaluru · Founded in the 2020s · Bootstrapped 64,642 · Most written about), each running
+  off the right edge with a count. Breadth conveyed by the number of directions, not by depth
+  in any one.
+- **P3 · The index** — 74,388 at 44px, then every sector, city and founding decade as a row
+  with a proportional bar and a count. A contents page for the whole database.
+- **P4 · Search first** — search as a real 58px destination rather than a header icon, then
+  TRY chips across ten different axes, a BROWSE BY grid (Sector 7 · Sub-sector 140+ · City
+  180+ · Founding year 1996–2026 · Type 4 · A–Z), and recently viewed.
+- **P5 · The map** — a mosaic where block size is company count. One screen that shows the
+  entire ecosystem's shape, plus city chips underneath.
+
+Recommendation: **P4 at the top of the page, P2's rails beneath it, P1's wall as what a
+sector opens into.** P4 gives agency immediately, P2 proves there are many directions, and
+P1 proves each direction is deep. P3 and P5 are the strongest single screens but work better
+as a "browse everything" destination than as the tab's front door.
+
+⚠️ Counts by city, by founding decade and by sub-sector are all assumed computable from
+DataLabs but were not in the confirmed 100% field list — worth checking before any of these
+ship, since in all five concepts the count *is* the design.
