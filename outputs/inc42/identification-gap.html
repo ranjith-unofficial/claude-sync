@@ -1,0 +1,520 @@
+<title>The Identification Gap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#FBFBFC;
+  --raise:#FFFFFF;
+  --sunk:#F2F3F6;
+  --ink:#16181D;
+  --ink-2:#4C525C;
+  --ink-3:#7B828D;
+  --rule:#E0E3E9;
+  --rule-soft:#EDEFF3;
+  --accent:#1F4FD8;
+  --accent-soft:#E7EDFC;
+  --good:#1D6B3F;
+  --warn:#8A5A00;
+  --crit:#A62A17;
+  --crit-soft:#FBECE9;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#101214;
+    --raise:#171A1E;
+    --sunk:#1B1F24;
+    --ink:#E9EBEF;
+    --ink-2:#A8AEB8;
+    --ink-3:#767D88;
+    --rule:#2A2F36;
+    --rule-soft:#22262C;
+    --accent:#7BA0FF;
+    --accent-soft:#182338;
+    --good:#6FC08D;
+    --warn:#D9A441;
+    --crit:#E58A75;
+    --crit-soft:#33201C;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#101214;
+  --raise:#171A1E;
+  --sunk:#1B1F24;
+  --ink:#E9EBEF;
+  --ink-2:#A8AEB8;
+  --ink-3:#767D88;
+  --rule:#2A2F36;
+  --rule-soft:#22262C;
+  --accent:#7BA0FF;
+  --accent-soft:#182338;
+  --good:#6FC08D;
+  --warn:#D9A441;
+  --crit:#E58A75;
+  --crit-soft:#33201C;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:16.5px;
+  line-height:1.62;
+  margin:0;
+  padding:0 20px 96px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.measure{max-width:68ch}
+
+header.top{
+  padding:56px 0 28px;
+  border-bottom:2px solid var(--ink);
+  margin-bottom:40px;
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  margin:0 0 16px;
+}
+h1{
+  font-family:Newsreader,Georgia,serif;
+  font-size:clamp(38px,6vw,60px);
+  line-height:1.04;
+  font-weight:500;
+  letter-spacing:-.018em;
+  margin:0 0 18px;
+  text-wrap:balance;
+}
+.standfirst{
+  font-family:Newsreader,Georgia,serif;
+  font-size:20px;
+  line-height:1.5;
+  color:var(--ink-2);
+  max-width:60ch;
+  margin:0 0 22px;
+}
+.meta{
+  display:flex;flex-wrap:wrap;gap:8px 20px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;color:var(--ink-3);
+  letter-spacing:.02em;
+}
+
+section{margin:0 0 60px}
+h2{
+  font-family:Newsreader,Georgia,serif;
+  font-size:29px;font-weight:500;letter-spacing:-.012em;
+  margin:0 0 6px;text-wrap:balance;
+  display:flex;align-items:baseline;gap:14px;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;font-weight:500;
+  color:var(--accent);
+  letter-spacing:.06em;
+  flex:none;
+}
+h3{
+  font-family:"Source Sans 3",sans-serif;
+  font-size:13px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);
+  margin:36px 0 12px;
+}
+p{margin:0 0 15px;max-width:68ch}
+.lede{font-size:17.5px;color:var(--ink-2);max-width:66ch}
+ul,ol{margin:0 0 16px;padding-left:20px;max-width:68ch}
+li{margin:0 0 7px}
+strong{font-weight:600;color:var(--ink)}
+a{color:var(--accent)}
+
+.scroll{overflow-x:auto;margin:18px 0 8px;border:1px solid var(--rule);background:var(--raise)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{
+  padding:9px 13px;text-align:right;
+  border-bottom:1px solid var(--rule-soft);
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+th{
+  font-family:"Source Sans 3",sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);
+  background:var(--sunk);
+  border-bottom:1px solid var(--rule);
+  position:sticky;top:0;
+}
+td:first-child,th:first-child{text-align:left;white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.num{font-family:"IBM Plex Mono",monospace}
+tr.total td{font-weight:600;background:var(--sunk)}
+.g{color:var(--good);font-weight:600}
+.w{color:var(--warn);font-weight:600}
+.c{color:var(--crit);font-weight:600}
+caption{
+  caption-side:bottom;text-align:left;
+  font-size:12.5px;color:var(--ink-3);
+  padding:9px 13px;border-top:1px solid var(--rule-soft);
+}
+
+.callout{
+  border-left:3px solid var(--accent);
+  background:var(--accent-soft);
+  padding:16px 20px;margin:22px 0;
+  max-width:70ch;
+}
+.callout p{margin:0;max-width:none}
+.callout p + p{margin-top:10px}
+.alarm{border-left-color:var(--crit);background:var(--crit-soft)}
+
+.figrow{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--rule);background:var(--raise);margin:22px 0}
+.fig{flex:1 1 170px;padding:16px 18px;border-right:1px solid var(--rule-soft)}
+.fig:last-child{border-right:none}
+.fig .k{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:27px;font-weight:500;letter-spacing:-.02em;
+  display:block;line-height:1.1;
+}
+.fig .l{
+  font-size:12px;color:var(--ink-3);
+  margin-top:5px;display:block;line-height:1.35;
+}
+
+.rule{border:none;border-top:1px solid var(--rule);margin:52px 0}
+
+footer{
+  border-top:1px solid var(--rule);
+  padding-top:20px;margin-top:56px;
+  font-size:13px;color:var(--ink-3);
+}
+footer p{max-width:72ch;margin:0 0 9px}
+
+@media (max-width:640px){
+  body{padding:0 15px 64px;font-size:16px}
+  header.top{padding-top:36px}
+  h2{gap:10px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Inc42 · Product &amp; Data · audience baseline</p>
+  <h1>The Identification Gap</h1>
+  <p class="standfirst">About 98,000 people engage with Inc42 every month and never tell us who they are. That single number explains the north star better than any other in this document.</p>
+  <div class="meta">
+    <span>1 September 2026</span>
+    <span>PostHog 53557 · 66351 · 146258</span>
+    <span>GA4 Inc42 v4</span>
+    <span>Six months: Mar–Aug 2026</span>
+  </div>
+</header>
+
+<section>
+  <h2><span class="num">01</span> What we are trying to do</h2>
+  <p class="lede">The north star is <strong>QIA-30</strong>. Every plan row should end up moving one of its four multipliers, and the point of this document is to say which one is worth moving first.</p>
+
+  <div class="callout">
+    <p><strong>IA-30</strong> — a person we can name who took at least one qualifying action in 30 days. Two tests: we know who they are, and they did something on the list.</p>
+    <p><strong>QIA-30</strong> — an IA-30 person who is also the right kind of person: Senior Manager or above, at an organisation we know, and not a student, academic or service provider.</p>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:13.5px">QIA&nbsp;=&nbsp;arrivals&nbsp;×&nbsp;identified&nbsp;×&nbsp;qualified&nbsp;×&nbsp;active-in-window</p>
+  </div>
+
+  <div class="figrow">
+    <div class="fig"><span class="k">17,464</span><span class="l">IA-30, official (warehouse, 26 Aug)</span></div>
+    <div class="fig"><span class="k">5,470</span><span class="l">QIA-30, official</span></div>
+    <div class="fig"><span class="k">31.3%</span><span class="l">qualification rate</span></div>
+    <div class="fig"><span class="k">15,000</span><span class="l">QIA-30 target, FY28-end</span></div>
+  </div>
+
+  <h3>The ten qualifying actions (revised 26 Aug)</h3>
+  <p>Not nine plus one. One was split, one was added, one was deleted — worth knowing before anyone reports the change as growth.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>#</th><th style="text-align:left">Action</th><th style="text-align:left">Where it is measured</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td style="text-align:left">Article read — opened <em>and</em> read to depth</td><td style="text-align:left"><span class="c">App only. Web contributes zero</span></td></tr>
+        <tr><td class="num">2</td><td style="text-align:left">Profile or database record view</td><td style="text-align:left">App, DataLabs</td></tr>
+        <tr><td class="num">3</td><td style="text-align:left">Search completed — query actually submitted</td><td style="text-align:left">All three surfaces</td></tr>
+        <tr><td class="num">4</td><td style="text-align:left">Advanced or filtered search <span class="g">— new</span></td><td style="text-align:left">DataLabs</td></tr>
+        <tr><td class="num">5</td><td style="text-align:left">Watchlist, saved search or alert</td><td style="text-align:left">App, DataLabs</td></tr>
+        <tr><td class="num">6</td><td style="text-align:left">Ask / AI query</td><td style="text-align:left"><span class="w">Instrumented, not piped</span></td></tr>
+        <tr><td class="num">7</td><td style="text-align:left">App session with ≥1 content action</td><td style="text-align:left">App — includes brief completion</td></tr>
+        <tr><td class="num">8</td><td style="text-align:left">Newsletter click, never an open</td><td style="text-align:left"><span class="w">Customer.io, outside PostHog</span></td></tr>
+        <tr><td class="num">9</td><td style="text-align:left">Event application or registration</td><td style="text-align:left"><span class="w">Ticketing; QAA instrument due Sept</span></td></tr>
+        <tr><td class="num">10</td><td style="text-align:left">Payment or renewal</td><td style="text-align:left">All — <span class="w">trial excluded</span></td></tr>
+      </tbody>
+      <caption>Deleted in the 26 Aug revision: community contribution. Screen arrivals are explicitly never counted.</caption>
+    </table>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">02</span> Six months, month on month</h2>
+  <p class="lede">Visits, registrations, engagement and identified actives — each at 7, 15 and 30 days, so the recency structure is visible rather than averaged away.</p>
+
+  <h3>Inc42 Media</h3>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left">Month</th>
+          <th>Visitors 30d</th><th>15d</th><th>7d</th>
+          <th>Registered</th>
+          <th>Engaged 30d</th><th>15d</th><th>7d</th>
+          <th>IA 30d</th><th>15d</th><th>7d</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Mar</td><td class="num">523,863</td><td class="num">306,481</td><td class="num">99,506</td><td class="num">334</td><td class="num">2,801</td><td class="num">1,435</td><td class="num">556</td><td class="num">65</td><td class="num">35</td><td class="num">18</td></tr>
+        <tr><td>Apr</td><td class="num">395,969</td><td class="num">209,652</td><td class="num">107,887</td><td class="num">389</td><td class="num">2,370</td><td class="num">1,182</td><td class="num">612</td><td class="num">86</td><td class="num">50</td><td class="num">25</td></tr>
+        <tr><td>May</td><td class="num">419,966</td><td class="num">190,757</td><td class="num">103,192</td><td class="num c">56</td><td class="num">2,512</td><td class="num">1,172</td><td class="num">580</td><td class="num">112</td><td class="num">58</td><td class="num">27</td></tr>
+        <tr><td>Jun</td><td class="num">418,327</td><td class="num">205,495</td><td class="num">90,376</td><td class="num c">0</td><td class="num">2,424</td><td class="num">1,182</td><td class="num">587</td><td class="num">115</td><td class="num">70</td><td class="num">34</td></tr>
+        <tr><td>Jul</td><td class="num">490,080</td><td class="num">250,882</td><td class="num">129,158</td><td class="num">1,486</td><td class="num">2,711</td><td class="num">1,312</td><td class="num">613</td><td class="num">166</td><td class="num">93</td><td class="num">53</td></tr>
+        <tr class="total"><td>Aug</td><td class="num">491,170</td><td class="num">260,486</td><td class="num">139,691</td><td class="num">1,515</td><td class="num">2,715</td><td class="num">1,281</td><td class="num">633</td><td class="num">209</td><td class="num">103</td><td class="num">48</td></tr>
+      </tbody>
+      <caption>May and June registrations are a tracking break, not a real collapse. The event was repaired around July — do not read Mar–Jun registration as a trend.</caption>
+    </table>
+  </div>
+  <p>Traffic recovered and is flat at ~490k. <strong>Engagement has not moved in six months</strong> — 2,801 in March, 2,715 in August. The one line that did move is identified actives: <strong>65 → 209, up 3.2×</strong>. Identification is improving; engagement is not.</p>
+
+  <h3>DataLabs</h3>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left">Month</th>
+          <th>Visitors 30d</th><th>15d</th><th>7d</th>
+          <th>Registered</th>
+          <th>Engaged 30d</th><th>15d</th><th>7d</th>
+          <th>IA 30d</th><th>15d</th><th>7d</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Mar</td><td class="num">124,782</td><td class="num">63,271</td><td class="num">27,179</td><td class="num">1,288</td><td class="num">1,802</td><td class="num">955</td><td class="num">499</td><td class="num">1,460</td><td class="num">757</td><td class="num">393</td></tr>
+        <tr><td>Apr</td><td class="num">161,894</td><td class="num">113,571</td><td class="num">55,217</td><td class="num">1,666</td><td class="num">2,092</td><td class="num">938</td><td class="num">484</td><td class="num">1,778</td><td class="num">785</td><td class="num">405</td></tr>
+        <tr><td>May</td><td class="num w">228,694</td><td class="num">62,171</td><td class="num">13,157</td><td class="num">1,776</td><td class="num">2,173</td><td class="num">1,250</td><td class="num">535</td><td class="num">1,844</td><td class="num">1,058</td><td class="num">432</td></tr>
+        <tr><td>Jun</td><td class="num w">61,171</td><td class="num">33,214</td><td class="num">16,222</td><td class="num">2,009</td><td class="num">2,445</td><td class="num">1,246</td><td class="num">582</td><td class="num">1,944</td><td class="num">930</td><td class="num">425</td></tr>
+        <tr><td>Jul</td><td class="num">115,472</td><td class="num">57,934</td><td class="num">37,582</td><td class="num">2,189</td><td class="num">3,058</td><td class="num">1,479</td><td class="num">781</td><td class="num">2,174</td><td class="num">1,087</td><td class="num">553</td></tr>
+        <tr class="total"><td>Aug</td><td class="num">115,022</td><td class="num">39,412</td><td class="num">17,757</td><td class="num">2,417</td><td class="num">2,705</td><td class="num">1,342</td><td class="num">646</td><td class="num">2,160</td><td class="num">1,057</td><td class="num">508</td></tr>
+      </tbody>
+      <caption>May's 228k and June's 61k are a 4× swing with no campaign behind it — treat both as suspect until the August funnel cut reconciles them.</caption>
+    </table>
+  </div>
+  <p><strong>Registrations are the healthiest line in the company</strong> — 1,288 → 2,417, up 88% in six months, entirely organic. But identified actives have flattened: 2,174 → 2,160. We are adding 2,400 registrations a month and the active base has stopped growing. Everything acquired is leaking out the other end.</p>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">03</span> The recency structure — and what it proves</h2>
+  <p class="lede">The 7 / 15 / 30-day cut is the most diagnostic thing in this document. If people return, a longer window adds fewer new names. If they do not, it adds them in a straight line.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="text-align:left">Identified actives</th><th>7 days</th><th>15 days</th><th>30 days</th><th>30d ÷ 7d</th><th style="text-align:left">Reading</th></tr></thead>
+      <tbody>
+        <tr><td>Media</td><td class="num">48</td><td class="num">103</td><td class="num">204</td><td class="num c">4.25×</td><td style="text-align:left">Linear — nobody returns</td></tr>
+        <tr><td>DataLabs</td><td class="num">508</td><td class="num">1,057</td><td class="num">2,112</td><td class="num c">4.16×</td><td style="text-align:left">Linear — nobody returns</td></tr>
+        <tr class="total"><td>App</td><td class="num">249</td><td class="num">333</td><td class="num">360</td><td class="num g">1.45×</td><td style="text-align:left">Compounding — same people</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Media and DataLabs scale almost perfectly with the window. Their 30-day number is not a base of returning users — it is four weekly crowds of strangers added together. Confirmed directly on DataLabs:</p>
+
+  <div class="figrow">
+    <div class="fig"><span class="k c">94.5%</span><span class="l">DataLabs actives present in one week only (1,996 of 2,112)</span></div>
+    <div class="fig"><span class="k">1.16</span><span class="l">average active days per person per month</span></div>
+    <div class="fig"><span class="k">27</span><span class="l">people active in 3+ weeks — of 109,654 visitors</span></div>
+    <div class="fig"><span class="k g">29.2%</span><span class="l">App users active in 2+ weeks</span></div>
+  </div>
+
+  <p>The app retains <strong>five times better</strong> than DataLabs. Its problem is size, not behaviour. DataLabs' problem is behaviour, not size. These are different problems and they need different rows on the plan.</p>
+
+  <div class="callout alarm">
+    <p><strong>Decide the window before setting any target.</strong> Because there is no repeat, moving from QIA-30 to QIA-7 would cut the reported number by roughly 4× on Media and DataLabs and barely touch the app — with zero change in behaviour. QIA-7 was floated on 21 Aug for faster feedback loops. It is a reasonable idea that would make the plan look like a catastrophe.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">04</span> The potential pool — the acquisition prize</h2>
+  <p class="lede">People who already do a qualifying-shaped thing — read repeatedly, or search — and never sign up. This is the bucket acquisition should be aimed at, and it has never been sized.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="text-align:left">Month</th><th>Media pool</th><th>DataLabs pool</th><th>Total</th><th>vs identified actives</th></tr></thead>
+      <tbody>
+        <tr><td>Mar</td><td class="num">90,623</td><td class="num">8,619</td><td class="num">99,242</td><td class="num">65×</td></tr>
+        <tr><td>Apr</td><td class="num">74,155</td><td class="num">8,723</td><td class="num">82,878</td><td class="num">44×</td></tr>
+        <tr><td>May</td><td class="num">71,768</td><td class="num">15,151</td><td class="num">86,919</td><td class="num">44×</td></tr>
+        <tr><td>Jun</td><td class="num">67,071</td><td class="num">9,000</td><td class="num">76,071</td><td class="num">37×</td></tr>
+        <tr><td>Jul</td><td class="num">84,189</td><td class="num">11,633</td><td class="num">95,822</td><td class="num">41×</td></tr>
+        <tr class="total"><td>Aug</td><td class="num">84,466</td><td class="num">13,273</td><td class="num">97,739</td><td class="num">41×</td></tr>
+      </tbody>
+      <caption>Qualifying condition: two or more page views in the month, or a completed search, with no identity attached.</caption>
+    </table>
+  </div>
+
+  <p>The pool is <strong>41× the identified active base</strong> and has been stable for six months. Breaking August down on media tells us why it stays that way:</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="text-align:left">Media, August</th><th>People</th><th style="text-align:left">What it means</th></tr></thead>
+      <tbody>
+        <tr><td>Read 2+ articles, not identified</td><td class="num">83,883</td><td style="text-align:left">The full pool</td></tr>
+        <tr><td>Read 3+ articles, not identified</td><td class="num">37,811</td><td style="text-align:left">Habitual readers, still anonymous</td></tr>
+        <tr><td>Completed a search, not identified</td><td class="num">2,453</td><td style="text-align:left">High intent, still anonymous</td></tr>
+        <tr class="total"><td>Ever saw the registration gate</td><td class="num c">11,441</td><td style="text-align:left">Only 13.5% of the pool</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <p><strong>The acquisition problem is exposure, not conversion.</strong> 86% of engaged anonymous readers never encounter a registration prompt at all. We have been trying to improve a conversion rate on a gate that most of the audience never sees.</p>
+  </div>
+
+  <h3>And we cannot currently count them even when they act</h3>
+  <p>GA4 confirms the reading is measured — it just never reaches the tool the north star is computed in.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="text-align:left">GA4 event, Aug 4–31</th><th>Events</th><th>Users</th><th style="text-align:left">Reaches PostHog?</th></tr></thead>
+      <tbody>
+        <tr><td>page_view</td><td class="num">852,651</td><td class="num">585,125</td><td style="text-align:left">Yes</td></tr>
+        <tr class="total"><td>Scroll Depth</td><td class="num">675,496</td><td class="num">132,802</td><td style="text-align:left"><span class="c">No</span></td></tr>
+        <tr><td>scroll</td><td class="num">180,106</td><td class="num">140,246</td><td style="text-align:left"><span class="c">No</span></td></tr>
+        <tr><td>Plus Lock</td><td class="num">388,871</td><td class="num">199,449</td><td style="text-align:left"><span class="c">No</span></td></tr>
+        <tr><td>App Banner Viewed</td><td class="num">475,514</td><td class="num">183,898</td><td style="text-align:left"><span class="c">No</span></td></tr>
+      </tbody>
+      <caption>Scroll Depth carries full content metadata — post ID, tags, primary company, story type, sector. It is the third-largest event on the site.</caption>
+    </table>
+  </div>
+  <p>Roughly <strong>133,000 people a month have measured read depth</strong> and score zero against qualifying action #1. This is a destination setting on a tag that already fires correctly — not a build. It was flagged in the event audit on 23 Aug and again on 27 Aug, and has never been assigned.</p>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">05</span> The app — a size problem, not a behaviour problem</h2>
+  <p class="lede">907 people in 30 days. They retain better than any other surface and they under-use the one feature we measure them on.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="text-align:left">Step</th><th>People</th><th>Share</th></tr></thead>
+      <tbody>
+        <tr><td>Installed</td><td class="num">861</td><td class="num">—</td></tr>
+        <tr><td>Onboarded</td><td class="num">663</td><td class="num">77%</td></tr>
+        <tr class="total"><td>Explore viewed</td><td class="num">653</td><td class="num">72%</td></tr>
+        <tr><td>Brief opened</td><td class="num">431</td><td class="num">47.5%</td></tr>
+        <tr><td>Article opened</td><td class="num">349</td><td class="num">38.5%</td></tr>
+        <tr><td>Brief completed</td><td class="num c">200</td><td class="num c">22%</td></tr>
+        <tr><td>Company profile viewed</td><td class="num">168</td><td class="num">18.5%</td></tr>
+        <tr><td>Searched</td><td class="num">79</td><td class="num">8.7%</td></tr>
+        <tr><td>Watchlist added</td><td class="num">39</td><td class="num">4.3%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Where they are lost</h3>
+  <div class="figrow">
+    <div class="fig"><span class="k c">249</span><span class="l">onboarded, then never opened the Brief at all</span></div>
+    <div class="fig"><span class="k c">231</span><span class="l">opened the Brief, never finished it</span></div>
+    <div class="fig"><span class="k c">320</span><span class="l">browsed Explore, opened nothing</span></div>
+  </div>
+
+  <p><strong>Explore (653) is used more than the Brief (431).</strong> The feature we call the core product, and measure activation on, is the second most-used surface in the app. Reading is genuinely happening — 206 people opened two or more articles, a higher share (22.7%) than media manages (18.0%).</p>
+
+  <div class="callout">
+    <p>Activation is defined as brief completion, so a user who lives in Explore, reads three articles a week and returns every week counts as <em>not activated</em>. That is a measurement choice, and it is currently understating the surface people actually prefer.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">06</span> What to do, in order</h2>
+  <p class="lede">Three levers. The order matters more than the list — spending on acquisition before fixing repeat buys the same linear line at higher cost.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="text-align:left">#</th><th style="text-align:left">Move</th><th style="text-align:left">Why now</th><th>Reaches</th><th style="text-align:left">Effort</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td style="text-align:left"><strong>Route GA4 events to PostHog</strong><br>Scroll Depth · scroll · Plus Lock</td>
+          <td style="text-align:left">Unblocks qualifying action #1 on the largest surface; makes the registration gate measurable</td>
+          <td class="num">~133,000/mo</td>
+          <td style="text-align:left"><span class="g">Config, not build</span></td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td style="text-align:left"><strong>Expose the gate to the pool</strong><br>Repeat-reader and scroll triggers</td>
+          <td style="text-align:left">86% of engaged anonymous readers never see a prompt. This is the acquisition lever, not conversion tuning</td>
+          <td class="num">~84,000/mo</td>
+          <td style="text-align:left">Medium</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td style="text-align:left"><strong>Ship the DataLabs newsletter</strong><br>Email + WhatsApp; prompt alerts at the lookup</td>
+          <td style="text-align:left">94.5% come once. Built and unshipped. Only 1,857 of 109,654 ever touch an alert</td>
+          <td class="num">~13,000/mo</td>
+          <td style="text-align:left"><span class="g">Already built</span></td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td style="text-align:left"><strong>Fix the app's Brief entry</strong><br>Land post-onboarding in the Brief; card-1 fix</td>
+          <td style="text-align:left">249 never open it, 231 abandon it. Both are activation and QIA entry</td>
+          <td class="num">~480</td>
+          <td style="text-align:left">Small</td>
+        </tr>
+        <tr>
+          <td class="num">5</td>
+          <td style="text-align:left"><strong>Then scale app installs</strong></td>
+          <td style="text-align:left">Best-retaining surface, smallest audience. Worth spending on — after step 4, not before</td>
+          <td class="num">—</td>
+          <td style="text-align:left">Budget</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The metric nobody currently owns</h3>
+  <p>Every target on the plan is a volume target. The number that decides whether volume compounds is <strong>the repeat rate of identified actives</strong> — today 5.5% on DataLabs, 29.2% on the app. Nothing on the September sheet targets it. It should be the benchmark we set, and everything else backtracks from it.</p>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">07</span> Decisions needed</h2>
+  <p class="lede">Five open questions. Each changes a number materially, and none of them is mine to settle.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th style="text-align:left">Question</th><th style="text-align:left">Why it matters</th><th style="text-align:left">Owner</th></tr></thead>
+      <tbody>
+        <tr><td style="text-align:left">QIA window — 7, 15 or 30 days?</td><td style="text-align:left">Changes the baseline ~4× on Media and DataLabs, ~1.5× on app</td><td style="text-align:left">Utkarsh</td></tr>
+        <tr><td style="text-align:left">Does a trial start count as a payment?</td><td style="text-align:left">109 DataLabs trials a month currently count for nothing</td><td style="text-align:left">Utkarsh</td></tr>
+        <tr><td style="text-align:left">Does an Explore article read count as app activation?</td><td style="text-align:left">653 use Explore, 200 complete the Brief. Current definition ignores the bigger surface</td><td style="text-align:left">Ranjith</td></tr>
+        <tr><td style="text-align:left">What is Bucket 1 actually called?</td><td style="text-align:left">The 31 Aug recording garbled the name; the bucket has no agreed label</td><td style="text-align:left">Utkarsh</td></tr>
+        <tr><td style="text-align:left">DataLabs free→paid: 25%, 11.3% or 48 lifetime payers?</td><td style="text-align:left">Three sources, none agree. Do not quote any until reconciled</td><td style="text-align:left">Ranjith + Prapti</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p><strong>How to read these numbers.</strong> Everything here is measured in PostHog unless marked GA4, so it is a floor: the official IA-30 of 17,464 and QIA-30 of 5,470 come from the warehouse, which also counts newsletter clicks and event registrations that PostHog never receives.</p>
+  <p>The three PostHog projects cannot be joined, so totals across surfaces overstate — the same person on media and DataLabs is counted twice. Media registrations for May and June are a tracking break. DataLabs visitors for May and June swing 4× with no campaign behind them and are unreconciled. The <code>Seniority</code> property is inconsistent across 93,000 people — mixed casing, JSON-wrapped values and four vocabularies — so any qualification rate computed from PostHog alone is approximate. The app is one month of a launch cohort; its retention advantage is encouraging, not yet proven.</p>
+  <p>Sources: PostHog projects 53557 (Media), 66351 (DataLabs), 146258 (App) · GA4 property Inc42 v4 · One Inc42 Strategy §5, revised 26 Aug 2026 · App &amp; DataLabs alignment, 31 Aug 2026.</p>
+</footer>
+
+</div>
