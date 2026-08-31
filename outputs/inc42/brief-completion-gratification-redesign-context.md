@@ -1176,3 +1176,34 @@ wallpaper it was meant to replace.
 
 ⚠️ Styles 06 and 10 carry written lines, not fields. 09 needs a per-company monthly story
 count, which the CMS can produce but is not currently exposed.
+
+## Row N — a card set that only uses provable data (row y=58600, current)
+
+Ranjith asked two things at once: do we actually have the data row M assumed, and give an
+altogether different set of variations.
+
+**Answer to the first: no, not for most of it.** Row M's sparklines needed per-company monthly
+story counts (CMS can produce, not exposed), the delta chips needed round counts (13% of
+companies), the comparison bars needed total raised (6% on the long tail), and the timeline
+needed dated event history that is not confirmed anywhere. Two of its ten styles were written
+lines, not fields. That set was building on sand.
+
+**Row N uses only what the brief confirms is present for all 74,388** — logo, name, sector,
+sub-sector, city, founded year, company type, description, website, socials — plus Inc42's own
+articles, which exist for any company reachable from the news.
+
+Twelve styles: 01 The sentence (the description as the card — 100% populated and unused
+today) · 02 The headline (Inc42's latest story is the card, the company is the byline) ·
+03 The age (founded year as the figure) · 04 The type stamp (Bootstrapped / Listed as a
+graphic) · 05 The taxonomy (sector → sub-sector set large) · 06 The index card (all spine
+fields as a record) · 07 The wordmark (name at maximum size on brand orange) · 08 The stack
+(three headlines under one name) · 09 The place (city as the organising idea, with a company
+count) · 10 The pair (two companies sharing a sub-sector) · 11 The quiet list (dense utility
+rows — every list needs one) · 12 The count (74,388, and the sector splits).
+
+**N1** assembles five of them into one page: headline card → sentence card → place card →
+quiet list → count card. Five different shapes, no chart anywhere, nothing invented.
+
+The principle worth keeping: **impact from type scale, colour blocking and composition rather
+than from charts** — which is also the only thing that survives when a company has no
+numbers, i.e. most of them.
