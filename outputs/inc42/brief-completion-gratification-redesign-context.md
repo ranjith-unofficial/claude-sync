@@ -1240,3 +1240,36 @@ as a "browse everything" destination than as the tab's front door.
 ⚠️ Counts by city, by founding decade and by sub-sector are all assumed computable from
 DataLabs but were not in the confirmed 100% field list — worth checking before any of these
 ship, since in all five concepts the count *is* the design.
+
+## Competitor check — company browsing on mobile (31 Aug 2026)
+
+Verified live, not from memory.
+
+**Nobody in this category has solved company browsing on mobile.**
+- **Crunchbase** — no Android app in the Play Store at all (searched, 31 Aug 2026). Its iOS
+  app was pulled in Dec 2022 to prioritise the web experience.
+- **Tracxn** — has both apps. Android: **10K+ installs, 50 reviews, 4.4**, last updated
+  29 Jul 2026. iOS: **4 ratings**. The top Android review reads *"This isn't a proper app,
+  it's like the mobile version of the website running on webview."*
+- **YourStory** — no Android app found.
+- **Entrackr** — no Android app found.
+- PitchBook, CB Insights and Dealroom were not individually verified.
+
+**What the category leader's browse surface actually is.** Tracxn's public entry point
+(`tracxn.com/d/sectors`) is not a company list at all — it is *"Explore our recently updated
+startup lists"*, a wall of ~20 hyper-granular named lists: Native AI in Legal · Agentic AI in
+Marketing · Flexible Salary · Beauty E-Commerce · NBFC Lenders · Point of Care Diagnostics ·
+Long Duration Energy Storage. **The browsable unit is the sub-sector, not the company**, and
+the granularity is the hook. That directly validates rows P2 and P4 (many named axes as the
+front door) and says the sub-sector — 140+ of them in DataLabs — is more valuable as an entry
+point than the seven top-level sectors.
+
+**What this means for the Companies tab.** Do not benchmark the design against Tracxn's app —
+it is a webview. Benchmark against browse surfaces that actually work on mobile (App Store
+Today, Spotify, Fable, Matter), which is what rows K–P did. Inc42's structural advantage over
+every name above is that none of them has a newsroom attached: Crunchbase and Tracxn can show
+what a company *is*, but only Inc42 can show what was *written* about it this week.
+
+⚠️ Caveats: install counts are a floor, not usage. Absence was established by Play Store
+search, which is good evidence but not exhaustive. No traffic or revenue data was obtained,
+so "how well they are doing" here means adoption and design posture, not business performance.
