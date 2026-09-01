@@ -34,421 +34,360 @@
   --crit:#E58A75; --crit-soft:#33201C;
 }
 *{box-sizing:border-box}
-body{background:var(--ground);color:var(--ink);font-family:"Source Sans 3",-apple-system,sans-serif;font-size:16.5px;line-height:1.62;margin:0;padding:0 20px 96px;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1080px;margin:0 auto}
-header.top{padding:56px 0 28px;border-bottom:2px solid var(--ink);margin-bottom:40px}
+body{background:var(--ground);color:var(--ink);font-family:"Source Sans 3",-apple-system,sans-serif;font-size:16.5px;line-height:1.6;margin:0;padding:0 20px 96px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto}
+header.top{padding:56px 0 26px;border-bottom:2px solid var(--ink);margin-bottom:38px}
 .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 16px}
-h1{font-family:Newsreader,Georgia,serif;font-size:clamp(38px,6vw,60px);line-height:1.04;font-weight:500;letter-spacing:-.018em;margin:0 0 18px;text-wrap:balance}
-.standfirst{font-family:Newsreader,Georgia,serif;font-size:20px;line-height:1.5;color:var(--ink-2);max-width:62ch;margin:0 0 22px}
+h1{font-family:Newsreader,Georgia,serif;font-size:clamp(38px,6vw,58px);line-height:1.04;font-weight:500;letter-spacing:-.018em;margin:0 0 18px;text-wrap:balance}
+.standfirst{font-family:Newsreader,Georgia,serif;font-size:20px;line-height:1.5;color:var(--ink-2);max-width:64ch;margin:0 0 22px}
 .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3)}
-section{margin:0 0 60px}
+section{margin:0 0 56px}
 h2{font-family:Newsreader,Georgia,serif;font-size:29px;font-weight:500;letter-spacing:-.012em;margin:0 0 8px;text-wrap:balance;display:flex;align-items:baseline;gap:14px}
 h2 .num{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.06em;flex:none}
-h3{font-family:"Source Sans 3",sans-serif;font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:36px 0 12px}
-h4{font-family:Newsreader,Georgia,serif;font-size:20px;font-weight:500;margin:26px 0 6px}
-p{margin:0 0 15px;max-width:68ch}
-.lede{font-size:17.5px;color:var(--ink-2);max-width:66ch}
-ul,ol{margin:0 0 16px;padding-left:20px;max-width:68ch}
-li{margin:0 0 7px}
+h3{font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:34px 0 12px}
+h4{font-family:Newsreader,Georgia,serif;font-size:20px;font-weight:500;margin:24px 0 6px}
+p{margin:0 0 14px;max-width:70ch}
+.lede{font-size:17.5px;color:var(--ink-2);max-width:68ch}
+ul,ol{margin:0 0 15px;padding-left:20px;max-width:70ch}
+li{margin:0 0 6px}
 strong{font-weight:600;color:var(--ink)}
-.scroll{overflow-x:auto;margin:18px 0 8px;border:1px solid var(--rule);background:var(--raise)}
-table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
-th,td{padding:9px 13px;text-align:right;border-bottom:1px solid var(--rule-soft);white-space:nowrap;font-variant-numeric:tabular-nums;vertical-align:top}
-th{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);background:var(--sunk);border-bottom:1px solid var(--rule)}
+code{font-family:"IBM Plex Mono",monospace;font-size:.9em}
+.scroll{overflow-x:auto;margin:16px 0 8px;border:1px solid var(--rule);background:var(--raise)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--rule-soft);white-space:nowrap;font-variant-numeric:tabular-nums;vertical-align:top}
+th{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);background:var(--sunk);border-bottom:1px solid var(--rule)}
 td:first-child,th:first-child{text-align:left}
-td.l,th.l{text-align:left;white-space:normal;min-width:180px}
+td.l,th.l{text-align:left;white-space:normal;min-width:170px}
 tbody tr:last-child td{border-bottom:none}
 td.num{font-family:"IBM Plex Mono",monospace}
 tr.total td{font-weight:600;background:var(--sunk)}
+tr.band td{background:var(--accent-soft);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .g{color:var(--good);font-weight:600}
 .w{color:var(--warn);font-weight:600}
 .c{color:var(--crit);font-weight:600}
-caption{caption-side:bottom;text-align:left;font-size:12.5px;color:var(--ink-3);padding:9px 13px;border-top:1px solid var(--rule-soft)}
-.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:16px 20px;margin:22px 0;max-width:72ch}
+caption{caption-side:bottom;text-align:left;font-size:12.5px;color:var(--ink-3);padding:9px 12px;border-top:1px solid var(--rule-soft)}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:15px 19px;margin:20px 0;max-width:74ch}
 .callout p{margin:0;max-width:none}
-.callout p+p{margin-top:10px}
+.callout p+p{margin-top:9px}
 .alarm{border-left-color:var(--crit);background:var(--crit-soft)}
 .ok{border-left-color:var(--good);background:var(--good-soft)}
-.figrow{display:flex;flex-wrap:wrap;border:1px solid var(--rule);background:var(--raise);margin:22px 0}
-.fig{flex:1 1 165px;padding:16px 18px;border-right:1px solid var(--rule-soft)}
+.figrow{display:flex;flex-wrap:wrap;border:1px solid var(--rule);background:var(--raise);margin:20px 0}
+.fig{flex:1 1 160px;padding:15px 17px;border-right:1px solid var(--rule-soft)}
 .fig:last-child{border-right:none}
-.fig .k{font-family:"IBM Plex Mono",monospace;font-size:26px;font-weight:500;letter-spacing:-.02em;display:block;line-height:1.1}
-.fig .l{font-size:12px;color:var(--ink-3);margin-top:5px;display:block;line-height:1.35}
-.rule{border:none;border-top:1px solid var(--rule);margin:52px 0}
-.exp{border:1px solid var(--rule);background:var(--raise);padding:20px 22px;margin:20px 0}
-.exp .tag{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
-.exp h4{margin:0 0 10px}
-.exp dl{margin:0;display:grid;grid-template-columns:minmax(120px,auto) 1fr;gap:7px 18px;font-size:14.5px}
-.exp dt{font-weight:600;color:var(--ink-3);font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding-top:3px}
-.exp dd{margin:0}
-footer{border-top:1px solid var(--rule);padding-top:20px;margin-top:56px;font-size:13px;color:var(--ink-3)}
-footer p{max-width:72ch;margin:0 0 9px}
-@media (max-width:640px){
-  body{padding:0 15px 64px;font-size:16px}
-  header.top{padding-top:36px}
-  .exp dl{grid-template-columns:1fr;gap:2px 0}
-  .exp dt{margin-top:8px}
-}
+.fig .k{font-family:"IBM Plex Mono",monospace;font-size:25px;font-weight:500;letter-spacing:-.02em;display:block;line-height:1.1}
+.fig .l{font-size:11.5px;color:var(--ink-3);margin-top:5px;display:block;line-height:1.35}
+.rule{border:none;border-top:1px solid var(--rule);margin:48px 0}
+footer{border-top:1px solid var(--rule);padding-top:20px;margin-top:52px;font-size:13px;color:var(--ink-3)}
+footer p{max-width:74ch;margin:0 0 9px}
+@media (max-width:640px){body{padding:0 15px 64px;font-size:16px}header.top{padding-top:36px}}
 </style>
 
 <div class="wrap">
 
 <header class="top">
-  <p class="eyebrow">Inc42 · Product &amp; Data · September plan</p>
+  <p class="eyebrow">Inc42 · Product &amp; Data · complete baseline and September plan</p>
   <h1>The Identification Gap</h1>
-  <p class="standfirst">We have 490,000 people a month on one surface and cannot name 99.6% of them. We have a second surface that names people eight times better. The bridge between them is already built and 780 people used it last month.</p>
+  <p class="standfirst">Six months of funnel data across three platforms, normalised so they can be compared, with every reactivation cohort sized and every experiment costed. One lever costing about ₹6,000 is worth more than all the product work combined.</p>
   <div class="meta">
-    <span>1 September 2026</span>
-    <span>Six months: Mar–Aug 2026</span>
-    <span>PostHog 53557 · 66351 · 146258 · GA4 Inc42 v4</span>
+    <span>2 September 2026</span>
+    <span>Mar–Aug 2026</span>
+    <span>PostHog 53557 · 66351 · 146258 · 128843 · 177210</span>
+    <span>Data live, 4 min latency</span>
   </div>
 </header>
 
 <section>
-  <h2><span class="num">01</span> The problem, and what unification actually means</h2>
+  <h2><span class="num">00</span> How to read this</h2>
+  <p class="lede">Every number below is a live query, not a cached extract. Where a figure is an assumption rather than a measurement, it says so.</p>
 
-  <p class="lede">Inc42 runs three products that do not know each other. A reader who follows a company on the website starts from zero in the app and again in DataLabs. Separate logins, separate identities, no shared context.</p>
-
-  <p>"Unification" has been used loosely to mean design consistency. It isn't that. Utkarsh's own definition, from the 31 August call: <em>"from a user experience, how is it consistent across all surfaces… frictionless login and onboarding."</em> The operational version is narrower and harder: <strong>one person, recognisable on any surface.</strong></p>
-
-  <h3>Why it matters — the evidence, not the argument</h3>
-
-  <div class="figrow">
-    <div class="fig"><span class="k">1.6–3.4%</span><span class="l">of people use more than one surface</span></div>
-    <div class="fig"><span class="k c">0.42%</span><span class="l">of media visitors are identified</span></div>
-    <div class="fig"><span class="k g">2.10%</span><span class="l">of DataLabs visitors register — 5× better</span></div>
-    <div class="fig"><span class="k c">780</span><span class="l">people used the 75,000 company pages last month</span></div>
-  </div>
-
-  <p>That last number is the whole thesis in one line. Inc42.com already hosts <strong>75,000+ free <code>/company/</code> profile pages — and they are DataLabs data, surfaced unbranded</strong>. In the last 30 days they drew <strong>889 views from 780 people: 0.13% of site pageviews</strong>, against 426,183 people reading articles on the same domain.</p>
-
-  <div class="callout">
-    <p><strong>The bridge between our worst-identifying surface and our best-identifying surface already exists, is fully built, and is invisible.</strong> No Follow button, no Watchlist, no link from the article about a company to the page about that company.</p>
-  </div>
-
-  <p>So unification is not a design project. It is the difference between three products each acquiring strangers separately, and one product that recognises a person and compounds.</p>
-</section>
-
-<hr class="rule">
-
-<section>
-  <h2><span class="num">02</span> Where this came from — the last three weeks</h2>
-  <p class="lede">The plan has to answer what was actually said, not what would be convenient. Four conversations set the constraints.</p>
-
+  <h3>Definitions used throughout</h3>
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">When</th><th class="l">What was decided</th><th class="l">What it constrains</th></tr></thead>
+      <thead><tr><th class="l">Term</th><th class="l">Exact meaning</th></tr></thead>
       <tbody>
-        <tr><td class="l">10–11 Aug</td><td class="l">Utkarsh aligned on unification direction, and specifically on an <strong>experiment-led</strong> approach — prove impact, don't big-bang it. Disagreement was on numbers, not thesis</td><td class="l">Everything below is framed as experiments with kill criteria, not committed builds</td></tr>
-        <tr><td class="l">21 Aug</td><td class="l">FY27 plan locked. App is the primary acquisition surface. Web capped at 5–10% of bandwidth. QIA-30 is the north star. QIA-7 floated for faster loops</td><td class="l">Web work must be cheap and high-leverage to justify the bandwidth cap</td></tr>
-        <tr><td class="l">24 Aug</td><td class="l">Salesforce scoping: <em>"no unified view of the user journey across assets"</em>. Four gaps flagged — app events not in warehouse, reverse-ETL blocked, DataLabs lifecycle missing, sign-in capture</td><td class="l">Identity spine is the September gate, not a nice-to-have</td></tr>
-        <tr><td class="l">31 Aug</td><td class="l">MOP restructured to three buckets. <em>"Backtrack from QIA, not from just Datalabs."</em> DataLabs narrowed to free-user retention + one-time fixes. No B2B pivot. App: activation first, D7 second</td><td class="l">This document's structure. DataLabs gets one problem statement, not a portfolio</td></tr>
+        <tr><td class="l">Visitors</td><td class="l">Unique people with any event in the month</td></tr>
+        <tr><td class="l">Engaged</td><td class="l">2+ page views in the month, <em>or</em> one qualifying action</td></tr>
+        <tr><td class="l">Sign-ups</td><td class="l">Registration event. Verified clean — only 1–2% fire it twice</td></tr>
+        <tr><td class="l">IA-30</td><td class="l">Identified (email known) <em>and</em> took a qualifying action</td></tr>
+        <tr><td class="l">QIA-30</td><td class="l">IA-30 who also clears the seniority bar</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p>The trigger for the restructure, in his words: <em>"the whole idea of building this new MOP style was having a more unified direction… But in today's meeting also, I didn't feel that unified."</em> That is a structural complaint, not a presentation one — the plan read as parts because it was assembled as parts.</p>
-</section>
-
-<hr class="rule">
-
-<section>
-  <h2><span class="num">03</span> How QIA helps — and exactly where it misleads</h2>
-
-  <p class="lede">QIA decomposes into four multipliers. That is its value: every row on the plan has to name which one it moves, or it doesn't belong.</p>
-
-  <p style="font-family:'IBM Plex Mono',monospace;font-size:14.5px;background:var(--sunk);padding:14px 18px;border-left:3px solid var(--accent);max-width:72ch">QIA&nbsp;=&nbsp;arrivals&nbsp;×&nbsp;identified&nbsp;×&nbsp;qualified&nbsp;×&nbsp;active-in-window</p>
-
-  <div class="figrow">
-    <div class="fig"><span class="k">17,464</span><span class="l">IA-30 (warehouse, 26 Aug re-run)</span></div>
-    <div class="fig"><span class="k">5,470</span><span class="l">QIA-30 — see the reconciliation below before quoting</span></div>
-    <div class="fig"><span class="k">15,000</span><span class="l">QIA-30 target, FY28-end</span></div>
-    <div class="fig"><span class="k">2.7×</span><span class="l">required growth</span></div>
-  </div>
-
-  <h3 style="color:var(--crit)">First: 5,470 is not growth over the 2,100 we have been quoting</h3>
-  <p>Two baselines are in circulation and they are three months apart in method, not in performance. A shorter window producing <em>more</em> qualified people is structurally impossible — so the definition or the coverage changed. It was the coverage.</p>
-
+  <h3>The qualification bar differs by platform — a deliberate decision</h3>
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">Baseline</th><th class="l">Window</th><th>Identified actives</th><th>Qualification rate</th><th>QIA</th></tr></thead>
+      <thead><tr><th class="l">Platform</th><th class="l">Bar</th><th>Cost of requiring company</th><th class="l">Why</th></tr></thead>
       <tbody>
-        <tr><td class="l">11 Aug</td><td class="l">90 days</td><td class="num">21,298</td><td class="num c">9.99%</td><td class="num">~2,100</td></tr>
-        <tr class="total"><td class="l">26 Aug re-run</td><td class="l">30 days</td><td class="num">17,464</td><td class="num g">31.3%</td><td class="num">5,470</td></tr>
+        <tr><td class="l">DataLabs</td><td class="l">Role <strong>+ company</strong></td><td class="num g">1%</td><td class="l">Company Name on 52,523 people. Free to require</td></tr>
+        <tr><td class="l">Media</td><td class="l">Role only</td><td class="num w">40%</td><td class="l">Would discard 40% of an already-tiny number</td></tr>
+        <tr><td class="l">App</td><td class="l">Role only</td><td class="num c">100%</td><td class="l">No employer field exists at all</td></tr>
       </tbody>
-      <caption>Identified actives fell, as a shorter window should. Qualified people rose 2.6×. The whole delta sits in the qualification rate.</caption>
     </table>
-  </div>
-
-  <p>Computing the qualification rate independently per surface explains it exactly:</p>
-
-  <div class="figrow">
-    <div class="fig"><span class="k c">11.5%</span><span class="l">Media qualification rate — matches the old 9.99%</span></div>
-    <div class="fig"><span class="k g">34.9%</span><span class="l">DataLabs qualification rate — matches the new 31.3%</span></div>
-    <div class="fig"><span class="k">52,500</span><span class="l">DataLabs people with Seniority captured</span></div>
-    <div class="fig"><span class="k">52,523</span><span class="l">DataLabs people with Company Name captured</span></div>
   </div>
 
   <div class="callout alarm">
-    <p><strong>The number did not move. The measurement got better.</strong> The August baseline was computed on a base dominated by media-style identity data, where only ~10% carry role and company. The 26 Aug re-run properly includes DataLabs, where ~35% do.</p>
-    <p>This is the exact failure mode this document warns about elsewhere — a 2.6× jump that reads as growth and is entirely a coverage change. <strong>Neither number should be quoted as a trend against the other.</strong> Both are correct for what they measured.</p>
+    <p><strong>What is missing, and it is material.</strong> Two of the ten qualifying actions are invisible to me: <strong>newsletter clicks</strong> (Customer.io — no access) and <strong>web article reads</strong> (scroll depth lives in GA4 and cannot be joined to identity). Media's real identification channel is email, not login, so <strong>every media figure here understates it, possibly badly.</strong></p>
+    <p>The official warehouse figure is <strong>QIA-30 = 5,470</strong>. My reconstruction reaches ~1,285. The difference is those two actions plus cross-surface identity resolution. Use the official number for reporting; use these tables for direction, structure and relative comparison.</p>
   </div>
+</section>
 
-  <h3>Where it misleads</h3>
-  <p>QIA-30 is <strong>binary liveness with no repeat requirement</strong>. One qualifying action in 30 days counts. Someone who read once and vanished scores identically to someone who reads daily.</p>
+<hr class="rule">
 
-  <p>The six-month data shows exactly this failure mode:</p>
+<section>
+  <h2><span class="num">01</span> Individual performance, month on month</h2>
+  <p class="lede">The full funnel per platform. Every row for every month, so the trend is visible rather than a single snapshot.</p>
 
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">DataLabs</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th></tr></thead>
+      <thead><tr><th class="l">Month</th><th>Visitors</th><th>Engaged</th><th>Sign-ups</th><th>Onboarding</th><th>IA-30</th><th>QIA-30</th></tr></thead>
       <tbody>
-        <tr><td class="l">Registrations</td><td class="num">1,288</td><td class="num">1,666</td><td class="num">1,776</td><td class="num">2,009</td><td class="num">2,189</td><td class="num g">2,417</td></tr>
-        <tr><td class="l">Identified actives (IA-30)</td><td class="num">1,460</td><td class="num">1,778</td><td class="num">1,844</td><td class="num">1,944</td><td class="num">2,174</td><td class="num c">2,160</td></tr>
-        <tr class="total"><td class="l">Qualified identified actives (QIA-30)</td><td class="num">511</td><td class="num">634</td><td class="num">662</td><td class="num">617</td><td class="num">759</td><td class="num c">753</td></tr>
+        <tr class="band"><td class="l" colspan="7">Media — inc42.com</td></tr>
+        <tr><td class="l">Mar</td><td class="num">523,118</td><td class="num">91,736</td><td class="num">334</td><td class="num">1,418</td><td class="num">78</td><td class="num">24</td></tr>
+        <tr><td class="l">Apr</td><td class="num">397,298</td><td class="num">75,253</td><td class="num">389</td><td class="num">1,393</td><td class="num">99</td><td class="num">25</td></tr>
+        <tr><td class="l">May</td><td class="num">422,151</td><td class="num">72,782</td><td class="num c">56</td><td class="num c">225</td><td class="num">134</td><td class="num">29</td></tr>
+        <tr><td class="l">Jun</td><td class="num">420,433</td><td class="num">68,885</td><td class="num c">0</td><td class="num">687</td><td class="num">149</td><td class="num">24</td></tr>
+        <tr><td class="l">Jul</td><td class="num">493,858</td><td class="num">85,571</td><td class="num">1,486</td><td class="num">3,038</td><td class="num">226</td><td class="num">48</td></tr>
+        <tr class="total"><td class="l">Aug</td><td class="num">495,041</td><td class="num">86,334</td><td class="num">1,515</td><td class="num">2,919</td><td class="num">250</td><td class="num">55</td></tr>
+        <tr class="band"><td class="l" colspan="7">DataLabs</td></tr>
+        <tr><td class="l">Mar</td><td class="num">124,396</td><td class="num">79,116</td><td class="num">1,288</td><td class="num">1,163</td><td class="num">2,368</td><td class="num">715</td></tr>
+        <tr><td class="l">Apr</td><td class="num">161,201</td><td class="num">40,406</td><td class="num">1,666</td><td class="num">1,394</td><td class="num">2,662</td><td class="num">855</td></tr>
+        <tr><td class="l">May</td><td class="num w">227,189</td><td class="num">128,730</td><td class="num">1,776</td><td class="num">1,442</td><td class="num">2,771</td><td class="num">823</td></tr>
+        <tr><td class="l">Jun</td><td class="num w">61,171</td><td class="num">44,576</td><td class="num">2,009</td><td class="num">1,612</td><td class="num">3,033</td><td class="num">785</td></tr>
+        <tr><td class="l">Jul</td><td class="num">115,583</td><td class="num">93,823</td><td class="num">2,189</td><td class="num">1,744</td><td class="num">3,626</td><td class="num">1,056</td></tr>
+        <tr class="total"><td class="l">Aug</td><td class="num">114,849</td><td class="num">77,863</td><td class="num g">2,417</td><td class="num">1,860</td><td class="num">3,672</td><td class="num">985</td></tr>
+        <tr class="band"><td class="l" colspan="7">App — launched 12 Aug</td></tr>
+        <tr><td class="l">Jul</td><td class="num">275</td><td class="num">145</td><td class="num">28</td><td class="num">197</td><td class="num">13</td><td class="num">11</td></tr>
+        <tr class="total"><td class="l">Aug</td><td class="num">915</td><td class="num">505</td><td class="num">287</td><td class="num">668</td><td class="num">418</td><td class="num g">241</td></tr>
       </tbody>
-      <caption>Registrations up 88% in six months, fully organic. Both IA and QIA flat for two months — the leak is not a qualification problem, it is a return problem.</caption>
+      <caption>Media May–June sign-ups and onboarding are a tracking break, not performance — the event stopped firing. DataLabs May 227k / June 61k is a 4× swing with no campaign behind it and remains unreconciled. Media onboarding counts <em>starts</em>; it has no completion event.</caption>
     </table>
   </div>
 
-  <h3>QIA by surface — where it actually comes from</h3>
+  <h3>Combined</h3>
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">August, PostHog-computed</th><th>IA-30</th><th>QIA-30</th><th>Qualification rate</th><th class="l">Constraint</th></tr></thead>
+      <thead><tr><th class="l">Month</th><th>Visitors</th><th>Engaged</th><th>Sign-ups</th><th>IA-30</th><th>QIA-30</th></tr></thead>
       <tbody>
-        <tr><td class="l">DataLabs</td><td class="num">2,160</td><td class="num g">753</td><td class="num">34.9%</td><td class="l">Role <strong>+ company</strong></td></tr>
-        <tr class="total"><td class="l">App</td><td class="num">362</td><td class="num g">204</td><td class="num g">56.4%</td><td class="l">Role only</td></tr>
-        <tr><td class="l">Media</td><td class="num">209</td><td class="num">40</td><td class="num c">19.1%</td><td class="l">Role only</td></tr>
-        <tr class="total"><td class="l"><strong>Total</strong></td><td class="num">2,731</td><td class="num">997</td><td class="num">36.5%</td><td class="l">Not de-duplicated</td></tr>
+        <tr><td class="l">Mar</td><td class="num">647,514</td><td class="num">170,852</td><td class="num">1,622</td><td class="num">2,446</td><td class="num">739</td></tr>
+        <tr><td class="l">Apr</td><td class="num">558,499</td><td class="num">115,659</td><td class="num">2,055</td><td class="num">2,761</td><td class="num">880</td></tr>
+        <tr><td class="l">May</td><td class="num">649,340</td><td class="num">201,512</td><td class="num">1,832</td><td class="num">2,905</td><td class="num">852</td></tr>
+        <tr><td class="l">Jun</td><td class="num">481,604</td><td class="num">113,461</td><td class="num">2,009</td><td class="num">3,182</td><td class="num">809</td></tr>
+        <tr><td class="l">Jul</td><td class="num">609,716</td><td class="num">179,539</td><td class="num">3,703</td><td class="num">3,865</td><td class="num">1,115</td></tr>
+        <tr class="total"><td class="l">Aug</td><td class="num">610,805</td><td class="num">164,702</td><td class="num">4,219</td><td class="num">4,340</td><td class="num">1,281</td></tr>
       </tbody>
-      <caption>PostHog-only, so a floor against the official 5,470 — the warehouse also counts newsletter clicks and event registrations.</caption>
+      <caption>A sum, not a de-duplication — the same person on two surfaces is counted twice. Real combined is lower and cannot be computed until the identity spine lands.</caption>
+    </table>
+  </div>
+  <p>Combined QIA grew <strong>73% in six months</strong>, but almost none of it came from the two established platforms. DataLabs went 1,056 → 985 and media 48 → 55. <strong>The entire August step-up is the app arriving.</strong></p>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">02</span> Normalised — effectiveness, not size</h2>
+  <p class="lede">Raw contribution is meaningless when the traffic bases differ 500×. Normalising on <em>engaged</em> people strips out media's drive-by SEO volume, which was never addressable.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="l">August</th><th>Sign-up per engaged</th><th>Sign-up per visitor</th><th>QIA per 1,000 engaged</th><th>Visitors per 1 QIA</th></tr></thead>
+      <tbody>
+        <tr><td class="l">Media</td><td class="num">1.75%</td><td class="num">0.31%</td><td class="num c">0.6</td><td class="num c">9,001</td></tr>
+        <tr><td class="l">DataLabs</td><td class="num g">3.10%</td><td class="num g">2.10%</td><td class="num">12.7</td><td class="num">117</td></tr>
+        <tr class="total"><td class="l">App</td><td class="num">56.8%*</td><td class="num">31.4%*</td><td class="num g">477</td><td class="num g">3.8</td></tr>
+      </tbody>
+      <caption>*Installing is already a high-intent act, so the app is not directly comparable on a per-visitor basis. Reported for completeness.</caption>
     </table>
   </div>
 
   <div class="callout">
-    <p><strong>Decision, 1 Sept: company is required for DataLabs only.</strong> Media and the app qualify on role alone. The cost of the company requirement is wildly different by surface, and that is the whole justification:</p>
+    <p><strong>The last column is the whole argument.</strong> DataLabs needs 117 visitors to produce one qualified active. The app needs 4. Media needs 9,001.</p>
   </div>
 
+  <h3>Where media actually loses people</h3>
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">Surface</th><th>Role only</th><th>Role + company</th><th>Cost of requiring company</th><th class="l">Why</th></tr></thead>
+      <thead><tr><th class="l">August</th><th>Visitor → engaged</th><th>Engaged → IA</th><th>IA → QIA</th></tr></thead>
       <tbody>
-        <tr><td class="l">DataLabs</td><td class="num">761</td><td class="num">753</td><td class="num g">8 — 1%</td><td class="l">Company Name on 52,523 people. Essentially free</td></tr>
-        <tr><td class="l">Media</td><td class="num">40</td><td class="num">24</td><td class="num w">16 — 40%</td><td class="l">Discards 40% of an already-tiny number</td></tr>
-        <tr class="total"><td class="l">App</td><td class="num">204</td><td class="num c">0</td><td class="num c">204 — 100%</td><td class="l">No employer field exists at all</td></tr>
-      </tbody>
-      <caption>DataLabs earns the stricter bar because it actually asks the question at onboarding. The other two do not.</caption>
-    </table>
-  </div>
-
-  <div class="callout alarm">
-    <p><strong>This definitional change alone adds 220 QIA — from 777 to 997, a 28% rise with no behaviour change.</strong> It is the third measurement shift in three weeks, after the 9→10 action revision and the 9.99%→31.3% coverage jump. Log it as a definitional change in the September notes, or October will read a 28% rise as performance.</p>
-  </div>
-
-  <h3>Media's real constraint is not the company field</h3>
-  <p>Dropping company lifts media from 24 to 40. The binding limit sits one step earlier: <strong>145 of media's 209 identified actives — 69% — have no seniority recorded either.</strong> Even among people we can name, we do not know what two in three of them do.</p>
-  <p>So media's ceiling under any definition is roughly 64 people. Identification and role capture have to move together there; loosening the bar alone changes almost nothing.</p>
-
-  <h3>Two things this decision opens</h3>
-  <p><strong>Which roles clear the bar.</strong> The app's role vocabulary is <em>function</em>, not seniority — <code>founder</code> (300), <code>investor</code> (121), <code>operator</code> (109), <code>bd</code> (56), <code>other</code> (156). Only founder and investor imply seniority; operator and bd carry none.</p>
-  <div class="scroll">
-    <table>
-      <thead><tr><th class="l">Bar</th><th>App QIA-30</th><th>Rate</th><th class="l">Argument</th></tr></thead>
-      <tbody>
-        <tr class="total"><td class="l">founder + investor</td><td class="num">204</td><td class="num">56.4%</td><td class="l">Strictly clears "Senior Manager+"</td></tr>
-        <tr><td class="l">+ operator + bd</td><td class="num">275</td><td class="num">76.0%</td><td class="l">An operator at a startup is the core market, but the field proves no seniority</td></tr>
-      </tbody>
-      <caption>71 people — 35% — sit between the two readings. Needs one call.</caption>
-    </table>
-  </div>
-  <p><strong>Definitional split.</strong> The app now qualifies on role alone while media and DataLabs qualify on role and company. The strategy document's QAA rule states the qualification bar should be "the same definition, never a second one." This is a deliberate exception with a real justification — but app QIA and DataLabs QIA are no longer the same unit, and Utkarsh should hear that from us rather than find it.</p>
-
-  <div class="callout alarm">
-    <p><strong>QIA cannot distinguish "we acquired more strangers" from "we built a habit."</strong> It will keep rising for as long as we buy traffic, and it is currently rising while the active base stands still.</p>
-  </div>
-
-  <h3>The input metric it is missing</h3>
-  <p>Not a replacement — QIA is locked and Utkarsh owns it. The missing lever is:</p>
-  <p><strong>QIA-R — the repeat rate of qualified identified actives.</strong> The share of this period's QIA who were also QIA in the previous period. Today: <strong>DataLabs 5.5%, app 29.2%, media unmeasured.</strong> Nothing on the September plan targets it, and it is the only number that separates compounding from churn.</p>
-
-  <h3>And a decision that must come before any target</h3>
-  <div class="scroll">
-    <table>
-      <thead><tr><th class="l">Identified actives</th><th>7 days</th><th>15 days</th><th>30 days</th><th>30d ÷ 7d</th><th class="l">Reading</th></tr></thead>
-      <tbody>
-        <tr><td class="l">Media</td><td class="num">48</td><td class="num">103</td><td class="num">204</td><td class="num c">4.25×</td><td class="l">Linear — nobody returns</td></tr>
-        <tr><td class="l">DataLabs</td><td class="num">508</td><td class="num">1,057</td><td class="num">2,112</td><td class="num c">4.16×</td><td class="l">Linear — nobody returns</td></tr>
-        <tr class="total"><td class="l">App</td><td class="num">249</td><td class="num">333</td><td class="num">360</td><td class="num g">1.45×</td><td class="l">Compounding — same people</td></tr>
+        <tr><td class="l">Media</td><td class="num">17.4%</td><td class="num c">0.29%</td><td class="num">22.0%</td></tr>
+        <tr><td class="l">DataLabs</td><td class="num">67.8%</td><td class="num">4.72%</td><td class="num">26.8%</td></tr>
+        <tr class="total"><td class="l">App</td><td class="num">55.2%</td><td class="num g">82.8%</td><td class="num g">57.7%</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Media and DataLabs scale linearly with the window: their 30-day number is four weekly crowds of strangers added together. Confirmed on DataLabs — <strong>94.5% of identified actives appear in exactly one week</strong>, averaging 1.16 active days a month.</p>
-  <p><strong>Moving to QIA-7 would cut the reported number ~4× on both, and barely touch the app, with zero behaviour change.</strong> Decide the window first, set targets second.</p>
+  <p>Media's loss is <strong>entirely at engaged → identified</strong>. Once it does identify someone, it qualifies them at 22% — close to DataLabs' 27%. The constraint is one step, and it is not qualification, traffic or onboarding.</p>
 </section>
 
 <hr class="rule">
 
 <section>
-  <h2><span class="num">04</span> What we are trying to do</h2>
-  <p class="lede">One outcome, stated so it can be falsified.</p>
+  <h2><span class="num">03</span> Contribution — who supplies what</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="l">August share of…</th><th>Visitors</th><th>Engaged</th><th>Sign-ups</th><th>QIA</th></tr></thead>
+      <tbody>
+        <tr><td class="l">Media</td><td class="num">81.0%</td><td class="num">52.4%</td><td class="num">35.9%</td><td class="num c">4.3%</td></tr>
+        <tr><td class="l">DataLabs</td><td class="num">18.8%</td><td class="num">47.3%</td><td class="num g">57.3%</td><td class="num g">76.9%</td></tr>
+        <tr class="total"><td class="l">App</td><td class="num">0.1%</td><td class="num">0.3%</td><td class="num">6.8%</td><td class="num">18.8%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Media supplies 81% of the people and 4% of the north star. The app supplies 0.1% of the people and 19% of the north star. That inversion is the single most important fact in this document.</p>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">04</span> The three reactivation cohorts</h2>
+  <p class="lede">People already inside the funnel who stopped one step short. Measured, not estimated.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="l">Cohort</th><th>Media</th><th>DataLabs</th><th>App</th><th>Total</th><th class="l">Why they matter</th></tr></thead>
+      <tbody>
+        <tr><td class="l"><strong>A</strong> — signed up, no onboarding</td><td class="num">2,387</td><td class="num">1,094</td><td class="num">5</td><td class="num">3,486</td><td class="l">We own their email. One field from qualifying</td></tr>
+        <tr><td class="l"><strong>B</strong> — qualifying action, no sign-up</td><td class="num">83,085*</td><td class="num">65,901</td><td class="num">83</td><td class="num">~149,000</td><td class="l">Demonstrated intent, entirely anonymous</td></tr>
+        <tr class="total"><td class="l"><strong>C</strong> — qualified + signed up, no onboarding</td><td class="num">137</td><td class="num">980</td><td class="num">0</td><td class="num">1,117</td><td class="l">Warmest: active now, identified, incomplete</td></tr>
+      </tbody>
+      <caption>*Media cohort B on the wide definition (read 2+ articles). On the strict QIA-action list it is 3,236.</caption>
+    </table>
+  </div>
+
+  <div class="callout alarm">
+    <p><strong>2,387 of media's 3,566 registered users — 67% — have no profile.</strong> We have their email address and they have told us nothing about themselves. That is precisely why media's QIA is 55 and not several hundred.</p>
+    <p>But media has only <strong>250 identified actives</strong> in a month. So most of cohort A is not merely incomplete — it is dormant. That makes it a <strong>win-back</strong> problem rather than a profile-completion problem, with correspondingly lower expected conversion.</p>
+  </div>
+
+  <p>The app's cohorts are almost empty, which is a good sign — its funnel is tight. Its leak is elsewhere: <strong>322 of 969 people installed and never authenticated at all.</strong></p>
+</section>
+
+<hr class="rule">
+
+<section>
+  <h2><span class="num">05</span> Every experiment, costed</h2>
+  <p class="lede">Including the levers not previously modelled. Ranked by QIA gained, with the assumption chain visible in each case.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="l">#</th><th class="l">Experiment</th><th>Pool</th><th class="l">Rate used</th><th>QIA gain</th><th class="l">Cost / effort</th><th class="l">Evidence quality</th></tr></thead>
+      <tbody>
+        <tr class="total">
+          <td class="num">1</td><td class="l"><strong>Third-party enrichment (Apollo)</strong><br>Enrich identified actives who lack role/company</td>
+          <td class="num">3,059</td><td class="l">27% match rate</td><td class="num g">+826</td><td class="l"><strong>~₹6,000</strong><br>no product change</td><td class="l">Rate from the 31 Aug call</td>
+        </tr>
+        <tr>
+          <td class="num">2</td><td class="l"><strong>Hit the 5,000 install target</strong></td>
+          <td class="num">5,000</td><td class="l">27.7% install→QIA, halved to 14%</td><td class="num g">+460 to +1,140</td><td class="l">₹5–7.5L at ₹100–150 CPI</td><td class="l">Measured on 870 installs</td>
+        </tr>
+        <tr>
+          <td class="num">3</td><td class="l"><strong>Gate exposure on media</strong>, role captured <em>in</em> the gate</td>
+          <td class="num">74,362</td><td class="l">3.55% observed, discounted to 2.0%</td><td class="num">+250 to +310</td><td class="l">Medium build</td><td class="l"><strong>Observed</strong> — 463 of 13,026</td>
+        </tr>
+        <tr>
+          <td class="num">4</td><td class="l">DataLabs gate on record views</td>
+          <td class="num">65,901</td><td class="l">1% (no observed rate)</td><td class="num">+175</td><td class="l">Build + holdout</td><td class="l">Assumption</td>
+        </tr>
+        <tr>
+          <td class="num">5</td><td class="l">Cohort C profile completion</td>
+          <td class="num">1,117</td><td class="l">26% observed step-1 rate</td><td class="num">+75</td><td class="l">Email only</td><td class="l">Observed, one-time</td>
+        </tr>
+        <tr>
+          <td class="num">6</td><td class="l">App — convert the 322 who never authenticate</td>
+          <td class="num">322</td><td class="l">30% × 57.8% qualification</td><td class="num">+56</td><td class="l">Small build</td><td class="l">Assumption on step 1</td>
+        </tr>
+        <tr>
+          <td class="num">7</td><td class="l"><strong>Login-modal variants</strong> by user type and moment</td>
+          <td class="num">13,026</td><td class="l">+25% relative on 3.55%</td><td class="num">+50 to +100</td><td class="l">Low</td><td class="l">Assumption</td>
+        </tr>
+        <tr>
+          <td class="num">8</td><td class="l"><strong>Landing page / entry-point redesign</strong></td>
+          <td class="num">—</td><td class="l">+15% on sign-up conversion</td><td class="num">+40 to +80</td><td class="l">Design + build</td><td class="l">Assumption</td>
+        </tr>
+        <tr>
+          <td class="num">9</td><td class="l"><strong>Drive engagement</strong> — visitor→engaged 17.4% → 20%</td>
+          <td class="num">+13,000</td><td class="l">at media's 1.75% sign-up rate</td><td class="num c">+30 to +50</td><td class="l">High effort</td><td class="l">Assumption</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="callout ok">
-    <p style="font-family:Newsreader,Georgia,serif;font-size:20px;line-height:1.45"><strong>Make one identified person usable across all three surfaces, so that the audience we already have compounds instead of leaking.</strong></p>
+    <p><strong>Enrichment is the outlier and it was not in any earlier version of this plan.</strong> It converts people who are <em>already identified and already active</em> into qualified ones, without asking them to do anything, without a product change, and without new traffic.</p>
+    <p>3,059 identified actives currently lack role or company. At Apollo's ~27% match rate on personal-email addresses that is <strong>826 people</strong>, at roughly <strong>₹2 per profile — about ₹6,000 in total.</strong> It is worth more than every product experiment on this list combined.</p>
   </div>
-  <p>Explicitly <em>not</em> the goal this month: more traffic, more features, or a bigger app. We have 490,000 people a month. The constraint is not arrivals.</p>
+
+  <p><strong>Why experiment 9 ranks last.</strong> "Drive more engagement" is intuitively the biggest lever and is arithmetically the smallest. Lifting media's visitor→engaged rate by a full 2.6 points adds 13,000 engaged people, who convert at 1.75%, of whom a fifth qualify. The chain multiplies down to ~40 QIA. Media's economics defeat volume interventions.</p>
 </section>
 
 <hr class="rule">
 
 <section>
-  <h2><span class="num">05</span> How — four opportunities, mapped from the outcome</h2>
-  <p class="lede">Each opportunity is a measured gap, not a hypothesis. Each has solutions, and each solution has an experiment that can kill it.</p>
+  <h2><span class="num">06</span> Install sensitivity</h2>
+  <p class="lede">The app converts installs to QIA at 27.7% today — 870 installs produced 241. That rate will degrade with paid traffic, so all three scenarios are shown.</p>
 
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">Opportunity</th><th class="l">Evidence</th><th>Size</th><th class="l">Multiplier it moves</th></tr></thead>
+      <thead><tr><th class="l">Installs</th><th>At 27.7% (holds)</th><th>At 14% (halves)</th><th>At 7% (quarters)</th><th class="l">Spend at ₹125 CPI</th></tr></thead>
       <tbody>
-        <tr><td class="l"><strong>O1.</strong> We cannot name almost anyone on media</td><td class="l">1,982 identified of 472,385 visitors; only 11,441 ever see a registration gate</td><td class="num">84,466/mo</td><td class="l">identified</td></tr>
-        <tr><td class="l"><strong>O2.</strong> The people we do name don't come back</td><td class="l">94.5% of DataLabs actives appear in one week only; 1.16 active days/month</td><td class="num">2,112</td><td class="l">active-in-window</td></tr>
-        <tr><td class="l"><strong>O3.</strong> The surfaces don't hand people to each other</td><td class="l">Cross-surface use 1.6–3.4%; company pages draw 780 people of 426,183 readers</td><td class="num">425,000/mo</td><td class="l">identified · active</td></tr>
-        <tr><td class="l"><strong>O4.</strong> We can't count actions we already collect</td><td class="l">Scroll Depth: 675,496 events/mo to GA4, zero to PostHog. 7 of 10 actions unpiped</td><td class="num">—</td><td class="l">measurement, not growth</td></tr>
+        <tr><td class="l">1,000 <span style="color:var(--ink-3)">(current pace)</span></td><td class="num">277</td><td class="num">140</td><td class="num">70</td><td class="l">₹1.25L</td></tr>
+        <tr><td class="l">3,000</td><td class="num">831</td><td class="num">420</td><td class="num">210</td><td class="l">₹3.75L</td></tr>
+        <tr><td class="l">4,000</td><td class="num">1,108</td><td class="num">560</td><td class="num">280</td><td class="l">₹5L</td></tr>
+        <tr class="total"><td class="l">5,000 <span style="color:var(--ink-3)">(target)</span></td><td class="num">1,385</td><td class="num">700</td><td class="num">350</td><td class="l">₹6.25L</td></tr>
       </tbody>
+      <caption>Current pace: 34 installs on 1 September, tracking to roughly 1,000 for the month against a 5,000 target.</caption>
     </table>
   </div>
 
-  <div class="callout alarm">
-    <p><strong>A correction to my own earlier recommendation.</strong> I claimed routing Scroll Depth to PostHog would unlock 133,000 people. It will not. QIA requires an <em>identified</em> person, and media identifies 1,982. Routing makes action #1 countable for those 1,982 — the other 132,000 are anonymous and score nothing.</p>
-    <p>O4 is therefore not a growth lever on its own. It is what makes O1 <em>pay</em>. They ship together, identification first.</p>
-  </div>
-</section>
+  <p><strong>Between 3,000 and 5,000 installs the difference is 210–554 QIA</strong> depending on which rate holds. That range is wider than most of the experiments above, which is why the rate matters more than the volume.</p>
 
-<hr class="rule">
-
-<section>
-  <h2><span class="num">06</span> September — the plan, in priority order</h2>
-  <p class="lede">Ranked by information gained per rupee, not by size of the prize. The cheapest thing that could change our mind goes first.</p>
-
-  <div class="exp">
-    <span class="tag">Experiment 1 · Week 1 · O2</span>
-    <h4>Is DataLabs retention even the right problem?</h4>
-    <dl>
-      <dt>Hypothesis</dt><dd>People don't return to DataLabs because nothing brings them back — not because they have nothing to look up.</dd>
-      <dt>Data behind it</dt><dd>94.5% of identified actives appear in one week only. 1.16 active days per person per month. Only 27 people of 109,654 visitors were active in 3+ weeks.</dd>
-      <dt>Why it's first</dt><dd>The counter-case is strong and untested: DataLabs is a <em>reference tool</em>. You look up a company when you need one. Monthly may be the correct rhythm for the job — in which case retention is the wrong fix, coverage and SEO are the right one, and the newsletter solves a problem we never proved existed.</dd>
-      <dt>Method</dt><dd>Call 10–15 churned users. One question that separates the two worlds: did you not return because nothing reminded you, or because you had nothing to look up?</dd>
-      <dt>Kill criterion</dt><dd><strong>If ≥60% say "nothing to look up", cancel the newsletter</strong> and move the effort to coverage and search visibility.</dd>
-      <dt>Cost</dt><dd>Five phone calls. It can cancel a built-and-waiting feature before we ship it.</dd>
-    </dl>
-  </div>
-
-  <div class="exp">
-    <span class="tag">Experiment 2 · Week 1 · O1</span>
-    <h4>Is the 84,000 pool actually a professional audience?</h4>
-    <dl>
-      <dt>Hypothesis</dt><dd>The people reading 3+ articles a month without signing up are the core professional market, not SEO drive-by traffic.</dd>
-      <dt>Data behind it</dt><dd>83,883 read 2+ and never identified; 37,811 read 3+. Stable across six months. But five of the top ten organic queries were once for an OTT obscenity story — a large chunk of organic traffic has historically been off-thesis.</dd>
-      <dt>Method</dt><dd>Profile the 37,811 by acquisition source, geography and content sector. No new instrumentation needed.</dd>
-      <dt>Kill criterion</dt><dd><strong>If under 40% look professional, the acquisition case shrinks materially</strong> and O1's prize is a fraction of what this document claims.</dd>
-      <dt>Cost</dt><dd>One query. It sizes or deflates the largest number in this plan.</dd>
-    </dl>
-  </div>
-
-  <div class="exp">
-    <span class="tag">Experiment 3 · Weeks 2–4 · O1 + O4</span>
-    <h4>Gate exposure — show the prompt to people who already read</h4>
-    <dl>
-      <dt>Hypothesis</dt><dd>Identification is limited by exposure, not by conversion. Most engaged readers never encounter a prompt.</dd>
-      <dt>Data behind it</dt><dd>Only <strong>11,441 of 83,883</strong> engaged anonymous readers ever saw the registration gate — 13.5%. We have been tuning a conversion rate on a gate 86% of the audience never sees.</dd>
-      <dt>Method</dt><dd>Trigger the register prompt on the 3rd article in 30 days. Holdout group required — A2's holdout cannot be measured without Register Lock, which is now firing again (3,482 people in August, contrary to our own stale note).</dd>
-      <dt>Ships with</dt><dd>Route <code>Scroll Depth</code>, <code>scroll</code> and <code>Plus Lock</code> from GA4 into PostHog. Config change on tags that already fire correctly. Without it, newly identified readers still score zero on qualifying action #1.</dd>
-      <dt>Kill criterion</dt><dd><strong>Abandon if pageviews on gated articles drop more than 8%.</strong> Articles stay open is a locked strategy constraint — gating adds identity, never price.</dd>
-      <dt>Target</dt><dd>Media page-view → signup from <strong>0.33% to 0.6%</strong>. At current traffic that is ~1,400 additional registrations a month.</dd>
-    </dl>
-  </div>
-
-  <div class="exp">
-    <span class="tag">Experiment 4 · Weeks 2–4 · O3</span>
-    <h4>Turn the 75,000 company pages into the bridge they already are</h4>
-    <dl>
-      <dt>Hypothesis</dt><dd>Readers of an article about a company will follow that company if asked at the moment they are reading about it — and following is both an identification event and a return trigger.</dd>
-      <dt>Data behind it</dt><dd>75,000+ company pages exist and drew <strong>780 people last month, 0.13% of pageviews</strong>, while 426,183 people read articles on the same domain. In-body company names are not linked. There is no Follow button anywhere on the property.</dd>
-      <dt>Method</dt><dd>Link the primary company in an article to its existing page. Put one Follow control on that page. Follow requires identity — that is the point.</dd>
-      <dt>Why it beats a generic gate</dt><dd>It asks for identity in exchange for something, at the moment of demonstrated interest, rather than interrupting a read.</dd>
-      <dt>Kill criterion</dt><dd><strong>If company-page traffic doesn't clear 5,000 people/month by 30 Sept, the linking thesis is wrong</strong> and cross-surface hand-off needs a different mechanism.</dd>
-    </dl>
-  </div>
-
-  <div class="exp">
-    <span class="tag">Experiment 5 · Weeks 1–2 · App</span>
-    <h4>Fix the Brief entry, and settle what activation means</h4>
-    <dl>
-      <dt>Data behind it</dt><dd><strong>249</strong> people onboard and never open the Brief. <strong>231</strong> open it and never finish. <strong>320</strong> browse Explore and open nothing. Explore (653 users) is used more than the Brief (431).</dd>
-      <dt>Method</dt><dd>Land post-onboarding directly in the Brief. Ship the card-1 fix. Separately, recount activation to include an Explore article read — a decision, not a build.</dd>
-      <dt>The real question</dt><dd>A user who lives in Explore, reads three articles a week and returns weekly is currently counted as <em>not activated</em>. That is a measurement choice that understates the surface people actually prefer.</dd>
-      <dt>Why the app is not the priority</dt><dd>It retains 5× better than DataLabs (29.2% vs 5.5% return in 2+ weeks) and it has 907 people. It is the best mechanism at the smallest scale. Fix the funnel now; spend on installs after, not before.</dd>
-    </dl>
-  </div>
-
-  <h3>What comes off the plan</h3>
-  <div class="scroll">
-    <table>
-      <thead><tr><th class="l">Off</th><th class="l">Why</th></tr></thead>
-      <tbody>
-        <tr><td class="l">DataLabs newsletter — <em>held, not cancelled</em></td><td class="l">Blocked behind Experiment 1. Shipping it before the churn calls is building on an unproven problem</td></tr>
-        <tr><td class="l">App install spend</td><td class="l">Sequenced after Experiment 5. Scaling into a 22% Brief-completion funnel wastes the budget</td></tr>
-        <tr><td class="l">B2B / enterprise motion</td><td class="l">Closed 31 Aug — different sales motion, ROI too small, market timing gone</td></tr>
-        <tr><td class="l">DataLabs new scope of any kind</td><td class="l"><em>"अभी और नया scope नहीं लेते."</em> One problem statement only</td></tr>
-      </tbody>
-    </table>
+  <div class="callout">
+    <p><strong>Test before committing the full budget.</strong> Buy 500 paid installs and measure install→QIA on that cohort alone. If it holds above 15%, fund the rest. If it collapses below 10%, the media experiments become the plan by default. The test costs about <strong>₹60,000</strong> and removes the largest uncertainty in this document.</p>
   </div>
 </section>
 
 <hr class="rule">
 
 <section>
-  <h2><span class="num">07</span> What could go right, wrong, and what would kill this</h2>
+  <h2><span class="num">07</span> Where September lands</h2>
 
-  <h3>If it goes right</h3>
-  <p>Gate exposure takes media from 0.33% to 0.6% — roughly <strong>+1,400 identified people a month</strong>, more than the app produces in total. Company-page linking gives those people a reason to return that isn't a newsletter. Scroll routing means their reading finally counts. QIA rises because the base compounds, not because we bought traffic — and QIA-R, the number that proves it, is on the dashboard next to it.</p>
-
-  <h3>If it goes wrong</h3>
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">Failure</th><th class="l">Early signal</th><th class="l">Response</th></tr></thead>
+      <thead><tr><th class="l">Scenario</th><th class="l">What ships</th><th>QIA-30</th><th>vs today</th></tr></thead>
       <tbody>
-        <tr><td class="l">Gating costs more traffic than it gains identity</td><td class="l">Gated-article pageviews −8%</td><td class="l">Stop. This is A2's pre-registered bar and the October gate decision</td></tr>
-        <tr><td class="l">The 84,000 are not professionals</td><td class="l">Experiment 2, week 1</td><td class="l">O1 shrinks; app and DataLabs become the only real levers</td></tr>
-        <tr><td class="l">DataLabs is episodic by nature</td><td class="l">Experiment 1, week 1</td><td class="l">Cancel newsletter; move to coverage and SEO</td></tr>
-        <tr><td class="l">Company-page linking changes nothing</td><td class="l">&lt;5,000 people by 30 Sept</td><td class="l">Cross-surface hand-off needs a different mechanism, not more of this one</td></tr>
-        <tr><td class="l">Nothing ships because it's all on one person</td><td class="l">Named on 9 of ~30 September rows</td><td class="l">The real risk. See below</td></tr>
+        <tr><td class="l">Do nothing</td><td class="l">—</td><td class="num">~1,281</td><td class="num">—</td></tr>
+        <tr><td class="l"><strong>Enrichment only</strong></td><td class="l">Experiment 1</td><td class="num">~2,107</td><td class="num g">+64%</td></tr>
+        <tr><td class="l">Enrichment + cheap wins</td><td class="l">1, 5, 6, 7</td><td class="num">~2,290</td><td class="num g">+79%</td></tr>
+        <tr><td class="l">Above + install target at 14%</td><td class="l">1, 2, 5, 6, 7</td><td class="num">~2,750</td><td class="num g">+115%</td></tr>
+        <tr class="total"><td class="l"><strong>Everything, mid-case</strong></td><td class="l">1–8</td><td class="num">~3,120</td><td class="num g">+144%</td></tr>
       </tbody>
+      <caption>PostHog-visible QIA. The official warehouse number is ~4× larger; the percentage lifts should hold, the absolute values should not be quoted.</caption>
     </table>
   </div>
 
-  <h3>The three things most likely to actually break this</h3>
+  <h3>What I would actually do, in order</h3>
   <ol>
-    <li><strong>Owner concentration.</strong> One person is accountable for nine September rows across three surfaces. Nothing in the analysis fixes that, and it is the most probable cause of the plan not landing.</li>
-    <li><strong>The measurement jump gets banked as growth.</strong> The 30-day tracking clock clears ~20 Sept, and 7 of 10 qualifying actions are not yet piped. When they switch on, QIA rises with no behaviour change. If that is read as progress, October's plan is built on a false base.</li>
-    <li><strong>The window changes mid-flight.</strong> QIA-7 is a reasonable idea that would cut the reported number ~4× and make a working plan look like a failure.</li>
+    <li><strong>Run enrichment this week.</strong> ₹6,000, no build, +64%. Nothing else on this list has that ratio. Legal and DPDP review first — this is third-party data on identified people.</li>
+    <li><strong>Buy 500 test installs and measure install→QIA.</strong> ₹60,000. It decides whether ₹6L of install spend is the best or worst use of September.</li>
+    <li><strong>Ship the media gate with role capture inside it.</strong> The only recurring media lever. If role is deferred to onboarding it delivers half.</li>
+    <li><strong>Run cohorts C and the app non-authenticators</strong> — nearly free, but book them as one-time, not run-rate.</li>
+    <li><strong>Drop the DataLabs gate and the engagement push from September.</strong> One needs a build for +175; the other is the worst ratio on the list.</li>
   </ol>
-
-  <h3>What I could not assess</h3>
-  <p>Whether newsletter clicks and event registrations — two of the ten qualifying actions, both outside PostHog — currently reach the QIA computation at all. That gap is the difference between 5,470 being the real number or another floor, and it is a half-day question for Prapti.</p>
 </section>
 
 <hr class="rule">
 
 <section>
-  <h2><span class="num">08</span> Decisions needed, and from whom</h2>
+  <h2><span class="num">08</span> What would break this</h2>
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">Decision</th><th class="l">Why it matters</th><th class="l">Owner</th><th class="l">By</th></tr></thead>
+      <thead><tr><th class="l">Risk</th><th class="l">Early signal</th><th class="l">Response</th></tr></thead>
       <tbody>
-        <tr><td class="l">QIA window — 7, 15 or 30 days</td><td class="l">Changes the baseline ~4× on media and DataLabs</td><td class="l">Utkarsh</td><td class="l">Before targets</td></tr>
-        <tr><td class="l">Does a trial start count as a payment?</td><td class="l">109 DataLabs trials/month currently count for nothing</td><td class="l">Utkarsh</td><td class="l">This week</td></tr>
-        <tr><td class="l">Does an Explore read count as app activation?</td><td class="l">653 use Explore, 200 complete the Brief</td><td class="l">Ranjith</td><td class="l">This week</td></tr>
-        <tr><td class="l">What is Bucket 1 called?</td><td class="l">The 31 Aug recording garbled the name; no agreed label</td><td class="l">Utkarsh</td><td class="l">Monday</td></tr>
-        <tr><td class="l">Which of the 10 actions reach the QIA computation?</td><td class="l">Decides whether 5,470 is real or a floor</td><td class="l">Prapti</td><td class="l">This week</td></tr>
-        <tr><td class="l">DataLabs free→paid: 25%, 11.3% or 48 payers?</td><td class="l">Three sources, none agree</td><td class="l">Ranjith + Prapti</td><td class="l">Before quoting any</td></tr>
+        <tr><td class="l"><strong>Enrichment match rate is far below 27%</strong></td><td class="l">First 500 profiles</td><td class="l">The single biggest number here collapses. Test on a sample before buying volume</td></tr>
+        <tr><td class="l">Enrichment is not permissible under DPDP</td><td class="l">Legal review, this week</td><td class="l">Experiment 1 is void entirely. Get the review before the spend, not after</td></tr>
+        <tr><td class="l">App install→QIA collapses with paid traffic</td><td class="l">500-install test</td><td class="l">Do not fund 5,000. Current 27.7% is measured on self-selecting early adopters</td></tr>
+        <tr><td class="l">Gating costs more traffic than it gains identity</td><td class="l">Gated-article views −8%</td><td class="l">Stop. This is A2's pre-registered bar and the October gate decision</td></tr>
+        <tr><td class="l">One person owns nine of ~30 September rows</td><td class="l">Already true</td><td class="l">The most probable reason none of this lands. Not an analytical problem</td></tr>
+        <tr><td class="l">The measurement jump is banked as growth</td><td class="l">~20 Sept clock clears</td><td class="l">Three definitional changes in three weeks already moved the number without behaviour changing</td></tr>
       </tbody>
     </table>
   </div>
@@ -457,39 +396,27 @@ footer p{max-width:72ch;margin:0 0 9px}
 <hr class="rule">
 
 <section>
-  <h2><span class="num">09</span> The dashboard this needs</h2>
-  <p class="lede">Four layers. The unusual one is the canary — media registrations read zero for the whole of June and nobody noticed for two months.</p>
+  <h2><span class="num">09</span> Open decisions</h2>
   <div class="scroll">
     <table>
-      <thead><tr><th class="l">Layer</th><th class="l">Metrics</th><th class="l">Cadence</th></tr></thead>
+      <thead><tr><th class="l">Decision</th><th class="l">Why it matters</th><th class="l">Owner</th></tr></thead>
       <tbody>
-        <tr><td class="l">North Star</td><td class="l">QIA-30 · <strong>QIA-R (repeat)</strong></td><td class="l">Monthly</td></tr>
-        <tr><td class="l">Input</td><td class="l">Identification rate · repeat rate · activation · qualification rate</td><td class="l">Weekly</td></tr>
-        <tr><td class="l">Health</td><td class="l"><strong>Tracking-break canary</strong> · bot share · event delivery per surface</td><td class="l">Daily</td></tr>
-        <tr><td class="l">Business</td><td class="l">Registrations · payments · trials</td><td class="l">Weekly</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p>A daily dashboard that only watches numbers move will miss the June failure again. It has to alert on <strong>an event going to zero</strong>.</p>
-
-  <h3>One view across three platforms</h3>
-  <p>PostHog structurally cannot do this — three projects, no cross-project query. Three paths, and they are not alternatives but a sequence:</p>
-  <div class="scroll">
-    <table>
-      <thead><tr><th class="l">Path</th><th class="l">What it gives</th><th class="l">When</th></tr></thead>
-      <tbody>
-        <tr><td class="l">Daily digest querying all three APIs into one page</td><td class="l">A single operational view now</td><td class="l">This week — interim</td></tr>
-        <tr><td class="l">Collapse 3 projects into 1 with a <code>surface</code> property</td><td class="l">The real fix. Already the locked strategy decision. History stays unjoinable — accept it</td><td class="l">September measurement row</td></tr>
-        <tr><td class="l">BigQuery warehouse as the join layer</td><td class="l">Historical depth and cross-surface identity</td><td class="l">Downstream of the identity spine</td></tr>
+        <tr><td class="l">QIA window — 7, 15 or 30 days</td><td class="l">Changes the baseline ~4× on media and DataLabs, ~1.5× on the app</td><td class="l">Utkarsh</td></tr>
+        <tr><td class="l">Does a trial start count as a payment?</td><td class="l">109 DataLabs trials a month count for nothing today</td><td class="l">Utkarsh</td></tr>
+        <tr><td class="l">Do <code>operator</code> and <code>bd</code> clear the app's bar?</td><td class="l">204 vs 275 — a 35% swing on app QIA</td><td class="l">Ranjith</td></tr>
+        <tr><td class="l">Is third-party enrichment permissible?</td><td class="l">Gates the single largest lever in this document</td><td class="l">Legal / DPDP</td></tr>
+        <tr><td class="l">Is the ₹6L install budget available?</td><td class="l">Decides whether the 5,000 target is real or aspirational</td><td class="l">Utkarsh</td></tr>
+        <tr><td class="l">Which of the 10 actions reach the QIA computation?</td><td class="l">Decides whether 5,470 is real or another floor</td><td class="l">Prapti</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
 <footer>
-  <p><strong>How to read these numbers.</strong> Measured in PostHog unless marked GA4, so they are floors: the official IA-30 of 17,464 and QIA-30 of 5,470 come from the warehouse, which also counts newsletter clicks and event registrations PostHog never receives.</p>
-  <p>The three PostHog projects cannot be joined, so cross-surface totals double-count. Media registrations for May and June are a tracking break, not a decline. DataLabs visitors swing 4× across May–June with no campaign behind them and are unreconciled. The <code>Seniority</code> property is inconsistent across 93,000 people — mixed casing, JSON-wrapped values, four vocabularies — so any qualification rate computed from PostHog alone is approximate. The app is one month of a launch cohort; its retention advantage is encouraging, not proven. Re-read after ~20 Sept when the 30-day tracking clock clears.</p>
-  <p>Sources: PostHog 53557 · 66351 · 146258 · GA4 Inc42 v4 · One Inc42 Strategy §5 rev. 26 Aug 2026 · App &amp; DataLabs alignment 31 Aug 2026 · Salesforce scoping 24 Aug 2026 · FY27 Plan locked 21 Aug 2026.</p>
+  <p><strong>Method.</strong> All figures are live SQL against PostHog, verified at 4 minutes' ingestion latency. Qualifying actions cover 8 of the 10 defined in the strategy: newsletter clicks (Customer.io) and web article reads (GA4 scroll, unjoinable to identity) are absent. Event applications are included from two separate event projects.</p>
+  <p><strong>Known corruption.</strong> Media sign-ups and onboarding for May–June are a tracking break. DataLabs visitors swing 4× across May–June with no campaign behind them. The <code>Seniority</code> property is inconsistent across 93,000 people — mixed casing, JSON-wrapped values, four vocabularies — so qualification rates are approximate. Media has no onboarding-completion event; profile completion is proxied by having Seniority set. The app is one month of a launch cohort.</p>
+  <p><strong>Assumptions vs measurements.</strong> Measured: cohort sizes, gate conversion (3.55%), onboarding step-1 rate (26%), install→QIA (27.7%), all funnel rates. Assumed: enrichment match rate (27%, from the 31 Aug call), and every conversion rate in experiments 4, 6, 7, 8, 9.</p>
+  <p>Sources: PostHog 53557 · 66351 · 146258 · 128843 · 177210 · GA4 Inc42 v4 · One Inc42 Strategy §5 rev. 26 Aug · App &amp; DataLabs alignment 31 Aug · FY27 Plan locked 21 Aug.</p>
 </footer>
 
 </div>
