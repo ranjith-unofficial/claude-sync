@@ -216,18 +216,38 @@ footer p{max-width:72ch;margin:0 0 9px}
     <table>
       <thead><tr><th class="l">August, PostHog-computed</th><th>IA-30</th><th>QIA-30</th><th>Qualification rate</th><th class="l">Constraint</th></tr></thead>
       <tbody>
-        <tr><td class="l">DataLabs</td><td class="num">2,160</td><td class="num g">753</td><td class="num">34.9%</td><td class="l">Role + company. Carries the number</td></tr>
-        <tr class="total"><td class="l">App</td><td class="num">362</td><td class="num g">204</td><td class="num g">56.4%</td><td class="l">Role only — company excluded by decision</td></tr>
-        <tr><td class="l">Media</td><td class="num">209</td><td class="num">24</td><td class="num c">11.5%</td><td class="l">Role + company. Almost nobody identified</td></tr>
+        <tr><td class="l">DataLabs</td><td class="num">2,160</td><td class="num g">753</td><td class="num">34.9%</td><td class="l">Role <strong>+ company</strong></td></tr>
+        <tr class="total"><td class="l">App</td><td class="num">362</td><td class="num g">204</td><td class="num g">56.4%</td><td class="l">Role only</td></tr>
+        <tr><td class="l">Media</td><td class="num">209</td><td class="num">40</td><td class="num c">19.1%</td><td class="l">Role only</td></tr>
+        <tr class="total"><td class="l"><strong>Total</strong></td><td class="num">2,731</td><td class="num">997</td><td class="num">36.5%</td><td class="l">Not de-duplicated</td></tr>
       </tbody>
-      <caption>PostHog-only, so a floor against the official 5,470 — the warehouse also counts newsletter clicks and event registrations. Surfaces cannot be de-duplicated.</caption>
+      <caption>PostHog-only, so a floor against the official 5,470 — the warehouse also counts newsletter clicks and event registrations.</caption>
     </table>
   </div>
 
   <div class="callout">
-    <p><strong>Decision, 1 Sept: the app does not require company for QIA.</strong> It qualifies on role alone. The app captures <code>role</code> on effectively every identified active (361 of 362) and has no employer field at all, so requiring company would score the app at zero permanently.</p>
-    <p>On that basis the app is the <strong>second-largest QIA contributor</strong> and has the <strong>highest qualification rate of the three surfaces</strong> — app users self-select as founders and investors at install.</p>
+    <p><strong>Decision, 1 Sept: company is required for DataLabs only.</strong> Media and the app qualify on role alone. The cost of the company requirement is wildly different by surface, and that is the whole justification:</p>
   </div>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="l">Surface</th><th>Role only</th><th>Role + company</th><th>Cost of requiring company</th><th class="l">Why</th></tr></thead>
+      <tbody>
+        <tr><td class="l">DataLabs</td><td class="num">761</td><td class="num">753</td><td class="num g">8 — 1%</td><td class="l">Company Name on 52,523 people. Essentially free</td></tr>
+        <tr><td class="l">Media</td><td class="num">40</td><td class="num">24</td><td class="num w">16 — 40%</td><td class="l">Discards 40% of an already-tiny number</td></tr>
+        <tr class="total"><td class="l">App</td><td class="num">204</td><td class="num c">0</td><td class="num c">204 — 100%</td><td class="l">No employer field exists at all</td></tr>
+      </tbody>
+      <caption>DataLabs earns the stricter bar because it actually asks the question at onboarding. The other two do not.</caption>
+    </table>
+  </div>
+
+  <div class="callout alarm">
+    <p><strong>This definitional change alone adds 220 QIA — from 777 to 997, a 28% rise with no behaviour change.</strong> It is the third measurement shift in three weeks, after the 9→10 action revision and the 9.99%→31.3% coverage jump. Log it as a definitional change in the September notes, or October will read a 28% rise as performance.</p>
+  </div>
+
+  <h3>Media's real constraint is not the company field</h3>
+  <p>Dropping company lifts media from 24 to 40. The binding limit sits one step earlier: <strong>145 of media's 209 identified actives — 69% — have no seniority recorded either.</strong> Even among people we can name, we do not know what two in three of them do.</p>
+  <p>So media's ceiling under any definition is roughly 64 people. Identification and role capture have to move together there; loosening the bar alone changes almost nothing.</p>
 
   <h3>Two things this decision opens</h3>
   <p><strong>Which roles clear the bar.</strong> The app's role vocabulary is <em>function</em>, not seniority — <code>founder</code> (300), <code>investor</code> (121), <code>operator</code> (109), <code>bd</code> (56), <code>other</code> (156). Only founder and investor imply seniority; operator and bd carry none.</p>
