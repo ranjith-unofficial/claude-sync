@@ -160,10 +160,38 @@ footer p{max-width:72ch;margin:0 0 9px}
   <p style="font-family:'IBM Plex Mono',monospace;font-size:14.5px;background:var(--sunk);padding:14px 18px;border-left:3px solid var(--accent);max-width:72ch">QIA&nbsp;=&nbsp;arrivals&nbsp;×&nbsp;identified&nbsp;×&nbsp;qualified&nbsp;×&nbsp;active-in-window</p>
 
   <div class="figrow">
-    <div class="fig"><span class="k">17,464</span><span class="l">IA-30 today (warehouse, 26 Aug)</span></div>
-    <div class="fig"><span class="k">5,470</span><span class="l">QIA-30 today</span></div>
+    <div class="fig"><span class="k">17,464</span><span class="l">IA-30 (warehouse, 26 Aug re-run)</span></div>
+    <div class="fig"><span class="k">5,470</span><span class="l">QIA-30 — see the reconciliation below before quoting</span></div>
     <div class="fig"><span class="k">15,000</span><span class="l">QIA-30 target, FY28-end</span></div>
     <div class="fig"><span class="k">2.7×</span><span class="l">required growth</span></div>
+  </div>
+
+  <h3 style="color:var(--crit)">First: 5,470 is not growth over the 2,100 we have been quoting</h3>
+  <p>Two baselines are in circulation and they are three months apart in method, not in performance. A shorter window producing <em>more</em> qualified people is structurally impossible — so the definition or the coverage changed. It was the coverage.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="l">Baseline</th><th class="l">Window</th><th>Identified actives</th><th>Qualification rate</th><th>QIA</th></tr></thead>
+      <tbody>
+        <tr><td class="l">11 Aug</td><td class="l">90 days</td><td class="num">21,298</td><td class="num c">9.99%</td><td class="num">~2,100</td></tr>
+        <tr class="total"><td class="l">26 Aug re-run</td><td class="l">30 days</td><td class="num">17,464</td><td class="num g">31.3%</td><td class="num">5,470</td></tr>
+      </tbody>
+      <caption>Identified actives fell, as a shorter window should. Qualified people rose 2.6×. The whole delta sits in the qualification rate.</caption>
+    </table>
+  </div>
+
+  <p>Computing the qualification rate independently per surface explains it exactly:</p>
+
+  <div class="figrow">
+    <div class="fig"><span class="k c">11.5%</span><span class="l">Media qualification rate — matches the old 9.99%</span></div>
+    <div class="fig"><span class="k g">34.9%</span><span class="l">DataLabs qualification rate — matches the new 31.3%</span></div>
+    <div class="fig"><span class="k">52,500</span><span class="l">DataLabs people with Seniority captured</span></div>
+    <div class="fig"><span class="k">52,523</span><span class="l">DataLabs people with Company Name captured</span></div>
+  </div>
+
+  <div class="callout alarm">
+    <p><strong>The number did not move. The measurement got better.</strong> The August baseline was computed on a base dominated by media-style identity data, where only ~10% carry role and company. The 26 Aug re-run properly includes DataLabs, where ~35% do.</p>
+    <p>This is the exact failure mode this document warns about elsewhere — a 2.6× jump that reads as growth and is entirely a coverage change. <strong>Neither number should be quoted as a trend against the other.</strong> Both are correct for what they measured.</p>
   </div>
 
   <h3>Where it misleads</h3>
@@ -176,10 +204,29 @@ footer p{max-width:72ch;margin:0 0 9px}
       <thead><tr><th class="l">DataLabs</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th></tr></thead>
       <tbody>
         <tr><td class="l">Registrations</td><td class="num">1,288</td><td class="num">1,666</td><td class="num">1,776</td><td class="num">2,009</td><td class="num">2,189</td><td class="num g">2,417</td></tr>
-        <tr class="total"><td class="l">Identified actives</td><td class="num">1,460</td><td class="num">1,778</td><td class="num">1,844</td><td class="num">1,944</td><td class="num">2,174</td><td class="num c">2,160</td></tr>
+        <tr><td class="l">Identified actives (IA-30)</td><td class="num">1,460</td><td class="num">1,778</td><td class="num">1,844</td><td class="num">1,944</td><td class="num">2,174</td><td class="num c">2,160</td></tr>
+        <tr class="total"><td class="l">Qualified identified actives (QIA-30)</td><td class="num">511</td><td class="num">634</td><td class="num">662</td><td class="num">617</td><td class="num">759</td><td class="num c">753</td></tr>
       </tbody>
-      <caption>Registrations up 88% in six months, fully organic. Identified actives flat for two months.</caption>
+      <caption>Registrations up 88% in six months, fully organic. Both IA and QIA flat for two months — the leak is not a qualification problem, it is a return problem.</caption>
     </table>
+  </div>
+
+  <h3>QIA by surface — where it actually comes from</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="l">August, PostHog-computed</th><th>IA-30</th><th>QIA-30</th><th>Qualification rate</th><th class="l">Constraint</th></tr></thead>
+      <tbody>
+        <tr><td class="l">DataLabs</td><td class="num">2,160</td><td class="num g">753</td><td class="num">34.9%</td><td class="l">Carries the number</td></tr>
+        <tr><td class="l">Media</td><td class="num">209</td><td class="num">24</td><td class="num">11.5%</td><td class="l">Almost nobody identified</td></tr>
+        <tr class="total"><td class="l">App</td><td class="num">360</td><td class="num c">0</td><td class="num c">0%</td><td class="l"><strong>No employer field exists</strong></td></tr>
+      </tbody>
+      <caption>PostHog-only, so a floor against the official 5,470 — the warehouse also counts newsletter clicks and event registrations. Surfaces cannot be de-duplicated.</caption>
+    </table>
+  </div>
+
+  <div class="callout alarm">
+    <p><strong>The app cannot qualify a single person, and this is a schema gap rather than a data gap.</strong> It captures <code>role</code> on 740 people and has <em>no company or employer property at all</em> — so "at an organisation we know" is untestable by construction.</p>
+    <p>The app is the best-retaining surface we own (29.2% return in 2+ weeks) and it contributes zero to the north star. This is what Utkarsh's 24 Aug "capture employer and seniority at app SIGN-IN" row is actually about — not an optimisation, the difference between zero and something.</p>
   </div>
 
   <div class="callout alarm">
