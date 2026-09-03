@@ -166,21 +166,36 @@
 
   .zone { position: absolute; top: 0; bottom: 0; background: var(--zone); }
 
-  .pt { position: absolute; top: 50%; transform: translate(-50%, -50%); z-index: 3; }
-  .sq { display: block; width: 11px; height: 11px; border-radius: 2px; }
-  .sq.slot { background: var(--accent); }
-  .sq.ragged { background: transparent; border: 2px solid var(--accent); }
-  .lb {
-    position: absolute; top: 50%; transform: translateY(-50%);
+  .pt {
+    position: absolute; top: 50%; z-index: 3;
+    width: 12px; height: 12px; margin: -6px 0 0 -6px;
+    border-radius: 2px;
+  }
+  .pt.slot { background: var(--accent); }
+  .pt.ragged { background: transparent; border: 2px solid var(--accent); }
+
+  /* per-hour summary row */
+  .crow.sumrow { margin-top: 10px; }
+  .clabel .sumlab {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 500;
+  }
+  .sumtrack {
+    height: 74px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule) !important;
+  }
+  .hb {
+    position: absolute; bottom: 0; z-index: 3;
+    width: 14px; margin-left: -7px;
+    background: var(--accent); border-radius: 2px 2px 0 0;
+  }
+  .hb span {
+    position: absolute; bottom: calc(100% + 4px); left: 50%;
+    transform: translateX(-50%);
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-size: 10.5px; color: var(--ink-soft);
-    font-variant-numeric: tabular-nums; white-space: nowrap;
-  }
-  .lb.r { left: 16px; }
-  .lb.l { right: 16px; }
-  .none {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    font-size: 11px; color: var(--ink-faint); white-space: nowrap;
   }
 
   .caxis { display: flex; margin-top: 7px; }
@@ -292,7 +307,7 @@
 
   <section>
     <h2>The publishing clock</h2>
-    <p class="sec-note">Every in-depth go-live at its exact time, one row per day. The two tinted columns are the only hours anything publishes in; the plain channel between them stayed empty for all 15 days.</p>
+    <p class="sec-note">One row per day, one square per in-depth go-live, placed at its exact time. The two tinted columns are the only hours anything publishes in; the plain channel between them stayed empty for all 15 days. Hover a square for its time and headline — all 24 are listed in full further down.</p>
 
     <div class="scroll">
       <div class="clock">
@@ -320,7 +335,7 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:30.769%"><i class="sq slot"></i><span class="lb r">11:00 Enterprise AI costs</span></div>
+            <div class="pt slot" style="left:30.769%" title="11:00 — Enterprise AI costs"></div>
           </div>
         </div>
 
@@ -329,8 +344,8 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:70.256%"><i class="sq ragged"></i><span class="lb l">18:42 Microdrama</span></div>
-            <div class="pt" style="left:72.479%"><i class="sq ragged"></i><span class="lb r">19:08 Data centre</span></div>
+            <div class="pt ragged" style="left:70.256%" title="18:42 — Microdrama"></div>
+            <div class="pt ragged" style="left:72.479%" title="19:08 — Data centre"></div>
           </div>
         </div>
 
@@ -339,10 +354,10 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:10.256%"><i class="sq slot"></i><span class="lb r">07:00 Flipkart food</span></div>
-            <div class="pt" style="left:64.530%"><i class="sq ragged"></i><span class="lb r">17:35</span></div>
-            <div class="pt" style="left:77.863%"><i class="sq ragged"></i><span class="lb l">20:11</span></div>
-            <div class="pt" style="left:79.915%"><i class="sq ragged"></i><span class="lb r">20:35 Physics Wallah</span></div>
+            <div class="pt slot" style="left:10.256%" title="07:00 — Flipkart food"></div>
+            <div class="pt ragged" style="left:64.530%" title="17:35 — Three Sixty"></div>
+            <div class="pt ragged" style="left:77.863%" title="20:11 — Zetwerk"></div>
+            <div class="pt ragged" style="left:79.915%" title="20:35 — Physics Wallah"></div>
           </div>
         </div>
 
@@ -351,7 +366,6 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <span class="none" style="left:9%">no in-depth all day</span>
           </div>
         </div>
 
@@ -360,7 +374,7 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:10.256%"><i class="sq slot"></i><span class="lb r">07:00 Navi</span></div>
+            <div class="pt slot" style="left:10.256%" title="07:00 — Navi"></div>
           </div>
         </div>
 
@@ -369,7 +383,7 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:5.128%"><i class="sq slot"></i><span class="lb r">06:00 Shiprocket IPO</span></div>
+            <div class="pt slot" style="left:5.128%" title="06:00 — Shiprocket IPO"></div>
           </div>
         </div>
 
@@ -378,7 +392,7 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:31.282%"><i class="sq ragged"></i><span class="lb r">11:06 Men's ethnic wear</span></div>
+            <div class="pt ragged" style="left:31.282%" title="11:06 — Men's ethnic wear"></div>
           </div>
         </div>
 
@@ -387,8 +401,8 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:32.393%"><i class="sq ragged"></i><span class="lb r">11:19 Vertical AI</span></div>
-            <div class="pt" style="left:65.897%"><i class="sq ragged"></i><span class="lb r">17:51 Spacetech</span></div>
+            <div class="pt ragged" style="left:32.393%" title="11:19 — Vertical AI"></div>
+            <div class="pt ragged" style="left:65.897%" title="17:51 — Spacetech"></div>
           </div>
         </div>
 
@@ -397,7 +411,7 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:74.103%"><i class="sq ragged"></i><span class="lb r">19:27 ESDS GPU</span></div>
+            <div class="pt ragged" style="left:74.103%" title="19:27 — ESDS GPU"></div>
           </div>
         </div>
 
@@ -406,7 +420,7 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:59.829%"><i class="sq ragged"></i><span class="lb r">16:40 Groww</span></div>
+            <div class="pt ragged" style="left:59.829%" title="16:40 — Groww"></div>
           </div>
         </div>
 
@@ -415,9 +429,9 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:58.547%"><i class="sq ragged"></i><span class="lb l">16:25</span></div>
-            <div class="pt" style="left:62.393%"><i class="sq ragged"></i><span class="lb r">17:10 Meta</span></div>
-            <div class="pt" style="left:97.350%"><i class="sq ragged"></i><span class="lb l">23:59 FY26 tracker</span></div>
+            <div class="pt ragged" style="left:58.547%" title="16:25 — Listed NATC tracker"></div>
+            <div class="pt ragged" style="left:62.393%" title="17:10 — Meta"></div>
+            <div class="pt ragged" style="left:97.350%" title="23:59 — FY26 tracker"></div>
           </div>
         </div>
 
@@ -426,8 +440,8 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:30.769%"><i class="sq slot"></i><span class="lb l">11:00</span></div>
-            <div class="pt" style="left:38.462%"><i class="sq slot"></i><span class="lb r">12:30 IPO tracker</span></div>
+            <div class="pt slot" style="left:30.769%" title="11:00 — Zerodha"></div>
+            <div class="pt slot" style="left:38.462%" title="12:30 — IPO tracker"></div>
           </div>
         </div>
 
@@ -436,7 +450,7 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:5.128%"><i class="sq slot"></i><span class="lb r">06:00 Purple Style Labs</span></div>
+            <div class="pt slot" style="left:5.128%" title="06:00 — Purple Style Labs"></div>
           </div>
         </div>
 
@@ -445,9 +459,9 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:10.256%"><i class="sq slot"></i><span class="lb r">07:00</span></div>
-            <div class="pt" style="left:30.769%"><i class="sq slot"></i><span class="lb r">11:00 Festive delivery</span></div>
-            <div class="pt" style="left:84.615%"><i class="sq slot"></i><span class="lb l">21:30 InsuranceDekho</span></div>
+            <div class="pt slot" style="left:10.256%" title="07:00 — Zepto"></div>
+            <div class="pt slot" style="left:30.769%" title="11:00 — Festive delivery"></div>
+            <div class="pt slot" style="left:84.615%" title="21:30 — InsuranceDekho"></div>
           </div>
         </div>
 
@@ -456,7 +470,26 @@
           <div class="track">
             <div class="zone" style="left:5.128%; width:33.334%"></div>
             <div class="zone" style="left:58.547%; width:38.803%"></div>
-            <div class="pt" style="left:30.769%"><i class="sq slot"></i><span class="lb r">11:00 Ad break / AI</span></div>
+            <div class="pt slot" style="left:30.769%" title="11:00 — Ad break / AI"></div>
+          </div>
+        </div>
+
+        <div class="crow sumrow">
+          <div class="clabel"><span class="d sumlab">Pieces per hour</span><span class="nw">24</span></div>
+          <div class="track sumtrack">
+            <div class="zone" style="left:5.128%; width:33.334%"></div>
+            <div class="zone" style="left:58.547%; width:38.803%"></div>
+            <div class="hb" style="left:7.692%; height:16px"><span>2</span></div>
+            <div class="hb" style="left:12.821%; height:24px"><span>3</span></div>
+            <div class="hb" style="left:33.333%; height:48px"><span>6</span></div>
+            <div class="hb" style="left:38.462%; height:8px"><span>1</span></div>
+            <div class="hb" style="left:58.974%; height:16px"><span>2</span></div>
+            <div class="hb" style="left:64.103%; height:24px"><span>3</span></div>
+            <div class="hb" style="left:69.231%; height:8px"><span>1</span></div>
+            <div class="hb" style="left:74.359%; height:16px"><span>2</span></div>
+            <div class="hb" style="left:79.487%; height:16px"><span>2</span></div>
+            <div class="hb" style="left:84.615%; height:8px"><span>1</span></div>
+            <div class="hb" style="left:94.872%; height:8px"><span>1</span></div>
           </div>
         </div>
 
