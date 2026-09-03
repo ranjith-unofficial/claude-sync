@@ -61,6 +61,7 @@
 - [Market maps (17 Aug)](project-inc42-market-maps.md) — indianvcs.com/maps + marketmapmaker.app; edge is DataLabs data
 - [PostHog review (17 Aug, CONFIRMED)](project-inc42-posthog-review.md) — dark/off-spec events → 25 Aug events-fix ticket
 - [Brief card images](project-inc42-brief-images.md) — sector images agreed 12 Aug, unbuilt; coverage claim CORRECTED
+- [Publishing cadence (3 Sep)](project-inc42-publishing-cadence.md) — in-depth publishes in 2 blocks, 12:30–16:25 empty; depth existed 14/15 days
 - [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary only 93%-covered field; real defect is row ORDERING
 - [Search diagnosis, all 3 surfaces (30 Aug)](project-inc42-app-search-root-cause.md) — app zero-results = per-keystroke flooding not missing content
 - [Deep linking](project-inc42-deep-linking.md) — newsletter links fail (Safari not app); root cause CIO click-tracker
