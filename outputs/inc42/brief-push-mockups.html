@@ -276,6 +276,128 @@
     </div>
   </section>
 
+  <!-- =============== SLOT STRUCTURE =============== -->
+  <section>
+    <h2>How slot 1 gets filled, and why depth stops going missing</h2>
+    <p class="note">Three asks — breaking news on top, in-depth always covered, notification aligned to both — resolve into one change: <strong>give the brief a fixed slot structure instead of a ranked list truncated at 8.</strong></p>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Slot</th><th>Holds</th><th>Chosen by</th><th>If unavailable</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="nowrap mono">1</td>
+            <td class="nowrap"><b>The lead</b></td>
+            <td class="soft">Editorial pin, one per brief window. This is where breaking news goes.</td>
+            <td class="soft">Falls back to highest-scoring News-topic article by recency. Never empty.</td>
+          </tr>
+          <tr>
+            <td class="nowrap mono">2 or 3</td>
+            <td class="nowrap"><b>Reserved in-depth</b></td>
+            <td class="soft">Most recent in-depth in the window, regardless of what time it published.</td>
+            <td class="soft">Slot releases back to ranked news. Happened once in 15 days.</td>
+          </tr>
+          <tr>
+            <td class="nowrap mono">rest</td>
+            <td class="nowrap">Ranked news</td>
+            <td class="soft">Existing locked formula, personalised.</td>
+            <td class="soft">Unchanged.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">Depth lands at slot 2 or 3 rather than at the end because <strong>drop-off is concentrated at the start of the brief</strong>. A reserved slot at position 8 would be reserved for people who already finished. The exact position is tunable; the reservation is the point.</p>
+
+    <div class="warnbox">
+      <strong>This fixes the problem without touching editorial's clock.</strong> Editorial confirmed there is no pattern behind publishing times, and the data agrees — 11 of 12 evening pieces went live at ragged minutes. A reserved slot makes the brief indifferent to when a piece published, which is the only version of this that survives an unmanaged publishing schedule.
+    </div>
+
+    <p class="caption" style="margin-top:8px">Alignment, by construction</p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Step</th><th>What happens</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="nowrap mono">07:00</td><td class="soft">Brief window closes. Each user's brief is materialised and stored, slots filled.</td></tr>
+          <tr><td class="nowrap mono">07:00</td><td class="soft">Push job <b>reads slot 1 of the stored brief</b>. It does not rank anything itself.</td></tr>
+          <tr><td class="nowrap mono">07:00</td><td class="soft">Title = slot 1 lead. Body names the reserved depth piece, so depth gets promoted too.</td></tr>
+          <tr><td class="nowrap">On open</td><td class="soft">App renders the same stored brief. Notification and card 1 cannot disagree.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid" style="margin-top:6px">
+      <div class="card">
+        <div class="cardhead"><h3>Push carrying both</h3><span class="pill rec">Lead + depth in one</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">Plus a deep dive on InsuranceDekho's IPO math + 6 more</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Title is the lead, body is the reserved depth piece. Both of Utkarsh's asks in one notification, and both are read from the stored brief.</p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>Day with no in-depth</h3><span class="pill">Degrades cleanly</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">+ 7 more in today's brief &middot; 4 min</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Depth clause simply drops. No empty slot, no broken template, no promise of a story that is not there.</p>
+      </div>
+    </div>
+
+    <p class="caption" style="margin-top:14px">Edge cases the rule has to handle</p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Situation</th><th class="nowrap">How often</th><th>Behaviour</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="nowrap">No in-depth in the window</td><td class="mono nowrap">1 of 15 days</td>
+            <td class="soft">Slot releases to news; push body drops the depth clause</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Several in-depth in the window</td><td class="mono nowrap">Fri 21 Aug had 4</td>
+            <td class="soft">Take the most recent; reserve a second slot when 3 or more are available</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Editorial pin not set</td><td class="mono nowrap">unknown</td>
+            <td class="soft">Slot 1 falls back to highest-scoring News article by recency</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Sunday recap, 10 from ~85</td><td class="mono nowrap">weekly</td>
+            <td class="soft">Reserve 2 to 3 depth slots — the weekly pool holds roughly 8 in-depth pieces</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Monday weekend brief, 9 from ~11</td><td class="mono nowrap">weekly</td>
+            <td class="soft">Thin pool. Depth is usually there but only from Sat evening or Sun morning</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warnbox">
+      <strong>Two things have to be settled before this can be built.</strong> First, there is no "breaking" signal in the ranking formula today. The cheapest route is to constrain <code>App Featured = Yes</code> to one article per brief window and treat it as the lead; the cleaner route is a separate lead flag. Before reusing App Featured, confirm what else it drives. Second, this only guarantees alignment if the brief is <strong>materialised server-side at 07:00</strong>. If it is computed on open, that has to move first.
+    </div>
+  </section>
+
   <!-- =============== COPY PATTERNS =============== -->
   <section>
     <h2>Four copy patterns to choose between</h2>
