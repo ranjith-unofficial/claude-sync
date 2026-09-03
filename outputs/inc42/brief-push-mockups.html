@@ -1,0 +1,593 @@
+<title>Brief Push Notification Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper:      #FAFAF7;
+    --surface:    #F1F1EB;
+    --ink:        #1B1C1A;
+    --ink-soft:   #5C5E58;
+    --ink-faint:  #8B8D86;
+    --rule:       #DFDFD7;
+    --rule-soft:  #ECECE4;
+    --accent:     #1F4E79;
+    --zone:       #E4EDF5;
+    --good:       #2E6B4F;
+    --warn:       #8A5A1B;
+    --bad:        #8C3A32;
+    --chip:       #EAE8E1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #17181A;
+      --surface:    #1E2023;
+      --ink:        #E9E9E3;
+      --ink-soft:   #A2A49B;
+      --ink-faint:  #75776F;
+      --rule:       #2F3134;
+      --rule-soft:  #26282B;
+      --accent:     #8CBCE8;
+      --zone:       #202E3A;
+      --good:       #7FC3A0;
+      --warn:       #D9A85E;
+      --bad:        #E0897E;
+      --chip:       #2A2C30;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #17181A;
+    --surface:    #1E2023;
+    --ink:        #E9E9E3;
+    --ink-soft:   #A2A49B;
+    --ink-faint:  #75776F;
+    --rule:       #2F3134;
+    --rule-soft:  #26282B;
+    --accent:     #8CBCE8;
+    --zone:       #202E3A;
+    --good:       #7FC3A0;
+    --warn:       #D9A85E;
+    --bad:        #E0897E;
+    --chip:       #2A2C30;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 1000px; margin: 0 auto; padding: 56px 28px 96px; display: flex; flex-direction: column; gap: 56px; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  h1 { font-size: 33px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; margin: 10px 0 0; text-wrap: balance; }
+  h2 { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+  h3 { font-size: 14px; font-weight: 600; margin: 0 0 2px; }
+
+  .lede { font-size: 17px; line-height: 1.5; color: var(--ink-soft); max-width: 64ch; margin: 14px 0 0; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  section { display: flex; flex-direction: column; gap: 18px; }
+  .note { font-size: 14px; color: var(--ink-soft); max-width: 68ch; margin: 0; }
+  .note strong { color: var(--ink); font-weight: 600; }
+
+  .caption {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase;
+    color: var(--ink-faint); margin: 0 0 9px;
+  }
+
+  /* ============ PHONE / NOTIFICATION ============ */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; }
+
+  .wall {
+    border-radius: 20px; padding: 20px 14px;
+    background:
+      radial-gradient(120% 90% at 20% 0%, #3E4B63 0%, rgba(62,75,99,0) 60%),
+      radial-gradient(100% 80% at 90% 20%, #5A4A63 0%, rgba(90,74,99,0) 55%),
+      linear-gradient(165deg, #232935 0%, #171A22 55%, #101218 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
+  }
+  .wall.lockchrome { padding-top: 28px; }
+  .locktime {
+    text-align: center; color: rgba(255,255,255,0.92);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    font-weight: 300; font-size: 52px; line-height: 1; letter-spacing: -0.02em;
+    margin-bottom: 2px;
+  }
+  .lockdate {
+    text-align: center; color: rgba(255,255,255,0.78);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    font-size: 13px; font-weight: 500; margin-bottom: 20px;
+  }
+
+  /* iOS notification */
+  .ios {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: rgba(248,248,250,0.70);
+    -webkit-backdrop-filter: blur(22px) saturate(170%);
+    backdrop-filter: blur(22px) saturate(170%);
+    border-radius: 20px; padding: 11px 13px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    color: #0A0A0B;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.18);
+  }
+  .ios + .ios { margin-top: 8px; }
+  .appicon {
+    width: 38px; height: 38px; border-radius: 9px; flex: 0 0 38px;
+    background: linear-gradient(160deg, #2B2F36, #101216);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; letter-spacing: -0.03em;
+  }
+  .ios .body { flex: 1 1 auto; min-width: 0; }
+  .ios .meta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 11.5px; color: rgba(10,10,11,0.55); margin-bottom: 1px;
+  }
+  .ios .meta .app { text-transform: uppercase; letter-spacing: 0.03em; font-weight: 500; }
+  .ios .ttl { font-size: 14.5px; font-weight: 600; line-height: 1.28; letter-spacing: -0.01em; }
+  .ios .txt {
+    font-size: 14.5px; line-height: 1.28; letter-spacing: -0.01em; margin-top: 1px;
+    color: rgba(10,10,11,0.92);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .ios .txt.four { -webkit-line-clamp: 4; }
+
+  /* Android notification */
+  .droidwall {
+    border-radius: 20px; padding: 16px 12px;
+    background: linear-gradient(170deg, #2A3140 0%, #191D26 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
+  }
+  .droid {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: #F5F2F6; border-radius: 24px; padding: 13px 15px;
+    font-family: Roboto, "Helvetica Neue", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    color: #1B1B1F;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+  }
+  .droid + .droid { margin-top: 8px; }
+  .droid .body { flex: 1 1 auto; min-width: 0; }
+  .droid .meta { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #45464F; margin-bottom: 3px; }
+  .dicon {
+    width: 16px; height: 16px; border-radius: 50%; flex: 0 0 16px;
+    background: linear-gradient(160deg, #2B2F36, #101216);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 7px; font-weight: 700;
+  }
+  .droid .ttl { font-size: 14px; font-weight: 500; line-height: 1.3; }
+  .droid .txt {
+    font-size: 14px; line-height: 1.3; color: #45464F; margin-top: 1px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .thumb {
+    width: 46px; height: 46px; border-radius: 8px; flex: 0 0 46px;
+    background: linear-gradient(150deg, #3F5D78, #23384B);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.55); font-size: 8.5px; text-align: center;
+    font-family: "IBM Plex Mono", monospace; line-height: 1.2; padding: 3px;
+  }
+
+  /* labels around mockups */
+  .card { display: flex; flex-direction: column; }
+  .cardhead { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 9px; }
+  .pill {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 3px; background: var(--chip); color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .pill.now { background: var(--chip); color: var(--ink-faint); }
+  .pill.rec { background: var(--zone); color: var(--accent); }
+  .pill.no  { background: var(--chip); color: var(--bad); }
+  .cardnote { font-size: 13px; color: var(--ink-soft); margin: 10px 0 0; }
+  .cardnote b { color: var(--ink); font-weight: 600; }
+
+  /* tables */
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint); text-align: left; padding: 0 14px 8px 0;
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; font-size: 14px; }
+  tbody tr:last-child td { border-bottom: 1px solid var(--rule); }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  .soft { color: var(--ink-soft); }
+  .nowrap { white-space: nowrap; }
+  .ok { color: var(--good); font-weight: 600; }
+  .no { color: var(--bad); font-weight: 600; }
+
+  .warnbox {
+    border-left: 3px solid var(--warn); background: var(--surface);
+    padding: 14px 18px; border-radius: 0 4px 4px 0;
+    font-size: 14px; color: var(--ink-soft); max-width: 70ch;
+  }
+  .warnbox strong { color: var(--ink); font-weight: 600; }
+
+  code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px; background: var(--chip); padding: 1px 5px; border-radius: 3px;
+  }
+
+  footer { font-size: 12.5px; color: var(--ink-faint); border-top: 1px solid var(--rule); padding-top: 16px; max-width: 70ch; }
+
+  @media (max-width: 720px) {
+    .page { padding: 40px 18px 72px; gap: 44px; }
+    h1 { font-size: 26px; }
+  }
+</style>
+
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Inc42 app &middot; v2 scope &middot; Brief push notifications</div>
+    <h1>What the content-led brief notification actually looks like</h1>
+    <p class="lede">Today's push is generic. The v2 ask is to make it content-led. These are the shapes that decision can take, drawn at real size, plus the ones that break. Headline wording is <strong>placeholder for shape only</strong> — final copy is editorial's call. Story names are real pieces from 19 Aug – 2 Sep.</p>
+  </header>
+
+  <!-- =============== BEFORE / AFTER =============== -->
+  <section>
+    <h2>Before and after</h2>
+    <p class="note">Same slot, same 07:00 send, same one-a-day cadence. The only change is whether the notification says anything.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="cardhead"><h3>A &middot; Today</h3><span class="pill now">Live now</span></div>
+        <div class="wall lockchrome">
+          <div class="locktime">7:00</div>
+          <div class="lockdate">Wednesday, 3 September</div>
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Your daily brief is ready</div>
+              <div class="txt">8 stories from yesterday. Keep your streak going.</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Says nothing about what is inside. The user has to open to find out whether it is worth opening.</p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>B &middot; Content-led</h3><span class="pill rec">Recommended for v2</span></div>
+        <div class="wall lockchrome">
+          <div class="locktime">7:00</div>
+          <div class="lockdate">Wednesday, 3 September</div>
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">Plus InsuranceDekho, Groww and 5 more in today's brief &middot; 4 min</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">One lead story, named companies, an honest count and a time cost. <b>Teases; never claims to be "your" top story</b> — which is why it cannot mismatch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== COPY PATTERNS =============== -->
+  <section>
+    <h2>Four copy patterns to choose between</h2>
+    <p class="note">All four are content-led. They differ in what the user is being sold: a story, a set of companies, a theme, or the brief itself.</p>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="cardhead"><h3>1 &middot; Lead + count</h3><span class="pill">Safest</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">+ 7 more in today's brief</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Shortest, hardest to break. Works on every device width.</p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>2 &middot; Company roll-call</h3><span class="pill">Highest recognition</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto, InsuranceDekho, Groww</div>
+              <div class="txt">Your 8-story brief is ready &middot; 4 min read</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Leans on brand recall rather than a headline. Needs <b>company tagging</b>, which is at 72.7% coverage — so it needs a fallback for the other 27%.</p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>3 &middot; Topic-anchored</h3><span class="pill">Per-user only</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">3 new Deals stories today</div>
+              <div class="txt">Zetwerk, InsuranceDekho and 5 more in your brief</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">The only pattern that reads as personalised. <b>Requires approach D</b> and is only honest once the brief genuinely differs per user.</p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>4 &middot; Sunday recap</h3><span class="pill">Separate template</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Your week in 10 stories</div>
+              <div class="txt">Zerodha's numbers, the IPO tracker, Meta's India play &middot; 6 min</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Sunday's brief pulls 10 from ~85 articles. Different job, different copy — a weekday template here would read wrong.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============== ANDROID =============== -->
+  <section>
+    <h2>Android renders it differently, and that changes the copy</h2>
+    <p class="note">Android collapses the body to <strong>one line</strong> in the shade and offers a thumbnail slot that iOS does not show the same way. Copy written for iOS's two lines gets cut.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="cardhead"><h3>Android &middot; collapsed</h3><span class="pill">Default state</span></div>
+        <div class="droidwall">
+          <div class="droid">
+            <div class="body">
+              <div class="meta"><span class="dicon">42</span><span>Inc42</span><span>&middot; now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">Plus InsuranceDekho, Groww and 5 more in today's brief &middot; 4 min</div>
+            </div>
+            <div class="thumb">story<br>image</div>
+          </div>
+        </div>
+        <p class="cardnote">The body truncates mid-sentence. <b>Front-load the value in the first 40 characters</b> and treat everything after as expand-only.</p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>Android &middot; written for one line</h3><span class="pill rec">Correct</span></div>
+        <div class="droidwall">
+          <div class="droid">
+            <div class="body">
+              <div class="meta"><span class="dicon">42</span><span>Inc42</span><span>&middot; now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">+ 7 more &middot; 4 min read</div>
+            </div>
+            <div class="thumb">story<br>image</div>
+          </div>
+        </div>
+        <p class="cardnote">The thumbnail is real estate we are not using. It maps directly to the <b>sector images</b> item already sitting in v2 backlog.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== PERSONALISATION REALITY =============== -->
+  <section>
+    <h2>What approach D actually produces on a real day</h2>
+    <p class="note">Three users, different followed topics, same Tuesday. Card 1 is what the notification is built from. This is the argument for not building D yet.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="cardhead"><h3>User A &middot; follows News</h3><span class="pill">Card 1 = pinned</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">+ 7 more in your brief</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>User B &middot; follows Deals</h3><span class="pill">Card 1 = pinned</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">+ 7 more in your brief</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>User C &middot; no preferences</h3><span class="pill">Card 1 = pinned</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto's festive delivery bet</div>
+              <div class="txt">+ 7 more in your brief</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warnbox">
+      <strong>All three are identical, and that is the ranking formula working as designed.</strong> Editorial "App Featured = Yes" is pinned to the top of every brief regardless of what the user follows. On any day with an App Featured article, approach D and approach B produce the same notification — for every user. D only differentiates on days with no pin, and even then the score is effectively binary, so it resolves to two to four distinct messages, not a thousand.
+    </div>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Day type</th><th class="nowrap">Distinct notifications under D</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="nowrap">App Featured set</td><td class="mono">1</td><td class="soft">Pin overrides score for everyone</td></tr>
+          <tr><td class="nowrap">Monday (weekend brief)</td><td class="mono">1 – 3</td><td class="soft">Pool ~11 against a cap of 9 — any two users share at least 72% of cards</td></tr>
+          <tr><td class="nowrap">Typical weekday</td><td class="mono">2 – 4</td><td class="soft">8 topics exist, but only 3–5 appear in a day's ~17 articles</td></tr>
+          <tr><td class="nowrap">Sunday recap</td><td class="mono">3 – 6</td><td class="soft">10 selected from ~85 — the only brief where ranking really chooses</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- =============== FAILURE STATES =============== -->
+  <section>
+    <h2>The states that have to be designed, not discovered</h2>
+    <p class="note">Each of these will happen. The question is only whether the behaviour was chosen or was an accident.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="cardhead"><h3>Copy field left empty</h3><span class="pill">Fallback</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Your daily brief is ready</div>
+              <div class="txt">8 stories from yesterday &middot; 4 min</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Silently reverts to generic. <b>Never send a half-rendered template.</b></p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>Title too long</h3><span class="pill no">Avoid</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">Zepto doubles down on festive quick-commerce delivery capacity ahead…</div>
+              <div class="txt">+ 7 more in today's brief</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Web headlines are written for search, not for a lock screen. <b>Needs its own <code>push_copy</code> field</b>, not headline reuse.</p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>Brief has zero cards</h3><span class="pill no">Do not send</span></div>
+        <div class="wall" style="display:flex;align-items:center;justify-content:center;min-height:118px">
+          <span style="color:rgba(255,255,255,0.45);font-size:13px;font-family:'IBM Plex Mono',monospace">no notification sent</span>
+        </div>
+        <p class="cardnote">Sat 22 Aug produced no in-depth at all. A brief can be thin; a push promising stories that are not there is worse than silence.</p>
+      </div>
+
+      <div class="card">
+        <div class="cardhead"><h3>Story already pushed</h3><span class="pill">Skip to card 2</span></div>
+        <div class="wall">
+          <div class="ios">
+            <div class="appicon">42</div>
+            <div class="body">
+              <div class="meta"><span class="app">Inc42</span><span>now</span></div>
+              <div class="ttl">InsuranceDekho's IPO filing</div>
+              <div class="txt">+ 8 more in your weekend brief</div>
+            </div>
+          </div>
+        </div>
+        <p class="cardnote">Monday's brief covers Sat 07:00 – Mon 07:00 and can repeat Saturday's lead. <b>De-dupe against the last 3 sends.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== COPY BUDGET =============== -->
+  <section>
+    <h2>Copy budget</h2>
+    <p class="note">Approximate and device-dependent — they shift with screen width and the user's text-size setting. Treat them as ceilings to write under, not exact limits.</p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Field</th><th class="nowrap">iOS lock screen</th><th class="nowrap">Android shade</th><th>Rule to write to</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="nowrap">Title</td><td class="mono">~40 chars</td><td class="mono">~35 chars</td>
+            <td class="soft">One clause. Lead with the company name.</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Body, collapsed</td><td class="mono">2 lines (~90 chars)</td><td class="mono"><b>1 line (~40 chars)</b></td>
+            <td class="soft">Write for Android's one line. iOS gets the bonus.</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Body, expanded</td><td class="mono">~4 lines</td><td class="mono">multi-line</td>
+            <td class="soft">Optional. Do not put anything load-bearing here.</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Thumbnail</td><td class="mono">on long-press</td><td class="mono">always visible</td>
+            <td class="soft">Ties to the sector-images item already in v2 backlog.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- =============== WHAT TO BUILD =============== -->
+  <section>
+    <h2>What this means for v2 scope</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Item</th><th class="nowrap">In v2?</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="nowrap"><code>push_copy</code> field on the brief</td><td class="ok">Yes</td>
+            <td class="soft">Separate from the web headline. Editorial fills it the previous evening.</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Three templates</td><td class="ok">Yes</td>
+            <td class="soft">Weekday (8 cards) &middot; Monday weekend (9) &middot; Sunday recap (10)</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Generic fallback + zero-card suppression</td><td class="ok">Yes</td>
+            <td class="soft">Cheap, and prevents the only two embarrassing failures</td>
+          </tr>
+          <tr>
+            <td class="nowrap">De-dupe against last 3 sends</td><td class="ok">Yes</td>
+            <td class="soft">Needed because the Monday window overlaps Saturday</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Android thumbnail</td><td class="soft">If sector images land</td>
+            <td class="soft">Already a v2 backlog item; this gives it a second use</td>
+          </tr>
+          <tr>
+            <td class="nowrap">Per-user computed push (D)</td><td class="no">Not yet</td>
+            <td class="soft">Produces 1–4 distinct messages today. Revisit after the sector backfill and a diversity cap.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warnbox">
+      <strong>Two prerequisites sit outside this feature.</strong> Push is currently not delivering despite opt-ins, and <code>push_delivered</code> / <code>push_opened</code> are not firing. Until both are fixed, a content-led notification can be shipped but cannot be seen or measured — so "ship it and read the open rate" is not available as a plan.
+    </div>
+  </section>
+
+  <footer>
+    Mockups drawn at approximate device scale; OS chrome is a representation, not a pixel-accurate render. Headline wording is placeholder to show shape and length — final copy is editorial's. Story names (Zepto, InsuranceDekho, Groww, Zetwerk, Zerodha, Meta, IPO tracker) are real pieces published 19 Aug – 2 Sep 2026; the sentences around them are not real Inc42 copy. Volume, pool and cap figures come from the 15-day go-live analysis and the locked ranking spec.
+  </footer>
+
+</div>
