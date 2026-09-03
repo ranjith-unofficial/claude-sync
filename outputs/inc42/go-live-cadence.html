@@ -12,7 +12,9 @@
     --rule:       #DFDFD7;
     --rule-soft:  #ECECE4;
     --accent:     #1F4E79;
-    --accent-dim: #C3D5E4;
+    --accent-dim: #B9CFE2;
+    --dead:       #EDE7DC;
+    --dead-line:  #D8CCB8;
     --bar:        #C7C8C0;
   }
   @media (prefers-color-scheme: dark) {
@@ -24,8 +26,10 @@
       --ink-faint:  #75776F;
       --rule:       #2F3134;
       --rule-soft:  #26282B;
-      --accent:     #82B4E2;
-      --accent-dim: #2B4056;
+      --accent:     #86B8E6;
+      --accent-dim: #33506B;
+      --dead:       #24211C;
+      --dead-line:  #3B342A;
       --bar:        #4C4E52;
     }
   }
@@ -37,8 +41,10 @@
     --ink-faint:  #75776F;
     --rule:       #2F3134;
     --rule-soft:  #26282B;
-    --accent:     #82B4E2;
-    --accent-dim: #2B4056;
+    --accent:     #86B8E6;
+    --accent-dim: #33506B;
+    --dead:       #24211C;
+    --dead-line:  #3B342A;
     --bar:        #4C4E52;
   }
 
@@ -54,209 +60,192 @@
   }
 
   .page {
-    max-width: 920px;
+    max-width: 940px;
     margin: 0 auto;
     padding: 56px 28px 96px;
     display: flex;
     flex-direction: column;
-    gap: 52px;
+    gap: 54px;
   }
 
   .eyebrow {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--ink-faint);
   }
 
   h1 {
-    font-size: 34px;
-    line-height: 1.15;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin: 10px 0 0;
-    text-wrap: balance;
+    font-size: 34px; line-height: 1.15; font-weight: 600;
+    letter-spacing: -0.02em; margin: 10px 0 0; text-wrap: balance;
   }
-
   h2 {
-    font-size: 19px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0 0 4px;
+    font-size: 19px; font-weight: 600;
+    letter-spacing: -0.01em; margin: 0 0 2px;
   }
 
   .lede {
-    font-size: 17px;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    max-width: 62ch;
-    margin: 14px 0 0;
+    font-size: 17px; line-height: 1.5; color: var(--ink-soft);
+    max-width: 64ch; margin: 14px 0 0;
   }
   .lede strong { color: var(--ink); font-weight: 600; }
 
   section { display: flex; flex-direction: column; gap: 14px; }
-
-  .sec-note {
-    font-size: 14px;
-    color: var(--ink-soft);
-    max-width: 66ch;
-    margin: 0;
-  }
+  .sec-note { font-size: 14px; color: var(--ink-soft); max-width: 68ch; margin: 0; }
+  .sec-note strong { color: var(--ink); font-weight: 600; }
 
   /* ---- headline numbers ---- */
   .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
     background: var(--rule);
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
     margin-top: 34px;
   }
   .stat { background: var(--paper); padding: 18px 16px 16px; }
   .stat .n {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 27px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-    display: block;
-    line-height: 1.1;
+    font-size: 27px; font-weight: 500; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums; display: block; line-height: 1.1;
   }
   .stat .l {
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    display: block;
-    margin-top: 7px;
-    line-height: 1.35;
+    font-size: 12.5px; color: var(--ink-soft);
+    display: block; margin-top: 7px; line-height: 1.35;
   }
 
-  /* ---- tables ---- */
+  /* ================= CLOCK CHART ================= */
   .scroll { overflow-x: auto; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  .clock { min-width: 640px; }
+
+  .crow { display: flex; align-items: stretch; }
+
+  .clabel {
+    flex: 0 0 158px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 10px; padding: 0 14px 0 0;
+    font-size: 13.5px; white-space: nowrap;
+  }
+  .clabel .d { font-weight: 500; }
+  .clabel .nw {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px; color: var(--ink-faint);
     font-variant-numeric: tabular-nums;
   }
+  .crow.weekend .clabel .d { color: var(--accent); }
+
+  .track {
+    position: relative; flex: 1 1 auto; height: 30px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .crow.weekend .track { background: var(--surface); }
+  .crow:last-of-type .track { border-bottom: 1px solid var(--rule); }
+
+  .track .dead {
+    position: absolute; top: 0; bottom: 0;
+    left: 52.08%; width: 16.32%;
+    background: var(--dead);
+    border-left: 1px dashed var(--dead-line);
+    border-right: 1px dashed var(--dead-line);
+  }
+  .track .gl {
+    position: absolute; top: 0; bottom: 0; width: 1px;
+    background: var(--rule-soft);
+  }
+
+  .pt {
+    position: absolute; top: 50%;
+    width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+    border-radius: 1px; z-index: 2;
+  }
+  .pt.slot { background: var(--accent); }
+  .pt.ragged { background: transparent; border: 1.5px solid var(--accent); }
+
+  /* axis */
+  .caxis { display: flex; margin-top: 6px; }
+  .caxis .spacer { flex: 0 0 158px; }
+  .caxis .ticks { position: relative; flex: 1 1 auto; height: 16px; }
+  .caxis .tick {
+    position: absolute; top: 0; transform: translateX(-50%);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10.5px; color: var(--ink-faint); white-space: nowrap;
+  }
+  .caxis .tick.edge-l { transform: none; left: 0; }
+  .caxis .tick.edge-r { transform: none; right: 0; }
+
+  .key {
+    display: flex; gap: 22px; flex-wrap: wrap;
+    font-size: 12.5px; color: var(--ink-soft); margin-top: 12px;
+  }
+  .key span { display: inline-flex; align-items: center; gap: 7px; }
+  .key i { width: 9px; height: 9px; border-radius: 1px; display: inline-block; }
+  .key i.slot { background: var(--accent); }
+  .key i.ragged { border: 1.5px solid var(--accent); }
+  .key i.dead { background: var(--dead); border: 1px dashed var(--dead-line); width: 16px; }
+
+  /* ---- tables ---- */
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
   th {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    text-align: left;
-    padding: 0 12px 8px 0;
-    border-bottom: 1px solid var(--rule);
-    white-space: nowrap;
+    font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint);
+    text-align: left; padding: 0 14px 8px 0;
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
   }
   td {
-    padding: 9px 12px 9px 0;
-    border-bottom: 1px solid var(--rule-soft);
-    vertical-align: top;
-    font-size: 14px;
+    padding: 9px 14px 9px 0; border-bottom: 1px solid var(--rule-soft);
+    vertical-align: baseline; font-size: 14px;
   }
   tbody tr:last-child td { border-bottom: 1px solid var(--rule); }
-  td.num, th.num { text-align: right; padding-right: 14px; }
+  th.num, td.num { text-align: right; padding-right: 20px; }
   .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
-  .day { white-space: nowrap; font-weight: 500; }
-  tr.weekend td { background: var(--surface); }
-  tr.weekend .day { color: var(--accent); }
+  .t { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; color: var(--accent); white-space: nowrap; }
+  .nowrap { white-space: nowrap; }
+  .soft { color: var(--ink-soft); }
+  tr.wk td { background: var(--surface); }
+  tr.wk td:first-child { color: var(--accent); }
 
-  /* bar cell */
-  .barcell { width: 190px; min-width: 150px; }
-  .barwrap { display: flex; align-items: center; gap: 9px; }
-  .bar {
-    height: 9px;
-    background: var(--bar);
-    border-radius: 1px;
-    flex: 0 0 auto;
-  }
-  .barnum {
+  .tag {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    width: 2ch;
-    text-align: right;
-    flex: 0 0 auto;
+    font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-faint); white-space: nowrap;
   }
+  .tag.on { color: var(--accent); }
 
-  /* in-depth dots */
-  .dots { display: flex; gap: 3px; align-items: center; height: 20px; }
-  .dot { width: 9px; height: 9px; background: var(--accent); border-radius: 1px; }
-  .dot.zero { width: 9px; height: 1px; background: var(--ink-faint); }
-
-  .times { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
-  .times span { display: block; white-space: nowrap; }
-  .times b { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; color: var(--accent); }
-  .other { font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; }
-  .dash { color: var(--ink-faint); }
-
-  /* ---- clock strips ---- */
-  .strips { display: flex; flex-direction: column; gap: 20px; margin-top: 4px; }
-  .strip-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: 13.5px;
-    margin-bottom: 7px;
-  }
-  .strip-label .k { font-weight: 600; }
-  .strip-label .v { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--ink-faint); }
-  .strip { display: flex; height: 26px; gap: 2px; }
-  .seg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  tr.gap td {
+    background: var(--dead);
+    border-top: 1px dashed var(--dead-line);
+    border-bottom: 1px dashed var(--dead-line);
     font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 11px;
-    color: var(--ink-soft);
-    overflow: hidden;
-    white-space: nowrap;
+    font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-soft); padding: 8px 14px 8px 0;
   }
-  .seg.early { background: var(--rule); }
-  .seg.morning { background: var(--bar); }
-  .seg.late-news { background: var(--ink-faint); color: var(--paper); }
-  .seg.late-depth { background: var(--accent); color: var(--paper); }
-  .strip-key {
-    display: flex;
-    gap: 18px;
-    font-size: 12px;
-    color: var(--ink-soft);
-    margin-top: 4px;
-    flex-wrap: wrap;
+
+  /* fixed-track bar (number never collides) */
+  .bwrap { display: flex; align-items: center; gap: 10px; }
+  .btrack { width: 96px; height: 8px; background: var(--rule-soft); border-radius: 1px; flex: 0 0 96px; }
+  .bfill { height: 8px; background: var(--bar); border-radius: 1px; }
+  .bnum {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 13px; color: var(--ink-soft); width: 4ch; text-align: right;
   }
-  .strip-key i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; font-style: normal; }
 
   /* ---- findings ---- */
-  .findings { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); }
+  .findings { display: flex; flex-direction: column; border-top: 1px solid var(--rule); }
   .finding {
-    display: grid;
-    grid-template-columns: 78px 1fr;
-    gap: 20px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--rule-soft);
+    display: grid; grid-template-columns: 96px 1fr; gap: 20px;
+    padding: 16px 0; border-bottom: 1px solid var(--rule-soft);
   }
   .finding:last-child { border-bottom: 1px solid var(--rule); }
   .finding .fig {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--accent);
-    font-variant-numeric: tabular-nums;
-    line-height: 1.35;
+    font-size: 16px; font-weight: 500; color: var(--accent);
+    font-variant-numeric: tabular-nums; line-height: 1.4;
   }
   .finding h3 { font-size: 15px; font-weight: 600; margin: 0 0 3px; }
-  .finding p { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 62ch; }
+  .finding p { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 64ch; }
 
   footer {
-    font-size: 12.5px;
-    color: var(--ink-faint);
-    border-top: 1px solid var(--rule);
-    padding-top: 16px;
-    max-width: 66ch;
+    font-size: 12.5px; color: var(--ink-faint);
+    border-top: 1px solid var(--rule); padding-top: 16px; max-width: 68ch;
   }
 
   @media (max-width: 720px) {
@@ -270,306 +259,384 @@
 <div class="page">
 
   <header>
-    <div class="eyebrow">Inc42 editorial &middot; 19 Aug – 2 Sep 2026 &middot; 15 days</div>
-    <h1>Go-live cadence: what actually publishes, and when</h1>
-    <p class="lede">209 go-lives in 15 days. Two rhythms run underneath them: <strong>news is a weekday factory that shuts down on Sunday</strong>, while <strong>in-depth runs flat at roughly one and a half pieces every single day</strong> — weekends included. Both go live late.</p>
+    <div class="eyebrow">Inc42 editorial &middot; 19 Aug – 2 Sep 2026 &middot; 15 days &middot; 209 go-lives</div>
+    <h1>In-depth publishes in two blocks a day, separated by a four-hour hole</h1>
+    <p class="lede">Plotting all 24 in-depth go-lives on a 24-hour clock, they do not spread across the day. Twelve land <strong>before 12:30</strong>, twelve land <strong>after 16:25</strong>, and nothing at all lands in between. The morning twelve arrive on round clock slots. The evening twelve arrive at ragged minutes — <strong>the moment the piece was finished</strong>.</p>
 
     <div class="stats">
-      <div class="stat"><span class="n">13.9</span><span class="l">go-lives per day</span></div>
-      <div class="stat"><span class="n">11.5%</span><span class="l">of go-lives are in-depth</span></div>
-      <div class="stat"><span class="n">80%</span><span class="l">go live after 11:00 IST</span></div>
-      <div class="stat"><span class="n">0</span><span class="l">news items on either Sunday</span></div>
+      <div class="stat"><span class="n">14</span><span class="l">go-lives per day</span></div>
+      <div class="stat"><span class="n">0</span><span class="l">in-depth between 12:30 and 16:25</span></div>
+      <div class="stat"><span class="n">83%</span><span class="l">of morning in-depth land on a :00 / :30 slot</span></div>
+      <div class="stat"><span class="n">8%</span><span class="l">of the same, in the evening block</span></div>
     </div>
   </header>
 
   <section>
-    <h2>The 15 days</h2>
-    <p class="sec-note">News volume as a bar (scaled to the 21-item peak on 1 Sep); each in-depth piece as one block. Weekend rows are tinted.</p>
+    <h2>The publishing clock</h2>
+    <p class="sec-note">Every in-depth go-live placed at its exact time. Filled square = a round clock slot (:00 or :30). Outline = a ragged minute. The number beside each day is that day's news count.</p>
+
+    <div class="scroll">
+      <div class="clock">
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Wed 19 Aug</span><span class="nw">20 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt slot" style="left:45.83%" title="11:00 Enterprise AI costs"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Thu 20 Aug</span><span class="nw">12 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt ragged" style="left:77.92%" title="18:42 Microdrama"></div>
+            <div class="pt ragged" style="left:79.72%" title="19:08 Data centre"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Fri 21 Aug</span><span class="nw">13 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt slot" style="left:29.17%" title="07:00 Flipkart food"></div>
+            <div class="pt ragged" style="left:73.26%" title="17:35 Three Sixty"></div>
+            <div class="pt ragged" style="left:84.10%" title="20:11 Zetwerk"></div>
+            <div class="pt ragged" style="left:85.76%" title="20:35 Physics Wallah"></div>
+          </div>
+        </div>
+
+        <div class="crow weekend">
+          <div class="clabel"><span class="d">Sat 22 Aug</span><span class="nw">9 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+          </div>
+        </div>
+
+        <div class="crow weekend">
+          <div class="clabel"><span class="d">Sun 23 Aug</span><span class="nw">0 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt slot" style="left:29.17%" title="07:00 Navi"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Mon 24 Aug</span><span class="nw">14 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt slot" style="left:25%" title="06:00 Shiprocket IPO"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Tue 25 Aug</span><span class="nw">14 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt ragged" style="left:46.25%" title="11:06 Men's ethnic wear"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Wed 26 Aug</span><span class="nw">14 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt ragged" style="left:47.15%" title="11:19 Vertical AI"></div>
+            <div class="pt ragged" style="left:74.38%" title="17:51 Spacetech"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Thu 27 Aug</span><span class="nw">15 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt ragged" style="left:81.04%" title="19:27 ESDS GPU"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Fri 28 Aug</span><span class="nw">8 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt ragged" style="left:69.44%" title="16:40 Groww"></div>
+          </div>
+        </div>
+
+        <div class="crow weekend">
+          <div class="clabel"><span class="d">Sat 29 Aug</span><span class="nw">7 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt ragged" style="left:68.40%" title="16:25 Listed NATC tracker"></div>
+            <div class="pt ragged" style="left:71.53%" title="17:10 Meta"></div>
+            <div class="pt ragged" style="left:99.93%" title="23:59 FY26 tracker"></div>
+          </div>
+        </div>
+
+        <div class="crow weekend">
+          <div class="clabel"><span class="d">Sun 30 Aug</span><span class="nw">0 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt slot" style="left:45.83%" title="11:00 Zerodha"></div>
+            <div class="pt slot" style="left:52.08%" title="12:30 IPO tracker"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Mon 31 Aug</span><span class="nw">17 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt slot" style="left:25%" title="06:00 Purple Style Labs"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Tue 1 Sep</span><span class="nw">21 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt slot" style="left:29.17%" title="07:00 Zepto"></div>
+            <div class="pt slot" style="left:45.83%" title="11:00 Festive delivery"></div>
+            <div class="pt slot" style="left:89.58%" title="21:30 InsuranceDekho"></div>
+          </div>
+        </div>
+
+        <div class="crow">
+          <div class="clabel"><span class="d">Wed 2 Sep</span><span class="nw">15 news</span></div>
+          <div class="track">
+            <div class="dead"></div>
+            <div class="gl" style="left:25%"></div><div class="gl" style="left:50%"></div><div class="gl" style="left:75%"></div>
+            <div class="pt slot" style="left:45.83%" title="11:00 Ad break / AI"></div>
+          </div>
+        </div>
+
+        <div class="caxis">
+          <div class="spacer"></div>
+          <div class="ticks">
+            <span class="tick edge-l">00:00</span>
+            <span class="tick" style="left:25%">06:00</span>
+            <span class="tick" style="left:50%">12:00</span>
+            <span class="tick" style="left:75%">18:00</span>
+            <span class="tick edge-r">24:00</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="key">
+      <span><i class="slot"></i>On a clock slot (:00 / :30)</span>
+      <span><i class="ragged"></i>Ragged minute</span>
+      <span><i class="dead"></i>12:30 – 16:25, empty for 15 days</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Three windows and a hole</h2>
+    <p class="sec-note">The 24 in-depth pieces fall into three tight windows. The gap between the second and third is <strong>3 hours 55 minutes</strong> — the entire post-lunch stretch of the working day, with no in-depth go-live in it once in 15 days.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Window</th>
+          <th class="num">Pieces</th>
+          <th class="num">Share</th>
+          <th class="num">On a clock slot</th>
+          <th>Character</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="nowrap">06:00 – 07:00</td>
+          <td class="num mono">5</td><td class="num mono">21%</td><td class="num mono">5 of 5</td>
+          <td class="soft">Pre-scheduled. Every one exactly on the hour.</td>
+        </tr>
+        <tr>
+          <td class="nowrap">11:00 – 12:30</td>
+          <td class="num mono">7</td><td class="num mono">29%</td><td class="num mono">5 of 7</td>
+          <td class="soft">The mid-morning slot. Two strays at 11:06 and 11:19.</td>
+        </tr>
+        <tr class="gap">
+          <td class="nowrap">12:30 – 16:25</td>
+          <td class="num">0</td><td class="num">0%</td><td class="num">—</td>
+          <td>Nothing, on any of the 15 days</td>
+        </tr>
+        <tr>
+          <td class="nowrap">16:25 – 23:59</td>
+          <td class="num mono">12</td><td class="num mono">50%</td><td class="num mono">1 of 12</td>
+          <td class="soft">Publish-when-ready. Ragged minutes, spread over eight hours.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="sec-note">Read down the “on a clock slot” column: <strong>10 of the 12 morning pieces sit on a round time, and 11 of the 12 evening pieces do not.</strong> That is two different processes wearing one label — a planned morning release, and an evening queue draining as pieces clear.</p>
+  </section>
+
+  <section>
+    <h2>All 24, ordered by the clock</h2>
+    <p class="sec-note">The same pieces sorted by go-live time rather than by date, which is where the gap becomes plain.</p>
     <div class="scroll">
       <table>
         <thead>
           <tr>
+            <th>Time</th>
             <th>Day</th>
-            <th class="barcell">News</th>
-            <th>In-depth</th>
-            <th>Other</th>
-            <th>In-depth go-live (IST)</th>
+            <th>Piece</th>
+            <th>Timing</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="day">Wed 19 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:95.2%"></div><span class="barnum">20</span></div></td>
-            <td><div class="dots"><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>11:00</b> Enterprise AI costs</span></td>
-          </tr>
-          <tr>
-            <td class="day">Thu 20 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:57.1%"></div><span class="barnum">12</span></div></td>
-            <td><div class="dots"><i class="dot"></i><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>18:42</b> Microdrama</span><span><b>19:08</b> Data centre</span></td>
-          </tr>
-          <tr>
-            <td class="day">Fri 21 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:61.9%"></div><span class="barnum">13</span></div></td>
-            <td><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>07:00</b> Flipkart food</span><span><b>17:35</b> Three Sixty</span><span><b>20:11</b> Zetwerk</span><span><b>20:35</b> Physics Wallah</span></td>
-          </tr>
-          <tr class="weekend">
-            <td class="day">Sat 22 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:42.9%"></div><span class="barnum">9</span></div></td>
-            <td><div class="dots"><i class="dot zero"></i></div></td>
-            <td class="other">1 startups</td>
-            <td class="times dash">—</td>
-          </tr>
-          <tr class="weekend">
-            <td class="day">Sun 23 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:0"></div><span class="barnum">0</span></div></td>
-            <td><div class="dots"><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>07:00</b> Navi</span></td>
-          </tr>
-          <tr>
-            <td class="day">Mon 24 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:66.7%"></div><span class="barnum">14</span></div></td>
-            <td><div class="dots"><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>06:00</b> Shiprocket IPO</span></td>
-          </tr>
-          <tr>
-            <td class="day">Tue 25 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:66.7%"></div><span class="barnum">14</span></div></td>
-            <td><div class="dots"><i class="dot"></i></div></td>
-            <td class="other">1 startups</td>
-            <td class="times"><span><b>11:06</b> Men's ethnic wear</span></td>
-          </tr>
-          <tr>
-            <td class="day">Wed 26 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:66.7%"></div><span class="barnum">14</span></div></td>
-            <td><div class="dots"><i class="dot"></i><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>11:19</b> Vertical AI</span><span><b>17:51</b> Spacetech</span></td>
-          </tr>
-          <tr>
-            <td class="day">Thu 27 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:71.4%"></div><span class="barnum">15</span></div></td>
-            <td><div class="dots"><i class="dot"></i></div></td>
-            <td class="other">1 startups<br>1 resources</td>
-            <td class="times"><span><b>19:27</b> ESDS GPU</span></td>
-          </tr>
-          <tr>
-            <td class="day">Fri 28 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:38.1%"></div><span class="barnum">8</span></div></td>
-            <td><div class="dots"><i class="dot"></i></div></td>
-            <td class="other">1 startups</td>
-            <td class="times"><span><b>16:40</b> Groww</span></td>
-          </tr>
-          <tr class="weekend">
-            <td class="day">Sat 29 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:33.3%"></div><span class="barnum">7</span></div></td>
-            <td><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>16:25</b> Listed NATC tracker</span><span><b>17:10</b> Meta</span><span><b>23:59</b> FY26 tracker</span></td>
-          </tr>
-          <tr class="weekend">
-            <td class="day">Sun 30 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:0"></div><span class="barnum">0</span></div></td>
-            <td><div class="dots"><i class="dot"></i><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>11:00</b> Zerodha</span><span><b>12:30</b> IPO tracker</span></td>
-          </tr>
-          <tr>
-            <td class="day">Mon 31 Aug</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:81.0%"></div><span class="barnum">17</span></div></td>
-            <td><div class="dots"><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>06:00</b> Purple Style Labs</span></td>
-          </tr>
-          <tr>
-            <td class="day">Tue 1 Sep</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:100%"></div><span class="barnum">21</span></div></td>
-            <td><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div></td>
-            <td class="other">1 startups</td>
-            <td class="times"><span><b>07:00</b> Zepto</span><span><b>11:00</b> Festive delivery</span><span><b>21:30</b> InsuranceDekho</span></td>
-          </tr>
-          <tr>
-            <td class="day">Wed 2 Sep</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:71.4%"></div><span class="barnum">15</span></div></td>
-            <td><div class="dots"><i class="dot"></i></div></td>
-            <td class="other dash">—</td>
-            <td class="times"><span><b>11:00</b> Ad break / AI</span></td>
-          </tr>
+          <tr><td class="t">06:00</td><td class="nowrap">Mon 24 Aug</td><td>Shiprocket IPO</td><td class="tag on">Slot</td></tr>
+          <tr><td class="t">06:00</td><td class="nowrap">Mon 31 Aug</td><td>Purple Style Labs</td><td class="tag on">Slot</td></tr>
+          <tr><td class="t">07:00</td><td class="nowrap">Fri 21 Aug</td><td>Flipkart food</td><td class="tag on">Slot</td></tr>
+          <tr class="wk"><td class="t">07:00</td><td class="nowrap">Sun 23 Aug</td><td>Navi</td><td class="tag on">Slot</td></tr>
+          <tr><td class="t">07:00</td><td class="nowrap">Tue 1 Sep</td><td>Zepto</td><td class="tag on">Slot</td></tr>
+          <tr><td class="t">11:00</td><td class="nowrap">Wed 19 Aug</td><td>Enterprise AI costs</td><td class="tag on">Slot</td></tr>
+          <tr class="wk"><td class="t">11:00</td><td class="nowrap">Sun 30 Aug</td><td>Zerodha</td><td class="tag on">Slot</td></tr>
+          <tr><td class="t">11:00</td><td class="nowrap">Tue 1 Sep</td><td>Festive delivery</td><td class="tag on">Slot</td></tr>
+          <tr><td class="t">11:00</td><td class="nowrap">Wed 2 Sep</td><td>Ad break / AI</td><td class="tag on">Slot</td></tr>
+          <tr><td class="t">11:06</td><td class="nowrap">Tue 25 Aug</td><td>Men's ethnic wear</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">11:19</td><td class="nowrap">Wed 26 Aug</td><td>Vertical AI</td><td class="tag">Ragged</td></tr>
+          <tr class="wk"><td class="t">12:30</td><td class="nowrap">Sun 30 Aug</td><td>IPO tracker</td><td class="tag on">Slot</td></tr>
+          <tr class="gap"><td colspan="4">3 h 55 m — no in-depth go-live, any day</td></tr>
+          <tr class="wk"><td class="t">16:25</td><td class="nowrap">Sat 29 Aug</td><td>Listed NATC tracker</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">16:40</td><td class="nowrap">Fri 28 Aug</td><td>Groww</td><td class="tag">Ragged</td></tr>
+          <tr class="wk"><td class="t">17:10</td><td class="nowrap">Sat 29 Aug</td><td>Meta</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">17:35</td><td class="nowrap">Fri 21 Aug</td><td>Three Sixty</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">17:51</td><td class="nowrap">Wed 26 Aug</td><td>Spacetech</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">18:42</td><td class="nowrap">Thu 20 Aug</td><td>Microdrama</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">19:08</td><td class="nowrap">Thu 20 Aug</td><td>Data centre</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">19:27</td><td class="nowrap">Thu 27 Aug</td><td>ESDS GPU</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">20:11</td><td class="nowrap">Fri 21 Aug</td><td>Zetwerk</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">20:35</td><td class="nowrap">Fri 21 Aug</td><td>Physics Wallah</td><td class="tag">Ragged</td></tr>
+          <tr><td class="t">21:30</td><td class="nowrap">Tue 1 Sep</td><td>InsuranceDekho</td><td class="tag on">Slot</td></tr>
+          <tr class="wk"><td class="t">23:59</td><td class="nowrap">Sat 29 Aug</td><td>FY26 tracker</td><td class="tag">Ragged</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
   <section>
-    <h2>The week has two engines, not one</h2>
-    <p class="sec-note">Average go-lives per calendar day. News falls off a cliff into the weekend; in-depth does not move.</p>
+    <h2>Each weekday has its own signature</h2>
+    <p class="sec-note">News volume and in-depth timing move independently. News runs a weekday factory that stops dead on Sunday; in-depth holds near 1.5 pieces a day all seven days, but changes <em>when</em> it fires depending on the day.</p>
     <div class="scroll">
       <table>
         <thead>
           <tr>
             <th>Weekday</th>
-            <th class="num">Days seen</th>
-            <th class="barcell">News / day</th>
+            <th>News / day</th>
             <th class="num">In-depth / day</th>
-            <th class="num">In-depth share</th>
+            <th>In-depth timing signature</th>
+            <th class="num">Held</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="day">Monday</td><td class="num mono">2</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:88.6%"></div><span class="barnum">15.5</span></div></td>
-            <td class="num mono">1.0</td><td class="num mono">6%</td>
+            <td class="nowrap">Monday</td>
+            <td><div class="bwrap"><div class="btrack"><div class="bfill" style="width:88.6%"></div></div><span class="bnum">15.5</span></div></td>
+            <td class="num mono">1.0</td>
+            <td class="soft">06:00 sharp, and it is the day's only in-depth piece</td>
+            <td class="num mono">2 / 2</td>
           </tr>
           <tr>
-            <td class="day">Tuesday</td><td class="num mono">2</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:100%"></div><span class="barnum">17.5</span></div></td>
-            <td class="num mono">2.0</td><td class="num mono">10%</td>
+            <td class="nowrap">Tuesday</td>
+            <td><div class="bwrap"><div class="btrack"><div class="bfill" style="width:100%"></div></div><span class="bnum">17.5</span></div></td>
+            <td class="num mono">2.0</td>
+            <td class="soft">An 11:00-band piece</td>
+            <td class="num mono">2 / 2</td>
           </tr>
           <tr>
-            <td class="day">Wednesday</td><td class="num mono">3</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:93.1%"></div><span class="barnum">16.3</span></div></td>
-            <td class="num mono">1.3</td><td class="num mono">8%</td>
+            <td class="nowrap">Wednesday</td>
+            <td><div class="bwrap"><div class="btrack"><div class="bfill" style="width:93.1%"></div></div><span class="bnum">16.3</span></div></td>
+            <td class="num mono">1.3</td>
+            <td class="soft">An 11:00-band piece</td>
+            <td class="num mono">3 / 3</td>
           </tr>
           <tr>
-            <td class="day">Thursday</td><td class="num mono">2</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:77.1%"></div><span class="barnum">13.5</span></div></td>
-            <td class="num mono">1.5</td><td class="num mono">10%</td>
+            <td class="nowrap">Thursday</td>
+            <td><div class="bwrap"><div class="btrack"><div class="bfill" style="width:77.1%"></div></div><span class="bnum">13.5</span></div></td>
+            <td class="num mono">1.5</td>
+            <td class="soft">Evening only, every piece between 18:42 and 19:27</td>
+            <td class="num mono">2 / 2</td>
           </tr>
           <tr>
-            <td class="day">Friday</td><td class="num mono">2</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:60.0%"></div><span class="barnum">10.5</span></div></td>
-            <td class="num mono">2.5</td><td class="num mono">19%</td>
+            <td class="nowrap">Friday</td>
+            <td><div class="bwrap"><div class="btrack"><div class="bfill" style="width:60.0%"></div></div><span class="bnum">10.5</span></div></td>
+            <td class="num mono">2.5</td>
+            <td class="soft">Heaviest depth day; 4 of its 5 pieces after 16:00</td>
+            <td class="num mono">2 / 2</td>
           </tr>
-          <tr class="weekend">
-            <td class="day">Saturday</td><td class="num mono">2</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:45.7%"></div><span class="barnum">8.0</span></div></td>
-            <td class="num mono">1.5</td><td class="num mono">16%</td>
+          <tr class="wk">
+            <td class="nowrap">Saturday</td>
+            <td><div class="bwrap"><div class="btrack"><div class="bfill" style="width:45.7%"></div></div><span class="bnum">8.0</span></div></td>
+            <td class="num mono">1.5</td>
+            <td class="soft">Evening and ragged (16:25 – 23:59), or nothing at all</td>
+            <td class="num mono">1 / 2</td>
           </tr>
-          <tr class="weekend">
-            <td class="day">Sunday</td><td class="num mono">2</td>
-            <td class="barcell"><div class="barwrap"><div class="bar" style="width:0"></div><span class="barnum">0</span></div></td>
-            <td class="num mono">1.5</td><td class="num mono">100%</td>
+          <tr class="wk">
+            <td class="nowrap">Sunday</td>
+            <td><div class="bwrap"><div class="btrack"><div class="bfill" style="width:0"></div></div><span class="bnum">0</span></div></td>
+            <td class="num mono">1.5</td>
+            <td class="soft">Morning only (07:00 – 12:30), and zero news all day</td>
+            <td class="num mono">2 / 2</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="sec-note">In-depth never drops below 1.0/day and never exceeds 2.5/day on any weekday. News swings from 17.5 to zero across the same seven days.</p>
+    <p class="sec-note">“Held” counts the days in the window that matched the signature. Every Tuesday and Wednesday carried an 11:00-band piece; both Mondays fired at 06:00 exactly; both Sundays published in the morning and no news at all.</p>
   </section>
 
   <section>
-    <h2>Both formats keep the same clock</h2>
-    <p class="sec-note">Share of go-lives by time of day. The two profiles are almost identical up to 11:00 — the difference is what happens after.</p>
-
-    <div class="strips">
-      <div>
-        <div class="strip-label"><span class="k">News</span><span class="v">179 go-lives</span></div>
-        <div class="strip">
-          <div class="seg early" style="width:7.8%">8%</div>
-          <div class="seg morning" style="width:11.7%">12%</div>
-          <div class="seg late-news" style="width:80.4%">80% after 11:00</div>
-        </div>
-      </div>
-      <div>
-        <div class="strip-label"><span class="k">In-depth</span><span class="v">24 go-lives</span></div>
-        <div class="strip">
-          <div class="seg early" style="width:8.3%">8%</div>
-          <div class="seg morning" style="width:12.5%">13%</div>
-          <div class="seg late-depth" style="width:79.2%">79% after 11:00</div>
-        </div>
-      </div>
-      <div class="strip-key">
-        <span><i class="seg early" style="background:var(--rule)"></i>Before 07:00</span>
-        <span><i class="seg morning" style="background:var(--bar)"></i>07:00 – 10:59</span>
-        <span><i style="background:var(--accent)"></i>11:00 onwards</span>
-      </div>
-    </div>
-
-    <p class="sec-note" style="margin-top:12px">Splitting the in-depth tail further: of the 19 pieces from 11:00 onwards, <strong>6 land at 11:00 exactly</strong>, 3 fall in the afternoon, and <strong>10 go live after 17:00</strong> — including one at 23:59 on 29 Aug. Only 5 of 24 in-depth pieces are live before 11:00.</p>
-  </section>
-
-  <section>
-    <h2>Five patterns</h2>
+    <h2>What follows</h2>
     <div class="findings">
 
       <div class="finding">
-        <div class="fig">0</div>
+        <div class="fig">12:30<br>–16:25</div>
         <div>
-          <h3>Sunday is a pure in-depth day</h3>
-          <p>Both Sundays produced zero news and only in-depth (1 and 2 pieces). Saturday halves to 7–9 news. The weekend is not a slow version of the week — it is a different product.</p>
+          <h3>The afternoon is unclaimed</h3>
+          <p>Almost four hours of the working day, every day, with no in-depth go-live. Any afternoon push, digest or app refresh in that window has nothing new to carry.</p>
         </div>
       </div>
 
       <div class="finding">
-        <div class="fig">1.6</div>
+        <div class="fig">1 of 12</div>
         <div>
-          <h3>In-depth output is a constant, not a schedule</h3>
-          <p>Averaging 1.6 pieces a day across all seven weekdays with no weekend dip. It behaves like a fixed team capacity draining at its own rate, independent of the news cycle.</p>
+          <h3>The evening block is a queue, not a schedule</h3>
+          <p>Eleven of the twelve evening pieces land on a ragged minute — they went live when the work cleared. Half of all in-depth output is effectively unscheduled.</p>
         </div>
       </div>
 
       <div class="finding">
-        <div class="fig">42%</div>
+        <div class="fig">50%</div>
         <div>
-          <h3>Depth arrives in bursts</h3>
-          <p>Ten of the 24 in-depth pieces (42%) landed on just three days — 21 Aug, 29 Aug and 1 Sep. Daily counts swing 0 to 4. Sat 22 Aug was the only day in 15 with no in-depth at all.</p>
+          <h3>The most-worked format lands at the lowest-attention hour</h3>
+          <p>Half of in-depth goes live after 16:25, and four pieces after 20:00 — one at 23:59. Moving even a share of that queue into the empty afternoon costs no extra output.</p>
         </div>
       </div>
 
       <div class="finding">
-        <div class="fig">11:00</div>
-        <div>
-          <h3>One real slot exists; everything else is publish-when-ready</h3>
-          <p>Six in-depth pieces went live at 11:00–11:19, the only time that repeats. The Monday 06:00 pair (Shiprocket, Purple Style Labs) is the second-most deliberate. The remaining 16 land at scattered times.</p>
-        </div>
-      </div>
-
-      <div class="finding">
-        <div class="fig">8%</div>
-        <div>
-          <h3>The morning shelf is nearly empty</h3>
-          <p>Only 8% of news and 8% of in-depth are live before 07:00. Anything assembled early in the morning is working almost entirely from the previous evening's batch — and on Monday, from Saturday's.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section>
-    <h2>What follows from this</h2>
-    <div class="findings">
-      <div class="finding">
-        <div class="fig">→</div>
+        <div class="fig">Sun → Mon</div>
         <div>
           <h3>Monday morning is the thinnest supply point in the week</h3>
-          <p>Sunday contributes 0 news and 1–2 in-depth. A morning surface built on the last 24 hours has the least to draw on precisely when the week's audience returns.</p>
+          <p>Sunday produces zero news and 1–2 morning in-depth pieces. Combined with 80% of news going live after 11:00, a Monday-morning surface is working almost entirely off Saturday.</p>
         </div>
       </div>
-      <div class="finding">
-        <div class="fig">→</div>
-        <div>
-          <h3>The highest-effort content goes live at the lowest-attention hour</h3>
-          <p>42% of in-depth publishes after 17:00. That is the format with the most work behind it landing when the day is closing.</p>
-        </div>
-      </div>
-      <div class="finding">
-        <div class="fig">→</div>
-        <div>
-          <h3>Weekend inventory is in-depth or nothing</h3>
-          <p>Across four weekend days: 16 news items total, 12 of them on Saturday. Any Saturday or Sunday experience is carried by 1–3 long reads.</p>
-        </div>
-      </div>
+
     </div>
   </section>
 
   <footer>
-    Window: 19 Aug – 2 Sep 2026, 15 calendar days, 209 go-lives (179 news, 24 in-depth, 5 startups, 1 resources). All times IST. Weekday averages rest on 2–3 observations each, so treat the day-of-week table as direction, not a settled baseline. Percentages are rounded.
+    Window: 19 Aug – 2 Sep 2026, 15 calendar days, 209 go-lives (179 news, 24 in-depth, 5 startups, 1 resources). All times IST, as supplied. “Clock slot” means a go-live at :00 or :30. Weekday rows rest on 2–3 observations each, so read the signatures as direction, not a settled baseline. Percentages rounded.
   </footer>
 
 </div>
