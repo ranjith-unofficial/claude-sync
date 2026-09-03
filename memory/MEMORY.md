@@ -32,6 +32,7 @@
 - [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, additive framing, build don't describe
 - [Analytics destination scope](feedback-analytics-destination-scope.md) — event status only vs PostHog + Customer.io; ignore Mixpanel/MoEngage/GA4/Ads/UserGuiding entirely
 - [Unified user properties audit (4 Sep)](project-inc42-user-properties-audit.md) — 95 live properties missing from the sheet; App has zero native rows; Pro billing slugs mismatch
+- [Event audit (4 Sep)](project-inc42-event-audit-4sep.md) — live event+property validation, all 3 projects; `Table VIew` typo, same-second duplicate epidemic, 6 stale sheet rows corrected
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)
 - [Project: INC42 app launch](project-inc42-launch.md) — v2 scope closed 24 Aug, release 31 Aug, Sep target 5,000 installs/20% activation
