@@ -10,9 +10,18 @@ metadata:
 
 Ranjith's "Unified User Properties" tab (gid 350143376) in the "One Inc42 - Analytics | Master Sheet"
 has 82 rows. Audited 4 Sep 2026 against live PostHog person-property definitions and Customer.io
-Data index > Profile Attributes. **95 properties exist live but are absent from that tab**:
-Media 55, DataLabs 19, App 21. Written to a NEW tab "Missing User Properties (4 Sep)"
-(gid 440748180), 133 rows x 8 cols. Nothing existing was edited.
+Data index > Profile Attributes.
+
+**Deliverable shape matters**: Ranjith rejected a missing-only list — he could not relate to it. He wants
+the FULL inventory of every live property with a Mentioned / NOT MENTIONED column he can filter and act on.
+Delivered as tab "User Property Inventory (4 Sep)" (gid 440748180), 307 rows x 10 cols, with conditional
+formatting on the STATUS column (NOT MENTIONED = light red 3, MENTIONED = light green 3) and a
+"Covered by sheet row" column pointing back to his row numbers. Nothing existing was edited.
+
+Verified counts: 202 live properties (excl. system/SDK) = 108 MENTIONED + 94 NOT MENTIONED.
+By product: Media 109 live (55 mentioned / 54 not) - DataLabs 69 (50/19) - App 24 (3/21).
+Plus 62 system/SDK rows marked "SYSTEM - ignore", 13 sheet rows "NOT FOUND LIVE", 3 "EXISTS AS SDK PROPERTY".
+(An earlier pass said 95 not-mentioned; the correct figure is 94 - newsletter_source IS covered by sheet row 69.)
 
 Source inventory counts (dated snapshot, 4 Sep 2026):
 - PostHog person properties: Media (53557) 93 non-$ · DataLabs (66351) 74 · App (146258) 19 + utm_*
@@ -28,8 +37,12 @@ Headline findings:
   watchlist_count, tracked_sector_count, install_date, push_opt_in, push_types_enabled, dnd,
   auth_method, role, sector_groups, topic_groups, walkthrough_status, last_brief_*, is_registered,
   interest_features, registration_date.
-- **`dnd` is compliance-relevant** and missing — true while a deletion request is pending, suppresses
-  ALL Customer.io sends.
+- **`dnd` is compliance-relevant** and missing. VERIFIED 4 Sep in PostHog 146258: only **6 people** have
+  dnd=true (721 false, 355 unset). Customer.io's "Profiles" percentage is COVERAGE (attribute is set to
+  anything), NOT a true-rate - never read a boolean's CIO percentage as a true count.
+- **Live deletion-suppression bug**: `account_deleted` fired 20x across 18 people (14 Jul - 1 Sep 2026).
+  5 signed back in (dnd=false, correct). Of the 13 who did NOT, only 6 have dnd=true - **7 have no flag
+  written at all**, so Customer.io is not suppressing them. Separate P0 from the property audit.
 - **Pro billing envelope slug mismatch**: live PostHog+CIO use `pro_trial_start_at`,
   `pro_next_charge_at`, `pro_mandate_status`, `pro_subscription_status`, `pro_lifecycle_stage`,
   `pro_renewal_count`, `pro_current_period_end_at`, `pro_first_paid_at`, `pro_next_charge_amount`,
@@ -54,6 +67,11 @@ _created_in_customerio_at, unsubscribed, id) and cio_subscription_preferences + 
 
 Open decision: `cio_subscription_preferences` (Customer.io's native subscription centre, 39-46% coverage
 on Media) vs the sheet's rows 59-70 which model each newsletter as its own slug. Only one should be canonical.
+
+**Live collaborator warning (4 Sep)**: while this work was in progress another editor was active in the
+same spreadsheet - they added a tab "Event Audit (4 Sep)", their green cursor appeared inside my tab, and
+5 rows of my pasted block were deleted mid-session. Ranjith's own tabs were never touched (re-verified
+83 rows x 7 cols). Always re-verify his tab integrity via gviz CSV after any editing session on this file.
 
 Method note: Google Sheets tab contents are readable without OAuth via
 `https://docs.google.com/spreadsheets/d/<id>/gviz/tq?tqx=out:csv&gid=<gid>` fetched from an
