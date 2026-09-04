@@ -100,3 +100,36 @@ with a single company-less article — and that is F4, which is still a whole ca
    and the card-1→2 drop is ~50%. My hypothesis is that visible headlines pre-spend the deck, but it
    is a hypothesis. The PostHog flag on the brief card already exists: A = this shell (one headline),
    B = live (three). Measure card-2 reach, not opens.
+
+---
+
+# Row G — the Brief page in three reader states (5 Sep, after Ranjith's constraints)
+Draft file row G (y=80200). One real day (Thu 20 Aug), one user (follows Ecommerce & D2C + IPO).
+
+## Constraints taken as fixed
+- Brief cut is 07:00→07:00. Nothing on the page updates intra-day. "Since this morning" is dropped.
+- "Continue where you left off" already exists; card shows a progress bar and the next personalised card.
+- Completion → streak screen. The card afterwards is a receipt, nothing more.
+- Modules below the card change with the **day**, not with the visit. First impression is the priority.
+- `brief_date` on `brief_opened` will be fixed; not a blocker.
+
+## The two questions the first impression has to answer
+1. *Is this for me?* → the **personalisation bar**: 8 segments, orange-outlined = in what you follow, grey = ecosystem. Visible before opening; the same bar carries progress in the continue state and the receipt in the done state. On a zero-match day it is simply all grey — no claim, no apology.
+2. *If I finish, will I know what happened in my sector?* → the **promise line** + sub-line:
+   "8 of the 14 stories Inc42 published today, picked for you." / "5 in Ecommerce & D2C and IPO, which you follow · 3 the ecosystem is reading."
+   Both are 100%-coverage fields (published count, matched count, followed names present). A followed sector with nothing today is never named.
+
+## Companies module — conveying *why*, not just *what*
+Rule: **reason first, number second.** Each row = logo · company · chip (`YOU FOLLOW · ECOMMERCE` / `NEWS`) · one fact keyed to the story's development type (Deals → amount raised; Financials → the P&L line; News → the price move). Fact ladder: figure in the headline (47%) → DataLabs field → none (row still renders with the chip). Row renders only if it has a fact **or** a logo. Two-company stories emit two logos, one row. Watchlist/followed rows first. Peeko has no favicon → initial tile.
+
+## The ending — abundance, not scarcity
+"That's today. Explore →" was wrong for exactly the reason Ranjith gave: it reads as *this is all Inc42 has.* Replaced by the bridge:
+"Inc42 published **14** stories today. Your brief is the 8 chosen for you. The other 6, every company profile and everything from this week are in Explore."
+It states supply (true count), explains selectivity (personalisation), and points onward. On a ≤8-story day it becomes "Every story from today is in your brief."
+
+## States
+| | Card | Below the card |
+|---|---|---|
+| G1 unread | hero · promise · bar (0/8) · lead in full · Open | companies · yesterday (only if unread) · today's In-Depth · bridge |
+| G2 continue | "Continue where you left off" · bar 3/8 · NEXT UP = company + reason, never the headline · Continue | identical |
+| G3 done | ✓ Done for today · bar 8/8 · receipt line | identical |
