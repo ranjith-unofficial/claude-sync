@@ -29,6 +29,7 @@
 - [Push back in design discussions](feedback-push-back-in-design-discussions.md) — check proposals against data, give concrete mockups
 - [UI mockup: research first](feedback-ui-mockup-research-first.md) — browse real screenshots first; show all variants at full scale
 - [Report structure](feedback-report-structure.md) — methodology up front; group findings holistically per bucket, never split across cross-cutting sections
+- [Measure field coverage before designing](feedback-measure-field-coverage-before-designing.md) — a slot may only promise what its field delivers ≥85% of days; never announce absence; backtest on real days
 - [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, additive framing, build don't describe
 - [Analytics destination scope](feedback-analytics-destination-scope.md) — event status only vs PostHog + Customer.io; ignore Mixpanel/MoEngage/GA4/Ads/UserGuiding entirely
 - [Unified user properties audit (4 Sep)](project-inc42-user-properties-audit.md) — 204 live properties, 96 NOT MENTIONED; App attribution 100% null; PostHog taxonomy list is incomplete, use key census
@@ -64,6 +65,7 @@
 - [PostHog review (17 Aug, CONFIRMED)](project-inc42-posthog-review.md) — dark/off-spec events → 25 Aug events-fix ticket
 - [Brief card images](project-inc42-brief-images.md) — sector images agreed 12 Aug, unbuilt; coverage claim CORRECTED
 - [Publishing cadence (3 Sep)](project-inc42-publishing-cadence.md) — in-depth publishes in 2 blocks, 12:30–16:25 empty; depth existed 14/15 days
+- [Brief entry coverage shell (5 Sep)](project-inc42-brief-entry-coverage.md) — row F: gated shell + trigger-strip ladder, 61-day backtest; 27% no company, AI zero on 50% weekdays
 - [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary only 93%-covered field; real defect is row ORDERING
 - [Search diagnosis, all 3 surfaces (30 Aug)](project-inc42-app-search-root-cause.md) — app zero-results = per-keystroke flooding not missing content; DEFERRED "improve search performance" bucket holds Ranjith's open symptoms (exact word e.g. `cred` misses; irrelevant results)
 - [Deep linking](project-inc42-deep-linking.md) — newsletter links fail (Safari not app); root cause CIO click-tracker
