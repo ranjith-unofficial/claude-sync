@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 59cedaa8-a793-4cf6-9ab8-edd7339fa0a4
-  modified: 2026-08-29T07:46:33.761Z
+  modified: 2026-09-04T06:36:28.489Z
 ---
 
 Built 2026-08-24 at Ranjith's request ("everything you know — all meetings, in-person discussion, previous documents — what should be in app v2"). Two scope threads exist and are **NOT reconciled with each other** — flag this to Ranjith/Utkarsh before treating either as complete.
@@ -155,6 +155,51 @@ Source: [[project-inc42-app-explore-deep-dive]]. Not yet raised in a Utkarsh-fac
 - Add a "companies mentioned in today's brief" module, framed as a standalone unit ("Today's Startup Movers," not "Mentioned today" — the latter presupposes brief-reading context the target non-Brief-reading audience won't have), using real cards (name + one fact) not bare chips, placed directly below the Today's Edition card so it's visible without completing or even opening the brief.
 - Sequencing: ship the calendar/Past-Briefs consolidation first (low risk), the companies-mentioned module second (needs a company-name alias table + source-tagging + editorial sign-off on sensitive mentions first), a rotating "Beyond Brief" filter-teaser last (needs a content-freshness rule from Content/DataLabs that doesn't exist yet).
 - This directly unblocks on the sector/company-tagging correction in [[project-inc42-content-personalization]] — previously thought infeasible, now confirmed viable (67.7% of articles fully tagged, 91-94% DataLabs match rate).
+
+## Thread 12 — text overflow on article cards, reported by Utkarsh 4 Sep 2026, MUST be in v2
+Slack screenshot: card with left thumbnail + "FILM & THEATRE →" sector chip + headline + "Debarghya Sil · 3 Sep 26" byline + a "30-sec summary" expander row. Headline **"KKR Backs BookMyShow As Live Entertainment Becomes Its Next G"** is hard-clipped mid-word at the container edge, **with no ellipsis** — the text runs past the card boundary rather than truncating.
+
+**Surface not yet confirmed.** The anatomy (thumbnail-left, byline, separate 30-sec-summary expander) does NOT match the brief story card described in [[project-inc42-app-story-card-redesign]] (masthead, 8-segment progress bar, 390x338 hero, "THE DECODE", red-triangle bullets). Most likely Explore → Articles list card or the article page header. **Ask before routing the ticket.**
+
+### Sizing — measured 4 Sep against 100 live headlines (`inc42.com/wp-json/wp/v2/posts?per_page=100`)
+Visible budget on the broken card is ~61 characters across 2 lines.
+| Headline length | Share of articles |
+|---|---|
+| median | **65 chars** |
+| mean | 63.4 |
+| max | 99 |
+| >55 chars | 79% |
+| **>60 chars** | **63%** |
+| >70 chars | 29% |
+| >80 chars | 6% |
+
+**The median headline overflows this card.** ~63% of everything published breaks it. This is the normal case, not an edge case. Designing containers to hold **80 characters covers 94%** of headlines.
+
+### Root cause candidates, most likely first
+1. **Flex child won't shrink** — text column has default `min-width: auto` (web) / no `flexShrink: 1` (RN), so it refuses to go below its intrinsic content width and overflows the card. This is the classic cause of *exactly* this symptom in a thumbnail-left row card.
+2. Fixed height + `overflow: hidden` with no `text-overflow: ellipsis` / no `-webkit-line-clamp`.
+3. Line clamp set but the parent has no width constraint to clamp against.
+
+Fix is `min-width: 0` (web) or `flexShrink: 1` (RN) on the text container **plus** an explicit 2-line clamp with tail ellipsis on the headline. Both halves are needed; either alone leaves a defect.
+
+### Supersede check — related but NOT the same item
+- **"Shrink brief-card title"** is already on the 1 Aug 20-item QA list (Thread 8), zero confirmed fixed. That is a *font-size* fix on the *brief* card. **Not a duplicate** — shrinking type does not fix an unclamped overflow, and this is probably a different surface.
+- Thread 1 #3 (brief card redesign) and the V28 set would absorb it **only if** this turns out to be the brief card.
+
+### The systemic finding — this is the third instance of one root problem
+1. V28 story card: "What's new / Why it matters / The detail are long and will not fit" — confirmed against real Ola Electric copy
+2. 1 Aug QA list: "shrink brief-card title"
+3. This report
+
+**Cards are being designed against short placeholder copy and breaking on real copy.** The V28 round already recorded the method fix ("stopped using invented copy, V28 uses a real story end to end") but that lesson was never applied to the other cards. The v2 item should therefore be a **rule, not a patch**: every text container declares a max line count with ellipsis, and every card design is reviewed against an 80-character headline before sign-off.
+
+### Acceptance criteria
+- No headline in the corpus renders past its container edge on any card, any surface
+- Truncated text always ends in an ellipsis, never a cut glyph
+- Verified against the longest live headline (99 chars) and at the largest OS text-size setting
+- Verified at the narrowest supported device width
+
+**Status:** not yet filed in Asana as of 4 Sep 2026. Related: [[project-inc42-app-story-card-redesign]], [[project-inc42-brief-card-corpus-analysis]].
 
 ## Possible unreconciled overlap — flag, don't assume
 **"B2"** ([[project-inc42-app-placement]], 10 Aug, owner Satya) — placing Inc42 editorial/news content inside the app, design-only so far. This sounds like it could be the same initiative as Thread 1 #1 (Explore → News rename, more prominence to the news section) under an earlier working name, or it could be a separate, narrower placement decision. Never explicitly reconciled in any session since. Ask Ranjith/Satya directly before assuming either.
