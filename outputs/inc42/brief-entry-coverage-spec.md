@@ -133,3 +133,34 @@ It states supply (true count), explains selectivity (personalisation), and point
 | G1 unread | hero · promise · bar (0/8) · lead in full · Open | companies · yesterday (only if unread) · today's In-Depth · bridge |
 | G2 continue | "Continue where you left off" · bar 3/8 · NEXT UP = company + reason, never the headline · Continue | identical |
 | G3 done | ✓ Done for today · bar 8/8 · receipt line | identical |
+
+---
+
+# Row H — eight ways to say the same deal (5 Sep)
+Draft file row H (y=84000 → 92600). Each row = Entry · Continue · Done · Thank-you.
+Shared content on every row (Thu 20 Aug, follows Ecommerce & D2C + IPO):
+
+| Element | Value | Source / rule |
+|---|---|---|
+| Header | `INC42` + `● Day 7 · read today to keep it` | streak carries the stake; no greeting, no duplicate date |
+| Title | **Your Ecommerce & IPO brief** | followed sectors present today; cap at 2 names + "+n" |
+| Promise | "Every Ecommerce & D2C and IPO story from today, plus three the ecosystem is reading." | "Every" when matched ≤ 8 (100% of days for 1 sector, 91% for 2, 41% for 3); otherwise "The 8 that matter most in…" |
+| Tone | ● ● ● ● ● ● ● ● + "1 funding round · 1 profit turn · 2 disputes · 4 updates" | derived from `development_type` (85%). **`sentiment__tonality` is "Positive" on 1,178/1,181 — a default, unusable** |
+| Who | 6 logos (favicon service), initial tile when none resolves | row hidden below 3 |
+| Button | one, black (or outlined). Orange used once per card | — |
+| Continue | plain progress bar 3/8, NEXT UP = company + reason (never headline) | — |
+| Done | ✓ Done for today · receipt line | streak screen already shown |
+| Thank-you | DAY 8 · "That is every Ecommerce & D2C and IPO story from today." · "Inc42 read 14 so you could read 8" | closes the promise the entry made |
+
+| # | Name | Title face | Ground | What it argues |
+|---|---|---|---|---|
+| H1 | MASTHEAD | Playfair Display Bold 36 | white | the paper: rules, serif, restraint |
+| H2 | NEWSLETTER | Newsreader Bold 34 | cream | it is the email, in the app: issue number, thick rule |
+| H3 | INK | Fraunces Black 36 | near-black | the only dark option; orange = button only |
+| H4 | SANS | Manrope ExtraBold 34 | white | app-native; no dots, names as text |
+| H5 | TONE FIRST | DM Sans Bold 32 | white | the day's shape leads — eight tone tiles before the title |
+| H6 | COVER | Playfair Black 34 on photo | image | the only one with a picture |
+| H7 | STUB | Geist Black; numeral 8 at 84 | paper card | finite and countable — the number is the object |
+| H8 | LETTER | Literata Medium 28 | white | the promise *is* the title; signed by the newsroom |
+
+Recommendation: H1 or H4 for the app (H1 if the newsletter identity should carry into the app; H4 if the app should stay sans). H7 is the strongest at "this ends". H6 is the one to test against the live card, since it is the only one that keeps an image.
