@@ -164,3 +164,36 @@ Shared content on every row (Thu 20 Aug, follows Ecommerce & D2C + IPO):
 | H8 | LETTER | Literata Medium 28 | white | the promise *is* the title; signed by the newsroom |
 
 Recommendation: H1 or H4 for the app (H1 if the newsletter identity should carry into the app; H4 if the app should stay sans). H7 is the strongest at "this ends". H6 is the one to test against the live card, since it is the only one that keeps an image.
+
+---
+
+# Row J — the one entry card, and what it does when a field is missing (5 Sep)
+Draft file row J (y=93100). Six real days, one card design (H4 Sans, Manrope).
+
+## Slot rules — measured on 61 publishing days
+
+| Slot | Needs | Have it | Fallback 1 | Fallback 2 |
+|---|---|---|---|---|
+| Stake | a streak | logged-in users | "Log in to keep a streak" | — |
+| Date | — | 100% | — | — |
+| **Title** | ≥1 followed sector/topic present today | Ecom+IPO 80% · 3 sectors 93% · **AI-only 20%** | `Your X, Y +1 brief` when >2 | **`Today's brief`** — never names an absent sector |
+| **Promise** | matched count, published count | 100% | "Every…" (matched ≤ 8) → "The 8 that matter most in…" (matched > 8) → "The eight the ecosystem is reading" (0 match) | "One story today — …" (N = 1) |
+| **Who** | ≥3 resolvable logos | **~74%** of days | ≥1 company → **names as text** (13%) | nothing (5%). **Never a row of initial tiles** |
+| **Tone** | ≥5 of the cards have a development type | 82% | 1–4 typed → text line only (5%) | nothing (13%) |
+| Button | — | 100% | "Read today's story" when N = 1 | "Read yesterday's brief" when not ready |
+| Not ready | `brief_not_ready` (real PostHog error type) | — | replaces title/promise; hands over yesterday's | — |
+
+## The six days
+| | Day | What is missing | What the card does |
+|---|---|---|---|
+| J1 | Thu 20 Aug, Ecom+IPO | nothing | every slot renders |
+| J2 | Mon 13 Jul, Ecom+IPO | **all four logos** | names as text, promise says "one" honestly, tone line still typed |
+| J3 | Thu 20 Aug, AI follower | any followed sector | title falls to Today's brief; nothing mentions AI |
+| J4 | Thu 20 Aug, no prefs, logged out | stake, sector, "you" | two slots empty; card still whole |
+| J5 | Sun 21 Jun | company, type, logo, 7 of 8 stories | title, promise, button — nothing else exists so nothing else renders |
+| J6 | Fri 6:40 AM | the edition | says so, gives the time, offers yesterday |
+
+## Dependencies this creates
+- Logo needs a **domain** per company. WP has none; DataLabs has `website`. Favicon service resolves ~85% where a domain exists. The 74% above assumes that; measure it on the real company master before committing to the logo row.
+- Tone needs the development-type → up/down/flat map agreed with editorial (Deals/IPO/Financials-profit = up; Controversies/Layoffs/penalties = down; rest = flat). `sentiment__tonality` is unusable.
+- Title needs the followed-sector names in the user's own vocabulary ("Ecommerce & D2C" is the taxonomy label; the onboarding chip may say something shorter).
