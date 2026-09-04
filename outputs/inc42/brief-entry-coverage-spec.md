@@ -197,3 +197,55 @@ Draft file row J (y=93100). Six real days, one card design (H4 Sans, Manrope).
 - Logo needs a **domain** per company. WP has none; DataLabs has `website`. Favicon service resolves ~85% where a domain exists. The 74% above assumes that; measure it on the real company master before committing to the logo row.
 - Tone needs the development-type → up/down/flat map agreed with editorial (Deals/IPO/Financials-profit = up; Controversies/Layoffs/penalties = down; rest = flat). `sentiment__tonality` is unusable.
 - Title needs the followed-sector names in the user's own vocabulary ("Ecommerce & D2C" is the taxonomy label; the onboarding chip may say something shorter).
+
+---
+
+# Row K — ten Brief pages (5 Sep)
+Draft file row K (y=96000). Full pages, one real day (Thu 20 Aug) except K10 (Sun 21 Jun).
+
+## Utkarsh's objection, and the data answer
+"Your Ecommerce & IPO brief" is static — exciting on day one, wallpaper by day two. Correct.
+**The dynamic title already exists:** the *Inc42 Daily Brief* newsletter post is published on
+**62 of 65 weekdays** (~08:00) with a two-clause editorial title — "RentoMojo Files RHP, Uber India
+Axes 200 Jobs & More". Every K card uses it. Weekend: none exists → the lead headline is the title (K10).
+Personalisation moves out of the title into the promise line, where it is a fact, not a label.
+
+**Timing:** the newsletter lands at 08:00, the brief at 07:00. The subject line is drafted before
+08:00, so the fix is to expose the CMS draft field to the app at 07:00 — a workflow change, not a design one.
+
+## DataLabs — how soon, and how to fast-track
+The team updates a profile within 24 hours of a story. Three things follow:
+1. **Never show a DataLabs number as "today's".** The company row shows the fact **from today's story**
+   (headline figure / bullet) and stamps it `from today's story`. When DataLabs catches up, the stamp
+   becomes `from DataLabs · updated today`. Provenance is printed, always.
+2. **Fast-track = event-driven.** A Deals / IPO / Financials article publishing should open a DataLabs
+   update task automatically, with the number pre-filled from the article. That turns 24h into hours
+   for the stories that matter, without touching the rest of the pipeline.
+3. **The table (K4) prints the caveat**: "Beco's case is from today's story — DataLabs updates tomorrow."
+
+## Past briefs — answered, not removed
+30% open them; median 2 days back; briefs stay 7 days. Four treatments:
+- **7-day strip** (K1, K3, K8) — read ✓ / unread ● / today / future, one row, a legend.
+- **Catch-up band** (K2) — if yesterday is unread it becomes a black band under the card; nothing else competes.
+- **Three-card row** (K4, K6, K7) — Mon/Tue/Wed with state.
+- **Cover carousel** (K5, K10) — for the visual layouts.
+
+## "In-Depth" — renamed by what it costs the reader
+"The 10-minute read" · "Worth ten minutes today" · "The weekend read" (K10). Never the category name.
+
+## The ten
+| # | Name | What sits under the card, in order |
+|---|---|---|
+| K1 | EDITION | 7-day strip · companies (reason + source) · 10-minute read · bridge |
+| K2 | CATCH UP FIRST | catch-up band · companies (compact) · 10-minute read · bridge |
+| K3 | CALENDAR ON TOP | strip **above** the card · companies · read · bridge |
+| K4 | DATA FIRST | compact card · DataLabs table with caveat · past row · read · bridge |
+| K5 | MAGAZINE | image card · big long-read cover · cover carousel · 3 companies · bridge |
+| K6 | TWO CLAUSES | the title's two clauses as tappable rows · past row · companies · read · bridge |
+| K7 | LIST | one-line rows for everything |
+| K8 | LEDGER | continue-state card · your week (4 of 5 · 31 stories · sectors) · strip · companies · read |
+| K9 | SEGMENTED | Today / Past 7 days / Companies panes; Today = card + read |
+| K10 | WEEKEND | lead headline as title · weekend read · carousel · bridge |
+
+Recommendation: **K1** as the base, **K2's band** as a conditional state on it (unread yesterday), **K10** as the
+weekend variant. K6 is the one worth testing against K1 — it makes the title do the index's job.
