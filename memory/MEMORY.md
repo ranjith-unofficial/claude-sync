@@ -65,7 +65,7 @@
 - [Brief card images](project-inc42-brief-images.md) — sector images agreed 12 Aug, unbuilt; coverage claim CORRECTED
 - [Publishing cadence (3 Sep)](project-inc42-publishing-cadence.md) — in-depth publishes in 2 blocks, 12:30–16:25 empty; depth existed 14/15 days
 - [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary only 93%-covered field; real defect is row ORDERING
-- [Search diagnosis, all 3 surfaces (30 Aug)](project-inc42-app-search-root-cause.md) — app zero-results = per-keystroke flooding not missing content
+- [Search diagnosis, all 3 surfaces (30 Aug)](project-inc42-app-search-root-cause.md) — app zero-results = per-keystroke flooding not missing content; DEFERRED "improve search performance" bucket holds Ranjith's open symptoms (exact word e.g. `cred` misses; irrelevant results)
 - [Deep linking](project-inc42-deep-linking.md) — newsletter links fail (Safari not app); root cause CIO click-tracker
 - [Analytics stitching architecture](project-inc42-analytics-stitching.md) — cookie-ID resolver web→app; workspaces separate, unify downstream
 - [Funnel analysis](project-inc42-funnel-analysis.md) — QIA ~2,100 is a 90d floor; identification cliff web 0.42%/DataLabs 0.16%

@@ -1,6 +1,6 @@
 ---
 name: project-inc42-app-search-root-cause
-description: "Inc42 app search failure root cause (30 Aug 2026) — non-determinism from per-keystroke request flooding, not missing content; corrects the 23 Aug index-coverage diagnosis"
+description: "Inc42 search failure root cause (30 Aug 2026) + Ranjith's open symptoms for the deferred search-performance bucket (4 Sep 2026) — non-determinism from per-keystroke request flooding, not missing content; corrects the 23 Aug index-coverage diagnosis"
 metadata:
   type: project
 ---
@@ -40,5 +40,10 @@ Master deliverable: `~/ClaudeDocs/inc42/inc42-search-diagnosis-and-plan.md` — 
 **v2's single defect:** it passes the whole query as one `company_search` value, so multi-word needs an exact full-name match → `iifl finance`, `wagh bakri`, `lava mobile`, `tbotek` all return 0. Tokenising that one field is the highest-value fix in the whole investigation.
 **Revised plan: migrate inc42.com + app onto v2 and fix its tokenisation — do NOT start by building a new engine.** New infra is only clearly justified for article search (WordPress LIKE, 5s).
 **Two other corrections:** (a) the rate-limit lockout was self-inflicted by my own abnormal load, is NOT reproducible in normal use, and was wrongly presented as root cause #1 — demoted; (b) the typing-speed/zero-result table is a real PostHog correlation (survives scope split: companies 40.0% fast vs 17.8% slow) but the rate-limiting cause I attached to it is unsupported, and a single user cannot reproduce a population correlation — Ranjith correctly could not. The non-determinism itself stands (57.1% companies / 75.0% articles on repeated identical queries); leading cause is a client-side response race, matching the "race condition" already logged in the 26 Aug sync.
+
+**Ranjith's own observations to carry into the dedicated "improve search performance" bucket (noted 4 Sep 2026, UNVERIFIED by me — treat as symptoms to reproduce first, not findings):**
+1. **Exact-word match still misses.** Searching a term like `cred` does not return CRED, even though the word matches exactly. Check short-token/prefix handling, the v2 `company_search` exact-full-name behaviour, and whether the entity is even indexed.
+2. **Too many irrelevant results.** Results are polluted with junk — no relevance floor, and the 20-row cap fills with wrong rows.
+Both must be on the table whenever search performance is discussed. This bucket is deferred: Ranjith wants search picked up as its own workstream, not mixed into other threads.
 
 Relates to [[project-inc42-app-explore-deep-dive]] (search rage-loop P0), [[project-inc42-app-analytics-audit]], [[feedback-validation-approach]].
