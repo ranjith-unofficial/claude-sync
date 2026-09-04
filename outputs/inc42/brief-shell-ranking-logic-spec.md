@@ -132,3 +132,66 @@ weights, because if it is high the personalization is doing less work than it ap
 D4 (no preferences) may not be an edge case. If most app users skip or abandon topic selection,
 D4 is the *majority* screen and the popularity formula in finding #2 is the highest-leverage line
 in the whole spec. Onboarding completion rate needed.
+
+---
+
+# Row E — what actually makes someone tap
+4 Sep 2026 · draft file row E (y=74000)
+
+## The error in row D
+`WHAT'S INSIDE` listed all eight full headlines. Eight headlines **is** the brief for a skimmer —
+20 seconds, free, no tap. The entry screen was competing with the product it was selling.
+
+My Mobbin justification for showing headlines was wrong in one specific way: in SCMP's *My Daily 5*
+and Bloomberg's *The Bulletin*, **the list is the destination** — tapping a row opens that article,
+there is no deck behind it. Inc42's Brief has a bounded 8-card deck behind the list, so the list and
+the deck compete for the same job. Import the pattern and you kill the thing it fronts.
+
+## The layer rule
+| Layer | Owns | Where it belongs |
+|---|---|---|
+| Entity | which company, which topic | entry screen |
+| Event (predicate) | what happened — the verb and the number | first card |
+| Consequence | what it means, what changed | the card body |
+
+The headline is the *event*. The card is the *consequence*. So the entry screen should carry
+entities and withhold predicates. "Don't leak the edition" was too crude a rule; the real rule is
+**which layer leaks**.
+
+## The guarantee needs the entity, not the predicate
+This is the precise fix, and it costs nothing:
+
+| Row D (wrong) | Row E (right) |
+|---|---|
+| `IPO · RentoMojo files for a ₹1,256 Cr IPO · Card 3` | `IPO · RentoMojo · Card 3` |
+| Presence proven, story spent | Presence proven, story intact |
+
+Both satisfy "we cannot be sure an IPO will be visible." Only the second leaves an open loop —
+*RentoMojo did something IPO-related, what?* The row stops being a substitute and becomes a tease.
+
+## The lead card stays full
+One story is given completely: headline, standfirst, image, its reason chip, "CARD 1 OF 8".
+That is the sample that earns the tap. Withholding all eight reads as evasive; giving one fully and
+indexing the rest is how a front page has always worked.
+
+## Three treatments
+
+| | Pull | Cost | Risk |
+|---|---|---|---|
+| **E1 entity index** | medium-high | none — company + parent topic already exist | reader may not care about a bare company name |
+| **E2 open questions** | highest | needs a new per-article question field; summary bullets are 93% covered so ~7% would have no row | question quality becomes an editorial burden every single day |
+| **E3 no index** | low | none | nothing to skim, but also nothing that proves the 5 minutes are worth it |
+
+**Recommend E1 now, E2 as the v2 upgrade** once there is a question field. E1 needs no new content
+and no new pipeline — it is a rendering change to a list that already exists. E3 is worth building
+only if the deck's first card is strong enough to carry the whole decision alone.
+
+## The fork underneath all of this
+If the card contains nothing the headline does not — if it is the headline plus a restatement —
+then no entry design fixes the tap rate, because there is genuinely nothing behind the door.
+In that case the honest product is the list, and the deck should be dropped.
+
+The corpus work says the cards do carry a distinct layer (summary bullets, "what's new / why it
+matters", 93% coverage). So the deck earns its place — **but only if the card body leads with the
+consequence rather than repeating the headline.** That is a content requirement, not a design one,
+and it should be written into the card template before any of this ships.
