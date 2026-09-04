@@ -53,3 +53,10 @@ per-frame `duration` list. Produced `~/ClaudeDocs/inc42/brief-card/inc42-streak-
 
 Related: [[reference-figma-mcp-limits]] (seat/quota — a View seat is hard read-only),
 [[project-inc42-app-brief-gratification-redesign]] (what this was built for).
+
+## TEXT.height is only correct with the right property order
+`fontSize → lineHeight → textAutoResize='NONE' → resize(w,10) → textAutoResize='HEIGHT'`
+Setting `textAutoResize='HEIGHT'` *before* `resize()` leaves height stuck at the passed value
+(10px). Auto-layout reads that same stale height, so wrapping text in an auto-layout frame does
+NOT rescue it — children overlap. Verified by probe: correct order returns 136px for a 4-line
+29px headline; wrong order returns 10. Cost a full rebuild of 20 frames on 4 Sep 2026.

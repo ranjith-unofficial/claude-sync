@@ -73,3 +73,19 @@ placeholders.
 `~/ClaudeDocs/inc42/brief-completion-gratification-redesign-context.md` before touching
 this again — full round history lives there. Related: [[feedback-design-review-ranjith]],
 [[project-inc42-brief-card-corpus-analysis]], [[reference-figma-mcp-build-techniques]].
+
+## Brief entry card — row C, 20 variations (4 Sep 2026)
+Researched 26 Mobbin screens before designing (SCMP My Daily 5, Bloomberg The Bulletin,
+Finimize Daily Brief, Apple News In Brief, NYTimes, The Atlantic, Letterboxd, Premier League,
+Particle, Yahoo News / Bloom / Finch streaks).
+
+**Finding that reverses an earlier assumption:** no serious news product hides its headlines to
+preserve surprise. SCMP shows all 5, Bloomberg shows 3 plus a count, Premier League lists 7
+talking points. The "don't leak the edition" constraint we had been designing the Brief entry
+around is not real — a headline is a promise, not a payoff. Also: type leads and the image
+follows (NYT/Bloomberg/SCMP/Apple News), kicker-above-headline and a time-stamp + read-time
+are universal, and counts ("3 FRESH STORIES", "Day 4/66") are what create finishability.
+
+20 variations built in the draft file at y=68000/68820/69640. See
+[[project-inc42-app-brief-gratification-redesign]] and the round history in
+~/ClaudeDocs/inc42/brief-completion-gratification-redesign-context.md

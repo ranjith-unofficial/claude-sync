@@ -1377,3 +1377,53 @@ real marks.
 screens first and extract the existing card anatomy, radii, tag style and shadow. Two full
 rows (Q and R) were spent on a language that could never ship because it did not belong to
 the product.
+
+---
+
+## Row C — Twenty ways to make someone open the brief (4 Sep, research-led)
+
+**Brief:** "do not consider existing design but only consider the color to a certain extent… understand how user thinks… people won't be able to read this… how do we ensure people are excited about opening the brief. Give me at least 20 variations." Then: "Think of as a concept… understand how people will read. Think from core reader and see how other apps are doing, you also have mobbin access."
+
+### Research first (26 screens, Mobbin)
+Digest entry: SCMP *My Daily 5*, Bloomberg *The Bulletin*, Finimize *Your Daily Brief*, Apple News *In Brief*, Premier League talking points, Perplexity Discover, Reddit Trending, Finch newsletters.
+Editorial home: NYTimes, Apple News+, The Atlantic, Letterboxd, Particle News, F1, UNIQLO LifeWear.
+Daily return: Yahoo News streak, Bloom, Finch, Life Reset, Atoms, Gymshark, QUITTR, Me+.
+
+### What the precedent actually says
+1. **Nobody hides the headlines.** SCMP shows all 5. Bloomberg shows 3 + "3 FRESH STORIES". Premier League lists 7 talking points. The "don't leak the edition" constraint we had been designing around is not a real constraint — a headline is a promise, not a payoff.
+2. **Type leads, image follows.** NYT, Bloomberg, SCMP, Apple News and Letterboxd all put the headline above or beside the picture. Our earlier rounds led with a hero image; that is the minority pattern.
+3. **Kicker above headline is universal** (section/sector, 9–11px, caps).
+4. **Time-stamp and read-time are universal** — "UPDATED 5:42 PM", "3 min read", "9m ago".
+5. **A standfirst can carry the whole edition in one sentence** (Finimize) — the honest alternative to listing 8 headlines.
+6. **Bold lead-in + payload** is the compressed-news pattern (Apple News: "**Deposing Bondi:** In an interview…").
+7. **Counts create finishability** — "3 FRESH STORIES", "Day 4/66", "0/30 completed".
+8. **Streak devices are a week-grid or a ring**, never a raw number alone (Yahoo, Bloom, Finch).
+
+### The 20 (draft file, row C, y=68000 / 68820 / 69640, 390×700 each)
+| # | Name | Reason to open | Precedent |
+|---|---|---|---|
+| C01 | THE NUMBER | one figure carries the edition | — |
+| C02 | THE QUESTION | an open loop the brief closes | — |
+| C03 | THE VERDICT | the newsroom takes a position | Letterboxd/Atlantic voice |
+| C04 | THE VS | today framed as a contest | — |
+| C05 | THE TICKER | what moved, watchlist bars | Bloomberg markets |
+| C06 | THE DAILY EIGHT | ranked list, kicker + headline + thumb | SCMP My Daily 5 |
+| C07 | THE BULLETIN | masthead, live stamp, rules, count ring | Bloomberg The Bulletin |
+| C08 | THE STANDFIRST | one sentence for the whole edition + topic cover | Finimize |
+| C09 | THE TALKING POINTS | eight hooks, not eight headlines | Premier League |
+| C10 | THE LEAD-IN | bold entity + payload sentence | Apple News In Brief |
+| C11 | THE MASTHEAD | lead headline in display type, image second | NYTimes |
+| C12 | THE KICKER | colour ground, one bold claim | Letterboxd |
+| C13 | THE GREETING | time of day, then the edition | The Atlantic |
+| C14 | THE COUNTER | streak grid as the pull | Yahoo News |
+| C15 | THE WEEK | calm ritual, ring + week dots | Bloom / Finch |
+| C16 | THE FACES | who is in it before what happened | Particle News authors |
+| C17 | THE PILLS | the shape of the day by sector | Apple News+ / F1 |
+| C18 | THE STACK | finite, countable, finishable | — |
+| C19 | THE ENVELOPE | sealed edition that expires | — |
+| C20 | THE RECEIPT | edition itemised with a total | — |
+
+### Build lesson (cost 1 rebuild of all 20)
+Figma `TEXT.height` is only correct if the property order is
+`fontSize → lineHeight → textAutoResize='NONE' → resize(w,10) → textAutoResize='HEIGHT'`.
+Setting `textAutoResize='HEIGHT'` *before* `resize()` leaves the node's height at the passed value (10px), and **auto-layout then uses that stale height too** — so wrapping auto-layout around it does not save you. Verified by probe: correct order returns 136px for a 4-line 29px headline; wrong order returns 10.
