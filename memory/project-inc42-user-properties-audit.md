@@ -18,10 +18,21 @@ Delivered as tab "User Property Inventory (4 Sep)" (gid 440748180), 307 rows x 1
 formatting on the STATUS column (NOT MENTIONED = light red 3, MENTIONED = light green 3) and a
 "Covered by sheet row" column pointing back to his row numbers. Nothing existing was edited.
 
-Verified counts: 202 live properties (excl. system/SDK) = 108 MENTIONED + 94 NOT MENTIONED.
-By product: Media 109 live (55 mentioned / 54 not) - DataLabs 69 (50/19) - App 24 (3/21).
-Plus 62 system/SDK rows marked "SYSTEM - ignore", 13 sheet rows "NOT FOUND LIVE", 3 "EXISTS AS SDK PROPERTY".
-(An earlier pass said 95 not-mentioned; the correct figure is 94 - newsletter_source IS covered by sheet row 69.)
+FINAL verified counts (after the full-census rebuild): 204 live properties = 108 MENTIONED + **96 NOT MENTIONED**.
+By product: Media 109 live (55/54) - DataLabs 69 (50/19) - App 26 (3/23).
+Plus 90 system/SDK rows, 13 "NOT FOUND LIVE", 3 "EXISTS AS SDK PROPERTY". Tab is 338 rows x 14 cols.
+Columns L/M/N carry PostHog live key counts, null/blank counts and blank %.
+
+**METHOD CORRECTION - load-bearing.** PostHog's `read-data-schema entity_properties person` (the property
+DEFINITIONS / taxonomy list) is INCOMPLETE and must not be used as the inventory source. It silently omitted
+6 App properties. Use a full key census instead:
+`SELECT arrayJoin(JSONExtractKeys(properties)) AS prop, count() FROM persons GROUP BY prop`
+and for blank detection:
+`countIf(JSONExtractRaw(properties,k)='null' OR JSONExtractRaw(properties,k)='""')`.
+Note `properties.X` returns NULL when the key exists with a JSON-null value, so isNotNull() UNDERCOUNTS;
+JSONHas/JSONExtractRaw is the reliable test. Also: arrayJoin+count() without a proper null filter returns
+the TOTAL person count for every property - a wrong-number trap that bit this session twice.
+When aggregating by normalised slug, SUM across Title-Case and lowercase duplicates or counts mismatch.
 
 Source inventory counts (dated snapshot, 4 Sep 2026):
 - PostHog person properties: Media (53557) 93 non-$ · DataLabs (66351) 74 · App (146258) 19 + utm_*
@@ -52,6 +63,26 @@ Headline findings:
   engagement_score/tier, paid_score, nonpaid_score, is_investor, net_ltv_inr, crm_reach_tier,
   membership_orders_count, paid_events_count, company_funding_usd/employees/founded_year/revenue_fy/
   revenue_inr/stage. Several sit at 98% profile coverage = bulk import.
+- **App attribution is silently dead.** `attribution_source` and `attribution_campaign` are written on
+  1,037 of 1,089 App persons (95%) with a literal JSON `null` value on EVERY one. Neither is in Ranjith's
+  sheet, neither is in Customer.io, and neither appeared in the PostHog taxonomy list. Singular install
+  attribution is not landing, so campaign-cohort retention cannot be measured. Ties to
+  [[project-inc42-app-acquisition]].
+- **4 App properties were wrongly labelled Customer.io-only** in the first pass: `sector_groups`,
+  `topic_groups` (866 people each), `push_types_enabled` (27), `interest_features` (17) ARE in PostHog.
+- **Blank-value rates (PostHog, key present but value null/empty)** - the user-property equivalent of the
+  event audit's "properties are blank" bucket:
+  Media `Designation` 75% blank (77,266 of 102,926), `Seniority` 64% (59,502 of 93,472), `Phone Number` 59%,
+  `Company Website` 46%, `City` 83%, `Company Name` 30%.
+  DataLabs `Linkedin` 80% blank (14,627 of 18,316), `Designation` 90%, `Plus Membership Expiry Date` 87%,
+  `Full Name` 59%, `DL Use Case` 28%, `Industry` 20%, `Seniority` 18%.
+  App: clean apart from the two attribution fields.
+  IMPLICATION: the sheet's own volume figures (e.g. row 10 seniority "89354") appear to count KEYS, not
+  non-blank values. Real Media seniority coverage is ~34k, not ~89k.
+- **`Plus Meter Views Left` is on 1,241,894 Media persons** - the highest-coverage Media property, and
+  sheet row 32 marks it Delete. Flag before anyone acts on that row.
+- **Media lowercase duplicate slugs are near-empty** (work_email, personal_email, first_name, seniority,
+  uid, register_source, phone_number etc. all 1-3 people), so that dedupe is trivial, not a migration.
 - **`streak_total` is live but undocumented** — not in the App property dictionary, alongside
   streak_current/max.
 - **Duplicate physical keys** for one concept (Title Case + snake_case co-existing): 17 on Media,
