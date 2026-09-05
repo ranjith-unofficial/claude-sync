@@ -388,3 +388,38 @@ FOMO comes from expiry and the unread count, not from invented scarcity.
 - Horizontal paging vs sticky-header sections is an implementation choice; the completion bar is the
   requirement either way.
 - Explore feed by impact rather than recency — same score, not yet built.
+
+---
+
+# Row N — one page, seven ways (5 Sep)
+Draft file row N (y=107600). No onboarding, no second page, no stacked sections with headers —
+one composition per variation, ~700–890px tall. Thu 8 June: 12 published, 8 in brief, 4 in IPO
+which the reader follows, Zepto the 4th story about them this month.
+
+## The seven questions, and the device that answers each
+| Question | Device | Present in |
+|---|---|---|
+| What is a brief? | the count line "8 of the 14 Inc42 published today" + the numbered set + a dated, finite object | all |
+| Is it personalised? | "Because you follow IPO" as a block label or per-row dot | all |
+| Is it everything I need? | published-vs-kept arithmetic + "the day's biggest is always in" (now true — impact is a ranking term) | all |
+| What is inside? | eight rows: verb/topic + company + figure | all |
+| Is it relevant to me? | the four IPO rows marked; the split into yours / everyone's | N2, N5 |
+| Am I going to miss out? | "expires tonight", the streak at stake, the countdown | all; N4 leads on it |
+| Is it built for me? | continuity — "the 4th Zepto story you have seen this month", with the thread | all; N3 leads on it |
+
+## The seven
+| # | Name | Organising idea | Answers hardest |
+|---|---|---|---|
+| N1 | THE STATEMENT | the page is an account of the day — every question is a line in a table | is this everything |
+| N2 | THE LIST | all eight visible, dotted where they match what you follow | what is inside |
+| N3 | THE THREAD | opens on a story you have already been reading; today's instalment sits at the end of it | is it built for me |
+| N4 | THE CLOCK | time-shaped — countdown to expiry, streak visibly at risk, 0 read | FOMO |
+| N5 | THE SPLIT | two labelled blocks: 4 because you follow IPO / 4 the ecosystem is reading | is it personalised + is it everything |
+| N6 | THE COVER | a dated, numbered edition (No. 232) with a contents strip | what is a brief (through form) |
+| N7 | THE ANSWER | each question answered in one short line, in order, as the page itself | all of them, literally |
+
+**Recommendation:** N7 for clarity of concept and N2 for daily use — N7 teaches what the brief is in
+about six seconds and would work as the first-week state; N2 is the one that survives day 200.
+N3's continuity block is worth folding into whichever wins, since it is the only device that reads
+as genuinely personal. N4's countdown is the strongest completion pull but is a treatment, not a
+layout — it can sit on top of any of the others.
