@@ -1,0 +1,92 @@
+date,weekday,published,with_company,with_dev_type,with_industry,top_impact,newsletter_title
+2026-06-06,Sat,4,2,3,2,0.664,
+2026-06-07,Sun,2,2,0,0,0.438,
+2026-06-08,Mon,12,10,10,2,0.808,"Films Get The AI Treatment, Wagh Bakri’s Slow Brew & More"
+2026-06-09,Tue,13,12,11,2,0.801,"Zepto Files UDRHP, GPS Renewables Bags ₹635 Cr & More"
+2026-06-10,Wed,20,19,17,4,0.603,"The Quick Makeover Economy, MyGate Bags ₹225 Cr & More"
+2026-06-11,Thu,9,9,8,1,0.549,"ZEE5’s Sports Era Begins Tonight, Crisis Deepens At WinZO & More"
+2026-06-12,Fri,12,12,10,0,0.725,"Stake Sale At Lenskart, Ethereal Bags $28 Mn & More"
+2026-06-13,Sat,5,3,5,2,0.7,
+2026-06-14,Sun,1,1,0,0,0.438,
+2026-06-15,Mon,16,15,14,1,0.798,"Amazon AI For Sellers, Weekly Funding Rebounds & More"
+2026-06-16,Tue,20,18,17,2,0.625,"Sarvam’s Unicorn Leap, Razorpay Files DRHP & More"
+2026-06-17,Wed,12,10,10,2,0.613,"BigBasket Founders Step Down, TruNativ Bags $30 Mn & More"
+2026-06-18,Thu,13,13,10,0,0.567,
+2026-06-19,Fri,12,12,11,0,0.692,"HCLTech’s Sarvam Bet, Vetic Bags $40 Mn & More"
+2026-06-20,Sat,5,2,5,3,0.533,
+2026-06-21,Sun,3,2,1,1,0.545,
+2026-06-22,Mon,18,17,13,1,0.774,"BlueStone’s Glow-Up, Chaos At Flipkart Event & More"
+2026-06-23,Tue,16,14,12,2,0.726,"Kunal Shah Quits CRED, Turtlemint IPO Day 2 & More"
+2026-06-24,Wed,13,12,11,1,0.613,"The Lendbox Puzzle, Turtlemint’s IPO & More"
+2026-06-25,Thu,16,14,14,1,0.61,"Meesho’s Kirana Ambitions, Battle For Aakash & More"
+2026-06-26,Fri,12,10,11,2,0.483,"Amazon’s India Blitz, IRDAI’s Overhaul & More"
+2026-06-27,Sat,7,5,7,2,0.741,
+2026-06-28,Sun,2,1,0,1,0.438,
+2026-06-29,Mon,13,11,10,2,0.696,"The New AI Risk, Weekly Funding Rundown & More"
+2026-06-30,Tue,15,11,13,4,0.804,"Ecommerce’s Logistics Game, Nua Eyes $25 Mn & More"
+2026-07-01,Wed,17,14,14,3,0.613,"OYO’s Third Stab At IPO, Funding Slips In H1 2026 & More"
+2026-07-02,Thu,16,15,14,1,0.789,"Bike Bazaar’s Debt Spiral, Dream11 Shuts Fintech Arm & More"
+2026-07-03,Fri,11,8,9,3,0.771,"Udaan In Fresh Crisis, Mega Deal Slump In H1 & More"
+2026-07-04,Sat,5,1,4,4,0.578,
+2026-07-05,Sun,2,1,0,1,0.438,
+2026-07-06,Mon,17,15,14,2,0.621,"The GPU Hunger Games, E3W’s Safety Crisis & More"
+2026-07-07,Tue,17,16,16,1,0.793,"NoBroker’s Profit Push, Klydo Halts Ops & More"
+2026-07-08,Wed,11,11,9,1,0.66,
+2026-07-09,Thu,12,11,9,1,0.79,"Flipkart’s Seller Playbook, Troubles At Ola Electric & More"
+2026-07-10,Fri,15,13,13,3,0.753,"Green SM’s India Litmus Test, CarDekho’s IPO & More"
+2026-07-11,Sat,12,9,11,3,0.665,
+2026-07-12,Sun,1,1,0,0,0.312,
+2026-07-13,Mon,6,6,5,1,0.58,"Social Media Wars, GoKwik Axes 120 Jobs & More"
+2026-07-14,Tue,16,15,14,1,0.649,"Yotta’s AI Infra Play, BUILT Bags $2 Mn & More"
+2026-07-15,Wed,21,16,18,5,0.692,"Anthropic’s India Push, InsuranceDekho’s IPO & More"
+2026-07-16,Thu,17,17,16,0,0.743,"India’s 132nd Unicorn, Groww’s Q1 Profit Run & More"
+2026-07-17,Fri,12,11,9,2,0.65,"JFS’ Profitability Flex, Reo.Dev Bags $11 Mn & More"
+2026-07-18,Sat,6,4,5,2,0.524,
+2026-07-19,Sun,1,1,0,0,0.4,
+2026-07-20,Mon,13,12,11,1,0.741,"Skyroot Scripts History, Weekly Funding Rundown & More"
+2026-07-21,Tue,12,11,10,1,0.686,"Paytm’s Q1 Show, NVIDIA’s New GPU Game Plan & More"
+2026-07-22,Wed,19,16,14,3,0.809,"Zerodha’s Second Act, IndiaMART’s Q1 Snapshot & More"
+2026-07-23,Thu,15,15,13,0,0.681,"Eternal Rolls In Q1 Profits, Zetwerk Vs Ayr Energy & More"
+2026-07-24,Fri,17,13,15,4,0.777,"Meesho’s Q1 Show, Skyroot’s New Era & More"
+2026-07-25,Sat,4,1,4,3,0.608,
+2026-07-26,Sun,1,1,0,0,0.438,
+2026-07-27,Mon,14,11,12,3,0.625,"Crypto Debate Resurfaces, Weekly Funding Tanks & More"
+2026-07-28,Tue,21,20,19,1,0.786,"Temple’s Valuation Jackpot, PhonePe’s FY26 Losses & More"
+2026-07-29,Wed,25,20,21,7,0.812,"Q-Comm Poaching Wars, Table Space’s IPO & More"
+2026-07-30,Thu,19,18,16,1,0.7,"Fintech IPO Wave, Zepto May Defer Listing & More"
+2026-07-31,Fri,16,15,14,2,0.646,"Swiggy’s Q1 Snapshot, Sarvam Widens AI Horizon & More"
+2026-08-01,Sat,9,7,7,3,0.613,
+2026-08-02,Sun,1,1,0,0,0.438,
+2026-08-03,Mon,22,20,18,2,0.805,"Zepto Stalls IPO, Weekly Funding Rundown & More"
+2026-08-04,Tue,25,24,23,1,0.613,"Ather’s Stellar Q1, Klassroom IPO Day 2 & More"
+2026-08-05,Wed,22,20,20,2,0.804,"Nykaa’s Q1 Snapshot, Klassroom Wraps Up IPO & More"
+2026-08-06,Thu,27,25,25,2,0.773,"Meta’s Zuck Apologises, PB Fintech Roars In Q1 & More"
+2026-08-07,Fri,17,14,14,2,0.65,"Instant Help’s Fight Against Cash Burn, Pixxel’s Next Upgrade & More"
+2026-08-08,Sat,9,6,9,3,0.598,
+2026-08-09,Sun,1,0,0,1,0.3,
+2026-08-10,Mon,16,14,15,0,0.625,"Delhivery’s Q1 Show, Weekly Funding Rebounds & More"
+2026-08-11,Tue,18,16,16,2,0.758,"B2C Giants Add AI Twist, LEAP India IPO Day 2 & More"
+2026-08-12,Wed,18,17,16,1,0.839,"Table Space All Set For IPO, Watermarking AI & More"
+2026-08-13,Thu,24,23,20,1,0.786,"Astrotalk’s Unicorn Leap, Shiprocket IPO Day 1 & More"
+2026-08-14,Fri,16,15,13,1,0.689,"Razorpay’s ChatGPT Gambit, Snapchat’s Next Big Quest & More"
+2026-08-15,Sat,11,8,10,4,0.653,
+2026-08-16,Sun,3,2,2,1,0.375,
+2026-08-17,Mon,14,13,13,1,0.683,"The RDI Fund Row, PM’s I-Day Address & More"
+2026-08-18,Tue,19,17,17,2,0.65,"Ecommerce Giants Woo Sellers With AI, Jar’s Troubles & More"
+2026-08-19,Wed,21,17,20,9,0.688,"Swiggy Gets The IOCC Tag, Shiprocket’s Return Roulette & More"
+2026-08-20,Thu,14,12,12,3,0.789,"Inc42’s 7th D2C & Retail Summit, Shiprocket’s Stellar IPO & More"
+2026-08-21,Fri,17,15,13,2,0.745,"Microdrama’s Big Problem, The Data Centre Security Bill & More"
+2026-08-22,Sat,10,6,9,4,0.68,
+2026-08-23,Sun,1,1,0,0,0.438,
+2026-08-24,Mon,15,13,14,1,0.623,"Flipkart’s Food Delivery Era, Weekly Funding Rundown & More"
+2026-08-25,Tue,16,15,14,1,0.754,
+2026-08-26,Wed,16,14,14,3,0.717,"The Ecommerce Squeeze, Supertails Chases Profits & More"
+2026-08-27,Thu,18,15,16,3,0.729,"Building Pharma Labs In Space, Zerodha’s Bland FY26 & More"
+2026-08-28,Fri,10,9,8,1,0.772,"ESDS’ IPO Litmus Test, Even Axes 350 Jobs & More"
+2026-08-29,Sat,10,5,7,5,0.533,
+2026-08-30,Sun,2,1,0,1,0.438,
+2026-08-31,Mon,18,14,17,3,0.717,"Meta’s Double Standards, Weekly Funding Rundown & More"
+2026-09-01,Tue,25,22,21,3,0.772,"Zepto’s New Game Plan, Layoffs At Zomato & More"
+2026-09-02,Wed,16,15,15,1,0.75,"Edtech’s Big Consolidation, ESDS’ Bumper IPO & More"
+2026-09-03,Thu,20,19,17,1,0.639,"Flipkart’s Microdrama Foray, Purple Style Labs’ IPO & More"
+2026-09-04,Fri,16,16,15,0,0.767,"RentoMojo Files RHP, Uber India Axes 200 Jobs & More"
