@@ -249,3 +249,67 @@ The team updates a profile within 24 hours of a story. Three things follow:
 
 Recommendation: **K1** as the base, **K2's band** as a conditional state on it (unread yesterday), **K10** as the
 weekend variant. K6 is the one worth testing against K1 — it makes the title do the index's job.
+
+---
+
+# Row L — the Brief page driven by impact and continuity (5 Sep)
+Draft file row L (y=99600). Three real days: Mon 8 Jun (hero), Thu 11 Jun (flat), Sun 21 Jun (weekend).
+
+## The finding underneath everything
+**The ranking formula has no story-level importance signal.** `Pop` is a category constant — every
+`Startup IPO` story scores 0.116 whether it is Zepto's ₹8,010 Cr filing or a seed-stage company
+saying it may list "in 12–18 months". Two articles with the same (topic, sector) score identically
+and are separated only by recency. That is why nothing on the page has ever felt prominent: the
+design had nothing to make prominent *with*.
+
+## Impact score (new, validated on 1,179 articles)
+`impact = 0.40·event + 0.25·company_stage + 0.20·magnitude + 0.15·editorial`
+
+| Term | Source | Coverage |
+|---|---|---|
+| event | `development_type` — IPO 1.0, M&A 0.9, Deals 0.7, Financials/Regulatory/Controversies 0.6, Trends 0.5, Team/Updates 0.3 | 85% |
+| company_stage | `company_type` — Listed 1.0, Late Stage 0.85, Indian Corporate 0.7, Growth 0.6, International 0.55, Early 0.35 | 85% |
+| magnitude | ₹ / $ parsed from the headline, log-scaled to ₹10,000 Cr | 47% |
+| editorial | Exclusive/Investigative 1.0, In-Depth 0.7, `shelf_life` > 3 days 0.5 | 100% |
+
+**Results:** p50 0.44, p90 0.62, max 0.84.
+- **A clear hero (top ≥0.62 and ≥0.10 clear of #3) exists on 57% of weekdays.**
+- **No hero on 25%** — forcing one would be a lie, so the layout changes instead.
+- Impact #1 equals the most recent article on only 9% of days — it genuinely reorders.
+- Ranjith's own example (IPO + Listed/Late-stage company) occurs on 52% of days.
+
+Worked: 8 Jun Zepto UDRHP ₹8,010 Cr = 0.81, gap 0.20. 11 Jun top = 0.55, gap 0.01 → flat.
+
+## Continuity — the personalisation that actually reads as personal
+Category personalisation ("you follow Ecommerce") is a filter the user declared once. Continuity is
+behavioural and specific:
+- **98% of weekdays** contain at least one story about a company covered in the prior 30 days;
+  **median 3 of 8**, ≥3 on 75% of days.
+- Editorial already marks `Follow Up` (6%) and `Series` (11%) — **94% of weekdays carry one**.
+- Zepto thread, 90 days: IPO paused (1 Aug) → warehouse sealed (11 Aug) → revenue analysis (14 Aug)
+  → files UDRHP. That is a plot, and "the 4th Zepto story you have seen this month" is unmistakably
+  about the reader.
+
+## Personalisation hides big news — quantified
+On weekdays publishing more than 8 stories, a story scoring ≥0.62 is cut from the personalised brief on:
+Deals+Fintech **58%**, Ecom+IPO **48%**, AI-only **72%** of days. This justifies a dedicated
+`Big today, not in your brief` section — additive, never competing with the brief.
+
+## Page architecture (Ranjith's order, each section conditional)
+| # | Section | Renders when | Naming decision |
+|---|---|---|---|
+| 0 | Masthead + contract | always | "Everything that mattered today, in five minutes." — this is how "brief" is conveyed. Not a tagline; a contract the page then keeps |
+| 1 | Brief card | always | hero day → the story takes the card; flat day → the card leads with the **shape** of the day ("A day of small cheques") |
+| 2 | Still following | a company thread continues (98%) | the timeline, with today's entry in orange |
+| 3 | Who did what today | ≥3 companies with facts (82%) | verb-led — RAISED / FILED / PULLED / SOLD / CUT. Answers "why do I care" before the name |
+| 4 | Big today, not in your brief | a ≥0.62 story was cut (48–72%) | insurance, stated as such |
+| 5 | Your record | always | past briefs as a week record, not a list — feeds the streak |
+| 6 | The 10-minute read | In-Depth exists (97% weekdays) | named by cost, never "In-Depth" |
+| 7 | Bridge | always | true published count, points to Explore |
+
+**The page is shorter on quiet days** (L3 has four sections, L1 has seven). Length itself signals
+how big the day was — and it is honest, which the old fixed-module page was not.
+
+## Next: Explore
+The same impact score is the answer to "how do we make the feed more powerful" — sort Explore by
+impact rather than recency. Not built; flagged.
