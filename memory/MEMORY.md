@@ -68,6 +68,7 @@
 - [Publishing cadence (3 Sep)](project-inc42-publishing-cadence.md) — in-depth publishes in 2 blocks, 12:30–16:25 empty; depth existed 14/15 days
 - [Brief impact + continuity (5 Sep)](project-inc42-brief-impact-continuity.md) — ranking has NO story-level importance signal; impact score validated, hero on 57% of weekdays
 - [Brief entry — Referencing page round (5 Sep)](project-inc42-brief-entry-referencing-page.md) — A/B/C/D spectrum on Wed 5 Aug + B on 4 failure days, page 476:2; B recommended, unreviewed
+- [Brief entry round 2 — 15 UIs (5 Sep, late)](project-inc42-brief-entry-round2-15-uis.md) — 15 mechanics on Referencing page y=3000+; real inc42.com reader counts; in-app counts too small to show; unreviewed
 - [Brief entry coverage shell (5 Sep)](project-inc42-brief-entry-coverage.md) — row F: gated shell + trigger-strip ladder, 61-day backtest; 27% no company, AI zero on 50% weekdays
 - [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary only 93%-covered field; real defect is row ORDERING
 - [Search diagnosis, all 3 surfaces (30 Aug)](project-inc42-app-search-root-cause.md) — app zero-results = per-keystroke flooding not missing content; DEFERRED "improve search performance" bucket holds Ranjith's open symptoms (exact word e.g. `cred` misses; irrelevant results)
