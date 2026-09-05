@@ -36,3 +36,24 @@ needs the CMS draft field exposed at 07:00.
 Row L in draft file `dAsaTgNj0xh25w2OGaurZo` (y=99600) builds it on three real days.
 Spec: `~/ClaudeDocs/inc42/brief-entry-coverage-spec.md`.
 See [[project-inc42-brief-entry-coverage]], [[project-inc42-content-personalization]].
+
+## Update 5 Sep — impact enters the ranking, and the jargon purge
+`score = 1.0·TopicAff + 0.6·SectorAff + 0.15·Pop + 0.4·Impact`. At W_impact=0.4 the day's
+highest-impact story reaches the personalised brief on 97–100% of days (vs 30–73% today) while a
+followed story still leads 97% of days. This **deletes** the "Big today, not in your brief" section —
+Ranjith's objection was that it implies the brief is incomplete and invites "if it's so big, why
+isn't it in my brief?". Fixed in ranking, not copy.
+
+**Terms banned from the UI:** "cards" (→ stories), "DataLabs" (→ describe what it holds),
+"10-minute read" (→ state the payoff), "In-Depth" (→ "one longer story").
+
+**DataLabs researched (5 Sep):** company pages are on inc42.com/company/{slug}, same domain.
+Free tier includes search, live signals, preview metrics; Pro ₹1,499/mo adds full P&L, MCA, cap
+table, exports, contacts. Zepto page carries free: total funding $2.45 Bn, revenue ₹4,178.3 Cr FY24
++101%, 39 investors, employees 19,938 +6.55%/90d, web traffic 2.44 Mn −2.21%/30d. The four
+self-explanatory numbers for a media reader: revenue+YoY, loss, total funding, headcount+trend.
+
+**Structure:** three pages (The brief · Companies · Deeper) under one sticky completion bar
+(`0 of 8 read` + 8 segments). Page 1 leads with the numbered SET, not a hero article — that is what
+stops it reading like an article. Onboarding = 3 screens (14→8 shown, pick sectors, the 7 AM deal).
+Row M in the draft file.

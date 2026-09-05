@@ -313,3 +313,78 @@ how big the day was — and it is honest, which the old fixed-module page was no
 ## Next: Explore
 The same impact score is the answer to "how do we make the feed more powerful" — sort Explore by
 impact rather than recency. Not built; flagged.
+
+---
+
+# Row M — onboarding, and the brief as three pages (5 Sep)
+Draft file row M (y=103600). Six frames: 3 onboarding + 3 brief pages.
+
+## "Big today, not in your brief" — deleted, not reworded
+Ranjith's objection was right: the section implies the brief is incomplete, and asks a question it
+cannot answer (*if it is so big, why is it not in my brief?*). The fix is in the ranking, not the UI.
+
+**Add impact as a fourth term:** `score = 1.0·TopicAff + 0.6·SectorAff + 0.15·Pop + 0.4·Impact`
+
+Measured on 64 weekdays publishing more than 8 stories — does the day's highest-impact story make
+the personalised brief?
+
+| W_impact | Deals+Fintech | Ecom+IPO | AI only | No prefs | Followed story still #1 |
+|---|---|---|---|---|---|
+| **0.0 (today)** | 48% | 73% | 30% | 34% | 97% |
+| **0.4** | **97%** | **100%** | **100%** | **100%** | **97%** |
+
+At W=0.4 the biggest story of the day is in the brief essentially always, and personalisation is
+untouched (a followed story still leads 97% of days). The section disappears, and the brief can
+now promise *"you will always see the day's biggest story"* — which onboarding states.
+
+## Jargon audit — every term removed or replaced
+| Was | Problem | Now |
+|---|---|---|
+| "8 cards" | a card is not a thing readers know | **"8 stories"** |
+| "DataLabs" | a product name a media reader has never met | never appears. The section says what it holds: **"filed revenue, funding history, investors and headcount"** |
+| "10-minute read" | states the cost, not the reason | **the payoff**: "Understand why Cult.fit's IPO maths works · Nine minutes. You will know what the retail push costs." |
+| "Big today, not in your brief" | implies the brief is incomplete | deleted (see above) |
+| "In-Depth" | internal category | "One longer story" |
+| "impact", "0.62" | internal | never shown |
+
+## DataLabs, researched (inc42.com/datalabs, inc42.com/company/zepto)
+- Company pages live on **inc42.com/company/{slug}** — same domain, not a separate product. Free tier
+  ("Datalabs Core") already includes search, live signals and preview metrics; Pro (₹1,499/mo) adds
+  full P&L, MCA docs, cap table, exports, contacts.
+- The Zepto page carries, free: sector, city, founded, founders, **Total funding $2.45 Bn**,
+  **Revenue ₹4,178.3 Cr FY24 +101%**, 39 investors, **Employees 19,938 +6.55% in 90d**,
+  **Web traffic 2.44 Mn −2.21% in 30d**, plus full P&L / balance sheet / cash flow / ratios.
+- **The four numbers a media reader understands without explanation:** revenue + YoY, loss,
+  total funding, headcount + trend. "Doubled revenue, still lost ₹1,245 Cr" is a story in two numbers.
+  That is the value — a number next to the news, which no other news app can do. Nobody needs to be
+  told the platform's name to get it.
+
+## Structure — three pages, one completion bar
+A sticky header carries `TODAY'S BRIEF · THU 20 AUG · 0 of 8 read`, an eight-segment progress bar and
+three tabs: **The brief · Companies · Deeper**. It persists on every page, so completion is always
+visible and the pages never compete with it.
+
+| Page | Job | Answers |
+|---|---|---|
+| **1 · The brief** | the SET, not an article | what is inside · is it everything (14→8) · why these · is it for me (continuity line) |
+| **2 · Companies** | the numbers behind the names | why should I care · what does Inc42 know that others do not |
+| **3 · Deeper** | the long story, the record, the rest | is there more · did I miss anything · what happens to the other six |
+
+**Why page 1 no longer reads as an article:** the dominant object is the numbered set of eight —
+lead story labelled `1 OF 8`, then rows 2–8 as verb + company + figure. A front page is one headline;
+a brief is a numbered list. That is the difference, and it is now structural rather than stated.
+
+## Onboarding (3 screens)
+1. **What a brief is, shown**: 14 tiles collapse to 8. "We read everything Inc42 publishes, and keep
+   what matters to you. Eight stories. Five minutes. New every morning at 7."
+2. **What you follow**: sectors + story types, with the copy stating what it changes — the order, and
+   the reason shown on every story.
+3. **The deal**: 7 AM, expires tonight, three promises (never more than eight · you will always see
+   the day's biggest story · each one tells you why it is there), and the week strip that becomes the streak.
+
+FOMO comes from expiry and the unread count, not from invented scarcity.
+
+## Open
+- Horizontal paging vs sticky-header sections is an implementation choice; the completion bar is the
+  requirement either way.
+- Explore feed by impact rather than recency — same score, not yet built.
