@@ -461,3 +461,47 @@ short; P4 makes completion the point and is the strongest daily-return mechanic 
 is a better pull than any countdown. P5 is the one to test if the brand should read editorial rather
 than app-like. P2's rail is the weakest — a horizontal scroll hides half the set, which fights the
 completeness promise.
+
+---
+
+# Row Q — ten pages that withhold the stories (5 Sep)
+Draft file row Q (y=115800).
+
+## The rule that generated all ten
+Row P failed on one line: *"if you show everything at a glance, why would people open?"* P3–P6 listed
+all eight with company and outcome, which spends the brief before it starts.
+
+**The first screen may reveal the SIZE (eight), the SHAPE (four IPO, three rounds), WHO is in it, or
+ONE sample. Never all eight with what happened.**
+
+And "brief" is conveyed by **form, not by an explainer section** — sealed, timed, counted, ticketed,
+face-down, addressed. A sealed thing gets opened; a clock says short; eight face-down cards say
+finite. None of it needs a sentence that defines the product.
+
+## Below the fold, on every one
+Only two blocks, and neither leaks: **who is in it** (logos, then one company's *standing* data —
+filed revenue, funding, headcount — never what they did today) and **your week**.
+
+## The ten
+| # | Name | What it reveals | What it withholds |
+|---|---|---|---|
+| Q1 | THE SEAL | date, eight inside, four yours | everything else |
+| Q2 | THE SHAPE | today's composition — 4 IPO / 3 funding / 1 ours | every company and outcome |
+| Q3 | THE FIVE MINUTES | the time, divided into eight | all content |
+| Q4 | THE ONE | one story, complete, as the sample | the other seven |
+| Q5 | THE QUESTIONS | three questions the brief answers | the answers |
+| Q6 | THE LETTER | addressed, signed, timed; the count and your match | every story |
+| Q7 | FACE DOWN | eight cards, four marked yours | all eight faces |
+| Q8 | THE RING | eight empty segments, none read | all content |
+| Q9 | THE PASS | edition no., 8 stops, 5 min, your two sectors printed | every story |
+| Q10 | WHO MOVED | the eight companies, as logos only | every verb, figure and outcome |
+
+## Reading
+- **Q5 (Questions)** is the only structure where showing more makes you want to open more — every
+  line is an open loop. It is also the only one that needs new editorial work (a question per story).
+- **Q7 (Face down)** and **Q8 (Ring)** state finiteness most economically and need no new content.
+- **Q10 (Who moved)** answers "is it relevant to me" fastest — you scan eight logos and know instantly.
+- **Q2 (Shape)** is the only one that tells you what KIND of day it is, which is the closest thing to
+  "is this everything I need to know" without a publish count.
+- **Q1, Q6, Q9** carry the strongest brand form; Q6 is the most personal with zero personalisation
+  machinery, since a letter addressed to you is self-evidently yours.
