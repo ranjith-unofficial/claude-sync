@@ -73,3 +73,20 @@ Row M in the draft file.
 Six full-page structures in row P: THE DECK (pliability daily-sessions stack), THE RANKED RAIL
 (Apple TV Top 10), THE PATH (Alan/Duolingo), THE REMAINING (Finch "10 goals left"), THE SPREAD
 (magazine cover + contents), THE BRIEFING (dark, reason-first left column).
+
+## Rows R and S (5 Sep) — what the content can actually support
+- **Continuity cannot lead the card.** Top story is about a company seen in the prior 30 days on
+  48% of weekdays; seen twice (so "3rd story about them" is true) on only 32%. Row R built all 15
+  cards on Zepto continuity — Ranjith rejected it as cherry-picked, correctly.
+- **Aspirational copy is the recurring failure.** Lines needing a daily editorial thesis
+  ("quick commerce just ran out of private money") are not producible. Design only from fields that
+  exist daily: headline, development_type, company, company_type, counts, headline figures, streak,
+  read history.
+- **The Daily Brief newsletter title is not a clean spine.** 11 June's title names ZEE5 and WinZO —
+  neither is in the impact top 8 that day. 18 June (13 stories) has no Daily Brief post at all.
+  Using it on the card requires ordering the brief to match it.
+- **Anti-article rule:** an article card is one photo + one headline + one standfirst. A brief card
+  must carry a masthead (publication + edition no. + rule + "chosen by our newsroom"), the word
+  "brief" used naturally, and a countable-but-unreadable set of eight. Never lead with a photo.
+- Row S builds ten cards on Thursday 11 June — a deliberately ordinary day (nine small stories,
+  no IPO, no famous name).

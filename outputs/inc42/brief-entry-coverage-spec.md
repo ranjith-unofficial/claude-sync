@@ -505,3 +505,57 @@ filed revenue, funding, headcount — never what they did today) and **your week
   "is this everything I need to know" without a publish count.
 - **Q1, Q6, Q9** carry the strongest brand form; Q6 is the most personal with zero personalisation
   machinery, since a letter addressed to you is self-evidently yours.
+
+---
+
+# Row S — ten cards built on an ordinary day (5 Sep)
+Draft file row S (y=123800). **Thursday 11 June: nine stories, all small** — $28.5 Mn, ₹38 Cr, a
+₹1,900 Cr share sale, a 250-person layoff. No famous name, no IPO. Chosen deliberately.
+
+## Three things measured that force this
+1. **Continuity cannot lead the card.** The top story is about a company the reader has seen in the
+   prior 30 days on **48%** of weekdays, and seen *twice* (so "the 3rd story about them" is true) on
+   only **32%**. Row R leaned on Zepto continuity in 15 of 15 cards. It renders on a third of days.
+2. **The copy in row R was not achievable.** Lines like "Quick commerce just ran out of private
+   money" require a daily editorial thesis nobody writes. Row S uses only fields that exist every
+   day: headline, development type, company, company stage, counts, figures already in headlines,
+   streak, read history.
+3. **The newsroom's own title is not a clean input.** 11 June's Daily Brief title is *"ZEE5's Sports
+   Era Begins Tonight, Crisis Deepens At WinZO & More"* — and **neither story is in the impact top
+   eight**. 18 June (13 stories) has **no Daily Brief post at all**. So the newsletter title is a
+   usable asset (S5) but it cannot be the card's spine, and where it is used the brief must be
+   ordered to match it or the card contradicts the deck behind it.
+
+## The "it looks like an article" fix
+An article card is: one photo, one headline, one standfirst. Every card in row S carries the three
+things an article never has —
+- **a masthead** (`THE INC42 BRIEF · NO. 235`, a rule, `CHOSEN BY OUR NEWSROOM`),
+- **the word brief**, used naturally and repeatedly,
+- **a countable set of eight** — eight units you can count but cannot read, with the reader's own
+  ones outlined.
+
+No card in row S leads with a photo.
+
+## The ten
+| # | Name | Reason to open | Renders when |
+|---|---|---|---|
+| S1 | THE SHORT DAY | it is small, and that is the pitch | always; strongest on quiet days |
+| S2 | THE PATTERN | the day's shape is the news — 4 rounds, 1 layoff, 1 exit | always (development_type, 85%) |
+| S3 | THE PILE | two unread briefs stacked, dropping off in 7 days | when ≥1 unread |
+| S4 | THE INDEX | a contents page — names and sectors, no verbs, no figures | always |
+| S5 | THE NEWSROOM LINE | a person chose these, and here is their line | 62 of 65 weekdays |
+| S6 | THE MONEY LINE | one computed figure | 82% of days have ≥1 figure |
+| S7 | CURRENT BY 7:05 | the state you end in, not the content | always |
+| S8 | YOUR STANDING | teaches the mechanic in words, once | always |
+| S9 | YOUR SECTORS, TODAY | answers "is my sector covered", including the honest zero | always |
+| S10 | THE EDITION | the most publication-like; masthead-forward | always |
+
+**Reading:** S1, S2, S7 and S9 render on literally every day including Sundays and need no editorial
+input. S3 is the only one where the FOMO is a visible object rather than a sentence. S10 positions
+"brief" hardest but is the least personal. A shipped card is probably S2's pattern line plus S9's
+sector answer inside S10's masthead frame.
+
+## Still open
+- Ordering the brief to match the newsletter title, or dropping the title from the card. Cannot ship
+  S5 without resolving this.
+- Whether the eight-unit counter reads as progress (it should) or as decoration.
