@@ -104,6 +104,31 @@ same spreadsheet - they added a tab "Event Audit (4 Sep)", their green cursor ap
 5 rows of my pasted block were deleted mid-session. Ranjith's own tabs were never touched (re-verified
 83 rows x 7 cols). Always re-verify his tab integrity via gviz CSV after any editing session on this file.
 
+**MASTER tab (5 Sep 2026)** — Ranjith asked for the two tabs merged into one, because maintaining two
+will break. Delivered as tab **"MASTER - User Properties"** (gid 1805026241), 219 rows x 14 cols, one row
+per canonical property, sorted into 3 sections: "1. NEEDS A FIX OR A DECISION" (104), "2. KEEP AS IS",
+"3. NONE - SDK AND VENDOR PLUMBING". Single ACTION column, vocabulary Ranjith specified: nothing to do =
+**None**, delete = **Delete**, unsure = **Not sure**, plus his existing Fix/Merge/Keep/Drop/Already added
+and a new **Add**. Counts: Keep 49, None 47, Add 44, Delete 20, Not sure 20, Fix 12, Merge 7, Already added 5,
+Drop 1 = 205 properties. Column E ("Where this row came from") distinguishes "Your sheet row N" (his
+decision, copied verbatim) from "Newly found by audit" (my PROPOSAL, not a decision). Conditional format:
+"Not sure" = light yellow 3 on C1:C240.
+
+Merge rule that matters: a row like "LinkedIn URL into linkedin_profile_url" claims only the SOURCE name;
+the target keeps its own row. Getting this wrong made row 27 swallow row 50's live data.
+
+**SHEETS SAFETY — near-miss on 5 Sep.** Clicking the "Add Sheet" button via element ref SILENTLY FAILED,
+focus stayed on Ranjith's "Unified User Properties" tab, and a 230-row paste overwrote his rows 27-256.
+Recovered with a single Cmd+Z and proved clean by SHA-256 against a copy taken before the edit
+(02b1be5adb1b6f3031cab119cb1d25cbd8e63ca2051323ca17f7f499718a6f86).
+RULES going forward on this file:
+1. Before ANY paste, snapshot the target tab's CSV locally and hash it.
+2. After creating a tab, SCREENSHOT and confirm the gid changed, the grid is empty and the tab name is
+   "SheetNN" BEFORE pasting. Never chain create+paste in one browser_batch.
+3. Prefer Insert > Sheet over the "+" Add Sheet button; the ref click on "+" is unreliable.
+4. `navigator.clipboard.writeText` needs the page focused (click the grid first), and it OVERWRITES the
+   clipboard — always re-run pbcopy and diff against the source file immediately before pasting.
+
 Method note: Google Sheets tab contents are readable without OAuth via
 `https://docs.google.com/spreadsheets/d/<id>/gviz/tq?tqx=out:csv&gid=<gid>` fetched from an
 authenticated browser tab. Writing back: create tab via the "Add Sheet" button (use element refs, not
