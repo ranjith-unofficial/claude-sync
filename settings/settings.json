@@ -1,5 +1,5 @@
 {
-  "model": "opus[1m]",
+  "model": "claude-fable-5-1[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -26,8 +26,8 @@
             "type": "command",
             "command": "bash \"$HOME/inc42-context/bin/capture-session.sh\"",
             "timeout": 90,
-            "async": true,
-            "statusMessage": "Capturing to master-brain…"
+            "statusMessage": "Capturing to master-brain…",
+            "async": true
           }
         ]
       }
