@@ -107,6 +107,7 @@
 ## Other work
 - [Meeting intelligence agent](project-meeting-agent.md) — every meeting + zero-auto-execute Slack CTI loop; locked 27-28 Aug
 - [Personal AI ops / morning brief](project-personal-ai-ops.md) — phased daily-brief: email digest+doc gap-check now, Slack next
+- [Daily brief architecture](project-daily-brief-architecture.md) — capture split from briefing; local + cloud runners, strict file ownership
 - [Daily Signal briefing](project-daily-signal.md) — 20-section AI/product/geopolitics artifact, cloud-scheduled 9am IST
 - [INC42 hiring agent](project-inc42-hiring-agent.md) — scores Keka applicants; MULTI-ROLE + two-step CTC rule agreed
 - [FOA candidate shortlist (25 Aug)](project-inc42-foa-candidate-shortlist.md) — re-verified top 5; scorer missed real issues

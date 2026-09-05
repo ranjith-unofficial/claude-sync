@@ -21,6 +21,13 @@
             "command": "bash \"$HOME/Library/Mobile Documents/com~apple~CloudDocs/ClaudeSync/bin/claude-sync-backup.sh\"",
             "timeout": 120,
             "async": true
+          },
+          {
+            "type": "command",
+            "command": "bash \"$HOME/inc42-context/bin/capture-session.sh\"",
+            "timeout": 90,
+            "async": true,
+            "statusMessage": "Capturing to master-brain…"
           }
         ]
       }
