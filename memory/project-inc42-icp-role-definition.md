@@ -8,6 +8,10 @@ metadata:
 
 Ranjith asked (4-5 Sep 2026) what the role / ICP should be for each Inc42 product, from Utkarsh's One Inc42 strategy plus the live platform. Deliverable: **`~/ClaudeDocs/inc42/inc42-icp-and-role-definition.xlsx`** — 9 tabs (README · ICP MASTER · Role hierarchy · Capture schema · Current state · Coverage · Payer personas · Qualifying actions · Gaps and actions).
 
+**LIVE IN THE "Test" SPREADSHEET** (`1NCpTEzgEEtds0uCfqPNSS6aeFhOpKbgkL_F-cgtVPxg`) as 9 new tabs, pasted 5 Sep 2026 — Ranjith asked for it there after seeing the xlsx: ICP README (gid 1614608048) · ICP MASTER (671521700) · ICP Role Hierarchy (967153083) · ICP Capture Schema (37095393) · ICP Current State (961921694) · ICP Coverage (469347169) · ICP Payer Personas (1545319616) · ICP Qualifying Actions (900899635) · ICP Gaps and Actions (19257093). All 25 pre-existing tabs SHA-256 verified byte-identical before and after. The xlsx stays the source of truth for formatting; keep the two in sync or the Sheet wins.
+
+**Two Sheets lessons from this paste run:** (1) `Shift+F11` is a reliable way to create a tab (the Insert menu and the "+" button both mis-click under the ~0.82 screenshot-to-click scale offset); after it, focus is already on A1 of the new empty sheet, so `cmd+v` needs no click. (2) A cell whose text starts with `=` (e.g. a leading-space "= usable AND in-market") pastes as a FORMULA and renders `#ERROR!` — scan every TSV for `^[=+]` after stripping leading spaces before pasting. Tab-rename element refs go stale after each rename; re-`find` the next tab every time.
+
 **Deliberately NOT put in "One Inc42 - Analytics | Master Sheet"** — 9 tabs of pasting into a live shared file repeats the 5 Sep near-miss that overwrote his rows 27-256. See [[feedback-sheets-clipboard-paste-safety]].
 
 **The strategic answer:** there is ONE ICP, not four (Strategy §1 H1). The role QUESTION is identical everywhere; only which LEVELS count as qualified differs per surface. Three verdicts used: QIA / IA only / Reach only (R30).
