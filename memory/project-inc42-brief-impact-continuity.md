@@ -57,3 +57,19 @@ self-explanatory numbers for a media reader: revenue+YoY, loss, total funding, h
 (`0 of 8 read` + 8 segments). Page 1 leads with the numbered SET, not a hero article — that is what
 stops it reading like an article. Onboarding = 3 screens (14→8 shown, pick sectors, the 7 AM deal).
 Row M in the draft file.
+
+## Row P — four content rules (5 Sep, from Ranjith's rejection of row N)
+1. **Never state the publish count.** "8 of the 14 published today" makes Inc42 look like it
+   publishes very little. Completeness = an outcome ("read them and you are done for the day"),
+   never arithmetic.
+2. **Every story needs a reason chip.** Marking only the followed ones makes the rest look like
+   filler — "what happens to the non-highlighted ones?". All eight get a label:
+   BIGGEST TODAY / YOU FOLLOW X / BIGGEST ROUND / MOST READ NOW / FROM OUR NEWSROOM.
+3. **Continuity is a row marker, never the headline.** Leading with the Zepto thread made the whole
+   brief look like it was about Zepto.
+4. **Time copy needs a subject.** "Expires tonight, tomorrow arrives at 7 AM" → "This brief is only
+   for today. Tomorrow's brief arrives at 7 AM."
+
+Six full-page structures in row P: THE DECK (pliability daily-sessions stack), THE RANKED RAIL
+(Apple TV Top 10), THE PATH (Alan/Duolingo), THE REMAINING (Finch "10 goals left"), THE SPREAD
+(magazine cover + contents), THE BRIEFING (dark, reason-first left column).

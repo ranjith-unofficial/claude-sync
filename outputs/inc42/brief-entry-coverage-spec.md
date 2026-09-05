@@ -423,3 +423,41 @@ about six seconds and would work as the first-week state; N2 is the one that sur
 N3's continuity block is worth folding into whichever wins, since it is the only device that reads
 as genuinely personal. N4's countdown is the strongest completion pull but is a treatment, not a
 layout — it can sit on top of any of the others.
+
+---
+
+# Row P — six structures for the whole page (5 Sep)
+Draft file row P (y=111600). Full pages, ~1100–1500px. Thu 8 June.
+
+## Four content rules fixed across all six (each is a correction)
+1. **The publish count is gone.** "8 of the 14 published today" made Inc42 look small. Completeness is
+   now stated as an outcome — *"Read them and you are done for the day"* / *"nothing else from today
+   is needed"* — never as arithmetic.
+2. **Every story carries a reason, so no row is second-class.** Highlighting four of eight made the
+   other four look like filler. Now all eight are labelled: `BIGGEST TODAY` · `YOU FOLLOW IPO` ·
+   `BIGGEST ROUND` · `MOST READ NOW` · `FROM OUR NEWSROOM`. Nothing is unexplained.
+3. **Continuity is a marker on a row, never the page's headline.** Leading with the Zepto thread made
+   the whole brief look like it was about Zepto; the "Start reading" button read as "read about Zepto".
+   It now sits as one line near the CTA.
+4. **Every time sentence has a subject.** "Expires tonight / tomorrow arrives at 7 AM" did not say
+   what expired or what arrived. Now: *"This brief is only for today. Tomorrow's brief arrives at 7 AM."*
+
+## The page below the brief belongs to the brief
+Only two things: **the companies in it** (Zepto's filed numbers, then "+7 more companies in today's
+brief") and **your week** (read/unread, seven-day retention). Not a grab bag of modules.
+
+## The six structures
+| # | Name | Borrowed from | The idea |
+|---|---|---|---|
+| P1 | THE DECK | pliability *Daily Sessions · 0 of 7 complete* | depth shown as a physical stack, not a list — you see there are eight without eight rows |
+| P2 | THE RANKED RAIL | Apple TV *Top 10* | numerals on cards in a horizontal rail; order visible without a vertical list |
+| P3 | THE PATH | Alan / Duolingo session path | the eight are a route with today's position marked; the page *is* the brief, no separate card |
+| P4 | THE REMAINING | Finch *10 goals left for today* | the leading number is what is LEFT; the page empties as you read |
+| P5 | THE SPREAD | magazine cover + contents | a dated, numbered edition; the contents page is the proof of completeness |
+| P6 | THE BRIEFING | — | dark, dense; the reason is a left column so the eye reads WHY before WHAT |
+
+**Recommendation:** P1 or P4. P1 makes "this is a bounded set" instantly legible and keeps the page
+short; P4 makes completion the point and is the strongest daily-return mechanic — "8 stories left"
+is a better pull than any countdown. P5 is the one to test if the brand should read editorial rather
+than app-like. P2's rail is the weakest — a horizontal scroll hides half the set, which fights the
+completeness promise.
