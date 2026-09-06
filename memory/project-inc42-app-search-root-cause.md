@@ -1,8 +1,11 @@
 ---
 name: project-inc42-app-search-root-cause
 description: "Inc42 search failure root cause (30 Aug 2026) + Ranjith's open symptoms for the deferred search-performance bucket (4 Sep 2026) — non-determinism from per-keystroke request flooding, not missing content; corrects the 23 Aug index-coverage diagnosis"
-metadata:
+metadata: 
+  node_type: memory
   type: project
+  originSessionId: 300a6e51-1907-4a2e-97de-6fec672f48be
+  modified: 2026-09-06T14:59:14.114Z
 ---
 
 Investigated 30 Aug 2026 with live API replay + PostHog. **The dominant cause of app search zero-results is NOT index coverage** — this corrects `app-search-defects.md` (23 Aug), which blamed content gaps.
@@ -41,9 +44,24 @@ Master deliverable: `~/ClaudeDocs/inc42/inc42-search-diagnosis-and-plan.md` — 
 **Revised plan: migrate inc42.com + app onto v2 and fix its tokenisation — do NOT start by building a new engine.** New infra is only clearly justified for article search (WordPress LIKE, 5s).
 **Two other corrections:** (a) the rate-limit lockout was self-inflicted by my own abnormal load, is NOT reproducible in normal use, and was wrongly presented as root cause #1 — demoted; (b) the typing-speed/zero-result table is a real PostHog correlation (survives scope split: companies 40.0% fast vs 17.8% slow) but the rate-limiting cause I attached to it is unsupported, and a single user cannot reproduce a population correlation — Ranjith correctly could not. The non-determinism itself stands (57.1% companies / 75.0% articles on repeated identical queries); leading cause is a client-side response race, matching the "race condition" already logged in the 26 Aug sync.
 
-**Ranjith's own observations to carry into the dedicated "improve search performance" bucket (noted 4 Sep 2026, UNVERIFIED by me — treat as symptoms to reproduce first, not findings):**
-1. **Exact-word match still misses.** Searching a term like `cred` does not return CRED, even though the word matches exactly. Check short-token/prefix handling, the v2 `company_search` exact-full-name behaviour, and whether the entity is even indexed.
-2. **Too many irrelevant results.** Results are polluted with junk — no relevance floor, and the 20-row cap fills with wrong rows.
-Both must be on the table whenever search performance is discussed. This bucket is deferred: Ranjith wants search picked up as its own workstream, not mixed into other threads.
+**Ranjith's observations from 4 Sep — both now VERIFIED and root-caused on 6 Sep 2026:**
+1. **Exact-word match misses** (`cred` → no CRED). **CONFIRMED, and it is DataLabs-only.**
+2. **Too many irrelevant results.** **CONFIRMED — same bug as (1).**
+
+**6 SEP 2026 LIVE RE-TEST — five findings that change the plan.** Doc refreshed in place: `~/ClaudeDocs/inc42/inc42-search-diagnosis-and-plan.md` (now dated "Revised 6 Sep", corrections C4–C8, root causes re-ranked, §9 rewritten into Tracks A/B/C).
+
+- **ROOT CAUSE #0 (new, most severe): inc42.com article search returns NOTHING for every query.** `?s=<query>` server-renders an empty `#inc-algolia-hits`; the Algolia InstantSearch path is half-wired — the `algolia` config global is undefined, `algoliasearch`/`instantsearch` libs are not enqueued, and `inc42-algolia-search.js` bails on its first line. `main.min.js` has 13 algolia refs, ALL show/hide UI, zero fetch. Verified empty for cred/zomato/fintech/startup/funding. So the header popup finds companies (v1) but never content. **CAVEAT: derived from served HTML, not a rendered browser — needs a 30-second browser confirm before circulating.** This also means the doc's old §4 article numbers (`EMS`→16,860, 5s) describe `wp-json/wp/v2/posts?search=`, a path NO USER HITS.
+- **ROOT CAUSE #1: `cred` = no exact-match boost + no relevance floor.** CRED IS indexed (`C-2623`, slug `cred`, name exactly "CRED", Fintech/Bengaluru/2018) — found via `fintech` and `peak xv` routes. 175 companies match "cred"; v2 caps at 15 and the exact answer never surfaces. Symptoms (1) and (2) are ONE bug.
+- **v1 vs v2 INVERTED the 30 Aug conclusion.** v2 is NOT strictly better. v2: 15/30 hard zeros (50%), `cred`→absent, `ola`/`navi`→rank 3, p50 **1,558ms**. v1: 1/15 zeros, `cred`/`ola`/`navi`→**rank 1**, p50 **390ms**. v2 wins only on typo (`zomto`+did_you_mean), topic→sector (`fintech`, `green hydrogen`) and investor portfolio (`peak xv`). **So "migrate everything onto v2" would BREAK `cred` on inc42.com where it works today** — migration is now gated on v2 beating v1 on the regression set.
+- **Server is deterministic** (6× `green hydrogen`, 8× `shipr` → identical). Confirms the 57–75% flip-flop is the client-side response race. Stage 0 unchanged.
+- **Nothing has shipped since 30 Aug** — every multi-word failure still returns 0.
+
+**Harness gotchas (cost me time):** all `datalabs-api.inc42.com` endpoints 403 without a **`Referer: https://inc42.com/`** header. **v1's response key is `companies` (plural), v2's is `results[]`** — reading v1 for `company` gives a false "returns nothing". `company/new-search` ignores `size`/`from` on `company_search` (always 5 rows; true total in `count`). Probe scripts were in the session scratchpad (`probe.py`, `regress.py`, `cmp2.py`, `art.py`) — regenerate if needed.
+
+**Method lesson:** #0 and #1 were both only visible by driving the actual product pages; every prior audit tested endpoints and concluded the engines roughly worked. Start future search audits at the user-facing surface.
+
+**Still open:** which endpoint the app calls; which surfaces are on v2 (it is on NO public page — `/datalabs/` itself uses v1, so v2 is the logged-in app only); whether v2's 1.5s latency is structural; whether its matcher is a tunable engine or hand-rolled SQL. Last two gate fix-vs-replace.
+
+This bucket is its own workstream — Ranjith confirmed all four sub-tracks in scope (v2 relevance, client Stage 0, v2 latency/migration call, article search).
 
 Relates to [[project-inc42-app-explore-deep-dive]] (search rage-loop P0), [[project-inc42-app-analytics-audit]], [[feedback-validation-approach]].

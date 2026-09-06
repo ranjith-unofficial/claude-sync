@@ -14,7 +14,7 @@
 
 Three things in the first version of this document were wrong or overstated (C1–C3). Five more were added or corrected on 6 Sep (C4–C8). All are corrected here and in place below.
 
-### C1. There is a **fourth** search system — `global-search-v2` — and it is the good one
+### C1. There is a **fourth** search system — `global-search-v2` *(originally titled "and it is the good one" — see C4)*
 
 My testing hit `POST /header/global-search` (v1), which inc42.com's header uses. **DataLabs uses `POST /header/global-search-v2`**, a different endpoint with a different response shape (`results[]` with `entity_type`, plus `did_you_mean` and `applied_filters`). That is why my report said `lava mobile` returns "Vaca Mobiles" while the DataLabs UI showed "No results found" — **two different engines, same query.** Ranjith's screenshots were right; my report described the wrong endpoint for that surface.
 
@@ -476,7 +476,7 @@ Even on the current API, a lookup table mapping legal and former names to the ca
 
 ---
 
-## 9. Revised approach — **use v2 everywhere, fix its phrase handling**
+## 9. Revised approach — **fix v2's retrieval first; migrate only once it beats v1**
 
 **Rewritten twice: after C1 (30 Aug), and again after C4–C7 (6 Sep).** The 30 Aug version said: v2 is the good engine, migrate everything onto it, and its only defect is tokenisation. The 6 Sep measurements do not support that. v2 has the better *architecture* but **worse retrieval than v1** — 50% hard zeros, no exact-match boost, and 4× the latency. Migrating as-is would break `cred` on the main site, where it works today.
 
@@ -527,7 +527,7 @@ Decide with engineering, on two questions:
 
 At this corpus size — ~75K companies + 55,562 articles — Typesense or Meilisearch serve sub-50ms, and the schema and query plan in §9.2–9.7 stand ready either way. **Article search needs new infrastructure regardless** (root cause #0 and #6): once A1 restores service, the `LIKE`-based REST path at ~4s cannot be tuned into a search engine.
 
-### 9.2 Reference index schema (only if item 1–5 prove insufficient, and for article search)
+### 9.2 Reference index schema (for article search, and for entity search if Track B proves insufficient)
 
 ### 9.3 Engine
 
@@ -603,12 +603,19 @@ Typed groups solve two problems at once: the app stops needing separate Companie
 
 ### 9.9 Rollout
 
+Re-sequenced 6 Sep around Tracks A/B/C (§9.0). Stages 0 and 0a run in parallel — they touch different surfaces and neither blocks the other.
+
 | Stage | Scope | Risk |
 |---|---|---|
-| 0 | Client-side debounce, error states, instrumentation (§8) | None — ship now |
-| 1 | Stand up Typesense, index companies + articles, run the regression set offline. Compare against the current API side by side. Do not ship yet | None — read-only |
-| 2 | Ship behind a feature flag to the app's Explore search. Compare zero-rate and tap-through against control | Low |
-| 3 | Move inc42.com header search and DataLabs global search onto the same endpoint. Retire the WordPress search path and the browser-side `includes()` re-sort | Medium |
+| **0a** | **Confirm root cause #0 in a browser, then restore inc42.com article search (§8b, Track A1)** | None to confirm; **highest user impact of anything here** |
+| 0 | Client-side debounce, cancel in-flight, real error states, instrumentation (§8, Track A2–A3) | None — ship now |
+| **1** | **Fix v2 retrieval: exact-match boost + relevance floor, then tokenisation, recall fallback, `name_squash` (Track B1–B4).** Re-run Appendix A + B after each | Low — server-side, behind the existing endpoint |
+| **1a** | **Get v2 to p95 < 500ms (Track B5).** Gate for anything downstream | Low |
+| 2 | Ship v2 behind a feature flag to the app's Explore search. Compare zero-rate and tap-through against control | Low |
+| **3** | **Move inc42.com header search onto v2 — only once v2 beats v1 on the regression set.** Retire the browser-side `includes()` re-sort at the same time (it is load-bearing on v1; removing it earlier makes v1 worse — see C1) | Medium |
+| 4 | Replace the article engine properly (§9.2–9.7); retire the WordPress `LIKE` path | Medium |
+
+If Track B stalls — because v2's matcher turns out to be hand-rolled SQL or its latency is structural (§9.1) — Stage 1 becomes "stand up Typesense, index companies + articles, run the regression set offline, compare side by side, do not ship yet," and Stages 2–4 proceed against that instead. The schema and query plan in §9.2–9.7 are written for exactly that fallback.
 
 ---
 
