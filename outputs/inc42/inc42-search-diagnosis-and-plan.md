@@ -1,14 +1,18 @@
 # Inc42 Search — Diagnosis & Implementation Plan
 
-**Date:** 30 Aug 2026 · **Scope:** all three search surfaces — the app, Inc42 Media (articles), DataLabs (companies/people/investors)
-**Method:** live API replay against ground truth pulled from outside the system (real Inc42 articles, real user queries from PostHog), plus behavioural data from PostHog App (146258) and DataLabs (66351).
+**Date:** 30 Aug 2026 · **Revised: 6 Sep 2026** · **Scope:** all three search surfaces — the app, Inc42 Media (articles), DataLabs (companies/people/investors)
+**Method:** live API replay against ground truth pulled from outside the system (real Inc42 articles, real user queries from PostHog), plus behavioural data from PostHog App (146258) and DataLabs (66351). The 6 Sep revision adds a live re-test of the production APIs **and of the real user-facing search pages**.
 **Supersedes:** the coverage-based diagnosis in `app-search-defects.md` (23 Aug) and expands `app-search-root-cause.md` (30 Aug).
+
+> **What changed on 6 Sep.** Ranjith's two open symptoms (`cred` misses CRED; results full of junk) were reproduced and root-caused — they are **one** bug, and it is DataLabs-only. Separately, driving the real inc42.com search page showed that **article search returns nothing at all** for every query, which no prior version of this document caught. And the v1-vs-v2 comparison inverted: v2 is *not* strictly better, so the "migrate everything to v2" recommendation is now conditional. See **C4–C8**.
+>
+> Nothing has been fixed since 30 Aug — every multi-word failure in this document's own regression set still returns zero.
 
 ---
 
-## 0. CORRECTIONS after Ranjith's review (30 Aug)
+## 0. CORRECTIONS after Ranjith's review (30 Aug) and the live re-test (6 Sep)
 
-Three things in the first version of this document were wrong or overstated. They are corrected here and in place below.
+Three things in the first version of this document were wrong or overstated (C1–C3). Five more were added or corrected on 6 Sep (C4–C8). All are corrected here and in place below.
 
 ### C1. There is a **fourth** search system — `global-search-v2` — and it is the good one
 
@@ -48,7 +52,11 @@ Two things this proves:
 
 **v2 already does most of what §9 proposed building** — typo correction with `did_you_mean`, entity typing, and topic-to-sector resolution (`fintech` → a sector filter, `green hydrogen` → Energy/Hydrogen). It is live, and inc42.com is not using it.
 
-**v2's one real defect:** it passes the *entire* query string as a single `company_search` value — `{"company":{"company_search":["iifl finance"]}}` — so any multi-word query needs an exact full-name match or returns nothing. No tokenisation, no partial phrase match. That single behaviour explains every "No results found" screenshot: `iifl finance`, `wagh bakri`, `lava mobile`. It also explains why run-together `tbotek` fails.
+> **Qualified by C4 (6 Sep).** True of v2's *architecture*, and the table above still reproduces. But the table is a favourable sample: across a 30-query regression set v2 returns **nothing at all 50% of the time**, misses exact names v1 gets at rank 1, and is **4× slower**. "v2 is much better" was too strong — it is better at the hard queries and worse at the easy ones.
+
+**v2's most visible defect:** it passes the *entire* query string as a single `company_search` value — `{"company":{"company_search":["iifl finance"]}}` — so any multi-word query needs an exact full-name match or returns nothing. No tokenisation, no partial phrase match. That behaviour explains every "No results found" screenshot: `iifl finance`, `wagh bakri`, `lava mobile`. It also explains why run-together `tbotek` fails.
+
+> **Superseded in part by C4/C5 (6 Sep).** This was written as v2's *one* defect. It is one of **three**: (a) no tokenisation — this paragraph; (b) **no exact-match boost**, which is why `cred` misses CRED and `ola` ranks 3rd — the symptom Ranjith actually reported; (c) **no recall fallback**, which is why single tokens like `apax`, `birdeye` and `speciale` return zero on v2 while v1 answers them. Defect (b) is the higher-value fix.
 
 ### C2. The rate-limit lockout was self-inflicted and is not a user-facing problem
 
@@ -71,19 +79,130 @@ But **the causal story I attached to it (rate limiting) is not supported**, and 
 
 ---
 
+## 0b. CORRECTIONS from the live re-test (6 Sep 2026)
+
+### C4. v1 vs v2 is a recall/precision trade-off — **v2 is not simply "the good one"**
+
+C1 concluded v2 was better on every axis and that its only real defect was multi-word tokenisation. Re-measured 6 Sep over a 30-query regression set drawn from Appendix A and Appendix B:
+
+| | v1 `/header/global-search` | v2 `/header/global-search-v2` |
+|---|---|---|
+| Hard zeros on the shared subset | 1/15 | **15/30 (50%)** |
+| `cred` → CRED | **rank 1** | **absent entirely** |
+| `ola` → Ola | **rank 1** | rank 3 (behind Manam Chocolate, Prolance) |
+| `navi` → Navi | **rank 1** | rank 3 (behind Navixel, Navigatio Asia) |
+| `speciale`, `apax`, `ultravio`, `taga motors`, `birdeye`, `youtube`, `trancxn` | returns rows | **0** |
+| `zomto` (typo) → Zomato | noisy | **rank 1 + `did_you_mean`** |
+| `fintech` / `green hydrogen` | name-substring noise | **resolves to a sector filter** |
+| `peak xv` | noise | **investor + portfolio companies** |
+| Latency p50 | **390ms** | **1,558ms** (p90 1,741ms, max 3,347ms) |
+
+**v2 has the better architecture — typed entities, `did_you_mean`, topic→sector resolution — but worse retrieval:** no recall fallback, no exact-match boost, and 4× the latency. Migrating to v2 as-is trades one failure class for another, and would **regress `cred` on inc42.com, where it currently works**.
+
+This is the same two-engines-one-query confusion as C1: Ranjith's `cred` complaint is a **DataLabs-only** symptom. The identical query on inc42.com returns CRED at rank 1.
+
+§9.0 items 3 and 4 (migrate inc42.com and the app onto v2) are rewritten below as **conditional** on fixing v2's recall and latency first.
+
+### C5. `cred` root cause — no exact-match boost, not a coverage gap
+
+Ranjith's symptom (1) from 4 Sep, reproduced and explained:
+
+| Check | Finding |
+|---|---|
+| Is CRED indexed? | **Yes** — `object_id C-2623`, slug `cred`, name exactly `CRED`, Fintech, Bengaluru, 2018 |
+| How it was found | Returns correctly via `fintech` (sector) and `peak xv` (portfolio) — just never via its own name |
+| Companies matching "cred" | **175** (`company/new-search`, `company_search:["cred"]` → `count: 175`) |
+| What v2 returns for `cred` | 15 rows: CredR, InCred Holdings, InCred, Credgenics, OkCredit, CredAble, Altum Credo, Credlix… — **CRED absent** |
+
+v2 substring-matches, caps at 15, and has no exact-match boost and no relevance floor, so the exact answer never surfaces above 175 competitors.
+
+**Ranjith's symptom (1) and symptom (2) are the same defect.** "Exact word misses" and "too many irrelevant results" are two faces of one missing ranking rule. Fixing it fixes both.
+
+This also narrows C1's claim that v2's "single defect" is passing the whole query as one `company_search` value. That is **one of three**: (a) no tokenisation, (b) no exact-match boost, (c) no recall fallback when the phrase match fails. (b) is the one users actually report.
+
+### C6. The server is deterministic — the non-determinism is confirmed client-side
+
+| Test | Result |
+|---|---|
+| 6× identical `green hydrogen` (v2) | n=2 every time |
+| 8× identical `shipr` (v2) | n=3 every time |
+| 8× identical `shipr` (v1) | identical every time |
+
+Confirms C3's revised position: the 57–75% flip-flop is a **client-side response race**, not a backend or rate-limit effect. **Stage 0 (§8) stands unchanged and is still the right first ship.**
+
+### C7. Article search on inc42.com returns **nothing at all** — and §4 measures a path no user hits
+
+This is new, and it is the most severe finding in the document.
+
+Driving the real user-facing page — `https://inc42.com/?s=<query>` — the results container is server-rendered **empty**:
+
+```html
+<div id="relevant" class="tab-content current">
+  <div id='inc-algolia-hits' class="load-result"></div>   <!-- empty -->
+</div>
+<div id="inc-algolia-pagination"></div>
+```
+
+Nothing ever fills it. The entire Algolia InstantSearch path is inert:
+
+| Check | Finding |
+|---|---|
+| `algolia` config global on the page | **not defined anywhere** |
+| `inc42-algolia-search.js`, first statement | `if ( 'undefined' === typeof algolia ) { return; }` → **bails immediately** |
+| `algoliasearch` / `instantsearch` libraries | **not enqueued at all** (full script list checked) |
+| `main.min.js` — 13 `algolia` references | **all show/hide UI plumbing** (`#algolia-stats`, `#search-default-box`, un-hiding `#relevant`) — **zero fetch, zero render** |
+| Shipped HTML still contains | the unrendered template `{{{ data._highlightResult.post_title.value }}}` |
+
+Verified empty for `cred`, `zomato`, `fintech`, `startup`, `funding`. **The user gets "You searched for X", a blank results area, and the "Trending On Inc42" sidebar.**
+
+**Two corrections this forces:**
+
+1. §1 calls the Algolia markup "dead leftover — no Algolia request fires." Accurate, but it badly understates the consequence. It is not harmless leftover: **it is the reason article search returns nothing.**
+2. **§4 measures `wp-json/wp/v2/posts?search=` — an API path no user ever reaches.** Its findings are real but describe the REST API, not the product. Re-measured 6 Sep: p50 **3,899ms**, `EMS` → 16,717, `chai` → 12,949, `cred` → 10,811, `myjar` → 0. New defect visible there: date-ordering plus a continuously-updated article means **8 of 10 test queries return "Indian Startup IPO Tracker 2026" as the top hit**. §4 is relabelled accordingly.
+
+The one Algolia call that *is* live is unrelated to article search: a hardcoded glossary lookup (index `wp_posts_glossary`, app `VZW3KNFV02`) bound to the `#keyword` box.
+
+> **Caveat — confirm before circulating.** This is derived from the served HTML and the enqueued scripts, not from a rendered browser session. A 30-second check on inc42.com in a real browser confirms or refutes it, and should be done before this finding goes to engineering.
+
+### C7b. What inc42.com header search actually does today
+
+| Popup section | Backing call | Status |
+|---|---|---|
+| Profiles (companies / people / investors) | `POST /header/global-search` (v1) → rendered into `#global-search-profile-data` | **works** — `cred` returns CRED at rank 1 |
+| Articles / stories | Algolia InstantSearch → `#inc-algolia-hits` | **dead — renders nothing** |
+
+`main.min.js` contains **no article or post fetch of any kind** for the popup. On the main site, search finds companies but never content — for a media business, the inverse of what it should do.
+
+### C7c. Where v2 actually lives
+
+`global-search-v2` appears on **none** of the public pages checked — `/datalabs/`, `/company/`, `/company/zomato/`. The public `/datalabs/` marketing page itself uses **v1**. v2 is inside the **logged-in DataLabs app**, which was not reachable for this test, so v2 was measured directly at the API.
+
+This matters for §11: the open "which endpoint does the app call?" question should be answered in the same conversation as "which surfaces are on v2 today?"
+
+### C8. Access notes for anyone rebuilding the regression harness
+
+- All `datalabs-api.inc42.com` endpoints return **`403 {"error":"Unauthorized"}`** without a **`Referer: https://inc42.com/`** header. Origin and User-Agent alone are not enough.
+- **v1's response key is `companies` (plural); v2 uses `results[]`.** Reading v1 for a `company` key returns an easy false negative — it looks like the engine returns nothing when it is actually returning 20 rows.
+- `company/new-search` **ignores `size` and `from`** for `company_search` queries — it returns 5 rows regardless, while reporting the true match count in `count`.
+
+---
+
 ## 1. What is actually running
 
 There is no single search system. There are three, none of them a search engine.
 
-| Surface | Backend | What it matches on |
-|---|---|---|
-| Company / person / investor — **inc42.com header** | `POST datalabs-api.inc42.com/header/global-search` (**v1**) body `{"keyword":"…"}` | Entity **name only**, fuzzy. Returns ≤20 companies + ≤10 people + ≤20 investors |
-| Company / person / investor — **DataLabs** | `POST datalabs-api.inc42.com/header/global-search-v2` body `{"keyword":"…"}` | Returns `results[]` with `entity_type`, plus `did_you_mean` and `applied_filters`. Typo-corrects and resolves topics to sector filters — but matches the **whole query string as one exact phrase** |
-| Company list + filters | `POST datalabs-api.inc42.com/company/new-search` body `{filter,from,size,sort,sortby,search_url,is_inc42}` | Structured filters |
-| Articles (Inc42 Media) | Plain **WordPress** search (`?s=` / `wp-json/wp/v2/search`) | SQL `LIKE '%term%'` over title + body, **ordered by date** |
-| Relevance ranking | Done **in the browser** — `main.min.js` re-sorts the response with `name.toLowerCase().includes(query)` then alphabetically | — |
+| Surface | Backend | What it matches on | Latency p50 (6 Sep) |
+|---|---|---|---|
+| Company / person / investor — **inc42.com header** | `POST datalabs-api.inc42.com/header/global-search` (**v1**) body `{"keyword":"…"}` | Entity **name only**, fuzzy. Returns ≤20 companies + ≤10 people + ≤20 investors. Response key is `companies` (plural) | **390ms** |
+| Company / person / investor — **logged-in DataLabs** | `POST datalabs-api.inc42.com/header/global-search-v2` body `{"keyword":"…"}` | Returns `results[]` with `entity_type`, plus `did_you_mean` and `applied_filters`. Typo-corrects and resolves topics to sector filters — but matches the **whole query string as one exact phrase**, with no exact-match boost and no recall fallback | **1,558ms** |
+| Company list + filters | `POST datalabs-api.inc42.com/company/new-search` body `{filter,from,size,sort,sortby,search_url,is_inc42}` | Structured filters. **Ignores `size`/`from` on `company_search` — always 5 rows**, true total in `count` | 227ms |
+| **Articles (Inc42 Media) — what users get** | Algolia InstantSearch into `#inc-algolia-hits` | **Nothing. The path is inert — see C7.** Every query renders an empty results area | n/a |
+| Articles — the REST API (**not user-facing**) | `wp-json/wp/v2/posts?search=` / `wp/v2/search` | SQL `LIKE '%term%'` over title + body, **ordered by date** | **3,899ms** |
+| Relevance ranking (v1 surfaces) | Done **in the browser** — `main.min.js` re-sorts the response with `name.toLowerCase().includes(query)` then alphabetically | — | — |
 
-The `ais-SearchBox` / `#inc-algolia-search-box` Algolia markup on inc42.com is dead leftover. No Algolia request fires.
+**Access requirement:** every `datalabs-api.inc42.com` endpoint 403s without a `Referer: https://inc42.com/` header (C8).
+
+**On the Algolia markup.** The `ais-SearchBox` / `#inc-algolia-search-box` markup on inc42.com fires no Algolia request — but calling it "dead leftover" is too soft. It is the *intended* article-search implementation, left half-wired: the config global and both libraries are missing, so the results container never populates. That is the direct cause of article search returning nothing (C7). The only live Algolia call on the site is an unrelated hardcoded glossary lookup (`wp_posts_glossary`, app `VZW3KNFV02`).
 
 ---
 
@@ -156,9 +275,13 @@ The API never returns nothing for these. It returns **20 confidently wrong rows*
 
 ---
 
-## 4. Finding 3 — Inc42 Media article search has recall but no precision
+## 4. Finding 3 — the article **REST API** has recall but no precision
 
-WordPress `LIKE '%term%'` matches substrings **inside words**, and orders by date. Measured across 45 queries:
+> **Read this section as API behaviour, not user experience.** Everything below measures `wp-json/wp/v2/posts?search=` — a path **no user reaches**. The user-facing article search on inc42.com returns *nothing at all* (**C7**). These numbers matter for what a replacement must beat, and they describe the corpus honestly; they do not describe what a reader currently sees.
+>
+> **Re-measured 6 Sep:** p50 **3,899ms** (was ~5,000ms), `EMS` → **16,717**, `chai` → **12,949**, `cred` → **10,811**, `myjar` → **0**. One new defect: date-ordering plus a continuously-updated article means **8 of 10 test queries now return "Indian Startup IPO Tracker 2026" as the top hit** — including `EMS`, `chai`, `cred`, `Zomato`, `shipr` and `how much did zomato raise`.
+
+WordPress `LIKE '%term%'` matches substrings **inside words**, and orders by date. Measured across 45 queries (30 Aug):
 
 | Query | Articles returned | Top hit | Problem |
 |---|---|---|---|
@@ -282,20 +405,25 @@ Honest note on impact: zero results do **not** cause immediate abandonment — 8
 
 ## 7. Root causes, ranked
 
+Re-ranked 6 Sep. The two new entries at the top (#0, #1) were both invisible to every prior version of this document.
+
 | # | Cause | Surface | Evidence |
 |---|---|---|---|
-| 1 | Per-keystroke requests resolve out of order; a stale response overwrites a good one and renders as "0 results" | App | 57–75% non-determinism on identical repeated queries; `shipr → 5 → 0` observed directly |
-| 1b | **v2 matches the whole query as one exact phrase**, so every multi-word query returns 0 | DataLabs | `iifl finance`, `wagh bakri`, `lava mobile` → 0, filter shows `company_search:["<whole string>"]` |
-| 2 | Multi-word queries OR-match and flood the result cap | Entity search | hit@1 20% → 4% → 0% |
-| 3 | Article search is `LIKE` with no word boundaries, no relevance, 5s latency | Inc42 Media | `EMS` → 16,860; `chai` → 13,110 |
-| 4 | No topic/sector/tag search anywhere | All | `fintech` is the #1 web query |
-| 5 | No aliases, no run-together handling | All | `Eternal Limited`, `waghbakri`, `tbotek` |
-| 6 | Search quality is unmeasurable | DataLabs, app | no result count on DataLabs; no latency anywhere |
-| 7 | Genuine index gaps | Entity search | Brewnexa, Hustle Hard Ventures, Emerging Ledger, Alphavector — 58 searches, 4 users |
-| 8 | Client flattens typed results, burying people behind 20 companies | Web | `main.min.js` merges companies+people+investors into one list |
-| 9 | Duplicate person records consume the result cap | DataLabs data | "Aman Gupta" ×4, "Deepinder Goyal" ×2 |
+| **0** | **Article search renders nothing.** The Algolia InstantSearch path is half-wired — config global and both libraries missing — so `#inc-algolia-hits` never populates | **inc42.com** | Empty results container for `cred`, `zomato`, `fintech`, `startup`, `funding`; `main.min.js` has 13 algolia refs, all UI-only (**C7**) |
+| **1** | **No exact-match boost and no relevance floor.** The exact entity loses to 175 substring competitors and never surfaces | **DataLabs (v2)** | `cred` → CRED absent despite `C-2623` existing; `ola`/`navi` → rank 3 behind noise (**C5**) — *this is Ranjith's reported symptom, both halves of it* |
+| 2 | Per-keystroke requests resolve out of order; a stale response overwrites a good one and renders as "0 results" | App | 57–75% non-determinism on identical repeated queries; `shipr → 5 → 0` observed directly. Server confirmed deterministic (**C6**) |
+| 3 | **v2 matches the whole query as one exact phrase with no recall fallback**, so multi-word and run-together queries return 0 | DataLabs | `iifl finance`, `wagh bakri`, `lava mobile`, `matter motor` → 0; 15/30 hard zeros on the regression set (**C4**) |
+| 4 | Multi-word queries OR-match and flood the result cap | v1 entity search | hit@1 20% → 4% → 0% |
+| 5 | **v2 is 4× slower than v1** — 1,558ms p50 vs 390ms — so it cannot serve typeahead as-is | DataLabs | 30-query measurement, p90 1,741ms, max 3,347ms (**C4**) |
+| 6 | Article REST API is `LIKE` with no word boundaries, no relevance, ~4s latency; date-ordering lets one evergreen article top nearly every query | Inc42 Media API | `EMS` → 16,717; `chai` → 12,949; IPO Tracker tops 8/10 queries |
+| 7 | No topic/sector/tag search on v1 or the app | v1, app | `fintech` is the #1 web query; v2 already solves this |
+| 8 | No aliases, no run-together handling | All | `Eternal Limited`, `waghbakri`, `tbotek` |
+| 9 | Search quality is unmeasurable | DataLabs, app | no result count on DataLabs; no latency anywhere |
+| 10 | Genuine index gaps | Entity search | Brewnexa, Hustle Hard Ventures, Emerging Ledger, Alphavector — 58 searches, 4 users |
+| 11 | Client flattens typed results, burying people behind 20 companies | Web (v1) | `main.min.js` merges companies+people+investors into one list |
+| 12 | Duplicate person records consume the result cap | DataLabs data | "Aman Gupta" ×4, "Deepinder Goyal" ×2 |
 
-Note the ordering. Every prior diagnosis started at #7.
+Note the ordering. The 23 Aug diagnosis started at #10. The 30 Aug version started at #2 and never saw #0 or #1 — because both are only visible if you drive the actual product rather than the APIs behind it.
 
 ---
 
@@ -316,6 +444,24 @@ Note the ordering. Every prior diagnosis started at #7.
 
 **Do not skip the instrumentation.** Right now nobody can prove whether a fix worked.
 
+> **Reconfirmed 6 Sep.** The backend is deterministic under repeated identical queries (**C6**), so the flip-flop is unambiguously client-side. Stage 0 remains the correct first ship and needs no re-scoping.
+>
+> **But it is no longer the *only* "do this first".** Root cause #0 — inc42.com article search rendering nothing — is a separate, larger, and probably smaller-effort fix. It should be triaged in parallel, not queued behind Stage 0. See §8b.
+
+### 8b. Root cause #0 — restore article search on inc42.com
+
+Triage first, then pick one of three; effort depends entirely on why the Algolia wiring is missing.
+
+| Step | Detail |
+|---|---|
+| **Confirm** | Load `inc42.com/?s=cred` in a browser with devtools open. Expect: no request to `*.algolia.net` for the results list, and an empty `#inc-algolia-hits`. **Do this before anything else** — the whole finding rests on it |
+| **Then diagnose** | Was the WP Algolia plugin deactivated, did indexing lapse, or was the config global dropped in a theme deploy? The `?ver=21.94` theme bundle still ships the search JS, so this looks like a config/plugin regression rather than an intentional removal |
+| **Option A — re-wire Algolia** | If the plugin and index still exist, this is a settings fix, not a build. Fastest path back to working article search |
+| **Option B — point it at an existing engine** | Reuse whatever the app/DataLabs settle on, so there is one article index rather than two |
+| **Option C — ship the §9.2–9.7 design** | The right long-term answer regardless; do not let it block A |
+
+**Whichever option, add a zero-result state (§9.8) and fire a `search_no_results` event.** Article search has been returning nothing for an unknown period and nobody detected it — that is the real lesson of #0, and instrumentation is what prevents the repeat.
+
 ### Stage 0b — three more fixes that need no search engine
 
 | Fix | Detail | Effort |
@@ -332,27 +478,54 @@ Even on the current API, a lookup table mapping legal and former names to the ca
 
 ## 9. Revised approach — **use v2 everywhere, fix its phrase handling**
 
-**This section is rewritten after the C1 finding.** The original plan was to stand up a new search engine. That is no longer the first move: Inc42 has already built most of it. `global-search-v2` does typo correction, entity typing, and topic-to-sector resolution today, on production, for DataLabs. inc42.com is still on v1, and the app is on neither.
+**Rewritten twice: after C1 (30 Aug), and again after C4–C7 (6 Sep).** The 30 Aug version said: v2 is the good engine, migrate everything onto it, and its only defect is tokenisation. The 6 Sep measurements do not support that. v2 has the better *architecture* but **worse retrieval than v1** — 50% hard zeros, no exact-match boost, and 4× the latency. Migrating as-is would break `cred` on the main site, where it works today.
+
+The revised stance: **fix v2's retrieval first, migrate only once it beats v1 on a regression set, and treat article search as a separate and more urgent track.**
 
 ### 9.0 The actual plan, in order
 
+**Track A — restore what is broken (do now, independent of everything else)**
+
 | # | Fix | Why | Effort |
 |---|---|---|---|
-| 1 | **Tokenise the query in v2** instead of passing the whole string as one `company_search` value | This one change fixes `iifl finance`, `wagh bakri`, `lava mobile`, `matter motor`, `third wave` — every "No results found" screenshot. AND across tokens, then fall back to the best single-token match rather than to nothing | **S — highest value in this document** |
-| 2 | **Add a `name_squash` field** (lowercased, spaces and punctuation stripped) | Fixes `tbotek`, `waghbakri`, `ofbusiness` | S |
-| 3 | **Migrate inc42.com header search from v1 to v2** | Gets typo correction, `did_you_mean` and sector resolution on the main site for free. Retires the fuzzy-noise engine that produces "Vaca Mobiles" | M |
-| 4 | **Point the app at v2** | Same benefit for the app; also removes whatever it is on today | M |
-| 5 | **Surface `did_you_mean` and `applied_filters` in the UI** | v2 already returns them and no surface renders them. `zomto` → "Showing results for **zomato**"; `fintech` → a sector chip, not a list | S |
-| 6 | Replace WordPress article search | The 5-second, date-ordered, no-typo article path is untouched by any of the above | L |
-| 7 | Alias table (Kiranakart→Zepto, Eternal→Zomato, Bundl→Swiggy, ANI→Ola) | Fixes the legal-name class | S |
+| A1 | **Confirm and fix inc42.com article search (§8b)** | Root cause #0. Article search currently returns nothing for every query on a media site | **Triage XS; fix S–M** |
+| A2 | **Client debounce + cancel in-flight + real error states (Stage 0, §8)** | Root cause #2. Backend confirmed deterministic, so this is the whole fix | S |
+| A3 | **Instrument everything** — `latency_ms`, `http_status`, `error_type`, `result_count`, one event per completed intent | Nothing below is verifiable without it, and #0 went undetected for want of it | S |
 
-Items 1, 2, 5 and 7 are changes to a service that already exists. Only item 6 needs new infrastructure.
+**Track B — fix v2's retrieval (must land before any migration)**
 
-### 9.1 On replacing the engine
+| # | Fix | Why | Effort |
+|---|---|---|---|
+| B1 | **Exact-match boost + relevance floor** | Root cause #1 — **Ranjith's reported symptom, both halves**. `cred` → CRED, `ola` → Ola, and stop padding the cap with 175 substring matches. Rule: exact > prefix > token > typo, and drop rows below a match threshold | **S — highest value in this document** |
+| B2 | **Tokenise the query** instead of passing the whole string as one `company_search` value | Fixes `iifl finance`, `wagh bakri`, `lava mobile`, `matter motor`, `third wave`. AND across tokens, then fall back to the best single-token match rather than to nothing | S |
+| B3 | **Recall fallback** — never return 0 when a relaxed match exists | 15/30 hard zeros incl. single tokens (`apax`, `birdeye`, `speciale`, `ultravio`, `youtube`) that v1 answers | S |
+| B4 | **Add a `name_squash` field** (lowercased, spaces and punctuation stripped) | Fixes `tbotek`, `waghbakri`, `ofbusiness` | S |
+| B5 | **Get v2 under 500ms p95** | At 1,558ms p50 it cannot back a typeahead. This is a **gate**, not a nice-to-have | M |
+| B6 | Alias table (Kiranakart→Zepto, Eternal→Zomato, Bundl→Swiggy, ANI→Ola) | Fixes the legal-name class | S |
 
-**Do not start here.** If, after items 1–5, the regression set still fails, then a dedicated engine (Typesense or Meilisearch — the corpus is only ~75K companies + 55,562 articles) is the right answer, and the index schema and query plan below still stand. But v2 already demonstrates typo tolerance, entity typing and sector resolution in production, so the case for rebuilding is much weaker than the first version of this document claimed.
+**Track C — consolidate (gated on Track B passing the regression set)**
 
-The one place new infrastructure is clearly justified is **article search** (item 6) — WordPress `LIKE` at 5 seconds cannot be tuned into a search engine.
+| # | Fix | Gate | Effort |
+|---|---|---|---|
+| C1 | Migrate inc42.com header search from v1 to v2 | **Only after v2 beats v1 on Appendix A + B.** Today it would regress `cred`, `ola`, `navi`, `speciale`, `apax` | M |
+| C2 | Point the app at v2 | Same gate | M |
+| C3 | Surface `did_you_mean` and `applied_filters` in the UI | None — v2 returns them today and no surface renders them. `zomto` → "Showing results for **zomato**"; `fintech` → a sector chip, not a list | S |
+| C4 | Replace the article engine properly (§9.2–9.7) | After A1 restores service | L |
+
+The ordering change that matters: **B1 was not in the 30 Aug plan at all**, and it is the fix for the symptom Ranjith actually reported. **A1 was not in any plan**, and it is the most severe defect found.
+
+### 9.1 On replacing the engine — now a genuine decision, not a settled one
+
+The 30 Aug version said "do not start here" on the grounds that v2 already does the hard parts. That is weaker now: **v2 fails 50% of the regression set and is 4× slower than the engine it was meant to replace.** "Fix v2" is no longer self-evidently cheaper than "stand up Typesense" — it depends on facts not visible from outside, namely why v2 is slow and how its matching is implemented.
+
+Decide with engineering, on two questions:
+
+| Question | If the answer is… | Then |
+|---|---|---|
+| Is v2's 1.5s latency structural (per-query fan-out, N+1 enrichment) or incidental (cold cache, no index)? | incidental | fix v2 — Track B is days |
+| Is the matcher a tunable engine (Elastic/OpenSearch) or hand-rolled SQL? | hand-rolled SQL | B1–B3 are a rewrite; a dedicated engine is likely cheaper and better |
+
+At this corpus size — ~75K companies + 55,562 articles — Typesense or Meilisearch serve sub-50ms, and the schema and query plan in §9.2–9.7 stand ready either way. **Article search needs new infrastructure regardless** (root cause #0 and #6): once A1 restores service, the `LIKE`-based REST path at ~4s cannot be tuned into a search engine.
 
 ### 9.2 Reference index schema (only if item 1–5 prove insufficient, and for article search)
 
@@ -441,16 +614,21 @@ Typed groups solve two problems at once: the app stops needing separate Companie
 
 ## 10. Acceptance criteria
 
-| Target | Threshold |
-|---|---|
-| Determinism — same query, same result count | **100%** |
-| Zero-result rate, companies | < 8% |
-| Zero-result rate, articles | < 12% |
-| End-to-end search latency | p95 < 300ms (today: 580ms entity, ~5,000ms article) |
-| Topic queries resolve | `fintech`, `green hydrogen`, `ai startups`, `series a` each return a sector/filter result |
-| `search_performed` | Exactly one event per completed intent, with `latency_ms` and `http_status` |
-| DataLabs `Search Completed` | Carries result count and latency |
-| Regression suite in CI | The 45 real app failures + 57 real web queries + 50 verified entities |
+| Target | Threshold | Today (6 Sep) |
+|---|---|---|
+| **inc42.com article search returns results** | any non-empty result set for a valid query | **returns nothing, every query** |
+| **Exact-name query returns that entity at rank 1** | 100% for the 50 verified entities | v2 fails `cred`, `ola` (r3), `navi` (r3), `sugar`, `vip`, `inox` |
+| **Hard-zero rate on the Appendix A+B regression set** | < 5% | **v2 50%**, v1 7% |
+| Determinism — same query, same result count | 100% | server ✅, client ❌ |
+| Zero-result rate, companies | < 8% | 19.7% (app) |
+| Zero-result rate, articles | < 12% | 35.8% (app); 100% (web) |
+| **Entity search latency** | **p95 < 500ms** | v1 590ms, **v2 1,741ms** |
+| Article search latency | p95 < 500ms | ~4,000ms (REST path) |
+| **Article search top hit is query-relevant** | IPO Tracker must not top unrelated queries | tops **8 of 10** |
+| Topic queries resolve | `fintech`, `green hydrogen`, `ai startups`, `series a` each return a sector/filter result | v2 ✅, v1 ❌, app ❌ |
+| `search_performed` | Exactly one event per completed intent, with `latency_ms` and `http_status` | fires per keystroke, neither property |
+| DataLabs `Search Completed` | Carries result count and latency | carries neither |
+| Regression suite in CI | The 45 real app failures + 57 real web queries + 50 verified entities | none |
 
 ---
 
@@ -460,11 +638,46 @@ Typed groups solve two problems at once: the app stops needing separate Companie
 
 Ten minutes with Ritvik or Anmol settles it. It changes how much of §9 applies. **Stage 0 is worth shipping either way.**
 
+**Add these to the same conversation (6 Sep):**
+
+| Question | Why it matters |
+|---|---|
+| Which surfaces are on v2 today? | v2 appears on **no** public page; `/datalabs/` itself uses v1 (**C7c**). "DataLabs uses v2" needs narrowing to the logged-in app |
+| When did inc42.com article search stop returning results, and why? | Root cause #0. Plugin deactivated, index lapsed, or config dropped in a theme deploy? Determines whether A1 is a settings fix or a build |
+| Is v2's 1.5s latency structural or incidental? | Gates the fix-vs-replace decision in §9.1 |
+| Is v2's matcher a tunable engine or hand-rolled SQL? | Determines whether B1–B3 are config or a rewrite |
+
 ---
 
-## Appendix A — regression set, real app failures (11–30 Aug)
+## Appendix A — regression set, real app failures (11–30 Aug), **with 6 Sep baseline**
 
-**Companies:** `air bound`, `airbound`, `aitmc veb`, `birdeye`, `carbon credit`, `enrission`, `evigway`, `evigwayp0`, `green hydrogen`, `humgerb`, `iifl finance`, `indiesemi`, `lava mobile`, `matter motor`, `snit hch`, `snit hll`, `speciale`, `suto`, `taga motors`, `taga motos`, `tbotek`, `tell m`, `tenacious bee collective`, `tenacious bee collr`, `third wave`, `trancxn`, `youtube`
+Measured 6 Sep. `n` = rows returned. This is the pass/fail baseline for Track B.
+
+| Query | v2 `n` | v2 top 3 | v1 `n` | v1 top 3 | Verdict |
+|---|---|---|---|---|---|
+| `air bound` | **0** | — | 20 | Future Bound Tech, Beyond The Bounds, **Airbound** | v2 zero, v1 buries it |
+| `airbound` | 1 | **Airbound** | 11 | Airbound, Airborne, Abound | **v2 correct** |
+| `birdeye` | **0** | — | 2 | ThirdEye AI, BigEye Global | both wrong |
+| `carbon credit` | 15 | CreditQ, Carbon Black, Carlton D'Silva | — | — | topic query, entity engine |
+| `enrission` | **0** | — | 7 | ENVISION INTELLIGENCE, Envision Professionals | both wrong |
+| `green hydrogen` | 2 | Energy Generation, Renewable Energy Solutions *(sector)* | 20 | Hydrogen Gentech | **v2 resolves the topic** |
+| `iifl finance` | **0** | — | 20 | IIFL Securities, IFL Housing Finance | both wrong |
+| `indiesemi` | **0** | — | **0** | — | genuine gap |
+| `lava mobile` | **0** | — | 20 | Vaca Mobiles, Celeckt Mobiles | both wrong |
+| `matter motor` | **0** | — | 20 | **Matter**, Matters, Thinking Matter | **v1 correct at r1** |
+| `speciale` | **0** | — | 12 | **Speciale Invest**, Rajasthani Special | **v1 correct at r1** |
+| `taga motors` | **0** | — | 20 | **Tata Motors**, IBRIDO MOTORS | **v1 typo-corrects** |
+| `tbotek` | **0** | — | 7 | JBTEK, Design Totke | both wrong — needs `name_squash` |
+| `tenacious bee collective` | **0** | — | 20 | Bey Bee, Ekatra Collective | both wrong |
+| `third wave` | 1 | **Third Wave Coffee** | — | — | **v2 correct** |
+| `trancxn` | **0** | — | 10 | **Tracxn**, TraiCon, Tracxn labs | **v1 typo-corrects** |
+| `youtube` | **0** | — | 2 | Swaps Couture, Aagaman Couture | both wrong |
+
+**v2 hard zeros: 15/30 across this table and Appendix B's sample (50%). v1 hard zeros: 1/15.** v1 answers correctly at rank 1 for `matter motor`, `speciale`, `taga motors`, `trancxn` — all of which v2 returns nothing for. This is the evidence behind the Track C migration gate.
+
+Not re-tested (low-signal typo fragments): `aitmc veb`, `evigway`, `evigwayp0`, `humgerb`, `snit hch`, `snit hll`, `suto`, `taga motos`, `tell m`, `tenacious bee collr`.
+
+**Original list, companies:** `air bound`, `airbound`, `aitmc veb`, `birdeye`, `carbon credit`, `enrission`, `evigway`, `evigwayp0`, `green hydrogen`, `humgerb`, `iifl finance`, `indiesemi`, `lava mobile`, `matter motor`, `snit hch`, `snit hll`, `speciale`, `suto`, `taga motors`, `taga motos`, `tbotek`, `tell m`, `tenacious bee collective`, `tenacious bee collr`, `third wave`, `trancxn`, `youtube`
 
 **Articles:** `bandma`, `deepfake`, `enrission`, `harsh deodhar`, `kenvue`, `kimberly`, `lava international`, `myjar`, `ofbusiness`, `pharmaceutical`, `review.inc42@gmail.com`, `ship roc`, `shipr`, `shipro`, `tenacious bee collective`, `transxcn`, `wheelse6wll`, `wheelsey3`, `zulu`
 
@@ -474,11 +687,45 @@ Ten minutes with Ritvik or Anmol settles it. It changes how much of §9 applies.
 
 Note the shape: partial words (`ultravio`, `simple ener`, `rugr`, `bg`, `pl`), generic nouns (`river`, `sugar`, `burger`, `safari`), people (`aman gupta`, `tanmay bhat`), themes (`fintech`, `ai startups`, `series a`, `unicorns`). Only a minority are clean entity lookups.
 
+### 6 Sep baseline — the exact-match failures that prove root cause #1
+
+| Query | v2 result | v1 result | Correct answer |
+|---|---|---|---|
+| `cred` | CredR, InCred Holdings, InCred — **CRED absent from 15 rows** | **CRED at rank 1** | CRED (`C-2623`, indexed) |
+| `ola` | Manam Chocolate, Prolance, **Ola at r3** | **Ola at rank 1** | Ola |
+| `navi` | Navixel, Navigatio Asia, **Navi at r3** | **Navi at rank 1** | Navi |
+| `sugar` | Sugar Watchers, Sugar Capital, Sagar A. | Sugar Watchers, Orange Sugar, SUGAR Cosmetics (r3) | SUGAR Cosmetics |
+| `vip` | Gaurav Vij, Raman Vig, VIB | Vipralok, VipraLabs, Vipswallet | VIP Industries — **absent from both** |
+| `inox` | INOX Renewable Solutions, EQUINOX'S DRONES, Maruti Inox | Maruti Inox, Inox Importers, Artikel Inox | INOX — **absent from both** |
+| `apax` | **0** | Apex, Appx, AppX | Apax Partners — **absent from both** |
+| `ultravio` | **0** | Hosting Ultraso, Ultraviolette (r2) | Ultraviolette Automotive |
+| `zepto` | **Zepto** r1, Zeptoh, Zepto Microwave | — | ✅ |
+| `swiggy` | **Swiggy** r1 | — | ✅ |
+| `rapido` | **Rapido** r1 | — | ✅ |
+| `plum` | **Plum** r1, **Plum** (dupe), Superplum | — | ✅ but duplicated |
+| `yubi` | **Yubi** r1 | — | ✅ |
+| `aman gupta` | **Aman Gupta** ×6 (all duplicates) | Aman Gupta r1 of `person` | ✅ but 6 dupe records |
+| `fintech` | **Fintech (INDUSTRY)** + sector filter | MyLead FinTech, Spay Fintech | **v2 correct** |
+| `peak xv` | **Peak XV Partners (INVESTOR)** + portfolio | — | **v2 correct** |
+| `zomto` (typo) | **Zomato** + `did_you_mean` | Zomato, TOMTO LEMON | **v2 correct** |
+
+The pattern: **v2 wins on typo, topic and investor-portfolio resolution; v1 wins on exact-name lookup.** Neither is correct on its own. Track B's job is to give v2 v1's exact-match behaviour without losing what v2 already does well.
+
 ## Sources
 
 - PostHog [Inc42 App (146258)](https://eu.posthog.com/project/146258) — `search_performed`, 11–30 Aug 2026
 - PostHog [Inc42 DataLabs (66351)](https://eu.posthog.com/project/66351) — `Search Completed`, 30 days
-- Live APIs: `datalabs-api.inc42.com/header/global-search`, `/company/new-search`, `/inc42/company/factsheet/`
+- Live APIs: `datalabs-api.inc42.com/header/global-search`, `/header/global-search-v2`, `/company/new-search`, `/inc42/company/factsheet/`
 - `https://inc42.com/wp-json/wp/v2/search` and `/posts` (55,562 articles)
 - Frontend source: `https://inc42.com/wp-content/themes/inc42/js/main.min.js`
 - Prior docs: `app-search-defects.md` (23 Aug), `app-search-root-cause.md` (30 Aug)
+
+**6 Sep revision adds:**
+
+- Live re-test of v1 and v2 over a 30-query set drawn from Appendix A + B — result counts, ranks and latency (p50/p90/max)
+- Determinism runs: 6× `green hydrogen`, 8× `shipr` on each engine
+- **The real user-facing search pages**, not just the APIs: `https://inc42.com/?s=<query>` for `cred`, `zomato`, `fintech`, `startup`, `funding`; plus `/datalabs/`, `/company/`, `/company/zomato/` to locate v2
+- Frontend source: `https://inc42.com/wp-content/themes/inc42/js/src/inc42-algolia-search.js` and the full enqueued-script list of the search page — the evidence for root cause #0
+- Probe scripts (session scratchpad): `probe.py` (v1/v2 single queries), `regress.py` (v2 regression + latency), `cmp2.py` (v1-vs-v2 comparison), `art.py` (article REST latency/precision), `rank.py` (`new-search` paging)
+
+**Method note.** Root cause #0 and root cause #1 were both found by driving the product, not the APIs behind it. Every prior version of this document tested endpoints and concluded the engines were roughly working. Future search audits should start from the user-facing surface and work inward.

@@ -211,7 +211,9 @@
       "WebFetch(domain:razorpay.com)",
       "WebFetch(domain:www.outlookmoney.com)",
       "WebFetch(domain:the-ken.com)",
-      "WebFetch(domain:rizevault.razorpay.com)"
+      "WebFetch(domain:rizevault.razorpay.com)",
+      "mcp__claude_ai_Figma__use_figma",
+      "mcp__claude_ai_Figma__get_screenshot"
     ]
   }
 }
