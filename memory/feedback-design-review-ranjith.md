@@ -50,3 +50,11 @@ reasoning, and flag what needs real data before it can ship. He edits Figma fram
 between turns, so **re-read the file before assuming your last state holds**, and treat his
 edits as the new baseline. Related: [[feedback-communication-style]],
 [[feedback-ui-mockup-research-first]], [[reference-figma-mcp-build-techniques]].
+
+**"Different designs" means different STRUCTURE, shown in the real screen (6 Sep 2026).** Round 2's
+fifteen "UI types" were rejected as "coming with the same design" because they varied the mechanic
+on the same card; Satya's folder round was praised for being an object, but he then refused
+fifteen folder variants. What he wants: fifteen different *structures* for the same content
+(inbox, checklist, memo, graph, table, changelog…), each placed inside the actual app screen
+with the live greeting header and nav — not floating cards. See
+[[project-inc42-brief-entry-round3-15-structures]].

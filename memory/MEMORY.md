@@ -69,7 +69,9 @@
 - [Brief impact + continuity (5 Sep)](project-inc42-brief-impact-continuity.md) — ranking has NO story-level importance signal; impact score validated, hero on 57% of weekdays
 - [Brief entry — Referencing page round (5 Sep)](project-inc42-brief-entry-referencing-page.md) — A/B/C/D spectrum on Wed 5 Aug + B on 4 failure days, page 476:2; B recommended, unreviewed
 - [Brief entry round 2 — 15 UIs (5 Sep, late)](project-inc42-brief-entry-round2-15-uis.md) — 15 mechanics on Referencing page y=3000+; real inc42.com reader counts; in-app counts too small to show; unreviewed
+- [Brief entry round 3 — 15 structures in the real screen (6 Sep)](project-inc42-brief-entry-round3-15-structures.md) — Referencing page y=7900+; inbox/checklist/memo/graph/table/changelog…; unreviewed
 - [Brief entry coverage shell (5 Sep)](project-inc42-brief-entry-coverage.md) — row F: gated shell + trigger-strip ladder, 61-day backtest; 27% no company, AI zero on 50% weekdays
+- [Companies in brief — mention types (6 Sep)](project-inc42-brief-companies-mention-types.md) — 1,179 articles classified into 18 mention types; median weekday 11 tagged cos / 8 data-backable; layoffs only 9 in 90d; CMS dev-type cannot route
 - [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary only 93%-covered field; real defect is row ORDERING
 - [Search diagnosis, all 3 surfaces (30 Aug)](project-inc42-app-search-root-cause.md) — app zero-results = per-keystroke flooding not missing content; DEFERRED "improve search performance" bucket holds Ranjith's open symptoms (exact word e.g. `cred` misses; irrelevant results)
 - [Deep linking](project-inc42-deep-linking.md) — newsletter links fail (Safari not app); root cause CIO click-tracker
