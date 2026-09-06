@@ -1,0 +1,4 @@
+.DS_Store
+sync.log
+*.icloud
+node_modules/

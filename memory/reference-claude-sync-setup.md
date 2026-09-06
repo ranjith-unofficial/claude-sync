@@ -42,3 +42,12 @@ Related: [[reference-tools-stack]], [[feedback-shared-system-safety]]
 Cited files that no longer exist anywhere on the Mac (lost when a session ran `rm -f ~/Downloads/*.csv`, or never kept): `DPDP_Input Sheet - Inc42 FILLED.xlsx`, `Comparison - Sheet1.csv`, `42_posts (1).csv`, `p (4).csv`, `inc42_brief_scorer.py`. Deliberately NOT synced: `hiring-agent-workflow.json` (plaintext Keka OAuth secret — see [[reference-inc42-keka-api-access]]).
 
 **Not covered by iCloud, must be redone on a new laptop:** Claude login; `~/.claude.json` MCP servers (mobbin global; figma, notion, asana are project-scoped to `/Users/thrillophilia`, so the username must match or they must be re-added); the `posthog` plugin; the Claude-in-Chrome extension; `git clone` of `~/inc42-context` (GitHub repo is actually `ranjith-unofficial/master-brain`, despite the skill saying `inc42-context`) because the SessionEnd hook calls `$HOME/inc42-context/bin/capture-session.sh`; a github.com credential in Keychain; then run `ClaudeSync/bin/claude-sync-link.sh`.
+
+**Second-laptop validation, 2026-09-06 afternoon (new Mac user is `cepl`, not `thrillophilia`).** Findings from that Mac and fixes made here:
+- `skills/meeting-intake` was an absolute symlink into `/Users/thrillophilia/inc42-context`, so it dead-ended on the other Mac. Recreated as a relative link (`../../../../../inc42-context/skills/meeting-intake`), which resolves on any Mac once `~/inc42-context` is cloned. Any future skill that lives in inc42-context must be linked relatively the same way.
+- `outputs/inc42/event-auditor/node_modules` (18 MB, 176 Playwright files) was churning through iCloud and every git snapshot. Deleted; regenerate with `npm install` in that folder. `node_modules` is now excluded in `claude-sync-backup.sh` and in a `.gitignore` at the store root (the old .gitignore lived only in the backup repo and rsync --delete kept removing it).
+- Verification hash must be null-delimited (`-print0 | sort -z | xargs -0 md5 -q | md5 -q`); 21 store paths contain spaces.
+- `find ~/ClaudeDocs` returns 0 on a symlink; always use `find -L` or a trailing slash.
+- `master-brain` is a PRIVATE GitHub repo, so the new Mac needs GitHub auth (gh or SSH key) before it can clone `~/inc42-context`. Until then its SessionEnd capture hook fails every session.
+- The new Mac's Stop hook already ran `git init` in `~/ClaudeSyncBackup` but made no commit (timed out); that directory should be deleted and replaced by a clone of the `claude-sync` GitHub repo once Ranjith creates and pushes it.
+

@@ -16,7 +16,7 @@ if [ ! -d "$REPO/.git" ]; then
 fi
 
 rsync -a --delete \
-  --exclude '.DS_Store' --exclude 'sync.log' --exclude '*.icloud' --exclude '.git' \
+  --exclude '.DS_Store' --exclude 'sync.log' --exclude '*.icloud' --exclude '.git' --exclude 'node_modules' \
   "$ICLOUD/" "$REPO/"
 
 git -C "$REPO" add -A
