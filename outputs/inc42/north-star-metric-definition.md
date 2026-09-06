@@ -75,7 +75,11 @@ Measured gap between someone's 1st and 2nd active day:
 
 ## 4. Defining "qualified" — the ICP
 
-Qualification is **per product**, because the products have different buyers. A person is Qualified if they match the ICP of the product they used.
+**A person is Qualified if they match the ICP of ANY Inc42 product — not only the one they happen to be using.**
+
+This matters because the products have genuinely different buyers. A Sales & Marketing professional converts on DataLabs at 2.21%, but is an ordinary reader on Media. If we qualified people only against the product they arrived on, that person would be invisible — despite being one of our better prospects.
+
+**So the per-product ICP below is a routing table, not a gate.** It answers "which product should this person be shown?", and QIA counts everyone who is a candidate for at least one.
 
 ### Evidence: Media — who actually pays
 
@@ -129,6 +133,34 @@ Derived from `User_Profile_Fixed`, DataLabs' own computed persona field (40,411 
 - **Legacy base:** a one-time re-ask of everyone currently sitting on "Other". Until that runs, those people remain provisionally qualified and are reported as a separate line so the exposure is visible.
 
 **91 of Media's 438 QIA (21%) currently rest on this provisional rule.** If "Other" were excluded tomorrow, Media QIA drops to 347.
+
+### Every qualified profile, and why
+
+| Profile | Qualified for | Why — and the evidence |
+|---|---|---|
+| **Founder** | Media · DataLabs · IP · App | Best Media buyer at **2.07% (1.8x avg)**, and converts on DataLabs too (Founder/CXO 1.70%). Senior enough for IP. |
+| **CXO** | Media · DataLabs · IP · App | Second-best Media buyer at **1.77% (1.6x)**. Clears the IP bar by definition. |
+| **Senior Mgmt / VP** | Media · DataLabs · IP · App | **1.58% (1.4x)** on Media. The lowest band that still clears IP's senior-manager-and-above rule. |
+| **Investor** | DataLabs · Media · IP | **The best-converting segment anywhere in the business — 4.60% on DataLabs, 2.5x average.** Deal data is their working tool. |
+| **Sales & Marketing** | **DataLabs** · Media | **2.21% on DataLabs, 1.2x average — the second-best converting persona we have.** They buy company and funding data for prospecting and market intelligence. On Media they read like anyone else; the DataLabs intent is invisible until we surface it. |
+| **Market Researcher** | DataLabs | **1.34%** — below DataLabs average but a real, repeat buyer, and our single largest persona at 46% of the classified base. |
+| **Middle Management** | Media · DataLabs | Sits above the junior bar. Payer signal is positive (5.7%) but rests on only 6 payers — **weak evidence, revisit when n grows.** |
+| **Other** *(provisional)* | Media | **0.91%** — half of average but non-zero. Composition unknown; provisional until re-asked. |
+| **Junior Management** | *none* | **0.65% (0.6x)** on Media, cannot expense DataLabs, below the IP bar. Stays in IA. |
+| **Student** | *none* | **0.20% (0.2x)** — 10x less likely to pay than a founder. Stays in IA. |
+
+### Qualification only counts if we cross-promote
+
+**A Sales & Marketing person who registers on Media is qualified — but they will never buy DataLabs if Media never tells them DataLabs exists.** The same is true of every cross-product case in the table above: investors reading Media, founders who have never seen the summit calendar, researchers who only know us as a news site.
+
+**This makes cross-promotion a dependency of the metric, not a marketing nice-to-have.** QIA counts people who *could* buy something of ours. The gap between that and revenue is entirely whether we communicated.
+
+Two things follow, and both are real work:
+
+- **Cross-surface usage is 1.6–3.4% today.** That is the current state of cross-promotion, and it is close to zero. Until it moves, most of QIA is theoretical.
+- **Media cannot currently route anyone to DataLabs, because it does not capture function.** DataLabs qualification runs on persona (Investor, Sales & Marketing, Market Researcher) — a *function* axis. Media captures *seniority*. Its `Function` field holds **40 records**. So we can see that a Media reader is "Senior Management" but not that they are in sales, and therefore cannot know they are a DataLabs prospect.
+
+**This is the strongest argument for asking job title.** Job title yields both axes — seniority *and* function — from one free-text question. Without function, cross-promotion is guesswork and the ICP table above cannot actually be applied to Media traffic.
 
 ### Naming the segments
 
