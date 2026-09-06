@@ -1,11 +1,11 @@
 ---
 name: project-inc42-app-search-root-cause
-description: "Inc42 search failure root cause (30 Aug 2026) + Ranjith's open symptoms for the deferred search-performance bucket (4 Sep 2026) — non-determinism from per-keystroke request flooding, not missing content; corrects the 23 Aug index-coverage diagnosis"
+description: "Inc42 search root cause across all surfaces, live-verified 6 Sep 2026 — inc42.com article search returns NOTHING (dead Algolia wiring); `cred` misses CRED on DataLabs v2 for want of an exact-match boost; v1-vs-v2 is a recall/precision trade-off so 'migrate to v2' is now gated"
 metadata: 
   node_type: memory
   type: project
   originSessionId: 300a6e51-1907-4a2e-97de-6fec672f48be
-  modified: 2026-09-06T14:59:14.114Z
+  modified: 2026-09-06T14:59:28.479Z
 ---
 
 Investigated 30 Aug 2026 with live API replay + PostHog. **The dominant cause of app search zero-results is NOT index coverage** — this corrects `app-search-defects.md` (23 Aug), which blamed content gaps.
