@@ -12,7 +12,7 @@ Ranjith is hiring a **Product Trainee** for his own Product & AI team at Inc42 �
 
 **Role facts (confirmed 2026-08-17):**
 - Keka job GUID `a21660ea-028d-40d4-a4b7-707d6523cf6f`; public JD `inc42.keka.com/careers/jobdetails/155271`
-- JD file: `~/Downloads/Product Associate_APM.docx.md`
+- JD file: `~/ClaudeDocs/inc42/sources/Product Associate_APM.docx.md`
 - **545 applicants already in Keka** (bigger than FOA's 397). 243 pass the pay + experience gates.
 - Budget **₹3–5L**; Delhi; JD asks for 6+ months in Product/Analytics/Growth, BigQuery/PostHog/GA4/Mixpanel/Amplitude, n8n automations, AI fluency
 
@@ -37,7 +37,7 @@ Ranjith is hiring a **Product Trainee** for his own Product & AI team at Inc42 �
 
 **Status (2026-08-17):** `PT Calibration` tab is **live and waiting on Ranjith's 20 blind grades** — 20 stratified applicants (6 at 6–12mo, 6 at 1–2y, 4 at 2–3y, 4 at 3y+), bands interleaved, resume links + dropdown. Sheet `1nxnP-rhbJCussb4z8bEKbehDe-eY2XyDU_kL_dNXjGs`. Agent columns stay blank until he submits, to keep the blind. Cost so far ₹0.
 
-**How to apply:** do NOT spend on screening until his 20 grades are in and the agent has been measured against them. This is the ground truth that has been missing across the whole project — see [[project-inc42-hiring-agent]] for why (FOA agreement went 1/11 → 8/11 only after calibration). Estimated full run ~₹389 for 243 candidates; needs his explicit go. Approved plan lives at `~/.claude/plans/modular-brewing-toucan.md`.
+**How to apply:** do NOT spend on screening until his 20 grades are in and the agent has been measured against them. This is the ground truth that has been missing across the whole project — see [[project-inc42-hiring-agent]] for why (FOA agreement went 1/11 → 8/11 only after calibration). Estimated full run ~₹389 for 243 candidates; needs his explicit go. Approved plan lives at `~/ClaudeDocs/inc42/plans/modular-brewing-toucan.md`.
 
 **Still open:** whether any background is a negative in itself (question skipped; currently defaulting to "judge on evidence only") — confirm before the hiring-manager brief is finalised.
 

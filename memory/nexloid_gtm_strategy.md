@@ -8,7 +8,7 @@ metadata:
   modified: 2026-08-17T18:20:15.218Z
 ---
 
-Go-to-market decisions for [[nexloid-product]], derived from the Aug 2026 research in [[nexloid-competitive-landscape]]. Full dossier lives at `/Users/thrillophilia/nexloid-launch-dossier.html` (standalone HTML, 14 sections, all sources linked).
+Go-to-market decisions for [[nexloid-product]], derived from the Aug 2026 research in [[nexloid-competitive-landscape]]. Full dossier lives at `~/ClaudeDocs/nexloid/nexloid-launch-dossier.html` (standalone HTML, 14 sections, all sources linked).
 
 **Build state at time of writing (Aug 2026):** site scrape + audit report working, GTM auto-install working. Solo founder, ₹1–3L budget, 6-month horizon, alongside the INC42 job.
 

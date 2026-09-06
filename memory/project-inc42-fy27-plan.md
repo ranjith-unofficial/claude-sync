@@ -8,7 +8,7 @@ metadata:
   modified: 2026-08-26T06:16:17.350Z
 ---
 
-**Utkarsh's FY27 Plan — Engines × Tracks**, LOCKED 2026-08-21. The authoritative horizon plan (Aug 2026→Mar 2027). File: `~/Downloads/PMTD MOP 2026.xlsx`, tab "FY27 Plan — Engines × Tracks" (the only tab to reference; the MOP tabs are per-month operating plans that SERVE these tracks). Supersedes/overarches [[project-inc42-strategy-utkarsh]]. Griffin is out of scope.
+**Utkarsh's FY27 Plan — Engines × Tracks**, LOCKED 2026-08-21. The authoritative horizon plan (Aug 2026→Mar 2027). File: `~/ClaudeDocs/inc42/sources/PMTD MOP 2026.xlsx`, tab "FY27 Plan — Engines × Tracks" (the only tab to reference; the MOP tabs are per-month operating plans that SERVE these tracks). Supersedes/overarches [[project-inc42-strategy-utkarsh]]. Griffin is out of scope.
 
 **Spine = the engine verbs (one person, any surface):** Acquire & Identify → Activate & Deepen → Retain & Renew. Every MOP row is a SURFACE (App/Datalabs/Web/Data) that "Serves" one of these journey-stage tracks — Monday serves-check enforces both directions.
 

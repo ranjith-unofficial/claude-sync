@@ -9,7 +9,7 @@ metadata:
 
 Age 25, male.
 
-Latest smart scale reading (2026-07-21, from fitness_1.jpeg/fitness_2.jpeg in ~/Documents):
+Latest smart scale reading (2026-07-21, from fitness_1.jpeg/fitness_2.jpeg in ~/ClaudeDocs/personal):
 - Weight: 94.35 kg
 - BMI: 35.10 (Very High / obese range)
 - Body Fat: 34.30% (Very High)

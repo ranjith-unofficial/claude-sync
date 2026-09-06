@@ -7,7 +7,7 @@ metadata:
   originSessionId: 59d37617-438d-4f64-9bd1-898ff0e69b64
 ---
 
-`~/Downloads/Agent Platform Brief.md` (dated 2026-08-13; read 2026-08-16). **Ranjith owns product; Utkarsh sponsors; engineering & data teams execute in defined lanes.** This is the concrete form of the "engine room" in [[project-inc42-strategy-utkarsh]] (§7b) — the internal-AI programme that is **A11 in the hypothesis ledger** ("an AI-native operation holds the product-org cost base flat while QIA scales 4×").
+`~/ClaudeDocs/inc42/sources/Agent Platform Brief.md` (dated 2026-08-13; read 2026-08-16). **Ranjith owns product; Utkarsh sponsors; engineering & data teams execute in defined lanes.** This is the concrete form of the "engine room" in [[project-inc42-strategy-utkarsh]] (§7b) — the internal-AI programme that is **A11 in the hypothesis ledger** ("an AI-native operation holds the product-org cost base flat while QIA scales 4×").
 
 **What it is:** internal AI agents that live in Slack channels, answer from INC42's own data with sources attached, do repeatable work for teams. NOT transferring one operator's personal setup — shipping the *patterns* as shared infrastructure so any team gets an agent without building plumbing.
 

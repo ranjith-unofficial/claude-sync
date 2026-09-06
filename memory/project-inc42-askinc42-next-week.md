@@ -35,7 +35,7 @@ Separate module from [[project-inc42-askinc42]] (which holds positioning/JTBD/pl
 
 ## Frontend release brief — "Ask Inc42 — August release brief (frontend)" (shared by Utkarsh to Ashish + Ritvik, read 2026-08-12)
 
-Source: `~/Downloads/Brief Ashish Release 2026 08.pdf`, 6 pages, Google Doc export. Supersedes `BRIEF-ASHISH-LANE-UX-CONTRACT.md`. This is the engineering contract behind the "deploy fast mode + streaming to Ask DataLabs first" decision. **Six items need frontend work; items 2–6 are flagged as the ones that can break on launch day.**
+Source: `~/ClaudeDocs/inc42/sources/Brief Ashish Release 2026 08.pdf`, 6 pages, Google Doc export. Supersedes `BRIEF-ASHISH-LANE-UX-CONTRACT.md`. This is the engineering contract behind the "deploy fast mode + streaming to Ask DataLabs first" decision. **Six items need frontend work; items 2–6 are flagged as the ones that can break on launch day.**
 
 **Already live in production (2026-08-02), no frontend action:**
 - 🔴 **Cross-session cache leak — fixed, but it was live.** Follow-up fragments shared **one global cache entry**, so a user asking "financials of company" could receive **another user's answer**. Now session-scoped. Worth a separate call on whether this counts as a reportable incident under [[project-dpdp-compliance]] breach-notification obligations.

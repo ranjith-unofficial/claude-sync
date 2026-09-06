@@ -76,7 +76,7 @@ Source: [[project-inc42-app-behaviour]]. Not a UI item, but breaks measurement o
 - Confirm error taxonomy via SQL, not the PostHog panel (it only samples recent values — 403s may be silently swallowed client-side)
 - Add `update_prompt_shown/dismissed/cta_tapped/update_completed` events if Thread 5's update-prompt work ships, or uptake is unmeasurable
 - **App load is slow; 429 too-many-requests errors observed; Datadog shows a 4.77% overall error rate** (surfaced 21 Aug, [[project-inc42-unification]]-adjacent funnel session, meeting id `417df34b...`) — verify under low-network conditions, not yet confirmed fixed as of 24 Aug.
-- **Flag/exclude internal users in PostHog** — now fully specified in the 25 Aug events-fix ticket (source: [[project-inc42-posthog-review]], confirmed 17 Aug, full doc at `~/Downloads/Posthog Review 2026 08 17.md`): add an `is_internal` person property (@inc42.com + pre-Aug-12 cohort) + a PostHog cohort applied as the default dashboard filter.
+- **Flag/exclude internal users in PostHog** — now fully specified in the 25 Aug events-fix ticket (source: [[project-inc42-posthog-review]], confirmed 17 Aug, full doc at `~/ClaudeDocs/inc42/sources/Posthog Review 2026 08 17.md`): add an `is_internal` person property (@inc42.com + pre-Aug-12 cohort) + a PostHog cohort applied as the default dashboard filter.
 
 **Events-fix Asana ticket, finalized scope (25 Aug):** https://app.asana.com/1/176734136274/project/1216274779493698/task/1217810326370973 — Ritvik, project Inc42 App. Went through two revisions same day: first draft was a wide multi-column table (unreadable), rebuilt as 5 short bulleted sections; then Ranjith cut it further to **only unambiguous, ready-to-build fixes** — anything needing a prior "verify/confirm" step was dropped from the ticket entirely, not just reworded. Final scope, 10 items across 5 groups:
 - Dead/duplicate events: remove `brief_open_today` (dead since Jul 13); dedupe `story_unsaved`+`company_untracked`+`industry_untracked` into one (all duplicate `watchlist_entity_removed`)
@@ -128,7 +128,7 @@ Source: [[project-inc42-fy27-plan]] (authoritative, supersedes [[project-inc42-s
 - **Reassurance, not a live conflict**: the 13 Aug strategy corpus (§11) once called the app "a PILOT, not the committed strategy — few hundred users, no store listing." The 21 Aug FY27 plan, which is more recent and explicitly LOCKED, states plainly **"App is the primary acquisition + engagement surface."** The later, locked doc supersedes the earlier one — no reconciliation needed, just don't cite the "app is a pilot" framing as current.
 
 ## Thread 10 — Ranjith's own canonical v2 scope doc, 19 Aug — found 25 Aug, was missing from the tracking sheet entirely
-Source: `~/Downloads/Inc42 App v2 Scope.md`. 11 workstreams, built directly on [[project-inc42-posthog-review]]'s 17 Aug findings + an 18 Aug deep-linking Slack thread + the event dictionary v1.4. This is a MORE authoritative source than the meeting-transcript compilation Threads 1–9 were built from — reconcile against it, don't just append.
+Source: `~/ClaudeDocs/inc42/sources/Inc42 App v2 Scope.md`. 11 workstreams, built directly on [[project-inc42-posthog-review]]'s 17 Aug findings + an 18 Aug deep-linking Slack thread + the event dictionary v1.4. This is a MORE authoritative source than the meeting-transcript compilation Threads 1–9 were built from — reconcile against it, don't just append.
 
 | # | Item | Priority | Status vs Threads 1–9 |
 |---|------|----------|------------------------|

@@ -1,6 +1,6 @@
 ---
 name: project-inc42-posthog-review
-description: "Utkarsh's PostHog review, CONFIRMED 2026-08-17 — full document found at ~/Downloads/Posthog Review 2026 08 17.md. Instrumentation audit (dark/off-spec events, property gaps, internal-user pollution, north-star redefinition) that directly fed Ranjith's 19 Aug v2 Scope doc"
+description: "Utkarsh's PostHog review, CONFIRMED 2026-08-17 — full document found at ~/ClaudeDocs/inc42/sources/Posthog Review 2026 08 17.md. Instrumentation audit (dark/off-spec events, property gaps, internal-user pollution, north-star redefinition) that directly fed Ranjith's 19 Aug v2 Scope doc"
 metadata:
   node_type: memory
   type: project
@@ -9,7 +9,7 @@ metadata:
 ---
 
 ✅ **RESOLVED 2026-08-25** — the date-ambiguity flag this file carried earlier is closed.
-Found the actual document on disk: **`~/Downloads/Posthog Review 2026 08 17.md`**
+Found the actual document on disk: **`~/ClaudeDocs/inc42/sources/Posthog Review 2026 08 17.md`**
 ("Inc42 App — PostHog Review, First Real-User Week (Aug 12–17)", dated **2026-08-17**,
 project PostHog `Inc42 App` 146258 eu.posthog.com). This IS the same review
 [[project-inc42-app-behaviour]] cited as the "17 Aug PostHog review" — confirmed by exact
@@ -34,7 +34,7 @@ single dashboard (BUILT, PostHog dashboard 901039) · §5 ranked action list.
 - Full ranked action list (§5): turn on the morning push · fix Summit deep-link attribution before 19 Aug · fix the cover cliff · ship the watchlist onboarding step · adopt engaged-completion as north star · the instrumentation punch-list (this is what became the Asana events-fix ticket, 25 Aug) · watch whether Explore still wins once the cliff is fixed.
 
 **This review is the stated source input for [[project-inc42-app-v2-scope-full]]'s Thread
-10** (`~/Downloads/Inc42 App v2 Scope.md`, Ranjith's own 19 Aug scope doc, item #1 "Updated
+10** (`~/ClaudeDocs/inc42/sources/Inc42 App v2 Scope.md`, Ranjith's own 19 Aug scope doc, item #1 "Updated
 events" is a direct synthesis of this review's §1).
 
 **How to apply:** before quoting any PostHog number for the app, check whether internal

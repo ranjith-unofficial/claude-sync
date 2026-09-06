@@ -12,7 +12,7 @@ Rebuilding the messy 45-tab "Inc42 App PRD — Consolidated" Google Doc
 (https://docs.google.com/document/d/1RJtcNEeOjHiQK6tDxm87MZ2a4uyq0ztFqPUaSYNmyxQ/edit)
 into real Google Docs Document Tabs (native sidebar tabs, not markdown-style headings)
 was PAUSED on 2026-08-30 in a partially-broken state. Source of full original content:
-`~/Downloads/Copy of Inc42 App Master PRD (2).md` (15,256-line full 45-tab export).
+`~/ClaudeDocs/inc42/sources/Copy of Inc42 App Master PRD (2).md` (15,256-line full 45-tab export).
 
 **Why paused:** mid-rebuild, signs of a live concurrent editor appeared in the doc
 (unrelated stray text about a "PostHog OAuth approval" typed into the "Launch

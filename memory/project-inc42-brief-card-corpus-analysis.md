@@ -91,7 +91,7 @@ Also unreconciled: this CSV's `sector` is **58% populated**, but
 ## Artefacts
 `~/ClaudeDocs/inc42/brief-card/` — `render_card.py` (rerunnable renderer + tile/bullet logic),
 `cards.txt` (all 61 days rendered), `backtest.csv` (per-day audit), `summaries.json` (750
-scraped summaries), `README.md`. Plan: `~/.claude/plans/eager-enchanting-clover.md`.
+scraped summaries), `README.md`. Plan: `~/ClaudeDocs/inc42/plans/eager-enchanting-clover.md`.
 
 **Why:** the card had been designed on dummy data nobody had checked against the corpus, and
 two of its three stat tiles are literally uncomputable on most real days. The summary — the one

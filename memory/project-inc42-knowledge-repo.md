@@ -81,7 +81,7 @@ Decision log renumbered **1–33**; handoff prompt updated to **9 tabs** (DataLa
 
 8 tabs, built by a separate Claude-in-Chrome session, manifest-verified byte-for-byte: 1 How to read this · 2 App · 3 Inc42 · 4 IPs · 5 Policies — T&C & Privacy · 6 Response rules · 7 🔴 Utkarsh input (internal) · 8 🔴 Decision log (internal). All 26 md tables rendered as real Docs tables. Both DO-NOT-INGEST banners intact.
 
-**Source files:** `~/Documents/AskInc42_Knowledge/*.md` (+ `docx/` builds). ⚠️ **Doc and MD files are now two copies — drift risk is live.** The weekly IP review must pick ONE side; decision pending with Ranjith (recommendation given: Doc wins, MD becomes a dated snapshot, ingestion exports from the Doc).
+**Source files:** `~/ClaudeDocs/inc42/AskInc42_Knowledge/*.md` (+ `docx/` builds). ⚠️ **Doc and MD files are now two copies — drift risk is live.** The weekly IP review must pick ONE side; decision pending with Ranjith (recommendation given: Doc wins, MD becomes a dated snapshot, ingestion exports from the Doc).
 
 **Handoff-transfer lessons worth reusing:** (1) always issue a **byte-count + md5 manifest** before a transfer — the first attempt raced my live edits and 5 of 8 tabs went stale; (2) **pasting into a populated Google Docs tab inherits the caret's character style** — a bold caret turned an entire tab bold and collapsed a table column; clear the tab + formatting (cmd+\) before re-pasting; (3) round-trip text verification out of Docs collides with the system clipboard.
 
@@ -100,7 +100,7 @@ Decision log renumbered **1–33**; handoff prompt updated to **9 tabs** (DataLa
 
 Ranjith rejected the single-document form — "if I dump everything into one document it doesn't make a lot of sense." Also: **no artifact**, plain MD files only, meant to be pasted into separate Google Doc tabs, and **zero pricing anywhere** (verified by grep — no ₹/INR/tier/discount tokens in any file).
 
-**Folder: `~/Documents/AskInc42_Knowledge/`**
+**Folder: `~/ClaudeDocs/inc42/AskInc42_Knowledge/`**
 | File | Ingest? |
 |---|---|
 | `00_README_Index.md` | map + cadences + owners |
