@@ -27,11 +27,19 @@ QIA is the right ambition. Its current arithmetic doesn't work: it's a binary fl
 |---|---|
 | **IA** — Identified Actives | People we can name **and** who did a qualifying action in the window |
 | **QIA** — Qualified Identified Actives | IA who match the **ICP of the product they used** |
-| **QIA Repeat Rate** | Of QIA, the share who returned on a **2nd separate day** in the window |
+| **Repeat Rate** | Share who returned on a **2nd separate day** in the window |
 
 > **Window = 15 days.**
 
-### Why 15 and not 7 or 30
+### What we optimise against — now vs later
+
+**Today we optimise on IA and Repeat Rate of IA. We do not optimise on QIA.**
+
+The qualified base is currently a few hundred people. At that size a single campaign or bug moves it 15%, and chasing it would produce decisions driven by noise. QIA is computed, tracked and reported from day one — it is simply not the number teams steer by yet.
+
+**The switch is a change of focus, not of definition.** All three definitions are fixed now and never change. When the QIA base clears **~1,000 people**, the operating focus moves from IA to QIA and Repeat Rate follows it. Nothing gets redefined — we start steering by a number that was always being measured.
+
+### Why 15 days and not 7 or 30
 
 Measured gap between someone's 1st and 2nd active day:
 
@@ -55,11 +63,11 @@ Measured gap between someone's 1st and 2nd active day:
 | **Reach** | Anonymous | Nothing yet. Raw material. |
 | **IA** | We know who they are | **Now reachable.** Can be emailed, retargeted, invited. |
 | **QIA** | They match a product's ICP | **Now sellable to.** The addressable base for DataLabs, IP, and any Media subscription. |
-| **QIA Repeat** | They keep coming back | **Now likely to convert and renew.** Nobody buys something they visited once. |
+| **Repeat** | They keep coming back | **Now likely to convert and renew.** Nobody buys something they visited once. |
 
 **The chain:** Reach → we know them → they're the right kind of person → they have a habit → they buy.
 
-**Where the money actually comes from:** DataLabs and IP are the two monetisable lines. Both are sold to *people*, and both have a seniority floor — a junior analyst cannot expense DataLabs, and IP is invitation-grade. **QIA is the number that says how many people we have who can actually buy.**
+**Where the money actually comes from:** DataLabs and IP are the two monetised lines. Both are sold to *people*, and both have a floor — a junior analyst cannot expense DataLabs, and IP is senior-only by design. **QIA is the number that says how many people we have who can actually buy.**
 
 **Honest limit:** reader-to-payer conversion in media sits near 1.4% and is a hard category norm. QIA rising 10x does not make revenue rise 10x. But **`payers ÷ QIA` is the metric when money becomes the focus — QIA is its denominator.** Building it now is not a detour.
 
@@ -67,13 +75,13 @@ Measured gap between someone's 1st and 2nd active day:
 
 ## 4. Defining "qualified" — the ICP
 
-Qualification is **per product**, because the products have different buyers.
+Qualification is **per product**, because the products have different buyers. A person is Qualified if they match the ICP of the product they used.
 
-### How we derived it
+### Evidence: Media — who actually pays
 
-Three cohorts compared on Media — the whole identified base, 15-day actives, and everyone who has ever paid (Plus/Pro):
+Whole identified base vs everyone who has ever paid (Plus/Pro):
 
-| Seniority | Base | Payers | **Payer rate** | vs average |
+| Seniority | Base | Payers | **Payer rate** | vs avg |
 |---|---|---|---|---|
 | **Founder** | 5,276 | 109 | **2.07%** | **1.8x** |
 | **CXO** | 1,472 | 26 | **1.77%** | **1.6x** |
@@ -82,35 +90,56 @@ Three cohorts compared on Media — the whole identified base, 15-day actives, a
 | **Junior mgmt** | 5,552 | 36 | **0.65%** | **0.6x** |
 | **Student** | 4,929 | 10 | **0.20%** | **0.2x** |
 
-**A founder is 10x more likely to pay than a student, and 3x more likely than junior management.** This confirms the thesis: seniority gates purchase, and it does so steeply.
+**A founder is 10x more likely to pay than a student, and 3x more likely than junior management.** Seniority gates purchase, steeply.
 
-**Who's actually active on Media right now (15d, by role):** Founder 181 · Other 106 · Senior/VP 102 · Junior mgmt 98 · Student 39 · Middle mgmt 38 · CXO 36 · Investor 14.
+**Who is active on Media now (15d, by role):** Founder 181 · Other 106 · Senior/VP 102 · Junior mgmt 98 · Student 39 · Middle mgmt 38 · CXO 36 · Investor 14.
 
-**DataLabs payer data is confounded and excluded from this derivation.** Its payer rates correlate with *snake_case vs spaced* role values (`founder_owner_ceo` 4.33% vs `founder` 0.45%) — a form-vintage artifact, not a behavioural difference. Newer onboarding forms were used on paid flows. **Do not read DataLabs ICP off this data until the vocabularies are merged.**
+### Evidence: DataLabs — a completely different buyer
+
+Derived from `User_Profile_Fixed`, DataLabs' own computed persona field (40,411 records). This field is applied uniformly, so unlike the seniority dropdown it is not confounded by which onboarding form someone filled.
+
+| Persona | Base | Payers | **Payer rate** | vs avg |
+|---|---|---|---|---|
+| **Investor** | 3,064 | 141 | **4.60%** | **2.5x** |
+| **Sales & Marketing** | 6,284 | 139 | **2.21%** | **1.2x** |
+| Founder/CXO | 12,206 | 208 | 1.70% | 0.9x |
+| **Market Researcher** | 18,203 | 243 | **1.34%** | **0.7x** |
+| Other | 653 | 0 | 0% | — |
+
+**DataLabs is investor-first.** On Media, founders convert best. On DataLabs, investors convert at 2.5x average and founders sit *below* average.
+
+**The uncomfortable finding: Market Researcher is DataLabs' largest segment — 46% of the classified base — and its worst-converting. The biggest audience is the wrong audience.**
 
 ### The ICP per product
 
-| Product | Who can realistically buy | **Qualified (counts to QIA)** | Not qualified |
+| Product | **Qualified — counts to QIA** | Not qualified | Basis |
 |---|---|---|---|
-| **DataLabs** | Needs budget authority | Founder · CXO · VP/Director · Partner · Principal · **Analyst/Associate at investor or research firms** · Market researchers | Students · junior mgmt without budget |
-| **IP / Summits** | Invitation-grade only | Founder · CXO · Partner · VP+ | Everyone below VP |
-| **Media** (if subscribed) | Broadest — juniors possible, lower propensity | All seniority levels in-market | Students |
-| **App** | Free — widest | Everyone in-market | Students |
+| **Media** | All in-market seniority levels, including junior management | Students · out-of-market roles (SEO, link-building, guest-post) | Payer data above — every in-market band converts, juniors at 0.65% |
+| **DataLabs** | Investor · Sales & Marketing · Founder/CXO · Market Researcher | "Other" persona (0% conversion) · students | Persona payer data above — all four convert |
+| **IP / Summits** | **Senior Manager and above**, any company type | Everyone below senior manager | Admission is senior-only by design |
+| **App** | Anyone matching the **Media, DataLabs or IP** ICP | Only those matching none | The App is generic — it feeds all three |
 
 ### Naming the segments
 
-| Name | Who | Media evidence |
-|---|---|---|
-| **Proven buyers** | Segments that have already paid | Founder, CXO, Senior/VP — all over-index |
-| **Probable buyers** | Same profile, haven't paid yet | The 181 active founders, 102 senior, 36 CXO not yet on a plan |
-| **Audience** | Qualified, but not this product's buyer | Junior mgmt for DataLabs; anyone sub-VP for IP |
-| **Out of market** | Never qualifies | Students (0.2% payer rate), SEO/link-building, unusable roles |
+| Name | Who |
+|---|---|
+| **Proven buyers** | Segments that already pay — Media: Founder, CXO, Senior/VP · DataLabs: Investor, Sales & Marketing |
+| **Probable buyers** | Same profile, haven't paid yet — the 181 active Media founders, 102 senior, 36 CXO not on a plan |
+| **Audience** | Qualified for one product, not this one — junior mgmt for IP; Market Researcher for Media |
+| **Out of market** | Never qualifies — students (0.2% payer rate), SEO/link-building, unusable roles |
+
+### Caveats on the derivation
+
+- **Survivorship bias.** People who paid are people who hit a paywall, i.e. were already engaged. Part of both gradients measures engagement, not fit. Should be re-run within equally-engaged cohorts.
+- **Thin cells on Media.** 304 payers with a role across six buckets; CXO (26) and Student (10) are small. Direction is sound; the multiples are not precise.
+- **Mixed eras.** "Ever paid" counts a 2021 churner the same as an active subscriber.
+- **DataLabs seniority is unusable** for this purpose — payer rate there tracks the *format* of the role value (`founder_owner_ceo` 4.33% vs `founder` 0.45%), a form-vintage artifact. The persona field above is used instead, and the seniority field must not be used for DataLabs ICP until vocabularies are merged.
 
 ---
 
 ## 5. Where we stand today
 
-**15-day window, identified = has an email** (the full definition is stricter — see §6, and these will drop):
+**15-day window, identified = has an email** (the full definition is stricter — see §6, and these numbers will drop):
 
 | | Media | App | DataLabs | IP |
 |---|---|---|---|---|
@@ -120,7 +149,7 @@ Three cohorts compared on Media — the whole identified base, 15-day actives, a
 | **Repeat Rate-15** | **47.6%** | **54.7%** | unknown | unmeasured |
 | Median time to 2nd day | 2 days | **1 day** | unknown | unmeasured |
 
-**Under the full definition** (email + job title + company), Media's 30-day IA drops from 1,389 to **571**. QIA will be smaller again once ICP is applied.
+**Under the full definition** (email + job title + company), Media's 30-day IA drops from 1,389 to **571**. QIA will be smaller again once ICP is applied — which is why the operating focus is IA today.
 
 **Two facts that should drive planning:**
 
@@ -146,13 +175,15 @@ Three cohorts compared on Media — the whole identified base, 15-day actives, a
 
 ## 6. What we collect
 
-> **Identified = (Email or Phone) + Job Title + Company Name**
+> **Identified = Email + Job Title + Company Name**
+
+App login is email-OTP, so **email is the identifier across every surface.** Phone is optional enrichment and gates nothing.
 
 **Asked — 3 required, 1 confirmation:**
 
 | Field | Required |
 |---|---|
-| Email or phone | Yes — whichever the login uses |
+| **Email** | Yes |
 | **Job title** (free text) | Yes |
 | **Company name** (autocomplete) | Yes |
 | Seniority + Function | Pre-filled from job title, one tap to correct |
@@ -181,6 +212,22 @@ Every field carries `captured_at` and `source`. **Role goes stale after 24 month
 
 The standalone dropdown must not be reused as-is — it mixes seniority, role type and life stage. The result is already visible: **192 people picked "Investor" as their seniority while working at early-stage startups.**
 
+### Current field coverage — Media (10,473,428 person records)
+
+| Field | Populated |
+|---|---|
+| Any email field | 126,849 |
+| `email` specifically | 92,868 |
+| **Company Name** | **73,205** |
+| Seniority ∪ Designation | 54,725 |
+| Industry | 7,106 |
+| Company Type | 948 |
+| Function | **40** |
+| Interests | **40** |
+| City | **7** |
+
+**We are not missing the fields. We are missing the asking.**
+
 ### What counts as a qualifying action
 
 Utkarsh's 10 criteria, adopted as-is. Three flags:
@@ -199,14 +246,17 @@ It is **one** north star — QIA. IA is its input and Repeat Rate is its quality
 **"Isn't this just QIA renamed?"**
 Same name, same ambition, working arithmetic. Three changes: qualification comes from **ICP fit** rather than a form field being filled; the window is **15 days** rather than 30; and repeat behaviour is measured rather than assumed.
 
+**"Why are we steering by IA and not QIA?"**
+Because the qualified base is a few hundred people and would swing 15% on a single bug. QIA is measured and reported from day one; we start steering by it when it clears ~1,000. **Definitions never change — only which one we optimise against.**
+
 **"Why is the number so small?"**
 Because it's true. Media has 571 people meeting the full identified bar. The honest number is the one that can go down.
 
 **"Won't gating fix identification overnight?"**
-It would, and it would also destroy reach. **Total reach is published beside QIA every time. Any gain that arrives with a reach drop does not count.**
+It would, and it would also destroy reach. **Total reach is published beside IA every time. Any gain that arrives with a reach drop does not count.**
 
 **"Students and juniors read us — are we writing them off?"**
-No. They're **Identified, not Qualified for DataLabs or IP**. They still count in IA, still get served, still convert to Media subscriptions at 0.65–0.2%. They just aren't the addressable base for the two products we monetise.
+No. They're **Identified, and qualified for Media** — juniors convert at 0.65%. They are not qualified for IP (senior-only) and students qualify nowhere. They still count in IA, still get served.
 
 ---
 
@@ -225,16 +275,37 @@ No. They're **Identified, not Qualified for DataLabs or IP**. They still count i
 
 **Pipeline**
 8. Media's PostHog→warehouse export **exists but has been paused since ~29 July** — find out why before un-pausing. DataLabs and App have none.
-9. **Do not merge the PostHog projects.** Keep streams separate, unify downstream. **A person-level metric cannot be computed inside PostHog** — the same DataLabs window returns 199 or 2,001 people depending on query shape. It must run on `unified_contact_id` in BigQuery.
-10. **IP/summits is entirely unmeasured** despite attendees handing over full details in person — structurally our highest-yield identification surface.
+9. **Do not merge the PostHog projects.** Keep streams separate, unify downstream. **A person-level metric cannot be computed inside PostHog** — the same DataLabs window returns 199 or 2,001 people depending on query shape, because person-on-events stores properties as event-time snapshots. It must run on `unified_contact_id` in BigQuery.
+10. **IP/summits is entirely unmeasured** despite attendees handing over full details in person — structurally our highest-yield identification surface. `silver.events` already holds registrations and paid tickets; it needs to be wired into the same computation.
 
 ---
 
-## 9. Open items
+## 9. What we need to confirm about `contact_360` and `company_360`
 
-1. **Confirm with Prapti** — `contact_360` (328K contacts), `company_360` (75K companies), `silver.events` are cited from repo documentation, not a live read.
-2. **Confirm App auth** — if OTP/phone-based, phone is the primary identifier, not email.
-3. **Re-derive the DataLabs ICP** once role vocabularies are merged. Current payer rates are a form-vintage artifact.
-4. **Ratify the per-product ICP table in §4** — a reasoned hypothesis from Media payer data, not yet validated on DataLabs or IP.
-5. **Audit the 10 activation criteria** against what actually fires, filtered to identified people only.
-6. **Re-derive the repeat line** once scroll depth lands.
+The whole metric computes against these two tables. Four things must hold for `contact_360`:
+
+| Question | Why it decides the metric |
+|---|---|
+| Does `unified_contact_id` survive one person appearing in two systems under **different emails**? | If not, every cross-product count double-counts |
+| Which source **wins** when role or company conflict across the 7+ inputs? | Determines whether QIA reflects the newest answer or the oldest |
+| Is there a **timestamp per field**, or only per record? | Without per-field dating, the 24-month decay rule cannot be implemented |
+| Does it hold **PostHog behaviour**, or only CRM/transactional data? | Per repo docs it holds neither — meaning "Active" cannot be computed there yet |
+
+Three for `company_360`:
+
+| Question | Why |
+|---|---|
+| What is the **match rate** from free-text company name to a `company_360` row? | This single number decides whether 73,205 names become ~70,000 resolved employers or ~20,000 |
+| Does it carry **company type and size**, or only sector? | We need type and size; sector alone qualifies nobody |
+| Does it cover **non-startup** employers — VCs, corporates, agencies, universities? | Investors are DataLabs' best-converting segment, so VC coverage is critical |
+
+**The blunt version: if `company_360` matches well, this metric works. If it matches badly, we are back to asking people for their employer type — the field with 948 records.**
+
+---
+
+## 10. Remaining validation
+
+1. **Re-run both payer gradients controlling for engagement**, to separate ICP fit from paywall exposure.
+2. **Audit the 10 activation criteria** against what actually fires, filtered to identified people only.
+3. **Re-derive the repeat line** once scroll depth lands and changes what counts as a qualifying action.
+4. **Confirm the `contact_360` / `company_360` answers in §9** with Prapti before build starts.
