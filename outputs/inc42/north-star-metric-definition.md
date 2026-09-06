@@ -1,357 +1,240 @@
-# Inc42 Audience Measurement — Metrics & Identity Definition
+# Inc42 Audience Metric — Definition
 
-**Date:** 7 September 2026 · **Owner:** Ranjith · **Status:** proposed, for review with Utkarsh
-**Data source:** PostHog live pull, 6 Sep 2026, 30-day rolling, internal accounts excluded
-
----
-
-## 1. Goal
-
-Inc42 runs four products — **Media, App, DataLabs, IP (summits)** — under a One Inc42 strategy that says they serve one person. We need a measurement system that:
-
-- Treats a customer as **one person**, not four users in four reports
-- Works **today**, when ~98% of website behaviour is anonymous
-- **Does not change** as the data improves — the number starts small, the definition stays fixed
-- Can be **acted on** by each team without fragmenting into per-product metrics
-- Is **upstream of revenue**, without requiring revenue to be the current target
-
-The declared north star, QIA, does not meet this. It is a binary attribute flag with no gradient, its value is set by which form someone filled rather than by anything the product did, and on the flagship surface it currently resolves to 25 people.
+**Date:** 7 September 2026 · **Owner:** Ranjith · **Status:** proposed, replaces the QIA definition (keeps the name)
+**Data:** PostHog live pull, 6–7 Sep 2026, internal excluded
 
 ---
 
-## 2. The two metrics
+## 1. The goal
 
-| | **Metric 1 — Identified Actives (IA-30)** | **Metric 2 — Repeat Rate** |
-|---|---|---|
-| **What** | Identified people who did something real in a rolling 30 days | Of those, the share who returned on a **2nd separate calendar day** |
-| **Type** | Absolute count | Percentage |
-| **Owner** | Growth / capture | Product |
-| **Answers** | Are we turning strangers into known people? | Was what we captured real? |
+Four products — **Media, App, DataLabs, IP** — serving one person, under One Inc42.
 
-**Plus one guard-rail, published every time: total reach.** Any IA-30 gain that arrives with a reach drop does not count.
+We need one number that:
+- Counts a **person**, not four users in four reports
+- Works **today**, with ~98% of web behaviour anonymous
+- **Never changes definition** as data improves — it starts small and grows
+- Leads to **revenue**, without requiring revenue to be today's target
 
-### Why two and not one blended number
+QIA is the right ambition. Its current arithmetic doesn't work: it's a binary flag with no gradient, its value is set by which form someone filled, and on Media it resolves to 25 people.
 
-- **Each has one owner and one action.** Blended, a movement could be either lever and nobody knows who acted.
-- **They police each other.** Gate too aggressively and you capture junk registrations: IA-30 rises, Repeat Rate falls. A single number hides that; the pair exposes it.
-- **No threshold argument is needed to start measuring.**
-
-### Reading the pair
-
-| IA-30 | Repeat Rate | Diagnosis |
-|---|---|---|
-| ↑ | ↑ | **Real growth.** The only clean win. |
-| ↑ | ↓ | **Capturing junk** — gating too hard, or capturing people with no intent |
-| ↓ | ↑ | **Shrinking to look good** — the ratio trap |
-| ↓ | ↓ | Real decline |
+**This keeps the name and fixes the arithmetic.**
 
 ---
 
-## 3. The identity ladder
+## 2. The metric — three levels
 
-| Tier | Definition |
+| Level | Definition |
 |---|---|
-| **Anonymous** | Cookie or device only. Cannot be recognised tomorrow. |
-| **Reachable** | We hold an email or phone, and nothing else. |
-| **Partially Identified** | Identifier + **exactly one** of {job title, company name} |
-| **Identified** | **Identifier + job title + company name** |
+| **IA** — Identified Actives | People we can name **and** who did a qualifying action in the window |
+| **QIA** — Qualified Identified Actives | IA who match the **ICP of the product they used** |
+| **QIA Repeat Rate** | Of QIA, the share who returned on a **2nd separate day** in the window |
 
-> ### Identified = (Email **or** Phone) + Job Title + Company Name
+> **Window = 15 days.**
 
-**Every field carries two mandatory properties:**
+### Why 15 and not 7 or 30
 
-| Property | Why |
-|---|---|
-| `captured_at` | A role given in 2023 is not the same asset as one given yesterday. Exists nowhere in our stack today. |
-| `source` | Signup vs sign-in vs event registration vs import. You cannot fix a capture point you cannot trace. |
+Measured gap between someone's 1st and 2nd active day:
 
-**Decay rule:** after **24 months** without reconfirmation, the role goes stale and the person drops out of Identified until re-asked. This is the BPA Worldwide standard — media buyers discount three-year-old qualification, and without it an Identified count silently rots.
+| Repeat happens within | Media | App |
+|---|---|---|
+| ≤ 7 days | **73%** | **96%** |
+| ≤ 15 days | **92%** | **~99%** |
+| ≤ 30 days | 100% | 100% |
 
-**IA-30 = Identified ∩ active in the last 30 days.** "Identified" describes the person record. "Active" adds behaviour. Keep them separate.
+- **30 days is too slow** — 92% of the signal is already in by day 15.
+- **7 days under-counts Media by 27%.** Media is a lower-frequency product by nature; a 7-day window would make our biggest identification opportunity look broken and push effort to the App, which is already 71% identified.
+
+**Never mix windows.** Repeat rate is 37% at 7 days and 57% at 30 for the *same audience*. Switching between reports looks like a 20-point collapse that never happened.
 
 ---
 
-## 4. The fields
+## 3. How each level leads to revenue
 
-### Asked — 3 required, 1 confirmation, 1 optional
+| Level | What it is | Revenue role |
+|---|---|---|
+| **Reach** | Anonymous | Nothing yet. Raw material. |
+| **IA** | We know who they are | **Now reachable.** Can be emailed, retargeted, invited. |
+| **QIA** | They match a product's ICP | **Now sellable to.** The addressable base for DataLabs, IP, and any Media subscription. |
+| **QIA Repeat** | They keep coming back | **Now likely to convert and renew.** Nobody buys something they visited once. |
 
-| # | Field | Required | Format |
+**The chain:** Reach → we know them → they're the right kind of person → they have a habit → they buy.
+
+**Where the money actually comes from:** DataLabs and IP are the two monetisable lines. Both are sold to *people*, and both have a seniority floor — a junior analyst cannot expense DataLabs, and IP is invitation-grade. **QIA is the number that says how many people we have who can actually buy.**
+
+**Honest limit:** reader-to-payer conversion in media sits near 1.4% and is a hard category norm. QIA rising 10x does not make revenue rise 10x. But **`payers ÷ QIA` is the metric when money becomes the focus — QIA is its denominator.** Building it now is not a detour.
+
+---
+
+## 4. Defining "qualified" — the ICP
+
+Qualification is **per product**, because the products have different buyers.
+
+### How we derived it
+
+Three cohorts compared on Media — the whole identified base, 15-day actives, and everyone who has ever paid (Plus/Pro):
+
+| Seniority | Base | Payers | **Payer rate** | vs average |
+|---|---|---|---|---|
+| **Founder** | 5,276 | 109 | **2.07%** | **1.8x** |
+| **CXO** | 1,472 | 26 | **1.77%** | **1.6x** |
+| **Senior mgmt / VP** | 5,070 | 80 | **1.58%** | **1.4x** |
+| Other | 4,729 | 43 | 0.91% | 0.8x |
+| **Junior mgmt** | 5,552 | 36 | **0.65%** | **0.6x** |
+| **Student** | 4,929 | 10 | **0.20%** | **0.2x** |
+
+**A founder is 10x more likely to pay than a student, and 3x more likely than junior management.** This confirms the thesis: seniority gates purchase, and it does so steeply.
+
+**Who's actually active on Media right now (15d, by role):** Founder 181 · Other 106 · Senior/VP 102 · Junior mgmt 98 · Student 39 · Middle mgmt 38 · CXO 36 · Investor 14.
+
+**DataLabs payer data is confounded and excluded from this derivation.** Its payer rates correlate with *snake_case vs spaced* role values (`founder_owner_ceo` 4.33% vs `founder` 0.45%) — a form-vintage artifact, not a behavioural difference. Newer onboarding forms were used on paid flows. **Do not read DataLabs ICP off this data until the vocabularies are merged.**
+
+### The ICP per product
+
+| Product | Who can realistically buy | **Qualified (counts to QIA)** | Not qualified |
 |---|---|---|---|
-| 1 | **Email or Phone** | Yes — whichever the login uses | validated |
-| 2 | **Job title** | Yes | free text with autocomplete |
-| 3 | **Company name** | Yes | free text, autocomplete against `company_360` |
-| 4 | Seniority + Function | Confirmation only | **pre-filled from #2**, one tap to correct |
-| 5 | The other of email/phone | Optional | validated |
+| **DataLabs** | Needs budget authority | Founder · CXO · VP/Director · Partner · Principal · **Analyst/Associate at investor or research firms** · Market researchers | Students · junior mgmt without budget |
+| **IP / Summits** | Invitation-grade only | Founder · CXO · Partner · VP+ | Everyone below VP |
+| **Media** (if subscribed) | Broadest — juniors possible, lower propensity | All seniority levels in-market | Students |
+| **App** | Free — widest | Everyone in-market | Students |
 
-Sector standard is 3–5 required fields maximum. We sit at the low end while collecting more usable information than the current dropdown ever produced.
+### Naming the segments
 
-### Derived — never asked
-
-| From | We get |
-|---|---|
-| **Job title** | Seniority band, Function |
-| **Company name** | Industry, Company Type, Company Size |
-
-### Stored — all three, permanently
-
-| Field | Holds |
-|---|---|
-| `job_title_raw` | Exactly what the user typed. **Never overwritten.** |
-| `seniority` | Derived band + `seniority_source` = `derived` / `user_corrected` / `legacy_dropdown` |
-| `function` | Derived |
-
-**Why keep the raw text:** the parser will be wrong at first. Keeping the raw means everyone can be re-derived when it improves. Derive-only throws the evidence away.
-
-### What "did something real" means, per product
-
-Each team owns its own row. Changing a row does not change the metric.
-
-| Product | Qualifying action | Basis |
+| Name | Who | Media evidence |
 |---|---|---|
-| **Media** | Article read with depth — scroll ≥50% or ≥60s dwell | Scroll event does not exist yet. **Interim proxy: 2+ pageviews that day.** |
-| **App** | Brief engaged **≥60s** | Not the 7-second flick — our validated activation bar |
-| **DataLabs** | An **active query** — search run or filter applied | Not a passive profile view — validated by repeat-use data |
-| **IP / summits** | Applied, registered, or attended | Already unified in `silver.events` |
-
-**Never counts:** email opens, push receipts, bare login, staff/internal accounts, bots.
+| **Proven buyers** | Segments that have already paid | Founder, CXO, Senior/VP — all over-index |
+| **Probable buyers** | Same profile, haven't paid yet | The 181 active founders, 102 senior, 36 CXO not yet on a plan |
+| **Audience** | Qualified, but not this product's buyer | Junior mgmt for DataLabs; anyone sub-VP for IP |
+| **Out of market** | Never qualifies | Students (0.2% payer rate), SEO/link-building, unusable roles |
 
 ---
 
-## 5. Two decisions, and the evidence behind them
+## 5. Where we stand today
 
-### 5.1 Ask company name. Do not ask industry.
-
-| Definition | People (Media base) |
-|---|---|
-| Email + Job title + **Industry** | **1,384** |
-| Email + Job title + **Company name** | **18,471** |
-
-**13× more people, from data we already hold.** `Industry` has 7,106 records; `Company Name` has 73,205. We were asking a question we can already answer — company name resolves to industry, company type and company size against `company_360`.
-
-### 5.2 Derive seniority from job title. Do not ask it cold.
-
-**`Designation` is not a job title — it is a second seniority dropdown.** Its actual top values:
-
-| Value | People |
-|---|---|
-| founder | 3,474 |
-| senior-management | 3,341 |
-| junior-management | 3,065 |
-| other | 2,899 |
-| student | 2,220 |
-| Founder | 1,921 |
-| VP/Senior Management | 1,640 |
-| cxo / CXO | 1,521 |
-
-We ask the same question twice, into two fields, in two casing conventions. They cover largely **different people**:
-
-| | People |
-|---|---|
-| Designation only | 20,693 |
-| Seniority only | 29,064 |
-| Both | 4,968 |
-| **Union** | **54,725** |
-
-**Merging and normalising the two fields lifts role coverage from 34,032 to 54,725 — a 61% gain with no new questions asked.**
-
-**Why the standalone dropdown must not be reused as-is:** it mixes three different axes — seniority (`senior-management`), role type (`founder`, `cxo`) and life stage (`student`). The consequence is already in the data: **192 people selected "Investor" as their seniority while working at early-stage startups.** Pre-filling from a typed job title anchors the answer; asking cold produces garbage.
-
----
-
-## 6. Where we stand today
-
-### Field coverage — Media person base (10,473,428 records)
-
-| Field | Populated |
-|---|---|
-| Any email field | 126,849 |
-| `email` specifically | 92,868 |
-| **Company Name** | **73,205** |
-| Seniority ∪ Designation | 54,725 |
-| Industry | 7,106 |
-| Phone Number | 6,348 |
-| Company Type | 948 |
-| Function | **40** |
-| Interests | **40** |
-| City | **7** |
-
-**We are not missing the fields. We are missing the asking.**
-
-### The identity ladder, applied
-
-| Tier | People (Media base) |
-|---|---|
-| Reachable — email, nothing else | 46,158 |
-| Partially Identified | 28,239 |
-| **Identified** | **18,471** |
-
-### The metrics, 30-day rolling
+**15-day window, identified = has an email** (the full definition is stricter — see §6, and these will drop):
 
 | | Media | App | DataLabs | IP |
 |---|---|---|---|---|
-| Total people seen | 500,661 | 1,133 | ~136,000 | — |
-| Behaviour attributable to a known person | **2.01%** | **70.32%** | **2.44%** | — |
-| Active with an identifier | 1,389 | 804 | *unreliable* | unmeasured |
-| **IA-30 (Identified + active)** | **571** | needs re-measuring | *unreliable* | unmeasured |
-| **Repeat Rate** | **57%** | **58%** | unknown | unmeasured |
+| Total people seen (30d) | 500,661 | 1,133 | ~136,000 | — |
+| Behaviour we can attribute | **2.01%** | **70.32%** | **2.44%** | — |
+| **IA-15** | **998** | **733** | *unreliable* | unmeasured |
+| **Repeat Rate-15** | **47.6%** | **54.7%** | unknown | unmeasured |
+| Median time to 2nd day | 2 days | **1 day** | unknown | unmeasured |
 
-**Two findings that should drive planning:**
+**Under the full definition** (email + job title + company), Media's 30-day IA drops from 1,389 to **571**. QIA will be smaller again once ICP is applied.
 
-**Repeat rate is 57% on Media and 58% on the App — nearly identical. Repeat rate is not the broken thing.** Identification is.
+**Two facts that should drive planning:**
+
+**Repeat rate is 48% on Media and 55% on the App — close. Repeat is not the broken thing. Identification is.**
 
 | | Scale | Identity |
 |---|---|---|
 | **Media** | 500,661 people | **0.28% identified** — scale without identity |
 | **App** | 1,133 people | **71% identified** — identity without scale |
-| **DataLabs** | ~136,000 people | 2.44% of behaviour — neither |
+| **DataLabs** | ~136,000 | 2.44% of behaviour — neither |
 
-### Where the effort goes — the arithmetic
-
-Sizing the two levers on Media, where the volume is:
+**The arithmetic of where to spend effort** (Media):
 
 | Lever | Move | Repeaters | Gain |
 |---|---|---|---|
-| Today | — | 789 | — |
-| **Metric 2** | repeat rate 57% → **100%** (impossible) | 1,418 | +629 |
-| **Metric 1** | identification 0.28% → **1%** | 2,854 | **+2,065** |
-| Metric 1, further | 0.28% → **2%** | 5,707 | **+4,918** |
+| Repeat rate | 48% → **100%** (impossible) | 998 | +523 |
+| **Identification** | 0.28% → **1%** | 2,854 | **+2,065** |
+| Identification | 0.28% → **2%** | 5,707 | **+4,918** |
 
-**Getting identification to 1% beats a physically impossible repeat rate by 3×. Metric 1 is the chase. Metric 2 is the check that stops us cheating at it.**
-
----
-
-## 7. How the 2-day repeat line was derived
-
-Cohort: identified Media people active in days −60 to −31 (n = 1,344), measured forward into the following 30 days, two independent ways.
-
-| Active days, month 1 | Cohort | Returned at all | Still engaged (2+ days again) |
-|---|---|---|---|
-| 1 | 550 | **41.6%** | **21.1%** |
-| **2** | **270** | **62.2%** | **40.7%** |
-| 3 | 159 | 69.8% | 47.8% |
-| 4 | 107 | 77.6% | 62.6% |
-| 5 | 70 | 82.9% | 64.3% |
-| 6 | 46 | 91.3% | 80.4% |
-| 7 | 31 | 96.8% | 90.3% |
-
-**Someone who visits once has a 42% chance of ever coming back — worse than a coin flip. Visit twice and it flips to 62%.** That single extra day is worth **+20 points**; every day after it is worth only +5 to +8.
-
-**The line goes at the biggest jump in the curve, and both tests agree it is at 2 days.** This is derived from data, not chosen.
-
-**Practical consequence:** the single most valuable thing any Inc42 screen can do is get a first-time identified visitor to come back a **second** time.
+**Identification beats a physically impossible repeat rate by 4x.**
 
 ---
 
-## 8. Why this will work
+## 6. What we collect
 
-- **The priority argument is settled by arithmetic, not opinion.** Identification beats every alternative 3:1. Nobody has to win a debate.
-- **We can start measuring next week, on the App.** 71% of app behaviour is already attributable. We do not have to wait for the warehouse to have a real number.
-- **Every product owns a different lever, but nobody owns a different metric.** One scoreboard, four levers.
-- **Both metrics can go down.** Registered-user counts cannot. That is the difference between a metric and a decoration.
-- **It survives reorganisation.** If Media and App merge, neither metric changes — only the "did something real" rows consolidate.
-- **The shape is proven.** FT built a 1M-subscriber business on a behaviour threshold derived from return data. Their engaged threshold correlated with 10% lower cancellation.
-- **The biggest single fix is a join, not a data-collection project.** 73,205 free-text company names already sit in our database, waiting to become Industry, Type and Size.
+> **Identified = (Email or Phone) + Job Title + Company Name**
+
+**Asked — 3 required, 1 confirmation:**
+
+| Field | Required |
+|---|---|
+| Email or phone | Yes — whichever the login uses |
+| **Job title** (free text) | Yes |
+| **Company name** (autocomplete) | Yes |
+| Seniority + Function | Pre-filled from job title, one tap to correct |
+
+**Derived — never asked:**
+
+| From | We get |
+|---|---|
+| Job title | **Seniority band, Function** |
+| Company name | **Industry, Company Type, Company Size** |
+
+Every field carries `captured_at` and `source`. **Role goes stale after 24 months** and drops out of QIA until reconfirmed — the BPA standard; without it a qualified count silently rots.
+
+### Why company name, not industry
+
+| Definition | People |
+|---|---|
+| Email + title + **Industry** | 1,384 |
+| Email + title + **Company name** | **18,471** |
+
+`Industry` has 7,106 records. `Company Name` has **73,205**, and `company_360` holds 75,000 companies. We were asking a question we can already answer.
+
+### Why seniority is derived, not asked
+
+`Designation` is not a job title — it's a **second seniority dropdown** (`founder`, `senior-management`, `junior-management`, `student`). We ask the same question twice into two fields. They cover different people: **merging them lifts role coverage from 34,032 to 54,725, a 61% gain with no new questions.**
+
+The standalone dropdown must not be reused as-is — it mixes seniority, role type and life stage. The result is already visible: **192 people picked "Investor" as their seniority while working at early-stage startups.**
+
+### What counts as a qualifying action
+
+Utkarsh's 10 criteria, adopted as-is. Three flags:
+
+1. **Those people-counts are all-people, not identified-only.** Web Search Completed shows 2,530 people/30d, but Media has only 1,389 identified actives in total. **Filtered to Identified, these numbers collapse.** Nobody should expect IA near 2,530.
+2. **Criterion #1 contributes zero on web** — scroll is dead, so *reading an article* doesn't count on our largest surface. Media's IA is currently driven by search, newsletter clicks and registrations. **Restoring scroll changes the metric's composition, not just its size** — pre-announce it so the jump isn't read as growth.
+3. **Criterion #6 (Ask/AI) is instrumented but not piped** — it can't count today.
 
 ---
 
-## 9. Why it might not work
+## 7. Questions this will get
 
-| Risk | Why it is real | Defence |
-|---|---|---|
-| **We gate everything and kill reach** | Identification is 90% of the chase, and the fastest way to move it is forcing login | **Reach published beside IA-30, always. A gain with a reach drop does not count.** |
-| **Repeat rate improves by getting worse** | It is a ratio — identify fewer, better people and the percentage rises | **Never publish repeat rate without IA-30 next to it.** A rising % on a falling count is a loss. |
-| **QIA is already locked with Utkarsh** | Two north stars is worse than one bad one | Take this as a **replacement definition**, keeping the QIA name if preferred |
-| **Not yet computable across products** | Media's warehouse export is paused; App and DataLabs have none; DataLabs person data is unreliable | Report Media and App separately and add them, stating the double-count openly |
-| **The numbers are small and jumpy** | At these volumes one campaign or one bug moves them 10% | Report 3-month trend, never week-on-week, until IA-30 clears ~5,000 |
-| **Blind to *who* the people are** | 1,000 engaged students score the same as 1,000 engaged founders | Publish the role breakdown as a **cut** beside the metric — never inside it |
-| **The 2-day line may move** | Derived from Media pageviews, not the real depth bar, because scroll depth does not exist | Re-derive once scroll lands. Expect it to shift; say so now rather than defend it later. |
+**"Why three numbers instead of one north star?"**
+It is **one** north star — QIA. IA is its input and Repeat Rate is its quality check. Reporting QIA alone lets it be gamed: gate aggressively and QIA rises while repeat rate collapses, and nobody sees it. The three are one metric with its numerator, denominator and integrity check shown.
+
+**"Isn't this just QIA renamed?"**
+Same name, same ambition, working arithmetic. Three changes: qualification comes from **ICP fit** rather than a form field being filled; the window is **15 days** rather than 30; and repeat behaviour is measured rather than assumed.
+
+**"Why is the number so small?"**
+Because it's true. Media has 571 people meeting the full identified bar. The honest number is the one that can go down.
+
+**"Won't gating fix identification overnight?"**
+It would, and it would also destroy reach. **Total reach is published beside QIA every time. Any gain that arrives with a reach drop does not count.**
+
+**"Students and juniors read us — are we writing them off?"**
+No. They're **Identified, not Qualified for DataLabs or IP**. They still count in IA, still get served, still convert to Media subscriptions at 0.65–0.2%. They just aren't the addressable base for the two products we monetise.
 
 ---
 
-## 10. What has to be built
+## 8. What has to be built
 
-**Blockers — nothing works properly without these**
-
-1. **Collapse the five email fields into one.** `email`, `Email`, `Work Email`, `work_email`, `Personal Email`. **33,981 people — 27% of everyone reachable — have an address in a field that is not `email`.** Until fixed, "has an email" means five different things and every count is wrong.
-2. **Pick one role field and normalise 54,725 existing answers** onto a single seniority ladder.
-3. **Build the `company_360` resolver** — company name → Industry, Company Type, Company Size.
-4. **Build the job-title normaliser** — lookup table plus LLM fallback, producing seniority and function.
-5. **Add `captured_at` and `source`** to every identity field.
+**Blockers**
+1. **Collapse the five email fields into one** — `email`, `Email`, `Work Email`, `work_email`, `Personal Email`. **33,981 people (27% of everyone reachable) have an address in a field that isn't `email`.** Every count is wrong until this is fixed.
+2. **Merge `Designation` + `Seniority`** onto one ladder — 54,725 existing answers, plus DataLabs' snake_case vocabulary.
+3. **Company name → `company_360` resolver** — 73,205 names waiting to become Industry, Type, Size.
+4. **Job title normaliser** — lookup table plus LLM fallback → seniority, function.
+5. **`captured_at` and `source`** on every identity field.
 
 **Data integrity**
-
-6. **`Phone Number` is stored as a numeric property**, which destroys `+91` and any leading zero. 6,348 numbers are already affected.
-7. **Restore Scroll Depth on Media** — it is the depth bar for "did something real", and it does not exist.
+6. **`Phone Number` is stored as numeric**, destroying `+91` and leading zeros — 6,348 records affected.
+7. **Restore Scroll Depth on Media.**
 
 **Pipeline**
-
-8. **Media's PostHog → warehouse export exists but has been paused since ~29 July.** Establish why before un-pausing.
-9. **DataLabs and App have no export at all.**
-10. **Do not merge the PostHog projects.** Keep event streams separate per platform and unify downstream — the existing architecture decision is correct.
-
-**Coverage gaps**
-
-11. **DataLabs person-level data is unusable** — the same 30-day window returns 199 or 2,001 people depending on query shape, because person-on-events stores properties as event-time snapshots. **A person-level metric cannot be computed inside PostHog.** It must run against `unified_contact_id` in BigQuery.
-12. **IP/summits is entirely unmeasured**, despite attendees handing over their details in person. Structurally our highest-yield identification surface, and currently invisible.
+8. Media's PostHog→warehouse export **exists but has been paused since ~29 July** — find out why before un-pausing. DataLabs and App have none.
+9. **Do not merge the PostHog projects.** Keep streams separate, unify downstream. **A person-level metric cannot be computed inside PostHog** — the same DataLabs window returns 199 or 2,001 people depending on query shape. It must run on `unified_contact_id` in BigQuery.
+10. **IP/summits is entirely unmeasured** despite attendees handing over full details in person — structurally our highest-yield identification surface.
 
 ---
 
-## 11. What we deliberately do not chase
+## 9. Open items
 
-| Not a metric | Why |
-|---|---|
-| Pageviews, unique visitors, cumulative registered users | Can only go up. A number that cannot fall carries no information. |
-| MAU / DAU per product | Fragments the person; rewards surface-hoarding |
-| App installs | Measures marketing, not the relationship |
-| Newsletter subscribers | Opens are not engagement |
-| Session duration alone | A confused user and an engaged one look identical |
-| **QIA as currently written** | Binary attribute flag, no gradient, value set by form coverage |
-| Revenue, subscriptions | Out of focus by decision — see §12 |
-| Sponsor composition | Byproduct, not a target |
-| Any per-product north star | Re-fragments what One Inc42 exists to unify |
-
-**Also excluded from the Identified definition** (collect them, never gate on them): Industry, Company Type, Company Size — all derived. Phone, City, Function, Interests — useful, never gating. Verified work-domain email — a stricter tier if sponsors ever require it; not now.
-
----
-
-## 12. Relationship to revenue
-
-Not the current focus, but the pair is upstream of every revenue line, not orthogonal to it.
-
-- Membership, event tickets and sponsorship all need the same input: **people who show up repeatedly and are known.**
-- Precedent: FT's engagement threshold correlated with **10% lower cancellation**. Our own warehouse already weights paid users 2× in its RFV scoring — someone internally already believed engagement predicts payment.
-- **Honest limit:** necessary, not sufficient. Reader-to-payer conversion in media sits near 1.4% and is a hard category norm. IA-30 rising 10× does not make revenue rise 10×.
-
-**When money becomes the focus, the metric will be `payers ÷ IA-30`. IA-30 is the denominator of the future revenue metric — building it now is not a detour.**
-
----
-
-## 13. What comparable companies collect
-
-Verified from published sources. **Research limitation:** Crunchbase, PitchBook, Tech in Asia, Sifted, The Ken, The Information, e27, Tracxn and VCCircle are behind bot protection and their forms could not be read. This list is not padded with guesses.
-
-| Source | What they collect |
-|---|---|
-| **CB Insights** | Name, job title, **job responsibilities**, contact details, company, login credentials, usage preferences, **"areas of focus and interest for your company"**, newsletter research-area interests |
-| **Dealroom** | Name, email, IP, job title, company name, telephone, profile photo, **login count**, **last login date/time** |
-| **Informa TechTarget** | Personal details, **social media profile details**, **professional profile details, association memberships, qualifications, company insight data**, plus usage: content interacted with, downloads, votes, questions, ratings |
-| **BPA Worldwide** (B2B audit standard) | Job title, **industry/SIC**, **company size**, **purchasing/recommending authority**, **and a requalification date** |
-| **Politico Pro** | Classifies by **job function**, **business decision maker**, **C-suite**, CEO |
-| **Omeda** (publisher reg-wall vendor) | Name, email, company, job title, industry — **3–5 required fields max**, then progressive profiling |
-
-**What we lack that they collect:** decision/purchase authority · company size · LinkedIn or social profile · a capture date · engagement stored on the person record (login count, downloads, ratings).
-
-**The structural difference:** everyone else asks **few fields many times** (progressive profiling). We ask **many fields once**. That is why our form has ~20 fields and our data has three.
-
----
-
-## 14. Open items before this is locked
-
-1. **Confirm the warehouse assets with Prapti** — `contact_360` (328K unified contacts), `company_360` (75K companies), the existing RFV implementation, and `silver.events` are cited from repo documentation, not a live read.
-2. **Confirm how App authentication works** — if it is OTP/phone-based, phone is the primary identifier and email becomes optional.
-3. **Re-measure the App baseline** under the full Identified definition. It has role coverage but **zero** employer data, so its IA-30 will drop materially from 804.
-4. **Fix DataLabs measurement** — one of four products currently has no usable baseline.
-5. **Decide how `student` and `other` are treated** — roughly 13% of existing role data. Recommendation: Identified, but excluded from the in-market cut. Not discarded.
-6. **Audit the 10 existing activation definitions** against what actually fires. Prior work found only 3 of 9 QIA activities were being computed; a similar gap is likely here.
-7. **Re-derive the 2-day line** once scroll depth lands and all four surfaces compute together.
-8. **Review with Utkarsh** as a replacement for QIA — same ambition, working arithmetic underneath.
+1. **Confirm with Prapti** — `contact_360` (328K contacts), `company_360` (75K companies), `silver.events` are cited from repo documentation, not a live read.
+2. **Confirm App auth** — if OTP/phone-based, phone is the primary identifier, not email.
+3. **Re-derive the DataLabs ICP** once role vocabularies are merged. Current payer rates are a form-vintage artifact.
+4. **Ratify the per-product ICP table in §4** — a reasoned hypothesis from Media payer data, not yet validated on DataLabs or IP.
+5. **Audit the 10 activation criteria** against what actually fires, filtered to identified people only.
+6. **Re-derive the repeat line** once scroll depth lands.
