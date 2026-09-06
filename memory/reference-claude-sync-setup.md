@@ -51,3 +51,5 @@ Cited files that no longer exist anywhere on the Mac (lost when a session ran `r
 - `master-brain` is a PRIVATE GitHub repo, so the new Mac needs GitHub auth (gh or SSH key) before it can clone `~/inc42-context`. Until then its SessionEnd capture hook fails every session.
 - The new Mac's Stop hook had run a bare `git init` in `~/ClaudeSyncBackup`; DONE 6 Sep 2026: deleted and replaced with a clone of the `claude-sync` GitHub repo.
 
+**Backup-divergence fix (2026-09-06 17:15).** Both Macs' Stop hooks snapshot the same iCloud store into their own local git and push. Without coordination the histories diverge and every later push is rejected silently (this Mac had 6 rejected snapshots while the new Mac pushed 2). `claude-sync-backup.sh` now does `git fetch origin main && git reset --hard origin/main` BEFORE rsync+commit, so every snapshot is a fast-forward on top of the GitHub tip; local-only commits are disposable because the store is re-captured. Push and fetch failures are written to `ClaudeSync/sync.log` with the hostname. Note: the Stop hook fires at the end of every assistant turn, not only at session end, so snapshots are frequent.
+

@@ -82,3 +82,26 @@ Top: Swiggy 18, Flipkart 17, Zepto 15, Ola Electric 13, Ather 12, Turtlemint 12,
 | Product / launch | Web traffic 30d trend | Confirmed |
 | Legal action | Nothing structured | Show company profile only, no number |
 | Analysis / feature | Full profile card | Confirmed fields |
+
+## Ground truth: DataLabs company-page coverage (checked 6 Sep 2026, inc42.com/company/{slug}, 443 slugs)
+| | Count |
+|---|---|
+| Page exists | 367 (83%) |
+| No page under the CMS slug | 72 (16%) — top misses are slug mismatches: prism, reliance-jio, cult-fit, atomberg-technology, blinkit, fibe, cashfree-payments |
+| Fetch error | 4 |
+
+Fields on existing pages: employees 100%, employee 90d trend 90%, total funding 85%, web traffic 30d 89%, investors 86%, revenue 72%, revenue YoY 55%. Revenue year: FY25 174, FY26 43, FY24 42, older 7.
+
+Per company-tagged article (810, excl. roundups): page 87%. By stage: Listed 98%, Growth 92%, Late 85%, Early 75%, Indian corporates 38%, Investors 78% (but funding/revenue 4%).
+
+Per brief day (companies deduped; Sunday = Mon–Sat recap, Monday = Sat+Sun):
+| Brief day | Companies med/min | With page med/min | Matched data point med/min | Any data point med/min | Days with <3 matched |
+|---|---|---|---|---|---|
+| Mon (weekend) | 4/1 | 4/1 | 3/1 | 4/1 | 3 of 13 |
+| Tue | 12/6 | 9/6 | 7/5 | 9/6 | 0 |
+| Wed | 12/8 | 11/6 | 9/5 | 11/6 | 0 |
+| Thu | 12/7 | 10/6 | 9/4 | 10/6 | 0 |
+| Fri | 9/4 | 8/3 | 7/3 | 8/3 | 0 |
+| Sat | 4/0 | 3/0 | 3/0 | 3/0 | 5 of 12 |
+| Sun (recap) | 49/41 | 42/34 | 36/28 | 42/34 | 0 |
+Tue–Sat: 75% of company rows have the type-matched data point, 87% have at least one data point. Row-level file: `datalabs_company_pages_443.csv`.

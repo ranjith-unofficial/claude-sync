@@ -70,6 +70,7 @@
 - [Brief entry — Referencing page round (5 Sep)](project-inc42-brief-entry-referencing-page.md) — A/B/C/D spectrum on Wed 5 Aug + B on 4 failure days, page 476:2; B recommended, unreviewed
 - [Brief entry round 2 — 15 UIs (5 Sep, late)](project-inc42-brief-entry-round2-15-uis.md) — 15 mechanics on Referencing page y=3000+; real inc42.com reader counts; in-app counts too small to show; unreviewed
 - [Brief entry round 3 — 15 structures in the real screen (6 Sep)](project-inc42-brief-entry-round3-15-structures.md) — Referencing page y=7900+; inbox/checklist/memo/graph/table/changelog…; unreviewed
+- [Brief entry round 4 — 15 visual objects, NO lists (6 Sep)](project-inc42-brief-entry-round4-15-objects.md) — orbit/bento/bubbles/treemap/radar/ring/clock/skyline…; real photos via upload_assets; y=12400+; unreviewed
 - [Brief entry coverage shell (5 Sep)](project-inc42-brief-entry-coverage.md) — row F: gated shell + trigger-strip ladder, 61-day backtest; 27% no company, AI zero on 50% weekdays
 - [Companies in brief — mention types (6 Sep)](project-inc42-brief-companies-mention-types.md) — 1,179 articles classified into 18 mention types; median weekday 11 tagged cos / 8 data-backable; layoffs only 9 in 90d; CMS dev-type cannot route
 - [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary only 93%-covered field; real defect is row ORDERING

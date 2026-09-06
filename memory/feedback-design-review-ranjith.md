@@ -58,3 +58,10 @@ fifteen folder variants. What he wants: fifteen different *structures* for the s
 (inbox, checklist, memo, graph, table, changelog…), each placed inside the actual app screen
 with the live greeting header and nav — not floating cards. See
 [[project-inc42-brief-entry-round3-15-structures]].
+
+**No lists. Ever. (6 Sep 2026, round 3 → 4.)** Fifteen "structures" that were all row-based (inbox,
+checklist, table, memo, threads…) got "very poor … never ever give me this design … everything is a
+list … I cannot show the entire list." What he means by "design itself" is a spatial object with
+visual weight — orbit, treemap, ring, skyline, mosaic — where size/position/colour carry the
+meaning and the eight stories are never stacked as rows. The one round-3 survivor was the graph.
+See [[project-inc42-brief-entry-round4-15-objects]].

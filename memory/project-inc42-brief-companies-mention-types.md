@@ -42,3 +42,19 @@ of 1,179 stories, and the layoff→headcount example that motivated it is a fort
 "profile only". Label the DataLabs FY when showing financials — the article is usually a newer
 period. See [[project-inc42-brief-impact-continuity]] (DataLabs confirmed fields),
 [[project-inc42-brief-card-corpus-analysis]], [[project-inc42-content-personalization]].
+
+## Update 6 Sep (later) — DataLabs coverage ground truth + fallback design
+Checked all 443 tagged slugs against inc42.com/company/{slug}: **83% have a page**; top misses
+(PRISM, Reliance Jio, Cult.fit, Blinkit, Atomberg, Fibe, Cashfree) are **slug mismatches, not
+missing entities** → the app needs a CMS-company → DataLabs-entity map, not string slugs. On
+existing pages: employees 100%, funding 85%, traffic 89%, revenue 72% (**65% of revenue values
+are FY25 or older; only 43 are FY26** → for Financials stories the headline number is fresher
+than DataLabs; never show both unlabeled). Early-stage pages: revenue only 42%.
+Per brief day: Tue–Fri never below 3 companies with a matched data point; **Saturday brief <3
+matched on 5 of 12, zero companies on 1 of 12; Monday weekend brief <3 on 3 of 13; Sunday recap
+has 49 companies (needs a cap)**. Tue–Sat: 75% of rows have the matched point, 87% any point.
+**Fallback decision recommended:** keep ONE section name always (promise = "who is in today's
+news", true on 100% of weekdays); degrade per row (chip + number → chip + any number → chip +
+profile link → chip only) never per section; hide the section only at zero companies (Sat 1/12);
+never write "no data". Ranjith's concern that renaming breaks findability is correct.
+Open: what the current Figma "Companies in today's brief" card shows is not recorded — confirm.
