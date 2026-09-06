@@ -1,6 +1,6 @@
 ---
 name: reference-claude-sync-setup
-description: Claude Code memory/skills/settings are symlinked into iCloud ClaudeSync and shared across two Macs; git backup at ~/ClaudeSyncBackup
+description: Claude Code memory/skills/settings are symlinked into iCloud ClaudeSync and shared across two Macs; git backup at ~/ClaudeSyncBackup pushed to private GitHub repo ranjith-unofficial/claude-sync
 metadata: 
   node_type: memory
   type: reference
@@ -26,7 +26,7 @@ So **editing a memory file edits the shared copy on both Macs**. Session transcr
 
 **Scripts** in `ClaudeSync/bin/`: `claude-sync-link.sh` (one-time per Mac, auto-detects username), `claude-sync-guard.sh` (SessionStart hook — un-evicts iCloud files, repairs symlinks an app replaced with real files), `claude-sync-backup.sh` (Stop hook — git snapshot).
 
-**Git backup:** `~/ClaudeSyncBackup`, deliberately OUTSIDE iCloud because iCloud corrupts `.git` pack files. **Still NO GitHub remote as of 2026-09-06** — the Stop hook commits locally only. An attempt to create a private `ranjith-unofficial/claude-sync` repo from a session was blocked by the permission classifier; Ranjith has to create it and run `git -C ~/ClaudeSyncBackup remote add origin <url> && git -C ~/ClaudeSyncBackup push -u origin main` himself. The content is INC42-confidential so the repo must be private.
+**Git backup:** `~/ClaudeSyncBackup`, deliberately OUTSIDE iCloud because iCloud corrupts `.git` pack files. **GitHub remote LIVE as of 2026-09-06:** private repo `git@github.com:ranjith-unofficial/claude-sync.git`, branch `main`. On the second Mac (`cepl`) the folder was deleted and re-cloned from that remote on 6 Sep 2026 (verified clean, HEAD dd88c9d). The Stop hook commits locally; confirm it also pushes. The content is INC42-confidential so the repo must stay private.
 
 **The one failure mode:** running Claude Code on both Macs simultaneously makes iCloud write "conflicted copy" files instead of merging. One Mac at a time.
 
@@ -49,5 +49,5 @@ Cited files that no longer exist anywhere on the Mac (lost when a session ran `r
 - Verification hash must be null-delimited (`-print0 | sort -z | xargs -0 md5 -q | md5 -q`); 21 store paths contain spaces.
 - `find ~/ClaudeDocs` returns 0 on a symlink; always use `find -L` or a trailing slash.
 - `master-brain` is a PRIVATE GitHub repo, so the new Mac needs GitHub auth (gh or SSH key) before it can clone `~/inc42-context`. Until then its SessionEnd capture hook fails every session.
-- The new Mac's Stop hook already ran `git init` in `~/ClaudeSyncBackup` but made no commit (timed out); that directory should be deleted and replaced by a clone of the `claude-sync` GitHub repo once Ranjith creates and pushes it.
+- The new Mac's Stop hook had run a bare `git init` in `~/ClaudeSyncBackup`; DONE 6 Sep 2026: deleted and replaced with a clone of the `claude-sync` GitHub repo.
 

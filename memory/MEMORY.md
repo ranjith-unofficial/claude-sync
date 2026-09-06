@@ -138,7 +138,7 @@
 - [Oura health artifact](reference-oura-health-artifact.md) — Health Signals dashboard + daily 7am refresh
 - [Marketing skill install](marketing_skill_install.md) — unified `marketing` skill, vendor-API/chat-privacy guardrails
 - [Aug 8 AI session plan](aug8_ai_session_plan.md) — 2nd-yr AI&DS workshop; pre-session survey done
-- [Claude sync across Macs](reference-claude-sync-setup.md) — memory/skills synced via iCloud + git; never run both Macs at once
+- [Claude sync across Macs](reference-claude-sync-setup.md) — memory/skills via iCloud; git backup pushed to private GitHub ranjith-unofficial/claude-sync; never run both Macs at once
 - [INC42 Asana IDs](reference-inc42-asana-ids.md) — workspace 176734136274, Inc42 App project 1216274779493698
 - [INC42 open ledger Sheet](reference-inc42-open-ledger-sheet.md) — also tab "Open Ledger (27 Aug)" in "Test" spreadsheet
 - [INC42 app story card redesign (30 Aug)](project-inc42-app-story-card-redesign.md) — V28 set on real article copy; live "Rate" heart is a dead control; logged-out streak state
