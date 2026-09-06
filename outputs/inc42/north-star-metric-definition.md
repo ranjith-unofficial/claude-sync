@@ -114,10 +114,21 @@ Derived from `User_Profile_Fixed`, DataLabs' own computed persona field (40,411 
 
 | Product | **Qualified — counts to QIA** | Not qualified | Basis |
 |---|---|---|---|
-| **Media** | All in-market seniority levels, including junior management | Students · out-of-market roles (SEO, link-building, guest-post) | Payer data above — every in-market band converts, juniors at 0.65% |
-| **DataLabs** | Investor · Sales & Marketing · Founder/CXO · Market Researcher | "Other" persona (0% conversion) · students | Persona payer data above — all four convert |
+| **Media** | Founder · CXO · Senior Management/VP · Middle Management · Investor · Researcher · **Other (provisional)** | **Students** (0.20% payer rate) · **Junior Management** (0.65%) · undefined/unusable values | Payer gradient above — the senior ladder converts at 1.4–1.8x average; juniors at 0.6x and students at 0.2x do not clear the bar |
+| **DataLabs** | Investor · Sales & Marketing · Founder/CXO · Market Researcher — **everything except "Other"** | **"Other" persona only** (653 people, **0 payers**) | Persona payer data above — all four personas convert; "Other" has never produced a single sale |
 | **IP / Summits** | **Senior Manager and above**, any company type | Everyone below senior manager | Admission is senior-only by design |
 | **App** | Anyone matching the **Media, DataLabs or IP** ICP | Only those matching none | The App is generic — it feeds all three |
+
+**Note the deliberate asymmetry on "Other".** Media keeps it (4,729 people, 0.91% payer rate — half of average but non-zero). DataLabs drops it (653 people, zero sales ever). The same label means different things on the two products, and the data says so.
+
+### The "Other" problem solves itself
+
+"Other" is provisional on Media because we do not know what those 4,729 people actually are. **Under the new form it stops existing** — job title is free text, so there is no "Other" button to press. That leaves only two jobs:
+
+- **New captures:** nothing to do. The category disappears at the point the new form ships.
+- **Legacy base:** a one-time re-ask of everyone currently sitting on "Other". Until that runs, those people remain provisionally qualified and are reported as a separate line so the exposure is visible.
+
+**91 of Media's 438 QIA (21%) currently rest on this provisional rule.** If "Other" were excluded tomorrow, Media QIA drops to 347.
 
 ### Naming the segments
 
@@ -125,8 +136,8 @@ Derived from `User_Profile_Fixed`, DataLabs' own computed persona field (40,411 
 |---|---|
 | **Proven buyers** | Segments that already pay — Media: Founder, CXO, Senior/VP · DataLabs: Investor, Sales & Marketing |
 | **Probable buyers** | Same profile, haven't paid yet — the 181 active Media founders, 102 senior, 36 CXO not on a plan |
-| **Audience** | Qualified for one product, not this one — junior mgmt for IP; Market Researcher for Media |
-| **Out of market** | Never qualifies — students (0.2% payer rate), SEO/link-building, unusable roles |
+| **Audience** | Identified but not qualified anywhere — junior management (0.65% on Media, cannot expense DataLabs, below the IP bar) |
+| **Out of market** | Never qualifies — students (0.20% payer rate), SEO/link-building, undefined/unusable role values |
 
 ### Caveats on the derivation
 
@@ -149,7 +160,24 @@ Derived from `User_Profile_Fixed`, DataLabs' own computed persona field (40,411 
 | **Repeat Rate-15** | **47.6%** | **54.7%** | unknown | unmeasured |
 | Median time to 2nd day | 2 days | **1 day** | unknown | unmeasured |
 
-**Under the full definition** (email + job title + company), Media's 30-day IA drops from 1,389 to **571**. QIA will be smaller again once ICP is applied — which is why the operating focus is IA today.
+### QIA, with the ICP applied — Media, 30 days
+
+| Bucket | People |
+|---|---|
+| Identified actives (email present) | 1,389 |
+| **— of which have NO ROLE at all** | **693 (50%)** |
+| Qualified — senior ladder | 385 |
+| Qualified — Other (provisional) | 106 |
+| Qualified — investor / researcher | 27 |
+| Excluded — junior management | 101 |
+| Excluded — student | 39 |
+| Excluded — undefined / unusable | 31 |
+
+**Under the full definition** (email + job title + company): IA = **570**, of which **QIA = 438**. Ninety-one of those 438 rest on the provisional "Other" rule.
+
+**The finding that matters more than the ICP rule itself:** excluding juniors and students costs 140 people. **Missing role data costs 693.** The binding constraint on QIA is not who we disqualify — it is that half of our identified actives never told us what they do. That is a capture problem, and it is 5x larger than the qualification question.
+
+This is also why the operating focus is IA today: at 438 people, QIA moves 15% on a single campaign.
 
 **Two facts that should drive planning:**
 
@@ -256,7 +284,7 @@ Because it's true. Media has 571 people meeting the full identified bar. The hon
 It would, and it would also destroy reach. **Total reach is published beside IA every time. Any gain that arrives with a reach drop does not count.**
 
 **"Students and juniors read us — are we writing them off?"**
-No. They're **Identified, and qualified for Media** — juniors convert at 0.65%. They are not qualified for IP (senior-only) and students qualify nowhere. They still count in IA, still get served.
+They stay in **IA** — counted, served, and part of reach. They are not in **QIA**, because QIA measures the people who can actually buy. Juniors convert at 0.65% and students at 0.20%, against a senior ladder at 1.4–1.8x average; neither can expense DataLabs and both sit below the IP bar. Writing them out of the *sellable* number is not writing them out of the audience.
 
 ---
 
