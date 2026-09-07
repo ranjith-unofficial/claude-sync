@@ -34,6 +34,7 @@
 - [Analytics destination scope](feedback-analytics-destination-scope.md) — event status only vs PostHog + Customer.io; ignore Mixpanel/MoEngage/GA4/Ads/UserGuiding entirely
 - [User properties audit + MASTER tab](project-inc42-user-properties-audit.md) — 205 properties in one MASTER tab w/ ACTION column; App attribution 100% null; Sheets paste-safety rules
 - [Event audit (4 Sep)](project-inc42-event-audit-4sep.md) — live event+property validation, all 3 projects; `Table VIew` typo, same-second duplicate epidemic, 6 stale sheet rows corrected
+- [Ashish events sheet (8 Sep)](project-inc42-ashish-events-sheet.md) — 19-col QA format; 158-row single tab + group legend in Master Sheet; both property columns needed
 - [ICP & role definition (5 Sep)](project-inc42-icp-role-definition.md) — one ICP not four; E1-E11 × L1-L5/I1-I5 grid; role captured on 34% of Media identified, employer type on 1.0%
 
 ## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)

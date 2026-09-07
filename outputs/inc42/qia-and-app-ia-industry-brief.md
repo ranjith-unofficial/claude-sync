@@ -1,8 +1,9 @@
 # QIA + App info hierarchy — industry practice → Inc42
 
-**Date:** 7 Sep 2026 · **Status:** revised for agreement (HOLD implementation)  
-**Replaces:** `qia-activation-grid-brief.md` + `app-info-hierarchy-brief.md` as the working draft  
-**Sources:** Product & Data / One Inc42 / design-review Wispr (7 Sep); Ranjith audience-metric doc; industry patterns below
+**Date:** 8 Sep 2026 · **Status:** FINAL metric operating model (HOLD implementation)  
+**Locks:** Ranjith FINAL via CoS 8 Sep · Windows clarification (Actv ≤7d from Identify · QIA = 15d stock) · Utkarsh 10 (26 Aug)  
+**Supersedes:** drafts that (a) gated QIA on platform Actv, (b) defined QIA as ID+ICP with no Active rung, (c) renamed the goal “QIA-activated”, or (d) chased “QIA within 7 days”  
+**Sources:** Ranjith FINAL + windows clarification via CoS; P&D / One Inc42 / Wispr; Utkarsh 10 (26 Aug); industry patterns
 
 ---
 
@@ -10,60 +11,106 @@
 
 ## §0 Industry practice
 
-**AARRR split.** Activation = “product aha” inside a short N-day window. Retention / actives are a different stage. Collapsing activation into “active this month” muddies both diagnosis and lifecycle messaging.
+**AARRR split.** Activation = product aha inside a short N-day window from identity. Retention / actives are a different stage. Collapsing activation into the north-star window muddies diagnosis.
 
-**Multi-product suites.** Spotify, Atlassian, marketplace-style portfolios almost always keep **product-specific activation** until identity and a shared workspace are real. A single company-wide “activated” definition too early forces CIO/CRM into an unmanageable fan-out of journeys.
+**Funnel stages stay distinct.** Reach ≠ Identify ≠ Qualify ≠ Active. Anon = reach; identity fields = identify; ICP = qualify; meaningful product actions = active.
 
-**North star vs inputs.** One named north star (the sellable / ICP-qualified count). Teams steer **input metrics** (identified actives, activation conversion) until the north-star base is large enough that noise does not drive decisions. A ~1,000 person floor before steering the north star is a common rule of thumb.
+**Qualified list ≠ north star.** Chase **identified + qualified + ≥1 real action**, not a hollow named list.
 
-**B2B “qualified”.** Clearbit / HubSpot-style qualification is **ICP / persona fit** (function + company type + seniority band where relevant), not title seniority alone. Seniority-only gates miss Sales & Marketing → data-product buyers and overweight “sounds senior” readers who never buy.
+**First-aha SLA ≠ north-star stock.** Platform first-aha is a **cohort clock from Identify**. The company goal is a **rolling stock** of qualified-actives. Do not force the same window on both just because many people hit an action inside 7d — that is a behavioral fact, not a metric design rule.
 
-**Windows.** Never plot 7 / 15 / 30 on the same chart without labeling. Common pattern: short **SLA window** for activation (often 7d) + longer **reporting window** for actives / qualified (14–15d).
+**North star vs inputs.** One named north star (company chase) + secondary product inputs (platform Actv). ~1,000 person floor before over-steering the north star.
 
-**Cross-product counting.** Customer counts as activated if **OR** across products. Per-product activation stays a **local health** metric. Re-running cold onboarding for someone already qualified on another surface is an anti-pattern.
-
-**Backfill.** Forward cohorts (known activation state) are goal truth. Legacy “activation unknown” is reported on a separate line, never blended into the KPI used for targets.
+**Backfill.** Forward cohorts = goal truth; legacy unknown Active reported separately.
 
 ## §1 Implication for Inc42
 
 | Industry rule | What it means here |
 |---|---|
-| Product-specific activation | Media / DataLabs / App / IP each define their own aha; no One-Inc42-wide activation until identity + combined CIO workspace exist |
-| North star + inputs | Keep the **QIA** name; steer **IA-15 + activation conversion** until QIA ~1,000 |
-| Persona ICP, not VP+ only | Ranjith’s ICP table (Investor, Sales & Marketing, Founder/CXO, …) is the qualification axis; Media seniority alone cannot route DataLabs buyers |
-| 7d SLA + 15d report | Matches One Inc42’s 7d activation lock and the metric doc’s 15d evidence (Media under-counted at 7d) |
-| OR across surfaces | App-activated user on DataLabs web stays QIA; chase DataLabs activation as local ops, not a re-gate |
-| Forward vs legacy | Historical unknown activation → provisional line only |
+| Reach ≠ Identified | Anon = **Reach**. Identified = email + job title + company |
+| Qualified ≠ QIA | ICP alone = **Qualified** — not yet QIA |
+| QIA needs real action | **QIA = Identified + Qualified (ICP) + ≥1 of Utkarsh’s 10**. **Company chase = QIA (15d stock)** |
+| Platform Actv is parallel | **Product chase = platform Actv ≤7d from Identify**. **Not a QIA gate** |
+| Do NOT collapse windows | **Never chase “QIA within 7 days.”** That collapses Actv into QIA |
+| Don’t rename the goal | Primary = **QIA**. Do **not** rename to “QIA-activated” |
+| Report shape | **QIA** primary · **platform Actv rates among new IDs** secondary · optional slices |
+| Forward vs legacy | Unknown historical Active → separate line |
 
-**Today’s contradictions (unchanged facts):** One Inc42 pushed unified activation + 7d; Product & Data locked product-specific + QIA needs Actv≥1; metric doc steers IA with 15d and persona ICP without an activation row in the three-level table. Industry lens resolves this toward **product-specific Actv + OR for QIA + dual windows + persona ICP**.
+## §2 Recommendation (Inc42) — FINAL
 
-## §2 Recommendation (Inc42) — agree / amend
+Keep **QIA** as the north-star name. **Company chase = QIA (15d).** **Product chase = platform Actv ≤7d.**
 
-Keep **QIA** as the north-star name.
+### Ladder (locked)
 
-**Stack:** Reach → **IA** (email + job title + company + qualifying action in reporting window) → **Activated** (product-specific, 7d SLA) → **QIA** (Actv on ≥1 surface + ICP of any product) → **Core QIA** (proven-buyer slice, report only) · **Repeat Rate** as integrity check.
+```
+Reach → Identified → Qualified → (Active via ≥1 of Utkarsh’s 10) = QIA   ← 15d rolling STOCK
 
-**Windows:** activation SLA **7d**; IA / QIA / Repeat reporting **15d**; warehouse QIA-30 labeled separately; never mix on one chart.
+         Activate ≤7d FROM IDENTIFY (per platform, parallel) → Engage/Active
+```
 
-**Activation drafts (local):** App = existing early content/brief aha · DataLabs = profile / search / filter / watchlist / Ask / trial · Media interim = 2+ article opens OR newsletter click OR search (scroll restore becomes primary later; Infotude 2+ articles needs retention check) · IP = application / ticket.
+- **Reach:** anon actives / installs / pageviews (never fold into Identified)
+- **Identified:** email + job title + company
+- **Qualified:** ICP / persona fit of any Inc42 product. Seniority-only is not enough.
+- **Active (QIA rung):** ≥1 of the **10 actions** below (inside the **QIA window** below)
+- **QIA:** Identified + Qualified (ICP) + ≥1 of 10. **Not** ID+ICP alone. **Not** platform-Actv-gated.
+- **Activation ≤7d (parallel product chase):** platform first-aha, clocked **from Identify**. Per-platform flags; OR = activated somewhere. **Not** a QIA requirement.
+- **Engage/Active (retention):** longer retention — separate from QIA Active rung and ≤7d Actv.
 
-**Steer now:** IA-15 + Repeat-15 + activation-leak conversion. **Report** QIA weekly with Actv gate. **CIO:** one journey per surface activation; already-QIA users get recognised / continue, not cold onboarding.
+### Windows (locked — critical)
 
-### Edge grid (operational)
+| Metric | Window | Clock / shape | Chase |
+|---|---|---|---|
+| **Platform Activation** | **≤7 days** | **From Identify** (cohort). Platform-specific aha | **Product chase** |
+| **QIA** | **Rolling 15d STOCK** | Who is QIA now (ID + ICP + ≥1 of 10 in the stock window) | **Company chase** |
+| **QIA-30** | 30d | Warehouse only — **always label** QIA-30 | Report / warehouse, not ops chase |
 
-| Case | Count | Do |
+**Do NOT chase “QIA within 7 days.”** That collapses metrics.
+
+**Behavioral fact ≠ window design:** ~70% doing a 10-action inside 7d is interesting behavior. It is **not** a reason to set the QIA window = 7.
+
+**Always publish:** **QIA** (primary, 15d stock). Secondary: platform activation rates **among new IDs** (≤7d from Identify). Optional slices. Do **not** rename the goal to QIA-activated.
+
+### The 10 actions that count as Active for QIA (Utkarsh, 26 Aug)
+
+Any **≥1** of these completes the Active rung (with Identified + Qualified → QIA):
+
+1. Article depth  
+2. Profile / DB  
+3. Search completed  
+4. Advanced / filtered search  
+5. Watchlist / alert  
+6. Ask  
+7. App session with ≥1 content action  
+8. Newsletter click  
+9. Event apply  
+10. Payment  
+
+**Never count as Active / Actv:** opens, login, screen-arrivals.
+
+### Activation ≤7d from Identify (product chase — not a QIA gate)
+
+| Surface | Activation (≤7d from Identify) | Notes |
 |---|---|---|
-| Anon active | Reach only | Identify carefully; publish reach beside IA |
-| Identified, not Actv, ICP yes | IA — activation leak | Priority surface CTA; not QIA yet |
-| Actv ≥1 + ICP + active | **QIA** | Full product + cross-promo |
-| App-Actv, first DataLabs visit | Still QIA if ICP | Soft DL tour; do not strip QIA |
-| Media signup never Actv | IA if action+identity | Media activation campaign |
-| Multi-product Actv | QIA once (dedup) | Optional surface badges for ops |
-| Legacy Actv unknown | IA + provisional QIA\* | Split forward vs legacy lines |
-| Student / junior | IA only | Serve; never QIA |
-| Newsletter-only (no title/company) | Outside full IA | Enrich / re-ask |
+| **App** | **Brief completion ONLY** | Unique App metric. Do **not** count 3 article reads as App Actv |
+| **Media** | **3 article reads** | Web **or** in-App → **Media** Actv |
+| **DataLabs** | DL aha from the **instrumented 10** | Local health; subset of the 10 |
+| **IP** | application / ticket (draft) | Local health |
 
-**Ask A:** Confirm product-specific Actv, QIA needs Actv≥1 (OR), 7d/15d split, persona ICP, steer IA until ~1k, Core QIA as slice only.
+### Critical edges (locked examples)
+
+| Case | App Actv | Media Actv | QIA? | Notes |
+|---|---|---|---|---|
+| ID+ICP, Brief day 2, maps to one of 10 | **Yes** | No | **Yes** | Product Actv ≠ QIA gate; Brief can satisfy a 10 |
+| Newsletter click, ID+ICP, no Brief / no 3-article | No | No | **Yes** (if click is the ≥1 of 10) | **QIA without App/Media Actv** is allowed |
+| ID+ICP, **0 of 10** | maybe | maybe | **No** (Qualified only) | Not company chase yet |
+| ID+ICP + ≥1 of 10, no Brief / no 3-article | No | No | **Yes** | Still QIA; secondary nudge platform aha |
+| Identified, ICP no (e.g. student) | maybe | maybe | **No** | Serve; never QIA |
+| Anon active | — | — | No (Reach) | Identify carefully |
+| Legacy Active unknown | provisional | provisional | provisional | Split forward vs legacy |
+
+**Steer now:** grow the **15d QIA stock** (ID → ICP → ≥1 of 10). Separately improve **platform Actv ≤7d from Identify** among new IDs (Brief / 3-article / DL aha). **CIO:** journeys that land a real 10 for Qualified users; already-QIA get recognised / continue.
+
+**Ask A (FINAL):** Confirm ladder + windows above; company chase = QIA 15d; product chase = Actv ≤7d from Identify; never “QIA in 7d”; App Actv = Brief only; Media = 3 articles web/in-App; do not rename goal; steer until ~1k QIA.
 
 ---
 
@@ -71,50 +118,42 @@ Keep **QIA** as the north-star name.
 
 ## §0 Industry practice
 
-**Content feed vs entity directory.** LinkedIn separates Feed from Companies/People; news apps separate editorial from tickers/companies; marketplaces separate editorial browse from catalog. Mixing both in one infinite “Explore” is a common failure: incompatible card density, search intent, and scroll jobs.
+**Content feed vs entity directory.** Separate editorial feed from entity directory; hybrid Explore mixes both and fails.
 
-**Nav budget.** Primary tabs = high-frequency jobs. Low-usage tools (~15%) bury under Profile / More. Mid-usage habit loops stay visible until replacement tabs prove themselves.
+**Nav budget.** High-frequency jobs on primary tabs; bury low-usage (~15% Watchlist) under Profile; keep mid habit (Streak) visible until new tabs prove out.
 
-**Ritual surfaces** (morning brief / daily pack) should not compete with browse tabs until open-rate is healthy. Deep-link or overlay until the ritual UX is redesigned.
+**Ritual surfaces** off browse critical path until open-rate is healthy; still instrument when the ritual **is** the platform aha.
 
-**Search.** One global entry; ranking and placeholder bias by context. Rarely its own bottom tab.
+**Search.** One global entry; context-biased ranking; rarely its own tab.
 
 ## §1 Implication for Inc42
 
 | Industry rule | What it means here |
 |---|---|
-| Split feed vs directory | Today’s Explore → **News** + **Companies** lock is the industry-correct move |
-| Bury low-usage | Watchlist ~15% → **Profile** (with a Companies shortcut), not a primary tab |
-| Keep mid habit visible | Streak ~20–25% stays top-level until News/Companies prove out |
-| Ritual off critical path | Brief has known never-open problem (~44% Brief-tab); don’t block 15 Sep Explore split on Brief redesign |
-| Global search | Context-biased on News vs Companies; no Search tab |
+| Split feed vs directory | Explore → **News** + **Companies** |
+| Bury low-usage | Watchlist ~15% → **Profile** |
+| Keep mid habit | Streak stays top-level |
+| Ritual off nav critical path | Don’t block 15 Sep Explore split on Brief redesign |
+| Brief = App Actv ≤7d from Identify | Brief completion = App product chase. **QIA** still needs ID + ICP + ≥1 of 10 in the **15d stock** |
+| Global search | No Search tab · search completed / advanced search = QIA Active actions (#3–4) |
 
-Design order already matches industry: article → News home → Companies home → company profile (UI only) → Brief last.
+## §2 Recommendation (Inc42)
 
-## §2 Recommendation (Inc42) — agree / amend
+**Mental model:** News = stories · Companies = entities · Profile = my stuff · Brief = ritual **and** App ≤7d Actv aha.
 
-**Mental model:** News = “what’s happening” (stories). Companies = “who to track” (sectional entities + browse-all). Profile = my stuff (watchlist, account). Brief = time-boxed ritual, not a third content index.
+**15 Sep tabs (proposed):** News · Companies · Streak · Profile. Brief via deep link / overlay — not a 4th browse tab — but **Brief completion instrumentation** must ship as App Actv ≤7d from Identify.
 
-**15 Sep tab set (proposed):** News · Companies · Streak · Profile. Brief via deep link / overlay / next experiment so it does not compete with the new browse split.
+**Placement:** News = story feed; Companies = sections + browse-all; Profile = watchlist; Brief = pack + FOMO after redesign. In-App article reads → **Media** Actv (3-article), not App Actv. Article depth / search / watchlist / Ask / newsletter click feed the **QIA Active** rung when ID + Qualified.
 
-**Placement**
-
-| Surface | Include | Exclude |
-|---|---|---|
-| News home | Hero (first summary bullet), story feed, short display tags, → article | Company DB sections, watchlist mgmt |
-| Companies home | Sections (funded / launched / …), browse-all filters, strong search, → company profile | Long story cards as primary unit; v3 company UX |
-| Profile | Watchlist (canonical), saved, account | — |
-| Brief | Existing pack; FOMO patterns after redesign | Competing as 4th browse tab for 15 Sep |
-
-**Search / tags / onboarding:** one global search with context bias; short sector display names; interest/sector onboarding seeds **both** News ranking and Companies sections; story ↔ company cross-links (supports QIA cross-promo without merging tabs).
-
-**Ask B:** Confirm strict News/Companies split, Watchlist under Profile, 15 Sep tabs = News·Companies·Streak·Profile, Brief deferred off the Explore-split critical path.
+**Ask B:** Confirm News/Companies split, Watchlist in Profile, 15 Sep tabs = News·Companies·Streak·Profile, Brief off Explore critical path while Brief completion = App Actv ≤7d from Identify.
 
 ---
 
 # Combined asks (stop here)
 
-1. Metrics: product-specific Actv · QIA = Actv≥1 (OR) + persona ICP · 7d SLA / 15d report · steer IA until ~1k.  
-2. App: News vs Companies split · Watchlist in Profile · Streak kept · Brief not blocking 15 Sep.
+1. **QIA = Identified + Qualified (ICP) + ≥1 of Utkarsh’s 10.** Company chase = **QIA (rolling 15d stock)**. Not hollow named list. Do not rename to QIA-activated. **Never chase QIA-within-7d.**  
+2. **Product chase = platform Actv ≤7d FROM IDENTIFY:** App = Brief only · Media = 3 articles (web or in-App) · DL = instrumented-10 aha. Report Actv rates among new IDs secondary. Newsletter click can be QIA without App/Media Actv.  
+3. **App IA:** News vs Companies · Watchlist in Profile · Streak kept · Brief not primary tab for 15 Sep.  
+4. **QIA-30** = warehouse only, always labeled.
 
-**Out of scope until agree:** warehouse SQL, Asana, CIO journey maps, Infotude retention study, Brief FOMO build, v3 company UX.
+**Out of scope until agree:** warehouse SQL, Asana, CIO journey maps, Infotude study, Brief FOMO build, v3 company UX.
