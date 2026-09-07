@@ -54,3 +54,33 @@ visually bold/large text) — plus real Google Docs bulleted lists and native ta
   fuzzy "find the newest tab" query, which is unreliable.
 - Deleting a tab that has subtabs shows a "Delete this tab and all subtabs?"
   confirmation with a "Delete this tab but keep all subtabs" checkbox option.
+
+**Google SHEETS: File → Import is NOT automatable (verified 8 Sep 2026).**
+
+The Import dialog's Upload tab exposes only a "Browse" button that opens a **native
+macOS file picker**, which browser automation cannot see or drive. There is no
+`<input type="file">` reachable in the DOM (the picker lives in a cross-origin
+iframe), so `file_upload` has no ref to target. Do not burn turns attempting it —
+go straight to the HTML clipboard route for whole-tab replacements.
+
+Working Sheets replace recipe (used for [[project-inc42-ashish-events-sheet]]):
+
+1. Hex-encode and load the HTML, which preserves the bold header row:
+   `hex=$(hexdump -ve '1/1 "%.2x"' file.html); osascript -e "set the clipboard to «data HTML${hex}»"`
+   (The `read POSIX file ... as «class HTML»` form above also works; the hex form
+   avoids any file-permission surprises.)
+2. `osascript -e 'clipboard info'` → must report `«class HTML», <exact byte count>`.
+   Compare against `wc -c` on the file. See [[feedback-sheets-clipboard-paste-safety]].
+3. In ONE browser_batch so nothing can overwrite the clipboard mid-sequence:
+   Name Box → `A1` → `cmd+a` → `Delete` → Name Box → `A1` → `cmd+v`.
+
+Use the **Name Box** (top-left cell reference box) to select cells, never coordinate
+clicks on the grid — Sheets is canvas-rendered and coordinates drift. Name Box also
+doubles as the verification tool: after paste it displays the pasted range
+(e.g. `A1:S164`), and typing a range like `Q2:S164` selects it so the bottom-right
+status bar shows a Count — **no Count shown at all means the range is entirely
+empty**, which is a clean way to prove columns were left blank.
+
+Advantages over CSV import beyond automatability: no "convert text to numbers/dates"
+toggle to get wrong (so `$pageview`, version strings and `2026-09-08`-style values
+stay text), and the frozen header row survives — CSV import clears the freeze.
