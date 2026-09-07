@@ -107,6 +107,7 @@
 - [App v2 stakeholder doc](project-inc42-app-v2-stakeholder-doc.md) — 15-item scope doc + artifact 00608a57; full-article tap-center, dark mode
 - [Explore tab design direction](project-inc42-explore-articles-companies-design.md) — Brief-vs-Story RESOLVED; 8+8 artifact, NOT yet approved
 - [Master PRD rebuild — PAUSED, broken](project-inc42-master-prd-rebuild.md) — halted by live-collaborator collision; Launch Infra/Cross-Cutting sub-tabs need repair, Next release/Backlog/Reference not restructured
+- [App IA: News + Companies split (8 Sep)](project-inc42-app-ia-news-companies.md) — filtered feeds beat flat feeds everywhere; sector is the weakest nav dimension; Watchlist is a high-traffic EMPTY tab
 
 ## INC42 data warehouse
 - [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026
