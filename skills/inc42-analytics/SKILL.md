@@ -1,3 +1,16 @@
+# ⚠️ VERIFY EVERY NAME AGAINST LIVE POSTHOG BEFORE WRITING IT INTO A DELIVERABLE
+
+This skill's references are a **29 Aug 2026 snapshot**. On 8 Sep 2026 they were checked against live
+PostHog and produced 20+ wrong names and status claims in a QA sheet — including events called
+"absent from PostHog entirely" that were firing thousands of times that same day.
+
+Before any event/property name goes into a sheet, doc, ticket or PRD, run the live check:
+`switch-project` to 53557 (editorial web) / 66351 (DataLabs) / 146258 (App), then
+`execute-sql`: `SELECT event, count(), max(timestamp) FROM events WHERE timestamp > now() - INTERVAL 90 DAY GROUP BY event`
+and `read-data-schema {"query":{"kind":"entity_properties","entity":"person"}}` for person properties.
+
+Treat this file's Status columns as leads to verify, never as findings to publish.
+
 ---
 name: inc42-analytics
 description: Reference for Inc42's real analytics event and property schema across App, Website (Inc42 Media), and DataLabs — what events exist, what they actually fire with (vs. what's planned), which platforms receive them and why, and the checklist to follow before adding any new event, property, or user property. Load before creating, naming, or routing any new analytics event or property, before adding tracking to a banner/notification/modal/feature, or when asked what tracking already covers a given user action.

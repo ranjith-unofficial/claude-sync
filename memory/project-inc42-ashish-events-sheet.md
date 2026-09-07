@@ -43,3 +43,31 @@ in test_notes instead. NOTE the 7-Sep user-properties file did the opposite and 
 
 Related: [[project-inc42-event-audit-4sep]], [[project-inc42-user-properties-audit]],
 [[feedback-sheets-clipboard-paste-safety]], [[reference-inc42-vendor-stack]].
+
+## CORRECTION — 8 Sep 2026, after Ranjith caught `datalabs_onboarding_status`
+
+He was right, and it was a CLASS of error, not one cell. Root cause: I wrote names from the
+`inc42-analytics` skill's **29 Aug snapshot** instead of verifying against live PostHog, even though
+Ashish's own v3 README (line 11) states the rule outright: *"datalabs_onboarding_status is a USER
+property (User Properties | Lifecycle) — not dumped into event rows"* and *"'Datalab Onboarding State'
+is WRONG; event-side final is onboarding_stage."*
+
+Three distinct names that must never be confused again:
+| Name | What it is | Live in PostHog 8 Sep? |
+|---|---|---|
+| `Datalabs Onboarding Complete` | current Title Case person property, Yes/No, 52,708 people | YES |
+| `datalabs_onboarding_complete` | its snake_case rename — **flagged DELETE by Utkarsh, "not a user property"** | no |
+| `datalabs_onboarding_status` | **the final target name**, values not_started/in_progress/complete | not yet |
+| `onboarding_stage` | the EVENT-side property on `onboarding_lifecycle` — a different thing entirely | — |
+
+Live verification via PostHog MCP then found 20+ further errors of the same class, including several
+"confirmed broken/missing" claims that were simply false: Media `Registered` (3,477/90d, firing today,
+I had written "absent from PostHog entirely"), `Recommendation Click` (21,639/90d, I had written
+"regressed, zero captures"), `Unsave Story` (7/90d, I had written "absent"), DataLabs `Click Interaction`
+(6,846/90d) and `Pro Lock Interaction` (1,979/90d) both written as "proposed, not shipped". Five live App
+events were missing entirely (`app_update_prompt_shown/_dismissed`, `app_update_cta_tapped`,
+`app_update_flow_started`, `brief_story_rate_opened`). Corrected file is 163 rows.
+
+**Name-direction convention, settled from the 7-Sep user-properties file (same format, same reader):**
+`event_name` = the CURRENT live name; `display_name` = the EXPECTED/final name. Its audit_notes read
+literally "Current: PostHog: X -> Expected: Y". I had inverted this on several Media/App rows.
