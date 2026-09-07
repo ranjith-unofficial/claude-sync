@@ -42,3 +42,24 @@ When pasting large chunked data into a Google Sheet via `pbcopy < file` + browse
 - **The Name Box render lags the actual selection by seconds.** After a burst of arrow keys it can still
   show the old cell; `wait 2` then re-zoom before concluding the keys did not register. Also `key` with
   `repeat: N` is unreliable (often applies once) — pass the key space-separated N times instead.
+
+**Why clipboard paste is often the ONLY route (learned 2026-09-08, uploading `ashish-events-media-datalabs-app-v3.xlsx` into the "Test" spreadsheet):**
+Google Sheets' **File → Import → Upload is unusable from browser automation**. The Drive picker renders in a
+cross-origin iframe: `read_page` shows only `dialog → generic` with no children, `find` cannot see the Browse
+button or any `<input type=file>`, so `file_upload` has no ref to target and clicking Browse would open a
+native dialog that automation cannot see. Do not spend calls trying — go straight to building the tabs by hand.
+
+**Use HTML paste, not TSV, whenever any cell may contain a newline.** In that workbook 9 of ~180 rows had
+embedded `\n` (e.g. "Lock Type\nLock Interaction"), which TSV paste would have split into extra rows.
+Convert each sheet to an HTML `<table>` (escape, then `\n` → `<br>`), and set the clipboard with:
+`hex=$(hexdump -ve '1/1 "%.2x"' file.html); osascript -e "set the clipboard to «data HTML${hex}»"`.
+A 52 KB HTML file (67 rows x 19 cols) went through in one paste with no size trouble.
+
+**What HTML paste carries and does not:** values, line breaks inside cells, bold header row, hyperlinks — yes.
+Autofilter ranges, column widths, and any xlsx-level sheet settings — no; say so when reporting.
+
+**Tab mechanics that worked:** click Add Sheet (+) → the new sheet opens with A1 selected, click cell A1 to give
+the grid focus → set + verify clipboard → cmd+v → double-click the new tab in the strip (it lands right after
+the previously active tab, not at the end) → type the name → Return. Verify each paste by reading the Name Box
+range after paste (it shows e.g. `A1:S67`) and by clicking column A then `cmd+Down` to confirm the last row
+matches the source.
