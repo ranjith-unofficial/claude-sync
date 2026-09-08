@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 300a6e51-1907-4a2e-97de-6fec672f48be
-  modified: 2026-09-06T14:59:28.479Z
+  modified: 2026-09-08T04:49:02.447Z
 ---
 
 Investigated 30 Aug 2026 with live API replay + PostHog. **The dominant cause of app search zero-results is NOT index coverage** — this corrects `app-search-defects.md` (23 Aug), which blamed content gaps.
@@ -55,6 +55,18 @@ Master deliverable: `~/ClaudeDocs/inc42/inc42-search-diagnosis-and-plan.md` — 
 - **v1 vs v2 INVERTED the 30 Aug conclusion.** v2 is NOT strictly better. v2: 15/30 hard zeros (50%), `cred`→absent, `ola`/`navi`→rank 3, p50 **1,558ms**. v1: 1/15 zeros, `cred`/`ola`/`navi`→**rank 1**, p50 **390ms**. v2 wins only on typo (`zomto`+did_you_mean), topic→sector (`fintech`, `green hydrogen`) and investor portfolio (`peak xv`). **So "migrate everything onto v2" would BREAK `cred` on inc42.com where it works today** — migration is now gated on v2 beating v1 on the regression set.
 - **Server is deterministic** (6× `green hydrogen`, 8× `shipr` → identical). Confirms the 57–75% flip-flop is the client-side response race. Stage 0 unchanged.
 - **Nothing has shipped since 30 Aug** — every multi-word failure still returns 0.
+
+**8 SEP 2026 — Ashish shared the Global Search PRD (Ankit Srivastava + Ritvik Sethi, "Under Development"): ES-backed unified modal, two intents (Entity / Analytical→Ask Datalabs), 8-week 4-phase plan.** Ranjith asked me to simulate its logic against a real corpus BEFORE implementation. Built a working simulator (`~/ClaudeDocs/inc42/search-sim/`, re-runnable) of the PRD's exact scoring — exact^10/prefix^5(edge-ngram)/fuzzy^2(AUTO)/phonetic^1/desc^0.5, best_fields, function_score × quality, per-index normalisation, cross-type weights, _msearch caps. Corpus = 4,905 docs pulled live (2,581 companies / 1,465 people / 847 investors), deepened around every regression token so competitor sets are real. Deliverable: `~/ClaudeDocs/inc42/search-logic-simulation-8sep.md`.
+
+**Result: PRD as written 16/22 at rank 1; PRD + 5 spec fixes 20/22 (21 with investor quality populated).** The reported symptom IS solved by the PRD — `cred`→CRED, `ola`, `navi` all rank 1 under exact^10. Three spec defects found:
+- **D1 (serious, structural): per-index normalisation is mathematically broken.** "Divide by max score within that index" makes the top row of EVERY index normalise to exactly 1.0, so leading rows are ordered *purely by type weight*, never by match quality. Proven on `apax`: Apax Partners raw 2.722 (exact token) → 0.900; Apaxon Technologies raw 2.121 (partial prefix) → 1.000. Junk company always beats perfect investor. Fix: ONE index with a `type` field (also kills the app-side merge and helps the 200ms target), or normalise to a fixed constant.
+- **D2: no `minimum_should_match`** — ES defaults to OR, so `iifl finance` ranks 6th behind CapitalXB/Avail/Arthan Finance and the size-5 cap cuts it. msm 100% + OR retry → rank 1.
+- **D3: phonetic has no length guard** and can qualify a doc alone → `Zoko`/`SK Finance` above Sequoia Capital. (Caveat: my metaphone is simplified; recheck with real Double Metaphone.)
+Other recommended edits: `name.token^7` whole-token field; `name_squash` **single-token queries only** (unscoped it demotes `third wave`); alias table into Phase 1; investor quality signals are load-bearing (flat=rank 9, realistic=rank 1 for `sequioa`) so cannot be deferred.
+
+**GROUND-TRUTH CORRECTION to this memo's own earlier claims (live-verified 8 Sep):** Wagh Bakri, Lava, TBO Tek, BirdEye, Eternal Limited and ANI Technologies are **NOT IN THE INDEX AT ALL** — they are missing records, not tokenisation/ranking failures, and no search logic fixes them. Also `matter motor` and `third wave` **already return the right answer at rank 1 on v1 today** — they were wrongly listed above as multi-word failures. Sim caveat: corpus under-samples noise ~9× (92 local docs match "cred" vs 803 live), so reported failures are a lower bound.
+
+PRD scope gaps: DataLabs only — no inc42.com article search (RC#0), no app, no v1 retirement path. Its 19 PostHog events are marked "Do not pick right now", and DataLabs `Search Completed` still has no result count, so its own success targets have no baseline.
 
 **Harness gotchas (cost me time):** all `datalabs-api.inc42.com` endpoints 403 without a **`Referer: https://inc42.com/`** header. **v1's response key is `companies` (plural), v2's is `results[]`** — reading v1 for `company` gives a false "returns nothing". `company/new-search` ignores `size`/`from` on `company_search` (always 5 rows; true total in `count`). Probe scripts were in the session scratchpad (`probe.py`, `regress.py`, `cmp2.py`, `art.py`) — regenerate if needed.
 
