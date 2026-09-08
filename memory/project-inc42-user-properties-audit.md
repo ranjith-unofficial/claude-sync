@@ -159,3 +159,11 @@ down nowhere.
 the leading `'` as its force-text prefix. Two cells lost it silently; caught only by comparing total
 character counts of the pasted range against the source. Always compare per-row lengths after a paste,
 and never start a cell with `'`.
+
+**Second pass, same day:** rewriting only G/H/I was NOT enough — Ranjith came back pointing at D7
+("Fix. Auth string (15190), not numeric PK.") saying he could not understand it either. The per-product
+columns **D (Media), E (DataLabs), F (App)** were also rewritten in plain language, 82 rows, keeping every
+count. Format per cell: state what is stored TODAY and how many people, prefixed BROKEN / MISSING /
+"In use:" / "Not used on <product>", and for the App column what the App must write. Columns A, B, C and
+G, H, I were proven unchanged by the D/E/F paste. **Lesson: when he says an action column is unreadable,
+the evidence columns beside it are unreadable too — rewrite the whole row, not the one cell he quoted.**
