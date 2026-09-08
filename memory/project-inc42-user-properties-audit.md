@@ -137,3 +137,25 @@ coordinate clicks land on the wrong cell), then pbcopy a TSV and Cmd+V at A1.
 
 See [[feedback-analytics-destination-scope]], [[reference-inc42-posthog-projects]],
 [[reference-inc42-vendor-stack]].
+
+**REWRITE FOR IMPLEMENTERS (8 Sep 2026).** Ranjith could not act on column G ("What to do") of the
+"Unified User Properties" tab (gid 350143376) — G7 `user_id` was the trigger. Rewrote in the SAME tab:
+**G = "Where to change it", H = "What exactly to do", I = "Done when"**, all 82 property rows, plain
+language, no jargon. Columns A–F were NOT touched and were proven byte-identical to a pre-paste snapshot
+(83 rows compared cell-by-cell in-page, zero differences); backup at
+`unified_BACKUP_before.csv`, SHA-256 e3c5dadd2a0fdfc775758f62d6924e9f72fc5322a1794e862962666c044b71b0.
+Old G text is gone — recoverable only from Google version history.
+
+Contradictions surfaced as "DECISION NEEDED" in column H, still unresolved:
+row 2 `trial_start_date/trial_end_date` (C says Delete, DataLabs says Keep with 2,539 PH / 1,934 CIO live),
+row 4 `datalabs_onboarding_complete` (C says Delete, DataLabs cell says Fix),
+row 34 `Username` (delete only if no live DataLabs screen reads it).
+Also flagged and NOT fixed: E7 text is truncated (" values (79659). Write slug."), D22/E22 start with a
+stray ".", column B mixes priorities P1/P2/P3 with the status "Already fixed", and the 9 seniority levels /
+company valuation ladder / 17 dl_use_case values / allowed `interests` values are referenced but written
+down nowhere.
+
+**GOOGLE SHEETS GOTCHA (new):** a pasted cell whose text STARTS with an apostrophe loses it — Sheets eats
+the leading `'` as its force-text prefix. Two cells lost it silently; caught only by comparing total
+character counts of the pasted range against the source. Always compare per-row lengths after a paste,
+and never start a cell with `'`.
