@@ -1,0 +1,334 @@
+property,source,needs_sync?,action,event_vs_user,data_comments,marketing_cio,marketing_posthog,final_field,final_fix
+distinct_id (person ID),"PostHog-Media, CIO-Media",→ push to CIO (Low — system/identity field),FIX,"USER ✓ — but it is carrying an email, which is PII in the key",Send the numeric Inc42 user id as the person ID; email stays a normal attribute,cio_id is the key; the 'id' identifier is empty on sampled profiles,"73,804 of 1,157,448 IDs created since 1 Jan 2025 are raw email addresses; only 416 numeric, 31 auth0 — a LIVE defect, not legacy",user_id,"1. Standardise — Emit the numeric user id as distinct_id on both surfaces
+2. Merge/delete — Alias old email-keyed persons to the new id before retiring them — do not drop, history splits
+3. Fill check — Target 100% numeric on new sign-ins; today 0.04%"
+UID,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,"Rename → uid, but it must hold the numeric id, not the auth0 string",present,"28,329 since 2025 (29,585 all-time); holds google-oauth2|… not a number",uid,"1. Standardise — Rename 'UID' → uid on both
+2. Merge/delete — Keep the auth0 string in its own auth_provider_id; 17,914 have UID only, 10,415 have both UID and User ID
+3. Fill check — OK on fill (99.99%), FAIL on value type"
+User ID,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,"Duplicate of UID — same auth0 string, different name",used by no segment,"16,726 since 2025 (16,782 all-time); 6,311 have User ID only",user_id,"1. Standardise — Rename 'User ID' → user_id
+2. Merge/delete — Merge with uid — one holds the numeric id, one the auth0 string; today both hold the same string
+3. Fill check — OK on fill, FAIL on value type"
+id,CIO-Media,—,DELETE,"EVENT-shaped ⚠ — it is an identifier, not a trait",DL grid deletes this; Media must rebuild 2 segments first,"⚠ empty on sampled profiles, yet segments 'Have a Mobile Device' / ""Doesn't have a Mobile Device"" are built on it",not in PostHog,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Rebuild both mobile-device segments on phone_number BEFORE deleting; they are targeting on an empty field today
+3. Fill check — Segment sizes must match the count of readers with a phone number"
+anonymous_id,CIO-Media,—,KEEP,USER ✓,Customer.io's own pre-identify key — plumbing,auto-written,not in PostHog,anonymous_id,"1. Standardise — No rename
+2. Merge/delete — —
+3. Fill check — n/a — vendor field"
+email,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Keep → email (canonical id) — same decision as DL grid,"present; feeds segments 'Valid Email Address', 'Invalid Email Address' and 5 campaigns","25,175 since 2025 (92,917 all-time), 0% empty — but SMALLER than 'Email' on recent readers",email,"1. Standardise — Keep as email on both
+2. Merge/delete — Fold 'Email' in — see next row
+3. Fill check — OK — 0% empty"
+Email,"PostHog-Media, CIO-Media",on both — apply same rename on both,MERGE,USER ✓,"Rename → email. On Media this capital-E field is the BIGGER of the two on recent readers, unlike DL","present; feeds segments 'AI Summit Application Completed', 'NL Automation Test' and 4 DRS/AI-Summit campaigns","41,818 since 2025 vs 25,175 on 'email'; 33,077 recent readers have ONLY this one",email,"1. Standardise — Find the live code writing 'Email' and point it at email — it is still writing today
+2. Merge/delete — Copy the 33,077 recent (34,220 all-time) addresses that exist only here into email, then move the 2 segments + 4 campaigns, THEN delete
+3. Fill check — OK — 2 empty out of 41,818"
+First Name,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → first_name; stop writing the literal string 'undefined',present; a campaign named 'test' reads first_name,"31,443 since 2025, 6,973 empty (22%)",first_name,"1. Standardise — Rename 'First Name' → first_name on both
+2. Merge/delete — Delete the 1-person lowercase twin 'first_name'
+3. Fill check — FAIL — 22% empty and 'undefined' stored as a value"
+Last Name,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → last_name; stop writing 'undefined',present,"31,704 since 2025, 8,013 empty (25%)",last_name,"1. Standardise — Rename 'Last Name' → last_name on both
+2. Merge/delete — Delete the 1-person lowercase twin 'last_name'
+3. Fill check — FAIL — 25% empty; count is ~250 higher than First Name, so names are written apart"
+Full Name,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → full_name; 'undefined undefined' has been emailed to readers as their name,present,"31,066 since 2025, 4,307 empty (14%)",full_name,"1. Standardise — Rename 'Full Name' → full_name on both
+2. Merge/delete — Fold 'Name' in — see next row
+3. Fill check — FAIL — holds 'undefined undefined'"
+Name,"PostHog-Media, CIO-Media",on both — apply same rename on both,DELETE,USER ✓,Pure duplicate of Full Name — nothing of its own,present,"30,817 since 2025; 249 have Full Name only, ZERO have Name only",—,"1. Standardise — Do not rename
+2. Merge/delete — Safe hard delete — no reader has Name without Full Name
+3. Fill check — n/a — nothing is lost"
+Phone Number,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → phone_number; store as +91 followed by 10 digits — same decision as DL grid,"present, plus a second field 'phone'","31,443 since 2025, 21,893 empty (70%); junk values '(___) ___-____', '(999) 999-9999', 1234567890",phone_number,"1. Standardise — Rename 'Phone Number' → phone_number and normalise to +91##########
+2. Merge/delete — Fold CIO 'phone' in; delete the 1-person lowercase twin
+3. Fill check — FAIL — 70% empty and the form mask is being saved as a value"
+phone,CIO-Media,—,MERGE,USER ✓,Second phone field in Customer.io only,"present, unused by any segment or campaign",not in PostHog,phone_number,"1. Standardise — Rename → phone_number
+2. Merge/delete — Copy anything held only here, then delete
+3. Fill check — —"
+Personal Email,"PostHog-Media, CIO-Media",on both — apply same rename on both,DELETE,USER ✓ — but mixed-type,DL grid deletes this as a boolean flag. Media is WORSE: it holds 'yes'/'no' AND real email addresses,present; not marked as personal data (privacy level 0),"41,591 since 2025 (84,897 all-time); values 'yes', 'no' and real addresses",—,"1. Standardise — Do not rename — retire
+2. Merge/delete — ⚠ Extract the real email addresses into email BEFORE deleting, or live addresses are lost. DL had no addresses in it; Media does
+3. Fill check — n/a — field retired"
+Work Email,"PostHog-Media, CIO-Media",on both — apply same rename on both,DELETE,USER ✓ — but mixed-type,DL grid deletes this as a boolean flag; same on Media,present; not marked as personal data,"28,329 since 2025; values 'yes', 'no', 'undefined'",—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Delete the 1-person lowercase twin 'work_email' in the same pass
+3. Fill check — n/a — field retired"
+Secondary Email,CIO-Media,—,DELETE,USER ✓,"Third email field, CIO only, undocumented, unused","present, no segment or campaign",not in PostHog,—,"1. Standardise — Do not rename
+2. Merge/delete — Confirm no address exists only here, then delete
+3. Fill check — n/a"
+Verified Email,CIO-Media,—,DELETE,USER ✓,"CIO only, undocumented, unused; unclear whether it is a flag or an address","present, no segment or campaign",not in PostHog,—,"1. Standardise — Do not rename
+2. Merge/delete — Confirm meaning with whoever loads it, then delete
+3. Fill check — n/a"
+Plus Email,"PostHog-Media, CIO-Media",on both — apply same rename on both,DELETE,USER ✓,Duplicate of email kept for Plus — same decision as DL grid,present,259 since 2025; ~99.5% identical to email,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Reconcile the handful that differ into email, then delete
+3. Fill check — n/a"
+Designation,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → designation. DL keeps it; on Media it is the worst-filled field on the property,"present, unused by any segment","41,594 since 2025, 38,770 empty — 93% empty on recent readers (75% all-time)",designation,"1. Standardise — Rename 'Designation' → designation on both; agree ONE written list of titles
+2. Merge/delete — Collapse the two live spellings — dashed lowercase ('senior-management') and words ('Founder') are counted as different jobs today
+3. Fill check — FAIL — 93% empty on 2025+ readers"
+Seniority,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → seniority and map onto the 9 agreed levels — same decision as DL grid,"present, unused by any segment","44,847 since 2025, 31,793 empty (71%); real coverage ~13,000",seniority,"1. Standardise — Rename → seniority; write the 9 agreed levels down — they are referenced everywhere and recorded nowhere
+2. Merge/delete — Delete the 1-person lowercase twin
+3. Fill check — FAIL — 71% empty; 'undefined' stored as a value"
+Function,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → function. DL reaches this slug by merging 'Company Function'; Media already has the field,present,"41 people since 2025, 10 empty",function,"1. Standardise — Rename 'Function' → function — same target slug as the DL grid's Company Function merge
+2. Merge/delete — —
+3. Fill check — FAIL — 41 people is not usable coverage; either collect it properly or retire it"
+Interests,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,"Stored as one joined run of text, so no segment can be built on a single interest",present,"41 people since 2025, 12 empty",interests,"1. Standardise — Agree and record the allowed interest list
+2. Merge/delete — Store each interest as its own entry rather than one string
+3. Fill check — FAIL — unusable as stored"
+What Discribes you best / Which describes you best? / Where is your company today?,CIO-Media,—,MERGE,USER ✓,"Three near-identical questions, one with a spelling mistake in the field name. DL reaches user_persona the same way (User_Profile_Fixed + User_Profile_Variable)","all three present, none used by a segment or campaign",not in PostHog,user_persona,"1. Standardise — Create user_persona — same canonical slug as the DL grid
+2. Merge/delete — Fold all three in, correctly spelt, then delete the three
+3. Fill check — —"
+Company Name,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → company_name — same decision as DL grid,"present, unused by any segment","43,702 since 2025, 18,427 empty (42%); values include 'TBD' and 'undefined'",company_name,"1. Standardise — Rename → company_name on both
+2. Merge/delete — Delete the 1-person lowercase twin; trim and case-normalise so one company is not counted twice
+3. Fill check — FAIL — 42% empty plus placeholder values"
+Industry,"PostHog-Media, CIO-Media",on both — apply same rename on both,MERGE,USER ✓,Crosswalk → company_sector — same canonical target as the DL grid. ⚠ On Media this is the LIVE sector field,present,"7,034 since 2025, 4,309 empty (61%) — against 118 on 'Company Sector'",company_sector,"1. Standardise — Repoint whatever writes Industry at company_sector — Industry is what the live site writes today
+2. Merge/delete — Crosswalk the value list onto company_sector's, then delete Industry
+3. Fill check — FAIL — 61% empty"
+Company Sector,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Keeps the canonical NAME but has effectively stopped being written — the values must come from Industry,present,"118 people since 2025 vs 17,583 all-time — near-dead on recent readers",company_sector,"1. Standardise — Keep company_sector as the surviving name
+2. Merge/delete — Take Industry's live feed, not this one's — merging Industry INTO this field as-is would point the data at dead code
+3. Fill check — FAIL — 118 recent readers"
+Company Type,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → company_type and map onto the agreed stage list — same decision as DL grid,"present, plus a separate 'company_stage' field","520 since 2025, 11 empty; values carry leading spaces and underscores so the same value counts twice",company_type,"1. Standardise — Rename → company_type; agree and record the stage list
+2. Merge/delete — Fold CIO 'company_stage' and 'Where is your company today?' in
+3. Fill check — FAIL — 520 readers, unmapped values"
+Company Website,PostHog-Media,—,DELETE,USER ✓,Dead — nobody who joined since 1 Jan 2025 has it,"CIO twin 'Brand Website' is the same dead concept, also unused","ZERO since 2025 (211 all-time, 46% of those empty); values are company names and 'NA', not addresses",—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Delete alongside CIO 'Brand Website'. If the company website is genuinely wanted, re-collect it with a web-address check
+3. Fill check — n/a — dead field"
+Brand Website,CIO-Media,—,DELETE,USER ✓,CIO twin of the dead Company Website,"present, unused",not in PostHog,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Delete with Company Website
+3. Fill check — n/a"
+LinkedIn Profile URL,CIO-Media,→ push to CIO (Low — system/identity field),KEEP,USER ✓,Keep → linkedin_profile_url — same canonical slug as DL grid,"present, unused by any segment",not in PostHog (CIO-only pipe on Media),linkedin_profile_url,"1. Standardise — Keep as linkedin_profile_url
+2. Merge/delete — Fold 'LinkedIn URL' in — see next row
+3. Fill check — ~1 in 5 values is not a LinkedIn address; empty those"
+LinkedIn URL,CIO-Media,—,MERGE,USER ✓,Duplicate of LinkedIn Profile URL,"present, unused",not in PostHog,linkedin_profile_url,"1. Standardise — Rename → linkedin_profile_url
+2. Merge/delete — Copy anything held only here, then delete
+3. Fill check — —"
+Company LinkedIn URL,CIO-Media,→ push to CIO (Low — system/identity field),KEEP,USER ✓,Genuinely different from the reader's own profile — the company page,"present, unused",not in PostHog,company_linkedin_url,"1. Standardise — Keep as company_linkedin_url
+2. Merge/delete — —
+3. Fill check — —"
+City,PostHog-Media,—,DELETE,USER ✓,Dead in PostHog — nobody who joined since 1 Jan 2025 has it,CIO holds city/state/country plus its own automatic cio_ location fields,"ZERO since 2025 (41 all-time, 83% of those empty, mixed case 'MUMBAI')",city,"1. Standardise — Retire the PostHog field
+2. Merge/delete — Decide ONE source of location — the reader's stated city, or Customer.io's automatic one. Media currently has three overlapping records
+3. Fill check — n/a — dead in PostHog"
+city / state / country,CIO-Media,—,FIX,USER ✓,"Customer.io's reader-stated location, overlapping its own automatic cio_ fields","all three present, unused by any segment",not in PostHog,city,"1. Standardise — Keep city as the canonical slug
+2. Merge/delete — Retire whichever of stated vs automatic location is not chosen; do not keep three
+3. Fill check — —"
+User Type,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Rename → user_type — same decision as DL grid,present; drives the campaign 'Inc42 Registered',"17,502 since 2025, 0 empty; values Registered / Free / Plus Member / Pro Member",user_type,"1. Standardise — Rename 'User Type' → user_type on both
+2. Merge/delete — —
+3. Fill check — OK — 0% empty"
+User State,"PostHog-Media, CIO-Media",on both — apply same rename on both,DELETE,EVENT-shaped ⚠ — 'Logged In' = a login action → belongs as an EVENT,Same decision as the DL grid,present,"16,726 since 2025 — every one of them holds the single value 'Logged In'",—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Delete on both; a session state is not a trait
+3. Fill check — n/a — one value, no information"
+Registration Status,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,EVENT-shaped ⚠ — status of a registration moment → event,"⚠ UNIFICATION CONFLICT: the DL grid DELETES this. On Media it feeds a live segment, so it cannot simply be dropped",present; feeds the segment 'Subscribed to Topic 1-6 and Registered',"28,266 since 2025, 1 empty",registration_status,"1. Standardise — Rename → registration_status and use only the word 'registered'
+2. Merge/delete — Fold the misspelt twin in — see next row. Then agree with the DL owner whether Media follows DL's delete; rebuild the segment on the event first if so
+3. Fill check — OK on fill — 1 empty"
+Registeration Status (misspelt),PostHog-Media,—,DELETE,USER ✓,The field name is misspelt and it is STILL being written today,never reached Customer.io,"20,010 since 2025 (63,174 all-time); 13,262 recent readers have ONLY this one; values 'registered' and 'Yes'",—,"1. Standardise — Find the code still writing the misspelt name and correct it
+2. Merge/delete — Copy across for the 13,262 recent (55,407 all-time) who have only this one, mapping 'Yes' → 'registered', THEN delete
+3. Fill check — OK on fill, FAIL on value list — two vocabularies"
+Register Source,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → register_source; stop writing 'undefined' — same decision as DL grid,"present; drives segments 'Registered via Inc42 Datalabs', 'Launch EDM', 'App', 'Audience' and 'Untitled Automation 28'","48,451 since 2025, 2,400 holding 'undefined'",register_source,"1. Standardise — Rename → register_source on both
+2. Merge/delete — ⚠ Do not delete or rename in place — 4 segments and 1 automation read it; move them first
+3. Fill check — FAIL — 2,400 hold the literal word 'undefined'"
+User Creation Date,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Rename → user_creation_date — same canonical slug as DL grid,present,"28,329 since 2025, 1 empty; readable timestamps",user_creation_date,"1. Standardise — Rename → user_creation_date on both
+2. Merge/delete — Fold created_at and Registered_Date in — see next rows
+3. Fill check — OK — 1 empty"
+created_at,CIO-Media,—,MERGE,USER ✓,"One of three competing joining-date fields, and they disagree",present; read by the campaign 'Untitled Campaign 17',not in PostHog,user_creation_date,"1. Standardise — Rename → user_creation_date
+2. Merge/delete — ⚠ Move 'Untitled Campaign 17' onto the surviving field BEFORE deleting
+3. Fill check — Reconcile against PostHog first-seen on 10 readers — the three do not agree today"
+Registered_Date,CIO-Media,—,MERGE,USER ✓,Third joining-date field. DL keeps registered_date as its own slug,"present, unused",not in PostHog,registered_date,"1. Standardise — Rename → registered_date — the DL grid's canonical slug
+2. Merge/delete — Decide whether Media needs both registered_date and user_creation_date, or one
+3. Fill check — —"
+Plus Subscription ID,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → plus_subscription_id — same decision as DL grid,"present, plus an underscore twin 'Plus_Subscription_ID'",342 since 2025; holds TWO id systems at once — letter codes 'RCTB3O3QY44S' and numbers '476604',plus_subscription_id,"1. Standardise — Rename → plus_subscription_id
+2. Merge/delete — Delete the underscore twin 'Plus_Subscription_ID' after copying anything unique
+3. Fill check — FAIL — two incompatible id formats in one field"
+Plus_Subscription_ID,CIO-Media,—,DELETE,USER ✓,Underscore twin of the above,present,not in PostHog,—,"1. Standardise — Do not rename
+2. Merge/delete — Copy anything unique, then delete
+3. Fill check — n/a"
+Plus Term ID,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Same two-id-systems problem as Plus Subscription ID,present,343 since 2025; 'TMN213QZEKYU' alongside '296958',plus_term_id,"1. Standardise — Rename → plus_term_id
+2. Merge/delete — Pick one id system and keep the other in its own field
+3. Fill check — FAIL — two id formats"
+Plus Membership Type,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Rename → plus_membership_type,present,"259 since 2025, 0 empty; Annual / 2 Year / 3 Year",plus_membership_type,"1. Standardise — Rename → plus_membership_type
+2. Merge/delete — —
+3. Fill check — OK"
+Plus Membership Status,PostHog-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,FIX,USER ✓,Sound values but PostHog-only — no renewal or dunning message can read it,⚠ NOT in Customer.io,"85 since 2025, 0 empty; active / expired / cancelled / inactive / expired_with_error",plus_membership_status,"1. Standardise — Rename → plus_membership_status
+2. Merge/delete — Push to Customer.io — this is the field a renewal journey needs
+3. Fill check — OK on fill, FAIL on reach"
+Plus Membership Start Date,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Rename → plus_membership_start_date,present,"425 since 2025, 0 empty; readable dates",plus_membership_start_date,"1. Standardise — Rename → plus_membership_start_date
+2. Merge/delete — —
+3. Fill check — OK"
+Plus Membership Expiry Date,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Rename → plus_membership_expiry_date,present,"339 since 2025, 0 empty; readable dates",plus_membership_expiry_date,"1. Standardise — Rename → plus_membership_expiry_date
+2. Merge/delete — —
+3. Fill check — OK"
+Plus Next Payment Date,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Rename → plus_next_payment_date and store as a readable date,present,"409 since 2025, 222 empty (54%); values are raw unix counters like 1821150009 while every other Plus date is readable",plus_next_payment_date,"1. Standardise — Rename → plus_next_payment_date and convert to yyyy-mm-dd
+2. Merge/delete — Fold 'Plus Next Bill Date' in — same concept
+3. Fill check — FAIL — 54% empty and two formats in one field"
+Plus Next Bill Date,PostHog-Media,—,MERGE,USER ✓,Duplicate concept of Plus Next Payment Date — DL grid merges the same pair,⚠ not in Customer.io,"75 since 2025, 0 empty; readable dates",plus_next_payment_date,"1. Standardise — Rename → plus_next_payment_date
+2. Merge/delete — Merge and delete — ironically this one has the correct format and the survivor does not
+3. Fill check — OK"
+Plus Last Payment Date,PostHog-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,FIX,USER ✓,PostHog-only — unusable for messaging,⚠ NOT in Customer.io,"75 since 2025, 0 empty",plus_last_payment_date,"1. Standardise — Rename → plus_last_payment_date
+2. Merge/delete — Push to Customer.io or record in writing that it is analysis-only
+3. Fill check — OK on fill, FAIL on reach"
+Plus Last Payment Amount,PostHog-Media,—,DELETE,Event property ⚠ — amount = context of a payment event,Same decision as the DL grid on Charge Amount,⚠ not in Customer.io,85 since 2025,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Keep the amount on the payment event, where every payment survives
+3. Fill check — n/a"
+Plus Total Payment Amount,PostHog-Media,—,DELETE,Event property ⚠ — a running total belongs in the warehouse,"Derived value, not a trait",⚠ not in Customer.io,18 since 2025,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Compute from payment events
+3. Fill check — n/a"
+Plus Subscription Count,PostHog-Media,—,DELETE,Event property ⚠ — derived count,"Derived value, not a trait",⚠ not in Customer.io,7 since 2025,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Compute from subscription events
+3. Fill check — n/a"
+Plus Conversion ID,PostHog-Media,—,DELETE,Event property ⚠ — belongs to one conversion,Same class as the DL grid's deleted order fields,⚠ not in Customer.io,259 since 2025,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Keep on the conversion event
+3. Fill check — n/a"
+Charge Amount,PostHog-Media,—,DELETE,Event property ⚠ — amount = context of a payment event,Same decision as the DL grid,⚠ not in Customer.io,259 since 2025,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Keep on the payment event
+3. Fill check — n/a"
+Charge Currency,PostHog-Media,—,DELETE,Event property ⚠ — currency = context of a payment event,Same decision as the DL grid,⚠ not in Customer.io,"259 since 2025, all 'INR'",—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Keep on the payment event
+3. Fill check — n/a"
+Payment Stage,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,"DL grid keeps payment_stage. On Media it never changes, so it cannot show a stage",present,411 since 2025 — every one holds the single value 'Payment Completed_Backend',payment_stage,"1. Standardise — Rename → payment_stage
+2. Merge/delete — Either write the other stages so the field means something, or retire it — do not leave it
+3. Fill check — FAIL — one value, no information"
+Plus Meter Views Left,PostHog-Media,—,DELETE,USER ✓,CORRECTED against recent data: all-time this looked like Media's biggest field; on 2025+ readers it has all but stopped,⚠ not in Customer.io,"49 people since 2025 vs 1,241,894 all-time — a legacy field, not a live one",—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Confirm with the paywall owner that nothing still reads it (the 49 recent writes suggest something occasionally does), then delete
+3. Fill check — n/a — legacy"
+Pro Membership Type,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Rename → pro_membership_type — same canonical slug as DL grid,present,"389 since 2025, 0 empty; Datalabs Pro Free Trial / Monthly / Quarterly / Yearly",pro_membership_type,"1. Standardise — Rename → pro_membership_type
+2. Merge/delete — —
+3. Fill check — OK"
+Pro Membership Expiry Date,"PostHog-Media, CIO-Media",on both — apply same rename on both,MERGE,USER ✓,DL grid ADDs pro_membership_expiry_date; Media already has it AND a newer pro_current_period_end_at,present,"96 since 2025, 6 empty",pro_membership_expiry_date,"1. Standardise — Rename → pro_membership_expiry_date — the DL grid's canonical slug
+2. Merge/delete — Reconcile against pro_current_period_end_at; keep one
+3. Fill check — OK"
+Pro Next Payment Date,"PostHog-Media, CIO-Media",on both — apply same rename on both,MERGE,USER ✓,DL grid ADDs pro_next_payment_date; Media also has pro_next_charge_at,present,"96 since 2025, 57 empty (59%)",pro_next_payment_date,"1. Standardise — Rename → pro_next_payment_date
+2. Merge/delete — Reconcile against pro_next_charge_at; keep one
+3. Fill check — FAIL — 59% empty"
+pro_lifecycle_stage,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Part of the newer Pro billing envelope — correctly named and filled,present,"96 since 2025, 0 empty; churned / paying / on_hold / in_trial / none",pro_lifecycle_stage,"1. Standardise — Already canonical
+2. Merge/delete — —
+3. Fill check — OK"
+pro_subscription_status,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Newer Pro envelope. ⚠ DL grid's equivalent slug is pro_membership_status — agree one,present,"96 since 2025, 0 empty",pro_subscription_status,"1. Standardise — ⚠ UNIFICATION DECISION — DL calls this pro_membership_status; Media writes pro_subscription_status
+2. Merge/delete — Pick one name across both products before either ships
+3. Fill check — OK"
+pro_mandate_status,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,UPI AutoPay mandate state — no DL equivalent yet,present,"96 since 2025, 0 empty; none / active / revoked",pro_mandate_status,"1. Standardise — Already canonical
+2. Merge/delete — Add to the DL grid too — it is the field dunning depends on
+3. Fill check — OK"
+pro_trial_start_at,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,⚠ DL grid calls this trial_start_date,present,"96 since 2025, 39 empty (correct — never trialled)",pro_trial_start_at,"1. Standardise — ⚠ UNIFICATION DECISION — DL uses trial_start_date, Media uses pro_trial_start_at
+2. Merge/delete — Pick one name across both
+3. Fill check — OK — empties are legitimate"
+pro_trial_end_at,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,⚠ DL grid calls this trial_end_date,present,"96 since 2025, 37 empty (correct)",pro_trial_end_at,"1. Standardise — ⚠ UNIFICATION DECISION — DL uses trial_end_date
+2. Merge/delete — Pick one name across both
+3. Fill check — OK"
+pro_first_paid_at,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Newer Pro envelope,present,"96 since 2025, 69 empty (correct — never paid)",pro_first_paid_at,"1. Standardise — Already canonical
+2. Merge/delete — —
+3. Fill check — OK"
+pro_next_charge_at,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Newer Pro envelope; overlaps Pro Next Payment Date,present,"96 since 2025, 57 empty",pro_next_charge_at,"1. Standardise — Already canonical
+2. Merge/delete — Reconcile with pro_next_payment_date — keep one
+3. Fill check — OK"
+pro_next_charge_amount,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Newer Pro envelope,present,"96 since 2025, 0 empty",pro_next_charge_amount,"1. Standardise — Already canonical
+2. Merge/delete — —
+3. Fill check — OK"
+pro_current_period_end_at,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Newer Pro envelope; overlaps Pro Membership Expiry Date,present,"96 since 2025, 6 empty",pro_current_period_end_at,"1. Standardise — Already canonical
+2. Merge/delete — Reconcile with pro_membership_expiry_date — keep one
+3. Fill check — OK"
+pro_renewal_count,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,Newer Pro envelope,present,"96 since 2025, 0 empty; values 0-4",pro_renewal_count,"1. Standardise — Already canonical
+2. Merge/delete — —
+3. Fill check — OK"
+products_held,"PostHog-Media, CIO-Media",on both — apply same rename on both,KEEP,USER ✓,The field that tells a Plus reader from a Pro reader — needed for unification,present,"96 since 2025, 0 empty; datalabs_pro / inc42_plus / both / none",products_held,"1. Standardise — Already canonical
+2. Merge/delete — Add to the DL grid — this is the join between the two products
+3. Fill check — OK — 6 readers hold both products, so do not assume one product per person"
+cio_subscription_preferences (+ topics 1-6),CIO-Media,—,KEEP,USER ✓,Customer.io's own subscription centre — this is what actually decides who receives which newsletter,"drives 6 live segments: Daily Brief, Weekly Brief, The Checkout, AI Shift, LinkedIn Newsletter, Subscribed to Topic 1-6 and Registered",not in PostHog,cio_subscription_preferences,"1. Standardise — Treat as the single record of subscription
+2. Merge/delete — ⚠ Do NOT build the 12 per-newsletter status slugs in the Unified sheet — add topics here instead
+3. Fill check — OK — load-bearing"
+Daily_Newsletter_Status,"PostHog-Media, CIO-Media",on both — apply same rename on both,FIX,USER ✓,Competing record against the subscription centre. DL grid keeps daily_newsletter_status,~11 profiles,"332 since 2025 (2,300 all-time)",daily_newsletter_status,"1. Standardise — Rename → daily_newsletter_status
+2. Merge/delete — ⚠ UNIFICATION DECISION — DL keeps this slug, Media's live sends use the subscription centre. Decide once
+3. Fill check — FAIL — 332 recent readers against a subscription centre driving every send"
+Newsletter Subscribed,PostHog-Media,—,DELETE,USER ✓,Dead — nobody who joined since 1 Jan 2025 has it,not in CIO,"ZERO since 2025 (1,727 all-time, all holding 'Yes')",—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Delete
+3. Fill check — n/a — dead"
+LinkedIn Newsletter Subscribed,CIO-Media,→ push to CIO (Low — system/identity field),KEEP,USER ✓,Keep → linkedin_newsletter_subscribed — same canonical slug as DL grid,present,not in PostHog,linkedin_newsletter_subscribed,"1. Standardise — Keep
+2. Merge/delete — —
+3. Fill check — —"
+Newsletter Source,CIO-Media,—,KEEP,USER ✓,Records where a newsletter sign-up came from,present,not in PostHog,newsletter_source,"1. Standardise — Rename → newsletter_source
+2. Merge/delete — —
+3. Fill check — —"
+Whatsapp_Optin,CIO-Media,→ push to CIO (Low — system/identity field),FIX,USER ✓,Rename → whatsapp_opt_in — same canonical slug as DL grid,present,not in PostHog,whatsapp_opt_in,"1. Standardise — Rename 'Whatsapp_Optin' → whatsapp_opt_in
+2. Merge/delete — —
+3. Fill check — —"
+unsubscribed,CIO-Media,—,KEEP,USER ✓,"Customer.io's own opt-out record — load-bearing, do not touch",drives 8 segments and 1 campaign,not in PostHog,is_globally_unsubscribed,"1. Standardise — Keep; map to is_globally_unsubscribed in the warehouse rather than renaming in Customer.io
+2. Merge/delete — ⚠ Do not rename in place — 8 segments read it
+3. Fill check — OK"
+Lead Type,CIO-Media,—,KEEP,USER ✓,Feeds the segment 'LinkedIn Leads',"present, 1 segment",not in PostHog,lead_type,"1. Standardise — Rename → lead_type
+2. Merge/delete — Move the segment before renaming
+3. Fill check — —"
+Event Type,CIO-Media,—,KEEP,EVENT-shaped ⚠ — a meeting/summit is an occurrence → event,Kept only because a live segment reads it,feeds the segment 'DRS 2026 | Paid Applications Final',not in PostHog,event_type,"1. Standardise — Rename → event_type
+2. Merge/delete — Long term this belongs on the event; rebuild the DRS segment first
+3. Fill check — —"
+Event_Type / Event_type,CIO-Media,—,DELETE,USER ✓,Two unused punctuation twins of 'Event Type',"present, neither used by a segment or campaign",not in PostHog,—,"1. Standardise — Do not rename
+2. Merge/delete — Confirm they hold nothing 'Event Type' does not, then delete both
+3. Fill check — n/a"
+DRS Payment / DRS Payment Url,CIO-Media,—,DELETE,EVENT-shaped ⚠ — a payment is an occurrence → event,⚠ Cannot be deleted yet — 5 live DRS 2026 campaigns read them,feeds 5 DRS 2026 campaigns,not in PostHog,—,"1. Standardise — Do not rename
+2. Merge/delete — Move the 5 DRS campaigns onto event data first, THEN delete. Do not delete while they run
+3. Fill check — n/a"
+order_id / product_name / Quantity / payment_URL,CIO-Media,—,DELETE,Event property ⚠ — all four are the context of one purchase,Same class as the DL grid's deleted order fields,"present, none used by a segment or campaign",not in PostHog,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Keep on the purchase event, where every purchase survives; today the person keeps only the most recent
+3. Fill check — n/a"
+Form ID,PostHog-Media,—,DELETE,EVENT-shaped ⚠ — a submission is an occurrence → event,Nearly stopped being written,not in CIO,"122 since 2025 (16,176 all-time)",—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Keep the form number on the submission event
+3. Fill check — n/a — dying field"
+ph_keyword,PostHog-Media,—,DELETE,EVENT-shaped ⚠ — a search is an occurrence → event,Holds reader-typed search text on the person,not in CIO,3 since 2025,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Keep search terms on the search event
+3. Fill check — n/a"
+engagement_score,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,engagement_score,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+engagement_tier,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,engagement_tier,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+paid_score,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,paid_score,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+nonpaid_score,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,nonpaid_score,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+crm_reach_tier,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,crm_reach_tier,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+is_investor,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,is_investor,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+net_ltv_inr,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,net_ltv_inr,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+membership_orders_count,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,membership_orders_count,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+paid_events_count,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,paid_events_count,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+company_employees,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,company_employees,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+company_founded_year,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,company_founded_year,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+company_funding_usd,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,company_funding_usd,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+company_revenue_fy,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,company_revenue_fy,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+company_revenue_inr,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,company_revenue_inr,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+company_stage,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,company_stage,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+FY25 Revenue,CIO-Media,→ push to CIO (High — marketing segments/messages on it); govern via warehouse,ADD,USER ✓,"Customer.io-only enrichment layer — in no specification, not in PostHog, no owner recorded. ⚠ Duplicates company_revenue_fy — keep one.","present, no description, not used by any segment or campaign",⚠ absent from PostHog entirely,FY25 Revenue,"1. Standardise — Record what it means and who loads it — none of the 16 has a description
+2. Merge/delete — Decide whether it belongs in PostHog too, and add it to the unified schema
+3. Fill check — Unknown — refresh date is not recorded anywhere"
+(all 119 Customer.io Media attributes) — privacy marking,CIO-Media,—,FIX,USER ✓,Not a field but a property-wide defect that blocks the DPDP work,"⚠ 119 of 119 are privacy level 0 with a blank description — including every email, phone, name and LinkedIn field",n/a,—,"1. Standardise — Mark every field holding a name, email, phone, LinkedIn address or personal id as personal data
+2. Merge/delete — Write a one-line description on all 119
+3. Fill check — FAIL — 0 of 119 marked or described"
+"The 16 one-person lowercase twins (work_email, seniority, first_name, company_name, personal_email, last_name, register_source, uid, registration_status, user_creation_date, phone_number, designation, full_name, name, plan, credits)",PostHog-Media,—,DELETE,USER ✓,Test-account leftovers that make it look as though Media already writes the agreed slugs,not in CIO,1 person each,—,"1. Standardise — Do not rename
+2. Merge/delete — Delete — and do not read them as evidence that the rename is already done
+3. Fill check — n/a"
+is_staff / is_superuser,PostHog-Media,—,DELETE,USER ✓,"Internal back-end flags, not reader traits",not in CIO,3 and 1 people,—,"1. Standardise — Do not rename — retire
+2. Merge/delete — Delete
+3. Fill check — n/a"
+"The 19 advertising click ids (fbclid, gclid, li_fat_id, twclid, wbraid, msclkid, igshid, mc_cid, gad_source, ttclid, gbraid, rdt_cid, _kx, dclid, gclsrc, irclid, epik, sccid, qclid)",PostHog-Media,—,DELETE,"EVENT-shaped ⚠ — a click id belongs to one click, not to a person",Still being written today,not in CIO,"~41,315 people EACH since 2025; 12 of the 19 are 100% empty on every person",—,"1. Standardise — Stop copying the web address onto the person
+2. Merge/delete — Delete the 12 that are entirely empty first — nothing is lost — then the rest
+3. Fill check — FAIL — 12 of 19 are 100% empty"
+utm_source / utm_medium / utm_campaign / utm_content / utm_term,PostHog-Media,—,KEEP,USER ✓,Campaign tagging that reporting genuinely reads — unlike the click ids,not in CIO,"103,075-154,372 people each since 2025, 29% to 99% empty",utm_*,"1. Standardise — Keep
+2. Merge/delete — —
+3. Fill check — Weak fill, but in use"
+"cio_id, cio_city, cio_country, cio_region, cio_postal_code, cio_continent, cio_iso_*, cio_latitude, cio_longitude, cio_timezone, cio_location_source, _created_in_customerio_at",CIO-Media,—,KEEP,USER ✓,Customer.io's own plumbing — not written by Inc42,auto-written; cio_id feeds the 'All Users' segment,not in PostHog,cio_*,"1. Standardise — No rename
+2. Merge/delete — —
+3. Fill check — n/a — vendor fields"
+"(the 97 PostHog $-prefixed fields: $browser, $current_url, $geoip_*, $initial_*)",PostHog-Media,—,KEEP,USER ✓,PostHog's own autocapture — not written by Inc42,not in CIO,97 fields,$*,"1. Standardise — No rename
+2. Merge/delete — —
+3. Fill check — n/a — vendor fields"

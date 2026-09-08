@@ -225,3 +225,42 @@ legacy; the 19 ad-click fields are still being written today at ~41,315 people e
 **Method note:** `persons.created_at >= toDateTime('2025-01-01 00:00:00')` filters by person creation,
 not by when a property was last written — so "49 recent people have it" means new visitors don't get it,
 which is strong but not proof nothing writes it. Say that rather than declaring a field dead.
+
+**THE REAL DATALABS PATTERN — Prapti's workbook (8 Sep 2026).** Ranjith clarified: the sheet he meant is
+**"Inc42 — User Property Fixes Plan"** (`1HoUWA9H7tSrzl4PYdbdiQG9atCVw_kwILf9OnjlhyTM`), tabs
+Master Correction Grid / **DL - Correction Grid** (gid 2052602268, Prapti's, 47 rows) / Tech / Data / Fixed.
+NOT the Ashish 19-column test-case format in the "Test" workbook — that one is a separate, valid artifact
+for Ashish's QA requirement and stays where it is.
+
+**Prapti's DL grid structure (10 columns), replicate exactly:**
+`property | source | needs_sync? | action | event_vs_user | data_comments | marketing_cio |
+marketing_posthog | final_field | final_fix`
+- `source`: "PostHog-DL, CIO-DL" / "PostHog-DL" / "CIO-DL" → Media uses "PostHog-Media, CIO-Media" etc.
+- `needs_sync?`: "on both — apply same rename on both" / "→ push to CIO (High — marketing segments/messages
+  on it); govern via warehouse" / "→ push to CIO (Low — system/identity field)" / "—"
+- `action`: KEEP / FIX / DELETE / MERGE / ADD
+- `event_vs_user`: "USER ✓" or "EVENT-shaped ⚠ — <why> → belongs as an EVENT"
+- `final_fix` is a 3-step block with REAL LINE BREAKS inside the cell:
+  `1. Standardise — …` / `2. Merge/delete — …` / `3. Fill check — …`
+
+**Delivered: tab "Media - Correction Grid"** (gid 991107390) in Prapti's workbook — 111 rows x 10 columns,
+scoped 2025-01-01 → today. KEEP 30, DELETE 29, FIX 26, ADD 16, MERGE 10. All 105 non-$ PostHog keys and
+all 119 CIO attributes covered. Her 5 tabs SHA-256 verified unchanged; rows verified character-for-character
+(one deliberate 1-char diff: HTML paste collapses a double space).
+
+**PASTE TECHNIQUE THAT MATTERS:** a cell containing newlines cannot be pasted as TSV — Sheets splits on the
+newline. Build an HTML `<table>` with `<br>`, then
+`HEX=$(hexdump -ve '1/1 "%.2x"' file.html); osascript -e "set the clipboard to «data HTML${HEX}»"` and Cmd+V.
+Verify with `osascript -e 'clipboard info'` → `«class HTML», <bytes>`. This preserved all 111 three-step cells.
+See [[reference-google-docs-html-clipboard-paste]].
+
+**Unification conflicts this surfaced — Media vs DL want different canonical names, decide once:**
+- `pro_subscription_status` (Media) vs `pro_membership_status` (DL grid)
+- `pro_trial_start_at` / `pro_trial_end_at` (Media) vs `trial_start_date` / `trial_end_date` (DL grid)
+- `Registration Status`: DL grid says DELETE; on Media it feeds the live segment "Subscribed to Topic 1-6
+  and Registered", so it cannot be dropped without rebuilding that segment first.
+- `Personal Email` / `Work Email`: DL deletes them as pure yes/no flags. On Media they also hold REAL email
+  addresses — the addresses must be extracted into `email` before the same delete is applied.
+- `daily_newsletter_status`: DL keeps the slug; Media's live sends run off Customer.io's subscription centre.
+- `products_held` and `pro_mandate_status` exist on Media but are absent from the DL grid — add them there;
+  products_held is the join between Plus and Pro.
