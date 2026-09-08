@@ -167,3 +167,40 @@ count. Format per cell: state what is stored TODAY and how many people, prefixed
 "In use:" / "Not used on <product>", and for the App column what the App must write. Columns A, B, C and
 G, H, I were proven unchanged by the D/E/F paste. **Lesson: when he says an action column is unreadable,
 the evidence columns beside it are unreadable too — rewrite the whole row, not the one cell he quoted.**
+
+**MEDIA-ONLY LIST (8 Sep 2026, late).** Ranjith asked for "everything in the sheet", Media only, in the
+pattern of the DataLabs tab — which turned out to be the **19-column Ashish audit format in the "Test"
+workbook** (`1NCpTEzgEEtds0uCfqPNSS6aeFhOpKbgkL_F-cgtVPxg`), not the Unified 10-column pattern. That
+workbook's tabs (README / Media (Inc42) / DataLabs / App / audit-template / _Ashish_sample) are all that
+one format. Delivered as tab **"Media - User Properties"** (gid 1902402388), **172 rows x 22 columns** =
+the 19 Ashish columns plus the three plain-language columns his 8 Sep feedback requires (Where to change
+it / What exactly to do / Done when). Counts: DELETE 47, KEEP 30, FIX 29, DECISION 18, MERGE 16, NONE 16,
+ADD 15. All 105 non-$ PostHog keys and all 119 Customer.io attributes are covered. Files:
+`~/ClaudeDocs/inc42/media-user-properties-ashish-format-8sep.tsv` (19-col) and
+`media-user-properties-8sep.tsv` (the 10-col Unified-pattern version built first).
+All 19 pre-existing tabs SHA-256 verified byte-identical before and after; pasted rows verified
+character-for-character against the source (per-row length compare), zero differences.
+
+NEW live Media findings (8 Sep, PostHog 53557 + Customer.io 208301):
+- **122,076 of Media's person IDs are the reader's raw email.** Only 1,192 are numeric, 1,138 are the
+  google-oauth2 text. Same class as the DataLabs "raw email is distinct_id" finding.
+- **`Email` vs `email` cannot be deleted, only merged in order**: 34,220 have only `Email`, 82,163 only
+  `email`, 10,755 both — and BOTH are live (Email -> 2 segments + 4 campaigns; email -> 3 + 5).
+- **The misspelt `Registeration Status` is the BIGGER field**: 55,407 people have only it. Your sheet
+  row 27 said Delete; a plain delete drops 55k records. It never reached Customer.io.
+- **All 119 Customer.io Media attributes are privacy_level 0 with a blank description** — including
+  every email, phone, name and LinkedIn field. DPDP-relevant.
+- Segments "Have a Mobile Device" / "Doesn't have a Mobile Device" are built on the `id` identifier,
+  which was **empty** on sampled profiles.
+- `Designation` 75% blank AND two spellings live at once (`founder` / `Founder`); `Seniority` 66% blank.
+- The literal string `undefined` is stored as a value across 11+ fields; "undefined undefined" has gone
+  out as a reader's name.
+- `Full Name` vs `Name`: 32,119 both, 1,947 Full Name only, **0 Name only** → Name is a safe delete.
+- `Company Sector` vs `Industry`: **zero overlap** (17,583 vs 7,157) → clean merge.
+- 12 of the 19 ad-click fields are on ~42,789 people each and **100% empty**.
+- `Plus Meter Views Left` re-confirmed at 1,241,894 people, still marked Delete in his sheet — flagged
+  as DECISION, not actioned.
+- Nine Plus billing fields exist in PostHog only and never reach Customer.io → unusable for messaging.
+- **Resolves the 4 Sep open question**: `cio_subscription_preferences` + topic_1..6 drive all 6 live
+  newsletter segments; `Daily_Newsletter_Status` is 2,300 in PostHog / ~11 in CIO. The subscription
+  centre is canonical and his rows 59-70 should NOT be built.

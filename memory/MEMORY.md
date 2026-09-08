@@ -33,7 +33,7 @@
 - [Measure field coverage before designing](feedback-measure-field-coverage-before-designing.md) — a slot may only promise what its field delivers ≥85% of days; never announce absence; backtest on real days
 - [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, additive framing, build don't describe
 - [Analytics destination scope](feedback-analytics-destination-scope.md) — event status only vs PostHog + Customer.io; ignore Mixpanel/MoEngage/GA4/Ads/UserGuiding entirely
-- [User properties audit + MASTER tab](project-inc42-user-properties-audit.md) — 205 properties in one MASTER tab w/ ACTION column; App attribution 100% null; Sheets paste-safety rules
+- [User properties audit + MASTER tab](project-inc42-user-properties-audit.md) — 205 properties in one MASTER tab; + Media-only 172-row tab (8 Sep) in Test workbook; 122,076 email person-IDs; CIO privacy 0/119
 - [Event audit (4 Sep)](project-inc42-event-audit-4sep.md) — live event+property validation, all 3 projects; `Table VIew` typo, same-second duplicate epidemic, 6 stale sheet rows corrected
 - [Ashish events sheet (8 Sep)](project-inc42-ashish-events-sheet.md) — 19-col QA format; 158-row single tab + group legend in Master Sheet; both property columns needed
 - [ICP & role definition (5 Sep)](project-inc42-icp-role-definition.md) — one ICP not four; E1-E11 × L1-L5/I1-I5 grid; role captured on 34% of Media identified, employer type on 1.0%
@@ -134,6 +134,7 @@
 - [Nexloid open questions](nexloid_open_questions.md) — OAuth scope class, unevidenced "2 hrs saved" basis, FP rate
 
 ## Reference
+- [Vendor API via browser](reference-inc42-vendor-api-browser-access.md) — PostHog HogQL + Customer.io attribute/segment endpoints when the MCP is down
 - [INC42 Keka API access](reference-inc42-keka-api-access.md) — direct Keka Hire API creds; curl instead of browser scraping
 - [Account identities](reference-account-identities.md) — Claude Code = ranjith@ranjith.tech (NOT datalabs@inc42.com)
 - [Tools & stack](reference-tools-stack.md) — Figma, PostHog, GA4, BigQuery, n8n, Docker, VPS
