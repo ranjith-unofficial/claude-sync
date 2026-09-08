@@ -64,3 +64,34 @@ tab. Before quoting Watchlist or Streak usage, say whether you mean reach or rep
 in-room disagreement was that one word. Related: [[project-inc42-app-explore-deep-dive]],
 [[project-inc42-brief-card-corpus-analysis]], [[project-inc42-brief-companies-mention-types]],
 [[project-inc42-explore-articles-companies-design]], [[project-inc42-app-search-root-cause]].
+
+## Update 8 Sep (evening) — structure locked with Ranjith, built in Figma
+Ranjith overruled two of my calls, correctly, by applying the anti-duplication rule to my own
+answer: **no companies in the News ring** (Companies is its own tab) and **no "companies in
+today's news" shelf** (that concept already lives in Brief). Resolved structure:
+
+- Bottom nav: **Brief · News · Companies · You** (he proposed "For you"; I flagged that in every
+  news app For You is a personalised feed and the *first* tab — and it collides with Brief's
+  "Recommended for you" section. Rename unresolved.)
+- Streak is a **header icon**, not a tab. That closes the old 4th-tab question.
+- **Ring = sectors**, live sectors only (24-48h), interest-ordered, red ring = new since last
+  visit. A fixed sector list runs empty (AI 50% of weekdays, DeepTech 39%, Fintech 18%).
+- **Tab strip = development tags only**, ordered by supply. In-Depth comes OUT of the strip
+  (it is a format, not a tag) and becomes a shelf.
+- **Newsletters (AI Shift, Markets, Checkout) are shelves on News home**, peers of Funding and
+  In-Depth. No wrapper, no "From Inc42" heading, no cover/issue format. They are saved rules
+  over existing fields: Markets = `company_type = Listed Startup` (85% covered, 18/week, 3+ in
+  93% of weeks) · Checkout = ecom/D2C/QC/retail/logistics (18/week) · **AI Shift = AI/deeptech
+  (3/week, below 3 in 40% of weeks — the thin one, and the one Ranjith is most excited about)**.
+  Rejected putting them in Brief: Brief's identity is "then it ends".
+- **Tab ≠ shelf**: a tab is a filtered archive that goes back in time so it is never empty and
+  supply thresholds do not apply; a shelf is a promise about now and needs 2-3 items nearly
+  every weekday. Funding is the only thing that is both, and its shelf's View all opens the
+  same page the tab opens.
+
+**Built in Figma** (file `dAsaTgNj0xh25w2OGaurZo` "App - Draft Screen", page `Referencing`
+476:2, y=18700, below the round-4 work): News full scroll `649:2`, Companies full scroll
+`651:2`, decision note `652:2`. Seat confirmed **Inc42 / Full / pro**, writes work on this file.
+
+**Open for Prapti, not design:** do the newsletters contain original writing, or are they
+curated from published articles? A rule-built AI Shift is only honest if curated.
