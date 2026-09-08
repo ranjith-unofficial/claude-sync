@@ -204,3 +204,24 @@ NEW live Media findings (8 Sep, PostHog 53557 + Customer.io 208301):
 - **Resolves the 4 Sep open question**: `cio_subscription_preferences` + topic_1..6 drive all 6 live
   newsletter segments; `Daily_Newsletter_Status` is 2,300 in PostHog / ~11 in CIO. The subscription
   centre is canonical and his rows 59-70 should NOT be built.
+
+**RECENCY CORRECTION (8 Sep 2026, same evening).** Ranjith: audits must be scoped to 2025-01-01 → today,
+not all-time ([[feedback-audit-recency-window]]). Media has **10,473,714 persons all-time but only
+1,109,867 created since 1 Jan 2025** (2,791,413 since Oct 2024) — so 89% of every coverage number in the
+first pass was historical. The tab was rebuilt and re-pasted with the 2025+ window as the primary figure
+and all-time shown second and labelled. **Four recommendations flipped:**
+- `Plus Meter Views Left`: 1,241,894 all-time but only **49** since 2025 → it is a legacy field that
+  stopped being written, not the biggest field on Media. His row-31 Delete is far safer than it looked.
+- `Company Sector` vs `Industry`: **direction reversed.** Company Sector is 17,583 all-time but only
+  **118** since 2025; Industry is 7,034 since 2025. Industry is what the live site writes — keep the NAME
+  company_sector but repoint whatever writes Industry, don't merge Industry into a dead field.
+- `Email` vs `email`: **capital-E is the bigger one on recent readers** (41,818 vs 25,175; 33,077 have
+  only `Email` since 2025). Both are actively written; find and fix the writer, then merge.
+- `Company Website`, `City`, `Newsletter Subscribed`: **zero people since 2025** — already dead, so FIX
+  becomes DELETE.
+Also sharper: `Designation` is 93% empty on recent readers (was 75% all-time); `Seniority` 71%;
+`Form ID` down to 122; the email-as-person-ID problem is CURRENT (73,804 of 1,157,448 recent IDs), not
+legacy; the 19 ad-click fields are still being written today at ~41,315 people each, all empty.
+**Method note:** `persons.created_at >= toDateTime('2025-01-01 00:00:00')` filters by person creation,
+not by when a property was last written — so "49 recent people have it" means new visitors don't get it,
+which is strong but not proof nothing writes it. Say that rather than declaring a field dead.
