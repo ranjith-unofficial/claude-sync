@@ -71,3 +71,11 @@ events were missing entirely (`app_update_prompt_shown/_dismissed`, `app_update_
 **Name-direction convention, settled from the 7-Sep user-properties file (same format, same reader):**
 `event_name` = the CURRENT live name; `display_name` = the EXPECTED/final name. Its audit_notes read
 literally "Current: PostHog: X -> Expected: Y". I had inverted this on several Media/App rows.
+
+**Process lesson (8 Sep, caught by Ranjith's terminal agent):** when correcting a shipped deliverable,
+**replace** the stale claim — never prepend the correction and leave the old text below it. A first pass
+prepended fixes to 48 `test_notes` cells, producing cells that read "this is NOT missing … P0 — MISSING"
+in the same cell. Two of them (DataLabs `Registered`, `Datalab Onboarding`) still told the tester to search
+for `user_registered` / `onboarding_lifecycle`, which do not exist. Correct structure: one coherent note,
+live status first, retained guidance after; split corrections into verdict-REVERSED (re-author fully) vs
+verdict-CONFIRMED (append one re-verification sentence).
