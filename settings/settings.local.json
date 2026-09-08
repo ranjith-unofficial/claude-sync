@@ -220,7 +220,13 @@
       "Bash(sips -c 1178 780 --cropOffset 0 0 news2x.png --out t_a.png)",
       "Bash(sips -c 1178 780 --cropOffset -1766 0 news2x.png --out t_b.png)",
       "Bash(curl -sL -o companies.png \"https://www.figma.com/api/mcp/asset/d2942d30-d855-41df-a8f1-8d5ad850e2ac.png\")",
-      "Bash(sips -g pixelWidth -g pixelHeight companies.png)"
+      "Bash(sips -g pixelWidth -g pixelHeight companies.png)",
+      "Bash(cp \"/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F/Screenshot 2026-09-08 at 12.16.26 PM.png\" /private/tmp/claude-501/-Users-cepl/1c66aed1-3386-481c-bcb4-26abeabcdb39/scratchpad/shot.png && ls -la /private/tmp/claude-501/-Users-cepl/1c66aed1-3386-481c-bcb4-26abeabcdb39/scratchpad/shot.png)",
+      "Bash(ls -la \"/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/\" 2>&1 | head -20)",
+      "Read(//var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems//**)"
+    ],
+    "additionalDirectories": [
+      "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F"
     ]
   }
 }
