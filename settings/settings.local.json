@@ -223,7 +223,18 @@
       "Bash(sips -g pixelWidth -g pixelHeight companies.png)",
       "Bash(cp \"/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F/Screenshot 2026-09-08 at 12.16.26 PM.png\" /private/tmp/claude-501/-Users-cepl/1c66aed1-3386-481c-bcb4-26abeabcdb39/scratchpad/shot.png && ls -la /private/tmp/claude-501/-Users-cepl/1c66aed1-3386-481c-bcb4-26abeabcdb39/scratchpad/shot.png)",
       "Bash(ls -la \"/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/\" 2>&1 | head -20)",
-      "Read(//var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems//**)"
+      "Read(//var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems//**)",
+      "WebFetch(domain:github.com)",
+      "Bash(curl -sL https://api.github.com/repos/Eugeny/tabby/releases/tags/v1.0.235)",
+      "Bash(curl -sL https://api.github.com/repos/Eugeny/tabby/releases/latest)",
+      "WebFetch(domain:securityonline.info)",
+      "Bash(curl -s \"https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=tabby%20terminal\")",
+      "Bash(curl -sL -o tabby-src.tar.gz https://codeload.github.com/Eugeny/tabby/tar.gz/refs/tags/v1.0.235)",
+      "Bash(mkdir -p src)",
+      "Bash(tar xzf *)",
+      "Bash(curl -s \"https://api.github.com/repos/Eugeny/tabby/security-advisories?per_page=100\")",
+      "Bash(sw_vers -productVersion)",
+      "Bash(brew --version)"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F"
