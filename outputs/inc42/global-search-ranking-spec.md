@@ -1,97 +1,131 @@
-# Global Search: Required Ranking Behaviour
+# Global Search: Required Behaviour Specification
 
-**Version 1.0, 9 September 2026.** Written as an addition to the Global Search PRD (Entity + Analytical intents, ES-backed unified modal). It specifies only how results must be **ordered**, not what the modal looks like or which indexes exist.
+**Version 2.0, 9 September 2026.** An addition to the Global Search PRD (Entity and Analytical intents, ES backed unified modal). It specifies how search must **behave**, covering ranking, matching, query handling, failure states and non functional limits.
 
-Every number below is either measured against the live endpoints on 9 September 2026, or produced by a re-runnable simulation of the PRD's own scoring logic over a 4,905 document corpus (2,581 companies, 1,465 people, 847 investors) pulled from the live API.
+**Method.** Approximately 70 distinct queries were run against both live endpoints (`header/global-search-v2`, used by DataLabs and by logged out company pages, and `header/global-search`, used by the main site header) on 9 September 2026. Ranking claims are additionally checked against a re-runnable simulation of the PRD's own scoring formula over a 4,905 document corpus (2,581 companies, 1,465 people, 847 investors) pulled from the live API. Every "today" column below is an observed result, not an inference.
 
 ---
 
-## 1. The problem this solves
+## 1. Summary of what is wrong today
 
-Live behaviour today on `header/global-search-v2`:
+Three independent defect classes, not one.
 
-| Query | Where the exact answer ranks | What outranks it |
+| Class | Symptom | Example |
 |---|---|---|
-| `cred` | **11 of 15** | CredR, InCred Holdings, InCred, Credgenics, OkCredit, CredAble, Altum Credo, Credlix, Credit Wise Capital, Credit Fair |
-| `ola` | **3** | Manam Choc**ola**te, Pr**ola**nce |
-| `navi` | **3** | Navixel Solutions, Navigatio Asia DMC |
-| `credit` | Credit Suisse at 3 | Fintech (industry), **Prerit Rathi (a person)** |
+| **A. Ranking** | The exact answer is returned but buried | `cred` returns CRED at **11 of 15** |
+| **B. Recall** | The record exists but the query returns nothing at all | `matter` returns **0**, while the company Matter is rank 1 on the other endpoint |
+| **C. Consistency** | The same intent typed slightly differently returns a different universe | `cred` ranks CRED 11th, `cred.` ranks it **1st** |
 
-The same queries on `header/global-search` (v1) return the exact answer at rank 1, 10 times out of 10.
-
-**Diagnosis.** v2 asks a single yes/no question: do these characters appear anywhere in this name. CredR, InCred, Okcredit and CRED all answer yes and enter one undifferentiated bucket, which is then emitted in an order that correlates with nothing. Tested and ruled out as the sort key: alphabetical, name length, prefix match, match position, record age, funding, prominence. The order is deterministic across repeated calls, so it is a stable score, but not a relevance score.
-
-`credit` returning a person named Prerit above Credit Suisse confirms that approximate matches are scored at least as highly as literal ones.
-
-**In one line: search is currently behaving as a filter, not as a ranking. Being the exact answer earns a record nothing.**
+Class B is the most severe and is not currently named in the PRD. On the test set, **5 valid queries for records that demonstrably exist returned zero results.**
 
 ---
 
-## 2. Required behaviour, stated as rules
+## 2. Core diagnosis
 
-### Rule 1. Match strength must be graded, not binary
+The current engine asks one question: do these characters appear anywhere in this name. CredR, InCred, OkCredit and CRED all answer yes and enter one undifferentiated bucket, which is then emitted in an order that correlates with nothing measurable. Ruled out as the sort key by testing: alphabetical, name length, prefix match, match position, record age, funding, prominence.
 
-Every candidate is scored on five ladders. **Only the single highest ladder counts** (`best_fields`). Ladders do not add up.
+**Search is behaving as a filter, not as a ranking. Being the exact answer earns a record nothing.**
+
+Supporting evidence:
+
+| Query | Result today | What it proves |
+|---|---|---|
+| `ola` | Manam Choc**ola**te, Pr**ola**nce, then Ola | Mid word fragments rank above whole word matches |
+| `credit` | Fintech (industry), **Prerit Rathi (a person)**, then Credit Suisse | Approximate matches score at least as high as literal ones |
+| `rocket` | Shiprocket, Rocketlane, then Rocket | A company named exactly Rocket ranks third for its own name |
+| `startup` | Startuppz, StartupXY, then Startup | Same pattern, and it reproduces on both endpoints |
+
+---
+
+## 3. Ranking rules
+
+### Rule 0. Query normalisation is canonical and happens before anything else
+
+Two queries that normalise to the same string **must return byte identical results.**
+
+Normalisation order: trim, collapse internal whitespace, lowercase, fold diacritics to ASCII, strip leading and trailing punctuation, and additionally build a "squashed" form with all spaces, apostrophes, ampersands, hyphens and periods removed.
+
+Both the query and the indexed name are stored in all three forms (raw, normalised, squashed) and matched form against form.
+
+Verified failures this fixes:
+
+| Pair | Today | |
+|---|---|---|
+| `cred` vs `cred.` | CRED at **11** vs CRED at **1** | Trailing punctuation silently changes the ranking path |
+| `ola` vs `ola.` | Ola at **3** vs Ola at **1** | Same |
+| `cafe` vs `café` | 15 results vs 3 results, **completely disjoint sets** | Diacritics are not folded, on either endpoint |
+| `byju's` vs `byjus` | 1 result vs **0 results** | Apostrophe is mandatory today |
+| `ofbusiness` vs `of business` | 1 result vs **0 results** | Spacing is mandatory today |
+| `l&t` vs `l t` | L&T Technology Services vs **Canvera Digital Technologies** | Ampersand is mandatory today |
+
+### Rule 1. Match strength is graded, and only the highest ladder counts
+
+Every candidate scores on the following ladders. Only the single highest applies (`best_fields`). Ladders never add.
 
 | Ladder | Fires when | Weight |
 |---|---|---|
 | `name.exact` | normalised query equals the normalised full name | **10.0** |
+| `name.squash_exact` | squashed query equals the squashed name | **9.0** |
 | `name.token` | a query token equals a complete word of the name | **7.0** |
-| `name.squash` | punctuation and space stripped name equals or starts with the stripped query (single token queries only) | **6.0** |
-| `name.prefix` | the name begins with the query (edge n-gram, 2 to 15) | **5.0** |
+| `name.squash_prefix` | squashed name starts with the squashed query, minimum 4 characters | **6.0** |
+| `name.prefix` | name begins with the query (edge n-gram, 2 to 15) | **5.0** |
 | `name.fuzzy` | within edit distance AUTO | **2.0** |
 | `name.phonetic` | phonetic key matches | **1.0** |
-| `description` | the term appears in the description | **0.5** |
+| `description` | term appears in the description | **0.5** |
 
-`name.token` and `name.squash` are additions to the current PRD. Without `name.token`, a whole word match and a mid word fragment are indistinguishable, which is the direct cause of `ola` returning Manam Chocolate.
+`name.token`, `name.squash_exact` and `name.squash_prefix` are additions to the current PRD. Without `name.token`, a whole word match and a mid word fragment are indistinguishable, which is the direct cause of `ola` returning Manam Chocolate first.
 
-### Rule 2. Two multipliers, applied after the ladder
+### Rule 2. Two multipliers after the ladder
 
 ```
 RAW  =  best ladder score  ×  field length norm  ×  quality score
 ```
 
-- **Field length norm** = `1 / sqrt(number of words in the name)`. Elasticsearch applies this automatically. A one word name keeps 1.000, a two word name 0.707, a three word name 0.577.
-- **Quality score** = the pre-computed 0.1 to 1.0 prominence value from the PRD's `function_score`. Computed at index time, never at query time.
+- **Field length norm** = `1 / sqrt(number of words in the name)`. Applied automatically by Elasticsearch. One word keeps 1.000, two words 0.707, three words 0.577.
+- **Quality score** = the 0.1 to 1.0 prominence value from the PRD's `function_score`, computed at index time and never at query time.
 
 Worked example, `cred`, from the simulation:
 
 | Rank | Entity | Best ladder | × length | × quality | RAW |
 |---|---|---|---|---|---|
 | **1** | **CRED** | **exact 10.0** | 1.000 | 0.78 | **7.80** |
-| 2 | CredR | squash 6.0 | 1.000 | 0.61 | 3.69 |
-| 3 | Credilio | squash 6.0 | 1.000 | 0.61 | 3.69 |
-| 4 | CredAble | squash 6.0 | 1.000 | 0.61 | 3.69 |
+| 2 | CredR | squash prefix 6.0 | 1.000 | 0.61 | 3.69 |
+| 3 | Credilio | squash prefix 6.0 | 1.000 | 0.61 | 3.69 |
+| 4 | CredAble | squash prefix 6.0 | 1.000 | 0.61 | 3.69 |
 
-A 2.1x margin. A partial match cannot reach the exact ladder, so no amount of funding or prominence closes the gap.
+A 2.1x margin. A partial match cannot reach the exact ladder, so prominence cannot close the gap.
 
 ### Rule 3. An exact name match is pinned to rank 1
 
-**This is the guarantee, and it must be a deterministic rule rather than a scoring outcome.**
+**This must be a deterministic rule, not a scoring outcome.**
 
-Scoring alone does not guarantee it. The simulation locates the exact break even point: an exact name match wins only while its quality score exceeds **0.42**. Two verified failures below that line:
+Scoring alone does not guarantee it. The simulation locates the break even point: an exact match wins only while its quality score exceeds **0.42**.
 
-| Case | Quality | Result |
+| Case | Quality | Outcome |
 |---|---|---|
-| Active company | 0.50 to 0.78 | Exact match wins. 41 of 41 tested. |
-| **Shut down company** | **0.36** | **Loses rank 1 to a larger partial match.** |
-| **Thin profile plus relevance floor active** | **below 0.42** | **Removed from the results entirely, not merely demoted.** |
+| Active company | 0.50 to 0.78 | Wins. 41 of 41 tested |
+| **Shut down company** | **0.36** | **Loses rank 1 to a larger partial match** |
+| **Thin profile with the relevance floor active** | **below 0.42** | **Removed from results entirely, not merely demoted** |
 
 Required:
 
-1. If `normalise(name) == normalise(query)`, that record is placed at rank 1.
-2. An exact name match is **exempt from the relevance floor** and can never be filtered out.
-3. If more than one record matches exactly, order those by quality score among themselves.
+1. If `normalise(name) == normalise(query)`, or `squash(name) == squash(query)`, that record is placed at rank 1.
+2. An exact match is **exempt from the relevance floor** and from every per type size cap. It can never be filtered or truncated out.
+3. If several records match exactly, order those among themselves by quality score, then by a stable identifier so the order never flaps.
 
 ### Rule 4. All query tokens must match on multi word queries
 
-Set `minimum_should_match: 100%`, with a retry as OR only when the strict pass returns nothing.
+`minimum_should_match: 100%`, with a retry as OR only when the strict pass returns nothing.
 
-Without it, Elasticsearch defaults to OR: `iifl finance` currently ranks IIFL Finance **6th**, behind CapitalXB, Avail and Arthan Finance, and the per index size cap of 5 cuts it off the list entirely.
+Without it Elasticsearch defaults to OR: `iifl finance` currently returns IIFL Finance at rank **6**, behind CapitalXB, Avail and Arthan Finance, and the per type size cap of 5 cuts it off entirely.
 
-### Rule 5. One index with a `type` field, not per index normalisation
+### Rule 5. Word order must not matter
 
-The PRD normalises each index by dividing by the top score **within that index**. This makes the leading row of every index normalise to exactly 1.000, so leading rows end up ordered purely by type weight and never by match quality.
+`finance iifl` currently returns IIFL Seed Ventures, IIFL Special Opportunities Fund and IIFL Securities, and never IIFL Finance. Token matching must be order independent, with an optional phrase bonus when the order does match.
+
+### Rule 6. One index with a `type` field, not per index normalisation
+
+The PRD normalises each index by dividing by the top score **within that index**. That makes the leading row of every index normalise to exactly 1.000, so leading rows sort purely by type weight and never by match quality.
 
 Measured on `apax`:
 
@@ -104,88 +138,188 @@ The weaker match wins. This is the mechanism behind `credit` returning an indust
 
 Required: a single index carrying a `type` field, or failing that, normalisation against a fixed constant (10.0) rather than the per index maximum. A single index also removes the client side merge step and helps the latency target.
 
-### Rule 6. Phonetic matching needs a length guard
+### Rule 7. Phonetic matching needs a length guard
 
-Phonetic matching must not qualify a record on its own, and must not fire on query tokens shorter than 5 characters. Without the guard, `credit` matches a person named Prerit and `sequoia` matches Zoko and SK Finance above Sequoia Capital.
+Phonetic matching must not qualify a record on its own, and must not fire on query tokens shorter than 5 characters. Without the guard, `credit` matches a person named Prerit and `sequoia` matches unrelated records above the intended one.
 
-### Rule 7. Aliases resolve to the canonical record
+### Rule 8. Legal suffixes are stripped for matching
 
-Legal names and former names are currently separate unlinked records or absent. An alias table must ship in Phase 1, not later:
+`Limited`, `Ltd`, `Pvt`, `Private`, `Inc`, `LLP`, `Technologies`, `Ventures`, `Works` and similar suffixes are removed when building the matching forms, and the stripped form is matched at the `name.token` ladder.
 
-`Eternal Limited` to Zomato, `Kiranakart` to Zepto, `Bundl Technologies` to Swiggy, `ANI Technologies` to Ola.
+Verified need: `Matter Motor Works` returns 0, `matter motor` returns 0, and `matter` returns 0, while the record exists.
 
-### Rule 8. Investor quality signals cannot be deferred
+### Rule 9. Aliases and former names resolve to the canonical record
 
-With flat investor quality, `sequioa` returns Sequoia Capital at rank 9. With realistic investor quality it returns rank 1. Investor quality is load bearing for the ranking and has to be populated in the same phase as company quality.
+An alias table ships in Phase 1, not later.
+
+| Query | Must resolve to | Today |
+|---|---|---|
+| `Eternal Limited`, `Eternal` | Zomato | Separate unlinked record |
+| `Kiranakart` | Zepto | Separate record |
+| `Bundl Technologies` | Swiggy | Separate record |
+| `ANI Technologies` | Ola | Separate record |
+| `Sequoia`, `Sequoia Capital` | Peak XV Partners | **0 results** |
+
+### Rule 10. Investor quality signals cannot be deferred
+
+With flat investor quality the intended investor ranks 9 on a typo query. With realistic investor quality it ranks 1. Investor quality is load bearing and must be populated in the same phase as company quality.
+
+### Rule 11. Duplicate records are collapsed before display
+
+Verified live: `aman gupta` returns the same person three times in six rows. `cred` on the main site endpoint returns CredR at both rank 4 and rank 6.
+
+Deduplicate on canonical identifier before applying size caps, so duplicates do not consume result slots.
 
 ---
 
-## 3. Acceptance criteria
+## 4. Edge case matrix
 
-### Must rank 1
+Every row was executed. "Today" is the observed v2 result unless stated.
 
-| Query | Expected rank 1 | v2 today |
-|---|---|---|
-| `cred` | CRED | 11 |
-| `ola` | Ola | 3 |
-| `navi` | Navi | 3 |
-| `credit` | Credit Suisse or a Credit company | 3 |
-| `iifl finance` | IIFL Finance | 6 |
-| `zomato` `zepto` `swiggy` `paytm` `groww` `meesho` `razorpay` | the named company | 1 (already passing, must not regress) |
-| `zomto` `flipcart` `razorpey` `sequioa` | the intended company, with `did_you_mean` | typo path works, keep |
-| `ofbusiness` `of business` | OfBusiness | must match either spacing |
-| `matter motor` `third wave` | Matter, Third Wave Coffee | already rank 1 on v1, must not regress |
+### 4.1 Query hygiene
+
+| # | Scenario | Example | Today | Required |
+|---|---|---|---|---|
+| 1 | Empty query | `""` | 0 rows, no error, **3,268 ms** | Return immediately, no network call, no error |
+| 2 | Whitespace only | `"   "` | 0 rows, 3,092 ms | Treated as empty |
+| 3 | Below minimum length | `c`, `cr` | 0 rows | Minimum length of 3 is acceptable, but must be **stated in the contract** and the UI must say so rather than showing "no results" |
+| 4 | Uppercase | `CRED` | Same as `cred` | Correct, keep |
+| 5 | Mixed case | `CrEd` | Same as `cred` | Correct, keep |
+| 6 | Leading or trailing space | `" cred"`, `"cred "` | Same as `cred` | Correct, keep |
+| 7 | Double internal space | `credit  card` | Returns rows | Collapse to single space before matching |
+| 8 | **Trailing punctuation** | `cred.` vs `cred` | **CRED at rank 1 vs rank 11** | **Identical results. This is Rule 0** |
+| 9 | Repeated punctuation | `cred!!` | CRED at rank 1 | Identical to `cred` |
+| 10 | **Diacritics** | `cafe` vs `café` | **15 rows vs 3 rows, disjoint sets** | Fold to ASCII, one result set |
+| 11 | **Apostrophe** | `byju's` vs `byjus` | **1 row vs 0 rows** | Both return BYJU'S |
+| 12 | **Ampersand** | `l&t` vs `l t` | L&T rows vs unrelated companies | Both return the L&T entities |
+| 13 | Hyphen | `of-business` | 0 rows | Same as `of business` and `ofbusiness` |
+| 14 | Digits in query | `5paisa`, `1mg`, `3one4` | All resolve correctly | Keep |
+| 15 | Very long query | 120 characters | 0 rows, no error | Truncate at a stated limit, no error |
+| 16 | Emoji only | `🔥` | 0 rows, no error | Clean empty state |
+| 17 | Markup or script string | `<script>alert(1)</script>` | 0 rows, no error, not reflected | Correct, keep, and add a regression test |
+| 18 | Non Latin script | Devanagari input | 0 rows | Acceptable for v1 scope, but **state it** so it is a known limit rather than a silent failure |
+| 19 | Stop word only | `the` | 0 rows | Acceptable, must render as a prompt to refine, not as a failure |
+| 20 | Generic word | `startup` | Startuppz, StartupXY, then Startup | The exact name Startup must rank 1 |
+
+### 4.2 Matching behaviour
+
+| # | Scenario | Example | Today | Required |
+|---|---|---|---|---|
+| 21 | Exact full name | `cred` | Rank 11 | **Rank 1, pinned** |
+| 22 | Exact name that is also a common word | `matter`, `rocket` | 0 rows / rank 3 | Rank 1 |
+| 23 | Exact name of a shut down company | quality 0.36 in simulation | Loses rank 1 | Rank 1, status shown as a label, never as a ranking penalty that costs it position 1 |
+| 24 | Prefix | `raz` for Razorpay | Works | Keep, below exact and whole word |
+| 25 | Whole word inside a multi word name | `wave coffee` for Third Wave Coffee | Works | Keep |
+| 26 | **Mid word fragment** | `ola` inside Chocolate | **Ranks 1 and 2** | Must rank strictly below every whole word and exact match |
+| 27 | Suffix of a longer name | `rocket` for Shiprocket | Ranks 1, above the company named Rocket | Allowed, but strictly below the exact match |
+| 28 | Run together words | `ofbusiness`, `waghbakri` | 1 row / 0 rows | Both spellings resolve through the squashed form |
+| 29 | Extra space | `of business` | **0 rows** | Resolves to OfBusiness |
+| 30 | **Word order reversed** | `finance iifl` | Returns three other IIFL entities, never IIFL Finance | Order independent |
+| 31 | Partial multi word | `wave coffee` | Works | Keep |
+| 32 | One character typo | `zomto` | Zomato rank 1 | Keep |
+| 33 | Two character typo | `razorpey` | Razorpay rank 1 | Keep |
+| 34 | Phonetic | `flipcart` | Flipkart rank 1 | Keep, with the Rule 7 length guard |
+| 35 | Typo on a record that does not exist | `sequioa` | 0 rows | Correct behaviour, but must show "did you mean" or a clean empty state |
+| 36 | Legal suffix omitted | `matter` for Matter Motor Works | 0 rows | Rank 1 via Rule 8 |
+| 37 | Legal suffix included | `InCred Holdings Limited` | Works | Keep |
+| 38 | Former or legal name | `Eternal Limited` | Separate record | Resolves to Zomato |
+| 39 | Description only match | term in the blurb, not the name | Contributes | Keep at weight 0.5, never above a name match |
+| 40 | Query matches a sector | `fintech` | Fintech industry row at rank 1 | Keep, this works well |
+| 41 | Multi word sector | `green hydrogen` | Two industry rows, no companies | Should also surface companies in that sector |
+| 42 | Person name | `aman gupta` | Rank 1, **duplicated three times** | Rank 1, deduplicated |
+| 43 | Investor name | `peak xv partners` | Rank 1 | Keep |
+| 44 | Investor portfolio spillover | `peak xv` | Ranks 2 and 3 are portfolio companies | Allowed only in a labelled section, never mixed into the entity list unlabelled |
+| 45 | Same name across two types | company and person share a name | Not currently distinguishable | Both returned, ordered by match strength then type weight, each with its type label |
+
+### 4.3 Failure and empty states
+
+| # | Scenario | Today | Required |
+|---|---|---|---|
+| 46 | **True zero, record does not exist** | Renders as "No results" | Correct, and must offer the nearest suggestions |
+| 47 | **False zero, record exists** | `matter`, `byjus`, `of business`, `dr reddy` all return 0 while the record is retrievable on the other endpoint | **Must not happen. This is the recall acceptance criterion** |
+| 48 | **Non deterministic zero** | `3one4` returned 1 result on 5 of 6 identical calls and **0 on the sixth** | Same query must return the same result set. Any variance is a defect |
+| 49 | Server error or timeout | Currently indistinguishable from zero results in the UI | Distinct error state, never rendered as "no results" |
+| 50 | Rate limiting | Returns as failure | Distinct state, with a retry, never rendered as "no results" |
+| 51 | Out of order responses | Search fires per keystroke, a slow earlier response can overwrite a fast later one | Debounce, and discard any response that is not for the current query string |
+| 52 | Result count | **v2 returns `count: 0` on every query** while the other endpoint returns the true total (803 for `cred`) | Return the true total. Success metrics and analytics depend on it |
+| 53 | Truncation | 15 rows returned with no indication more exist | Show the total and a path to the full result set |
+
+### 4.4 Non functional
+
+| # | Metric | Main site endpoint | DataLabs endpoint | Target |
+|---|---|---|---|---|
+| 54 | p50 latency, 10 query sample | **360 ms** | **1,768 ms** | 200 ms per the PRD |
+| 55 | Worst observed latency | 513 ms | **3,644 ms** | Stated ceiling required |
+| 56 | Empty query latency | not applicable | **3,268 ms** | 0 ms, short circuit locally |
+| 57 | Exact answer at rank 1, 10 query sample | 10 of 10 | 7 of 10 | 10 of 10 |
+| 58 | Determinism | stable across repeats | **1 of 3 tested queries unstable** | 100 percent stable |
+| 59 | Logged out behaviour | not applicable | v2 serves logged out company pages today | Same ranking rules apply logged out |
+
+---
+
+## 5. Acceptance criteria
+
+### Must return the named entity at rank 1
+
+`cred`, `ola`, `navi`, `rocket`, `startup`, `matter`, `byjus`, `byju's`, `of business`, `ofbusiness`, `iifl finance`, `finance iifl`, `wave coffee`, `third wave`, `5paisa`, `1mg`, `3one4`, `l&t`, `l t`, `cafe`, `café`, `zomato`, `zepto`, `swiggy`, `paytm`, `groww`, `meesho`, `razorpay`, `zomto`, `flipcart`, `razorpey`, `aman gupta`, `peak xv partners`.
+
+The last seven currently pass and are included as regression guards.
 
 ### Must never happen
 
-1. A mid word fragment match ranking above a whole word match. Test: `ola` must not return Manam Chocolate above Ola.
-2. An exact name match falling below rank 1, or being absent from the result set.
-3. A person or industry row outranking an entity whose name matches more strongly.
-4. A multi word query returning results that match only one of its words while the full match exists.
+1. A mid word fragment ranking above a whole word match.
+2. An exact name match below rank 1, or absent from the result set.
+3. A person or industry row above an entity whose name matches more strongly.
+4. A multi word query returning only single word matches while a full match exists.
+5. Two queries that normalise identically returning different results.
+6. The same query returning different results on repeat calls.
+7. An error or timeout rendered as "no results".
+8. A duplicate record consuming a result slot.
 
-### Non functional
+### Must be true of the contract
 
-| Metric | v1 today | v2 today | Target |
-|---|---|---|---|
-| p50 latency, 10 query sample | **360 ms** | **1,768 ms** | 200 ms per the PRD |
-| Exact answer at rank 1, 10 query sample | 10 of 10 | 7 of 10 | 10 of 10 |
-
-Measured 9 September 2026.
+1. `count` returns the true total.
+2. Minimum query length is documented and surfaced in the UI.
+3. Every row carries its type label.
 
 ---
 
-## 4. Expected outcome
+## 6. Data preconditions, tracked separately from ranking
 
-Simulation of the PRD's scoring over the live corpus:
+No ranking rule retrieves a record that is not indexed. Verified absent or unreachable:
 
-| Configuration | Rank 1 hit rate, 22 case regression set |
+| Record | Status |
 |---|---|
-| PRD exactly as currently written | 16 of 22 |
-| PRD plus the additions in this document | **20 of 22** |
-| Same, with investor quality populated | **21 of 22** |
-
-The remaining failures are missing records, not ranking failures. See section 5.
-
----
-
-## 5. Items outside ranking that block the result
-
-Verified on 8 September 2026: **Wagh Bakri, Lava, TBO Tek, BirdEye, Eternal Limited and ANI Technologies are not present in the index at all.** These are data coverage gaps. No ranking rule retrieves them, and they should be tracked separately from this specification.
-
-Two further defects found while measuring:
-
-1. **v2 returns `count: 0` on every query** while v1 returns the true total (803 for `cred`). Any downstream consumer reading result counts, including the PRD's own success metrics, currently receives zero.
-2. **v1 returns duplicate records.** `cred` returns CredR at both rank 4 and rank 6.
+| Wagh Bakri, Lava, TBO Tek, BirdEye | Not in the index |
+| Eternal Limited, ANI Technologies | Present as separate unlinked records |
+| Sequoia Capital | Returns 0 on both endpoints, needs an alias to Peak XV Partners |
+| Matter, BYJU'S, OfBusiness | Indexed and retrievable on the main site endpoint, **unreachable on the DataLabs endpoint** |
+| Aman Gupta, CredR | Duplicate records |
 
 ---
 
-## 6. Sequencing recommendation
+## 7. Sequencing
 
 | Order | Change | Reason |
 |---|---|---|
-| 1 | Rule 3, exact match pin | Single largest visible fix, smallest change, removes the reported symptom outright |
-| 2 | Rule 5, single index or fixed constant normalisation | Everything else is unreliable while leading rows sort by type |
-| 3 | Rule 1 `name.token`, Rule 4 `minimum_should_match`, Rule 6 phonetic guard | The remaining ranking corrections |
-| 4 | Rule 7 aliases, Rule 8 investor quality | Data population, can run in parallel |
+| 1 | Rule 3 exact match pin, and Rule 0 query normalisation | Largest visible improvement for the smallest change. Together they fix the reported symptom and the punctuation, diacritic, apostrophe and spacing inconsistencies in one pass |
+| 2 | Recall investigation for class B | Queries returning 0 for records that exist is more damaging than poor ordering, and its cause is not yet known |
+| 3 | Rule 6 single index or fixed constant normalisation | Everything else is unreliable while leading rows sort by type |
+| 4 | Rule 1 `name.token`, Rule 4 `minimum_should_match`, Rule 5 word order, Rule 7 phonetic guard, Rule 8 suffix stripping | The remaining ranking corrections |
+| 5 | Rule 9 aliases, Rule 10 investor quality, Rule 11 deduplication | Data population, can run in parallel |
+| 6 | Class C client side work: debounce, discard stale responses, distinct error state | Removes the perceived flakiness |
 
-**Migration note.** v2 is live on public pages today, including logged out company pages, and it is the surface producing the ranking failures above. v1 currently returns the correct answer at rank 1 in a fifth of the time. Any plan to move remaining surfaces onto v2 should be gated on v2 passing the acceptance set in section 3, otherwise the move regresses queries that work correctly today.
+**Migration note.** The DataLabs endpoint is live on public pages today, including logged out company pages, and it is the surface producing the failures above. The main site endpoint returns the correct answer at rank 1 in a fifth of the time and retrieves records the DataLabs endpoint cannot reach at all. Any plan to move remaining surfaces onto the newer endpoint should be gated on it passing section 5, otherwise the move regresses queries that work correctly today.
+
+---
+
+## 8. Known limits of this specification
+
+Stated so they are not mistaken for coverage.
+
+1. **Article and content search is out of scope here.** It is a separate and more severe problem and is not addressed by any rule above.
+2. **The Analytical intent path is not specified.** Only entity ranking is covered.
+3. **The cause of the class B recall failures is not yet known.** The rules above define the required behaviour but not the fix, which needs someone with access to the index configuration.
+4. **The punctuation path difference has no confirmed mechanism.** It is reproducible on three queries and absent on two others, which suggests two matching paths rather than one, but this needs confirmation from the implementation.
+5. **Ranking figures come from a simulation of the PRD formula**, not from the production cluster. The corpus under samples competing records by roughly nine times, so reported failure counts are a lower bound.
+6. **Non Latin script and transliterated queries are untested beyond a single case.**
