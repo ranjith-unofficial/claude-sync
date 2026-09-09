@@ -1,6 +1,6 @@
 ---
 name: project-inc42-app-search-root-cause
-description: "Inc42 search root cause across all surfaces, live-verified 6 Sep 2026 — inc42.com article search returns NOTHING (dead Algolia wiring); `cred` misses CRED on DataLabs v2 for want of an exact-match boost; v1-vs-v2 is a recall/precision trade-off so 'migrate to v2' is now gated"
+description: "Inc42 search root cause across all surfaces, live-verified 6 Sep 2026 — inc42.com article search returns NOTHING (dead Algolia wiring); `cred` buries CRED at rank 11 on DataLabs v2 for want of an exact-match/word-boundary boost (9 Sep: NOT absent, as earlier recorded); v1-vs-v2 is a recall/precision trade-off so 'migrate to v2' is now gated"
 metadata: 
   node_type: memory
   type: project
@@ -73,6 +73,10 @@ PRD scope gaps: DataLabs only — no inc42.com article search (RC#0), no app, no
 **Method lesson:** #0 and #1 were both only visible by driving the actual product pages; every prior audit tested endpoints and concluded the engines roughly worked. Start future search audits at the user-facing surface.
 
 **Still open:** which endpoint the app calls; which surfaces are on v2 (it is on NO public page — `/datalabs/` itself uses v1, so v2 is the logged-in app only); whether v2's 1.5s latency is structural; whether its matcher is a tunable engine or hand-rolled SQL. Last two gate fix-vs-replace.
+
+**9 SEP 2026 LIVE RE-MEASURE — corrects "CRED absent on v2".** CRED **is** returned by v2 for `cred`, at **rank 11 of 15** (not absent, as recorded above on 6 Sep). Ranjith sees it 6th–7th in the DataLabs UI, which suggests the UI collapses near-duplicate rows (`InCred` / `InCred Holdings Limited`) — unconfirmed, needs a screenshot. Order returned: CredR, InCred Holdings, InCred, Credgenics, OkCredit, CredAble, Altum Credo, Credlix, Credit Wise Capital, Credit Fair, **CRED**.
+
+10-query head-to-head (live, 9 Sep): **v1 = 10/10 at rank 1, p50 ~0.8s. v2 = 7/10, 1.9–3.4s.** v2 misses only `cred` (11), `ola` (3), `navi` (3) — exactly the short queries that are substrings of many other names. `ola` returns **Manam Choc-ola-te** and **Pr-ola-nce** above Ola: v2 matches substrings with **no word boundary and no exact-match bonus**, same defect class as inc42.com article search (`EMS`→syst-ems, `chai`→chai-rman). Confirms the PRD's `name.exact^10` is aimed at the right target (sim: CRED 7.80 vs 3.08 nearest rival), and re-confirms migration must be gated — v2 today would regress `cred` where v1 gets it right.
 
 This bucket is its own workstream — Ranjith confirmed all four sub-tracks in scope (v2 relevance, client Stage 0, v2 latency/migration call, article search).
 
