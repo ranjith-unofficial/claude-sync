@@ -464,13 +464,45 @@ def cell_text(cell) -> Optional[str]:
     return str(v)
 
 
-def _resolved(ws_f, ws_v, coord: str) -> Any:
-    """Cached value first (resolves cross-sheet refs), else the raw text."""
+_SIMPLE_REF_RE = re.compile(
+    r"^=\s*(?:'([^']+)'|([A-Za-z_][A-Za-z0-9_ .]*))?!?\$?([A-Za-z]{1,3})\$?(\d+)\s*$"
+)
+
+
+def _resolved(ws_f, ws_v, coord: str, _depth: int = 0) -> Any:
+    """
+    Read a cell, following simple references so the answer is a real value.
+
+    A workbook that Excel has calculated carries cached results, and those are
+    used first.  A workbook that has only ever been written by a script has
+    none, so a header like ='Read Me'!C27 would otherwise come back as its own
+    formula text.  In that case the reference is followed by hand.
+    """
     if ws_v is not None:
         v = ws_v[coord].value
         if v is not None and not (isinstance(v, str) and v.startswith("=")):
             return v
-    return cell_text(ws_f[coord])
+
+    text = cell_text(ws_f[coord])
+    if text is None or not text.startswith("=") or _depth >= 8:
+        return text
+
+    m = _SIMPLE_REF_RE.match(text)
+    if not m:
+        return text
+    quoted, bare, col, row = m.groups()
+    target_sheet = quoted or bare
+    wb_f = ws_f.parent
+    wb_v = ws_v.parent if ws_v is not None else None
+    if target_sheet:
+        if target_sheet not in wb_f.sheetnames:
+            return text
+        nxt_f = wb_f[target_sheet]
+        nxt_v = wb_v[target_sheet] if (wb_v is not None
+                                       and target_sheet in wb_v.sheetnames) else None
+    else:
+        nxt_f, nxt_v = ws_f, ws_v
+    return _resolved(nxt_f, nxt_v, "%s%s" % (col.upper(), row), _depth + 1)
 
 
 def discover_model(path: str) -> Model:
@@ -1022,66 +1054,313 @@ def build_row(res: Result) -> List[Any]:
     return row
 
 
-def write_outputs(model: Model, results: List[Result], out_path: str) -> List[str]:
-    header = build_header(model)
+def fmt_number(x: float, decimals: Optional[int] = None) -> str:
+    """
+    Plain digits, never scientific notation - the scripts cannot read 1e-05.
+
+    With `decimals` set, the value is written to exactly that many places, which
+    is how the existing hand-written scripts are formatted.  Left unset, the
+    sheet's full precision is kept: a coefficient rounded to 4 places can move a
+    borderline respondent into a different segment.
+    """
+    if decimals is not None:
+        return "%.*f" % (min(decimals, 15), x)
+    if x == int(x) and abs(x) < 1e15:
+        return "%d.0" % int(x)
+    out = repr(float(x))
+    if "e" in out or "E" in out:
+        out = "%.15f" % x
+        out = out.rstrip("0")
+        if out.endswith("."):
+            out += "0"
+    return out
+
+
+def block_of(var: Variable) -> str:
+    """Which question block a predictor belongs to, from its recode rule."""
+    return "pair" if var.recode.is_binary_pair else "scale"
+
+
+def parse_blocks(spec: str) -> List[Tuple[str, int]]:
+    """Turn "TT2:16,TT1:8" into [("TT2",16),("TT1",8)], applied in sheet order."""
+    out: List[Tuple[str, int]] = []
+    for part in spec.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if ":" not in part:
+            raise SystemExit("--q-blocks needs NAME:COUNT entries, got %r" % part)
+        name, _, count = part.partition(":")
+        try:
+            n = int(count)
+        except ValueError:
+            raise SystemExit("--q-blocks count must be a whole number, got %r" % count)
+        out.append((name.strip(), n))
+    return out
+
+
+def assign_question_names(model: Model, prefixes: Dict[str, str],
+                          blocks: Optional[List[Tuple[str, int]]] = None) -> List[str]:
+    """
+    Name every predictor's survey question.
+
+    By default the recode rule decides the block, which separates rating items
+    from paired items and matches the Sunoco and Signet scripts.  When two
+    blocks share a recode rule that is not enough - Poppi's 16 MaxDiff items and
+    8 semantic-differential items are all pass-through, yet the script names
+    them TT2_1..16 and TT1_1..8 - so --q-blocks states the split outright.
+    """
+    if blocks:
+        stated = sum(n for _n, n in blocks)
+        if stated != model.n_variables:
+            raise SystemExit(
+                "--q-blocks covers %d variable(s) but the model has %d.\n"
+                "The counts must add up, in sheet order." % (stated, model.n_variables))
+        names: List[str] = []
+        for prefix, count in blocks:
+            names.extend("%s_%d" % (prefix, k) for k in range(1, count + 1))
+        return names
+
+    counters: Dict[str, int] = {}
+    names = []
+    for v in model.variables:
+        b = block_of(v)
+        counters[b] = counters.get(b, 0) + 1
+        names.append("%s_%d" % (prefixes.get(b, b.upper()), counters[b]))
+    return names
+
+
+def generate_script(model: Model, prefixes: Dict[str, str], pair_style: str = "on",
+                    condition: str = "'??STATUS?? has 2",
+                    hidden_question: str = "HIDSegment",
+                    reference: bool = False,
+                    decimals: Optional[int] = None,
+                    blocks: Optional[List[Tuple[str, int]]] = None,
+                    assert_style: str = "check") -> str:
+    """
+    Write the survey-platform script that reproduces this model.
+
+    The layout follows the reference scripts: build TempSeg from the answers,
+    hold each segment's coefficients in a Seg<n> array, accumulate the
+    SUMPRODUCT in a For loop, add the constants, exponentiate, convert to
+    percentages and take IndexofMax.
+
+    Predictors keep their sheet order, so a value's position in TempSeg always
+    lines up with the same position in every Seg<n> array.  Question names are
+    numbered within their own block, which is what the reference scripts do
+    (QS17_1..3 for the scale items, QS16_1..10 for the pairs).
+    """
+    # A baseline segment has no coefficients of its own: it contributes a
+    # trailing exp(0) = 1 term and nothing else, so it gets no Seg<n> array and
+    # takes no part in the loop.  add_reference_segment() marks it with "-".
+    real = [i for i, c in enumerate(model.segment_columns) if c != "-"]
+    n_ref = model.n_segments - len(real)
+    if reference and n_ref == 0:
+        n_ref = 1
+    n_seg = len(real)
+    n_var = model.n_variables
+    L: List[str] = []
+
+    qname = assign_question_names(model, prefixes, blocks)
+
+    L.append(condition)
+    L.append("")
+    L.append("' Generated from: %s" % os.path.basename(model.source_file))
+    L.append("' Scoring block : %s!%s%d:%s%d"
+             % (model.sheet, model.segment_columns[0], model.first_row,
+                model.segment_columns[-1], model.last_row))
+    L.append("' %d segments%s, %d predictors"
+             % (n_seg + n_ref,
+                " (%d scored + %d baseline)" % (n_seg, n_ref) if n_ref else "",
+                n_var))
+    L.append("'")
+    L.append("' CHECK THE QUESTION NAMES BELOW before running. They are numbered")
+    L.append("' per block; swap the prefixes for the real ones in your survey.")
+    L.append("'")
+    L.append("'   pos  script question        model variable")
+    for i, (v, q) in enumerate(zip(model.variables, qname), 1):
+        L.append("'   %-4d %-21s %s" % (i, q, v.name))
+    L.append("")
+    L.append("Dim i")
+    L.append("Dim TempSeg = {}")
+    L.append("Dim SegScore = {}")
+    L.append("")
+
+    helper: Dict[int, str] = {}
+    if pair_style == "ifelse":
+        pair_idx = [i for i, v in enumerate(model.variables) if block_of(v) == "pair"]
+        if pair_idx:
+            for n, i in enumerate(pair_idx, 1):
+                helper[i] = "Seg%d" % (n_seg + n)
+                L.append("Dim %s" % helper[i])
+            L.append("")
+            for i in pair_idx:
+                L.append("If %s.answers.entrycode has {1} then" % qname[i])
+                L.append("  %s=1" % helper[i])
+                L.append("else")
+                L.append("  %s=0" % helper[i])
+                L.append("EndIf")
+                L.append("")
+
+    for i, v in enumerate(model.variables):
+        if i in helper:
+            expr = helper[i]
+        elif block_of(v) == "pair":
+            expr = ("on(%s.Answers.EntryCode has {1},1,"
+                    "on(%s.Answers.EntryCode has {2},0))" % (qname[i], qname[i]))
+        else:
+            expr = "%s.Answers.EntryCode[1]" % qname[i]
+        L.append("TempSeg.SetAt(%02d,%s)" % (i + 1, expr))
+    L.append("")
+
+    for k, sgi in enumerate(real, 1):
+        vals = ";".join('"%s"' % fmt_number(v.coefficients[sgi], decimals)
+                        for v in model.variables)
+        L.append("Dim Seg%d = {%s}" % (k, vals))
+    L.append("")
+
+    for sgi in range(n_seg):
+        L.append("SegScore.SetAt(%d,0)" % (sgi + 1))
+    L.append("")
+    L.append("Dim TempDrive = 0")
+    L.append("")
+
+    L.append("For i = 1 To %d" % n_var)
+    for sgi in range(n_seg):
+        L.append("  TempDrive = SegScore[%d] + (Seg%d[i].ToNumber() * TempSeg[i])"
+                 % (sgi + 1, sgi + 1))
+        L.append("  SegScore.SetAt(%d,TempDrive)" % (sgi + 1))
+    L.append("Next i")
+    L.append("")
+
+    L.append("' add each segment's constant once, after the products are summed")
+    for k, sgi in enumerate(real, 1):
+        L.append("TempDrive = SegScore[%d] + (%s)"
+                 % (k, fmt_number(model.constant[sgi], decimals)))
+        L.append("SegScore.SetAt(%d,TempDrive)" % k)
+    L.append("")
+
+    total = n_seg + n_ref
+    for k in range(1, n_seg + 1):
+        L.append("dim fsum%d = pow(2.718281828,(SegScore[%d]))" % (k, k))
+    for k in range(n_seg + 1, total + 1):
+        L.append("' baseline segment: no coefficients, so its score is 0 and exp(0) = 1")
+        L.append("dim fsum%d = 1" % k)
+    L.append("")
+
+    L.append("dim perc1={}")
+    for k in range(total):
+        L.append("perc1.InsertAt(%d,0)" % (k + 1))
+    L.append("")
+    L.append("dim finalSum = " + " + ".join("fsum%d" % (k + 1) for k in range(total)))
+    L.append("")
+    for k in range(total):
+        L.append("perc1.SetAt(%d,(fsum%d/finalSum)*100)" % (k + 1, k + 1))
+    L.append("")
+    L.append("Dim SegmentFinal = perc1.IndexofMax()")
+    L.append("")
+    lhs = ("%s.hasnodata" % hidden_question if assert_style == "nodata"
+           else "SegmentFinal = %s.Answers.EntryCode[1]" % hidden_question)
+    L.append('Assert.Check(%s , "Segment1 Mismatch = " + SegmentFinal + "SP = " '
+             '+ %s.Answers.EntryCode + "Score =" + perc1 + " - " + TempSeg '
+             '+ "-" + SegScore)' % (lhs, hidden_question))
+    L.append("")
+    return "\n".join(L)
+
+
+def write_outputs(model: Model, results: List[Result], data: "Dataset",
+                  out_stem: str, script_text: str) -> List[str]:
+    """
+    One workbook and one script file.
+
+    The workbook mirrors the layout of the source typing tools: a Batch tab
+    with the raw inputs on the left, then DFA, EXP, Probability and Assignment
+    blocks separated by a blank spacer column, exactly where they sit in the
+    originals.
+    """
     written: List[str] = []
+    xlsx_path = out_stem + ".xlsx"
+    script_path = out_stem + "_script.txt"
 
-    base, ext = os.path.splitext(out_path)
-    xlsx_path = base + ".xlsx"
-    csv_path = base + ".csv"
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Batch"
+    names = model.segment_names
+    n = model.n_segments
 
-    with open(csv_path, "w", newline="", encoding="utf-8") as fh:
-        w = csv.writer(fh)
-        w.writerow(header)
-        for res in results:
-            w.writerow(build_row(res))
-    written.append(csv_path)
+    # --- row 1: block banners, row 2: column names --------------------
+    r1: List[Any] = [None, "RAW INPUTS"] + [None] * (model.n_variables - 1)
+    r2: List[Any] = ["Respondent"] + [v.name for v in model.variables]
 
-    try:
-        wb = openpyxl.Workbook()
-        ws = wb.active
-        ws.title = "Results"
-        ws.append(header)
-        for res in results:
-            ws.append(build_row(res))
-        ws.freeze_panes = "B2"
+    def block(banner: str, headers: List[str]) -> None:
+        r1.append(None); r2.append(None)                 # spacer column
+        r1.append(banner); r1.extend([None] * (len(headers) - 1))
+        r2.extend(headers)
 
-        summary = wb.create_sheet("Summary")
-        summary.append(["Segment", "Position", "Respondents", "Share %"])
-        total = len(results) or 1
-        counts = {i: 0 for i in range(1, model.n_segments + 1)}
-        for res in results:
-            counts[res.position] += 1
-        for i, name in enumerate(model.segment_names, 1):
-            summary.append([name, i, counts[i], round((counts[i] / total) * 100.0, 4)])
+    block("DFA", ["seg%d" % (i + 1) for i in range(n)])
+    block("EXP", ["seg%d" % (i + 1) for i in range(n)])
+    block("Probability", list(names))
+    block("Assignment", ["Segment", "Name", "Top %", "Margin", "Flags"])
+    ws.append(r1)
+    ws.append(r2)
+
+    for res in results:
+        row: List[Any] = [res.respondent] + list(res.model_inputs)
+        row.append(None); row.extend(res.scores)
+        row.append(None)
+        row.extend([e if not math.isinf(e) else "overflow" for e in res.exp_values])
+        row.append(None); row.extend(res.probabilities)
+        row.append(None)
+        row.extend([res.position, res.segment, round(res.top_pct, 6),
+                    round(res.margin, 6), "; ".join(res.flags)])
+        ws.append(row)
+
+    ws.freeze_panes = "B3"
+
+    # --- supporting tabs ----------------------------------------------
+    summary = wb.create_sheet("Summary")
+    summary.append(["Segment", "Position", "Respondents", "Share %"])
+    total = len(results) or 1
+    counts = {i: 0 for i in range(1, n + 1)}
+    for res in results:
+        counts[res.position] += 1
+    for i, name in enumerate(names, 1):
+        summary.append([name, i, counts[i], round((counts[i] / total) * 100.0, 4)])
+    summary.append(["Total", "", total, 100.0])
+    summary.append([])
+    summary.append(["Source model", os.path.basename(model.source_file)])
+    summary.append(["Scoring sheet", model.sheet])
+    summary.append(["Predictors", model.n_variables])
+    summary.append(["Respondents", len(results)])
+    summary.append(["Blank rows skipped", data.skipped_blank])
+    summary.append(["Generated", _dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
+    if WARNINGS:
         summary.append([])
-        summary.append(["Total", "", total, 100.0])
-        summary.append([])
-        summary.append(["Source model", os.path.basename(model.source_file)])
-        summary.append(["Scoring sheet", model.sheet])
-        summary.append(["Predictors", model.n_variables])
-        summary.append(["Generated", _dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")])
-        if WARNINGS:
-            summary.append([])
-            summary.append(["Warnings"])
-            for wmsg in WARNINGS:
-                summary.append([wmsg])
+        summary.append(["Warnings"])
+        for wmsg in WARNINGS:
+            summary.append([wmsg])
 
-        model_sheet = wb.create_sheet("Model")
-        model_sheet.append(["row", "variable", "label", "recode"] + model.segment_names)
-        if model.constant_row:
-            model_sheet.append([model.constant_row, "constant", "constant", ""]
-                               + list(model.constant))
-        for v in model.variables:
-            model_sheet.append([v.row, v.name, v.label, v.recode.describe()]
-                               + list(v.coefficients))
+    msheet = wb.create_sheet("Model")
+    msheet.append(["row", "variable", "label", "recode"] + names)
+    if model.constant_row:
+        msheet.append([model.constant_row, "constant", "constant", ""]
+                      + list(model.constant))
+    for v in model.variables:
+        msheet.append([v.row, v.name, v.label, v.recode.describe()]
+                      + list(v.coefficients))
 
-        wb.save(xlsx_path)
-        written.append(xlsx_path)
-    except Exception as exc:                       # pragma: no cover
-        warn("Could not write the Excel workbook (%s). The CSV is still complete."
-             % exc)
+    scr = wb.create_sheet("Script")
+    scr.append(["The generated script is also saved as %s"
+                % os.path.basename(script_path)])
+    for line in script_text.split("\n"):
+        scr.append([line])
 
+    wb.save(xlsx_path)
+    written.append(xlsx_path)
+
+    with open(script_path, "w", encoding="utf-8") as fh:
+        fh.write(script_text)
+    written.append(script_path)
     return written
 
 
@@ -1108,7 +1387,16 @@ def add_reference_segment(model: Model, name: str = "reference") -> None:
 
 def run(model_path: str, data_path: Optional[str], out_path: Optional[str],
         sheet: Optional[str], audit: Optional[str], reference: bool,
-        inspect_only: bool, show_vars: bool) -> int:
+        inspect_only: bool, show_vars: bool,
+        prefixes: Optional[Dict[str, str]] = None,
+        pair_style: str = "on", hidden_question: str = "HIDSegment",
+        blocks: Optional[List[Tuple[str, int]]] = None,
+        decimals: Optional[int] = None, assert_style: str = "check") -> int:
+    prefixes = prefixes or {"scale": "TypingTool1DP", "pair": "TypingTool2DP"}
+    if decimals is not None and decimals > 15:
+        warn("--decimals %d exceeds what a 64-bit float can represent; "
+             "capping at 15. Leave it unset to keep the sheet's own precision."
+             % decimals)
 
     if not os.path.isfile(model_path):
         raise SystemExit("File not found: %s" % model_path)
@@ -1215,7 +1503,29 @@ def run(model_path: str, data_path: Optional[str], out_path: Optional[str],
         stem = os.path.splitext(os.path.basename(model_path))[0]
         out_path = os.path.join(os.path.dirname(os.path.abspath(model_path)),
                                 "%s_results" % stem)
-    written = write_outputs(model, results, out_path)
+
+    script_text = generate_script(model, prefixes, pair_style=pair_style,
+                                  hidden_question=hidden_question,
+                                  reference=reference, decimals=decimals,
+                                  blocks=blocks, assert_style=assert_style)
+    rule("SCRIPT")
+    qnames = assign_question_names(model, prefixes, blocks)
+    seen: List[str] = []
+    for q in qnames:
+        stem = q.rsplit("_", 1)[0]
+        if stem not in seen:
+            seen.append(stem)
+    for stem in seen:
+        members = [q for q in qnames if q.rsplit("_", 1)[0] == stem]
+        info("  %2d question(s): %s .. %s" % (len(members), members[0], members[-1]))
+    info("  pair style   : %s" % pair_style)
+    info("  coefficients : %s"
+         % ("%d decimal places" % decimals if decimals is not None
+            else "full precision from the sheet"))
+    info("  check against: %s (%s)" % (hidden_question, assert_style))
+    info("  %d lines generated" % len(script_text.split("\n")))
+
+    written = write_outputs(model, results, data, out_path, script_text)
     rule("OUTPUT")
     for p in written:
         info("  wrote %s" % p)
@@ -1245,6 +1555,27 @@ def main(argv: Optional[List[str]] = None) -> int:
                     help="describe the model structure and stop")
     ap.add_argument("--variables", action="store_true",
                     help="also print the full coefficient table")
+    ap.add_argument("--q-scale", default="TypingTool1DP", metavar="NAME",
+                    help="question name prefix for the rating/scale block "
+                         "(default: TypingTool1DP)")
+    ap.add_argument("--q-pair", default="TypingTool2DP", metavar="NAME",
+                    help="question name prefix for the paired/MaxDiff block "
+                         "(default: TypingTool2DP)")
+    ap.add_argument("--pair-style", choices=("on", "ifelse"), default="on",
+                    help="how paired questions are recoded in the script: a "
+                         "nested on(...) expression, or an If/Else pre-pass")
+    ap.add_argument("--hid", default="HIDSegment", metavar="NAME",
+                    help="hidden question the script checks against "
+                         "(default: HIDSegment)")
+    ap.add_argument("--q-blocks", metavar="SPEC",
+                    help="state the question blocks outright, in sheet order, "
+                         "e.g. \"TT2:16,TT1:8\". Overrides --q-scale/--q-pair.")
+    ap.add_argument("--decimals", type=int, metavar="N",
+                    help="round coefficients to N places in the script "
+                         "(default: the sheet's full precision)")
+    ap.add_argument("--assert-style", choices=("check", "nodata"), default="check",
+                    help="'check' compares against the hidden question, "
+                         "'nodata' asserts it is empty (first deployment)")
     args = ap.parse_args(argv)
 
     model_path = args.model
@@ -1264,7 +1595,11 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     try:
         code = run(model_path, data_path, args.out, args.sheet, args.audit,
-                   args.reference_segment, args.inspect, args.variables)
+                   args.reference_segment, args.inspect, args.variables,
+                   prefixes={"scale": args.q_scale, "pair": args.q_pair},
+                   pair_style=args.pair_style, hidden_question=args.hid,
+                   blocks=parse_blocks(args.q_blocks) if args.q_blocks else None,
+                   decimals=args.decimals, assert_style=args.assert_style)
     except SystemExit as exc:
         info("\nERROR: %s" % exc)
         code = 2

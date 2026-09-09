@@ -70,23 +70,49 @@ if not exist "!MODEL!" goto :no_file
 
 if defined DATA goto :run
 echo.
-echo Leave the next line empty to score the batch data already inside
-echo the workbook, or give a separate .xlsx / .xlsm / .csv of responses.
-set /p "DATA=Respondent data file (optional): "
-set DATA=!DATA:"=!
+echo --------------------------------------------------------------
+echo  SCRIPT QUESTION NAMES
+echo --------------------------------------------------------------
+echo The script needs your survey's question names. They are numbered
+echo per block, in the order the variables appear on the Formulas tab.
+echo   e.g. rating items QS17_1..QS17_3, paired items QS16_1..QS16_10
+echo.
+set "QSCALE=TypingTool1DP"
+set "QPAIR=TypingTool2DP"
+set /p "QSCALE=Prefix for the rating/scale questions [%QSCALE%]: "
+set /p "QPAIR=Prefix for the paired/MaxDiff questions [%QPAIR%]: "
+set QSCALE=!QSCALE:"=!
+set QPAIR=!QPAIR:"=!
 
-:run
+echo.
+echo If both blocks use the same answer style you must split them by hand,
+echo in sheet order - for example  TT2:16,TT1:8  - otherwise leave blank.
+set /p "QBLOCKS=Explicit block split (optional): "
+set QBLOCKS=!QBLOCKS:"=!
+
+echo.
+set "HID=HIDSegment"
+set /p "HID=Hidden question to check against [%HID%]: "
+set HID=!HID:"=!
+
 echo.
 echo Extra options (press Enter to skip):
-echo    1  audit  - print the full step-by-step maths for the first respondent
-echo    2  vars   - print the whole coefficient table
-echo    3  ref    - add the survey script's zero-coefficient reference segment
-set /p "OPTS=Choose any of 1 2 3: "
+echo    1  audit    - print the step-by-step maths for the first respondent
+echo    2  vars     - print the whole coefficient table
+echo    3  ref      - add a zero-coefficient baseline segment
+echo    4  ifelse   - write paired questions as If/Else instead of on^(...^)
+echo    5  nodata   - assert the hidden question is empty (first deployment)
+echo    6  round4   - round coefficients to 4 decimal places
+set /p "OPTS=Choose any of 1 2 3 4 5 6: "
 
-set "ARGS="
+set "ARGS=--q-scale "!QSCALE!" --q-pair "!QPAIR!" --hid "!HID!""
+if defined QBLOCKS set "ARGS=!ARGS! --q-blocks "!QBLOCKS!""
 echo.!OPTS!| findstr /c:"1" >nul && set "ARGS=!ARGS! --audit"
 echo.!OPTS!| findstr /c:"2" >nul && set "ARGS=!ARGS! --variables"
 echo.!OPTS!| findstr /c:"3" >nul && set "ARGS=!ARGS! --reference-segment"
+echo.!OPTS!| findstr /c:"4" >nul && set "ARGS=!ARGS! --pair-style ifelse"
+echo.!OPTS!| findstr /c:"5" >nul && set "ARGS=!ARGS! --assert-style nodata"
+echo.!OPTS!| findstr /c:"6" >nul && set "ARGS=!ARGS! --decimals 4"
 
 echo.
 echo --------------------------------------------------------------
@@ -103,8 +129,9 @@ goto :done
 :done
 echo --------------------------------------------------------------
 echo.
-echo Finished. The results were written next to the Excel file
-echo as "<name>_results.xlsx" and "<name>_results.csv".
+echo Finished. Two files were written next to the Excel file:
+echo    ^<name^>_results.xlsx        - Batch tab with the results
+echo    ^<name^>_results_script.txt  - the segmentation script
 goto :end
 
 rem --- error exits ---------------------------------------------------

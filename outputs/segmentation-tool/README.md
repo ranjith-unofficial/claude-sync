@@ -1,8 +1,17 @@
 # Segmentation Typing Tool
 
 Point it at a DFA / multinomial "typing tool" workbook. It reads the workbook's
-own formulas to work out the structure, then reproduces the classification for
-every respondent and writes the results out.
+own formulas to work out the structure, then produces **two things**:
+
+1. **One Excel file** — a `Batch` tab with the raw inputs plus the DFA scores,
+   EXP values, probabilities and segment assignment, laid out like the source
+   workbooks.
+2. **The segmentation script** — ready to paste into the survey platform.
+
+The workbook you feed it only needs the **Formulas** tab (coefficients and
+recode rules) and a **Batch** tab holding *raw inputs only*. Everything
+downstream — SUMPRODUCT, EXP, percentages, the winning position — is calculated
+here; none of it has to exist in the file already.
 
 Verified against all three source workbooks: **9,854 respondents, every segment
 assignment identical to the workbook's own answer**, DFA scores matching to the
@@ -16,9 +25,14 @@ last bit and probabilities to within 6e-14 (floating-point noise).
 
 **Or** double-click `RUN_SEGMENTATION.bat` and paste the path when asked.
 
-The `.bat` finds Python, installs `openpyxl` if it is missing, and runs the
-engine. Results land next to the Excel file as `<name>_results.xlsx` and
-`<name>_results.csv`.
+The `.bat` finds Python, installs `openpyxl` if it is missing, asks for the
+survey question names, and runs the engine. Two files land next to the Excel
+file:
+
+| File | Contents |
+|---|---|
+| `<name>_results.xlsx` | `Batch` tab with the results, plus `Summary`, `Model` and `Script` tabs |
+| `<name>_results_script.txt` | The segmentation script |
 
 Both files must stay in the same folder. Python 3.7+ is required — install from
 python.org and tick *"Add python.exe to PATH"*.
@@ -41,6 +55,62 @@ python segmentation_tool.py "Signet Typing Tool.xlsm" --audit 809800089
 | `--inspect` | Describe the detected structure and stop |
 | `--variables` | Print the whole coefficient table |
 | `--reference-segment` | Add an implicit zero-coefficient baseline segment (see below) |
+| `--q-scale NAME` | Question prefix for the rating/scale block (default `TypingTool1DP`) |
+| `--q-pair NAME` | Question prefix for the paired/MaxDiff block (default `TypingTool2DP`) |
+| `--q-blocks SPEC` | State the split outright in sheet order, e.g. `TT2:16,TT1:8` |
+| `--pair-style on\|ifelse` | Paired questions as a nested `on(...)` or an `If/Else` pre-pass |
+| `--hid NAME` | Hidden question the script checks against (default `HIDSegment`) |
+| `--assert-style check\|nodata` | Compare against the hidden question, or assert it is empty |
+| `--decimals N` | Round coefficients to N places (default: the sheet's full precision) |
+
+### Reproducing the three reference scripts
+
+```
+python segmentation_tool.py "Sunoco Typing Tool.xlsm" ^
+    --q-scale QS17 --q-pair QS16 --pair-style ifelse ^
+    --decimals 4 --assert-style nodata
+
+python segmentation_tool.py "Signet Typing Tool.xlsm"
+
+python segmentation_tool.py "Poppi Typing Tool v2.xlsm" ^
+    --q-blocks "TT2:16,TT1:8" --reference-segment
+```
+
+---
+
+## The generated script
+
+Same shape as the hand-written ones: build `TempSeg` from the answers, hold each
+segment's coefficients in a `Seg<n>` array, accumulate the SUMPRODUCT in a `For`
+loop, add the constants, exponentiate, convert to percentages, `IndexofMax`.
+
+Predictors keep their sheet order, so a value's position in `TempSeg` always
+lines up with the same position in every `Seg<n>` array.
+
+**Question names are the one thing that cannot be read out of the Excel** — the
+Formulas tab holds model variable names (`x10x19`, `v7`), not survey question
+IDs (`QS16_4`, `TT2_1`). They are numbered per block and the script carries a
+mapping table in its header comments, so check that block before running.
+
+Blocks are worked out from the recode rules: rating items in one, paired items
+in the other. When both blocks share a recode rule — Poppi's 16 MaxDiff and 8
+semantic-differential items are all pass-through — use `--q-blocks` to state the
+split.
+
+### Verified against the reference scripts
+
+| Script | Lines generated | vs reference | Coefficients |
+|---|---|---|---|
+| Sunoco | 128 | 128/128 identical | exact |
+| Signet | 93 | 93/93 identical | exact |
+| Poppi | 82 | 82/82 identical | exact |
+
+Every number in the generated scripts is bit-identical to the hand-written ones
+(max difference 0.00e+00). The references pad trailing zeros (`"3.8771760"`);
+this writes the same value unpadded (`"3.877176"`) unless `--decimals` is given.
+
+**Round trip:** feeding each generated script's own numbers back over the batch
+data reproduces the workbook's segment for **9,854 of 9,854 respondents**.
 
 ---
 
@@ -132,11 +202,15 @@ workbook by default and warns; pass `--reference-segment` to follow the script.
 
 ## Output
 
-- **Results** — one row per respondent: model inputs, DFA score and probability
-  per segment, winning position, segment name, top %, margin over the runner-up,
-  and quality flags.
+One workbook, four tabs:
+
+- **Batch** — raw inputs, then DFA / EXP / Probability / Assignment blocks,
+  separated by spacer columns exactly as the source workbooks lay them out.
+  Assignment carries the position, segment name, top %, margin over the
+  runner-up and any quality flags.
 - **Summary** — segment sizes and shares, plus any warnings raised.
 - **Model** — the full coefficient table and recode rule for every variable.
+- **Script** — the same script that is written to the `.txt`.
 
 If the input file carries a known-segment column (`Original`, `Actual`, …), the
 run also reports how often the computed segment matches it.
