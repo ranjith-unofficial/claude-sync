@@ -60,6 +60,8 @@
 - [Open items](project-inc42-open-items.md) — unfinished as of Jul 29, incl. "Read more (30s)" card-copy fix
 - [FY27 Plan — Engines × Tracks](project-inc42-fy27-plan.md) — Utkarsh's LOCKED plan (21 Aug): app = primary surface, QIA north star
 - [Utkarsh's "One Inc42" strategy](project-inc42-strategy-utkarsh.md) — AUTHORITATIVE (13 Aug): reach→know→deepen→convene→pay
+- [Estate Defects — 39 EST-## items (Sept 2026)](project-inc42-estate-defects.md) — 6 outside reviewers, full estate; identity captured everywhere, used nowhere
+- [Rule: check Estate Defects first](feedback-oneinc42-check-estate-defects.md) — every OneInc42 / login / onboarding / web / DataLabs change starts from that doc
 - [Unification (web+app+DataLabs)](project-inc42-unification.md) — downstream of Utkarsh's strategy; Figma vision board v2 (17 Aug)
 - [Brand positioning](project-inc42-brand-positioning.md) — 9-operator feature matrix + archetype quadrant, external-audit method
 - [Strategic report structure](feedback-strategic-report-structure.md) — one narrative argument, not additive tables
