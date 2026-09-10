@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brief completion — gratification screen</title>
+<style>
+  :root {
+    --orange: #EA4B2B;
+    --peach: #FFD4C4;
+    --ink: #1A120F;
+    --white: #fff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Georgia", "Times New Roman", serif;
+    background: #111;
+    color: #eee;
+    padding: 40px 24px 80px;
+  }
+  h1 { font-size: 28px; font-weight: 500; letter-spacing: -0.02em; }
+  .dek { margin: 8px 0 36px; color: #aaa; font-family: -apple-system, sans-serif; font-size: 14px; max-width: 640px; line-height: 1.45; }
+  .row { display: flex; gap: 48px; flex-wrap: wrap; align-items: flex-start; }
+  .col { display: flex; flex-direction: column; gap: 14px; }
+  .label {
+    font-family: -apple-system, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .phone {
+    width: 360px;
+    height: 760px;
+    background: var(--orange);
+    border-radius: 40px;
+    padding: 28px 22px 22px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(234,75,43,0.25);
+    color: var(--white);
+  }
+  .mast {
+    font-family: -apple-system, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-align: center;
+    opacity: 0.7;
+  }
+  .mast em { font-style: normal; color: var(--peach); letter-spacing: 0.12em; }
+  .hero { text-align: center; margin-top: 28px; }
+  .num {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 108px;
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-shadow: 0 0 48px rgba(255,255,255,0.35);
+  }
+  .daylabel {
+    font-family: -apple-system, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    opacity: 0.8;
+    margin-top: 4px;
+  }
+  .pills { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+  .pill {
+    font-family: -apple-system, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.18);
+    font-weight: 600;
+  }
+  .pill.gold { background: #F5C15A; color: #1A120F; }
+  .pill.ghost {
+    background: transparent;
+    border: 1.5px dashed rgba(255,255,255,0.55);
+    opacity: 0.85;
+  }
+  .dots { display: flex; justify-content: center; gap: 6px; margin-top: 14px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+  .dot.on { background: #fff; }
+  .copy { margin-top: 28px; padding: 0 8px; }
+  .hl {
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+  .worth {
+    font-family: -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 10px;
+    color: var(--peach);
+  }
+  .sec { margin-top: 22px; padding: 0 8px; }
+  .seclab {
+    font-family: -apple-system, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--peach);
+    margin-bottom: 8px;
+  }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    font-family: -apple-system, sans-serif;
+    font-size: 12px;
+    background: rgba(255,255,255,0.16);
+    padding: 6px 10px;
+    border-radius: 999px;
+  }
+  .rings { display: flex; gap: 14px; margin-top: 6px; }
+  .ringwrap { text-align: center; font-family: -apple-system, sans-serif; font-size: 10px; opacity: 0.9; }
+  .ring {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.28);
+    border-top-color: #fff;
+    border-right-color: #fff;
+    margin: 0 auto 4px;
+  }
+  .foot {
+    position: absolute; left: 22px; right: 22px; bottom: 28px;
+    font-family: -apple-system, sans-serif;
+  }
+  .return { font-size: 13px; opacity: 0.9; text-align: center; }
+  .cta {
+    display: block;
+    background: #fff;
+    color: var(--orange);
+    text-align: center;
+    padding: 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 8px;
+  }
+  .hint { font-size: 11px; text-align: center; opacity: 0.75; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <h1>Brief completion</h1>
+  <p class="dek">Same screen. Two states. Closure, worth-opening, and sector proof are identical. Only the streak object and the bottom action change when they are not logged in.</p>
+
+  <div class="row">
+    <div class="col">
+      <div class="label">Logged in · day 4</div>
+      <div class="phone">
+        <div class="mast">CUT THE NOISE. <em>GET THE BRIEF.</em></div>
+        <div class="hero">
+          <div class="num">4</div>
+          <div class="daylabel">DAY STREAK</div>
+          <div class="pills"><span class="pill">+1 TODAY</span></div>
+          <div class="dots">
+            <span class="dot on"></span><span class="dot on"></span>
+            <span class="dot on"></span><span class="dot on"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+        </div>
+        <div class="copy">
+          <div class="hl">You’re caught up on Fintech &amp; E-commerce.</div>
+          <div class="worth">₹2,400 Cr of funding in your sectors · 3 filings.</div>
+        </div>
+        <div class="sec">
+          <div class="seclab">Your sectors — all covered</div>
+          <div class="chips">
+            <span class="chip">✓ Fintech 5</span>
+            <span class="chip">✓ E-commerce 3</span>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="seclab">Also worth knowing</div>
+          <div class="rings">
+            <div class="ringwrap"><div class="ring"></div>SaaS</div>
+            <div class="ringwrap"><div class="ring"></div>Health</div>
+            <div class="ringwrap"><div class="ring"></div>D2C</div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="return">Tomorrow, 8 AM. Same Brief. New day.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="label">Not logged in · first finish</div>
+      <div class="phone">
+        <div class="mast">CUT THE NOISE. <em>GET THE BRIEF.</em></div>
+        <div class="hero">
+          <div class="num">1</div>
+          <div class="daylabel">DAY STREAK</div>
+          <div class="pills">
+            <span class="pill gold">1 TODAY</span>
+            <span class="pill ghost">2 TOMORROW 🔒</span>
+          </div>
+        </div>
+        <div class="copy">
+          <div class="hl">You’re caught up on Fintech &amp; E-commerce.</div>
+          <div class="worth">₹2,400 Cr of funding in your sectors · 3 filings.</div>
+        </div>
+        <div class="sec">
+          <div class="seclab">Your sectors — all covered</div>
+          <div class="chips">
+            <span class="chip">✓ Fintech 5</span>
+            <span class="chip">✓ E-commerce 3</span>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="seclab">Also worth knowing</div>
+          <div class="rings">
+            <div class="ringwrap"><div class="ring"></div>SaaS</div>
+            <div class="ringwrap"><div class="ring"></div>Health</div>
+            <div class="ringwrap"><div class="ring"></div>D2C</div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="return">This streak disappears at midnight.</div>
+          <a class="cta">Log in to save your streak</a>
+          <div class="hint">Takes 10 seconds · keeps every morning from here.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
