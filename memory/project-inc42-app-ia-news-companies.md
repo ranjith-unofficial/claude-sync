@@ -1,8 +1,11 @@
 ---
 name: project-inc42-app-ia-news-companies
 description: "App IA after the 7 Sep design review (Explore splits into News + Companies) — measured filter behaviour, News section supply, Companies section order, and four in-room figures corrected. Delivered 8 Sep 2026 for the 9 Sep design gate"
-metadata:
+metadata: 
+  node_type: memory
   type: project
+  originSessionId: 18bf6b04-1f4f-4757-a2bb-cdae01167126
+  modified: 2026-09-11T08:22:16.541Z
 ---
 
 **Done 8 Sep 2026.** Answers the two questions left open by the 7 Sep App UI Redesign review
@@ -92,6 +95,13 @@ today's news" shelf** (that concept already lives in Brief). Resolved structure:
 **Built in Figma** (file `dAsaTgNj0xh25w2OGaurZo` "App - Draft Screen", page `Referencing`
 476:2, y=18700, below the round-4 work): News full scroll `649:2`, Companies full scroll
 `651:2`, decision note `652:2`. Seat confirmed **Inc42 / Full / pro**, writes work on this file.
+
+**Filed in Asana 11 Sep 2026** as subtasks of "V2 - Dev Task" (gid 1218172204712996, Inc42 App), all
+assigned to Ritvik with descriptions: Brief Page, Brief Completion page, Company Explore page,
+Company Explore logic, Company Detail page, Article Detail page, Profile page, Merge Watchlist
+into Profile section, Streak page redesign, Attribution. ⚠️ The older open subtask "Revamp - Bottom
+navigation bar" still specifies the **3-tab Brief / Explore / Watchlist** nav, which contradicts
+this 4-tab lock. Flagged to Ranjith, not edited.
 
 **Open for Prapti, not design:** do the newsletters contain original writing, or are they
 curated from published articles? A rule-built AI Shift is only honest if curated.
