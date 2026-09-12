@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-Filed 2026-09-12 from an app review walkthrough. Parent ticket **"[Bug] App QA batch - 12 Sep 2026"** gid `1218419016139021` in the Inc42 App project, assigned Ritvik Sethi, with 7 subtasks:
+Filed 2026-09-12 from an app review walkthrough. Parent ticket **"[Bug] App QA batch - 12 Sep 2026"** gid `1218419016139021` in the Inc42 App project, assigned Ritvik Sethi, with 11 subtasks (items 8-11 added in a second pass the same day):
 
 1. Notification toggle shows disabled even when OS permission is granted
 2. Tapping guest user does not open the sign-in prompt (dead control)
@@ -15,6 +15,10 @@ Filed 2026-09-12 from an app review walkthrough. Parent ticket **"[Bug] App QA b
 5. "Advanced Hardware and Technologies" chopped mid-word on Skyroot
 6. "View more" should sit inline at the end of the truncated text, company detail page
 7. Company Explore scroll position does not reset (stays at Unicorn section after returning from an article)
+8. TLDR tap extends the card instead of opening the bottom bar (Article Explore)
+9. After login from the watchlist prompt, the user lands on Brief instead of the page they were on
+10. Show "Bootstrapped" below the company name when stage is blank (company explore)
+11. Search results use the old company card design
 
 Design item "Reduce spacing on the first company page" gid `1218418956025770` filed as a subtask under **"V2 App - Design changes"** (`1218353498240283`), assigned **Satya** (`1204511407773682`, Satya.prusty@ink42.com).
 

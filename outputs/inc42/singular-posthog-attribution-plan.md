@@ -186,3 +186,61 @@ P2.4 Discover Companies events
 ## 9. One-liner for the team
 
 *Wait briefly for Singular + push/deeplink → fire one PostHog open stamped with open_source and campaign → late Singular only enriches → on login identify the same user_id in both SDKs.*
+
+---
+
+## 10. In-app navigation (previous screen) — Phase 2 contract
+
+**Problem:** Content events know *what* opened (`article_opened`, `company_profile_viewed`) but not *from where*. Today there is **no** universal `source_screen` / `previous_screen`. Several App sheet rows misuse `source` with a DataLabs enum (`woocommerce|razorpay`) — that is **not** navigation; fix/replace for App.
+
+**Principle:** The event name = current surface. The param you maintain = **where they came from**.
+
+### 10.1 Universal props (stamp on key content + action events)
+
+| Property | Type | Values / notes |
+|---|---|---|
+| `source_screen` | string | Previous screen id (snake_case). Examples: `home`, `brief`, `brief_card`, `news`, `explore`, `search`, `company_profile`, `article`, `watchlist`, `profile`, `push`, `deeplink`, `deferred_link`, `external` |
+| `source_module` | string | Optional finer grain on that screen: `hero`, `feed_card`, `related`, `bottom_nav`, `cta`, `notif_body` |
+| `source_position` | int | Optional list/card index when relevant |
+
+Do **not** also send a redundant `current_screen` on every event (it is implied by the event). Optional exception: a thin `screen_viewed` event if you need pure nav graphs without content events.
+
+### 10.2 Runtime (client)
+
+1. Keep `last_screen` (and optional `last_module`) in session memory.
+2. On every route change: before updating, the **new** screen’s first content event gets `source_screen = last_screen`.
+3. Then set `last_screen = current`.
+4. Cold start from push/deeplink: seed `last_screen` as `push` / `deeplink` / `deferred_link` (aligns with `app_opened.open_source`).
+5. Bottom-nav taps: `source_screen` = previous tab, `source_module=bottom_nav`.
+
+### 10.3 Story end-to-end example (organic → brief → article → share)
+
+| Step | Event | Key params |
+|---|---|---|
+| 1 | `app_opened` | `open_source=organic` (+ attr_* if any) |
+| 2 | `brief_page_opened` | `source_screen=home` (or `bottom_nav`→brief) |
+| 3 | `brief_opened` | `source_screen=brief`, edition_* |
+| 4 | `card_viewed` | story_id, position, `source_screen=brief` |
+| 5 | `article_opened` | story_id, `source_screen=brief_card`, `source_position` |
+| 6 | `scroll_depth` | story_id (super+story), depth_percent |
+| 7 | `story_shared` | story_id, channel, `source_screen=article` |
+
+Push → article (skip brief):
+
+| Step | Event | Key params |
+|---|---|---|
+| 1 | `app_opened` | `open_source=push`, `content_type=article`, `content_id`, notif_* |
+| 2 | `push_opened` | push_type, message_id, campaign |
+| 3 | `article_opened` | story_id, `source_screen=push` |
+
+### 10.4 What you already have (App v3 / Ashish) vs gap
+
+**Have:** `app_opened`, `deep_link_opened`, `push_opened`, brief funnel (`brief_page_opened` → `brief_opened` → `card_viewed` → `article_opened` → `scroll_depth` / `story_shared`), `company_profile_viewed`, search, explore, watchlist, onboarding, Application_* autocapture (dedupe TBD).
+
+**Missing for this use case:** `open_source` + Singular attr_* on open; universal `source_screen` (and optional `source_module`); clean App meaning for `source` (drop woocommerce|razorpay on App events).
+
+### 10.5 PostHog vs Singular
+
+- **Singular:** install / paid / link attribution only.
+- **PostHog:** full nav + product (with `open_source` + `source_screen` copied in).
+- Session path reconstruction = order events by time within `session_id` + `source_screen` chain — no need to store full path array on every event unless Dev wants `nav_path` for debugging.
