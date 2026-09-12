@@ -63,3 +63,21 @@ the grid focus → set + verify clipboard → cmd+v → double-click the new tab
 the previously active tab, not at the end) → type the name → Return. Verify each paste by reading the Name Box
 range after paste (it shows e.g. `A1:S67`) and by clicking column A then `cmd+Down` to confirm the last row
 matches the source.
+
+**RECURRED 2026-09-12** ([[project-inc42-ph-cio-parity-android]] sheet rebuild). Same failure, and it was
+avoidable: I ran `pbcopy`, verified it, then did ~8 browser steps (navigate, wait, screenshot, click,
+cmd+a, delete, name-box, type) before the `cmd+v`. In that window a **Figma design URL** replaced the
+clipboard, and it landed in A1. Caught only by the post-paste screenshot; recovered with two `cmd+z`.
+
+**The ordering rule that actually prevents this — do these three with NOTHING in between:**
+1. Finish all sheet preparation first (select the tab, clear the range, put the cursor on A1).
+2. `pbcopy < file` and verify in the SAME Bash call with `diff -q <(pbpaste) file` — an exact whole-file
+   compare, not a `head -c 80` prefix check. A prefix check also produced a false alarm this session
+   because my expected string was off by one character.
+3. `cmd+v` as the very next tool call.
+
+**Two more gotchas from the same session:**
+- `cmd+a` in Sheets selects only the *contiguous block* around the cursor, not the sheet. To clear a tab,
+  click the **select-all corner box** at the top-left of the grid (approx. x=25, y=157 at default zoom),
+  then Backspace. `Delete` as a key name did nothing; `Backspace` worked.
+- Always screenshot immediately after the paste and read A1 before moving on.
