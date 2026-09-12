@@ -34,6 +34,7 @@
 - [Measure field coverage before designing](feedback-measure-field-coverage-before-designing.md) — a slot may only promise what its field delivers ≥85% of days; never announce absence; backtest on real days
 - [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, additive framing, build don't describe
 - [Audit recency window](feedback-audit-recency-window.md) — scope every audit to 2025-01-01 → today; never headline an all-time figure
+- [Exclude internal agent email](feedback-exclude-internal-agent-email.md) — NEVER include ritviksethi56@gmail.com in any audit count or sample user
 - [Analytics destination scope](feedback-analytics-destination-scope.md) — event status only vs PostHog + Customer.io; ignore Mixpanel/MoEngage/GA4/Ads/UserGuiding entirely
 - [User properties audit + MASTER tab](project-inc42-user-properties-audit.md) — 205 properties in one MASTER tab; + Media-only 172-row tab (8 Sep) in Test workbook; 122,076 email person-IDs; CIO privacy 0/119
 - [Event audit (4 Sep)](project-inc42-event-audit-4sep.md) — live event+property validation, all 3 projects; `Table VIew` typo, same-second duplicate epidemic, 6 stale sheet rows corrected
