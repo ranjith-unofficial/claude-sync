@@ -1,162 +1,136 @@
 ## Who he is
-- [User: Ranjith](user-ranjith.md) — Product & AI at INC42, ex-PM Thrillophilia, Delhi/IST
-- [Personal](user-personal.md) — fitness, Oura Ring, diet, interests, buying style
-- [User fitness profile](user_fitness_profile.md) — age 25, male; latest 94.35kg, BMI 35.1, 34.3% BF
+- [User: Ranjith](user-ranjith.md) — Product & AI at INC42, Delhi/IST
+- Personal: [Personal](user-personal.md) — fitness, Oura, diet, interests · [User fitness profile](user_fitness_profile.md) — 25, male; 94.35kg, BMI 35.1
 
 ## How to work with him
-- [Communication style](feedback-communication-style.md) — crisp, bullets/tables, PM lens, NO paragraphs
-- [Validation approach](feedback-validation-approach.md) — confirm feasibility first; cross-check ground truth
-- [Ask before assuming](feedback-ask-before-assuming.md) — don't state stale memory as fact; ask, don't assume
-- [Document calibration](feedback-document-calibration.md) — state decisions directly; never invent content
-- [No empty container tabs](feedback-no-empty-container-tabs.md) — a grouping needs 3+ items + own content
-- [Deliver in chat](feedback-deliver-in-chat.md) — tables in chat by default; Artifact only if asked
+- [Communication style](feedback-communication-style.md) — crisp, bullets/tables, NO paragraphs
+- [Validation approach](feedback-validation-approach.md) — confirm feasibility; cross-check ground truth
+- [Ask before assuming](feedback-ask-before-assuming.md) — don't state stale memory as fact
+- [Document calibration](feedback-document-calibration.md) — state decisions; never invent content
+- [No empty container tabs](feedback-no-empty-container-tabs.md) — group needs 3+ items + own content
+- [Deliver in chat](feedback-deliver-in-chat.md) — tables in chat; Artifact only if asked
 - [Always include source links](feedback-always-include-source-links.md) — every reviewable list needs a link
-- [Completeness audits](feedback-completeness-audits.md) — audit line-by-line, surface own misses
-- [PRD completeness](feedback-prd-completeness.md) — needs evidence/legal/outside-reframe, flag gaps
-- [Shared system safety](feedback-shared-system-safety.md) — touch only the named object; PROVE non-interference
-- [Live doc collision risk](feedback-live-doc-collision-risk.md) — check for live collaborator before bulk-editing a shared Doc; unexpected text = stop, don't undo-cleanup
-- [Analytics depth](feedback-analytics-depth.md) — report what users did next, not just drop-off; verify via SQL
-- [Artifact design — minimal](feedback-artifact-design-minimal.md) — audits: one font, minimal color, tables not cards
-- [Status-map UI treatment](feedback-status-map-ui-treatment.md) — status→treatment wants rich cards + real mockups
-- [Memory precise dates](feedback-memory-precise-dates.md) — verified date in-body, cross-link dupes
-- [Proactive recall](feedback-proactive-recall.md) — sweep memory myself on "what have we discussed"
-- [Interview feedback format](feedback-interview-feedback-format.md) — plain-language + PM-lens detail together
-- [Sheets clipboard paste safety](feedback-sheets-clipboard-paste-safety.md) — verify clipboard right before every paste
-- [New tab per browser task](feedback-browser-new-tab-per-task.md) — don't navigate a tab that's showing something; create a new one
-- [Instructions in plain language](feedback-instructions-plain-language.md) — action cells = Where / What exactly / Done when, no jargon
-- [Survey question design](feedback-survey-question-design.md) — funnel order, unaided-before-aided, no unapproved options
-- [Stakeholder doc writing](feedback-stakeholder-doc-writing.md) — no em-dashes/internal names, verify sourcing + pastes
-- [Asana ticket project tagging](feedback-asana-ticket-project-tagging.md) — app tickets → Inc42 App project, no "reported by" text
-- [Entry-point instrumentation](feedback-entry-point-instrumentation.md) — don't infer UI source from adjacency, check a real property
-- [Push back in design discussions](feedback-push-back-in-design-discussions.md) — check proposals against data, give concrete mockups
-- [UI mockup: research first](feedback-ui-mockup-research-first.md) — browse real screenshots first; show all variants at full scale
-- [Report structure](feedback-report-structure.md) — methodology up front; group findings holistically per bucket, never split across cross-cutting sections
-- [Measure field coverage before designing](feedback-measure-field-coverage-before-designing.md) — a slot may only promise what its field delivers ≥85% of days; never announce absence; backtest on real days
-- [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, additive framing, build don't describe
-- [Audit recency window](feedback-audit-recency-window.md) — scope every audit to 2025-01-01 → today; never headline an all-time figure
-- [Exclude internal agent email](feedback-exclude-internal-agent-email.md) — NEVER include ritviksethi56@gmail.com in any audit count or sample user
-- [Analytics destination scope](feedback-analytics-destination-scope.md) — event status only vs PostHog + Customer.io; ignore Mixpanel/MoEngage/GA4/Ads/UserGuiding entirely
-- [User properties audit + MASTER tab](project-inc42-user-properties-audit.md) — 205 properties in one MASTER tab; + Media-only 172-row tab (8 Sep) in Test workbook; 122,076 email person-IDs; CIO privacy 0/119
-- [Event audit (4 Sep)](project-inc42-event-audit-4sep.md) — live event+property validation, all 3 projects; `Table VIew` typo, same-second duplicate epidemic, 6 stale sheet rows corrected
-- [Ashish events sheet (8 Sep)](project-inc42-ashish-events-sheet.md) — 19-col QA format; 158-row single tab + group legend in Master Sheet; both property columns needed
-- [ICP & role definition (5 Sep)](project-inc42-icp-role-definition.md) — one ICP not four; E1-E11 × L1-L5/I1-I5 grid; role captured on 34% of Media identified, employer type on 1.0%
+- [Completeness audits](feedback-completeness-audits.md) — line-by-line, surface own misses
+- [PRD completeness](feedback-prd-completeness.md) — evidence/legal/outside-reframe, flag gaps
+- [Shared system safety](feedback-shared-system-safety.md) — touch only the named object
+- [Live doc collision risk](feedback-live-doc-collision-risk.md) — check live collaborator; unexpected text = stop, no undo
+- [Analytics depth](feedback-analytics-depth.md) — what users did next; verify via SQL
+- [Artifact design — minimal](feedback-artifact-design-minimal.md) — one font, minimal color, tables
+- [Status-map UI treatment](feedback-status-map-ui-treatment.md) — rich cards + real mockups
+- [Memory precise dates](feedback-memory-precise-dates.md) — verified date in-body
+- [Proactive recall](feedback-proactive-recall.md) — sweep memory on "what have we discussed"
+- [Interview feedback format](feedback-interview-feedback-format.md) — plain language + PM detail
+- [Sheets clipboard paste safety](feedback-sheets-clipboard-paste-safety.md) — verify clipboard before paste
+- [New tab per browser task](feedback-browser-new-tab-per-task.md) — create a new tab, don't reuse
+- [Instructions in plain language](feedback-instructions-plain-language.md) — Where / What / Done when
+- [Survey question design](feedback-survey-question-design.md) — funnel order, unaided first
+- [Stakeholder doc writing](feedback-stakeholder-doc-writing.md) — no em-dashes/internal names, verify pastes
+- [Asana ticket project tagging](feedback-asana-ticket-project-tagging.md) — app tickets → Inc42 App project
+- [Entry-point instrumentation](feedback-entry-point-instrumentation.md) — check a real property, not adjacency
+- [Push back in design discussions](feedback-push-back-in-design-discussions.md) — check vs data, give mockups
+- [UI mockup: research first](feedback-ui-mockup-research-first.md) — real screenshots first; all variants full scale
+- [Report structure](feedback-report-structure.md) — methodology first; group findings per bucket
+- [Measure field coverage before designing](feedback-measure-field-coverage-before-designing.md) — slot needs ≥85% field coverage; backtest
+- [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, build don't describe
+- [Audit recency window](feedback-audit-recency-window.md) — 2025-01-01 → today; no all-time headline
+- [Exclude internal agent email](feedback-exclude-internal-agent-email.md) — never count ritviksethi56@gmail.com
+- [Analytics destination scope](feedback-analytics-destination-scope.md) — PostHog + Customer.io only
+- [User properties audit + MASTER tab](project-inc42-user-properties-audit.md) — 205 props MASTER tab + Media 172-row tab (8 Sep)
+- [Event audit (4 Sep)](project-inc42-event-audit-4sep.md) — all 3 projects; `Table VIew` typo, duplicate epidemic
+- [Ashish events sheet (8 Sep)](project-inc42-ashish-events-sheet.md) — 19-col QA format, 158 rows
+- [ICP & role definition (5 Sep)](project-inc42-icp-role-definition.md) — one ICP; E1-E11 × L/I grid
 
-## INC42 app (Play Store live 11 Aug 2026; iOS 1.0/build 40 LIVE — acquisition is the live problem)
-- [Project: INC42 app launch](project-inc42-launch.md) — v2 scope closed 24 Aug, release 31 Aug, Sep target 5,000 installs/20% activation
-- [App behaviour (post-launch)](project-inc42-app-behaviour.md) — 189 users 12–20 Aug; brief loss at card 1; full article one-way door
-- [Explore deep-dive (25-29 Aug)](project-inc42-app-explore-deep-dive.md) — funnels healthy; search rage-loop P0; "Beyond Brief" redesign resolved
-- [App critique by Ravi Kumar (21 Aug)](project-inc42-app-ravi-critique.md) — "what is Brief?" unanswerable; merge Brief+Explore
-- [App acquisition plan](project-inc42-app-acquisition.md) — 5 beta levers → public launch 25–26 Aug Product Hunt
-- [App v2 release scope](project-inc42-app-v2-release.md) — PROPOSED: feature flags, update mechanics, feedback loop, Play ratings
-- [Ways of working](project-inc42-ways-of-working.md) — Asana Product Master/Backlog, daily standup, recurring-audit checklist
-- [Legal & compliance](project-inc42-legal-compliance.md) — T&C + Privacy Policy, 12 locked decisions, 7-day deletion model
-- [Content & personalization](project-inc42-content-personalization.md) — LOCKED ranking formula; "86% no sector" CORRECTED
-- [App structure](project-inc42-app-structure.md) — CONFIRMED IA: 3-tab nav (Brief/Explore/Watchlist), brief-end carousel
-- [AskInc42](project-inc42-askinc42.md) — ships before Pulse; v1 = brief-end swap + Watchlist/company page
-- [AskInc42 — next week tasks](project-inc42-askinc42-next-week.md) — owner Ritvik; feature flags HALTED; v2 blocked on Anmol API
-- [Knowledge repo (VectorDB)](project-inc42-knowledge-repo.md) — 9 MD docs + 8-tab Doc; 11 IPs live; 33 locked decisions
-- [Master PRD update skill](reference-inc42-master-prd-skill.md) — load `inc42-master-prd` skill BEFORE editing; two copies diverged
-- [App placement ("B2")](project-inc42-app-placement.md) — editorial content in-app; design owner Satya, ties unconfirmed
-- [Azure credits](project-inc42-azure-credits.md) — ₹16.84L left, burn ~₹8L/mo → dry ~11 Oct 2026
-- [Social Intelligence "Pulse"](project-inc42-social-intelligence.md) — ships after AskInc42; D1-D15 locked; 200-voice allowlist
-- [Open items](project-inc42-open-items.md) — unfinished as of Jul 29, incl. "Read more (30s)" card-copy fix
-- [FY27 Plan — Engines × Tracks](project-inc42-fy27-plan.md) — Utkarsh's LOCKED plan (21 Aug): app = primary surface, QIA north star
-- [Utkarsh's "One Inc42" strategy](project-inc42-strategy-utkarsh.md) — AUTHORITATIVE (13 Aug): reach→know→deepen→convene→pay
-- [Estate Defects — 39 EST-## items (Sept 2026)](project-inc42-estate-defects.md) — 6 outside reviewers, full estate; identity captured everywhere, used nowhere
-- [Rule: check Estate Defects first](feedback-oneinc42-check-estate-defects.md) — every OneInc42 / login / onboarding / web / DataLabs change starts from that doc
-- [Unification (web+app+DataLabs)](project-inc42-unification.md) — downstream of Utkarsh's strategy; Figma vision board v2 (17 Aug)
-- [Brand positioning](project-inc42-brand-positioning.md) — 9-operator feature matrix + archetype quadrant, external-audit method
-- [Strategic report structure](feedback-strategic-report-structure.md) — one narrative argument, not additive tables
-- [Vendor stack (verified)](reference-inc42-vendor-stack.md) — Customer.io (EU), PostHog (EU), MoEngage REMOVED, Singular/Firebase app-only
-- [App tracking links](reference-inc42-app-tracking-links.md) — store URLs, UTM→Singular mapping
-- [Market maps (17 Aug)](project-inc42-market-maps.md) — indianvcs.com/maps + marketmapmaker.app; edge is DataLabs data
-- [PostHog review (17 Aug, CONFIRMED)](project-inc42-posthog-review.md) — dark/off-spec events → 25 Aug events-fix ticket
-- [Brief card images](project-inc42-brief-images.md) — sector images agreed 12 Aug, unbuilt; coverage claim CORRECTED
-- [Publishing cadence (3 Sep)](project-inc42-publishing-cadence.md) — in-depth publishes in 2 blocks, 12:30–16:25 empty; depth existed 14/15 days
-- [Brief impact + continuity (5 Sep)](project-inc42-brief-impact-continuity.md) — ranking has NO story-level importance signal; impact score validated, hero on 57% of weekdays
-- [Brief entry — Referencing page round (5 Sep)](project-inc42-brief-entry-referencing-page.md) — A/B/C/D spectrum on Wed 5 Aug + B on 4 failure days, page 476:2; B recommended, unreviewed
-- [Brief entry round 2 — 15 UIs (5 Sep, late)](project-inc42-brief-entry-round2-15-uis.md) — 15 mechanics on Referencing page y=3000+; real inc42.com reader counts; in-app counts too small to show; unreviewed
-- [Brief entry round 3 — 15 structures in the real screen (6 Sep)](project-inc42-brief-entry-round3-15-structures.md) — Referencing page y=7900+; inbox/checklist/memo/graph/table/changelog…; unreviewed
-- [Brief entry round 4 — 15 visual objects, NO lists (6 Sep)](project-inc42-brief-entry-round4-15-objects.md) — orbit/bento/bubbles/treemap/radar/ring/clock/skyline…; real photos via upload_assets; y=12400+; unreviewed
-- [Brief entry coverage shell (5 Sep)](project-inc42-brief-entry-coverage.md) — row F: gated shell + trigger-strip ladder, 61-day backtest; 27% no company, AI zero on 50% weekdays
-- [Companies in brief — mention types (6 Sep)](project-inc42-brief-companies-mention-types.md) — 1,179 articles classified into 18 mention types; median weekday 11 tagged cos / 8 data-backable; layoffs only 9 in 90d; CMS dev-type cannot route
-- [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary only 93%-covered field; real defect is row ORDERING
-- [Brief copy variants from full text (12 Sep)](project-inc42-brief-copy-variants.md) — 61 variants/15 stories, answer location verified; headline+summary generation rejected
-- [Search diagnosis, all surfaces (re-verified 6 Sep)](project-inc42-app-search-root-cause.md) — inc42.com article search returns NOTHING (dead Algolia wiring); `cred` misses CRED = no exact-match boost on v2; v2 NOT better than v1, migration now gated
-- [Deep linking](project-inc42-deep-linking.md) — newsletter links fail (Safari not app); root cause CIO click-tracker
-- [Analytics stitching architecture](project-inc42-analytics-stitching.md) — cookie-ID resolver web→app; workspaces separate, unify downstream
-- [Funnel analysis](project-inc42-funnel-analysis.md) — QIA ~2,100 is a 90d floor; identification cliff web 0.42%/DataLabs 0.16%
-- [Datalabs dunning & win-back](project-inc42-datalabs-dunning.md) — 48 lifetime payers/31 active; ₹92,665 LTV lost to failed debits
-- [Datalabs dunning decision map](project-inc42-datalabs-dunning-map.md) — 8-case status→treatment map; 7d grace/15d LOCKED 25 Aug
-- [Datalabs banner logic (30 Aug)](project-inc42-datalabs-banner-logic.md) — LOCKED failure-only + phased; tab Sheet14; no "update payment method" exists on UPI AutoPay
-- [PostHog projects](reference-inc42-posthog-projects.md) — 53557 editorial web / 66351 DataLabs / 146258 app
-- [Event auditor](project-inc42-event-auditor.md) — 5/63 events properly implemented; scroll 0% to PostHog
-- [Tracking master sheet review (27 Aug)](project-inc42-tracking-master-review.md) — Scroll Depth contradicts strategy, zero Ask instrumentation
-- [Analytics team briefs (28 Aug)](project-inc42-analytics-team-briefs.md) — 4-employee dark-events audit + intern KB brief
-- [DataLabs onboarding CIO cross-check — RESOLVED](project-inc42-datalabs-onboarding-cio-crosscheck.md) — 48.7% synced; App has zero AskInc42 telemetry
-- [DataLabs event validation (30 Aug)](project-inc42-datalabs-event-validation.md) — P0 onLoad tracking died 18 May; raw email is distinct_id
-- [App event validation (30 Aug)](project-inc42-app-event-validation.md) — watchlist cap unenforced (10x overage); 4th PII pattern found
-- [PH→CIO full census (12 Sep)](project-inc42-ph-cio-parity-android.md) — 10.8% of authorised events never delivered; Android skew 2-4x (corrects an earlier 11x claim); 60% of CIO profiles are anon shells
-- [Media event validation (30 Aug)](project-inc42-media-event-validation.md) — live 11-day modal-tracking regression; Onboarding = top PII leak + dead-end
-- [App analytics audit (29 Aug)](project-inc42-app-analytics-audit.md) — push_delivered/decode dead; "Application ___" = SDK autocapture dupe
-- [Live feature status (30 Aug)](project-inc42-app-live-feature-status.md) — doc names ≠ team names; push delivery still open
-- [Mixpanel legacy finding (29 Aug)](project-inc42-mixpanel-legacy-finding.md) — undisclosed first-party Mixpanel since 2023, unconfirmed PII
-- [Mixpanel GTM tag forensics (29 Aug)](project-inc42-mixpanel-gtm-tag-forensics.md) — GA4 leaks same PII sitewide, higher priority than Mixpanel
-- [Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 charge success 57.9% (was 73.7%); 0% shipped
-- [Morning Tape (daily brief)](project-inc42-morning-tape.md) — 7am IST cloud routine, 3 properties in one artifact
-- [Weekly Team Leads Sync](project-inc42-weekly-team-leads-sync.md) — 24 Aug: sector-tagging daily, Azure 1 month credits left
-- [App v2 — full scope, all sources](project-inc42-app-v2-scope-full.md) — reconciles 11 threads incl. "Beyond Brief" redesign
-- [Salesforce evaluation](project-inc42-salesforce-evaluation.md) — 24 Aug scoping call, Data 360 + Marketing Cloud pitched, no decision
-- [26 Aug v2 scoping sync](project-inc42-app-v2-sync-26aug.md) — 5-page scope due 27 Aug; live bugs (race condition, iOS back-button)
-- [App feedback survey (WhatsApp)](project-inc42-app-feedback-survey.md) — 15-Q funnel screener, live, 4 responses as of 30 Aug
-- [App user interviews (30 Aug)](project-inc42-app-user-interviews.md) — 4 screener responses; run order Mohit→Amal→Kishore→Sastry
-- [28 Aug design prompts for Satya](project-inc42-app-v2-satya-design-prompts.md) — 3 screens; rating-flow split required
-- [Brief gratification/explore redesign](project-inc42-app-brief-gratification-redesign.md) — Brief→Gratification→Explore, screen-by-screen spec
-- [App v2 stakeholder doc](project-inc42-app-v2-stakeholder-doc.md) — 15-item scope doc + artifact 00608a57; full-article tap-center, dark mode
-- [Explore tab design direction](project-inc42-explore-articles-companies-design.md) — Brief-vs-Story RESOLVED; 8+8 artifact, NOT yet approved
-- [Master PRD rebuild — PAUSED, broken](project-inc42-master-prd-rebuild.md) — halted by live-collaborator collision; Launch Infra/Cross-Cutting sub-tabs need repair, Next release/Backlog/Reference not restructured
-- [App IA: News + Companies split (8 Sep)](project-inc42-app-ia-news-companies.md) — ring=sectors, tabs=dev tags, newsletters=shelves; Figma 649:2 / 651:2; tab≠shelf supply rule
-- [App QA batch (12 Sep)](project-inc42-app-qa-batch-12sep.md) — 15 dev subtasks under parent 1218419016139021 + spacing item to Satya; headcount-sort already ticketed
+## INC42 app (Play live 11 Aug; iOS live; acquisition is the problem)
+- [Project: INC42 app launch](project-inc42-launch.md) — v2 release 31 Aug; Sep 5,000 installs/20% activation
+- [App behaviour (post-launch)](project-inc42-app-behaviour.md) — brief loss at card 1; full article one-way door
+- Explore: [Explore deep-dive (25-29 Aug)](project-inc42-app-explore-deep-dive.md) — search rage-loop P0 · [Explore tab design direction](project-inc42-explore-articles-companies-design.md) — 8+8 artifact, not approved
+- [App critique by Ravi Kumar (21 Aug)](project-inc42-app-ravi-critique.md) — "what is Brief?" unanswerable
+- [App acquisition plan](project-inc42-app-acquisition.md) — 5 beta levers → Product Hunt
+- [App v2 release scope](project-inc42-app-v2-release.md) — PROPOSED: flags, updates, feedback, ratings
+- [Ways of working](project-inc42-ways-of-working.md) — Asana Master/Backlog, standup, audits
+- [Legal & compliance](project-inc42-legal-compliance.md) — T&C + Privacy, 12 locked decisions
+- [Content & personalization](project-inc42-content-personalization.md) — LOCKED ranking formula
+- [App structure](project-inc42-app-structure.md) — 3-tab nav (Brief/Explore/Watchlist)
+- AskInc42: [AskInc42](project-inc42-askinc42.md) — ships before Pulse; v1 scope · [AskInc42 — next week tasks](project-inc42-askinc42-next-week.md) — Ritvik; flags HALTED; v2 blocked on Anmol API
+- [Knowledge repo (VectorDB)](project-inc42-knowledge-repo.md) — 9 MD docs, 33 locked decisions
+- [Master PRD update skill](reference-inc42-master-prd-skill.md) — load `inc42-master-prd` BEFORE editing
+- [App placement ("B2")](project-inc42-app-placement.md) — editorial content in-app; Satya
+- [Azure credits](project-inc42-azure-credits.md) — ₹16.84L left, dry ~11 Oct 2026
+- [Social Intelligence "Pulse"](project-inc42-social-intelligence.md) — after AskInc42; D1-D15 locked
+- [Open items](project-inc42-open-items.md) — unfinished as of 29 Jul
+- [FY27 Plan — Engines × Tracks](project-inc42-fy27-plan.md) — LOCKED 21 Aug: app primary, QIA north star
+- [Utkarsh's "One Inc42" strategy](project-inc42-strategy-utkarsh.md) — AUTHORITATIVE: reach→know→deepen→convene→pay
+- [Estate Defects — 39 EST-## items](project-inc42-estate-defects.md) — identity captured everywhere, used nowhere
+- [Rule: check Estate Defects first](feedback-oneinc42-check-estate-defects.md) — for login/onboarding/web/DataLabs changes
+- [Unification (web+app+DataLabs)](project-inc42-unification.md) — Figma vision board v2
+- [Brand positioning](project-inc42-brand-positioning.md) — 9-operator matrix + quadrant
+- [Strategic report structure](feedback-strategic-report-structure.md) — one narrative, not additive tables
+- [Vendor stack (verified)](reference-inc42-vendor-stack.md) — CIO (EU), PostHog (EU), MoEngage removed
+- [App tracking links](reference-inc42-app-tracking-links.md) — store URLs, UTM→Singular
+- [Market maps (17 Aug)](project-inc42-market-maps.md) — edge is DataLabs data
+- PostHog audits: [PostHog review (17 Aug)](project-inc42-posthog-review.md) — dark/off-spec events ticket · [Event auditor](project-inc42-event-auditor.md) — 5/63 events properly implemented
+- [Brief card images](project-inc42-brief-images.md) — sector images agreed, unbuilt
+- [Publishing cadence (3 Sep)](project-inc42-publishing-cadence.md) — 2 publish blocks, 12:30–16:25 empty
+- [Brief impact + continuity (5 Sep)](project-inc42-brief-impact-continuity.md) — no story-level importance signal
+- Brief entry explorations: [Brief entry — Referencing page round (5 Sep)](project-inc42-brief-entry-referencing-page.md) — A/B/C/D, B recommended, unreviewed · [Brief entry round 2 — 15 UIs](project-inc42-brief-entry-round2-15-uis.md) — Referencing y=3000+; unreviewed · [Brief entry round 3 — 15 structures](project-inc42-brief-entry-round3-15-structures.md) — y=7900+; unreviewed · [Brief entry round 4 — 15 objects](project-inc42-brief-entry-round4-15-objects.md) — y=12400+; unreviewed · [Brief entry coverage shell (5 Sep)](project-inc42-brief-entry-coverage.md) — gated shell, 61-day backtest
+- [Companies in brief — mention types](project-inc42-brief-companies-mention-types.md) — 18 types; CMS dev-type can't route
+- [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — summary 93% covered; defect is ordering
+- [Brief Title per-article copy (13 Sep)](project-inc42-brief-title-per-article-copy.md) — CMS copy + push, title fallback, CIO sync; PRD tab "Brief Title"
+- [Brief copy variants (12 Sep)](project-inc42-brief-copy-variants.md) — 61 variants/15 stories
+- [Search diagnosis (6 Sep)](project-inc42-app-search-root-cause.md) — web search dead; v2 no exact-match boost
+- [Deep linking](project-inc42-deep-linking.md) — CIO click-tracker opens Safari
+- [Analytics stitching architecture](project-inc42-analytics-stitching.md) — cookie-ID resolver web→app
+- [Funnel analysis](project-inc42-funnel-analysis.md) — QIA ~2,100 floor; ID cliff 0.42%/0.16%
+- DataLabs payments: [Datalabs dunning & win-back](project-inc42-datalabs-dunning.md) — 31 active payers; ₹92,665 lost · [Datalabs dunning decision map](project-inc42-datalabs-dunning-map.md) — 8 cases; 7d/15d LOCKED · [Datalabs banner logic (30 Aug)](project-inc42-datalabs-banner-logic.md) — failure-only + phased LOCKED · [Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 success 57.9%; 0% shipped
+- [PostHog projects](reference-inc42-posthog-projects.md) — 53557 web / 66351 DataLabs / 146258 app
+- Tracking reviews: [Tracking master sheet review (27 Aug)](project-inc42-tracking-master-review.md) — zero Ask instrumentation · [Analytics team briefs (28 Aug)](project-inc42-analytics-team-briefs.md) — dark-events audit + intern brief
+- [DataLabs onboarding CIO cross-check](project-inc42-datalabs-onboarding-cio-crosscheck.md) — RESOLVED, 48.7% synced
+- Event validation (30 Aug): [DataLabs event validation (30 Aug)](project-inc42-datalabs-event-validation.md) — onLoad died 18 May · [App event validation (30 Aug)](project-inc42-app-event-validation.md) — watchlist cap unenforced · [Media event validation (30 Aug)](project-inc42-media-event-validation.md) — modal-tracking regression
+- [PH→CIO full census (12 Sep)](project-inc42-ph-cio-parity-android.md) — 10.8% undelivered; Android 2-4x
+- [App analytics audit (29 Aug)](project-inc42-app-analytics-audit.md) — push_delivered/decode dead
+- [Live feature status (30 Aug)](project-inc42-app-live-feature-status.md) — doc names ≠ team names
+- Mixpanel: [Mixpanel legacy finding (29 Aug)](project-inc42-mixpanel-legacy-finding.md) — undisclosed Mixpanel since 2023 · [Mixpanel GTM tag forensics (29 Aug)](project-inc42-mixpanel-gtm-tag-forensics.md) — GA4 leaks PII sitewide
+- [Morning Tape (daily brief)](project-inc42-morning-tape.md) — 7am IST cloud routine
+- [Weekly Team Leads Sync](project-inc42-weekly-team-leads-sync.md) — 24 Aug notes
+- App v2 scope: [App v2 — full scope, all sources](project-inc42-app-v2-scope-full.md) — reconciles 11 threads · [26 Aug v2 scoping sync](project-inc42-app-v2-sync-26aug.md) — live bugs listed · [App v2 stakeholder doc](project-inc42-app-v2-stakeholder-doc.md) — 15 items, artifact 00608a57
+- [Salesforce evaluation](project-inc42-salesforce-evaluation.md) — 24 Aug call, no decision
+- [App feedback survey (WhatsApp)](project-inc42-app-feedback-survey.md) — 15-Q screener
+- [App user interviews (30 Aug)](project-inc42-app-user-interviews.md) — 4 screener responses
+- [28 Aug design prompts for Satya](project-inc42-app-v2-satya-design-prompts.md) — 3 screens
+- [Brief gratification/explore redesign](project-inc42-app-brief-gratification-redesign.md) — screen-by-screen spec
+- [Master PRD rebuild — PAUSED, broken](project-inc42-master-prd-rebuild.md) — sub-tabs need repair
+- [App IA: News + Companies split (8 Sep)](project-inc42-app-ia-news-companies.md) — Figma 649:2 / 651:2
+- [App QA batch (12 Sep)](project-inc42-app-qa-batch-12sep.md) — 15 subtasks under 1218419016139021
+- [App story card redesign (30 Aug)](project-inc42-app-story-card-redesign.md) — V28 set; "Rate" heart dead
+- [Feedback & rating system (30 Aug)](project-inc42-app-feedback-rating-system.md) — two decoupled systems
+- [Attribution layers (12 Sep)](project-inc42-attribution-layers.md) — install/session/nav split
+- [Figma event coverage audit (12 Sep)](project-inc42-figma-event-coverage.md) — 23 gaps → 12 events
 
 ## INC42 data warehouse
-- [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026
+- [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery, live Apr 2026
 
 ## Other work
-- [Meeting intelligence agent](project-meeting-agent.md) — every meeting + zero-auto-execute Slack CTI loop; locked 27-28 Aug
-- [Personal AI ops / morning brief](project-personal-ai-ops.md) — phased daily-brief: email digest+doc gap-check now, Slack next
-- [Daily brief architecture](project-daily-brief-architecture.md) — capture split from briefing; local + cloud runners, strict file ownership
-- [Daily Signal briefing](project-daily-signal.md) — 20-section AI/product/geopolitics artifact, cloud-scheduled 9am IST
-- [INC42 hiring agent](project-inc42-hiring-agent.md) — scores Keka applicants; MULTI-ROLE + two-step CTC rule agreed
-- [FOA candidate shortlist (25 Aug)](project-inc42-foa-candidate-shortlist.md) — re-verified top 5; scorer missed real issues
-- [CTC parsing rule](feedback-hiring-sheet-ctc-parsing.md) — plain numbers are LPA not thousands; low values = bad data
-- [INC42 Agent Platform](project-inc42-agent-platform.md) — internal Slack AI agents; 25-agent catalogue, demand-gated
-- [Product Trainee hiring](project-inc42-product-trainee.md) — Ranjith's own role, 731 applicants, 218 shortlist, AI scoring pending
-- [PT interview guide](project-inc42-pt-interview-guide.md) — bucket-by-bucket bank; two candidates interviewed, both REJECTED
-- [PT interview assignment doc](project-inc42-product-trainee-assignment.md) — 2-part stage, open rubric, artifact b1120c11
-- [DPDP compliance](project-dpdp-compliance.md) — 3-phase, May 2027 deadline; Ranjith stalling until minimum requirement known
-- [AI agents](project-ai-agents.md) — sales/support/qualification agents, voice AI, consulting
-- [ranjith.tech](reference-ranjith-tech.md) — personal site + security audit findings
-- [Nexloid product](nexloid_product.md) — automated analytics/event-tracking implementation platform
-- [Nexloid competitive landscape](nexloid_competitive_landscape.md) — 21 players mapped; two funded direct rivals
-- [Nexloid GTM strategy](nexloid_gtm_strategy.md) — locked: fix not audit, UK-first, agencies as buyer, $0/49/199/499 tiers
-- [Nexloid open questions](nexloid_open_questions.md) — OAuth scope class, unevidenced "2 hrs saved" basis, FP rate
+- [Meeting intelligence agent](project-meeting-agent.md) — zero-auto-execute Slack loop
+- Daily briefs: [Personal AI ops / morning brief](project-personal-ai-ops.md) — phased daily brief · [Daily brief architecture](project-daily-brief-architecture.md) — capture split from briefing · [Daily Signal briefing](project-daily-signal.md) — 20-section artifact, cloud-scheduled
+- Hiring: [INC42 hiring agent](project-inc42-hiring-agent.md) — scores Keka applicants · [FOA candidate shortlist (25 Aug)](project-inc42-foa-candidate-shortlist.md) — top 5 re-verified · [CTC parsing rule](feedback-hiring-sheet-ctc-parsing.md) — plain numbers are LPA
+- [INC42 Agent Platform](project-inc42-agent-platform.md) — Slack agents, demand-gated
+- Product Trainee: [Product Trainee hiring](project-inc42-product-trainee.md) — 731 applicants, 218 shortlist · [PT interview guide](project-inc42-pt-interview-guide.md) — two interviewed, both rejected · [PT interview assignment doc](project-inc42-product-trainee-assignment.md) — artifact b1120c11
+- [DPDP compliance](project-dpdp-compliance.md) — May 2027 deadline
+- [AI agents](project-ai-agents.md) — sales/support agents, voice AI
+- [ranjith.tech](reference-ranjith-tech.md) — site + security audit
+- Nexloid: [Nexloid product](nexloid_product.md) — automated event-tracking platform · [Nexloid competitive landscape](nexloid_competitive_landscape.md) — 21 players · [Nexloid GTM strategy](nexloid_gtm_strategy.md) — UK-first, agencies, $0/49/199/499 · [Nexloid open questions](nexloid_open_questions.md) — OAuth scope, "2 hrs saved" basis
 
 ## Reference
-- [Vendor API via browser](reference-inc42-vendor-api-browser-access.md) — PostHog HogQL + Customer.io attribute/segment endpoints when the MCP is down
-- [INC42 Keka API access](reference-inc42-keka-api-access.md) — direct Keka Hire API creds; curl instead of browser scraping
-- [Account identities](reference-account-identities.md) — Claude Code = ranjith@ranjith.tech (NOT datalabs@inc42.com)
-- [Tools & stack](reference-tools-stack.md) — Figma, PostHog, GA4, BigQuery, n8n, Docker, VPS
-- [Figma MCP limits](reference-figma-mcp-limits.md) — Starter+View seat = 20 tool calls/MONTH
-- [Figma MCP build techniques](reference-figma-mcp-build-techniques.md) — createNodeFromSvg, upload_assets, arcData rings, GIF from frames
-- [Doc generation](reference-doc-generation.md) — PDF via headless Chrome; DOCX via python-docx (textutil flattens tables!)
-- [Google Docs HTML clipboard paste](reference-google-docs-html-clipboard-paste.md) — pipe HTML via macOS clipboard (`osascript ... as «class HTML»` + Cmd+V) for real Heading styles/lists/tables
-- [Oura health artifact](reference-oura-health-artifact.md) — Health Signals dashboard + daily 7am refresh
-- [Marketing skill install](marketing_skill_install.md) — unified `marketing` skill, vendor-API/chat-privacy guardrails
-- [Aug 8 AI session plan](aug8_ai_session_plan.md) — 2nd-yr AI&DS workshop; pre-session survey done
-- [Claude sync across Macs](reference-claude-sync-setup.md) — memory/skills via iCloud; git backup pushed to private GitHub ranjith-unofficial/claude-sync; never run both Macs at once
-- [INC42 Asana IDs](reference-inc42-asana-ids.md) — workspace 176734136274, Inc42 App project 1216274779493698
-- [INC42 open ledger Sheet](reference-inc42-open-ledger-sheet.md) — also tab "Open Ledger (27 Aug)" in "Test" spreadsheet
-- [INC42 app story card redesign (30 Aug)](project-inc42-app-story-card-redesign.md) — V28 set on real article copy; live "Rate" heart is a dead control; logged-out streak state
-- [Feedback & rating system (30 Aug)](project-inc42-app-feedback-rating-system.md) — two decoupled systems; PRD's old "Enjoying Inc42?" gate was Play-illegal, now superseded
-- [Attribution layers (12 Sep)](project-inc42-attribution-layers.md) — install/session/nav split; naming collision between 6 Sep + 11 Sep drafts; attribution_source keys exist but null, push_opened absent
-- [Figma event coverage audit (12 Sep)](project-inc42-figma-event-coverage.md) — SETTLED screens vs 48 live events; 23 gaps → 12 generalised events; nav = Brief/Article/Company in Figma, conflicts with app-structure
+- [Vendor API via browser](reference-inc42-vendor-api-browser-access.md) — PostHog HogQL + CIO endpoints
+- [INC42 Keka API access](reference-inc42-keka-api-access.md) — curl Keka Hire API
+- [Account identities](reference-account-identities.md) — Claude Code = ranjith@ranjith.tech
+- [Tools & stack](reference-tools-stack.md) — Figma, PostHog, GA4, BigQuery, n8n
+- Figma MCP: [Figma MCP limits](reference-figma-mcp-limits.md) — 20 tool calls/month · [Figma MCP build techniques](reference-figma-mcp-build-techniques.md) — SVG nodes, upload_assets
+- [Doc generation](reference-doc-generation.md) — PDF headless Chrome; DOCX python-docx
+- [Google Docs HTML clipboard paste](reference-google-docs-html-clipboard-paste.md) — osascript HTML clipboard + Cmd+V
+- [Oura health artifact](reference-oura-health-artifact.md) — daily 7am refresh
+- [Marketing skill install](marketing_skill_install.md) — unified `marketing` skill
+- [Aug 8 AI session plan](aug8_ai_session_plan.md) — AI&DS workshop
+- [Claude sync across Macs](reference-claude-sync-setup.md) — iCloud + GitHub backup; one Mac at a time
+- [INC42 Asana IDs](reference-inc42-asana-ids.md) — workspace 176734136274, app 1216274779493698
+- [INC42 open ledger Sheet](reference-inc42-open-ledger-sheet.md) — tab "Open Ledger (27 Aug)"
