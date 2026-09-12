@@ -1,6 +1,6 @@
 ---
 name: project-inc42-brief-copy-variants
-description: "Brief card copy + push generated from FULL article text (12 Sep 2026) — LOCKED shape is 2 card variants + 2 push variants per article, no per-interest personalisation; Ranjith rejected headline+summary generation"
+description: "Brief card copy + push from FULL article text (12 Sep 2026) — the binding rule is ANCHOR FIRST (story recognisable in the first few words); v3 is 5 card variants x 5 mechanics + 3 pushes per article, no per-interest personalisation"
 metadata:
   node_type: memory
   type: project
@@ -44,11 +44,32 @@ the reader.** No persona hooks, no sector tagging. Personalisation is a later qu
 the copy itself is shown to be useful. The "Answered in" check survives the cut — it is what keeps
 a curiosity hook from becoming clickbait.
 
+## Third correction: relevance, 12 Sep — THE BINDING RULE
+The 2+2 pass led with the buried detail *instead of* the story. Ranjith: *"the copy card variant is
+nowhere relevant to headline, and people will not be able to understand this … if I talk about
+RentoMojo's profit jumped 142% … the headline says RentoMojo IPO ends with 72x subscription. So
+these are very highly irrelevant."* He also rejected the formula of a statement with a question
+bolted on the end (*"from which country", "who else on it", "what did the company say"*) and asked
+for the curiosity to be **coupled into the sentence itself**, plus *"multiple variations so that I
+have more understanding … understand the psychology of a user."*
+
+**RULE (binding, applies to every future copy pass): anchor first, then the interesting part.**
+The story must be recognisable in the first few words so the reader knows what they are opening.
+The detail earns attention *after* the anchor, never instead of it. Curiosity lives inside the
+sentence — a contrast, a number, a consequence — not in an appended question. The reader must be
+able to close the loop on opening: "that was my question, and it is answered."
+
+**v3 shape: 5 card variants per article, one per mechanic, plus 3 pushes.** Mechanics:
+1 Straight (control, no device) · 2 Straight + twist · 3 Question about the **main event**
+· 4 So what (the consequence) · 5 Number first. Only mechanic 3 is a question.
+A per-row **Anchor** column states what every variant in that row must make recognisable — the
+at-a-glance relevance check.
+
 ## Deliverable
 Tab **"Brief Copy Variants (12 Sep)"** (gid `1798377423`) in the **Test** workbook
 `1NCpTEzgEEtds0uCfqPNSS6aeFhOpKbgkL_F-cgtVPxg` — see [[reference-inc42-open-ledger-sheet]] for the
-same workbook. 15 rows, one per article, 11 columns: headline, link, card variant 1 + "Answered in",
-card variant 2 + "Answered in", push 1 title/body, push 2 title/body. Push titles <=45 chars,
+same workbook. 15 rows, one per article, 15 columns: headline, link, Anchor, V1-V5 (the five mechanics),
+and three push title/body pairs. 75 card variants and 45 pushes in all. Push titles <=45 chars,
 bodies <=120.
 Local: `~/ClaudeDocs/inc42/brief-copy/` (v2 TSV, full article bodies JSON, source articles JSON).
 
