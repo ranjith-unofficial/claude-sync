@@ -1,6 +1,6 @@
 ---
 name: project-inc42-brief-copy-variants
-description: "Brief card title variants + push copy generated from FULL article text (12 Sep 2026) — 61 variants over 15 stories, each with a verified answer location; Ranjith rejected headline+summary generation"
+description: "Brief card copy + push generated from FULL article text (12 Sep 2026) — LOCKED shape is 2 card variants + 2 push variants per article, no per-interest personalisation; Ranjith rejected headline+summary generation"
 metadata:
   node_type: memory
   type: project
@@ -32,12 +32,24 @@ has no answer in the text, it does not get written.
   [[project-inc42-brief-card-corpus-analysis]].
 - Median article 539 words, so there is no cost argument for generating from the headline.
 
+## Second correction: scope, 12 Sep
+The first full-text pass produced 61 variants tagged by reader interest (company / investment /
+founder / industry / consumer) plus per-persona entry-card hooks. **Ranjith cut that too:**
+*"The variant cannot be based on the reader interest … one article, two variants … for copy: two
+variants … I would not need this level of customization based on topic sector. These will be
+over-engineering for now, before even understanding if this is going to be useful or not."*
+
+**LOCKED shape: per article, 2 card copy variants + 2 push variants. Generic to the story, not to
+the reader.** No persona hooks, no sector tagging. Personalisation is a later question, only after
+the copy itself is shown to be useful. The "Answered in" check survives the cut — it is what keeps
+a curiosity hook from becoming clickbait.
+
 ## Deliverable
 Tab **"Brief Copy Variants (12 Sep)"** (gid `1798377423`) in the **Test** workbook
 `1NCpTEzgEEtds0uCfqPNSS6aeFhOpKbgkL_F-cgtVPxg` — see [[reference-inc42-open-ledger-sheet]] for the
-same workbook. Four sections: variants (one row each, with "Where the article answers it" + the
-answer), push per story (title/body + char counts + why it is not the headline), top-3 entry-card
-hooks for 6 reader interests, and the findings above.
+same workbook. 15 rows, one per article, 11 columns: headline, link, card variant 1 + "Answered in",
+card variant 2 + "Answered in", push 1 title/body, push 2 title/body. Push titles <=45 chars,
+bodies <=120.
 Local: `~/ClaudeDocs/inc42/brief-copy/` (v2 TSV, full article bodies JSON, source articles JSON).
 
 **Source data:** 15 articles in the real 12 Sep brief window (11 Sep 07:00 → 12 Sep 07:00 IST),
