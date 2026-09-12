@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-Filed 2026-09-12 from an app review walkthrough. Parent ticket **"[Bug] App QA batch - 12 Sep 2026"** gid `1218419016139021` in the Inc42 App project, assigned Ritvik Sethi, with 13 subtasks filed across three passes the same day:
+Filed 2026-09-12 from an app review walkthrough. Parent ticket **"[Bug] App QA batch - 12 Sep 2026"** gid `1218419016139021` in the Inc42 App project, assigned Ritvik Sethi, with 14 subtasks filed across four passes the same day:
 
 1. Notification toggle shows disabled even when OS permission is granted
 2. Tapping guest user does not open the sign-in prompt (dead control)
@@ -21,6 +21,7 @@ Filed 2026-09-12 from an app review walkthrough. Parent ticket **"[Bug] App QA b
 11. Search results use the old company card design
 12. Switching role shows "Couldn’t save, try again" although the role does change (screen recording exists, Ranjith to attach)
 13. No success confirmation when role, topic or sector is changed
+14. Contact Us modal defaults seniority to Founder instead of the user’s profile role (screen recording exists, Ranjith to attach)
 
 Design item "Reduce spacing on the first company page" gid `1218418956025770` filed as a subtask under **"V2 App - Design changes"** (`1218353498240283`), assigned **Satya** (`1204511407773682`, Satya.prusty@ink42.com).
 
@@ -28,7 +29,7 @@ Design item "Reduce spacing on the first company page" gid `1218418956025770` fi
 
 **Not filed, by explicit instruction:** the profile name-edit observations (save toast sits oddly between the bottom bar, slow to load, no confirmation) - Ranjith narrowed that dictation to just the two role/sector issues above.
 
-**Parent has 17 subtasks, not 13:** Ranjith added 4 himself directly in Asana on 12 Sep (Company detail page; TL;DR background colour; streak FAQ placement; Save changes button highlight state). The parent description numbering covers only the 13 filed here.
+**Parent has more subtasks than the 14 filed here:** Ranjith added 4 himself directly in Asana on 12 Sep (Company detail page; TL;DR background colour; streak FAQ placement; Save changes button highlight state). The parent description numbering covers only the 14 filed here.
 
 **Open question:** whether "Advanced Hardware and Technologies" is the shared Inc42 sector taxonomy value. If it is, renaming app-side only desyncs app from web and DataLabs - see [[feedback-shared-system-safety]]. Ranjith has not confirmed.
 

@@ -113,7 +113,7 @@
 - [Explore tab design direction](project-inc42-explore-articles-companies-design.md) — Brief-vs-Story RESOLVED; 8+8 artifact, NOT yet approved
 - [Master PRD rebuild — PAUSED, broken](project-inc42-master-prd-rebuild.md) — halted by live-collaborator collision; Launch Infra/Cross-Cutting sub-tabs need repair, Next release/Backlog/Reference not restructured
 - [App IA: News + Companies split (8 Sep)](project-inc42-app-ia-news-companies.md) — ring=sectors, tabs=dev tags, newsletters=shelves; Figma 649:2 / 651:2; tab≠shelf supply rule
-- [App QA batch (12 Sep)](project-inc42-app-qa-batch-12sep.md) — 13 dev subtasks under parent 1218419016139021 + spacing item to Satya; headcount-sort already ticketed
+- [App QA batch (12 Sep)](project-inc42-app-qa-batch-12sep.md) — 14 dev subtasks under parent 1218419016139021 + spacing item to Satya; headcount-sort already ticketed
 
 ## INC42 data warehouse
 - [Project: INC42 data warehouse](project-inc42-data-warehouse.md) — 8 sources → BigQuery Bronze/Silver/Gold, live Apr 2026
