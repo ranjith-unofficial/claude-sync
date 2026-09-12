@@ -42,3 +42,9 @@ Separate epic, do not merge: Singular→PostHog install/open attribution.
 
 See [[project-inc42-app-event-validation]], [[project-inc42-event-audit-4sep]], [[feedback-analytics-depth]],
 [[reference-inc42-vendor-api-browser-access]].
+
+**13 Sep 2026 — "Not reaching CIO (13 Sep)" tab** (Test sheet, gid 1762305850) is the tab to refer to. Scope agreed with
+Ranjith: ONLY events that should reach CIO and don't; over-sending parked for later. Internal agent
+ritviksethi56@gmail.com excluded ([[feedback-exclude-internal-agent-email]]). Numbers without him: 1,122 of 11,241 (10.0%) lost;
+31 no-profile users re-checked 13 Sep, still none. Local copy: `ph-cio-audit/not-reaching-cio-13sep.html`.
+Paste method that beat a clipboard hijack: synthetic `ClipboardEvent('paste')` with a DataTransfer dispatched on `.cell-input`.
