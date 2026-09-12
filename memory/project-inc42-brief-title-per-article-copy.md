@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 089689b3-9104-4ca6-9ce2-216277f228c3
-  modified: 2026-09-12T21:53:11.071Z
+  modified: 2026-09-12T22:43:06.565Z
 ---
 
 Verified 13 Sep 2026. Came from Ranjith's call with Utkarsh (~12-13 Sep) plus follow-up decisions in chat.
@@ -20,7 +20,10 @@ Verified 13 Sep 2026. Came from Ranjith's call with Utkarsh (~12-13 Sep) plus fo
 - Editors can edit any field in CMS anytime.
 - Article title/content edited after publish → regenerate all 3 (overwrites editor edits).
 - Empty brief card copy → app shows article title (Ritvik handles; blank = missing).
-- Every copy change syncs to Customer.io.
+- Only push title + push body go to Customer.io, on every change (brief card copy does NOT).
+- Original AI-generated version always stored (incl. each regeneration); every editor edit logged, to learn what AI got right/wrong.
+- The existing per-sector brief title generation continues for now.
+- Tab also has an ASCII "Workflow" diagram (Courier New) under the intro.
 
 **Open (in the tab §8):** does article push start from CIO `article_published` event or manual; does editing a field itself trigger regen (recommended no); regen age window; is brief card copy sent to CIO; overlap with older tab "Brief: Title + Image Generation" (27 Jul draft, per-sector daily title/push set) — which one sends the push.
 
