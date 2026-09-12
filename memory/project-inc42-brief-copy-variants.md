@@ -1,6 +1,6 @@
 ---
 name: project-inc42-brief-copy-variants
-description: "Brief card copy + push from FULL article text (12 Sep 2026) — the binding rule is ANCHOR FIRST (story recognisable in the first few words); v3 is 5 card variants x 5 mechanics + 3 pushes per article, no per-interest personalisation"
+description: "Brief card copy + push from FULL article text (12 Sep 2026) — LOCKED formula: [anchor lifted from headline] + [one question with a single concrete answer]. 2 questions + 1 aligned push per article. Statements, generic questions and per-interest variants all rejected"
 metadata:
   node_type: memory
   type: project
@@ -65,12 +65,37 @@ able to close the loop on opening: "that was my question, and it is answered."
 A per-row **Anchor** column states what every variant in that row must make recognisable — the
 at-a-glance relevance check.
 
+## Fourth correction, 12 Sep — THE LOCKED FORMULA
+Ranjith rejected the five-mechanic set: the statement variants *"don't entreat me to open it"*, and
+appending a question to a restated headline (*"paste the entire title and say what is this"*,
+*"statement, then follow like what do you think"*) is *"not the right way of doing it"*. He also
+flagged that the pushes read as a different creative from the card copy.
+
+**The one he approved, verbatim: "RentoMojo's IPO closed at 72.88X. Who actually drove the final
+day?"** Everything is now generated to that shape.
+
+**LOCKED FORMULA: [short anchor lifted from the headline] + [ONE question whose answer is a single
+concrete thing: a name, a number, a party, a place, a condition].**
+- The anchor is compressed from the headline, never repeated whole. It guarantees relevance.
+- **The kill test: can you name the one thing that answers the question?** If the answer is an
+  opinion, a paragraph, or "it depends", the question is generic and it is cut. This rules out
+  "what happened", "what does it mean", "what is it building towards", "what do you think".
+- Every variant is a question. Statements do not earn the open.
+- **The push is not a separate creative.** Push title = the card question; push body begins the
+  answer. Card and push are one idea.
+- The two question shapes that work best: (1) **the named unknown** — who / which one / how much /
+  where, answered by a specific party or figure; (2) **the wrong-expectation question** — where the
+  obvious answer is wrong ("Amazon Pay keeps adding products. Is the business growing?" No, revenue
+  fell 8.3%).
+- A hook the reader cannot place is a miss however good the fact is: "Rs 30 for delivery and Rs 25
+  to the driver" was cut for exactly this.
+
 ## Deliverable
 Tab **"Brief Copy Variants (12 Sep)"** (gid `1798377423`) in the **Test** workbook
 `1NCpTEzgEEtds0uCfqPNSS6aeFhOpKbgkL_F-cgtVPxg` — see [[reference-inc42-open-ledger-sheet]] for the
-same workbook. 15 rows, one per article, 15 columns: headline, link, Anchor, V1-V5 (the five mechanics),
-and three push title/body pairs. 75 card variants and 45 pushes in all. Push titles <=45 chars,
-bodies <=120.
+same workbook. 15 rows, one per article, 9 columns: headline, link, question 1 + what answers it,
+question 2 + what answers it, push title, push body. 30 questions and 15 pushes.
+Push titles <=45 chars, bodies <=120.
 Local: `~/ClaudeDocs/inc42/brief-copy/` (v2 TSV, full article bodies JSON, source articles JSON).
 
 **Source data:** 15 articles in the real 12 Sep brief window (11 Sep 07:00 → 12 Sep 07:00 IST),
