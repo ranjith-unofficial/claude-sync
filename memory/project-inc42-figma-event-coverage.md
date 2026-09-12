@@ -1,13 +1,18 @@
 ---
 name: project-inc42-figma-event-coverage
 description: "Event coverage audit of the Figma 'SCREENS — SETTLED' section vs live app events — 12 Sep 2026; 23 gaps, 12-event generalised fix, nav IA discrepancy"
-metadata:
+metadata: 
+  node_type: memory
   type: project
+  originSessionId: 5beb67e8-6627-4ae9-a0cb-2e343556291e
+  modified: 2026-09-12T21:56:13.027Z
 ---
 
 Audited Figma file `vKuPUMuhLos0rC1AFR5cWq` section `5653:12414` ("02 · SCREENS — SETTLED", 48 top-level
 frames) against the live event inventory (PostHog 146258, 30d to 12 Sep 2026: **48 custom events + 4 SDK
 autocapture**). Written to `~/ClaudeDocs/inc42/app-event-coverage-vs-figma-settled.md`. Unreviewed by Ranjith.
+13 Sep 2026: plain-language short plan written to `~/ClaudeDocs/inc42/app-event-tracking-fix-plan.md`
+(problem, 12 events, fixes, steps A-E with Done-when, 5 decisions with recommendations). Decisions still open.
 
 **Open discrepancy to resolve:** the Figma nav bar is **Brief / Article / Company** — not the
 Brief/Explore/Watchlist 3-tab nav recorded in [[project-inc42-app-structure]]. Every `source` /

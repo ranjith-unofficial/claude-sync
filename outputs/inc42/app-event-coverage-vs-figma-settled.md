@@ -3,6 +3,7 @@
 **Owner:** Ranjith M · **Date:** 12 September 2026 · **Status:** audit, decisions open
 **Design source:** `Inc42-App-2026` file `vKuPUMuhLos0rC1AFR5cWq`, section `5653:12414` — "02 · SCREENS — SETTLED" (48 top-level frames, full node tree parsed)
 **Event source:** PostHog project 146258, live query 12 Sep 2026, 30-day window. 48 custom events + 4 SDK autocapture events.
+**Short plan version:** `app-event-tracking-fix-plan.md` (same folder, 13 Sep 2026)
 **Method:** every frame name in the section was extracted and matched against the live event/property inventory. Nothing here is from the tracking sheet — the sheet was not consulted, because it has been wrong before.
 
 ---

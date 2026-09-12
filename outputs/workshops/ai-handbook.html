@@ -66,7 +66,7 @@ Model names and tool prices change every few weeks. The <em>mechanics</em> in Pa
 <div><span class="num">5 ·</span> Debugging a bad answer</div>
 <div><span class="num">6 ·</span> How to treat AI better</div>
 <div><span class="num">7 ·</span> The tool map</div>
-<div><span class="num">8 ·</span> Beyond the chat box</div>
+<div><span class="num">8 ·</span> Beyond the chat box: using the tools</div>
 <div><span class="num">9 ·</span> Agents: what they really are</div>
 <div><span class="num">10 ·</span> Limits, honesty and privacy</div>
 <div><span class="num">11 ·</span> Your first 30 days</div>
@@ -420,7 +420,7 @@ Treat it as a <span class="rule">brilliant, extremely well-read intern with no m
 </table>
 
 <!-- ============================================================ -->
-<h2 class="pb">8 · Beyond the chat box</h2>
+<h2 class="pb">8 · Beyond the chat box: using the tools</h2>
 <p>Four ways to reach the same model. Most people only ever use the first.</p>
 <table>
 <tr><th style="width:18%">Route</th><th style="width:34%">What it gives you</th><th>Trade-off</th></tr>
@@ -430,7 +430,7 @@ Treat it as a <span class="rule">brilliant, extremely well-read intern with no m
 <tr><td><strong>Agent platform</strong></td><td>The model gets tools and a loop, and acts without you typing each step.</td><td>Setup effort. Real failure modes. See Part 9.</td></tr>
 </table>
 
-<h3>8.1 Two things worth setting up this week</h3>
+<h3>8.1 Two things worth setting up this week (steps in 8.2)</h3>
 <ul>
 <li><strong>Custom instructions.</strong> Written once, applied to every chat. Yours should say: your course, your year, how you like explanations, what to never do. Ten minutes; improves every answer you get after it.</li>
 <li><strong>A Project per subject.</strong> Upload the syllabus, the notes, past papers. Now every question you ask is automatically grounded in <em>your</em> material, not the internet's average.</li>
@@ -557,7 +557,22 @@ Treat it as a <span class="rule">brilliant, extremely well-read intern with no m
 <span class="small">Delete them and it collapses back into a chatbot.</span>
 </div>
 
-<h3>9.5 Where agents break</h3>
+<h3>9.5 Build your first agent in n8n, step by step</h3>
+<p class="small">You need two things: an n8n account (free trial on n8n.io, or free self-hosted) and your own Gemini API key from 8.2.</p>
+<table>
+<tr><th style="width:6%">#</th><th style="width:24%">Step</th><th>What exactly</th></tr>
+<tr><td>1</td><td>New workflow</td><td>Open n8n → Create workflow. You start on an empty canvas.</td></tr>
+<tr><td>2</td><td>Add a trigger</td><td>Click + → search <strong>Chat Trigger</strong> ("When chat message received"). This gives you a chat box to talk to the agent.</td></tr>
+<tr><td>3</td><td>Add the agent</td><td>Click + after the trigger → <strong>AI Agent</strong>.</td></tr>
+<tr><td>4</td><td>Give it a brain</td><td>Under Chat Model, add <strong>Google Gemini Chat Model</strong>. Create a credential and paste your API key.</td></tr>
+<tr><td>5</td><td>Give it hands</td><td>Under Tool, add <strong>Wikipedia</strong> and <strong>Calculator</strong>. Neither needs a login.</td></tr>
+<tr><td>6</td><td>Write the system message</td><td>In the AI Agent node options: "You are a study agent. When given a goal, break it into steps, use your tools, and work through the entire goal before replying. Do NOT ask permission between steps."</td></tr>
+<tr><td>7</td><td>Test it</td><td>Open the chat and type a goal, not a question: "Find the 5 key ideas in reinforcement learning and give me one practice question for each." Watch the tool calls in the execution log.</td></tr>
+<tr><td>8</td><td>Make it run without you</td><td>Add a <strong>Schedule Trigger</strong> (e.g. every day at 8pm) and, as a stretch, a Google Sheets node so results land in a sheet.</td></tr>
+<tr><td></td><td>Done when</td><td>You can point at the log and show the agent choosing a tool on its own.</td></tr>
+</table>
+
+<h3>9.6 Where agents break</h3>
 <table>
 <tr><th style="width:28%">Failure</th><th>What to do about it</th></tr>
 <tr><td>Loops forever</td><td>Cap the iterations. Always.</td></tr>
