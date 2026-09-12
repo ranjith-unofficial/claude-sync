@@ -31,5 +31,22 @@ Other verified figures: `app_opened` 5,733 events, source only ever `organic` 4,
 `story_shared` 196 events with **no `share_id`**, so no share is traceable to an inbound click ·
 app_opened people: Android 761 / iOS 537 / iPadOS 26.
 
+**Singular → PostHog mechanics, verified from Singular docs 12 Sep 2026 (the architecture-deciding fact):**
+the React Native SDK has **no method that returns install attribution on device** (methods reference exposes
+setCustomUserId / setDeviceCustomUserId / setGlobalProperty / event / handlePushNotification (iOS-only) /
+limitDataSharing — no getAttribution). So **paid-vs-organic can only arrive via Singular's server-side
+Internal BI Postback** (configured on Partner Configuration; real-time on installs, re-engagements, in-app
+events) → our endpoint → PostHog Capture API with `$set_once`. Any plan saying "read attribution from the SDK
+on open" is not buildable. Client SDK's `withSingularLink` / `SingularLinkHandler` event gives only
+`params.deeplink` / `passthrough` / `isDeferred` / `urlParameters`, and **fires only when the app opens through
+a Singular Link** — good for links we build, useless for paid/organic. Join key: persist an `install_id`
+(= PostHog anonymous distinct_id) at first launch, pass as Singular custom user id, echo in the postback macro;
+the anon id stays a valid distinct_id after login merge, so `posthog.reset()` outside sign-out breaks it.
+Android needs `SingularBridgeModule.onNewIntent(intent)`; iOS needs universal links (URI schemes unsupported).
+
+Dev handoff written 12 Sep: `~/ClaudeDocs/inc42/attribution/03-implementation-handoff.md` — also settles that
+`referrer_screen` must carry three **external** values (`push` / `deeplink` / `deferred_link`) seeded on cold
+start, so "article opened from push" vs "from brief card" is one complete breakdown with no nulls or joins.
+
 See [[project-inc42-app-event-validation]], [[project-inc42-app-analytics-audit]], [[reference-inc42-posthog-projects]],
 [[reference-inc42-vendor-api-browser-access]], [[reference-inc42-vendor-stack]].
