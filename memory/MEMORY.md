@@ -158,3 +158,4 @@
 - [INC42 app story card redesign (30 Aug)](project-inc42-app-story-card-redesign.md) — V28 set on real article copy; live "Rate" heart is a dead control; logged-out streak state
 - [Feedback & rating system (30 Aug)](project-inc42-app-feedback-rating-system.md) — two decoupled systems; PRD's old "Enjoying Inc42?" gate was Play-illegal, now superseded
 - [Attribution layers (12 Sep)](project-inc42-attribution-layers.md) — install/session/nav split; naming collision between 6 Sep + 11 Sep drafts; attribution_source keys exist but null, push_opened absent
+- [Figma event coverage audit (12 Sep)](project-inc42-figma-event-coverage.md) — SETTLED screens vs 48 live events; 23 gaps → 12 generalised events; nav = Brief/Article/Company in Figma, conflicts with app-structure

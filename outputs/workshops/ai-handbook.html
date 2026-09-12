@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Working With AI — A Student Handbook</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 16mm 14mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Charter", "Iowan Old Style", Georgia, serif;
+    font-size: 10.3pt; line-height: 1.45; color: #1a1a1a; margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 190mm; margin: 0 auto; }
+  h1 { font-size: 23pt; line-height: 1.15; margin: 0 0 6px; letter-spacing: -0.4px; }
+  h2 {
+    font-size: 14pt; margin: 26px 0 10px; padding-bottom: 5px;
+    border-bottom: 1.5px solid #1a1a1a; page-break-after: avoid; letter-spacing: -0.2px;
+  }
+  h3 { font-size: 11.2pt; margin: 18px 0 6px; page-break-after: avoid; }
+  h4 { font-size: 10.3pt; margin: 13px 0 4px; page-break-after: avoid; }
+  p { margin: 0 0 8px; }
+  ul, ol { margin: 0 0 9px; padding-left: 18px; }
+  li { margin-bottom: 3px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 14px; font-size: 9.2pt; page-break-inside: auto; }
+  th { text-align: left; background: #f0f0ef; border: 1px solid #cfcfcc; padding: 5px 7px; font-weight: 700; }
+  td { border: 1px solid #d9d9d6; padding: 5px 7px; vertical-align: top; }
+  tr { page-break-inside: avoid; }
+  td ul { margin: 0; padding-left: 14px; }
+  code, .mono { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 8.8pt; background: #f2f2f0; padding: 1px 4px; border-radius: 2px; }
+  pre {
+    font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 8.6pt; line-height: 1.4;
+    background: #f7f7f5; border: 1px solid #e0e0dd; border-left: 3px solid #888;
+    padding: 9px 11px; white-space: pre-wrap; margin: 7px 0 12px; page-break-inside: avoid;
+  }
+  .lead { font-size: 10.8pt; color: #444; margin-bottom: 14px; }
+  .meta { font-size: 8.6pt; color: #666; border-top: 1px solid #ddd; padding-top: 7px; margin-top: 8px; }
+  .callout { border: 1px solid #cfcfcc; background: #fafaf8; padding: 9px 12px; margin: 10px 0 14px; page-break-inside: avoid; }
+  .callout .lbl { font-weight: 700; font-size: 8.5pt; letter-spacing: 0.6px; text-transform: uppercase; color: #555; display: block; margin-bottom: 3px; }
+  .rule { font-weight: 700; }
+  .pb { page-break-before: always; }
+  .toc { column-count: 2; column-gap: 22px; font-size: 9.4pt; }
+  .toc div { break-inside: avoid; margin-bottom: 2px; }
+  .num { color: #777; }
+  .small { font-size: 9pt; color: #555; }
+  .tag { font-size: 8pt; border: 1px solid #bbb; padding: 0 4px; border-radius: 2px; color: #555; white-space: nowrap; }
+  hr { border: 0; border-top: 1px solid #ddd; margin: 18px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Working With AI</h1>
+<p class="lead">A practical handbook — how these models actually work, how to prompt them, which tools to use, and how to get consistently better answers.</p>
+<div class="meta">
+Companion notes to the AI &amp; Data Science session · Prepared by Ranjith · September 2026<br>
+Model names and tool prices change every few weeks. The <em>mechanics</em> in Part 1 and the <em>method</em> in Part 3 do not. Learn those; look up the rest.
+</div>
+
+<h2>Contents</h2>
+<div class="toc">
+<div><span class="num">1 ·</span> How the machine actually works</div>
+<div><span class="num">2 ·</span> The model landscape</div>
+<div><span class="num">3 ·</span> Prompting — the core skill</div>
+<div><span class="num">4 ·</span> Prompting techniques, named</div>
+<div><span class="num">5 ·</span> Debugging a bad answer</div>
+<div><span class="num">6 ·</span> How to treat AI better</div>
+<div><span class="num">7 ·</span> The tool map</div>
+<div><span class="num">8 ·</span> Beyond the chat box</div>
+<div><span class="num">9 ·</span> Agents — what they really are</div>
+<div><span class="num">10 ·</span> Limits, honesty and privacy</div>
+<div><span class="num">11 ·</span> Your first 30 days</div>
+<div><span class="num">12 ·</span> One-page cheat sheet</div>
+<div><span class="num">13 ·</span> Glossary</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>1 · How the machine actually works</h2>
+
+<p>Everything in this handbook follows from one sentence. If you only remember one line, remember this:</p>
+
+<div class="callout">
+<span class="lbl">The one fact</span>
+<span class="rule">A language model predicts the next piece of text. It does not look anything up.</span><br>
+<span class="small">Every strength (fluency, speed, flexibility) and every failure (made-up facts, bad maths, confident nonsense) comes from this single behaviour.</span>
+</div>
+
+<h3>1.1 The nesting — what sits inside what</h3>
+<table>
+<tr><th style="width:22%">Layer</th><th style="width:38%">What it means</th><th>Example</th></tr>
+<tr><td><strong>AI</strong></td><td>Any machine doing something that normally needs human intelligence.</td><td>A chess engine. A spam filter.</td></tr>
+<tr><td><strong>Machine Learning</strong></td><td>The machine learns rules from examples instead of being told the rules.</td><td>Predicting house prices from past sales.</td></tr>
+<tr><td><strong>Deep Learning</strong></td><td>ML using neural networks with many layers. Handles messy data — images, audio, text.</td><td>Face recognition.</td></tr>
+<tr><td><strong>Generative AI</strong></td><td>Deep learning that <em>produces</em> new content rather than labelling existing content.</td><td>ChatGPT, Midjourney.</td></tr>
+<tr><td><strong>LLM</strong></td><td>Generative AI specialised in text. A Large Language Model.</td><td>Claude, GPT, Gemini.</td></tr>
+</table>
+
+<p class="small"><strong>The distinction that matters:</strong> a <em>discriminative</em> model answers "which bucket does this belong to?" (spam / not spam). A <em>generative</em> model answers "what comes next?" That is a much harder job, and it is why generative models sometimes invent things — inventing is literally the mechanism.</p>
+
+<h3>1.2 Read the name backwards</h3>
+<table>
+<tr><th style="width:14%">Word</th><th>What it actually tells you</th></tr>
+<tr><td><strong>Model</strong></td><td>A giant mathematical function. Text in → probabilities out. Nothing more mystical than that.</td></tr>
+<tr><td><strong>Language</strong></td><td>Its only medium is text (and now images/audio converted into the same format). It has no senses, no body, no live view of the world.</td></tr>
+<tr><td><strong>Large</strong></td><td>Hundreds of billions of adjustable numbers ("parameters"), trained on a large slice of public text. Large enough that useful behaviour <em>emerges</em> that nobody explicitly programmed.</td></tr>
+</table>
+
+<h3>1.3 Tokens — it does not see words</h3>
+<p>Before anything happens, your text is chopped into <strong>tokens</strong>: common chunks of characters. Roughly <span class="rule">1 token ≈ 4 English characters ≈ ¾ of a word</span>.</p>
+<ul>
+<li><code>unbelievable</code> might become <code>un | bel | iev | able</code> — four tokens, and the model never sees the whole word.</li>
+<li>Indian languages usually cost <strong>2–4× more tokens</strong> than the same sentence in English, because the tokenizer was built mostly on English text. Same meaning, higher cost, less room in the context window.</li>
+<li>This is why models historically fumbled letter-counting and spelling puzzles — they were never looking at letters.</li>
+</ul>
+<p class="small">See it yourself: <span class="mono">platform.openai.com/tokenizer</span> — paste an English sentence and its Tamil/Hindi translation and compare the counts.</p>
+
+<h3>1.4 Training — what it kept and what it lost</h3>
+<table>
+<tr><th style="width:22%">Stage</th><th>What happens</th></tr>
+<tr><td><strong>Pre-training</strong></td><td>The model reads an enormous amount of text and repeatedly plays one game: hide the next token, guess it, adjust the numbers when wrong. Billions of times. It ends up a brilliant, amoral autocomplete.</td></tr>
+<tr><td><strong>Fine-tuning</strong></td><td>Further training on curated examples of good answers, so it behaves like an assistant instead of continuing your sentence.</td></tr>
+<tr><td><strong>RLHF</strong><br><span class="small">Reinforcement Learning from Human Feedback</span></td><td>Humans rank answers; the model is nudged toward the ones people preferred. This is where politeness, helpfulness and refusals come from — <em>and</em> where sycophancy comes from. It was rewarded for answers people <em>liked</em>, which is not identical to answers that are <em>correct</em>.</td></tr>
+</table>
+<div class="callout">
+<span class="lbl">Consequence</span>
+The training text is compressed into the weights the way a summary compresses a book. <span class="rule">Patterns survive. Exact facts often do not.</span> The model retains the <em>shape</em> of a citation, a phone number, an API call — and will happily produce a shape that is plausible and wrong.
+</div>
+
+<h3>1.5 The context window is its entire world</h3>
+<ul>
+<li>The <strong>context window</strong> is everything it can see in one go: system instructions + your message + uploaded files + the whole conversation so far.</li>
+<li>Sizes today range from ~128,000 tokens to 1,000,000+ tokens (roughly 100 to 1,500 pages).</li>
+<li><span class="rule">It has no memory between chats.</span> A new chat starts from zero. "Remember what I told you yesterday" only works if the product is re-feeding it to the model behind the scenes.</li>
+<li>When a conversation overflows the window, the earliest parts get dropped or summarised — which is why very long chats start "forgetting" your instructions.</li>
+<li>Attention is not uniform. Material at the very start and very end of a long context is used more reliably than material buried in the middle. <strong>Put your instruction after the pasted document, not before it.</strong></li>
+</ul>
+<p class="small"><strong>Test it in 20 seconds:</strong> open a fresh chat and ask "what did I ask you last time?" Watch it have no idea.</p>
+
+<h3>1.6 Temperature and why answers change</h3>
+<p>At each step the model has a probability distribution over possible next tokens. <strong>Temperature</strong> decides how adventurously it picks.</p>
+<table>
+<tr><th style="width:18%">Setting</th><th style="width:32%">Behaviour</th><th>Use for</th></tr>
+<tr><td><strong>Low</strong> (0 – 0.3)</td><td>Almost always takes the highest-probability token. Repeatable, dry.</td><td>Code, data extraction, classification, maths, anything factual.</td></tr>
+<tr><td><strong>Medium</strong> (0.7)</td><td>Default in most chat products. Balanced.</td><td>General writing, explanation, conversation.</td></tr>
+<tr><td><strong>High</strong> (1.0+)</td><td>Samples unusual tokens. Surprising, sometimes incoherent.</td><td>Brainstorming, names, creative variants.</td></tr>
+</table>
+<p class="small">You can set this in an API or playground, not usually in the consumer chat app. It explains why the same prompt gives different answers twice — and why "be creative" and "be accurate" pull in opposite directions.</p>
+
+<h3>1.7 Why it hallucinates — the payoff</h3>
+<p>A <strong>hallucination</strong> is a fluent, confident, false statement. It is not a bug that will be patched away. It is the mechanism working as designed:</p>
+<ol>
+<li>The model must output <em>something</em> — there is no "I don't know" token by default.</li>
+<li>It was trained to produce text that <em>looks like</em> a correct answer.</li>
+<li>A fabricated citation looks exactly like a real one, statistically.</li>
+<li>RLHF taught it that confident answers score better than hedged ones.</li>
+</ol>
+<table>
+<tr><th style="width:34%">Highest risk</th><th>Lowest risk</th></tr>
+<tr><td>Specific numbers, dates, statistics<br>Citations, paper titles, page numbers<br>Names of people at a company<br>Legal sections, medical dosages<br>Niche API parameters and flags<br>Anything after its training cutoff</td><td>Explaining a well-known concept<br>Restructuring text you supplied<br>Summarising a document you pasted<br>Common code patterns<br>Brainstorming and naming<br>Translation, tone change, formatting</td></tr>
+</table>
+<div class="callout">
+<span class="lbl">The rule that follows</span>
+<span class="rule">Never ask it to recall. Always give it the source and ask it to reason.</span><br>
+<span class="small">"Summarise this paper" (paper attached) is safe. "What does that paper say?" is not.</span>
+</div>
+
+<h3>1.8 Grounding — the fix</h3>
+<p>Putting real information <em>into the context window</em> so the model reasons over facts instead of memories. Three ways, cheapest first:</p>
+<table>
+<tr><th style="width:20%">Method</th><th style="width:40%">How</th><th>When</th></tr>
+<tr><td><strong>Paste</strong></td><td>Drop the text straight into the prompt.</td><td>A few pages. Always try this first.</td></tr>
+<tr><td><strong>Upload / Project files</strong></td><td>Attach PDFs; the product handles chunking and retrieval.</td><td>A syllabus, a report, a set of notes.</td></tr>
+<tr><td><strong>RAG</strong><br><span class="small">Retrieval-Augmented Generation</span></td><td>Documents are embedded into a vector database; the most relevant chunks are fetched and injected at question time.</td><td>Thousands of documents, or a product you're building.</td></tr>
+<tr><td><strong>Web search</strong></td><td>The tool fetches live pages and feeds them in.</td><td>Anything recent. Check the links it cites.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="pb">2 · The model landscape</h2>
+
+<h3>2.1 The main families</h3>
+<p class="small">Version numbers move fast — treat the <em>families</em> as stable and check the provider's page for the current release.</p>
+<table>
+<tr><th style="width:15%">Family</th><th style="width:13%">Maker</th><th style="width:11%">Open?</th><th>Character, in practice</th></tr>
+<tr><td><strong>Claude</strong></td><td>Anthropic</td><td>Closed</td><td>Strong at long documents, careful reasoning, writing and coding. Tiers: Opus (most capable) · Sonnet (balanced, the workhorse) · Haiku (fast, cheap).</td></tr>
+<tr><td><strong>GPT</strong></td><td>OpenAI</td><td>Closed</td><td>The broadest ecosystem — images, voice, custom GPTs, huge plugin surface. Most people's default.</td></tr>
+<tr><td><strong>Gemini</strong></td><td>Google</td><td>Closed</td><td>Deeply wired into Search, Docs, Gmail, Android. Very large context. Generous free API tier — the reason it's used for student projects.</td></tr>
+<tr><td><strong>Llama</strong></td><td>Meta</td><td>Open weights</td><td>Download and run it yourself. The base for most self-hosted work.</td></tr>
+<tr><td><strong>Mistral</strong></td><td>Mistral AI</td><td>Open + closed</td><td>Small, fast, efficient models. Good on a laptop.</td></tr>
+<tr><td><strong>DeepSeek / Qwen</strong></td><td>DeepSeek · Alibaba</td><td>Open weights</td><td>Strong reasoning and coding at very low cost. Qwen has good multilingual coverage.</td></tr>
+<tr><td><strong>Grok</strong></td><td>xAI</td><td>Mixed</td><td>Tied to X/Twitter data and real-time posts.</td></tr>
+</table>
+
+<h3>2.2 The three axes that actually decide your choice</h3>
+<table>
+<tr><th style="width:24%">Axis</th><th>What it means for you</th></tr>
+<tr><td><strong>Fast vs reasoning</strong></td><td>"Reasoning" models think through steps internally before answering — slower and dearer, much better at maths, logic, multi-step code and planning. Fast models are better for drafting, summarising, chat, rewriting. Use the cheap fast one by default; escalate when it fails.</td></tr>
+<tr><td><strong>Open vs closed</strong></td><td><em>Closed</em> = you call their API, they run it, you pay per token, your data leaves your machine. <em>Open weights</em> = you download and run it on your own hardware; free, private, and entirely your problem to operate.</td></tr>
+<tr><td><strong>Text vs multimodal</strong></td><td>Multimodal models accept images, PDFs, audio, sometimes video. Screenshot a whiteboard, a graph, an error message, a handwritten page — all valid input now.</td></tr>
+</table>
+
+<h3>2.3 Which one for which job</h3>
+<table>
+<tr><th style="width:34%">Task</th><th style="width:30%">Reach for</th><th>Why</th></tr>
+<tr><td>Long PDF, notes, research paper</td><td>Claude, Gemini</td><td>Large context, reliable over long documents.</td></tr>
+<tr><td>Writing and editing code</td><td>Claude, GPT reasoning tier</td><td>Best code quality; strong at debugging from an error trace.</td></tr>
+<tr><td>Maths, logic, algorithms</td><td>Any reasoning model</td><td>Internal step-by-step beats one-shot guessing.</td></tr>
+<tr><td>Anything from this week</td><td>Any tool with web search on</td><td>Training cutoffs are months old. No search = no recent facts.</td></tr>
+<tr><td>Free student project / API</td><td>Gemini (Google AI Studio)</td><td>Free key, no credit card, adequate limits.</td></tr>
+<tr><td>Private or offline data</td><td>Llama / Mistral via Ollama</td><td>Runs locally. Nothing leaves your laptop.</td></tr>
+<tr><td>Images from text</td><td>Midjourney, DALL·E, Stable Diffusion, Imagen</td><td>Different aesthetics — try the same prompt on each.</td></tr>
+</table>
+
+<div class="callout">
+<span class="lbl">Habit worth installing</span>
+For any question that matters, run it past <span class="rule">two different families</span> (say Claude and Gemini). Where they agree, confidence is high. Where they disagree, you have found exactly the thing you need to go and verify yourself.
+</div>
+
+<!-- ============================================================ -->
+<h2 class="pb">3 · Prompting — the core skill</h2>
+
+<h3>3.1 What prompting actually is</h3>
+<p>A prompt is not a search query and not a magic spell. It is the model's <em>entire universe</em> for that one answer — it knows nothing about you, your subject, your college or your intent beyond what is written in the window.</p>
+<div class="callout">
+<span class="lbl">Working definition</span>
+<span class="rule">Prompting is the job of making a wrong answer statistically unlikely.</span><br>
+<span class="small">You are not persuading it. You are narrowing the space of plausible next tokens until only good answers remain.</span>
+</div>
+<p>This is why the most common complaint — <em>"I didn't get the answer I expected"</em> — is almost never the tool's fault. The expectation lived in your head and never made it into the window.</p>
+
+<h3>3.2 The anatomy of a good prompt — six parts</h3>
+<table>
+<tr><th style="width:15%">Part</th><th style="width:38%">What it does</th><th>Example line</th></tr>
+<tr><td><strong>1. Role</strong></td><td>Sets vocabulary and depth. Mild effect, but free.</td><td>"You are a database examiner marking second-year answers."</td></tr>
+<tr><td><strong>2. Task</strong></td><td>One clear verb. The single most important part.</td><td>"Rewrite this answer so it would score full marks."</td></tr>
+<tr><td><strong>3. Context</strong></td><td>Who it's for, what's already been tried, what the constraints are.</td><td>"It's for a 10-mark question. We've covered indexing but not query planning."</td></tr>
+<tr><td><strong>4. Input</strong></td><td>The actual material — pasted, not remembered. Delimit it clearly.</td><td><code>&lt;answer&gt; … &lt;/answer&gt;</code></td></tr>
+<tr><td><strong>5. Format</strong></td><td>Exactly how the output should be shaped.</td><td>"Return a table: Gap | Why it loses marks | Corrected line."</td></tr>
+<tr><td><strong>6. Constraints</strong></td><td>The boundaries — length, what to avoid, what to do when unsure.</td><td>"Under 200 words. No new facts. If the answer is already correct, say so and stop."</td></tr>
+</table>
+<p class="small">You will not need all six every time. <strong>Task + Context + Input</strong> covers most of the value. Add Format when the shape of the output matters; add Constraints when it keeps going off the rails.</p>
+
+<h3>3.3 Before and after</h3>
+<h4>Weak prompt</h4>
+<pre>explain normalization</pre>
+<p class="small">→ A textbook definition you could have got from any website. No use to you.</p>
+
+<h4>Strong prompt</h4>
+<pre>You are tutoring a 2nd-year AI &amp; Data Science student.
+
+Explain gradient descent variants — batch, mini-batch and stochastic.
+
+Context: I understand what a derivative is and I've trained one linear
+regression model by hand. I do not know what a "batch" means here.
+
+Format:
+1. One plain-English paragraph per variant, no equations.
+2. Then a table: Variant | Data used per step | Speed | Stability | When to use.
+3. End with the single sentence I should memorise for an exam.
+
+Constraints: under 400 words. If a term is unavoidable, define it in
+brackets the first time. Do not use the word "simply".</pre>
+<p class="small">→ Tuned to your level, shaped to how you revise, and checkable at a glance.</p>
+
+<h3>3.4 The seven rules</h3>
+<table>
+<tr><th style="width:4%">#</th><th style="width:30%">Rule</th><th>Why it works</th></tr>
+<tr><td>1</td><td><strong>Give it the material.</strong></td><td>Grounded reasoning beats compressed memory. Paste the notes, the error, the code, the brief.</td></tr>
+<tr><td>2</td><td><strong>Say who it's for.</strong></td><td>"Explain to a 2nd-year student" and "explain to a professor" produce genuinely different text.</td></tr>
+<tr><td>3</td><td><strong>Specify the output shape.</strong></td><td>Table, bullets, JSON, 5 lines. Unspecified shape = generic essay.</td></tr>
+<tr><td>4</td><td><strong>One task per prompt.</strong></td><td>Four questions in one message get four shallow answers. Chain instead.</td></tr>
+<tr><td>5</td><td><strong>Show an example.</strong></td><td>One sample of the output you want beats three paragraphs describing it.</td></tr>
+<tr><td>6</td><td><strong>Say what <em>not</em> to do.</strong></td><td>"No preamble." "Don't apologise." "Don't invent sources." Negative constraints are cheap and effective.</td></tr>
+<tr><td>7</td><td><strong>Iterate, don't restart.</strong></td><td>The context you've built is an asset. "Good — now make it shorter and add a counter-example" beats retyping from scratch.</td></tr>
+</table>
+
+<h3>3.5 Anti-patterns — stop doing these</h3>
+<table>
+<tr><th style="width:32%">Habit</th><th style="width:30%">What goes wrong</th><th>Do instead</th></tr>
+<tr><td>Typing it like a Google search</td><td>Three keywords give a generic article.</td><td>Write a sentence with a verb and a goal.</td></tr>
+<tr><td>"Make it better"</td><td>Better on which axis? It guesses.</td><td>"Shorter, more concrete, drop the intro."</td></tr>
+<tr><td>Asking it to recall facts</td><td>Confident fabrication.</td><td>Attach the source. Or turn search on.</td></tr>
+<tr><td>Stuffing five tasks into one message</td><td>All five done badly.</td><td>One task; then the next.</td></tr>
+<tr><td>Starting a new chat after a bad answer</td><td>You throw away all the context you built.</td><td>Correct it in place.</td></tr>
+<tr><td>"Please" / "you are the world's best expert"</td><td>Politeness costs nothing but adds nothing. Superlatives don't unlock hidden ability.</td><td>Spend those words on context instead.</td></tr>
+<tr><td>Accepting the first answer</td><td>The first draft is a draft.</td><td>Push back once. It usually improves.</td></tr>
+<tr><td>Pasting code with no error message</td><td>It guesses at what broke.</td><td>Paste the full trace, the input, and what you expected.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="pb">4 · Prompting techniques, named</h2>
+<p class="small">These have formal names in papers. Here they are with the one line that tells you when to reach for each.</p>
+
+<table>
+<tr><th style="width:18%">Technique</th><th style="width:36%">What you do</th><th>Use when</th></tr>
+<tr><td><strong>Zero-shot</strong></td><td>Just ask. No examples.</td><td>Common, well-defined tasks. Your default.</td></tr>
+<tr><td><strong>Few-shot</strong></td><td>Show 2–5 input→output examples, then give the real input.</td><td>The output format is specific or unusual. The single highest-leverage technique for consistency.</td></tr>
+<tr><td><strong>Chain of thought</strong></td><td>"Work through this step by step before giving the final answer."</td><td>Maths, logic, multi-step problems. Forcing intermediate steps into the text genuinely improves accuracy. (Reasoning models do this internally already.)</td></tr>
+<tr><td><strong>Role / persona</strong></td><td>"You are an examiner / a code reviewer / a sceptical investor."</td><td>You want a particular vocabulary, depth or stance.</td></tr>
+<tr><td><strong>Decomposition</strong></td><td>Split a big task into numbered sub-tasks; run them one at a time.</td><td>Anything that fails as a single prompt.</td></tr>
+<tr><td><strong>Prompt chaining</strong></td><td>Feed the output of prompt 1 into prompt 2. Outline → draft → tighten.</td><td>Long or structured deliverables. Better than one giant prompt, every time.</td></tr>
+<tr><td><strong>Self-critique</strong></td><td>"Now list three weaknesses in what you just wrote, then rewrite fixing them."</td><td>Free quality upgrade on any draft. Takes ten seconds.</td></tr>
+<tr><td><strong>Contrastive</strong></td><td>"Give me two versions: one formal, one blunt."</td><td>You don't yet know what you want. Pick, then refine.</td></tr>
+<tr><td><strong>Structured output</strong></td><td>Demand JSON / CSV / a fixed table with named columns.</td><td>Another program will consume the output.</td></tr>
+<tr><td><strong>Delimiters</strong></td><td>Wrap pasted material in <code>&lt;notes&gt;…&lt;/notes&gt;</code> or triple quotes.</td><td>Always, when pasting. Stops it confusing your data with your instructions.</td></tr>
+<tr><td><strong>Instruction-last</strong></td><td>Put the long document first, your instruction at the very end.</td><td>Long contexts. The end of the window gets the most attention.</td></tr>
+<tr><td><strong>Escape hatch</strong></td><td>"If the notes don't cover this, say 'not in the notes' — do not guess."</td><td>Always, on factual work. This is the cheapest anti-hallucination line there is.</td></tr>
+<tr><td><strong>Interview me</strong></td><td>"Before answering, ask me the 5 questions you most need answered."</td><td>Vague or personal tasks — project ideas, resumes, plans. Flips the effort onto the model.</td></tr>
+<tr><td><strong>Rubric</strong></td><td>Give it the marking scheme, then ask it to grade its own output against it.</td><td>Assignments, reports, anything with known criteria.</td></tr>
+<tr><td><strong>ReAct</strong></td><td>Reason → Act (call a tool) → Observe → reason again.</td><td>The pattern underneath every AI agent. See Part 9.</td></tr>
+</table>
+
+<h3>4.1 Three you can copy today</h3>
+<h4>The self-critique loop</h4>
+<pre>[your normal prompt]
+
+Then, in a separate section titled "Critique":
+list the 3 weakest things about your own answer above.
+Then rewrite the answer fixing all 3.</pre>
+
+<h4>The interview flip</h4>
+<pre>I want to build a final-year project using AI.
+
+Do not suggest anything yet. First ask me the 6 questions you most
+need answered to give a good recommendation. Ask them one at a time.</pre>
+
+<h4>The grounded answer</h4>
+<pre>&lt;notes&gt;
+[paste your unit notes here]
+&lt;/notes&gt;
+
+Using ONLY the notes above, answer: [question]
+
+Quote the exact line you used, in brackets, after each claim.
+If the notes do not cover it, reply "Not in the notes" and stop.</pre>
+
+<!-- ============================================================ -->
+<h2>5 · Debugging a bad answer</h2>
+<p>When the output is wrong, it's a diagnosis, not a dead end. Work down this table.</p>
+<table>
+<tr><th style="width:30%">Symptom</th><th style="width:32%">Actual cause</th><th>Fix</th></tr>
+<tr><td>Generic, textbook-ish, useless</td><td>No context — it doesn't know your level or situation.</td><td>Add who it's for and what you already know.</td></tr>
+<tr><td>Too long, padded, waffly</td><td>No length or format constraint.</td><td>"Max 150 words. Bullets only. No intro."</td></tr>
+<tr><td>Made-up facts or citations</td><td>You asked it to recall.</td><td>Paste the source, or turn on web search, and add the escape hatch line.</td></tr>
+<tr><td>Wrong format every time</td><td>Described instead of demonstrated.</td><td>Show one example of the exact output.</td></tr>
+<tr><td>Answers a different question</td><td>Ambiguous verb, or several tasks at once.</td><td>One task, one clear verb.</td></tr>
+<tr><td>Agrees with everything you say</td><td>Sycophancy from RLHF.</td><td>"Argue the opposite case." "What's wrong with my reasoning?"</td></tr>
+<tr><td>Forgot your instructions mid-chat</td><td>Context window filling up; early text de-prioritised.</td><td>Restate the constraint in your latest message, or start fresh with a clean brief.</td></tr>
+<tr><td>Maths or logic wrong</td><td>It's predicting text, not calculating.</td><td>Ask for step-by-step, use a reasoning model, or make it write code to compute it.</td></tr>
+<tr><td>Code doesn't run</td><td>It guessed at a library version or API.</td><td>Paste the full error trace back. Say the language and version.</td></tr>
+<tr><td>Bland, safe, obvious ideas</td><td>You asked for "ideas" with no constraints.</td><td>Add hard constraints — they force originality. "Under ₹0 budget, in 2 weeks, no app."</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="pb">6 · How to treat AI better</h2>
+<p>Not manners — <em>method</em>. These are the habits that separate people who find AI useful from people who find it disappointing.</p>
+
+<table>
+<tr><th style="width:26%">Habit</th><th>What it looks like</th></tr>
+<tr><td><strong>Brief it like a colleague</strong></td><td>You wouldn't say "write my report" to a new intern and walk away. Give background, audience, constraints and an example of good. Same effort, same payoff.</td></tr>
+<tr><td><strong>Treat it as a draft engine</strong></td><td>It gets you from a blank page to 70% in one minute. The last 30% — judgement, accuracy, your voice — is yours and always will be.</td></tr>
+<tr><td><strong>Argue with it</strong></td><td>"That's not right because…" is the fastest route to a good answer. It will not sulk. Pushing back once is the single highest-return habit in this handbook.</td></tr>
+<tr><td><strong>Ask it to think, not to know</strong></td><td>Reasoning over material you supplied is its strength. Recall is its weakness. Structure every task to use the first.</td></tr>
+<tr><td><strong>Make it ask you things</strong></td><td>"What do you need to know before answering?" Most bad answers come from missing context the model never asked for.</td></tr>
+<tr><td><strong>Verify anything that carries a consequence</strong></td><td>Numbers, citations, legal or medical claims, code that touches real data. Confidence in the text is not evidence.</td></tr>
+<tr><td><strong>Keep your prompts</strong></td><td>A note file of prompts that worked is a real asset. Reuse and refine them instead of rewriting from memory.</td></tr>
+<tr><td><strong>Use it to learn, not to skip</strong></td><td>"Explain this like I'm 10, then quiz me on it" builds understanding. Copy-pasting an answer you can't defend builds nothing — and it shows in the viva.</td></tr>
+<tr><td><strong>Keep the human in the loop</strong></td><td>You are accountable for the output. Not the model, not the vendor. Never ship what you can't explain.</td></tr>
+<tr><td><strong>Name what you don't want</strong></td><td>Bans are as useful as instructions. "No em-dashes, no 'delve', no summary paragraph at the end."</td></tr>
+</table>
+
+<div class="callout">
+<span class="lbl">The mental model</span>
+Treat it as a <span class="rule">brilliant, extremely well-read intern with no memory, no judgement and total confidence</span>. That single frame predicts almost every behaviour you'll encounter — good and bad.
+</div>
+
+<!-- ============================================================ -->
+<h2>7 · The tool map</h2>
+<p class="small">Free tiers and prices change constantly — verify before you rely on any of them.</p>
+
+<h3>7.1 Chat assistants — start here</h3>
+<table>
+<tr><th style="width:17%">Tool</th><th style="width:29%">What it's best at</th><th>Notes</th></tr>
+<tr><td><strong>ChatGPT</strong></td><td>General everything. Widest feature surface.</td><td>Free tier is usable. Custom GPTs, voice, image generation.</td></tr>
+<tr><td><strong>Claude</strong></td><td>Long documents, careful writing, coding.</td><td>Projects hold persistent files and instructions.</td></tr>
+<tr><td><strong>Gemini</strong></td><td>Google-ecosystem work, huge context.</td><td>Free API key for projects via Google AI Studio.</td></tr>
+<tr><td><strong>Perplexity</strong></td><td>Research with live sources and citations.</td><td>Use when you need links you can actually check.</td></tr>
+<tr><td><strong>NotebookLM</strong></td><td>Q&amp;A strictly over documents you upload.</td><td>Answers stay grounded in your sources. Excellent for exam revision.</td></tr>
+</table>
+
+<h3>7.2 Coding</h3>
+<table>
+<tr><th style="width:17%">Tool</th><th style="width:29%">What it is</th><th>Notes</th></tr>
+<tr><td><strong>GitHub Copilot</strong></td><td>Autocomplete inside your editor.</td><td><strong>Free for students</strong> via the GitHub Student Developer Pack.</td></tr>
+<tr><td><strong>Cursor</strong></td><td>A code editor built around AI — edits across multiple files.</td><td>The jump from "suggests a line" to "makes the change".</td></tr>
+<tr><td><strong>Claude Code</strong></td><td>AI agent that works in your terminal on a whole repo.</td><td>Runs commands, edits files, fixes its own errors.</td></tr>
+<tr><td><strong>Windsurf, Cline</strong></td><td>Similar agentic editors.</td><td>Worth trying; the space moves monthly.</td></tr>
+<tr><td><strong>v0, Bolt, Lovable</strong></td><td>Prompt → working web app.</td><td>Fast prototypes and demos.</td></tr>
+<tr><td><strong>Google Colab</strong></td><td>Free notebooks with a free GPU.</td><td>Where most student ML projects should live.</td></tr>
+</table>
+
+<h3>7.3 Building agents and automations</h3>
+<table>
+<tr><th style="width:17%">Tool</th><th style="width:29%">What it is</th><th>Notes</th></tr>
+<tr><td><strong>n8n</strong></td><td>Visual workflow builder with AI agent nodes.</td><td>No coding floor. Self-hostable and free. Best first tool for building an agent.</td></tr>
+<tr><td><strong>Zapier / Make</strong></td><td>Connect apps, trigger on events.</td><td>Simpler, less flexible, quicker to a result.</td></tr>
+<tr><td><strong>LangChain / LlamaIndex</strong></td><td>Python frameworks for agents and RAG.</td><td>For when you've outgrown the visual tools.</td></tr>
+<tr><td><strong>Ollama</strong></td><td>Run open models locally on your laptop.</td><td>Free, private, offline. Needs decent RAM.</td></tr>
+<tr><td><strong>Hugging Face</strong></td><td>The repository of open models and datasets.</td><td>Where you'll go for anything you want to fine-tune.</td></tr>
+</table>
+
+<h3>7.4 Media and study</h3>
+<table>
+<tr><th style="width:17%">Category</th><th style="width:29%">Tools</th><th>Use for</th></tr>
+<tr><td><strong>Images</strong></td><td>Midjourney, DALL·E, Stable Diffusion, Imagen, Ideogram</td><td>Slides, posters, mockups. Ideogram handles text-in-image best.</td></tr>
+<tr><td><strong>Video</strong></td><td>Runway, Pika, Sora, Veo</td><td>Short clips, b-roll, concept films.</td></tr>
+<tr><td><strong>Voice / audio</strong></td><td>ElevenLabs, Whisper</td><td>Narration; transcribing recorded lectures (Whisper is free and open).</td></tr>
+<tr><td><strong>Design</strong></td><td>Figma AI, Canva Magic Studio</td><td>Layouts, decks, quick assets.</td></tr>
+<tr><td><strong>Notes / study</strong></td><td>NotebookLM, Notion AI, Obsidian + Copilot</td><td>Turning your own notes into questions and summaries.</td></tr>
+<tr><td><strong>Papers</strong></td><td>Elicit, Consensus, SciSpace</td><td>Literature search that cites real papers.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="pb">8 · Beyond the chat box</h2>
+<p>Four ways to reach the same model. Most people only ever use the first.</p>
+<table>
+<tr><th style="width:18%">Route</th><th style="width:34%">What it gives you</th><th>Trade-off</th></tr>
+<tr><td><strong>Chat app</strong></td><td>Fastest start. Files, search, images built in.</td><td>Manual. Nothing is reusable.</td></tr>
+<tr><td><strong>Projects / Custom GPTs</strong></td><td>Persistent instructions + files across many chats. You stop re-explaining yourself.</td><td>Still you, typing. Set one up for each subject.</td></tr>
+<tr><td><strong>API</strong></td><td>Call the model from code. Control temperature, system prompt, structured output. Put AI inside your own app.</td><td>Needs a key; needs code; usage costs money (Gemini's free tier is the student exception).</td></tr>
+<tr><td><strong>Agent platform</strong></td><td>The model gets tools and a loop, and acts without you typing each step.</td><td>Setup effort. Real failure modes. See Part 9.</td></tr>
+</table>
+
+<h3>8.1 Two things worth setting up this week</h3>
+<ul>
+<li><strong>Custom instructions.</strong> Written once, applied to every chat. Mine should say: your course, your year, how you like explanations, what to never do. Ten minutes; improves every answer you get after it.</li>
+<li><strong>A Project per subject.</strong> Upload the syllabus, the notes, past papers. Now every question you ask is automatically grounded in <em>your</em> material, not the internet's average.</li>
+</ul>
+
+<h3>8.2 MCP — connecting AI to your real tools</h3>
+<p><strong>Model Context Protocol</strong> is an open standard that lets an AI assistant talk to external systems — your files, a database, GitHub, Google Drive — through a common interface instead of a bespoke integration per app. In practice: the assistant can read and act on your real data. Worth knowing the name; the space is standardising around it.</p>
+
+<!-- ============================================================ -->
+<h2>9 · Agents — what they really are</h2>
+
+<div class="callout">
+<span class="lbl">The correction most people need</span>
+<span class="rule">Adding tools to a chatbot does not make it an agent.</span><br>
+<span class="small">The test: <em>does it do multi-step work toward a goal while you are not typing?</em> If you're in the loop every turn, it's a chatbot with plugins.</span>
+</div>
+
+<h3>9.1 The honest ladder</h3>
+<table>
+<tr><th style="width:6%">#</th><th style="width:22%">Level</th><th style="width:34%">What it does</th><th>Agent?</th></tr>
+<tr><td>1</td><td>Chatbot</td><td>You ask, it answers from training.</td><td>No</td></tr>
+<tr><td>2</td><td>Chatbot + RAG</td><td>Answers from your documents.</td><td>No</td></tr>
+<tr><td>3</td><td>Chatbot + tools</td><td>Can search the web, run a calculation — but only when you ask, one step at a time.</td><td>No</td></tr>
+<tr><td>4</td><td><strong>Agent</strong></td><td>Takes a <em>goal</em>. Plans, acts, checks the result, re-plans, and delivers — without you between steps.</td><td><strong>Yes</strong></td></tr>
+<tr><td>5</td><td>Multi-agent</td><td>Several agents with different roles coordinating on one goal.</td><td>Yes</td></tr>
+</table>
+
+<h3>9.2 The loop</h3>
+<pre>GOAL  →  THINK  →  ACT  →  OBSERVE  →  THINK AGAIN  →  … →  DELIVER
+                                          ↑
+                          this step is the whole difference</pre>
+<p class="small">"Think again" is where it decides the last result wasn't good enough and changes approach. A system that can't do that is a script with a language model bolted on.</p>
+
+<h3>9.3 The four components</h3>
+<table>
+<tr><th style="width:16%">Component</th><th>Role</th></tr>
+<tr><td><strong>Model</strong></td><td>The brain. Decides what to do next.</td></tr>
+<tr><td><strong>Tools</strong></td><td>The hands. Web search, a database, a calculator, an email send, a spreadsheet write.</td></tr>
+<tr><td><strong>Loop</strong></td><td>The thing that lets it keep going until the goal is met rather than stopping after one reply.</td></tr>
+<tr><td><strong>Memory</strong></td><td>What carries across steps and across runs — a file, a sheet, a database.</td></tr>
+</table>
+
+<h3>9.4 Worked example — "Unit Prep Agent"</h3>
+<p><strong>You type once:</strong> <em>"Prepare me for Unit 3."</em> Then you walk away.</p>
+<ol>
+<li>Reads your uploaded unit notes.</li>
+<li>Identifies every topic in the unit.</li>
+<li><strong>Judges</strong> which topics the notes cover thinly — a real decision, not a fixed script.</li>
+<li>Looks those up on Wikipedia.</li>
+<li>Writes one row per weak topic to a Google Sheet, each with a practice question.</li>
+<li>Reports back what it found.</li>
+</ol>
+<p>Add a schedule trigger at 8pm and it runs while you're not there. <strong>That</strong> is the agent moment.</p>
+<div class="callout">
+<span class="lbl">The two lines that create agency</span>
+<code>Work through the entire goal before replying.</code><br>
+<code>Do NOT ask permission between steps.</code><br>
+<span class="small">Delete them and it collapses back into a chatbot.</span>
+</div>
+
+<h3>9.5 Where agents break</h3>
+<table>
+<tr><th style="width:28%">Failure</th><th>What to do about it</th></tr>
+<tr><td>Loops forever</td><td>Cap the iterations. Always.</td></tr>
+<tr><td>Picks the wrong tool</td><td>Sharpen the tool descriptions — that text is what it uses to choose.</td></tr>
+<tr><td>One bad step poisons the rest</td><td>Add a verification step; make it state its assumption before acting.</td></tr>
+<tr><td>Takes a destructive action</td><td>Require human approval for anything irreversible — sending, deleting, paying.</td></tr>
+<tr><td>Silent failure</td><td>Log every step. An agent you can't inspect is an agent you can't trust.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="pb">10 · Limits, honesty and privacy</h2>
+
+<h3>10.1 What it genuinely cannot do</h3>
+<table>
+<tr><th style="width:34%">Limit</th><th>What it means in practice</th></tr>
+<tr><td>No memory between chats</td><td>Every new conversation starts blank unless the product re-feeds context.</td></tr>
+<tr><td>Training cutoff</td><td>It knows nothing after a fixed date. Without search, recent questions get confidently outdated answers.</td></tr>
+<tr><td>No real arithmetic</td><td>It predicts what a calculation looks like. For anything that matters, make it write code.</td></tr>
+<tr><td>No access to your world</td><td>No view of your files, your college portal or your marks unless you give it one.</td></tr>
+<tr><td>No self-knowledge</td><td>It cannot reliably tell you why it produced an answer. Its explanation is also generated text.</td></tr>
+<tr><td>Inherited bias</td><td>It learned from human text, with all the skew that carries.</td></tr>
+</table>
+
+<h3>10.2 Privacy and cost — the practical rules</h3>
+<ul>
+<li>Assume anything you paste leaves your machine. Free consumer tiers may use conversations to improve models; business and API tiers typically don't. <strong>Check the setting — don't assume.</strong></li>
+<li>Never paste: passwords, API keys, Aadhaar or ID numbers, bank details, other people's personal data, or anything under an NDA.</li>
+<li>Anonymise before you paste. Real analysis rarely needs real names.</li>
+<li>For genuinely sensitive data, run a local model (Ollama). Nothing leaves the laptop.</li>
+<li><strong>Never share one API key across a group.</strong> Free-tier limits are per key — one shared key throttles everybody. Each person gets their own; it takes about a minute.</li>
+</ul>
+
+<h3>10.3 Academic honesty</h3>
+<table>
+<tr><th style="width:50%">Fine</th><th>Not fine</th></tr>
+<tr><td>Explaining a concept you're stuck on<br>Generating practice questions<br>Reviewing and critiquing your own draft<br>Debugging your code<br>Getting unstuck on a blank page<br>Summarising papers you've read</td><td>Submitting generated work as your own<br>Anything your institution prohibits<br>Any output you can't explain in a viva<br>Fabricated citations in a report<br>Using it where you were told not to</td></tr>
+</table>
+<p class="small">The practical test: <strong>can you defend every line of it out loud, without notes?</strong> If not, you don't understand it yet, and that gap will surface.</p>
+
+<!-- ============================================================ -->
+<h2>11 · Your first 30 days</h2>
+<table>
+<tr><th style="width:16%">Week</th><th style="width:36%">Do this</th><th>You should end up able to</th></tr>
+<tr><td><strong>Week 1</strong><br>Foundations</td><td>Set custom instructions. Create a Project per subject and upload your notes. Run the tokenizer test. Run the empty-chat memory test.</td><td>Explain tokens, context and hallucination to a classmate.</td></tr>
+<tr><td><strong>Week 2</strong><br>Prompting</td><td>Rewrite five of your usual prompts using the six-part anatomy. Use the self-critique loop daily. Start a prompt library file.</td><td>Get a usable answer first try, most of the time.</td></tr>
+<tr><td><strong>Week 3</strong><br>Grounding &amp; tools</td><td>Upload a real paper and question it with the escape-hatch prompt. Try Perplexity and NotebookLM. Get Copilot free with the student pack.</td><td>Never accept an unsourced fact again.</td></tr>
+<tr><td><strong>Week 4</strong><br>Build</td><td>Get a Gemini API key. Build one n8n workflow end to end. Then add a tool and a schedule trigger.</td><td>Point at something running that you built.</td></tr>
+</table>
+
+<h3>11.1 Exercises worth doing</h3>
+<ol>
+<li>Take your worst recent prompt. Rewrite it with all six parts. Compare the two outputs side by side.</li>
+<li>Ask the same question to three models. Note where they disagree — then go and find out who was right.</li>
+<li>Ask about something you know deeply. Count the errors. This recalibrates your trust permanently.</li>
+<li>Upload a paper you've actually read. Ask five questions. Check every answer against the text.</li>
+<li>Make it grade your own assignment against the real rubric before you submit.</li>
+<li>Build an agent that does one boring thing for you every day at a fixed time.</li>
+</ol>
+
+<!-- ============================================================ -->
+<h2 class="pb">12 · One-page cheat sheet</h2>
+
+<h3>The prompt skeleton</h3>
+<pre>ROLE        You are a [role] helping a [audience].
+TASK        [One clear verb + object.]
+CONTEXT     Here's what I already know / have tried / am constrained by.
+INPUT       &lt;material&gt; … &lt;/material&gt;
+FORMAT      Return: [table with these columns / N bullets / JSON].
+CONSTRAINTS Under [N] words. Don't [X]. If you can't do it from the
+            material above, say so instead of guessing.</pre>
+
+<h3>Ten lines that fix most answers</h3>
+<table>
+<tr><th style="width:50%">Say this</th><th>To get this</th></tr>
+<tr><td>"Ask me what you need to know first."</td><td>Context you forgot to give.</td></tr>
+<tr><td>"Think step by step before answering."</td><td>Better reasoning.</td></tr>
+<tr><td>"Only use the text I gave you."</td><td>No invented facts.</td></tr>
+<tr><td>"Say 'not in the source' if it isn't there."</td><td>An honest gap instead of a fabrication.</td></tr>
+<tr><td>"Give me two versions, different approaches."</td><td>A real choice.</td></tr>
+<tr><td>"Now critique your own answer, then rewrite it."</td><td>A free second draft.</td></tr>
+<tr><td>"Argue against this."</td><td>The flaw you couldn't see.</td></tr>
+<tr><td>"Explain it like I'm 10, then quiz me."</td><td>Actual understanding.</td></tr>
+<tr><td>"Return it as a table with these columns: …"</td><td>Something usable.</td></tr>
+<tr><td>"Shorter. No preamble. Start with the answer."</td><td>Less waffle.</td></tr>
+</table>
+
+<h3>The five rules, compressed</h3>
+<ol>
+<li>It predicts text — it does not look things up.</li>
+<li>Give it the material; never ask it to recall.</li>
+<li>Context and format beat clever wording, every time.</li>
+<li>Iterate in place. Never restart after one bad answer.</li>
+<li>Verify anything with a consequence. You are accountable, not the model.</li>
+</ol>
+
+<!-- ============================================================ -->
+<h2>13 · Glossary</h2>
+<table>
+<tr><th style="width:22%">Term</th><th>Meaning</th></tr>
+<tr><td><strong>Agent</strong></td><td>A system that takes a goal and works through multiple steps, using tools, without you prompting each step.</td></tr>
+<tr><td><strong>API</strong></td><td>A way to call the model from your own code instead of a chat window.</td></tr>
+<tr><td><strong>Context window</strong></td><td>Everything the model can see at once. Its entire world for that answer.</td></tr>
+<tr><td><strong>Embedding</strong></td><td>Text converted into a list of numbers so that similar meanings sit close together. The basis of search and RAG.</td></tr>
+<tr><td><strong>Few-shot</strong></td><td>Giving examples of the output you want inside the prompt.</td></tr>
+<tr><td><strong>Fine-tuning</strong></td><td>Further training on your own examples to change default behaviour. Rarely the right first answer — try prompting and grounding first.</td></tr>
+<tr><td><strong>Grounding</strong></td><td>Supplying real source material so the model reasons over facts rather than memory.</td></tr>
+<tr><td><strong>Hallucination</strong></td><td>Confident, fluent, false output. A feature of the mechanism, not a bug.</td></tr>
+<tr><td><strong>Inference</strong></td><td>Running the trained model to get an answer (as opposed to training it).</td></tr>
+<tr><td><strong>LLM</strong></td><td>Large Language Model. A model trained to predict the next token of text.</td></tr>
+<tr><td><strong>MCP</strong></td><td>Model Context Protocol — an open standard for connecting AI assistants to external tools and data.</td></tr>
+<tr><td><strong>Multimodal</strong></td><td>Accepts more than text — images, audio, PDFs, video.</td></tr>
+<tr><td><strong>Parameters</strong></td><td>The adjustable numbers inside the model. "70B" means 70 billion of them.</td></tr>
+<tr><td><strong>Prompt</strong></td><td>Everything you send. The model's complete brief.</td></tr>
+<tr><td><strong>RAG</strong></td><td>Retrieval-Augmented Generation — fetch relevant documents, then answer using them.</td></tr>
+<tr><td><strong>Reasoning model</strong></td><td>A model that thinks through steps internally before replying. Slower, dearer, much better at hard problems.</td></tr>
+<tr><td><strong>RLHF</strong></td><td>Reinforcement Learning from Human Feedback — training on human preferences. Source of helpfulness, and of sycophancy.</td></tr>
+<tr><td><strong>System prompt</strong></td><td>Hidden standing instructions that apply to every message in a conversation.</td></tr>
+<tr><td><strong>Temperature</strong></td><td>Randomness dial. Low = predictable, high = creative.</td></tr>
+<tr><td><strong>Token</strong></td><td>A chunk of text, roughly ¾ of a word. The unit the model reads, writes and bills in.</td></tr>
+<tr><td><strong>Training cutoff</strong></td><td>The date after which the model knows nothing.</td></tr>
+<tr><td><strong>Weights</strong></td><td>The trained parameters. "Open weights" means you can download and run them yourself.</td></tr>
+<tr><td><strong>Zero-shot</strong></td><td>Asking with no examples.</td></tr>
+</table>
+
+<hr>
+<p class="meta">
+<strong>Working With AI — A Student Handbook</strong> · September 2026<br>
+Everything here follows from one line: <em>a language model predicts the next piece of text; it does not look anything up.</em> Learn that, and the rest is practice.
+</p>
+
+</div>
+</body>
+</html>
