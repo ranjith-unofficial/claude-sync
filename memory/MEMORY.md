@@ -79,6 +79,7 @@
 - [Brief entry coverage shell (5 Sep)](project-inc42-brief-entry-coverage.md) — row F: gated shell + trigger-strip ladder, 61-day backtest; 27% no company, AI zero on 50% weekdays
 - [Companies in brief — mention types (6 Sep)](project-inc42-brief-companies-mention-types.md) — 1,179 articles classified into 18 mention types; median weekday 11 tagged cos / 8 data-backable; layoffs only 9 in 90d; CMS dev-type cannot route
 - [Brief card corpus analysis](project-inc42-brief-card-corpus-analysis.md) — 809 articles: summary only 93%-covered field; real defect is row ORDERING
+- [Brief copy variants from full text (12 Sep)](project-inc42-brief-copy-variants.md) — 61 variants/15 stories, answer location verified; headline+summary generation rejected
 - [Search diagnosis, all surfaces (re-verified 6 Sep)](project-inc42-app-search-root-cause.md) — inc42.com article search returns NOTHING (dead Algolia wiring); `cred` misses CRED = no exact-match boost on v2; v2 NOT better than v1, migration now gated
 - [Deep linking](project-inc42-deep-linking.md) — newsletter links fail (Safari not app); root cause CIO click-tracker
 - [Analytics stitching architecture](project-inc42-analytics-stitching.md) — cookie-ID resolver web→app; workspaces separate, unify downstream
