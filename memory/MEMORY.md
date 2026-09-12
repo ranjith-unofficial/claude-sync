@@ -94,6 +94,7 @@
 - [DataLabs onboarding CIO cross-check — RESOLVED](project-inc42-datalabs-onboarding-cio-crosscheck.md) — 48.7% synced; App has zero AskInc42 telemetry
 - [DataLabs event validation (30 Aug)](project-inc42-datalabs-event-validation.md) — P0 onLoad tracking died 18 May; raw email is distinct_id
 - [App event validation (30 Aug)](project-inc42-app-event-validation.md) — watchlist cap unenforced (10x overage); 4th PII pattern found
+- [PH→CIO parity is Android-specific (12 Sep)](project-inc42-ph-cio-parity-android.md) — brief_completed loses 32% on Android vs 3% iOS; attr writes work, track call missing; 1,417 anon CIO shells
 - [Media event validation (30 Aug)](project-inc42-media-event-validation.md) — live 11-day modal-tracking regression; Onboarding = top PII leak + dead-end
 - [App analytics audit (29 Aug)](project-inc42-app-analytics-audit.md) — push_delivered/decode dead; "Application ___" = SDK autocapture dupe
 - [Live feature status (30 Aug)](project-inc42-app-live-feature-status.md) — doc names ≠ team names; push delivery still open

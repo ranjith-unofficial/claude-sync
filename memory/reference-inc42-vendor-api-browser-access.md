@@ -23,6 +23,13 @@ A 10.4m-person `arrayJoin(JSONExtractKeysAndValuesRaw(properties))` + `topK(6)` 
   that reference the attribute, plus `metadata.privacy_level`, `description`, `sources` and `last_seen_at`.
   This is how you tell a load-bearing attribute from an orphan before recommending a delete.
 - `GET /v1/environments/<ws>/customers?attribute=<id>` — sample profiles.
+- `?search=<email>` on `/customers` is **silently ignored** — it returns the unfiltered customer list (50/page),
+  so an email lookup built on it resolves every address to the same first profile. Resolve emails by paging
+  `/customers?page=N&size=50` and indexing `identifiers.email`. Verified 12 Sep 2026.
+- `GET /v1/environments/<ws>/event_names?page=N&size=50` — the event catalog. **`size` is capped at 50** regardless
+  of what you ask for, and `meta.pagination.total` returns 0, so page until a short array or you will stop early.
+- `GET /v1/environments/<ws>/logs?internal_id=<cio_id>&type=event&name=<event>&page=N` — per-profile event log,
+  ~30d retention (proven: profiles matched PostHog exactly across 25-30 day spans), 50/page.
 - There is **no endpoint for the "% of profiles" figure** the Data index UI shows. Do not invent it;
   report attribute presence + segment/campaign usage instead.
 - The `/data_index/attributes` UI route redirects and fires no attribute request — don't wait on it.

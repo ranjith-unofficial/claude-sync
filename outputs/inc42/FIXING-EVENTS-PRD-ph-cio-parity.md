@@ -1,165 +1,228 @@
 # Fixing Events — PRD / ticket pack: App PostHog → Customer.io destination parity
 
-**Owner:** Ranjith (PM) · **Drafted:** 2026-09-12 (IST)
+**Owner:** Ranjith (PM) · **Drafted:** 2026-09-12 (IST) · **Status:** all figures below independently re-verified against live PostHog + live Customer.io
 **Systems:** PostHog `Inc42 App` 146258 · Customer.io `Inc42 App` 224949 · Taxonomy `App` tab, `ashish-events-media-datalabs-app-v3.xlsx` (66 events)
-**Upstream evidence:** `PER-USER-JOURNEY-AUDIT-REPORT.md`, `cohort-parity-brief-signin.md`, `event-level-ph-cio-gaps.md` (all 2026-09-12 17:19 IST)
-**NOT this:** Singular → PostHog install/open attribution (`singular-posthog-attribution-plan.md`). Separate epic, separate tickets.
+**Method:** HogQL via authenticated browser (`POST /api/environments/146258/query/`) + Customer.io `eu.fly.customer.io` REST (`/customers`, `/logs`, `/event_names`). Read-only.
+**NOT this:** Singular → PostHog install/open attribution. Separate epic.
 
 ---
 
-## 1. Problem
+## 1. Headline — the defect is Android-specific
 
-Customer.io campaigns keyed on brief completion and sign-in silently skip a minority of users who
-demonstrably performed those actions. The event exists in CIO in aggregate, so every existing check
-says "working". Parity is per-user, and per-user it fails.
+The prior pass measured parity as a binary "does the user have the event on CIO". Measuring **event counts**
+per user, per platform, changes the picture entirely:
 
-| Claim | Value | Source |
-|---|---|---|
-| `brief_completed` — PH event, no CIO event | **12% (3/25)** | cohort, 30d PH sample |
-| `brief_completed` — profile exists, no CIO event | **8.3% (2/24)** | cohort |
-| `brief_completed` — CIO attr set, event never fired | **4.2% (1/24)** — `nehalk482` | cohort |
-| `sign_in_completed` — PH event, no CIO event | **6.7% (1/15)**, understated | cohort + Exhibit A |
-| Exhibit A: `brief_completed`, `sign_in_completed`, `register` absent on CIO after identify | confirmed | `lalitarorac9@gmail.com`, id `209480` |
-
-**Blast radius:** any CIO campaign, segment or automation whose entry condition is one of the 23
-CIO-destination events. At 12% that is ~1 in 8 converters never entering the journey.
-
----
-
-## 2. The decisive piece of evidence
-
-Exhibit A's own timeline rules out most candidate causes. On 2026-09-12:
-
-| Time (UTC) | Event | Identity | Landed on CIO? |
+| Event | iOS loss | Android loss | Ratio |
 |---|---|---|---|
-| 06:22:30 | `sign_in_completed` | **identify → 209480** | **NO** |
-| 06:22:30+ | `register`, `onboarding_completed`, `brief_page_opened`, `walkthrough`×4 | 209480 | partial (`register` NO) |
-| 06:22–06:23 | `brief_opened`, `card_viewed`×8 | 209480 | **YES** |
-| 06:23:41 | `brief_completed` | 209480 | **NO** |
+| `brief_completed` | **2.9%** (3 of 105) | **32.1%** (27 of 84) | **11×** |
+| `sign_in_completed` | **0%** (0 of 63) | **8.0%** (4 of 50) | — |
 
-Therefore, in the 71 seconds between identify and `brief_completed`:
+Android drops roughly **one in three** brief completions on the way to Customer.io. iOS is essentially healthy.
+Both of the prior pass's "profile exists but no event" users (`lalitarorac9`, `nehalk482`) are Android — consistent.
 
-- Identity was already resolved to `209480` → **not an identify-ordering failure** for this user.
-- CIO accepted 9+ writes on that identity, including `card_viewed`, which the taxonomy does not even
-  route to CIO → **transport was open, and over-delivering**.
-- Only the *named terminal events* dropped.
+Extrapolated: PostHog recorded 631 Android `brief_completed` in 30d. At 32% loss that is **~200 brief completions
+per month that never reach Customer.io** from Android alone.
 
-→ The defect is **per-event**, in the code path or fan-out config for specific event names — not
-timing, not transport, not the wrong profile. Pre-identify anon orphaning is a real *second* failure
-mode (workspace logs show many anon-UUID `brief_completed` matches) but it does not explain Exhibit A.
+**This makes the fix a scoped Android client bug, not a distributed-systems investigation.** Repro needs one Android device.
 
 ---
 
-## 3. Why the 29 Aug audit did not catch this
+## 2. Proof: attribute writes succeed while the event is dead
 
-Not "we looked and got it wrong" — four distinct coverage failures:
+Live CIO profile `kavicharlaraviteja@gmail.com` (cio_id `b5dd0d00a609a709`, id `206935`, Android):
+
+| Signal | Value |
+|---|---|
+| PostHog `brief_completed`, 30d | **24** (daily, through 2026-09-12 02:03:28) |
+| CIO `brief_completed` events | **7** — last one **2026-09-04 02:32:22**, then nothing for 8 days |
+| CIO attribute `last_brief_completed_at` | **2026-09-12T02:03:27.354Z** — matches the PostHog event to the second |
+| CIO attribute `briefs_completed_total` | **8** — frozen |
+| Other CIO events on the same profile | `card_viewed` (28), `brief_page_opened`, `sign_in_completed`, `streak_opened` — all live through **2026-09-12 02:04** |
+
+So at 02:03:27 on 12 Sep the app wrote the person attribute to Customer.io and **did not send the event**, then 52
+seconds later successfully sent `card_viewed` on the same profile. Identity was correct, transport was open, the
+property write landed. **The `brief_completed` track call itself is not being made.**
+
+Three different numbers for one fact on one user: PostHog 24, CIO events 7, CIO counter 8.
+
+> Note this **inverts** the 29 Aug taxonomy note for `brief_completed` ("no setPersonProperties call"). Live data
+> shows setPersonProperties working and the **track** missing. The sheet records the opposite of the real defect.
+
+---
+
+## 3. Hypotheses tested and eliminated
+
+Each was ruled out by evidence, not opinion — record this so no one re-litigates them:
+
+| Hypothesis | Verdict | Killed by |
+|---|---|---|
+| CIO log retention shorter than 30d, so counts aren't comparable | **ELIMINATED** | `utkarsh` 14/14 spanning 26 days, `shatayubhatnagar98` 16/16 spanning 25 days, `animesh` 48/49 spanning 30 days — CIO logs clearly retain ~30d |
+| CIO SDK fails to flush when app is backgrounded | **ELIMINATED** | kavicharla 2026-09-07: brief completed, app stayed foreground **24 hours** (`bgIn=87,437s`), event still never reached CIO. Meanwhile 09-02 with `bgIn=2.9s` delivered fine |
+| Race between `$set`/identify and the adjacent `track` | **ELIMINATED** | Delivery succeeded and failed at identical `$set` adjacency on both sides of the cut-off date |
+| Event-name mismatch (`signin_completed` vs `sign_in_completed`) | **ELIMINATED** | Both spellings absent for Exhibit A |
+| Identify ordering / anon-id orphaning explains the terminal drops | **NOT for these users** | Exhibit A: `$identify` → `209480` at 06:22:30.153, `brief_completed` 71s later, CIO accepted 9 writes on that id in between. Real as a *separate* defect (§5) |
+| Wrong workspace / wrong project | **ELIMINATED** | PH 146258 and CIO 224949 both confirmed, profiles match on shared id |
+
+**Surviving hypothesis:** the Android client's brief-completion code path calls the CIO person-property update but
+not the CIO `track`, or calls a track that fails silently. Start at the diff between `brief_opened` (Android, works)
+and `brief_completed` (Android, fails).
+
+Supporting detail: for Exhibit A, `brief_completed` and `streak_milestone_viewed` fired 45ms apart in PostHog and
+**both** are absent from CIO; for kavicharla, both stopped at the **same instant** (2026-09-04 02:32:22). They are
+emitted from the same block. Whatever breaks, breaks that block's CIO emission.
+
+---
+
+## 4. Exhibit A — verified independently
+
+`lalitarorac9@gmail.com` · PH person `41d2a88e-7ca5-55a4-b505-c6a632d44ff1` · shared id `209480` · CIO `b5dd0d00d812d912` · Android
+
+PostHog, 2026-09-12 (millisecond-accurate):
+
+| Time (UTC) | Event | On CIO? |
+|---|---|---|
+| 06:22:30.153 | `$identify` → 209480 | — |
+| 06:22:30.156 | `sign_in_completed` | **NO** |
+| 06:22:30.157 | `register` | **NO** |
+| 06:22:32.096 | `onboarding_completed` | YES |
+| 06:22:49–06:23:06 | `walkthrough` ×4, `explore_viewed` ×2, `watchlist_viewed` | YES |
+| 06:23:25.647 | `brief_opened` | YES |
+| 06:23:26–06:23:40 | `card_viewed` ×8 | YES (all 8) |
+| 06:23:41.430 | `brief_completed` | **NO** |
+| 06:23:41.475 | `streak_milestone_viewed` | **NO** |
+
+CIO profile holds exactly 19 events: `card_viewed` 8, `walkthrough` 4, `brief_page_opened` 2, `explore_viewed` 2,
+`brief_opened` 1, `watchlist_viewed` 1, `onboarding_completed` 1. Attributes `is_registered=true`,
+`registration_date=2026-09-12T06:22:29.916Z` present; `last_brief_completed_at` and `briefs_completed_total` absent.
+
+Also confirmed: PostHog merged two pre-identify anon ids (`76f6e0dc-…`, `01a09445-…`) into this person, and the app
+fired a **`$identify` on an anon UUID at 06:19:10 — three minutes before any user identity existed.** That is the
+mechanism that manufactures the anon CIO profiles in §5.
+
+---
+
+## 5. Anonymous-profile pollution — quantified
+
+Full census of the CIO App workspace (all 2,410 profiles paged):
+
+| Profile type | Count | Share |
+|---|---|---|
+| Keyed by real email | 954 | 39.6% |
+| **Anonymous UUID, `email: null`** | **1,417** | **58.8%** |
+| Other | 39 | 1.6% |
+
+**Three in five Customer.io profiles are anonymous shells** that can never be reached by an email campaign and never
+merge to the identified profile. Driven by the install-time `$identify` on a generated UUID (§4). This inflates CIO
+profile counts (and therefore billing) and silently splits journeys.
+
+---
+
+## 6. Over-fan-out — quantified
+
+| Measure | Count |
+|---|---|
+| Events the taxonomy routes to Customer.io | **23** |
+| Event names actually present in the CIO App catalog | **56** |
+| **Unauthorised names arriving at CIO** | **36** |
+| Authorised names absent from CIO entirely | **3** |
+
+The 3 absent are `interest_captured`, `push_delivered`, `profile_name_updated` — **exactly** the three CIO-bound rows
+whose `audit_status` was left blank on 29 Aug. They were never checked, and they have never worked.
+
+Unauthorised arrivals include `card_viewed`, `brief_page_opened`, `explore_viewed`, `watchlist_viewed`, `scroll_depth`,
+`search_performed`, `article_opened`, `profile_section_viewed`, `onboarding`, `error_shown`. Also present:
+`application backgrounded` / `application foregrounded` / `application installed` / `application opened` — **lower-cased**
+in CIO where PostHog has them title-cased, and two of those four are dead in PostHog.
+
+Caveat: the CIO catalog is lifetime, so presence proves it fanned out at some point, not that it fires today.
+
+---
+
+## 7. Why the 29 Aug audit did not catch this
 
 | # | Failure | Evidence |
 |---|---|---|
-| 1 | **Wrong unit of analysis.** Aug 29 asked "does event X reach CIO / on what % of profiles". It cannot express "user U fired X in PH, U's CIO profile lacks X". A 12% per-user gap is invisible to a coverage %. | `brief_completed` = "CIO Y, 16% of profiles" → read as low-but-present |
-| 2 | **Under-escalation of the actual root cause.** 9 of 23 CIO events were marked *"no setPersonProperties call"* / *"setPersonProperties call not working"*. That **is** the broken identity/property path. It was filed as a property nit, not a parity defect. | `brief_completed`, `story_saved`, `story_unsaved`, `watchlist_entity_added`, `watchlist_entity_removed`, `push_permission_granted`, `push_permission_denied`, `notification_settings_changed`, `preferences_updated` |
-| 3 | **Rows never audited at all.** 5 of 66 rows carry a blank `audit_status`; 3 are CIO-bound. Their "dead in both systems" status was never discovered on Aug 29 — it was never checked. | `interest_captured`, `profile_name_updated`, `article_published` (+ `watchlist_limit_hit`, `locked_feature_tapped`) |
-| 4 | **False "Working".** `sign_in_completed` and `register` are both `Working` with `trigger_identify_call = Yes`. Exhibit A disproves both at user level. | taxonomy vs Exhibit A |
-
-**Fix the method, not just the events** — see ticket F7.
-
----
-
-## 4. Second, unmeasured defect: over-fan-out
-
-The mirror image, currently unquantified and worth its own line because it hits CIO cost and segment logic:
-
-- Taxonomy routes **23** events to CIO. The CIO App catalog lists **56** event names.
-- `app_opened` is `posthog`-only on the sheet but live in CIO at `daily_count` 105.
-- `card_viewed` is `posthog`-only on the sheet but present on Exhibit A's CIO profile.
-- The Sep 12 audit set `CIO_daily = n/a` for all 43 non-CIO-expected events — i.e. **it did not check them**.
-  Up to **33** event names may be fanning out unexpectedly; exactly one is quantified.
-- `article_published`: PH 0 / CIO `daily_count` 3, `source` recorded as `ios | android`. It cannot be
-  app-client-fired. The `source` value is wrong and the producer is unidentified.
+| 1 | **Wrong unit of analysis.** It asked "does event X reach CIO / on what % of profiles" — a question that cannot express per-user or per-platform loss. | `brief_completed` recorded as "CIO Y, 16% of profiles" |
+| 2 | **Binary, not quantitative.** Even the 12 Sep pass scored a user with 24 PostHog events and 7 CIO events as parity "Y". Event-count loss (32% Android) is 2.7× the user-level gap (12%). | kavicharla, ashishu001, pranav |
+| 3 | **Never segmented by platform.** The single most important variable was never crossed. | §1 |
+| 4 | **Rows never audited.** 5 of 66 rows have a blank `audit_status`; 3 are CIO-bound and all 3 are confirmed dead. | `interest_captured`, `profile_name_updated`, `article_published` |
+| 5 | **A note recording the defect backwards.** `brief_completed` was filed as "no setPersonProperties call"; live data shows setPersonProperties works and the track is missing. | §2 |
+| 6 | **False "Working".** `sign_in_completed` and `register` marked Working. | §4 |
 
 ---
 
-## 5. Root-cause hypotheses and the test that discriminates each
+## 8. Statistical honesty
 
-| # | Hypothesis | Discriminating test | Ruled out by Exhibit A? |
-|---|---|---|---|
-| H1 | Per-event fan-out config / code path omits the CIO `track` for specific names | Read the client: is `track`→CIO invoked in the same function for `brief_completed` as for `brief_opened`? | **No — leading candidate** |
-| H2 | Two non-transactional paths: `setPersonProperties`/identify succeeds, `track` doesn't (or inverse) | `nehalk482` has `last_brief_completed_at` set, 0 `brief_completed` tracks | **No — confirmed live for ≥1 user** |
-| H3 | Pre-identify events land on anon UUID profiles and never merge | CIO workspace logs for `brief_completed` return many anon-UUID `filter_matches` | Not for Exhibit A; **real as a second mode** |
-| H4 | CIO API rejection (4xx/429/5xx) with no retry, silently swallowed | Instrument and log CIO HTTP response per track call | Weakened — 9+ writes succeeded in the same 71s |
-| H5 | Event-name mismatch (`signin_completed` vs `sign_in_completed`) | Both spellings checked on Exhibit A — **neither** on CIO | **Yes — eliminated** |
+The live population of users who fired `brief_completed` in the last 30d with an email on the PostHog person is
+**298 users / 1,008 events** (total event volume 1,128, so ~120 events belong to persons with no email at all and can
+never match a CIO profile by email). The verified cohort is **24 profiles** — 8% of that population. The Android/iOS
+split is large and consistent enough to act on, but the exact percentages carry a wide interval. **Ticket F7 replaces
+sampling with a standing census.**
 
 ---
 
-## 6. Acceptance tests (the contract engineering must pass)
+## 9. Acceptance tests
 
 Let **U** = any user, **T** = 5 minutes.
 
-- **AT-1 — post-identify parity.** If U fires `brief_completed` in PH at time t with a resolved
-  `distinct_id`, then U's CIO profile for that same id shows a `brief_completed` **event** by t+T.
+- **AT-1 — post-identify parity.** U fires `brief_completed` in PH at t with a resolved id → U's CIO profile shows a `brief_completed` **event** by t+T. **Must pass on Android and iOS separately.**
 - **AT-2 — auth parity.** Same for `sign_in_completed` and `register`.
-- **AT-3 — no attr-only completion.** A CIO profile must never hold `last_brief_completed_at` /
-  `briefs_completed_total` without a corresponding `brief_completed` event. Attribute write and track
-  write are one transaction or both are retried.
-- **AT-4 — pre-identify merge.** If U fires `brief_completed` while anonymous and identifies later in
-  the same session, the event must appear on the identified CIO profile after merge. No anon-UUID
-  profile may retain a terminal event as its only home.
-- **AT-5 — profile existence.** A user with a PH email and any CIO-destination event must have a CIO
-  profile. (1/25 and 1/15 currently fail this.)
-- **AT-6 — fan-out matches taxonomy.** Every event CIO receives is on the 23-event list, or the
-  taxonomy is updated to admit it. No silent third state.
-- **AT-7 — no silent drops.** Every client→CIO track call logs its HTTP outcome; non-2xx is retried
-  with backoff and surfaced in a dashboard.
+- **AT-3 — count parity, not presence.** For any U over any 7-day window, `count(PH event) == count(CIO event)` per event name. Presence is not the test.
+- **AT-4 — no attr-only completion.** A profile must never hold `last_brief_completed_at` / `briefs_completed_total` without the matching event. Property write and track are one transaction, or both retried. `briefs_completed_total` must equal the CIO event count.
+- **AT-5 — pre-identify merge.** An event fired anonymously then identified in-session must land on the identified profile. No anon profile may be a terminal event's only home.
+- **AT-6 — no install-time identify.** The client must not call `identify` before a real user identity exists. New anon UUID profiles per install → 0.
+- **AT-7 — fan-out matches taxonomy.** Every name CIO receives is on the authorised list, or the list is updated. No silent third state. Casing identical across destinations.
+- **AT-8 — no silent drops.** Every client→CIO call logs its HTTP outcome; non-2xx retried with backoff and surfaced.
 
-**Release gate:** AT-1/2/3 pass on a 50-user live sample at **100%**, verified after the fix ships, not before.
+**Release gate:** AT-1, AT-2, AT-3 pass at 100% on a 50-user live sample **split evenly Android/iOS**, verified after the fix ships.
 
 ### QA matrix
 
 | Case | Path | Expected |
 |---|---|---|
-| Q1 | Sign in → complete brief (identify before event) | both events on CIO, ≤T |
-| Q2 | Complete brief anonymous → sign in after | event on identified profile after merge |
-| Q3 | Complete brief anonymous → never signs in | event on anon profile, no orphan on later merge |
-| Q4 | Complete brief with CIO API forced to 500 | retried, lands, logged |
-| Q5 | Airplane mode during brief completion → reconnect | queued, delivered |
-| Q6 | Attribute-only write | **forbidden** — must fail CI |
-| Q7 | Fresh install → register → brief in one session | full chain on one CIO id |
+| Q1 | Android: sign in → complete brief | both events on CIO ≤T |
+| Q2 | iOS: same | both events on CIO ≤T |
+| Q3 | Complete brief 3× across 3 days on Android | CIO event count == 3, counter == 3 |
+| Q4 | Complete brief anonymously → sign in after | event on identified profile post-merge |
+| Q5 | Fresh install, no sign-in | **no** CIO profile created |
+| Q6 | CIO API forced to 500 | retried, lands, logged |
+| Q7 | Airplane mode during completion → reconnect | queued, delivered |
+| Q8 | Attribute-only write | **forbidden** — fails CI |
 
 ---
 
-## 7. Ticket pack
+## 10. Ticket pack
 
 | ID | P | Ticket | Owner | Done when |
 |---|---|---|---|---|
-| F1 | **P0** | Guarantee `brief_completed` CIO track post-identify. Start from H1: diff the `brief_opened` path (works) against `brief_completed` (fails). | Ritvik / App SDK | AT-1 at 100%, n=50 |
-| F2 | **P0** | Guarantee `sign_in_completed` + `register` CIO track, not only person attrs | Ritvik / Auth | AT-2 at 100%, n=50 |
-| F3 | **P0** | Make attribute-write and track-write atomic (or both retried) for all 9 events flagged `no setPersonProperties` | Ritvik | AT-3; Q6 fails CI |
-| F4 | **P0** | Backfill: replay CIO events for users with PH event and no CIO event since the defect window opened | Animesh + Ritvik | Cohort re-run shows 0% gap on the backfilled set |
-| F5 | **P1** | Identify-order guarantee: journey-critical events never final on an anon id without merge | Ritvik | AT-4, Q2/Q3 |
-| F6 | **P1** | Log + retry every client→CIO track HTTP outcome; alert on non-2xx rate | Ritvik | AT-7, dashboard live |
-| F7 | **P1** | Replace the coverage-% audit method with a per-user assert. Weekly, N=25, `brief_completed` + `sign_in_completed` + `register`, alert if gap > 0. | Data / PM | Runs unattended, one alert channel |
-| F8 | **P1** | Decide implement-or-delete on the dead 4: `interest_captured`, `push_delivered`, `push_opened`, `profile_name_updated`. `push_delivered` blocks all push-delivery reporting. | Ranjith + Ritvik | Each row either has volume or is removed from taxonomy |
-| F9 | **P2** | Quantify over-fan-out: check all 43 "not expected" events against CIO; identify `article_published`'s real producer; correct its `source` | Animesh | Every CIO catalog name mapped to a producer |
-| F10 | **P2** | Update taxonomy destinations to observed reality; add `last_verified_at` per row; fill the 5 blank `audit_status` rows | Ashish / taxonomy | 0 blank rows, destinations match §4 findings |
-| F11 | **P2** | Investigate the 5 low-volume CIO-expected events at `daily_count` 0 (`app_updated`, `story_unsaved`, `watchlist_entity_removed`, `notification_settings_changed`, `account_deleted`) — distinguish "low volume" from "dropped" | Animesh | Each classified with a 30d per-user check, not a daily count |
+| F1 | **P0** | **Android `brief_completed` → CIO track call.** Diff the Android `brief_opened` path (works) against `brief_completed` (32% loss). The property write already works — the track is missing or silently failing. | Ritvik / Android | AT-1 + AT-3 at 100%, n=25 Android |
+| F2 | **P0** | Android `sign_in_completed` + `register` track (8% loss; `register` confirmed lost for Exhibit A) | Ritvik / Android | AT-2, n=25 Android |
+| F3 | **P0** | Make property-write and track atomic for the brief-completion block; `briefs_completed_total` must reconcile to event count | Ritvik | AT-4; Q8 fails CI |
+| F4 | **P0** | Backfill CIO events for Android users with PH events missing on CIO since the defect window (kavicharla: 17 events) | Animesh + Ritvik | Re-census shows 0 gap on backfilled set |
+| F5 | **P1** | **Stop the install-time `identify` on a generated UUID.** Root cause of 1,417 orphan profiles. Decide the fate of the existing 1,417 (merge or delete) with Animesh. | Ritvik + Animesh | AT-6; orphan share falls |
+| F6 | **P1** | Add `$app_version` / `$app_build` to every event. **Currently absent — we could not correlate this defect to a release.** | Ritvik | Both properties on 100% of events |
+| F7 | **P1** | Replace sampling with a standing census: nightly, all 298+ users, per-event **count** comparison PH vs CIO, **split by OS**, alert on any delta | Data / PM | Runs unattended, one alert channel |
+| F8 | **P1** | Log + retry every client→CIO call outcome; alert on non-2xx rate | Ritvik | AT-8, dashboard live |
+| F9 | **P1** | Implement or delete the 3 confirmed-dead: `interest_captured`, `push_delivered`, `profile_name_updated`. `push_delivered` blocks all push-delivery reporting. | Ranjith + Ritvik | Each has volume or is removed |
+| F10 | **P2** | Close the 36-name over-fan-out: authorise or stop each. Fix the title-case/lower-case divergence. Identify `article_published`'s real producer (PH 0 / CIO live; `source` wrongly recorded as `ios \| android`). | Animesh | Every CIO name mapped to a producer |
+| F11 | **P2** | Fill the 5 blank `audit_status` rows; add `last_verified_at` per row; correct the inverted `brief_completed` note | Ashish / taxonomy | 0 blank rows |
+| F12 | **P2** | `pabandeepswain@zohomail.in` has 12 PH `brief_completed` and **no CIO profile at all** — find why identified users fail to create profiles | Animesh | Root cause documented |
 
 ---
 
-## 8. Scope and provenance — what is and is not verified
+## 11. Provenance
 
-**Independently verified for this pack (2026-09-12):**
-- Taxonomy: 66 App events, exactly 23 with a `customerio` destination — matches the audit.
-- The 9 `setPersonProperties`-flagged events, the 5 blank `audit_status` rows, and all `trigger_identify_call`
-  values — read directly from `ashish-events-media-datalabs-app-v3.xlsx`.
-- §2 and §4 inferences are mine, derived from the audit's own timeline and tables.
+**Verified live in this pass (2026-09-12, ~17:30–18:00 IST):** the 30d event census (55 names); Exhibit A's full
+PostHog timeline and complete CIO profile; per-user PH and CIO counts for all 24 resolvable cohort profiles
+(**my CIO counts matched the prior pass exactly on all 24** — that data is sound); the Android/iOS split; the
+2,410-profile CIO census; the 56-name CIO catalog; the absence of `$app_version`; taxonomy destinations, identify
+flags and audit-status blanks from the workbook.
 
-**Inherited, not re-pulled:** every PH 30d count, every CIO `daily_count`, the two cohort tables and
-Exhibit A. All were live pulls at 2026-09-12 17:19 IST by the prior pass. PostHog MCP is unauthenticated
-in this session and there is no Customer.io MCP — re-verification needs an OAuth round or browser access.
+**Corrected during verification:** Customer.io's `?search=` parameter is silently ignored and returns the unfiltered
+customer list — an email lookup built on it resolves every address to the same profile. Profiles must be resolved by
+paging `/customers` and indexing `identifiers.email`. Any earlier result built on `?search=` is invalid.
 
-**Deliberately not claimed:**
-- No CIO 30-day volumes. The API gave `daily_count` (today) and per-profile logs (~30d, 50/page) only.
-- Per-user journey depth exists for `brief_completed` and `sign_in_completed` only. The other ~21
-  CIO-destination events have event-level presence checks, not per-user parity. Expanding that is the
-  next audit, not a finding in this one.
-- Root cause is hypothesis-ranked, not confirmed. No one has read the client code yet. F1 starts there.
+**Not claimed:** no CIO 30-day aggregate volumes (the API exposes `daily_count` for today and per-profile logs only).
+Per-user depth covers `brief_completed`, `sign_in_completed` and `register`; the other ~20 CIO-bound events have
+catalog presence only. `register` gaps for users who signed up before the log window are indeterminate. Root cause
+in §3 is the surviving hypothesis — no one has read the Android client yet. F1 starts there.
