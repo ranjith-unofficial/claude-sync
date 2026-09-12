@@ -1,0 +1,56 @@
+account_deleted	AUTH	4	4		4	3	3	1
+app_installed	AUTH	1186	1186		1185	33	34	1152
+app_opened	UNAUTH	3000	3000	CAPPED	0	0	0	0
+app_updated	AUTH	31	31		31	1	1	30
+application backgrounded	UNAUTH	3000	3000	CAPPED	0	0	0	0
+application foregrounded	UNAUTH	3000	3000	CAPPED	0	0	0	0
+application installed	UNAUTH	76	76		0	0	0	0
+application opened	UNAUTH	3000	3000	CAPPED	0	0	0	0
+article_opened	UNAUTH	2779	2779		0	0	0	0
+article_published	AUTH	409	409		2	1	354	55
+brief_completed	AUTH	984	984		325	272	851	133
+brief_open_today	UNAUTH	0	0		0	0	0	0
+brief_opened	AUTH	2780	2780		763	577	2210	570
+brief_page_opened	UNAUTH	3000	3000	CAPPED	0	0	0	0
+brief_story_rate_opened	UNAUTH	16	16		0	0	0	0
+brief_story_rated	UNAUTH	62	62		0	0	0	0
+card_viewed	UNAUTH	3000	3000	CAPPED	0	0	0	0
+company_profile_viewed	UNAUTH	833	833		0	0	0	0
+company_untracked	UNAUTH	0	0		0	0	0	0
+deep_link_opened	UNAUTH	1095	1095		0	0	0	0
+error_shown	UNAUTH	382	382		0	0	0	0
+explore_viewed	UNAUTH	2999	2999	CAPPED	0	0	0	0
+industry_untracked	UNAUTH	0	0		0	0	0	0
+menu_item_tapped	UNAUTH	273	273		0	0	0	0
+notification_settings_changed	AUTH	34	34		14	14	34	0
+onboarding	UNAUTH	2999	2999	CAPPED	0	0	0	0
+onboarding_completed	AUTH	1038	1038		997	875	906	132
+preferences_updated	AUTH	100	100		33	27	91	9
+profile_opened	UNAUTH	655	655		0	0	0	0
+profile_section_viewed	UNAUTH	3000	3000	CAPPED	0	0	0	0
+push_opened	AUTH	0	0		0	0	0	0
+push_permission_denied	AUTH	599	599		416	1	1	598
+push_permission_granted	AUTH	668	668		666	11	13	655
+push_permission_prompted	UNAUTH	1267	1267		0	0	0	0
+push_priming_dismissed	UNAUTH	0	0		0	0	0	0
+register	AUTH	460	460		460	447	447	13
+scroll_depth	UNAUTH	3000	3000	CAPPED	0	0	0	0
+search_initiated	UNAUTH	353	353		0	0	0	0
+search_performed	UNAUTH	1781	1781		0	0	0	0
+search_result_tapped	UNAUTH	301	301		0	0	0	0
+sector_landing_viewed	UNAUTH	117	117		0	0	0	0
+share_initiated	UNAUTH	0	0		0	0	0	0
+sign_in_completed	AUTH	2303	2303		984	918	2210	93
+sign_in_prompt_shown	UNAUTH	130	130		0	0	0	0
+sign_in_started	UNAUTH	1391	1391		0	0	0	0
+signed_out	AUTH	39	39		21	20	37	2
+story_saved	AUTH	177	177		67	66	174	3
+story_shared	UNAUTH	173	173		0	0	0	0
+story_unsaved	AUTH	12	12		11	11	12	0
+streak_milestone_viewed	UNAUTH	305	305		0	0	0	0
+streak_opened	UNAUTH	313	313		0	0	0	0
+summary_expanded	UNAUTH	2052	2052		0	0	0	0
+walkthrough	AUTH	3483	3483		977	848	3122	361
+watchlist_entity_added	AUTH	249	249		68	68	249	0
+watchlist_entity_removed	AUTH	31	31		18	18	31	0
+watchlist_viewed	UNAUTH	1778	1778		0	0	0	0
