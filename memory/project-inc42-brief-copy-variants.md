@@ -90,12 +90,37 @@ concrete thing: a name, a number, a party, a place, a condition].**
 - A hook the reader cannot place is a miss however good the fact is: "Rs 30 for delivery and Rs 25
   to the driver" was cut for exactly this.
 
+## Fifth pass, 12 Sep — the notification is BRIEF-level, and APPROVED
+Two further corrections, then a pick.
+1. **The card copy must be ONE sentence, ONE question**, with the story's facts folded into the
+   question itself. Not "statement. question?". Ranjith's own rewrites: *"What would have actually
+   drawn to IPO closure of RentoMojo's IPO at 72.88X?"*, *"What could be the move of Ultraviolette
+   raising 373 crore?"*, *"Is Rapido moving towards food delivery?"* The question FORM varies by
+   story type (IPO close / funding / stock move / policy / exit / strategy feature / celebrity /
+   roundup) rather than one template.
+2. **The notification must feel like a brief, not a single-article alert**, and **neither title nor
+   body may give the answer** — both lead somewhere and invite the tap.
+
+**APPROVED notification format (his words: "This looks good"):**
+- Title: `Today's brief: [lead question]`
+- Body: `Plus [second question], and [third question]. Tap to read.`
+Naming Brief in the title was chosen over spending the 45 chars on the hook — justified by the
+onboarding finding that tour finishers still cannot explain what Brief is
+([[project-inc42-app-live-feature-status]], the onboarding tab in the Test workbook).
+
+**Still open:** read time is deliberately absent (must come from the real brief length, never a
+fixed number); **lead-story selection is an editorial call** — the locked ranking formula has no
+story-level importance signal, so nothing can pick the lead automatically; the three stories named
+in the push MUST be the first cards in the brief; and row 7 / row 12 variant 1 carry a mild
+judgement that needs a house-voice decision.
+
 ## Deliverable
 Tab **"Brief Copy Variants (12 Sep)"** (gid `1798377423`) in the **Test** workbook
 `1NCpTEzgEEtds0uCfqPNSS6aeFhOpKbgkL_F-cgtVPxg` — see [[reference-inc42-open-ledger-sheet]] for the
-same workbook. 15 rows, one per article, 9 columns: headline, link, question 1 + what answers it,
-question 2 + what answers it, push title, push body. 30 questions and 15 pushes.
-Push titles <=45 chars, bodies <=120.
+same workbook. Three sections. Section 1: 15 rows, one per article, two question variants each plus
+what the article answers. Section 2: 7 brief-notification variants (title, body, char counts,
+stories bundled) in the approved format, lead story the only variable. Section 3: the open items.
+Titles <=45 chars, bodies <=120.
 Local: `~/ClaudeDocs/inc42/brief-copy/` (v2 TSV, full article bodies JSON, source articles JSON).
 
 **Source data:** 15 articles in the real 12 Sep brief window (11 Sep 07:00 → 12 Sep 07:00 IST),
