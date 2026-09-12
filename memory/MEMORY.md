@@ -22,6 +22,7 @@
 - [Proactive recall](feedback-proactive-recall.md) — sweep memory myself on "what have we discussed"
 - [Interview feedback format](feedback-interview-feedback-format.md) — plain-language + PM-lens detail together
 - [Sheets clipboard paste safety](feedback-sheets-clipboard-paste-safety.md) — verify clipboard right before every paste
+- [New tab per browser task](feedback-browser-new-tab-per-task.md) — don't navigate a tab that's showing something; create a new one
 - [Instructions in plain language](feedback-instructions-plain-language.md) — action cells = Where / What exactly / Done when, no jargon
 - [Survey question design](feedback-survey-question-design.md) — funnel order, unaided-before-aided, no unapproved options
 - [Stakeholder doc writing](feedback-stakeholder-doc-writing.md) — no em-dashes/internal names, verify sourcing + pastes
