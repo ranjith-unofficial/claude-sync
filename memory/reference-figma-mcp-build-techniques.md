@@ -60,3 +60,16 @@ Setting `textAutoResize='HEIGHT'` *before* `resize()` leaves height stuck at the
 (10px). Auto-layout reads that same stale height, so wrapping text in an auto-layout frame does
 NOT rescue it — children overlap. Verified by probe: correct order returns 136px for a 4-line
 29px headline; wrong order returns 10. Cost a full rebuild of 20 frames on 4 Sep 2026.
+
+## Line-clamped text + negative auto-layout spacing (13 Sep 2026)
+- **2-line clamp only works in this order:** `textAutoResize='HEIGHT'` → `textTruncation='ENDING'` →
+  `maxLines=2`. Setting `maxLines` before `textTruncation` silently resets it to 1 (height stuck at one
+  line); setting it while truncation is DISABLED is ignored. Re-apply the three after changing `characters`.
+- Changing an existing text node's font-related props (truncation included) needs its font loaded first.
+- **Negative `itemSpacing` works** in auto-layout (e.g. `-30`) — later children render on top, so
+  "sheets tucked into a folder" is buildable without absolute positioning; give each sheet extra bottom
+  padding equal to the overlap so no content is hidden.
+- When removing nodes mid-script, collect `findAll` results *after* the removal — iterating a list that
+  holds removed descendants throws "node does not exist" and the whole atomic call rolls back.
+- Stress-test pattern for dev-ready mockups: build the normal screen, `clone()` it, then overwrite named
+  text nodes (long headline fallback, long name, no-follow copy) and swap a tall image into the fixed box.

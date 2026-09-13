@@ -77,3 +77,9 @@ done / next day), shown as flows. See [[project-inc42-brief-card-questions-round
 "big no-no". Show the interaction through the card's state and the step caption instead. He also
 wants psychology stated per design: the reason people would open it and come back, not only the
 visual.
+
+**Dev-ready + urgency + personalisation are baseline requirements (13 Sep 2026).** Any card round must
+show: a subtle, true urgency cue; a visible answer to "is this personalised?"; and proof it survives real
+data (long copy, missing copy, tall/missing image) — he rejected a whole round partly for "not developer
+friendly … what if the image is too long?". Formats with many competing elements ("too many things, I'm
+not sure which one to focus on") and text-heavy cards are rejected.
