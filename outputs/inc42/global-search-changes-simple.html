@@ -1,0 +1,147 @@
+<title>Global Search Changes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#fafbfc; --surface:#ffffff; --ink:#18202b; --muted:#5b6573; --rule:#e2e6eb;
+  --accent:#2451c4; --accent-soft:#eef2fc; --chip:#f0f2f5;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161c; --surface:#181d25; --ink:#e6e9ee; --muted:#9aa3b0; --rule:#2a313b;
+    --accent:#8aa8f5; --accent-soft:#1c2536; --chip:#232a34;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161c; --surface:#181d25; --ink:#e6e9ee; --muted:#9aa3b0; --rule:#2a313b;
+  --accent:#8aa8f5; --accent-soft:#1c2536; --chip:#232a34;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.55;padding:0 20px}
+main{max-width:1080px;margin:0 auto;padding-block:48px 72px;display:grid;gap:56px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:600;letter-spacing:-0.01em}
+h1{font-size:30px;line-height:1.2}
+h2{font-size:21px}
+h3{font-size:16px}
+p{margin:0;max-width:68ch}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500}
+header{display:grid;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:28px}
+header p{color:var(--muted)}
+section{display:grid;gap:18px}
+.wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--rule)}
+tr:last-child td{border-bottom:0}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500;background:var(--bg)}
+th.ours{color:var(--accent)}
+td.ours{background:var(--accent-soft)}
+td.num{color:var(--muted);font-variant-numeric:tabular-nums;width:32px}
+td.topic{font-weight:500;min-width:130px}
+.logic{min-width:230px}
+.why{color:var(--muted);min-width:200px}
+code{font-family:inherit;font-size:.92em;background:var(--chip);padding:1px 6px;border-radius:4px;white-space:nowrap}
+strong{font-weight:600}
+.note{color:var(--muted);font-size:14px}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:560px}
+.score div{border:1px solid var(--rule);border-radius:6px;padding:14px 16px;background:var(--surface);display:grid;gap:2px}
+.score b{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.score span{font-size:13px;color:var(--muted)}
+.score .win b{color:var(--accent)}
+.adds{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.add{border:1px solid var(--rule);border-radius:6px;background:var(--surface);padding:20px;display:grid;gap:14px;align-content:start}
+dl{margin:0;display:grid;gap:12px}
+dt{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+dd{margin:2px 0 0}
+dd.confirm{color:var(--accent)}
+ol{margin:4px 0 0;padding-left:20px;display:grid;gap:4px}
+</style>
+
+<main>
+  <header>
+    <div class="eyebrow">Inc42 DataLabs · Search · 14 Sep 2026</div>
+    <h1>Global Search: what changes</h1>
+    <p>Short version of the Revised Ranking Logic (10 Sep) sent to Ashish. Part 1 compares Ashish's PRD logic with our change. Part 2 lists the two additions to the Search scope of work.</p>
+  </header>
+
+  <section>
+    <div class="eyebrow">Part 1</div>
+    <h2>Ashish's logic vs our change</h2>
+    <div class="wrap">
+      <table>
+        <thead><tr><th>#</th><th>Topic</th><th class="logic">Ashish's logic (PRD)</th><th class="ours logic">Our change</th><th class="why">Example of why</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="topic">Exact name match</td><td>Gets the highest score (10), but is still just a score. A bigger company with a partial match can beat it</td><td class="ours"><strong>Always rank 1.</strong> Never filtered out, never cut by limits. A shut-down company still ranks 1, with a "shut down" label</td><td class="why"><code>cred</code> must show CRED first (today: rank 11)</td></tr>
+          <tr><td class="num">2</td><td class="topic">Whole-word match</td><td>Not there. "ola" inside "Chocolate" counts the same as "Ola"</td><td class="ours">New level: a full word match scores 7, above a partial match (5)</td><td class="why"><code>ola</code> shows Manam Chocolate above Ola today</td></tr>
+          <tr><td class="num">3</td><td class="topic">Spacing, punctuation, accents</td><td>Not handled</td><td class="ours">Treated as the same query</td><td class="why"><code>cred</code> = <code>cred.</code> · <code>byjus</code> = <code>byju's</code> · <code>ofbusiness</code> = <code>of business</code> · <code>cafe</code> = <code>café</code></td></tr>
+          <tr><td class="num">4</td><td class="topic">Mixing companies, investors, people</td><td>Each type scored separately. The top result of every type is reset to the same score, then sorted by type</td><td class="ours">Score all types together (one index). If not possible now, divide by a fixed 10, not by each type's top score</td><td class="why"><code>apax</code>: Apaxon Technologies (weak match) beats Apax Partners (exact match)</td></tr>
+          <tr><td class="num">5</td><td class="topic">Multi-word queries</td><td>Any one word can match</td><td class="ours"><strong>All words</strong> must match first. Only if nothing comes back, allow any word. Word order does not matter</td><td class="why"><code>iifl finance</code>: IIFL Finance is 6th and gets cut. With our change, 1st</td></tr>
+          <tr><td class="num">6</td><td class="topic">Sounds-like match</td><td>Works on any word length, can bring a result in on its own</td><td class="ours">Only for words of 5+ letters, and only alongside another match</td><td class="why"><code>sequioa</code> shows Zoko and SK Finance above Sequoia</td></tr>
+          <tr><td class="num">7</td><td class="topic">Legal suffixes</td><td>Not handled</td><td class="ours">Ignore Limited, Ltd, Pvt, Private, Inc, LLP, LLC, Technologies, Ventures, Holdings, Group, India and similar</td><td class="why"><code>matter</code> = <code>matter motor</code> = Matter Motor Works</td></tr>
+          <tr><td class="num">8</td><td class="topic">Aliases (old or legal names)</td><td>Left as a later edge case</td><td class="ours"><strong>Phase 1.</strong> Seed from the legal-name field, hand-check the top 200 brands</td><td class="why">Eternal Limited → Zomato · Kiranakart → Zepto · ANI Technologies → Ola</td></tr>
+          <tr><td class="num">9</td><td class="topic">Investor quality score</td><td>Can be added later</td><td class="ours">Same phase as company quality</td><td class="why"><code>sequioa</code>: Sequoia is 9th without it, 1st with it</td></tr>
+          <tr><td class="num">10</td><td class="topic">Duplicates</td><td>Not specified</td><td class="ours">Remove duplicates before counting the top 5</td><td class="why"><code>aman gupta</code> shows the same person 3 times in 6 rows</td></tr>
+          <tr><td class="num">11</td><td class="topic">Result limits</td><td>5 companies / 3 investors / 3 people / 2 industries / 2 reports, applied before merging</td><td class="ours">Same limits, applied <strong>after</strong> pinning the exact match and removing duplicates</td><td class="why">An exact match at position 6 must still appear</td></tr>
+          <tr><td class="num">12</td><td class="topic">Empty or very short query</td><td>Not specified</td><td class="ours">Empty query returns instantly, no search call. Minimum 3 characters; UI says "type at least 3 characters"</td><td class="why">Empty query takes 3.2 seconds today</td></tr>
+          <tr><td class="num">13</td><td class="topic">Result count</td><td>Not specified</td><td class="ours">Return the true total</td><td class="why">Today's endpoint always returns 0</td></tr>
+          <tr><td class="num">14</td><td class="topic">Errors and timeouts</td><td>Not specified</td><td class="ours">Show as an error with retry. <strong>Never</strong> shown as "no results"</td><td class="why">Failed calls look like empty results today</td></tr>
+          <tr><td class="num">15</td><td class="topic">Typing behaviour</td><td>Not specified</td><td class="ours">Wait 400 ms after typing stops, cancel old requests, ignore late responses</td><td class="why">Same query flips between results and no results</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><strong>Unchanged from Ashish's PRD:</strong> prefix, typo and description weights; type weights (Company 1.0, Investor 0.9, Person 0.8, Industry 0.6, Report 0.5); quality score formula; search modal; Ask DataLabs routing.</p>
+    <div class="score">
+      <div><b>16 / 22</b><span>Right answer at rank 1, Ashish's PRD as written</span></div>
+      <div class="win"><b>20 / 22</b><span>With our changes (21 with investor quality filled in)</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Part 2</div>
+    <h2>Two additions to the Search scope of work</h2>
+    <div class="adds">
+      <article class="add">
+        <h3>1. Make workflow failure: capture and retry</h3>
+        <dl>
+          <div><dt>What</dt><dd>When the Make workflow fails, the failure is recorded and the run is retried automatically</dd></div>
+          <div><dt>Capture</dt><dd>Log every failed run: time, step that failed, error message, records affected</dd></div>
+          <div><dt>Retry</dt><dd>Retry automatically a fixed number of times, with a gap between attempts</dd></div>
+          <div><dt>If retries run out</dt><dd>Alert the owner. The failed run stays visible until someone fixes it</dd></div>
+          <div><dt>Done when</dt><dd>No failed run is silently skipped. Every failure is either retried successfully or alerted</dd></div>
+          <div><dt>To confirm</dt><dd class="confirm">Which Make workflow(s) this covers, retry count and gap, who gets the alert</dd></div>
+        </dl>
+      </article>
+      <article class="add">
+        <h3>2. Logic changes and workflow enhancements</h3>
+        <dl>
+          <div><dt>What</dt><dd>Build Part 1 of this document into search</dd></div>
+          <div><dt>Build order</dt><dd><ol>
+            <li>Exact match at rank 1, and treat spacing and punctuation the same</li>
+            <li>Fix records that show on inc42.com search but return nothing on DataLabs (<code>matter</code>, <code>byjus</code>, <code>of business</code>)</li>
+            <li>Score all types together</li>
+            <li>Whole-word match, all-words-first, sounds-like guard, suffix stripping</li>
+            <li>Alias table, investor quality, duplicate removal</li>
+            <li>Typing wait, ignore late responses, separate error state</li>
+          </ol></dd></div>
+          <div><dt>Done when</dt><dd>All test queries return the right answer at rank 1 (full list in the 10 Sep document, section 18)</dd></div>
+          <div><dt>Rule</dt><dd>Do not move other surfaces onto the DataLabs search endpoint until this passes. inc42.com search already shows CRED, Ola and Navi first</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Out of scope</div>
+    <h2>Not fixed by these changes</h2>
+    <div class="wrap">
+      <table>
+        <thead><tr><th>Issue</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td class="topic">Article search on inc42.com</td><td>Separate workstream</td></tr>
+          <tr><td class="topic">Companies missing from the database (Wagh Bakri, Lava, TBO Tek, BirdEye)</td><td>No ranking rule finds a missing record. Data backlog</td></tr>
+          <tr><td class="topic">Search speed (target 200 ms, today ~1.8 s)</td><td>Stated as a target, not solved by ranking rules</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
