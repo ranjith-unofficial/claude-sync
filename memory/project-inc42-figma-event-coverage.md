@@ -5,14 +5,24 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 5beb67e8-6627-4ae9-a0cb-2e343556291e
-  modified: 2026-09-12T21:56:13.027Z
+  modified: 2026-09-13T15:56:15.163Z
 ---
 
 Audited Figma file `vKuPUMuhLos0rC1AFR5cWq` section `5653:12414` ("02 · SCREENS — SETTLED", 48 top-level
 frames) against the live event inventory (PostHog 146258, 30d to 12 Sep 2026: **48 custom events + 4 SDK
 autocapture**). Written to `~/ClaudeDocs/inc42/app-event-coverage-vs-figma-settled.md`. Unreviewed by Ranjith.
 13 Sep 2026: plain-language short plan written to `~/ClaudeDocs/inc42/app-event-tracking-fix-plan.md`
-(problem, 12 events, fixes, steps A-E with Done-when, 5 decisions with recommendations). Decisions still open.
+(problem, 12 events, fixes, steps A-E with Done-when, 5 decisions with recommendations).
+
+**Ranjith's decisions, 13 Sep 2026 (supersede the 12-event sequence above):**
+- Order: fix existing events FIRST, then new events.
+- Nav IA RESOLVED: Brief / Article / Company. **No Explore** — `explore_viewed` to be retired.
+- One view event per section home with tab as a field (proposed names `article_home_viewed`, `company_home_viewed`),
+  plus `section_viewed{page_type: article_home|company_home, section_name, position}` for landing-page sections.
+- Add `story_opened`; `card_viewed` gets `source_type: brief|article`.
+- Open: `story_opened` vs existing `article_opened` overlap; names unconfirmed; Stock Watch data source.
+Plan tab being written to Analytics Master Sheet as new tab (was "Sheet25", gid 743274092) — old v1 content
+pasted there; v2 rewrite pending because a live collaborator was in the sheet.
 
 **Open discrepancy to resolve:** the Figma nav bar is **Brief / Article / Company** — not the
 Brief/Explore/Watchlist 3-tab nav recorded in [[project-inc42-app-structure]]. Every `source` /

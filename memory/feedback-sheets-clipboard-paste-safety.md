@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: feedback
   originSessionId: a44f396b-c24a-49ef-8e79-300e18498cf8
-  modified: 2026-08-28T13:22:07.376Z
+  modified: 2026-09-13T15:56:19.250Z
 ---
 
 When pasting large chunked data into a Google Sheet via `pbcopy < file` + browser `cmd+v` (used because the data is too big to inline through a `navigator.clipboard.writeText` JS call): **verify clipboard content with `pbpaste | head -c 80` immediately before every single paste, not just once at the start.**
@@ -81,3 +81,9 @@ clipboard, and it landed in A1. Caught only by the post-paste screenshot; recove
   click the **select-all corner box** at the top-left of the grid (approx. x=25, y=157 at default zoom),
   then Backspace. `Delete` as a key name did nothing; `Backspace` worked.
 - Always screenshot immediately after the paste and read A1 before moving on.
+
+**13 Sep 2026: a resize dialog closed during an extension disconnect, and the active tab switched to
+"App - Events" (gid 0) in the Analytics Master Sheet. My next `type "420"` + Return overwrote B11
+(`brief_opened`) in a live team tab. Fixed with one cmd+z, verified.** Rule: after ANY extension
+disconnect/reconnect, screenshot and check the URL gid + that the expected dialog is still open BEFORE
+typing. Never send `type` to Sheets without a screenshot taken after the last reconnect.
