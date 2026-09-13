@@ -90,18 +90,13 @@ Return only valid JSON, nothing else:
 {
   "brief_card_copy": "",
   "push_title": "",
-  "push_body": "",
-  "answer": "",
-  "answer_quote": ""
+  "push_body": ""
 }
 ```
 
-- answer: the answer to the question in a few words. For internal review only, never shown to readers.
-- answer_quote: the exact sentence from the article that contains the answer.
-
 Before returning, check:
 1. Every field is within its character limit.
-2. answer_quote is copied exactly from the article, and it contains the answer.
+2. The answer to your question is in the article.
 3. None of brief_card_copy, push_title or push_body gives away the answer.
 4. brief_card_copy names the company or subject from the headline.
 
