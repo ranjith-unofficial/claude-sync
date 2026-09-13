@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 5beb67e8-6627-4ae9-a0cb-2e343556291e
-  modified: 2026-09-13T15:56:15.163Z
+  modified: 2026-09-13T16:13:54.590Z
 ---
 
 Audited Figma file `vKuPUMuhLos0rC1AFR5cWq` section `5653:12414` ("02 · SCREENS — SETTLED", 48 top-level
@@ -21,8 +21,16 @@ autocapture**). Written to `~/ClaudeDocs/inc42/app-event-coverage-vs-figma-settl
   plus `section_viewed{page_type: article_home|company_home, section_name, position}` for landing-page sections.
 - Add `story_opened`; `card_viewed` gets `source_type: brief|article`.
 - Open: `story_opened` vs existing `article_opened` overlap; names unconfirmed; Stock Watch data source.
-Plan tab being written to Analytics Master Sheet as new tab (was "Sheet25", gid 743274092) — old v1 content
-pasted there; v2 rewrite pending because a live collaborator was in the sheet.
+**Final deliverable (13 Sep 2026):** tab "App Event Fix Plan (13 Sep)", gid **478718485**, in the Analytics
+Master Sheet — 117 rows x 15 cols in App - Events column format + PH/CIO/Firebase/Singular routing, person
+props, 15 nuances, 6 open decisions. Local copy `~/ClaudeDocs/inc42/app-event-fix-plan-13sep-sheet.html`.
+"Sheet25" (gid 743274092) is my stale v1 draft — ask before deleting. Google session signed out right after
+the rename; rename may be unsaved.
+Live facts verified 13 Sep (30d): card_viewed 99.5% in brief sessions, max position 9; explore_viewed
+pill_or_slice holds live tab names (latest/deals/financials/startup_stories/in-depth/trends/news;
+all/recently_funded/just_launched/ipo_bound/early_fundraisers/soonicorns/unicorns/watchlist/profitable_startups);
+theme on 0 events, is_registered 100%; watchlist_count on 59/119 adders, push_types_enabled 7/827 (90d);
+7d people by version 1.0.0 393 / 1.0.1 244 / 1.0.2 23. HogQL API default LIMIT 100 — add LIMIT explicitly.
 
 **Open discrepancy to resolve:** the Figma nav bar is **Brief / Article / Company** — not the
 Brief/Explore/Watchlist 3-tab nav recorded in [[project-inc42-app-structure]]. Every `source` /
