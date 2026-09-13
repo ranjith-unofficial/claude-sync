@@ -55,18 +55,134 @@ dt{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute
 dd{margin:2px 0 0}
 dd.confirm{color:var(--accent)}
 ol{margin:4px 0 0;padding-left:20px;display:grid;gap:4px}
+:root{--keep-bg:#eef0f3;--keep-ink:#4a5361;--chg-bg:#fdf1dc;--chg-ink:#8a5a00;--rem-bg:#fbe5e3;--rem-ink:#a8322a;--new-bg:#e4ecfd;--new-ink:#2451c4}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--keep-bg:#262d37;--keep-ink:#b3bbc6;--chg-bg:#3a2e17;--chg-ink:#f0c46c;--rem-bg:#3d2221;--rem-ink:#f19a92;--new-bg:#1f2b45;--new-ink:#9db8f7}}
+:root[data-theme="dark"]{--keep-bg:#262d37;--keep-ink:#b3bbc6;--chg-bg:#3a2e17;--chg-ink:#f0c46c;--rem-bg:#3d2221;--rem-ink:#f19a92;--new-bg:#1f2b45;--new-ink:#9db8f7}
+.chip{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.k{background:var(--keep-bg);color:var(--keep-ink)}
+.c{background:var(--chg-bg);color:var(--chg-ink)}
+.r{background:var(--rem-bg);color:var(--rem-ink);text-decoration:line-through}
+.n{background:var(--new-bg);color:var(--new-ink)}
+.chain{display:grid;gap:16px;border:1px solid var(--rule);border-radius:6px;background:var(--surface);padding:18px}
+.chain-row{display:grid;gap:8px}
+.chain-row .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+.steps{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.steps .chip{text-transform:none;letter-spacing:0;font-weight:500;font-size:13px;padding:3px 10px}
+.steps i{color:var(--muted);font-style:normal;font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stats div{border:1px solid var(--rule);border-radius:6px;padding:12px 14px;background:var(--surface);display:grid;gap:2px}
+.stats b{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.stats span{font-size:13px;color:var(--muted)}
+td.impact{min-width:190px}
+td.where{min-width:150px;color:var(--muted)}
+.callout{border:1px solid var(--chg-ink);border-radius:6px;padding:16px 18px;background:var(--chg-bg);display:grid;gap:6px}
+.callout p{max-width:none}
 </style>
 
 <main>
   <header>
     <div class="eyebrow">Inc42 DataLabs · Search · 14 Sep 2026</div>
     <h1>Global Search: what changes</h1>
-    <p>Short version of the Revised Ranking Logic (10 Sep) sent to Ashish. Part 1 compares Ashish's PRD logic with our change. Part 2 lists the two additions to the Search scope of work.</p>
+    <p>Short version of the Revised Ranking Logic (10 Sep) sent to Ashish. Part 1 walks the logic chain step by step: what Ashish's PRD does, what we change, the measured impact, and where the work lands. Part 2 is the same changes by outcome. Part 3 lists the two additions to the Search scope of work.</p>
   </header>
 
   <section>
     <div class="eyebrow">Part 1</div>
-    <h2>Ashish's logic vs our change</h2>
+    <h2>The logic chain: Ashish's vs ours</h2>
+    <p>What happens between the user typing a query and results appearing, in order.</p>
+
+    <div class="chain">
+      <div class="chain-row">
+        <div class="lbl">Ashish's PRD · 7 steps</div>
+        <div class="steps">
+          <span class="chip c">Query as typed</span><i>→</i>
+          <span class="chip c">5 searches, capped 5/3/3/2/2</span><i>→</i>
+          <span class="chip c">Match: 5 levels, any word</span><i>→</i>
+          <span class="chip k">× quality</span><i>→</i>
+          <span class="chip r">÷ each type's top score</span><i>→</i>
+          <span class="chip k">× type weight</span><i>→</i>
+          <span class="chip c">Sort, show 10</span>
+        </div>
+      </div>
+      <div class="chain-row">
+        <div class="lbl">Ours · 14 steps</div>
+        <div class="steps">
+          <span class="chip c">1 Clean query</span><i>→</i>
+          <span class="chip n">2 Stop empty / short</span><i>→</i>
+          <span class="chip n">3 Alias lookup</span><i>→</i>
+          <span class="chip c">4 One search, no caps</span><i>→</i>
+          <span class="chip c">5 Match: 8 levels, all words first</span><i>→</i>
+          <span class="chip k">6 × quality</span><i>→</i>
+          <span class="chip r">7 Per-type divide</span><i>→</i>
+          <span class="chip n">8 Pin exact to 1</span><i>→</i>
+          <span class="chip n">9 Remove duplicates</span><i>→</i>
+          <span class="chip k">10 × type weight</span><i>→</i>
+          <span class="chip c">11 Caps after pin</span><i>→</i>
+          <span class="chip c">12 Sort, stable order</span><i>→</i>
+          <span class="chip n">13 Honest response</span><i>→</i>
+          <span class="chip n">14 Client waits, drops late replies</span>
+        </div>
+      </div>
+      <div class="steps"><span class="chip k">Kept</span><span class="chip c">Changed</span><span class="chip r">Removed</span><span class="chip n">New</span></div>
+    </div>
+
+    <div class="stats">
+      <div><b>2 of 7</b><span>of Ashish's steps kept as is</span></div>
+      <div><b>4 of 7</b><span>changed (plus caps moved later)</span></div>
+      <div><b>1 of 7</b><span>removed (per-type divide)</span></div>
+      <div><b>6</b><span>new steps added</span></div>
+      <div><b>1</b><span>full reindex needed</span></div>
+    </div>
+
+    <div class="wrap">
+      <table>
+        <thead><tr><th>#</th><th>Step</th><th class="logic">Ashish's logic</th><th class="ours logic">Our logic</th><th>Status</th><th class="impact">Impact (measured)</th><th>Where it changes</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="topic">Clean the query</td><td>Not specified. Query goes in as typed</td><td class="ours">Build 3 forms: as typed, cleaned (trim, lowercase, remove accents, strip end punctuation), squashed (no spaces, apostrophes, &amp;, hyphens, dots). Same done to every name, with legal suffixes stripped</td><td><span class="chip c">Changed</span></td><td class="impact">Today <code>cred.</code> ranks CRED 1st, <code>cred</code> 11th. <code>byju's</code> 1 result, <code>byjus</code> 0. <code>cafe</code> and <code>café</code> return different sets</td><td class="where">Search service + index</td></tr>
+          <tr><td class="num">2</td><td class="topic">Stop empty or short queries</td><td>Not specified</td><td class="ours">Empty: return instantly, no search. Under 3 letters: show "type at least 3 characters"</td><td><span class="chip n">New</span></td><td class="impact">Empty query takes 3.2 s today</td><td class="where">Search service + frontend</td></tr>
+          <tr><td class="num">3</td><td class="topic">Alias lookup</td><td>Left for later</td><td class="ours">Known old or legal names are rewritten to the main record before searching</td><td><span class="chip n">New</span></td><td class="impact"><code>eternal limited</code>, <code>kiranakart</code>: miss → rank 1</td><td class="where">Data (alias table) + search service</td></tr>
+          <tr><td class="num">4</td><td class="topic">Fetch candidates</td><td>5 separate searches, one per type, each capped at fetch: 5 companies, 3 investors, 3 people, 2 industries, 2 reports</td><td class="ours">One search over one index that carries a type field. No caps at this stage</td><td><span class="chip c">Changed</span></td><td class="impact">Capping at fetch cuts IIFL Finance (6th) before ranking ever sees it</td><td class="where">Index (new) + search service</td></tr>
+          <tr><td class="num">5</td><td class="topic">Match</td><td>5 levels: exact 10, starts-with 5, typo 2, sounds-like 1, description 0.5. Any one word can match</td><td class="ours">8 levels: adds squashed exact 9, whole word 7, squashed starts-with 6. All words must match first; any-word only if that is empty. Word order free. Squashed levels on one-word queries only. Sounds-like: 5+ letters, never alone, only on the any-word retry</td><td><span class="chip c">Changed</span></td><td class="impact"><code>iifl finance</code> 6 → 1. <code>ola</code> separated from Chocolate. <code>ofbusiness</code> resolves. Zoko no longer above Sequoia</td><td class="where">Index (new sub-fields) + search query</td></tr>
+          <tr><td class="num">6</td><td class="topic">Score</td><td>Match score × quality score</td><td class="ours">Same formula. Investor quality computed in Phase 1, not later. Shut-down penalty ignored for exact matches</td><td><span class="chip k">Kept</span></td><td class="impact"><code>sequioa</code>: Sequoia 9th with flat investor quality, 1st with real values</td><td class="where">Data (computed at each sync)</td></tr>
+          <tr><td class="num">7</td><td class="topic">Balance across types</td><td>Divide each type's scores by that type's top score</td><td class="ours">Removed. Not needed with one index. Fallback if 5 indices stay: divide by a fixed 10</td><td><span class="chip r">Removed</span></td><td class="impact"><code>apax</code>: Apaxon Technologies (weak match) beats Apax Partners (exact) because both tops become 1.0</td><td class="where">Search service (delete step)</td></tr>
+          <tr><td class="num">8</td><td class="topic">Pin exact match</td><td>Not there. Exact is only a high score</td><td class="ours">Exact or squashed-exact name goes to rank 1 and is never cut. Several exact matches: order by quality, then ID</td><td><span class="chip n">New</span></td><td class="impact">Score alone keeps exact at 1 only while quality is above 0.42. A shut-down company (0.36) loses it</td><td class="where">Search service</td></tr>
+          <tr><td class="num">9</td><td class="topic">Remove duplicates</td><td>Not specified</td><td class="ours">Collapse rows that share a canonical ID</td><td><span class="chip n">New</span></td><td class="impact"><code>aman gupta</code> shows the same person 3 times in 6 rows</td><td class="where">Data (canonical ID) + search service</td></tr>
+          <tr><td class="num">10</td><td class="topic">Type weight</td><td>Company 1.0, Investor 0.9, Person 0.8, Industry 0.6, Report 0.5</td><td class="ours">Same</td><td><span class="chip k">Kept</span></td><td class="impact">Now works as a tie-breaker, as intended, because scores are comparable</td><td class="where">No change</td></tr>
+          <tr><td class="num">11</td><td class="topic">Per-type caps</td><td>Applied at fetch (step 4)</td><td class="ours">Same numbers, applied after pin and duplicate removal</td><td><span class="chip c">Moved</span></td><td class="impact">An exact match sitting 6th still appears</td><td class="where">Search service</td></tr>
+          <tr><td class="num">12</td><td class="topic">Sort and show</td><td>Sort by score, show top 10</td><td class="ours">Same, with ties broken by a stable ID so the order never flips</td><td><span class="chip c">Changed</span></td><td class="impact">Same query gives the same order every time</td><td class="where">Search service</td></tr>
+          <tr><td class="num">13</td><td class="topic">Response</td><td>Not specified</td><td class="ours">True total count, type label on every row, error or timeout returned as an error, never as empty</td><td><span class="chip n">New</span></td><td class="impact">DataLabs search returns <code>count: 0</code> on every query today</td><td class="where">API</td></tr>
+          <tr><td class="num">14</td><td class="topic">Client behaviour</td><td>Not specified</td><td class="ours">Wait 400 ms after typing, cancel the old request, ignore replies for an old query</td><td><span class="chip n">New</span></td><td class="impact">Same query flips between results and "no results"</td><td class="where">Frontend</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Further change needed, by layer</h3>
+    <div class="wrap">
+      <table>
+        <thead><tr><th>Layer</th><th class="logic">What has to change</th><th>Effort type</th><th>Steps</th></tr></thead>
+        <tbody>
+          <tr><td class="topic">Index</td><td>New mapping: one index for all types with a type field. Name gets 8 sub-fields (cleaned exact, squashed exact, whole word, squashed starts-with, starts-with, typo, Double Metaphone sounds-like, suffix-less). Add canonical ID, aliases, quality score</td><td><strong>Full reindex, once</strong></td><td class="num">1, 4, 5, 9</td></tr>
+          <tr><td class="topic">Search query</td><td>Rewrite the query body: 7 match clauses, all-words operator, any-word retry, sounds-like on retry only</td><td>Code, no reindex</td><td class="num">5</td></tr>
+          <tr><td class="topic">Search service</td><td>8 code changes: clean query, stop empty/short, alias rewrite, pin exact, remove duplicates, caps after pin, stable sort. Delete per-type divide and the 5-way merge</td><td>Code, no reindex</td><td class="num">1–3, 7–9, 11, 12</td></tr>
+          <tr><td class="topic">Data</td><td>Alias table (seed from legal-name field, hand-check top 200 brands). Investor quality scores. Canonical IDs for duplicate records</td><td>Data work, runs in parallel</td><td class="num">3, 6, 9</td></tr>
+          <tr><td class="topic">API</td><td>True count, type label, separate error states</td><td>Contract change</td><td class="num">13</td></tr>
+          <tr><td class="topic">Frontend</td><td>Typing wait, cancel and ignore late replies, error state, "at least 3 characters" message</td><td>Code</td><td class="num">2, 14</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <h3>Correction to the 10 Sep build order</h3>
+      <p>It said step 1 (exact match pin) needs no index rebuild. That is only partly true. The service can pin an exact name only if the search already returned that record. Today CRED comes back 11th of 15 out of 175 matches; at 16th, the service would never see it.</p>
+      <p><strong>Quick version:</strong> fetch a wider candidate set and pin in the service. <strong>Guaranteed version:</strong> needs the cleaned exact-name field, which comes with the reindex.</p>
+    </div>
+
+    <p class="note"><strong>Unchanged from Ashish's PRD:</strong> search modal, Entity vs Analytical routing, Ask DataLabs, company quality formula, type weights, the original 5 level weights, per-type cap numbers, display cap of 10.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Part 2</div>
+    <h2>Same changes, by outcome</h2>
     <div class="wrap">
       <table>
         <thead><tr><th>#</th><th>Topic</th><th class="logic">Ashish's logic (PRD)</th><th class="ours logic">Our change</th><th class="why">Example of why</th></tr></thead>
@@ -97,7 +213,7 @@ ol{margin:4px 0 0;padding-left:20px;display:grid;gap:4px}
   </section>
 
   <section>
-    <div class="eyebrow">Part 2</div>
+    <div class="eyebrow">Part 3</div>
     <h2>Two additions to the Search scope of work</h2>
     <div class="adds">
       <article class="add">
@@ -108,15 +224,16 @@ ol{margin:4px 0 0;padding-left:20px;display:grid;gap:4px}
           <div><dt>Retry</dt><dd>Retry automatically a fixed number of times, with a gap between attempts</dd></div>
           <div><dt>If retries run out</dt><dd>Alert the owner. The failed run stays visible until someone fixes it</dd></div>
           <div><dt>Done when</dt><dd>No failed run is silently skipped. Every failure is either retried successfully or alerted</dd></div>
+          <div><dt>Link to search</dt><dd>If this workflow is what syncs records into the search index, a failed run means missing records and stale quality scores. No ranking logic fixes that</dd></div>
           <div><dt>To confirm</dt><dd class="confirm">Which Make workflow(s) this covers, retry count and gap, who gets the alert</dd></div>
         </dl>
       </article>
       <article class="add">
         <h3>2. Logic changes and workflow enhancements</h3>
         <dl>
-          <div><dt>What</dt><dd>Build Part 1 of this document into search</dd></div>
+          <div><dt>What</dt><dd>Build the 14-step chain in Part 1 into search</dd></div>
           <div><dt>Build order</dt><dd><ol>
-            <li>Exact match at rank 1, and treat spacing and punctuation the same</li>
+            <li>Exact match at rank 1 (quick version in the service; guaranteed after reindex), and treat spacing and punctuation the same</li>
             <li>Fix records that show on inc42.com search but return nothing on DataLabs (<code>matter</code>, <code>byjus</code>, <code>of business</code>)</li>
             <li>Score all types together</li>
             <li>Whole-word match, all-words-first, sounds-like guard, suffix stripping</li>
