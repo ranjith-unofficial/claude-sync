@@ -65,3 +65,10 @@ list … I cannot show the entire list." What he means by "design itself" is a s
 visual weight — orbit, treemap, ring, skyline, mosaic — where size/position/colour carry the
 meaning and the eight stories are never stacked as rows. The one round-3 survivor was the graph.
 See [[project-inc42-brief-entry-round4-15-objects]].
+
+**Brief card round, 13 Sep 2026 — rejections with reasons.** A chat-bubble card was cut because it
+*implies tapping opens a chatbot* (the visual metaphor sets the expectation of what the tap does). A
+design whose visual is a number pulled from the copy (72.88X, 306%) was cut as *not feasible every
+day* — any slot must survive days without that field. A variant round that only restyles the same
+card is "a UI, like color change": he wants how people **interact over the day** (fresh / mid-read /
+done / next day), shown as flows. See [[project-inc42-brief-card-questions-round]].
