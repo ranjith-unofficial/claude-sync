@@ -88,3 +88,8 @@ not sure which one to focus on") and text-heavy cards are rejected.
 rejected. Use the reader's name, possessive framing ("Satya's Brief"), their own streak, "picked for"
 language. He also wants the Inc42 logo on brand cards, social proof of other readers, and visual
 appeal over explanatory labels.
+
+**One page per exploration, and no scroll cues (14 Sep 2026).** Add new rounds to the same Figma page
+he is already reviewing — never a new page per iteration. On cards meant to be tapped whole, never show a
+partially visible/fading item or sheets peeking out: it reads as scrollable and defeats the card. Say what
+the content literally is ("stories"), not a metaphor ("answers").
