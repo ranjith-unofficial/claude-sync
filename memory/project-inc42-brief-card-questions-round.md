@@ -29,4 +29,11 @@ Day-2/3 questions are stand-ins from the 12 Sep pool, labelled on the steps.
 
 **Needs surfaced:** per-story read state; open brief at a chosen story (vs push promise that named stories are cards 1–3); card copy + image for every story (not just top 3); first-visit flag; past briefs reachable.
 
-**Status:** round 2 unreviewed. Related: [[project-inc42-brief-copy-variants]], [[project-inc42-brief-title-per-article-copy]], [[feedback-design-review-ranjith]], [[reference-figma-mcp-build-techniques]].
+**Round 2 review (13 Sep):** red tap-marker dot = "big no-no"; F4.2 half-fold = "just a list"; Flow 5 (I know / Tell me) "not making sense", dropped; not interested in the lifecycle states. Asked for 10 more formats of the first (fresh) card, same 3 questions, built on marketing psychology: how people perceive it, what makes them agree to open, what makes them come back.
+
+## Round 3 — page "Brief Card · Psychology round (13 Sep)" `704:2`
+Ten fresh-state formats, each with a note (Lever / Why they open / Why they come back / Needs):
+C01 Sealed envelope "For Satya" 704:5 (curiosity + endowment) · C02 Editor's note, questions in prose 704:78 (authority) · C03 Magazine cover 704:146 (picture superiority, cover lines) · C04 From the pile 704:218 (labour illusion) · C05 Reader pass 705:2 (identity/commitment) · C06 Week chain 705:87 (loss aversion) · C07 Open questions, pinned photos 705:195 (Zeigarnik) · C08 One big question poster 706:2 (isolation effect) · C09 Filed by reporters 706:71 (authority; WP avatars are defaults, initials used) · C10 Pick a door 706:159 (alternative-choice close; needs open-at-story).
+Rows y=360 / 1640, x step 490. No tap markers, no lists, no counts.
+
+**Status:** round 3 unreviewed. Related: [[project-inc42-brief-copy-variants]], [[project-inc42-brief-title-per-article-copy]], [[feedback-design-review-ranjith]], [[reference-figma-mcp-build-techniques]].

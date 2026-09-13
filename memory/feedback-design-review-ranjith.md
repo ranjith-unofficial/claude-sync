@@ -72,3 +72,8 @@ design whose visual is a number pulled from the copy (72.88X, 306%) was cut as *
 day* — any slot must survive days without that field. A variant round that only restyles the same
 card is "a UI, like color change": he wants how people **interact over the day** (fresh / mid-read /
 done / next day), shown as flows. See [[project-inc42-brief-card-questions-round]].
+
+**No tap/touch markers in mockups (13 Sep 2026).** A red dot showing where the finger taps was a
+"big no-no". Show the interaction through the card's state and the step caption instead. He also
+wants psychology stated per design: the reason people would open it and come back, not only the
+visual.
