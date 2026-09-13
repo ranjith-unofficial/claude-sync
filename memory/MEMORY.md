@@ -82,6 +82,7 @@
 - [Analytics stitching architecture](project-inc42-analytics-stitching.md) — cookie-ID resolver web→app
 - [Funnel analysis](project-inc42-funnel-analysis.md) — QIA ~2,100 floor; ID cliff 0.42%/0.16%
 - DataLabs payments: [Datalabs dunning & win-back](project-inc42-datalabs-dunning.md) — 31 active payers; ₹92,665 lost · [Datalabs dunning decision map](project-inc42-datalabs-dunning-map.md) — 8 cases; 7d/15d LOCKED · [Datalabs banner logic (30 Aug)](project-inc42-datalabs-banner-logic.md) — failure-only + phased LOCKED · [Datalabs win-back plan](project-inc42-datalabs-winback.md) — Day-7 success 57.9%; 0% shipped
+- [Datalabs Weekly newsletter review (13 Sep)](project-datalabs-weekly-newsletter.md) — $127Mn sector bug, 7-block redesign, email + WA Channel; unreviewed
 - [PostHog projects](reference-inc42-posthog-projects.md) — 53557 web / 66351 DataLabs / 146258 app
 - Tracking reviews: [Tracking master sheet review (27 Aug)](project-inc42-tracking-master-review.md) — zero Ask instrumentation · [Analytics team briefs (28 Aug)](project-inc42-analytics-team-briefs.md) — dark-events audit + intern brief
 - [DataLabs onboarding CIO cross-check](project-inc42-datalabs-onboarding-cio-crosscheck.md) — RESOLVED, 48.7% synced

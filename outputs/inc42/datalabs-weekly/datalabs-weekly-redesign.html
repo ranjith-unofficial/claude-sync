@@ -1,0 +1,492 @@
+<title>Datalabs Weekly Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --paper:#F7F6F4; --surface:#FFFFFF; --ink:#1C1B1A; --muted:#6E6862; --rule:#E3DFDA; --soft:#EFECE8;
+  --accent:#C8412C; --good:#2F7A4B; --warn:#9A6A12;
+  --font:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141312; --surface:#1C1A19; --ink:#EDEAE6; --muted:#A39D97; --rule:#34302D; --soft:#262321;
+    --accent:#E36A53; --good:#6DBE8A; --warn:#D9A64A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141312; --surface:#1C1A19; --ink:#EDEAE6; --muted:#A39D97; --rule:#34302D; --soft:#262321;
+  --accent:#E36A53; --good:#6DBE8A; --warn:#D9A64A;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55;padding-inline:20px;padding-block:40px 80px;font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:34px;font-weight:600;letter-spacing:-.01em}
+h2{font-size:22px;font-weight:600}
+h3{font-size:16px;font-weight:600}
+p{margin:0}
+.eyebrow{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lede{color:var(--muted);max-width:68ch}
+section{display:flex;flex-direction:column;gap:18px}
+.sec-head{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--rule);padding-top:22px}
+a{color:inherit}
+ul.tight{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--rule)}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--soft)}
+tr:last-child td{border-bottom:0}
+td ul{margin:0;padding-left:16px}
+.sev{font-size:11px;font-weight:600;letter-spacing:.05em;border:1px solid currentColor;border-radius:3px;padding:1px 5px;white-space:nowrap}
+.p0{color:var(--accent)} .p1{color:var(--warn)} .p2{color:var(--muted)}
+.rec{font-weight:600;color:var(--good)}
+.note{font-size:13px;color:var(--muted)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.verdict div{background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:6px}
+.verdict b{font-size:13px;font-weight:600}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.shots figure{margin:0;display:flex;flex-direction:column;gap:6px}
+.shots img{width:100%;border:1px solid var(--rule);border-radius:4px;display:block}
+.shots figcaption{font-size:13px;color:var(--muted)}
+.design{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:1240px){.design{grid-template-columns:1fr}}
+.map{position:sticky;top:16px}
+@media (max-width:1240px){.map{position:static}}
+.map td:first-child{white-space:nowrap;font-weight:600}
+.inbox{background:#fff;border:1px solid #dadce0;border-radius:6px;padding:10px 14px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#202124;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:10px}
+.inbox .from{font-weight:700;min-width:130px}
+.inbox .subj{font-weight:700}
+.inbox .pre{color:#5f6368}
+
+/* ---------- Email mockup: fixed light palette, email-safe fonts ---------- */
+.mail{background:#F2F0ED;padding:22px 0;border-radius:6px;border:1px solid var(--rule)}
+.m{max-width:600px;margin:0 auto;background:#FFFFFF;color:#1F1D1B;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;border:1px solid #E6E2DD}
+.m a{color:#B8321F}
+.m .pad{padding:22px 28px}
+.m .mast{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:3px solid #C8412C}
+.m .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+.m .logo i{display:inline-grid;place-items:center;width:22px;height:22px;background:#C8412C;color:#fff;font-style:normal;font-size:12px;border-radius:4px}
+.m .issue{font-size:12px;color:#6F6862}
+.m .fwd{font-size:12px;color:#6F6862;background:#F7F5F2;padding:8px 28px}
+.m .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#B8321F;margin-bottom:10px}
+.m .hr{border-top:1px solid #ECE8E3}
+.m .big{font-family:Georgia,"Times New Roman",serif;font-size:54px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.m .bigsub{font-size:15px;color:#3B3733;margin-top:8px}
+.m .cmp{display:grid;grid-template-columns:110px 1fr 80px;gap:6px 10px;align-items:center;margin-top:16px;font-size:13px}
+.m .cmp span.bar{height:10px;background:#D9D3CC;border-radius:2px}
+.m .cmp span.bar.now{background:#C8412C}
+.m .cmp .v{text-align:right;font-weight:700}
+.m ol.three{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.m ol.three b{font-weight:700}
+.m .foryou{background:#FBF3F1;border:1px solid #F0D9D3}
+.m .foryou .hd{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.m .foryou h4{margin:0;font-family:Georgia,serif;font-size:22px}
+.m .chg{font-size:12px;color:#6F6862}
+.m .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+@media (max-width:520px){.m .trio{grid-template-columns:1fr}}
+.m .trio div{background:#fff;border:1px solid #F0D9D3;padding:10px;font-size:13px}
+.m .trio .k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6F6862;font-weight:700}
+.m .trio .n{font-family:Georgia,serif;font-size:20px;font-weight:700;margin:2px 0}
+.m table.r{width:100%;border-collapse:collapse;font-size:14px}
+.m table.r td{padding:8px 0;border-bottom:1px solid #EFEBE6;vertical-align:top}
+.m table.r td.amt{text-align:right;font-weight:700;white-space:nowrap}
+.m table.r .meta{display:block;font-size:12px;color:#6F6862}
+.m .inv{margin-top:12px;font-size:14px;background:#F7F5F2;padding:10px 12px}
+.m .bars{display:grid;grid-template-columns:130px 1fr 92px;gap:5px 10px;font-size:12.5px;align-items:center;margin-top:14px}
+.m .bars .b{height:9px;background:#C8412C;border-radius:1px}
+.m .bars .v{text-align:right;white-space:nowrap}
+.m .score{display:grid;grid-template-columns:1fr 1fr;border:1px solid #ECE8E3}
+@media (max-width:520px){.m .score{grid-template-columns:1fr}}
+.m .score > div{padding:12px}
+.m .score > div + div{border-left:1px solid #ECE8E3}
+.m .score h5{margin:0 0 8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.m .up h5{color:#2E7A49} .m .dn h5{color:#B8321F}
+.m .score ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+.m .score b.n{font-weight:700}
+.m .up b.n{color:#2E7A49} .m .dn b.n{color:#B8321F}
+.m ul.also{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;font-size:14px}
+.m ul.also .t{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6F6862;display:inline-block;min-width:88px}
+.m .chart{border:1px solid #ECE8E3;background:#FAF8F6;height:150px;display:grid;place-items:center;color:#8A837C;font-size:12px;text-align:center;padding:10px}
+.m .cta{display:block;text-align:center;background:#C8412C;color:#fff !important;text-decoration:none;font-weight:700;padding:14px 16px;border-radius:4px;font-size:16px}
+.m .ctasub{font-size:12px;color:#6F6862;text-align:center;margin-top:6px}
+.m .loop{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13.5px}
+@media (max-width:520px){.m .loop{grid-template-columns:1fr}}
+.m .loop div{border:1px solid #ECE8E3;padding:10px 12px}
+.m .thumbs{display:flex;gap:8px;margin-top:6px}
+.m .thumbs span{border:1px solid #D9D3CC;border-radius:3px;padding:3px 10px;font-size:13px}
+.m .foot{background:#1F1D1B;color:#BDB6AF;font-size:12px;text-align:center}
+.m .foot a{color:#fff}
+.tag{display:inline-block;font-family:var(--font);font-size:10.5px;font-weight:600;color:#fff;background:#1C1B1A;border-radius:3px;padding:1px 6px;vertical-align:middle;margin-left:6px;letter-spacing:.04em}
+
+/* ---------- Channel mockups ---------- */
+.phones{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.phone{background:#EFEAE2;border:1px solid var(--rule);border-radius:18px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#111B21;display:flex;flex-direction:column}
+.phone .bar{background:#008069;color:#fff;padding:10px 14px;font-size:14px;font-weight:700;display:flex;flex-direction:column}
+.phone .bar small{font-weight:400;font-size:11.5px;opacity:.85}
+.phone .body{padding:14px;display:flex;flex-direction:column;gap:8px;min-height:340px}
+.bub{background:#fff;border-radius:8px;padding:8px 10px;font-size:13.5px;line-height:1.4;max-width:92%;box-shadow:0 1px 0 rgba(0,0,0,.08)}
+.bub .card{background:#1F1D1B;color:#fff;border-radius:6px;padding:14px;margin-bottom:8px}
+.bub .card .k{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#E9A597}
+.bub .card .n{font-family:Georgia,serif;font-size:32px;font-weight:700;line-height:1.1}
+.bub .card .s{font-size:12px;color:#D6CFC8}
+.bub .ts{display:block;text-align:right;font-size:10.5px;color:#667781;margin-top:4px}
+.bub .lnk{color:#027EB5}
+.btns{display:flex;flex-direction:column;gap:1px;max-width:92%}
+.btns span{background:#fff;color:#027EB5;text-align:center;font-size:13.5px;padding:8px;border-radius:0}
+.btns span:first-child{border-radius:8px 8px 0 0} .btns span:last-child{border-radius:0 0 8px 8px}
+.phone .cap{background:var(--surface);color:var(--ink);font-family:var(--font);font-size:13px;padding:10px 14px;border-top:1px solid var(--rule)}
+.push{background:rgba(245,245,245,.96);border-radius:14px;padding:10px 12px;font-size:13px;color:#111;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.push .app{font-size:11.5px;color:#555;display:flex;justify-content:space-between}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.timeline div{background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:13.5px}
+.timeline .when{font-weight:600;font-size:13px}
+.close{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:10px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+
+<div class="wrap">
+
+<header style="display:flex;flex-direction:column;gap:10px">
+  <span class="eyebrow">Datalabs scope of work · Newsletter review · 13 Sep 2026</span>
+  <h1>Datalabs Weekly Redesign</h1>
+  <p class="lede">Review of the automated issue (content preview, pipeline logic, and the 20 Aug test email as it lands in Gmail), plus the proposed structure, recall mechanics, and channel plan.</p>
+</header>
+
+<!-- ============ 1. VERDICT ============ -->
+<section>
+  <div class="sec-head"><span class="eyebrow">1 · Verdict</span><h2>The engine is right. The last mile is not.</h2></div>
+  <div class="verdict">
+    <div><b>Logic: keep</b><span class="note">SQL computes, AI only writes. Freshness gate, market fail-close, claim rule, no empty sections. This is better than most newsletters.</span></div>
+    <div><b>Numbers: 2 bugs reach the inbox</b><span class="note">Sector values do not add up to the total. Prior-week comparison looks broken.</span></div>
+    <div><b>Layout: long, flat, 9 CTAs</b><span class="note">Every section gets equal weight and its own red button. Nothing tells the reader what matters.</span></div>
+    <div><b>Product: clicks leave Datalabs</b><span class="note">Company names open inc42.com articles. Nothing puts a company on a watchlist or keeps the reader logged in.</span></div>
+    <div><b>Personalisation: built, but off</b><span class="note">No <code>sector</code> on the Customer.io profile and no <code>icp</code>, so everyone gets the generic issue.</span></div>
+  </div>
+</section>
+
+<!-- ============ 2. WHAT IS BROKEN ============ -->
+<section>
+  <div class="sec-head"><span class="eyebrow">2 · Evidence</span><h2>What the reader actually gets today</h2>
+  <p class="lede">Screens from the forwarded test “[TEST] Datalabs Weekly: $539 Mn Across 14 Deals, AI Leads The Week”, sent 20 Aug 2026.</p></div>
+  <div class="shots">
+    <figure><img src="img/cur-header.jpg" alt="Current email header with radial line illustration"><figcaption>Header: the radial lines are decoration and carry no information. The fold is spent on the logo.</figcaption></figure>
+    <figure><img src="img/cur-pulse.jpg" alt="Current Pulse paragraph and stat tiles"><figcaption>Pulse: a 5-line paragraph, then 4 tiles repeating the same numbers. “vs $4.2 Mn” last week looks wrong.</figcaption></figure>
+    <figure><img src="img/cur-sector.jpg" alt="Current sector bar chart showing Health Tech $127Mn with a short bar"><figcaption>Sector chart: Health Tech shows <b>$127Mn</b> on a bar shorter than Enterprise Tech’s $20.1Mn.</figcaption></figure>
+  </div>
+
+  <div class="tbl"><table>
+    <thead><tr><th style="width:52px">Sev</th><th>Issue</th><th>Evidence</th><th>Fix</th></tr></thead>
+    <tbody>
+    <tr><td><span class="sev p0">P0</span></td><td>Sector value misprinted</td><td>Sectors add up to $653.8 Mn against a $539.3 Mn total. At $12.7 Mn the sum matches and so does the bar length.</td><td><ul><li>Format from the number, not a string</li><li>Add a check to <code>validate_numbers()</code>: sector sum = total</li></ul></td></tr>
+    <tr><td><span class="sev p0">P0</span></td><td>Prior-week comparison looks broken</td><td>“Up sharply from $4.2 Mn across 6 deals”. The preview shows normal weeks at $193–281 Mn. The label “Aug 13 – Aug 20” covers 8 days, not 7.</td><td><ul><li>Run the freshness gate on the comparison week too</li><li>Hold the comparison if last week is far below the 4-week norm</li><li>Label Mon–Sun exactly</li></ul><span class="note">Likely cause. Confirm with one query.</span></td></tr>
+    <tr><td><span class="sev p0">P0</span></td><td>Sent email ≠ logic doc</td><td>The test has “Funding:” items in Ecosystem (Peeko, Butterfly), which the logic excludes. M&amp;A says “trailing 30 days”; logic says 90. No investor profile, people moves or financials.</td><td>Confirm which build goes live. Re-send the test from the current build before launch.</td></tr>
+    <tr><td><span class="sev p1">P1</span></td><td>Clicks leave the product</td><td>Rounds and ecosystem names link to <code>inc42.com/buzz/…</code>. “Follow these companies” opens the generic <code>/datalabs/</code> page. Logic lists login tokens as blocked.</td><td>Company name → Datalabs company profile with login token. One primary CTA: add to watchlist.</td></tr>
+    <tr><td><span class="sev p1">P1</span></td><td>Personalisation dormant</td><td>The preview calls itself “the generic issue every subscriber receives”. Sector heroes are built but never render.</td><td>Collect sector inside the email (section 3, block C). No form needed.</td></tr>
+    <tr><td><span class="sev p1">P1</span></td><td>Too long, no hierarchy</td><td>Preview has 9 sections and 9 CTAs. Every section has the same label style and a button of the same weight.</td><td>7 fixed blocks, 1 primary button, text links for the rest.</td></tr>
+    <tr><td><span class="sev p2">P2</span></td><td>Sender and cadence hurt recall</td><td>From “Inc42 Media &lt;newsletter@inc42emails.com&gt;”. Test went out Thursday 5:03 PM; logic says Monday.</td><td>From “Datalabs by Inc42”. Issue number. Same day and hour every week.</td></tr>
+    <tr><td><span class="sev p2">P2</span></td><td>Small render gaps</td><td>Chart title says “($ MN · ROUNDS)” but no round counts. Section labels fall back to a typewriter face. Stage shows “—” in preview, “Undisclosed” in the email.</td><td>Show “· 3” counts. Arial labels. One word for missing stage.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ 3. THE DESIGN ============ -->
+<section>
+  <div class="sec-head"><span class="eyebrow">3 · Proposed issue</span><h2>Seven fixed blocks, one action</h2>
+  <p class="lede">Built with the real preview data. A reader who stops after the first screen still gets the week. Everything below is the same data the pipeline already produces, reordered and cut.</p></div>
+
+  <div class="design">
+    <div>
+      <div class="inbox"><span class="from">Datalabs by Inc42</span><span class="subj">$209 Mn, 14 rounds: Zetwerk took a quarter</span><span class="pre">— Plus Lenskart’s profit vs Zepto’s burn, and your Fintech week</span></div>
+      <div class="mail"><div class="m">
+        <div class="fwd">Forwarded this? <a href="#">Get Datalabs Weekly every Monday</a></div>
+
+        <div class="pad mast">
+          <span class="logo"><i>D</i>Datalabs Weekly</span>
+          <span class="issue">No. 12 · Mon 14 Sep · week of 7–13 Sep</span>
+        </div>
+
+        <!-- A -->
+        <div class="pad">
+          <div class="lbl">The week in one number <span class="tag">A</span></div>
+          <div class="big">$209.1 Mn</div>
+          <div class="bigsub">raised across <b>14 rounds</b>. Down 26% on last week, still above the 4-week norm.</div>
+          <div class="cmp">
+            <span>This week</span><span class="bar now" style="width:74%"></span><span class="v">$209.1 Mn</span>
+            <span>Last week</span><span class="bar" style="width:100%"></span><span class="v">$281.5 Mn</span>
+            <span>4-week norm</span><span class="bar" style="width:69%"></span><span class="v">$193.5 Mn</span>
+          </div>
+        </div>
+        <div class="hr"></div>
+
+        <!-- B -->
+        <div class="pad">
+          <div class="lbl">3 things to know <span class="tag">B</span></div>
+          <ol class="three">
+            <li><b>One round was a quarter of the week.</b> <a href="#">Zetwerk</a> raised $52 Mn.</li>
+            <li><b>Filings split in two.</b> <a href="#">Lenskart</a> made ₹297 Cr profit before its IPO. <a href="#">Zepto</a> lost about ₹4,700 Cr.</li>
+            <li><b>Markets rewarded results.</b> <a href="#">BlueStone</a> rose 27%. <a href="#">IndiaMART</a> fell 9.1%.</li>
+          </ol>
+        </div>
+
+        <!-- C -->
+        <div class="pad foryou">
+          <div class="hd"><h4>Your Fintech week <span class="tag">C</span></h4><span class="chg">You follow Fintech · <a href="#">change</a></span></div>
+          <div class="trio">
+            <div><div class="k">Funding</div><div class="n">$40.3 Mn</div>2 rounds. Largest: <a href="#">Veriqus Group</a>, $40.1 Mn</div>
+            <div><div class="k">M&amp;A</div><div class="n">3 of 15</div>Fintech led deals in the last 90 days</div>
+            <div><div class="k">Listed</div><div class="n">−3.2%</div>average move across 4 listed fintechs</div>
+          </div>
+          <p style="margin-top:12px;font-size:14px"><a href="#"><b>Open Fintech on Datalabs →</b></a></p>
+        </div>
+
+        <!-- D -->
+        <div class="pad">
+          <div class="lbl">The money <span class="tag">D</span></div>
+          <table class="r">
+            <tr><td><a href="#"><b>Zetwerk</b></a><span class="meta">Late stage · Enterprise Services · Bengaluru</span></td><td class="amt">$52.0 Mn</td></tr>
+            <tr><td><a href="#"><b>Veriqus Group</b></a><span class="meta">Stage undisclosed · Fintech · Mumbai</span></td><td class="amt">$40.1 Mn</td></tr>
+            <tr><td><a href="#"><b>Raghu Vamsi Aerospace Group</b></a><span class="meta">Stage undisclosed · Advanced Hardware · Hyderabad</span></td><td class="amt">$40.0 Mn</td></tr>
+            <tr><td><a href="#"><b>BUSINESSNEXT</b></a><span class="meta">Late stage · Enterprise Tech · Noida</span></td><td class="amt">$40.0 Mn</td></tr>
+            <tr><td><a href="#"><b>Plazza</b></a><span class="meta">Growth stage · Health Tech · Bengaluru</span></td><td class="amt">$15.0 Mn</td></tr>
+          </table>
+          <div class="inv"><b>Most active investor:</b> <a href="#">Norwest Venture Partners</a> backed 2 rounds (Raghu Vamsi, Veriqus). 61 portfolio companies, 8 exits.</div>
+          <div class="bars">
+            <span>Enterprise Services</span><span class="b" style="width:100%"></span><span class="v">$52.0 Mn · 1</span>
+            <span>Fintech</span><span class="b" style="width:77%"></span><span class="v">$40.3 Mn · 2</span>
+            <span>Enterprise Tech</span><span class="b" style="width:77%"></span><span class="v">$40.3 Mn · 2</span>
+            <span>Adv. Hardware</span><span class="b" style="width:77%"></span><span class="v">$40.0 Mn · 1</span>
+            <span>Health Tech</span><span class="b" style="width:50%"></span><span class="v">$26.0 Mn · 3</span>
+          </div>
+          <p style="margin-top:10px;font-size:13px"><a href="#">All 14 rounds (12 disclosed) →</a></p>
+        </div>
+        <div class="hr"></div>
+
+        <!-- E -->
+        <div class="pad">
+          <div class="lbl">Scoreboard <span class="tag">E</span></div>
+          <div class="score">
+            <div class="up"><h5>▲ Winning</h5><ul>
+              <li><a href="#">BlueStone</a> <b class="n">+27.0%</b><br><span style="color:#6F6862;font-size:12.5px">June quarter revenue up ~50%</span></li>
+              <li><a href="#">Lenskart</a> <b class="n">₹297 Cr</b><br><span style="color:#6F6862;font-size:12.5px">FY25 profit, from a ₹10 Cr loss</span></li>
+              <li><a href="#">Zerodha</a> <b class="n">₹4,237 Cr</b><br><span style="color:#6F6862;font-size:12.5px">profit, down 22%</span></li>
+            </ul></div>
+            <div class="dn"><h5>▼ Losing</h5><ul>
+              <li><a href="#">IndiaMART</a> <b class="n">−9.1%</b><br><span style="color:#6F6862;font-size:12.5px">paid subscriptions still falling</span></li>
+              <li><a href="#">Zepto</a> <b class="n">−₹4,700 Cr</b><br><span style="color:#6F6862;font-size:12.5px">quick-commerce burn</span></li>
+              <li><a href="#">Meesho</a> <b class="n">−₹3,942 Cr</b><br><span style="color:#6F6862;font-size:12.5px">mostly one-time flip and ESOP cost</span></li>
+            </ul></div>
+          </div>
+        </div>
+
+        <!-- F -->
+        <div class="pad" style="padding-top:4px">
+          <div class="lbl">Also moving <span class="tag">F</span></div>
+          <ul class="also">
+            <li><span class="t">Partnership</span><a href="#">Delhivery</a> × Bajaj Auto: ~1,500 electric cargo 3-wheelers</li>
+            <li><span class="t">Expansion</span><a href="#">QpiAI</a> opens Singapore office for quantum computing</li>
+            <li><span class="t">Launch</span><a href="#">RuleZero</a> launches ESOP Card Deck</li>
+            <li><span class="t">People</span>Cedrick Collomb joins <a href="#">Liquidnitro Games</a> as CTO</li>
+            <li><span class="t">People</span>Dr Somanath S. Panicker joins AgniKul Cosmos board as observer</li>
+          </ul>
+        </div>
+        <div class="hr"></div>
+
+        <!-- G -->
+        <div class="pad">
+          <div class="lbl">Chart of the week <span class="tag">G</span></div>
+          <p style="font-size:14px;margin-bottom:10px"><b>$174 Bn</b> raised by Indian startups since 2014, a 35x rise. 12,424 deals in total.</p>
+          <div class="chart">[Chart image auto-extracted from the H1 2026 Funding Report]</div>
+          <p style="margin-top:8px;font-size:13px"><a href="#">Read the report →</a></p>
+        </div>
+
+        <!-- ACTION -->
+        <div class="pad" style="background:#F7F5F2">
+          <a class="cta" href="#">Track this week’s 5 biggest rounds</a>
+          <div class="ctasub">Adds Zetwerk, Veriqus, Raghu Vamsi, BUSINESSNEXT and Plazza to your Datalabs watchlist. You stay signed in.</div>
+        </div>
+
+        <div class="pad">
+          <div class="loop">
+            <div><b>Was this issue useful?</b><div class="thumbs"><span>👍 Yes</span><span>👎 No</span></div></div>
+            <div><b>Want a company tracked?</b><br>Reply with its name. We read every reply.</div>
+          </div>
+        </div>
+
+        <div class="pad foot">
+          Datalabs by Inc42 · Every Monday, 8 AM IST<br>
+          <a href="#">Follow on WhatsApp</a> · <a href="#">Change sector</a> · <a href="#">Unsubscribe</a><br>
+          Inc42 Media, 59/16, Jujhar Tower, New Delhi 110019
+        </div>
+      </div></div>
+      <p class="note" style="margin-top:8px">Issue number, dates and the chart placeholder are examples. All figures come from the current content preview.</p>
+    </div>
+
+    <div class="map">
+      <div class="tbl"><table>
+        <thead><tr><th>Block</th><th>Why it’s there</th><th>If empty</th></tr></thead>
+        <tbody>
+          <tr><td>Subject</td><td>Verdict first, one name. Readers decide in the inbox.<br><span class="note">Source: Pulse facts</span></td><td>Always has total + rounds</td></tr>
+          <tr><td>A</td><td>One number people repeat. Same slot every week builds recall.<br><span class="note">Source: Pulse: this week, last week, 4-week median</span></td><td>Never empty. Floor is 14 rounds.</td></tr>
+          <tr><td>B</td><td>Replaces the 5-line paragraph. Three lines, verdict first, one link each.<br><span class="note">Source: AI editor over named facts. <code>validate_numbers()</code> unchanged.</span></td><td>Drop to 2 items</td></tr>
+          <tr><td>C</td><td>Answers “is this for me?”. Also collects sector: the “change” link sets it on the profile.<br><span class="note">Source: <code>sector_heroes</code>, cross-source</span></td><td>No sector → “Sector of the week” (most rounds) + “Pick your sector” links</td></tr>
+          <tr><td>D</td><td>Rounds, investor and sectors in one place. Names open the Datalabs profile.<br><span class="note">Source: Rounds, Most active investor, sector split</span></td><td>Investor line hides if no one backed 2+</td></tr>
+          <tr><td>E</td><td>Markets and filings as one win/lose read. Easy to screenshot and share.<br><span class="note">Source: Public Markets + What The Financials</span></td><td>Half-board if markets skipped by the freshness gate</td></tr>
+          <tr><td>F</td><td>Ecosystem, people and M&amp;A as one-liners. Additive, not a to-do list.<br><span class="note">Source: Ecosystem, People Moves, Acquisitions</span></td><td>Block hides</td></tr>
+          <tr><td>G</td><td>Evergreen report peg. Guarantees the issue ships.<br><span class="note">Source: Big Picture, <code>report_pegs</code></span></td><td>Never empty</td></tr>
+          <tr><td>Action</td><td>The only button. Moves the reader into the product.<br><span class="note">Source: Needs login token + watchlist link (tech)</span></td><td>Fallback: “See all 14 rounds”</td></tr>
+          <tr><td>Loop</td><td>Two-way signal. Replies also help inbox placement.<br><span class="note">Source: Customer.io link tracking</span></td><td>Always shown</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note" style="margin-top:10px">Role orderings (Investor, Founder, Operator, BD) still reshuffle blocks C–F when <code>icp</code> exists. A and B stay on top for everyone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. RECALL ============ -->
+<section>
+  <div class="sec-head"><span class="eyebrow">4 · Engagement and recall</span><h2>What makes someone open issue 13</h2>
+  <p class="lede">Each mechanic uses data the pipeline already has, except where marked.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Mechanic</th><th>Reader sees</th><th>Why they come back</th><th>Needs</th></tr></thead>
+    <tbody>
+      <tr><td><b>Fixed slots</b></td><td>Same 7 blocks, same order, every Monday 8 AM</td><td>Habit. They know where their part is.</td><td>Template only</td></tr>
+      <tr><td><b>Number of the week</b></td><td>One big figure with last week and the norm</td><td>A figure is easier to remember and repeat in a meeting than a paragraph</td><td>Exists</td></tr>
+      <tr><td><b>Named sender + issue no.</b></td><td>“Datalabs by Inc42 · No. 12”</td><td>Brand recall in a crowded inbox</td><td>Customer.io sender setting</td></tr>
+      <tr><td><b>Your sector</b></td><td>“Your Fintech week”, with a change link</td><td>Relevance. The rest of the issue is context.</td><td><code>sector</code> on profile (<span class="p0">blocked</span>)</td></tr>
+      <tr><td><b>Scoreboard</b></td><td>Winning / Losing columns</td><td>Fast scan, shareable screenshot</td><td>Exists</td></tr>
+      <tr><td><b>One-tap watchlist</b></td><td>“Track this week’s 5 biggest rounds”</td><td>Next week’s moves on those companies become personal</td><td>Login token + watchlist link (<span class="p0">blocked on tech</span>)</td></tr>
+      <tr><td><b>Reply loop</b></td><td>“Reply with a company you want tracked”, answered in a later issue</td><td>Reader shaped the issue</td><td>Monitored reply-to, 15 min a week of human time</td></tr>
+      <tr><td><b>Thumbs poll</b></td><td>👍 / 👎 at the bottom</td><td>Low-effort feedback. Gives a per-issue quality score.</td><td>Two tracked links</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ 5. CHANNELS ============ -->
+<section>
+  <div class="sec-head"><span class="eyebrow">5 · Channels</span><h2>Email carries the issue. WhatsApp carries the reminder.</h2>
+  <p class="lede">WhatsApp should never carry the full issue. Each channel gets one job.</p></div>
+
+  <h3>Three paths</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Path</th><th>What it is</th><th>Gain</th><th>Cost / risk</th><th>Call</th></tr></thead>
+    <tbody>
+      <tr><td><b>1. Email only, redesigned</b></td><td>Fix bugs, new layout, sector capture</td><td>Cheapest. All data and tracking already in Customer.io.</td><td>Recall still limited to inbox open rates</td><td>Do first, regardless</td></tr>
+      <tr><td><b>2. Email + WhatsApp Channel</b></td><td>Free one-way broadcast. One card + 3 lines + link, 1 hour after email.</td><td>No phone numbers needed. No per-message cost. Anyone can follow.</td><td>No personalisation. Only link clicks are measurable.</td><td><span class="rec">Recommended</span></td></tr>
+      <tr><td><b>3. Email + WhatsApp 1:1 for all</b></td><td>Business API template to every subscriber</td><td>Highest reach per person</td><td><ul><li>Free subscribers have no phone number</li><li>Needs opt-in first</li><li>~₹1.02 per message with GST</li><li>Blocks lower the sender number’s quality rating</li></ul></td><td>No. Only for opted-in Datalabs users (below).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Who gets what</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Segment</th><th>Email</th><th>WhatsApp Channel</th><th>WhatsApp 1:1</th><th>LinkedIn</th></tr></thead>
+    <tbody>
+      <tr><td><b>All subscribers</b></td><td>Full issue, Mon 8 AM</td><td>Invite in footer</td><td>—</td><td>—</td></tr>
+      <tr><td><b>Datalabs paid / trial, opted in</b></td><td>Full issue</td><td>Optional</td><td>Sector digest, <b>only if no email click in 24h</b></td><td>—</td></tr>
+      <tr><td><b>Non-subscribers</b></td><td>—</td><td>Follows the Channel</td><td>—</td><td>Chart of the week, Tue. Links to subscribe.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">1:1 is a fallback, not a duplicate: engaged readers never get a second touch. Use clicks, not opens (Apple Mail inflates opens). If the Business API number also sends payment-failure notices, send marketing from a separate number so blocks cannot affect those.</p>
+
+  <div class="phones">
+    <div class="phone">
+      <div class="bar">Datalabs by Inc42<small>Channel · Mon 9:00 AM</small></div>
+      <div class="body">
+        <div class="bub">
+          <div class="card"><div class="k">Datalabs Weekly · No. 12</div><div class="n">$209.1 Mn</div><div class="s">14 rounds · down 26% on last week</div></div>
+          <b>This week in 3 lines</b><br>
+          1. Zetwerk’s $52 Mn was a quarter of the week<br>
+          2. Lenskart ₹297 Cr profit, Zepto ₹4,700 Cr loss<br>
+          3. BlueStone +27%, IndiaMART −9.1%<br><br>
+          Full issue: <span class="lnk">inc42.com/datalabs/weekly/12</span>
+          <span class="ts">9:00 AM</span>
+        </div>
+      </div>
+      <div class="cap"><b>Path 2 · Channel post.</b> Same for everyone. Card image rendered from block A.</div>
+    </div>
+
+    <div class="phone">
+      <div class="bar">Datalabs by Inc42<small>Business account</small></div>
+      <div class="body">
+        <div class="bub">
+          <b>Your Fintech week</b><br>
+          • $40.3 Mn across 2 rounds<br>
+          • Largest: Veriqus Group, $40.1 Mn<br>
+          • Fintech led M&amp;A: 3 of 15 deals in 90 days<br>
+          • Listed fintechs: −3.2% on average
+          <span class="ts">Tue 8:00 AM</span>
+        </div>
+        <div class="btns"><span>Open Fintech on Datalabs</span><span>Change sector</span><span>Stop weekly updates</span></div>
+      </div>
+      <div class="cap"><b>1:1 fallback.</b> Opted-in Datalabs users with no email click in 24h. Marketing template, one button to stop.</div>
+    </div>
+
+    <div class="phone" style="background:linear-gradient(#3B4A5A,#1E2833)">
+      <div class="body" style="justify-content:flex-start;gap:10px;padding-top:40px">
+        <div style="color:#fff;text-align:center;font-family:Arial;font-size:44px;font-weight:300">8:00</div>
+        <div class="push"><div class="app"><b>INC42</b><span>now</span></div><b>Datalabs Weekly is out</b><br>$209 Mn across 14 rounds. Zetwerk took a quarter.</div>
+      </div>
+      <div class="cap"><b>Later, optional · App push.</b> Only after newsletter links deep-link correctly into the app (known Customer.io click-tracker issue).</div>
+    </div>
+  </div>
+
+  <h3>Monday, in order</h3>
+  <div class="timeline">
+    <div><span class="when">Sun night</span><span>Pipeline builds. Freshness gate and number checks run. Fail → template fallback.</span></div>
+    <div><span class="when">Mon 8:00 AM</span><span>Email to all. Customer.io broadcast.</span></div>
+    <div><span class="when">Mon 9:00 AM</span><span>WhatsApp Channel post. UTM <code>wa_channel</code>.</span></div>
+    <div><span class="when">Tue 8:00 AM</span><span>1:1 WhatsApp to opted-in users with no email click. UTM <code>wa_1to1</code>.</span></div>
+    <div><span class="when">Tue noon</span><span>LinkedIn chart post. Links to subscribe page.</span></div>
+  </div>
+</section>
+
+<!-- ============ 6. ROLLOUT ============ -->
+<section>
+  <div class="sec-head"><span class="eyebrow">6 · How to go about it</span><h2>Rollout</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Phase</th><th>What</th><th>Side</th><th>Done when</th></tr></thead>
+    <tbody>
+      <tr><td><b>0 · This week</b></td><td><ul><li>Fix sector formatting and the prior-week window</li><li>Add sector-sum check</li><li>Re-send test from current build</li></ul></td><td>Data</td><td>Test email matches the logic doc and every number reconciles to the total</td></tr>
+      <tr><td><b>1 · 2 weeks</b></td><td><ul><li>New 7-block Liquid template</li><li>Sender “Datalabs by Inc42”, issue numbers, Mon 8 AM</li><li>A/B old vs new, 50/50, 4 issues</li></ul></td><td>Data + tech</td><td>A winner on clicks to Datalabs per delivered email</td></tr>
+      <tr><td><b>2 · Weeks 3–5</b></td><td><ul><li>“Pick your sector” links write <code>sector</code> to the profile (canonical 17)</li><li>Company links → Datalabs profile with login token</li><li>Watchlist CTA</li></ul></td><td>Tech</td><td>Block C renders for real readers. Clicks land signed in.</td></tr>
+      <tr><td><b>3 · Week 6</b></td><td><ul><li>Launch WhatsApp Channel, footer invite</li><li>LinkedIn chart post</li><li>WhatsApp opt-in in Datalabs account / checkout</li></ul></td><td>Marketing + tech</td><td>Channel live, UTMs flowing into PostHog</td></tr>
+      <tr><td><b>4 · Week 8</b></td><td>1:1 WhatsApp fallback for opted-in non-clickers</td><td>Tech</td><td>Clicks per ₹ measured against email</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>How we’ll know it works</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Metric</th><th>Type</th><th>Why this one</th></tr></thead>
+    <tbody>
+      <tr><td>Signed-in Datalabs sessions from the newsletter, per week</td><td><b>Primary</b></td><td>The newsletter exists to bring people into the product, not to be opened</td></tr>
+      <tr><td>Watchlist adds from the newsletter</td><td>Secondary</td><td>Creates next week’s reason to return</td></tr>
+      <tr><td>Share of list with a sector set</td><td>Secondary</td><td>Unlocks block C and the 1:1 digest</td></tr>
+      <tr><td>👍 share, replies per issue</td><td>Quality</td><td>Catches a bad issue the same day</td></tr>
+      <tr><td>Unsubscribes, spam complaints, WhatsApp blocks</td><td>Guardrail</td><td>Stop a channel if these rise</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Numeric bars need the current list size and click rate first (open question 1).</p>
+</section>
+
+<!-- ============ 7. OPEN ============ -->
+<section>
+  <div class="sec-head"><span class="eyebrow">7 · Open questions</span><h2>Needed before phase 1</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Question</th><th>Blocks</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Current list size, and open/click rate of any live sends?</td><td>Success bars, WhatsApp cost estimate</td></tr>
+      <tr><td>2</td><td>Which build goes live: the 20 Aug test or the preview with financials?</td><td>Phase 0</td></tr>
+      <tr><td>3</td><td>Does Inc42 or Datalabs already run a WhatsApp Channel or Business number?</td><td>Phase 3</td></tr>
+      <tr><td>4</td><td>Is the Datalabs checkout phone number stored with WhatsApp consent?</td><td>1:1 fallback</td></tr>
+      <tr><td>5</td><td>Is the reply-to inbox monitored, and by whom?</td><td>Reply loop</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="close">
+    <span class="eyebrow">If only one thing gets read</span>
+    <p><b>Fix the two number bugs, cut the issue to 7 blocks with one watchlist button, and collect sector inside the email.</b> Then add a free WhatsApp Channel as the Monday reminder. Keep 1:1 WhatsApp for opted-in Datalabs users who did not click.</p>
+  </div>
+  <p class="note">WhatsApp pricing: Meta India marketing template ₹0.8631 per delivered message, ~₹1.02 with GST (<a href="https://myoperator.com/blog/whatsapp-business-api-pricing-india-2026">MyOperator, 2026</a>; <a href="https://www.wati.io/en/blog/whatsapp-api-pricing-guide/">WATI</a>). Verify against the vendor rate card before budgeting.</p>
+</section>
+
+</div>
