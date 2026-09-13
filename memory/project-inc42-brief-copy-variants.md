@@ -1,9 +1,11 @@
 ---
 name: project-inc42-brief-copy-variants
 description: "Brief card copy + push from FULL article text (12 Sep 2026) — LOCKED formula: [anchor lifted from headline] + [one question with a single concrete answer]. 2 questions + 1 aligned push per article. Statements, generic questions and per-interest variants all rejected"
-metadata:
+metadata: 
   node_type: memory
   type: project
+  originSessionId: eaf31ff1-f835-4693-b08f-5045fdcbfa53
+  modified: 2026-09-13T20:57:18.111Z
 ---
 
 **Done 12 Sep 2026.** Ranjith asked for curiosity-led Brief card title variants and push copy so the
@@ -113,6 +115,15 @@ fixed number); **lead-story selection is an editorial call** — the locked rank
 story-level importance signal, so nothing can pick the lead automatically; the three stories named
 in the push MUST be the first cards in the brief; and row 7 / row 12 variant 1 carry a mild
 judgement that needs a house-voice decision.
+
+## Sixth correction, 14 Sep 2026: side-detail question rejected again
+Zomato layoff article (240 jobs, Hyderabad support shut). I led with the severance ("What are the 240
+employees getting?" / push "what do 240 Zomato staff get?" / body "paying beyond notice... see the
+package"). Ranjith: *"senseless and very weird."* Severance was a side detail posing as the main
+event, "get" had no object, and "beyond notice"/"package" is HR jargon.
+**How to apply:** the question must be the one a reader has on seeing the headline (why did it
+happen / who does the work now), never what's in paragraph 6. Push copy in plain words; read it
+cold, with no headline beside it, before sending.
 
 ## Deliverable
 Tab **"Brief Copy Variants (12 Sep)"** (gid `1798377423`) in the **Test** workbook
