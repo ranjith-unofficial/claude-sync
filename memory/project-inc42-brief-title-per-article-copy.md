@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 089689b3-9104-4ca6-9ce2-216277f228c3
-  modified: 2026-09-12T22:43:06.565Z
+  modified: 2026-09-13T09:03:16.252Z
 ---
 
 Verified 13 Sep 2026. Came from Ranjith's call with Utkarsh (~12-13 Sep) plus follow-up decisions in chat.
@@ -24,6 +24,8 @@ Verified 13 Sep 2026. Came from Ranjith's call with Utkarsh (~12-13 Sep) plus fo
 - Original AI-generated version always stored (incl. each regeneration); every editor edit logged, to learn what AI got right/wrong.
 - The existing per-sector brief title generation continues for now.
 - Tab also has an ASCII "Workflow" diagram (Courier New) under the intro.
+- §9 "Generation prompt" (13 Sep): one call → JSON {brief_card_copy, push_title, push_body}; no answer fields (Ranjith: not required). Framework (3 candidates, 7 angles, kill test) + the 15 approved "Today's brief:" push variants as pattern-only references. Local copy `~/ClaudeDocs/inc42/brief-copy/brief-copy-generation-prompt.md`. Card copy 80-char cap is an assumption, unconfirmed with design.
+- Open question 4 (brief card copy to CIO?) removed once answered.
 
 **Open (in the tab §8):** does article push start from CIO `article_published` event or manual; does editing a field itself trigger regen (recommended no); regen age window; is brief card copy sent to CIO; overlap with older tab "Brief: Title + Image Generation" (27 Jul draft, per-sector daily title/push set) — which one sends the push.
 
