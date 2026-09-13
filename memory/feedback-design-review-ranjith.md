@@ -83,3 +83,8 @@ show: a subtle, true urgency cue; a visible answer to "is this personalised?"; a
 data (long copy, missing copy, tall/missing image) — he rejected a whole round partly for "not developer
 friendly … what if the image is too long?". Formats with many competing elements ("too many things, I'm
 not sure which one to focus on") and text-heavy cards are rejected.
+
+**Personalisation must be felt, not labelled (13 Sep 2026).** Tags like "You follow IPO / Fintech" were
+rejected. Use the reader's name, possessive framing ("Satya's Brief"), their own streak, "picked for"
+language. He also wants the Inc42 logo on brand cards, social proof of other readers, and visual
+appeal over explanatory labels.

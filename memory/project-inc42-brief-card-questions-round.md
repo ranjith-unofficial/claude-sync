@@ -42,4 +42,12 @@ Rows y=360 / 1640, x step 490. No tap markers, no lists, no counts.
 Base = his pick V01 (duplicate 687:2). 8 folder variations, each as normal + stress-test pair, all auto-layout, 2-line clamps, fixed image boxes; shared rules block in the page header (urgency: streak ≥2 else "Fresh since 7:00 AM"; personal: "Ordered by what you follow" else "Top stories since yesterday"; reason tag "You follow X" / "Also moving today").
 A Folder refined 718:7/718:90 · B Lead photo 718:180/718:259 · C Thumbnails + reason tags 719:2/719:94 · D Lead cover 719:197/719:280 · E Sheets in the pocket (negative spacing) 722:2/722:92 · F Compact + also-inside chips 722:192/722:269 · G Picks up where you left off 724:2/724:89 · H Personal header (name, follow chips, Edit) 724:188/724:281.
 
-**Status:** round 4 unreviewed. Related: [[project-inc42-brief-copy-variants]], [[project-inc42-brief-title-per-article-copy]], [[feedback-design-review-ranjith]], [[reference-figma-mcp-build-techniques]].
+**Round 4 review (13 Sep):** "not visually appealing"; no "you follow IPO / Fintech" labels — personalisation must be *felt*, not stated; wants Inc42 logo on the card, simpler, social proof ("so many people completed the brief"), marketing pull to open; keep folder direction; think about lead-image placement.
+
+## Round 5 — page "Brief Card · Folder round 5 (13 Sep)"
+10 folder versions, real Inc42 logo (SVG exported from Satya's frame, node 6488:9914), name-based personalisation, real social proof, one image placement each:
+01 Satya's Brief 727:7 · 02 Photo cover "Good morning, Satya" 727:96 · 03 Clipped photo "Picked for Satya this morning" 727:187 · 04 Split header 727:278 · 05 Prepared-for stamp + pocket 727:368 · 06 Start here (one big lead) 728:2 · 07 Kraft light folder 728:92 · 08 Three photos 728:182 · 09 Day 12 streak 728:276 · 10 Join them (proof in CTA) 728:370.
+
+**Real numbers used (PostHog app 146258, 13 Sep, ritviksethi56 excluded):** brief_completed unique/day 25–44 (33 on 12 Sep); 138 unique in last 7 days; 461 all-time since 10 Jul; median open→complete 82 s (IQR 32–210 s, n=320, 10 days); brief_opened unique/day 60–92. Proposed display rule: today's count once ≥30, else week count, else "Most readers finish in under 2 minutes".
+
+**Status:** round 5 unreviewed. Related: [[project-inc42-brief-copy-variants]], [[project-inc42-brief-title-per-article-copy]], [[feedback-design-review-ranjith]], [[reference-figma-mcp-build-techniques]].
