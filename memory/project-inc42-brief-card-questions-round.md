@@ -65,3 +65,19 @@ Image types I1–I10 (rows y 6417 / 7667): 747:2 banner · 747:89 lead on photo 
 Progress row on T1 (y≈9426): 749:5 0 read · 749:99 3 read · 749:193 6 read · 749:279 7 read · 749:363 done. CTA ladder: Start your brief → Continue your brief → Finish your brief → Read the last story → Read again. Rules: next unread in brief order up to 3; "Plus N more stories picked for you" only if N>0; out-of-order reads count as read; done collapses.
 
 **Status:** round 7 unreviewed. Related: [[project-inc42-brief-copy-variants]], [[project-inc42-brief-title-per-article-copy]], [[feedback-design-review-ranjith]], [[reference-figma-mcp-build-techniques]].
+
+## Round 8 — same page 736:2, section at y=10700 (14 Sep 2026)
+Ranjith locked the structure to Inc42-App-2026 `6768:3350` ("V01 · Folder of questions": date tab, brown folder #371f1e,
+logo, "Today’s Brief" Fraunces Light 40, line above questions, 3 tilted cream sheets, white CTA, caption). Asked: replace
+"By the end you’ll know" with a line saying what is inside; replace "Open today’s brief" with a CTA tied to the questions;
+add one true urgency/completion lever; 10 variants differing in copy, styling and position.
+Built natively (header/nav rebuilt, logo + icons as SVG from the main file), all auto-layout, 2-line clamps:
+V01 760:2 find out inside, streak line under CTA · V02 760:89 red "DAY 12" tab + "Start with the UPI story" ·
+V03 762:2 cream folder, "33 readers have already found out" · V04 762:87 ink folder, 8-part "0 OF 8 READ" bar, red CTA ·
+V05 763:2 oxblood, "Today’s edition · until 7:00 AM" + "Tomorrow’s brief takes this spot" · V06 763:88 white sheets red
+spine, "NEW THIS MORNING" stamp, "Settle all three" · V07 764:2 brick, streak inside ember CTA "Read and make it Day 13" ·
+V08 764:91 crimson, "8 NEW" unread badge by logo · V09 765:2 kicker "YOU’LL FIND OUT INSIDE" above title, red CTA,
+"33 readers finished it this morning" + initials (placeholders) · V10 765:92 ember CTA as the fourth sheet
+"Open these and 5 more stories". Notes under each: title line / button / urgency position / why / fallback.
+Data rules in the section header: streak copy only if streak ≥2; reader count only if ≥30 finished today (33 = 12 Sep);
+"N more" only if N>0; questions = next unread in brief order. Status: unreviewed.
