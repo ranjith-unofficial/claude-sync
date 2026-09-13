@@ -32,6 +32,7 @@
 - [Report structure](feedback-report-structure.md) — methodology first; group findings per bucket
 - [Measure field coverage before designing](feedback-measure-field-coverage-before-designing.md) — slot needs ≥85% field coverage; backtest
 - [Design review patterns](feedback-design-review-ranjith.md) — no variable counts, build don't describe
+- [Copy noun continuity](feedback-copy-noun-continuity.md) — "N more" line reuses the list's noun (questions)
 - [Audit recency window](feedback-audit-recency-window.md) — 2025-01-01 → today; no all-time headline
 - [Exclude internal agent email](feedback-exclude-internal-agent-email.md) — never count ritviksethi56@gmail.com
 - [Analytics destination scope](feedback-analytics-destination-scope.md) — PostHog + Customer.io only

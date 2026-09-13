@@ -81,3 +81,13 @@ V08 764:91 crimson, "8 NEW" unread badge by logo · V09 765:2 kicker "YOU’LL F
 "Open these and 5 more stories". Notes under each: title line / button / urgency position / why / fallback.
 Data rules in the section header: streak copy only if streak ≥2; reader count only if ≥30 finished today (33 = 12 Sep);
 "N more" only if N>0; questions = next unread in brief order. Status: unreviewed.
+
+## Round 9 — CTA arrow motion, same page 736:2, section y=14400 (14 Sep 2026)
+Final card = Inc42-App-2026 `6617:27129` (coral title, dark question sheets with "?" icons, "& more inside curated for
+you", white "Find out in today’s brief →", reader initials). Rebuilt natively (screenshot API caps at 1x, too blurry).
+5 screens, only the arrow moves, each an interactive component set with AFTER_TIMEOUT → CHANGE_TO Smart Animate
+(plugin reaction timeout + duration are in SECONDS; easing 'BOUNCY' accepted): M1 Nudge 769:4 (set 772:10) ·
+M2 Pass-through 769:6 (774:17) · M3 Speed trail 769:8 (774:45) · M4 Redraw 769:10 (774:70) · M5 Stretch and spring
+769:12 (774:86). Keyframe strips + dev values under each at y≈15440; component sets at y=16700.
+Playback rules in header: start 600 ms after on screen, stop after 3 loops or any scroll/tap, never after today’s brief
+is opened, static under Reduce Motion. Status: unreviewed.
