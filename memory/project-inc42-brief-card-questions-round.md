@@ -50,4 +50,11 @@ A Folder refined 718:7/718:90 · B Lead photo 718:180/718:259 · C Thumbnails + 
 
 **Real numbers used (PostHog app 146258, 13 Sep, ritviksethi56 excluded):** brief_completed unique/day 25–44 (33 on 12 Sep); 138 unique in last 7 days; 461 all-time since 10 Jul; median open→complete 82 s (IQR 32–210 s, n=320, 10 days); brief_opened unique/day 60–92. Proposed display rule: today's count once ≥30, else week count, else "Most readers finish in under 2 minutes".
 
-**Status:** round 5 unreviewed. Related: [[project-inc42-brief-copy-variants]], [[project-inc42-brief-title-per-article-copy]], [[feedback-design-review-ranjith]], [[reference-figma-mcp-build-techniques]].
+**Round 5 → Satya's card (13 Sep):** Ranjith moved to Satya's card in Inc42-App-2026 — `6559:3292` "BRIEF PAGE · question loop" (folder, logo, edition note + paperclip, week tabs, "Today's Brief", "By the end you'll know :", 3 numbered questions in an inner panel, "1,284 READING" chip, white CTA; motion study section 6674:3292: highlighter sweep / printed-in / CTA light orbit / CTA shake). He "almost likes" it. Asks: too many boxes inside boxes, can't tell the headline; numbering 1/2/3 doesn't work; replace "1,284 reading"; card can be bigger, use the space; convey there is MORE inside beyond the 3 questions, while staying minimal; plus urgency subtle, personalisation felt, dev-friendly.
+Flagged to him: 1,284 is not real (60–92 open/day, 25–44 finish); "Monday's edition 8 September" wrong (8 Sep 2026 = Tuesday).
+
+## Round 6 — page "Brief Card · Satya card, no boxes (13 Sep)"
+8 variants of Satya's card, no inner panel, 342 px wide, questions 20 px Fraunces on the folder, auto-layout:
+A Hairlines + "5 more answers inside" 736:6 · B Fade into 4th question + "and 4 more inside" 736:103 · C Big lead + "Also inside: OpenAI, Ultraviolette, PhonePe and 2 more" 736:198 · D Rail to open marker "5 more" 736:294 · E Pages underneath "5 more answers filed inside" 738:2 · F "Starting with" + CTA "Open all 8 answers" 738:99 · G Cream folder 738:191 · H "8 answers" count hero 738:288.
+
+**Status:** round 6 unreviewed. Related: [[project-inc42-brief-copy-variants]], [[project-inc42-brief-title-per-article-copy]], [[feedback-design-review-ranjith]], [[reference-figma-mcp-build-techniques]].
