@@ -133,3 +133,10 @@ Applicant pool grew **545 → 730 → 731** over the following week (checked mid
 - **Verified top 10:** Sehaj Bajaj, Hardik Sharma, Sanchari S Bansal, Om Pandey, Anmol Batra, Shivam Kumar Bhagat, Ghanshyam Singh, Shreyas Pandit, Mehul Joshi, Akshatha Swamy. Reserves: Jassi, Neha Saini, Ishaan Verma, Prem Pushkar, Srijan Mallick.
 - Output CSV (all 316, ranked, Keka links): `~/ClaudeDocs/inc42/product-trainee-shortlist-14sep.csv`. Not yet reviewed by Ranjith.
 - Access: Keka creds now at `~/Documents/keka_api.json` (plain "api key: / client id: / client secret:" lines). Python urllib gets 403 from login.keka.com — use curl. Keka UI candidate links use numeric job id: `#/hire/candidate/job/155271/{candidateId}/summary`.
+
+### 14 Sep (later) — Ranjith kept only 5 of the top 10: the revealed bar
+- **Kept:** Sehaj Bajaj, Sanchari S Bansal, Hardik Sharma, Om Pandey, **Shivangi Sinha** (Zee Hipi push/retention journeys — NOT in my list: asks ₹7L, filtered by the ≤6L rule; already in HM Screening).
+- **Dropped:** Shreyas Pandit (creator/growth ops), Mehul Joshi (internal n8n tool), Anmol Batra (analytics + ghostwriting), Ghanshyam Singh ("supported"), Shivam Bhagat (category ops), Akshatha Swamy (B2B voice-AI agency).
+- **Bar = product role INSIDE a consumer (B2C) company + shipped a change + measured user metric.** Growth/creator/pricing/ops/internal-tool/analyst-only profiles are out even with numbers.
+- **He will accept ~₹7L expected** (picked Shivangi) despite saying ≤6L — the best B2C product profiles cluster at ₹7–8L ask. Screen 6–8L as a labelled stretch group, don't hard-drop.
+- Re-screen v2 (488 candidates, rubric `rubric_v2.md`): new verified names Shruti Verma, Ankit Kumar, Eshan Negi, Piyush Panwar, Akshat Raghav — all in the ₹7–8L ask group. Nothing new ≥65 inside ≤₹6L. CSV `~/ClaudeDocs/inc42/product-trainee-b2c-product-screen-14sep.csv`.
