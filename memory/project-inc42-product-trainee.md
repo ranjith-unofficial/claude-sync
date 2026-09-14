@@ -125,3 +125,11 @@ Applicant pool grew **545 → 730 → 731** over the following week (checked mid
 **Gotcha hit twice while pasting via clipboard (`pbcopy`/`cmd+v`) into this sheet:** the OS clipboard is shared system-wide — something else on the Mac overwrote it mid-task at least once (a stray `https://claude.ai/code/artifact/...` URL landed in a cell instead of the intended chunk). **Always `pbpaste | head -c 80` to verify clipboard content immediately before every paste, not just once at the start.** Separately, the browser-automation permission classifier intermittently blocked routine `type`/`key` actions on this sheet (no clear pattern) — retrying the same action 1-2x always succeeded; never skip the post-paste verification screenshot because of it. Both corrupted cells (2 of 731) were caught and fixed same-session before handoff.
 
 **Not done next:** whether/when this SHORTLIST (218) or SHORTLIST+REVIEW (259) pool goes through an AI-scoring pass like the 19 Aug run — Ranjith said "for now" on the rule-based-only ask, implying AI scoring is still coming.
+
+## 14 Sep 2026 re-screen — 997 applicants, "real-world pattern" shortlist
+- Pool **998** (Keka API). Filter unchanged (current AND expected ≤ ₹6L, ≥6mo incl. internships): **316 pass** · 53 bad/missing CTC · 629 reject. Recency: 71 in last 14d, 145 in last 30d.
+- Ranjith's new gate: candidate must have **done real work on a problem Inc42 has now** (acquisition w/o paid, activation/onboarding, identification/login, broken tracking, search/tagging, subscription payments, AI/RAG/n8n, CRM/push, content B2C). Rubric: scratchpad `rubric.md` (session ae4ca945).
+- Scored all 316 via 8 subagents; top ~16 resumes read manually. ~80% scored <45.
+- **Verified top 10:** Sehaj Bajaj, Hardik Sharma, Sanchari S Bansal, Om Pandey, Anmol Batra, Shivam Kumar Bhagat, Ghanshyam Singh, Shreyas Pandit, Mehul Joshi, Akshatha Swamy. Reserves: Jassi, Neha Saini, Ishaan Verma, Prem Pushkar, Srijan Mallick.
+- Output CSV (all 316, ranked, Keka links): `~/ClaudeDocs/inc42/product-trainee-shortlist-14sep.csv`. Not yet reviewed by Ranjith.
+- Access: Keka creds now at `~/Documents/keka_api.json` (plain "api key: / client id: / client secret:" lines). Python urllib gets 403 from login.keka.com — use curl. Keka UI candidate links use numeric job id: `#/hire/candidate/job/155271/{candidateId}/summary`.

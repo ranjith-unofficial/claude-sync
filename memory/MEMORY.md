@@ -117,7 +117,7 @@
 - Daily briefs: [Personal AI ops / morning brief](project-personal-ai-ops.md) — phased daily brief · [Daily brief architecture](project-daily-brief-architecture.md) — capture split from briefing · [Daily Signal briefing](project-daily-signal.md) — 20-section artifact, cloud-scheduled
 - Hiring: [INC42 hiring agent](project-inc42-hiring-agent.md) — scores Keka applicants · [FOA candidate shortlist (25 Aug)](project-inc42-foa-candidate-shortlist.md) — top 5 re-verified · [CTC parsing rule](feedback-hiring-sheet-ctc-parsing.md) — plain numbers are LPA
 - [INC42 Agent Platform](project-inc42-agent-platform.md) — Slack agents, demand-gated
-- Product Trainee: [Product Trainee hiring](project-inc42-product-trainee.md) — 731 applicants, 218 shortlist · [PT interview guide](project-inc42-pt-interview-guide.md) — two interviewed, both rejected · [PT interview assignment doc](project-inc42-product-trainee-assignment.md) — artifact b1120c11
+- Product Trainee: [Product Trainee hiring](project-inc42-product-trainee.md) — 998 applicants, 316 pass, top 10 verified 14 Sep · [PT interview guide](project-inc42-pt-interview-guide.md) — two interviewed, both rejected · [PT interview assignment doc](project-inc42-product-trainee-assignment.md) — artifact b1120c11
 - [DPDP compliance](project-dpdp-compliance.md) — May 2027 deadline
 - [AI agents](project-ai-agents.md) — sales/support agents, voice AI
 - [ranjith.tech](reference-ranjith-tech.md) — site + security audit
