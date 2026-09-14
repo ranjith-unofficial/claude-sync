@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: eaf31ff1-f835-4693-b08f-5045fdcbfa53
-  modified: 2026-09-13T20:57:18.111Z
+  modified: 2026-09-14T03:50:15.575Z
 ---
 
 **Done 12 Sep 2026.** Ranjith asked for curiosity-led Brief card title variants and push copy so the
@@ -124,6 +124,11 @@ event, "get" had no object, and "beyond notice"/"package" is HR jargon.
 **How to apply:** the question must be the one a reader has on seeing the headline (why did it
 happen / who does the work now), never what's in paragraph 6. Push copy in plain words; read it
 cold, with no headline beside it, before sending.
+**FINAL drafts (Ranjith, 14 Sep 2026), article 570596:** "Why did Zomato shut its Hyderabad customer support
+team and cut 240 jobs?" and "Who will handle Zomato's customer support after 240 layoffs in Hyderabad?". Both
+answered in body (review of support model + work moved to external partners; remaining team consolidated in
+Gurugram). Tone rule for sensitive stories: [[feedback-sensitive-news-copy-tone]]. Rule added to local
+generation prompt v3; PRD tab §9 NOT yet synced.
 
 ## Deliverable
 Tab **"Brief Copy Variants (12 Sep)"** (gid `1798377423`) in the **Test** workbook
