@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(git -c user.name=\"Ranjith\" -c user.email=\"ranjith@ranjith.tech\" commit -q -F -)",
+      "Bash(git push *)"
+    ]
+  },
   "model": "opus[1m]",
   "hooks": {
     "SessionStart": [

@@ -257,7 +257,8 @@
       "Bash(git check-ignore *)",
       "Bash(echo \"  -> exit $?\")",
       "Bash(git ls-tree *)",
-      "Bash(git ls-remote *)"
+      "Bash(git ls-remote *)",
+      "Bash(grep -iE \"RT-2026|fficr|apollo\\\\.io|[0-9]{6,}|account|ifsc|@gmail|@ranjith\")"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F",
