@@ -234,7 +234,8 @@
       "Bash(tar xzf *)",
       "Bash(curl -s \"https://api.github.com/repos/Eugeny/tabby/security-advisories?per_page=100\")",
       "Bash(sw_vers -productVersion)",
-      "Bash(brew --version)"
+      "Bash(brew --version)",
+      "Bash(git config *)"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F"
