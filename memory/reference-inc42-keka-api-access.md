@@ -26,7 +26,7 @@ Returns a Bearer token, `expires_in: 86400` (24h).
 **Why this matters:** this bypasses needing browser automation or n8n API calls entirely for any future Keka data pull — straight `curl` + Bearer token from Bash. Confirmed working end-to-end pulling all 731 Product Trainee candidates in ~5 API calls total (vs. hundreds of browser interactions).
 
 **For a durable "resume link" in a sheet, use the permanent candidate profile URL instead of the resume fileUrl:**
-`https://inc42.keka.com/#/hire/candidate/job/{jobId}/{candidateId}/summary` — works while logged into Keka in the browser, shows the resume embedded, never expires.
+`https://inc42.keka.com/#/hire/candidate/job/155271/{candidateId}/summary` — use the NUMERIC job id (155271 for Product Trainee) and the FULL 36-char candidate GUID. Verified in browser 14 Sep 2026. Truncated 8-char ids = broken links (sent Ranjith broken links once). Works while logged into Keka, never expires.
 
 **How to apply:** before reaching for Keka's Excel-export UI or browser automation for any hiring-data task, check this file first and just hit the API directly.
 
