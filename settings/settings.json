@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(git -c user.name=\"Ranjith\" -c user.email=\"ranjith@ranjith.tech\" commit -q -F -)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(node -e \"console.log\\('  driver version:', require\\('mongodb/package.json'\\).version\\)\")",
+      "Bash(node /private/tmp/claude-501/-Users-thrillophilia/5de0a2e2-4280-4568-9182-9020d731f343/scratchpad/mongo_peek.js /private/tmp/claude-501/-Users-thrillophilia/5de0a2e2-4280-4568-9182-9020d731f343/scratchpad/envz/.env)",
+      "Bash(node -e ' *)"
     ]
   },
   "model": "opus[1m]",
