@@ -253,7 +253,11 @@
       "Read(//tmp/**)",
       "Bash(rm -rf node_modules)",
       "Bash(npm ci *)",
-      "Bash(ADMIN_PASSCODE=x PERSONAL_OS_DATA_DIR=/tmp/citest-data node -e \"require\\('./server.js'\\); console.log\\('clean npm ci install boots OK'\\)\")"
+      "Bash(ADMIN_PASSCODE=x PERSONAL_OS_DATA_DIR=/tmp/citest-data node -e \"require\\('./server.js'\\); console.log\\('clean npm ci install boots OK'\\)\")",
+      "Bash(git check-ignore *)",
+      "Bash(echo \"  -> exit $?\")",
+      "Bash(git ls-tree *)",
+      "Bash(git ls-remote *)"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F",
