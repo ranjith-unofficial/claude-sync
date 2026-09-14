@@ -97,6 +97,79 @@ td.r1{font-variant-numeric:tabular-nums;white-space:nowrap}
   </header>
 
   <section>
+    <div class="eyebrow">Impact</div>
+    <h2>DataLabs search today vs our logic</h2>
+    <p>Same 22 real queries, each with a known right answer. "Today" was measured live on DataLabs search on 14 Sep 2026. "Our logic" is the simulated result of the 14-step chain below.</p>
+
+    <div class="big">
+      <div><div class="from">Today 9 / 22 · 41%</div><b>20 / 22 · 91%</b><span>Right answer shown first. +50 points, 2.2×</span></div>
+      <div><div class="from">Today 9 / 22 · 41%</div><b>0 / 22</b><span>"No results" for a company that exists. All 9 fixed</span></div>
+      <div><div class="from">Today 13 / 22</div><b>2 / 22</b><span>Wrong or missing answer. 85% fewer</span></div>
+    </div>
+
+    <div class="wrap">
+      <table>
+        <thead><tr><th>Measure</th><th>In simple words</th><th>DataLabs today</th><th class="ours">Our logic</th><th>Change</th></tr></thead>
+        <tbody>
+          <tr><td class="topic">Right answer first</td><td>Is the company you meant at the top?</td><td class="r1">9 / 22 (41%)</td><td class="ours r1"><strong>20 / 22 (91%)</strong></td><td>+50 points</td></tr>
+          <tr><td class="topic">Right answer on screen</td><td>Is it in the top 5?</td><td class="r1">11 / 22 (50%)</td><td class="ours r1"><strong>21 / 22 (95%)</strong></td><td>+45 points</td></tr>
+          <tr><td class="topic">No results</td><td>Nothing shown, though the company exists</td><td class="r1">9 / 22 (41%)</td><td class="ours r1"><strong>0 / 22</strong></td><td>All 9 fixed</td></tr>
+          <tr><td class="topic">Wrong or missing</td><td>Anything other than right answer first</td><td class="r1">13 / 22</td><td class="ours r1"><strong>2 / 22</strong></td><td>85% fewer</td></tr>
+          <tr><td class="topic">Speed</td><td>Time until results appear</td><td class="r1">1.5 s typical, 2.0 s worst</td><td class="ours r1">Target 0.2 s</td><td>Not produced by ranking rules; tracked separately</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Query by query: where the right answer lands</h3>
+    <div class="wrap">
+      <table>
+        <thead><tr><th>Query</th><th>Right answer</th><th>DataLabs today</th><th class="ours">Our logic</th><th>What fixes it</th></tr></thead>
+        <tbody>
+          <tr><td><code>cred</code></td><td>CRED</td><td class="r1 mid">11th</td><td class="ours r1 good">1st</td><td>Exact match pinned (step 8)</td></tr>
+          <tr><td><code>ola</code></td><td>Ola</td><td class="r1 mid">3rd (Manam Chocolate 1st)</td><td class="ours r1 good">1st</td><td>Whole-word level, exact pin (steps 5, 8)</td></tr>
+          <tr><td><code>navi</code></td><td>Navi</td><td class="r1 mid">3rd</td><td class="ours r1 good">1st</td><td>Exact pin (step 8)</td></tr>
+          <tr><td><code>iifl finance</code></td><td>IIFL Finance</td><td class="r1 bad">No results</td><td class="ours r1 good">1st</td><td>All words first (step 5)</td></tr>
+          <tr><td><code>matter motor</code></td><td>Matter</td><td class="r1 bad">No results</td><td class="ours r1 good">1st</td><td>Word-level matching, suffix stripping (steps 1, 5)</td></tr>
+          <tr><td><code>of business</code></td><td>OfBusiness</td><td class="r1 bad">No results</td><td class="ours r1 good">1st</td><td>Squashed form (step 1)</td></tr>
+          <tr><td><code>ultravio</code></td><td>Ultraviolette</td><td class="r1 bad">No results</td><td class="ours r1 good">1st</td><td>Starts-with level (step 5)</td></tr>
+          <tr><td><code>speciale</code></td><td>Speciale Invest</td><td class="r1 bad">No results</td><td class="ours r1 good">1st</td><td>One search across all types (step 4)</td></tr>
+          <tr><td><code>apax</code></td><td>Apax Partners</td><td class="r1 bad">No results (investor filter only)</td><td class="ours r1 good">1st</td><td>One search, no per-type divide (steps 4, 7)</td></tr>
+          <tr><td><code>eternal limited</code></td><td>Zomato</td><td class="r1 bad">No results</td><td class="ours r1 good">1st</td><td>Alias table (step 3)</td></tr>
+          <tr><td><code>kiranakart</code></td><td>Zepto</td><td class="r1 bad">Wrong record (Kiranakart)</td><td class="ours r1 good">1st</td><td>Alias table (step 3)</td></tr>
+          <tr><td><code>iifl</code></td><td>IIFL Finance</td><td class="r1 bad">No results</td><td class="ours r1 mid">2nd</td><td>IIFL Securities stays 1st. Fix with an alias if wanted</td></tr>
+          <tr><td><code>sequioa</code></td><td>Sequoia Capital</td><td class="r1 bad">No results (investor filter only)</td><td class="ours r1 mid">9th</td><td>Moves to 1st once investor quality is filled in (step 6)</td></tr>
+          <tr><td><code>zomato</code> <code>zomto</code> <code>razorpey</code> <code>flipcart</code> <code>shipr</code> <code>shiprocket</code> <code>zepto</code> <code>ofbusiness</code> <code>third wave</code></td><td>Named company</td><td class="r1">1st (all 9)</td><td class="ours r1 good">1st (all 9)</td><td>Already working. Kept as regression guards</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>How we measure it: before, assess, after</h3>
+    <div class="wrap">
+      <table>
+        <thead><tr><th>Stage</th><th class="logic">What we do</th><th class="logic">Pass condition</th></tr></thead>
+        <tbody>
+          <tr><td class="topic">Before <span class="chip k">Done 14 Sep</span></td><td>Run the 22 queries on live DataLabs search, record where the right answer lands</td><td>Baseline: 41% first, 41% no results, 1.5 s</td></tr>
+          <tr><td class="topic">Assess <span class="chip c">Before release</span></td><td>Run the same 22, plus the full 33-query acceptance list, on the new build in staging</td><td>At least 20 / 22 first. Zero "no results" for companies that exist. Same query gives the same result 5 times in a row</td></tr>
+          <tr><td class="topic">After <span class="chip n">2–4 weeks live</span></td><td>Re-run the list on production. Compare real users' searches before vs after</td><td>List still passes. Real-user numbers below improve</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two">
+      <div class="callout">
+        <h3>Add tracking before release</h3>
+        <p>DataLabs' search event does not record how many results came back or which position was clicked. Without both, there is no real-user "before" to compare against.</p>
+        <p><strong>Then track:</strong> share of searches with no results, share of clicks on the first result, share of people who retype within 30 seconds.</p>
+      </div>
+      <div class="add">
+        <h3>Read these numbers correctly</h3>
+        <p class="note">"Today" is measured on the full live database. "Our logic" is simulated on a 4,905-record sample with about 9× fewer look-alike names, so the real result will likely land a little below 91%. The Assess run gives the true number.</p>
+        <p class="note"><code>apax</code> and <code>sequioa</code> return no result rows today, only an investor filter. Excluding them, today is 9 / 20 (45%).</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <div class="eyebrow">Part 1</div>
     <h2>The logic chain: Ashish's vs ours</h2>
     <p>What happens between the user typing a query and results appearing, in order.</p>
