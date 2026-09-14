@@ -61,7 +61,7 @@ Replace “tab soup” with:
 - Today’s workout status (done / planned / skip)
 - Weight trend sparkline (last N metrics)
 - Nutrition: logged vs targets (calories + protein minimum)
-- **Day board:** Must close today (tasks) · Calendar blocks (read-only first if Calendar connector later) · Content queue for today
+- **Day board:** Must close today (tasks) · **Google Calendar sync** (real calendar blocks on Today) · Content queue for today
 - Quick actions: Log workout · Log food · Sync Oura · New invoice · New short link · Generate today’s content pack
 
 ### B. Health
@@ -79,13 +79,13 @@ Replace “tab soup” with:
 - Invoices (existing)
 - URL shortener (existing)
 - Telemetry (existing, secondary)
-- LMS (existing; keep but demote if not daily-use)
+- LMS (existing; **must keep working exactly as today** — no rebuild, no behavior change)
 
 ---
 
 ## 4. New / extended API contract (implement these)
 
-Auth: all mutating routes `requireAdmin` (same as today). Add a long-lived **agent token** or reuse admin bearer so Personal OS / external AI can POST without browser login (document in `.env.example`).
+Auth: all mutating routes `requireAdmin` (same as today). **v1: keep bearer** (harden; no httpOnly JWT cookie this pass). Add **revocable scoped agent API keys** (hashed at rest) for Personal OS / external AI POSTs without browser login (document in `.env.example`). Stop storing raw passcode in `localStorage`.
 
 ### Food (new)
 - `POST /api/health/food` — `{ date, meals: [{ name, calories, protein, carbs, fats, notes? }], source? }`
@@ -102,6 +102,12 @@ Auth: all mutating routes `requireAdmin` (same as today). Add a long-lived **age
 - `PATCH /api/content/items/:id`
 - Shape: `{ id, date, channel: linkedin|x|other, title, body, status: draft|ready|posted, source: generated|manual, hooks?[] }`
 - `POST /api/content/generate-day` — body optional `{ date, signals: { workouts?, themes? } }` → creates/updates today’s draft pack (stub LLM or rule-based first; wire real model later)
+
+
+### Google Calendar (new — in scope)
+- OAuth with Google Calendar (server-side tokens in env/secure store only — never in GitHub).
+- `GET /api/calendar/today` and `GET /api/calendar/range?from=&to=` (auth required) → events for Today board.
+- Read sync required for v1; write-back optional later.
 
 ### Ingest (new — for other AI tools / chat instructions)
 - `POST /api/ingest` — `{ kind: workout|food|metric|task|content|note, payload, occurredAt? }`  
@@ -128,10 +134,11 @@ Auth: all mutating routes `requireAdmin` (same as today). Add a long-lived **age
 
 ---
 
-## 6. Out of scope for v1
-- Full Google Calendar two-way sync (show placeholder “calendar blocks” fed by `day/tasks` + optional manual time ranges first)
-- Auto-posting to LinkedIn (queue + copy only)
-- Rebuilding LMS or public marketing site
+## 6. Scope adjustments (15 Sep 2026)
+- **Google Calendar sync: IN SCOPE for v1.** Show real calendar events on Today / Day board (read from Google Calendar; write-back optional later if easy, but at least reliable read sync).
+- **Auto-posting to LinkedIn: still OUT of scope** (queue + copy / approve only).
+- **LMS: keep existing LMS working the same way.** Do not rebuild or demote behavior; leave `/l/m/s/*` and LMS admin flows intact. Only fold navigation into the unified shell if needed.
+- Public marketing/portfolio site: do not rebuild.
 
 ---
 
@@ -140,9 +147,39 @@ Auth: all mutating routes `requireAdmin` (same as today). Add a long-lived **age
 2. External tool can `POST /api/ingest` workout + food and Home updates after refresh.
 3. `POST /api/content/generate-day` creates editable drafts for today.
 4. Invoices + shortener still work from Ops.
-5. `npm run build` (frontend) succeeds; health routes smoke-tested.
+5. Google Calendar events appear on Today (synced).
+6. Existing LMS student/teacher/admin flows still work unchanged.
+7. `npm run build` (frontend) succeeds; health routes smoke-tested.
+8. **Security gates before merge/deploy:** no secrets in repo; **bearer admin auth hardened** (rate limit, CORS, no passcode in localStorage) + revocable scoped agent keys; unauthenticated mutating/private routes fail closed; burned recovery key rotated in Hostinger and scrubbed from docs. JWT httpOnly cookie deferred until prod API is same-origin with admin UI.
 
 ---
 
-## 8. Security note for implementer
-`VERSION_LOG.md` currently embeds a recovery-key-looking string in plaintext. Rotate `EMERGENCY_RECOVERY_KEY` / admin secrets in Hostinger env if that file ever shipped, and stop committing secrets into markdown.
+## 8. Security hardening (non-negotiable — 15 Sep 2026)
+
+Fold into Claude build **before any public deploy**. Auth is the real gate; obscure admin path is not enough.
+
+**Auth decision (15 Sep, Ranjith via CoS):** Keep bearer for v1; harden around it. Do not switch to httpOnly JWT cookie in this pass.
+
+### Absolute rules
+1. **Never commit secrets to GitHub** (not even a private repo as the long-term store). No tokens in source, `VERSION_LOG`, README, client JS, or zip artifacts.
+2. Secrets live only in **Hostinger/server env** (or a secrets manager): `ADMIN_PASSCODE`, `EMERGENCY_RECOVERY_KEY`, `OURA_PERSONAL_ACCESS_TOKEN`, `JWT_SECRET` / signing keys, agent API keys, Mongo URI if any.
+3. **Rotate now:** recovery-key-looking string was previously in `VERSION_LOG.md` — treat as burned; set new env values; scrub git history if it was pushed.
+4. Admin + all mutating APIs: **auth required**. **v1 auth model (locked):** keep **Authorization Bearer** after passcode login (do not store raw passcode in localStorage — store a server-issued bearer/session token only) + **separate long-lived agent API keys** (hashed at rest, prefix-visible only, revocable, scoped). **JWT httpOnly cookie deferred** until prod `/api/*` is same-origin with the admin UI.
+5. Public portfolio stays public; `/sys-admin-*` must not be guessable-only security (obscurity ≠ auth). Keep obscure path but **auth is the real gate**.
+6. Rate limit login + ingest; lockout after N fails; constant-time compare; helmet, CORS allowlist (`ranjith.tech` only), no `origin: true` in prod.
+7. TLS only (HTTPS). No admin over plain HTTP.
+8. Agent ingest keys: one key per tool/agent, scoped permissions (food/workout/content), rotatable, logged.
+9. Do not return fake Oura scores that look real when unsynced — don’t leak whether token exists via verbose errors either.
+10. `.env` in `.gitignore`; ship `.env.example` with empty placeholders only.
+
+
+
+### Auth v1 decision (15 Sep 2026 — locked)
+**Keep bearer token for v1; harden around it.** Do not switch to httpOnly JWT cookie in this pass (lockout risk if API and static site differ by origin). Still required now: rate limits, CORS allowlist, no raw passcode in localStorage, env-only secrets, hashed revocable scoped agent keys. JWT/cookie = follow-up once prod `/api/*` is same-origin with admin UI.
+
+### Implementer checklist
+- Scrub any plaintext secrets from docs/history; rotate Hostinger env for burned values.
+- Harden bearer admin auth (no raw passcode in localStorage); hashed, scoped, revocable agent keys for `/api/ingest` and mutating agent routes.
+- Rate limit + lockout on login and ingest; helmet + strict CORS in prod.
+- Do **not** migrate to JWT httpOnly cookies in this v1 pass.
+- Confirm back to Ranjith in Personal OS chat when coded.

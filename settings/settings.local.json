@@ -235,7 +235,9 @@
       "Bash(curl -s \"https://api.github.com/repos/Eugeny/tabby/security-advisories?per_page=100\")",
       "Bash(sw_vers -productVersion)",
       "Bash(brew --version)",
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "Bash([ -e \"$DST\" ])",
+      "Bash(mv /private/tmp/claude-501/-Users-thrillophilia/5de0a2e2-4280-4568-9182-9020d731f343/scratchpad/posos '/Users/thrillophilia/Documents/ai apps/personal-portfolio')"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F"
