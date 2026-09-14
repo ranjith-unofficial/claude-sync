@@ -243,7 +243,10 @@
       "Bash(npm run *)",
       "Bash(chmod +x scripts/purge_secrets_from_history.sh)",
       "Bash(bash -n scripts/purge_secrets_from_history.sh)",
-      "Bash(bash -n scripts/deploy_backup.sh)"
+      "Bash(bash -n scripts/deploy_backup.sh)",
+      "Bash(grep -icE \"\\\\.zip$\")",
+      "Bash(xargs -I{} echo \"{} zip files tracked\")",
+      "Bash(ADMIN_PASSCODE=abcd PERSONAL_OS_AGENT_TOKEN=tooshort NODE_ENV=production PERSONAL_OS_DATA_DIR=/private/tmp/claude-501/-Users-thrillophilia/5de0a2e2-4280-4568-9182-9020d731f343/scratchpad/auditdata node -e ' *)"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F"

@@ -121,6 +121,7 @@
 - [DPDP compliance](project-dpdp-compliance.md) — May 2027 deadline
 - [AI agents](project-ai-agents.md) — sales/support agents, voice AI
 - [ranjith.tech](reference-ranjith-tech.md) — site + security audit
+- [Personal OS dashboard](project-personal-os-dashboard.md) — repo path, leaked .env in git, prod API not deployed
 - Nexloid: [Nexloid product](nexloid_product.md) — automated event-tracking platform · [Nexloid competitive landscape](nexloid_competitive_landscape.md) — 21 players · [Nexloid GTM strategy](nexloid_gtm_strategy.md) — UK-first, agencies, $0/49/199/499 · [Nexloid open questions](nexloid_open_questions.md) — OAuth scope, "2 hrs saved" basis
 
 ## Reference
