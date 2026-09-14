@@ -240,7 +240,10 @@
       "Bash(mv /private/tmp/claude-501/-Users-thrillophilia/5de0a2e2-4280-4568-9182-9020d731f343/scratchpad/posos '/Users/thrillophilia/Documents/ai apps/personal-portfolio')",
       "Bash(node -e ' *)",
       "Bash(git rm *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(chmod +x scripts/purge_secrets_from_history.sh)",
+      "Bash(bash -n scripts/purge_secrets_from_history.sh)",
+      "Bash(bash -n scripts/deploy_backup.sh)"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F"
