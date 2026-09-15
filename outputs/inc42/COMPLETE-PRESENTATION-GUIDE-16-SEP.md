@@ -202,8 +202,15 @@ Read back owners + dates. Ask for email confirmation same day.
 - Align: evidence pack on bots if any (even if incomplete — say “we’ll table what we have”).
 - Align: who speaks when — you frame + Mayank continuity; Finance owns money language if present.
 
-### Note on the 10 Sep Mayank recording
-Audio is on your machine (`Downloads/+919354944489-2609111035.mp3`, ~15m21s). Full transcript-backed speak bullets will be merged into this guide as soon as transcription finishes. Until then, treat email + Finance hold letter as binding SoT; use the recording to refresh Mayank’s prior positions, not to invent new ones.
+### From the 10 Sep Mayank recording (transcript ready)
+See `/workspace/inc42-handover/moengage-mayank-2026-09-10-brief.md` and transcript sibling.
+
+Key adds from audio:
+- Auto-renew through **31 Dec 2026**; April notice stops post-Dec renewal only; no mid-term exit.
+- Bot overage Mayank frames ~₹45–50k — raise **last**, not first.
+- Off-record coaching (do not name him): don’t refuse 100%; informal ~₹3–4L / 40–60% band is offline only with Utkarsh/Finance.
+- He preferred Utkarsh not join the money room; promised contract share + try to join Rajender call.
+- Live call still: no payment commit; written demand hold; reconcile ₹12.56L demand notice vs ₹14–15L spoken claim frame.
 
 ---
 

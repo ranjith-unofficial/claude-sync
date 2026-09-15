@@ -263,7 +263,17 @@
       "Bash(curl -sL -A \"Mozilla/5.0\" -c jar \"https://events.inc42.com/cto-summit/checkout/?add-to-cart=12380\" -o co.html)",
       "Bash(qlmanage -t -s 600 -o . logo01.svg)",
       "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=4000 --window-size=1440,9800 --screenshot=/private/tmp/claude-501/-Users-cepl/0b51f4ec-d252-45ec-a401-6e5ee259c1f2/scratchpad/shot.png file:///Users/cepl/ClaudeDocs/inc42/cto-summit-2026-landing.html)",
-      "Bash(lsof -iTCP:8742 -sTCP:LISTEN)"
+      "Bash(lsof -iTCP:8742 -sTCP:LISTEN)",
+      "WebFetch(domain:stripe.com)",
+      "WebFetch(domain:config.figma.com)",
+      "WebFetch(domain:www.ai.engineer)",
+      "WebFetch(domain:leaddev.com)",
+      "WebFetch(domain:stripesessions.com)",
+      "WebFetch(domain:techcrunch.com)",
+      "WebFetch(domain:www.money2020.com)",
+      "WebFetch(domain:techsparks.yourstory.com)",
+      "WebFetch(domain:www.cerebralvalley.com)",
+      "WebFetch(domain:unprompted.craftventures.com)"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F",
