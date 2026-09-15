@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 0eab017f-4eae-493c-94d0-914f6845d54e
-  modified: 2026-09-13T16:33:14.725Z
+  modified: 2026-09-15T12:55:09.545Z
 ---
 
 Reviewed on 13 Sep 2026: content preview artifact 3a899f48, logic artifact 9dc40307, and the Gmail test "[TEST] Datalabs Weekly: $539 Mn Across 14 Deals" (sent 20 Aug, forwarded by the tech lead 31 Aug).
@@ -22,5 +22,10 @@ Proposed: 7 fixed blocks (one number → 3 things → your sector → money → 
 Channels: email for everyone. A free WhatsApp Channel as the Monday reminder (recommended). WhatsApp 1:1 only for opted-in Datalabs users with no email click in 24h (~₹1.02/msg incl GST).
 
 Open questions: list size and click rate, which build ships, any existing WhatsApp Channel or number, WhatsApp consent on checkout phone numbers, whether reply-to is monitored.
+
+**Round 2 (15 Sep 2026):** brand read of inc42.com/datalabs + 5 structurally different email mockups. Artifact https://claude.ai/artifact/LVWtxnRAUMBiMDeEn1nLVm, file ~/ClaudeDocs/inc42/datalabs-weekly/datalabs-weekly-5-variants.html. **Unreviewed.**
+- Site palette, verified in CSS: red #D92D20, highlight red #E4391B, deep red #B42318, tints #FEF3F2/#FECDCA, ink #201515, stone #57534E/#A9A29D, rails #ECEAE3, panel #F7F6F3, amber #DB850D/#FFF7ED. Green chips are images only, so their hex was matched by eye. Fonts are Geist and Geist Mono. Section label = 18×8 red bar + mono caps. Square corners, one red phrase per headline.
+- Variants: 1 Snapshot Sheet, 2 Scoreboard (win/lose), 3 Money Map (treemap), 4 Your Sector Week (name + share bar + sector picker), 5 Signal Feed (Add to list).
+- Recommended: launch 3, swap in 4's hero once `sector` exists (picker in footer from day one), hold 5 until login token.
 
 **How to apply:** check this before any further newsletter work, and re-verify the bugs against a fresh test send, since the pipeline may have changed. Related: [[project-inc42-deep-linking]], [[project-inc42-datalabs-winback]], [[reference-inc42-vendor-stack]].
