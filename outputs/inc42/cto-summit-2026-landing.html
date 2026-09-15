@@ -179,7 +179,7 @@ section{padding-block:96px;border-bottom:1px solid var(--rule)}
 @media (max-width:860px){.room{grid-template-columns:1fr;gap:40px}}
 
 /* includes + credits */
-.includes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;border-top:1px solid var(--ink);padding-top:28px;margin-bottom:72px}
+.includes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;border-top:1px solid var(--ink);padding-top:28px}
 .includes b{display:block;font-size:17px;font-weight:600;margin-bottom:6px}
 .includes p{color:var(--muted);font-size:15px}
 @media (max-width:860px){.includes{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -204,6 +204,36 @@ td:last-child{color:var(--muted)}
 .also{margin-top:16px;font-size:14px;color:var(--muted)}
 .also b{color:var(--ink);font-weight:500}
 @media (max-width:860px){.credits{grid-template-columns:1fr;padding:24px;gap:32px}}
+
+
+/* deals */
+.dstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;border-top:1px solid var(--ink);padding-top:24px;margin-bottom:48px}
+.dstats b{display:block;font-size:clamp(28px,3.4vw,40px);font-weight:500;letter-spacing:-0.02em;color:var(--accent);line-height:1.1;margin-bottom:6px}
+.dstats span{color:var(--muted);font-size:15px}
+.deals-tbl table td{padding-block:11px}
+.deals-tbl td:first-child{width:22%}
+.deals-tbl td:nth-child(2){color:var(--muted);padding-right:24px}
+.deals-tbl .num{text-align:right;white-space:nowrap;font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);font-size:14px}
+.deals-tbl th.num{text-align:right}
+.deals-tbl .dash{font-family:var(--sans);color:var(--faint);font-size:13px}
+.deals-tbl tr.grp th{font-family:var(--sans);text-transform:none;letter-spacing:-0.01em;font-size:17px;font-weight:600;color:var(--ink);padding:32px 0 10px;border-bottom:1px solid var(--rule)}
+.deals-tbl tbody tr.grp:first-child th{padding-top:18px}
+.dnotes{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px 40px;margin-top:28px;font-size:14px;color:var(--muted)}
+.dnotes b{color:var(--ink);font-weight:500}
+.catalogue{margin-top:40px;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
+.catalogue summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;padding:18px 20px;font-weight:600}
+.catalogue summary::-webkit-details-marker{display:none}
+.catalogue summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
+.catalogue[open] summary::after{content:"\2212"}
+.cat-inner{padding:0 20px 20px;display:grid;gap:10px}
+#deal-search{font:inherit;font-size:16px;padding:12px 14px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+#deal-search:focus{outline:2px solid var(--accent);outline-offset:1px}
+.cat-count{font-size:13px;color:var(--muted)}
+.cat-scroll{max-height:520px;overflow:auto;border-top:1px solid var(--rule)}
+.cat-scroll th{position:sticky;top:0;background:var(--surface);padding-top:10px}
+.cat-scroll td:first-child{white-space:normal;width:28%}
+@media (max-width:860px){.dstats{grid-template-columns:1fr;gap:20px}.dnotes{grid-template-columns:1fr}.deals-tbl td:first-child{white-space:normal}}
+@media (max-width:560px){.deals-tbl thead{display:none}.deals-tbl tr:not(.grp){display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding-block:10px;border-bottom:1px solid var(--rule)}.deals-tbl tr:not(.grp) td{border:0;padding:0;width:auto}.deals-tbl tr:not(.grp) td:nth-child(2){grid-column:1/-1;grid-row:2;padding:0}.deals-tbl tr.grp,.deals-tbl tr.grp th{display:block}}
 
 /* steps */
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s;border-top:1px solid var(--ink)}
@@ -265,7 +295,8 @@ footer nav a:hover{color:var(--ink)}
       <a href="#outcomes">What you get</a>
       <a href="#agenda">Agenda</a>
       <a href="#speakers">Speakers</a>
-      <a href="#pass">Pass &amp; credits</a>
+      <a href="#pass">Pass</a>
+      <a href="#deals">Deals</a>
       <a href="#booking">How booking works</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -310,7 +341,7 @@ footer nav a:hover{color:var(--ink)}
         <ul class="pass-incl">
           <li>All 10+ sessions with 20+ speakers</li>
           <li>Executive lunch, high tea and dinner</li>
-          <li>$320K+ in cloud and AI credits</li>
+          <li>$320K+ in credits and 634 software deals</li>
         </ul>
       </div>
     </aside>
@@ -603,42 +634,694 @@ footer nav a:hover{color:var(--ink)}
       <div><b>Every session</b><p>10+ panels and firesides with 20+ speakers, with Q&amp;A after each one.</p></div>
       <div><b>The room</b><p>A seat among 175 tech, product, data and AI leaders, VP and above.</p></div>
       <div><b>Food and networking</b><p>Executive lunch, high tea, and dinner with networking from 18:00.</p></div>
-      <div><b>Credits pack</b><p>$320K+ in cloud, data and AI tool credits from 13 providers. Details below.</p></div>
+      <div><b>Delegate deals</b><p>$320K+ in cloud, AI and data credits, plus 600+ software deals. <a href="#deals">See every deal</a>.</p></div>
     </div>
 
-    <div class="credits">
-      <div>
-        <span class="label">The credits pack</span>
-        <h3 style="margin-top:12px">Your pass also unlocks <em>$320K+</em> in cloud and AI credits.</h3>
-        <p class="lede">Every confirmed delegate gets access to credits and free plans across the infrastructure most scaling teams already pay for: cloud, data streaming, observability, DevOps and AI models.</p>
-        <dl class="compare">
-          <dt>Your pass</dt><dd>₹10,619</dd>
-          <dt class="big">Total credits pack</dt><dd class="big">$320,000+</dd>
-        </dl>
-        <div class="claim">
-          <p><b>Who gets it:</b> confirmed delegates.</p>
-          <p><b>How you claim it:</b> <span class="tbc">To confirm</span></p>
-          <p>Credit values are as listed by each provider. Provider eligibility and terms apply.</p>
-        </div>
-      </div>
-      <div>
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr><th>Provider</th><th>What you get</th></tr></thead>
+  </div>
+</section>
+
+<section id="deals">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Delegate deals</span>
+      <h2>Your pass unlocks $320K+ in credits, plus 600+ software deals.</h2>
+      <p>Confirmed delegates get access to 634 deals across 605 tools, including cloud, AI model, data and developer credits. Below are the ones that matter most to tech leaders, with each provider's exact terms.</p>
+    </div>
+
+    <div class="dstats">
+      <div><b class="mono">$420,750</b><span>in credits across the offers below, at each provider's lower tier</span></div>
+      <div><b class="mono">$1.25M</b><span>if your company qualifies for the higher tiers (for example, funded companies on Google Cloud, Cloudflare and Azure)</span></div>
+      <div><b class="mono">634</b><span>deals in total, across 605 tools, all included with your pass</span></div>
+    </div>
+
+    <div class="tbl-wrap deals-tbl">
+      <table>
+        <thead><tr><th scope="col">Provider</th><th scope="col">The deal</th><th scope="col" class="num">Credit value</th></tr></thead>
+        <tbody>
+<tr class="grp"><th colspan="3" scope="colgroup">Cloud and infrastructure</th></tr><tr><td>Google Cloud</td><td>$2,000 in credits for 1 year if you never raised funds; $350,000 in credits for 2 years if you did</td><td class="num">$2,000 to $350,000</td></tr><tr><td>Cloudflare</td><td>$10,000 in credits for self-funded startups; $350,000 in credits funded startups</td><td class="num">$10,000 to $350,000</td></tr><tr><td>Microsoft Azure</td><td>$5,000 in credits for 6 months if you didn&#x27;t raise funds; up to $150,000 in credits for 2 years if you did</td><td class="num">$5,000 to $150,000</td></tr><tr><td>Alibaba Cloud</td><td>$120,000 in credits for 1 year</td><td class="num">$120,000</td></tr><tr><td>AWS Activate</td><td>Up to $100,000 in credits or 20-50% off your monthly spend through an AWS partner (must be spending $100+/month)</td><td class="num">up to $100,000</td></tr><tr><td>OVHcloud</td><td>€10,000 in credits for 1 year</td><td class="num">€10,000</td></tr>
+<tr class="grp"><th colspan="3" scope="colgroup">AI models and APIs</th></tr><tr><td>AssemblyAI</td><td>$18,000 in credits over 12 months (higher allocations available based on usage)</td><td class="num">$18,000</td></tr><tr><td>Deepgram</td><td>$15,000 in credits over 12 months (higher allocations available based on usage)</td><td class="num">$15,000</td></tr><tr><td>Runware</td><td>$500 in API credits per month for 3 months (up to $30k based on your project)</td><td class="num">up to $30,000</td></tr><tr><td>Qwen AI</td><td>$5,000 in credits for 1 year (2 billion free tokens)</td><td class="num">$5,000</td></tr><tr><td>OpenAI</td><td>$1,000 in free credits across OpenAI&#x27;s models through LLM API</td><td class="num">$1,000</td></tr><tr><td>Claude (Anthropic)</td><td>$1,000 in credits across Anthropic&#x27;s models through OpenRouter&#x27;s API</td><td class="num">$1,000</td></tr><tr><td>OpenRouter</td><td>$1,000 in credits across 300+ LLM models (Claude, OpenAI, Gemini, etc.)</td><td class="num">$1,000</td></tr><tr><td>DeepSeek</td><td>$1,000 in model credits for 3 months (with credit renewal based on usage)</td><td class="num">$1,000</td></tr><tr><td>ElevenLabs</td><td>12 months free (33 million characters of free access)</td><td class="num"><span class="dash">Free plan or discount</span></td></tr>
+<tr class="grp"><th colspan="3" scope="colgroup">Data and analytics</th></tr><tr><td>PostHog</td><td>$50,000 in credits for 1 year</td><td class="num">$50,000</td></tr><tr><td>Databricks</td><td>$21,000 in credits for 1 year</td><td class="num">$21,000</td></tr><tr><td>Algolia</td><td>$10,000 in credits for 1 year</td><td class="num">$10,000</td></tr><tr><td>simplyblock</td><td>$10,000 in credits for 12 months</td><td class="num">$10,000</td></tr><tr><td>Snowflake</td><td>$1,250 in credits</td><td class="num">$1,250</td></tr><tr><td>MongoDB</td><td>$500 in credits for 1 year</td><td class="num">$500</td></tr><tr><td>Confluent</td><td>12 months free</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Mixpanel</td><td>1 year free</td><td class="num"><span class="dash">Free plan or discount</span></td></tr>
+<tr class="grp"><th colspan="3" scope="colgroup">Engineering and reliability</th></tr><tr><td>Merge</td><td>$5,000 in credits on the Professional or Enterprise plans</td><td class="num">$5,000</td></tr><tr><td>Zenduty</td><td>$3,500 in credits</td><td class="num">$3,500</td></tr><tr><td>GitLab</td><td>12 months free on the Ultimate license</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Datadog</td><td>1 year free on the Pro plan</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Retool</td><td>1 year free on the monthly Team or Business plan</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>JetBrains</td><td>6 months free + 50% off all JetBrains tools (up to 10 licences)</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Sentry</td><td>6 months free on the Teams plan</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Jira</td><td>Free forever for up to 10 users</td><td class="num"><span class="dash">Free plan or discount</span></td></tr>
+<tr class="grp"><th colspan="3" scope="colgroup">Security and compliance</th></tr><tr><td>Auth0</td><td>12 months free</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Twingate</td><td>1 year free of the Enterprise for Startups plan</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Vanta</td><td>25% off any annual plan</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Drata</td><td>30% off for 1 year</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Sprinto</td><td>25% off for 1 year</td><td class="num"><span class="dash">Free plan or discount</span></td></tr>
+<tr class="grp"><th colspan="3" scope="colgroup">Team and business tools</th></tr><tr><td>Fin by Intercom</td><td>$6,500 in Fin AI Agent credits + Intercom helpdesk free for 1 year</td><td class="num">$6,500</td></tr><tr><td>Deel</td><td>$1,500 credit on Payroll, HR or IT plans</td><td class="num">$1,500</td></tr><tr><td>Miro</td><td>$1,000 in credits (lifetime validity)</td><td class="num">$1,000</td></tr><tr><td>Airtable</td><td>$1,000 in credits on licences for 1 year</td><td class="num">$1,000</td></tr><tr><td>Stripe</td><td>$500 in credits</td><td class="num">$500</td></tr><tr><td>Notion</td><td>3 months free on the Business plan with Unlimited AI</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Slack</td><td>25% off new plan purchases</td><td class="num"><span class="dash">Free plan or discount</span></td></tr><tr><td>Razorpay</td><td>First $50,000 in transactions free</td><td class="num"><span class="dash">Free plan or discount</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="dnotes">
+      <p><b>How values work.</b> Values are as listed by each provider. Where a provider offers two tiers, the lower figure is for companies that haven't raised funding and the higher one is for funded companies. Provider eligibility and terms apply.</p>
+      <p><b>How you claim them.</b> <span class="tbc">To confirm</span></p>
+    </div>
+
+    <details class="catalogue">
+      <summary>Browse all 634 deals</summary>
+      <div class="cat-inner">
+        <label for="deal-search" class="label">Search by tool or deal</label>
+        <input id="deal-search" type="search" placeholder="e.g. Sentry, API credits, 12 months free" autocomplete="off">
+        <p class="cat-count mono" id="deal-count" aria-live="polite">634 deals</p>
+        <div class="tbl-wrap cat-scroll">
+          <table id="deal-table">
+            <thead><tr><th scope="col">Tool</th><th scope="col">The deal</th></tr></thead>
             <tbody>
-              <tr><td>AWS Activate</td><td>Up to $100,000 in credits</td></tr>
-              <tr><td>Databricks</td><td>$21,000 in credits for 1 year</td></tr>
-              <tr><td>Microsoft Azure</td><td>$5,000 in credits for 6 months</td></tr>
-              <tr><td>Google Cloud</td><td>$2,000 in credits for 1 year</td></tr>
-              <tr><td>Datadog</td><td>1 year free on the Pro plan</td></tr>
-              <tr><td>GitLab</td><td>1 year free on the Ultimate licence</td></tr>
-              <tr><td>Confluent</td><td>12 months free</td></tr>
+<tr><td>11x AI</td><td>10% off across all AI agents for 1 year</td></tr>
+<tr><td>1Password</td><td>14 days free on 1Password Business</td></tr>
+<tr><td>Abby</td><td>25% off for 1 year</td></tr>
+<tr><td>Abyssale</td><td>30% off for 6 months on all plans</td></tr>
+<tr><td>Accio Work by Alibaba</td><td>First month of Pro plan for $1</td></tr>
+<tr><td>ActiveCampaign</td><td>14 days free</td></tr>
+<tr><td>ActiveCampaign</td><td>90% off any annual plan for the first year</td></tr>
+<tr><td>Acumbamail</td><td>50% off for 6 months</td></tr>
+<tr><td>AdCreative.ai</td><td>50% off all annual plans</td></tr>
+<tr><td>AdOpt</td><td>6 months free on any plan</td></tr>
+<tr><td>Adriel</td><td>21 days free</td></tr>
+<tr><td>Agency</td><td>$100,000 in credits</td></tr>
+<tr><td>AgentMail</td><td>30% off Developer or Startup plans for 12 months</td></tr>
+<tr><td>Airalo</td><td>10% off your first purchase</td></tr>
+<tr><td>Aircall</td><td>First month free</td></tr>
+<tr><td>Airtable</td><td>$1,000 in credits on licences for 1 year</td></tr>
+<tr><td>Airwallex</td><td>2% uncapped cashback on corporate cards</td></tr>
+<tr><td>Algolia</td><td>$10,000 in credits for 1 year</td></tr>
+<tr><td>Alibaba Cloud</td><td>$120,000 in credits for 1 year</td></tr>
+<tr><td>Amazon EC2</td><td>Up to $100,000 in credits or 20-50% off your monthly spend through an AWS partner (must be spending $100+/month)</td></tr>
+<tr><td>Amazon Music</td><td>30 days free</td></tr>
+<tr><td>Amplitude</td><td>3 months free on the Plus plan</td></tr>
+<tr><td>Animoto</td><td>50% off annual plans</td></tr>
+<tr><td>Anything</td><td>20% off all plans</td></tr>
+<tr><td>Apollo.io</td><td>50% off the annual Basic or Professional plan for 1 year (Up to 5 seats)</td></tr>
+<tr><td>ApparelMagic</td><td>15% off the Professional, Enterprise, or Ultimate plans for 1 year</td></tr>
+<tr><td>AppMySite</td><td>20% off annual plans</td></tr>
+<tr><td>AppSignals</td><td>50% off annual Starter or Lifetime Growth plan</td></tr>
+<tr><td>Array</td><td>6 months free on the Essential plan</td></tr>
+<tr><td>Artlist</td><td>Additional 2 months free on annual plans</td></tr>
+<tr><td>Asana</td><td>75% off the annual Starter and Advanced plans for 1 year</td></tr>
+<tr><td>Ashby</td><td>20% off all plans for 1 year</td></tr>
+<tr><td>Aspire</td><td>$200 cashback on a $500 minimum deposit within 90 days of account opening</td></tr>
+<tr><td>AssemblyAI</td><td>$18,000 in credits over 12 months (higher allocations available based on usage)</td></tr>
+<tr><td>Atolia</td><td>40% lifetime discount on the Premium plan</td></tr>
+<tr><td>Attio</td><td>14 days free + additional 10% off monthly or annual plans</td></tr>
+<tr><td>Auth0</td><td>12 months free</td></tr>
+<tr><td>Avast</td><td>50% off for 1 year</td></tr>
+<tr><td>AVG Technologies</td><td>60% off for 1 year</td></tr>
+<tr><td>AWS Activate</td><td>Up to $100,000 in credits or 20-50% off your monthly spend through an AWS partner (must be spending $100+/month)</td></tr>
+<tr><td>Aws lambda</td><td>20-50% off your monthly spend through an AWS partner (must be spending $3k+/month to be eligible)</td></tr>
+<tr><td>Awssome</td><td>1 year free listing on AWS Marketplace</td></tr>
+<tr><td>Axeptio</td><td>3 months free on any plan</td></tr>
+<tr><td>Axonaut</td><td>3 months free up to 50 users</td></tr>
+<tr><td>B12.io</td><td>25% off the monthly Website plan for 12 months (200 credits)</td></tr>
+<tr><td>Babbel</td><td>55% off for 1 year</td></tr>
+<tr><td>Backlog</td><td>20% off all plans for 3 months</td></tr>
+<tr><td>Balsamiq Cloud</td><td>3 months free</td></tr>
+<tr><td>BambooHR</td><td>50% off implementation services</td></tr>
+<tr><td>Beefree SDK</td><td>90% off subscription fees on Core and Superpowers plans for 12 months</td></tr>
+<tr><td>beehiiv</td><td>14 days free + 20% off for 3 months</td></tr>
+<tr><td>BetterWay Devs</td><td>25% off the first hire</td></tr>
+<tr><td>BILL</td><td>$100 credit for every 10 payments processed through Accounts Payable</td></tr>
+<tr><td>BILL</td><td>Spend $500 and get $500 back with Spend and Expense</td></tr>
+<tr><td>BLACKBOX AI</td><td>50% off Pro Plus for 6 months</td></tr>
+<tr><td>Blinkist</td><td>25% off annual plans for 1 year</td></tr>
+<tr><td>BlockSurvey</td><td>50% off the Standard Plan for 1 year</td></tr>
+<tr><td>Blue Strawberry</td><td>60% off the Professional or Standard plan for 12 months</td></tr>
+<tr><td>bolt.new</td><td>20% off all plans for the first 3 months</td></tr>
+<tr><td>Bonsai</td><td>2 months free on annual plans</td></tr>
+<tr><td>Botnation</td><td>50% off any plan for 12 months</td></tr>
+<tr><td>Bouncer</td><td>20% off on Pay-as-you-go</td></tr>
+<tr><td>Box</td><td>First 2 months free</td></tr>
+<tr><td>Brand24</td><td>First month free + 25% off annual plans</td></tr>
+<tr><td>Breezy</td><td>15% off annual plans</td></tr>
+<tr><td>Brevo (ex. Sendinblue)</td><td>50% off Starter and Standard Plans</td></tr>
+<tr><td>Brex</td><td>50,000 points for $100,000 deposits in Brex business accounts</td></tr>
+<tr><td>Bright Data</td><td>50% off for 1 year on annual upfront contracts</td></tr>
+<tr><td>BrowserAct</td><td>20% off all monthly plans for 6 months</td></tr>
+<tr><td>Buffer</td><td>14 days free + 15% off annual plans</td></tr>
+<tr><td>Builderall</td><td>50% off all plans for 1 year</td></tr>
+<tr><td>BytePlus (by ByteDance)</td><td>$1,000 in model credits for 3 months (with credit renewal based on usage)</td></tr>
+<tr><td>Cacheflow</td><td>The Startup Accelerator Plan for $5,000</td></tr>
+<tr><td>Cal.com</td><td>20% off for 1 year</td></tr>
+<tr><td>Calendar</td><td>50% off all plans for 1 year</td></tr>
+<tr><td>Calendesk</td><td>20% off for 1 year</td></tr>
+<tr><td>CallHippo</td><td>20% off all monthly and annual plans</td></tr>
+<tr><td>Campaigner</td><td>35% off monthly plans for 1 year</td></tr>
+<tr><td>CapCut</td><td>7 days free + 25% off annual plans</td></tr>
+<tr><td>Captain Contrat</td><td>15% discount on service fees (except creation on estimate)</td></tr>
+<tr><td>Capté</td><td>50% off Premium and Standard plans for 1 year</td></tr>
+<tr><td>Carepatron</td><td>50% off monthly plans for 6 months</td></tr>
+<tr><td>Carrd</td><td>30% off for 1 year</td></tr>
+<tr><td>Carta</td><td>25% off 1 year</td></tr>
+<tr><td>CatchApp Bookings</td><td>75% off for 1 year</td></tr>
+<tr><td>CCleaner</td><td>20% off for 1 year</td></tr>
+<tr><td>Chargebee</td><td>Free access to the Performance plan until your first $1M in billing</td></tr>
+<tr><td>Chatbase</td><td>20% off annual plans</td></tr>
+<tr><td>Chatsimple.ai</td><td>30% off for 1 year</td></tr>
+<tr><td>ChemiCloud</td><td>75% off Shared Hosting and WordPress Hosting plans for 1 year</td></tr>
+<tr><td>Cherry Servers</td><td>30% off any plan for 12 months</td></tr>
+<tr><td>Claude AI (Anthropic)</td><td>$1,000 in credits across Anthropic&#x27;s models through OpenRouter&#x27;s API</td></tr>
+<tr><td>Clay</td><td>14 days free + 10% off annual plans</td></tr>
+<tr><td>ClearCRM</td><td>First 3 months free + 75% off monthly plans for 1 year</td></tr>
+<tr><td>Clemta</td><td>15% off all plans</td></tr>
+<tr><td>Clerky</td><td>$100 off the Company Lifetime Package</td></tr>
+<tr><td>CleverTap</td><td>50% off the Essentials plan for 1 year</td></tr>
+<tr><td>ClickFunnels</td><td>1 month free on the Pro plan</td></tr>
+<tr><td>ClickUp</td><td>Additional 20% off Unlimited and Business plans for 1 year</td></tr>
+<tr><td>Close</td><td>20% off monthly or annual plans</td></tr>
+<tr><td>Cloudflare</td><td>$10,000 in credits for self-funded startups; $350,000 in credits funded startups</td></tr>
+<tr><td>Cloudimage</td><td>20% discount across all paid plans</td></tr>
+<tr><td>CloudTalk</td><td>50% off the first month</td></tr>
+<tr><td>Cloudways</td><td>30% off for 3 months</td></tr>
+<tr><td>Cobalt</td><td>75% off the Growth and Scale plans for 1 year</td></tr>
+<tr><td>Coda</td><td>7 days free + 15% off annual plans</td></tr>
+<tr><td>Collabstr</td><td>10% off all orders for 1 year</td></tr>
+<tr><td>Collect.chat</td><td>50% off all plans for 1 year</td></tr>
+<tr><td>Colossyan</td><td>20% off Starter and Business plans</td></tr>
+<tr><td>Compass</td><td>90% off for 1 year</td></tr>
+<tr><td>Confluence</td><td>Free forever for up to 10 users</td></tr>
+<tr><td>Confluent</td><td>12 months free</td></tr>
+<tr><td>Content Beta</td><td>$1,000 in credits on any annual plan</td></tr>
+<tr><td>Content Beta</td><td>$500 in credits on any annual plan</td></tr>
+<tr><td>Contract-factory</td><td>30% off</td></tr>
+<tr><td>Cookiebot</td><td>40% off for 3 years</td></tr>
+<tr><td>Copy.ai</td><td>30% off all plans for 1 year</td></tr>
+<tr><td>Crunchbase</td><td>20% off for 1 year</td></tr>
+<tr><td>Customer.io</td><td>1 year free on the Essentials plan (30k profiles)</td></tr>
+<tr><td>CustomGPT.ai</td><td>$99 off any purchase</td></tr>
+<tr><td>CyberGhost</td><td>83% off the 2 year plan + 4 months free</td></tr>
+<tr><td>Databricks</td><td>$21,000 in credits for 1 year</td></tr>
+<tr><td>DataCamp</td><td>25% off the Teams plan for 1 year</td></tr>
+<tr><td>Datadog</td><td>1 year free on the Pro plan</td></tr>
+<tr><td>Datananas</td><td>50% off Pro plan for 6 months</td></tr>
+<tr><td>Datapills</td><td>6 months free on the Startup plan</td></tr>
+<tr><td>Deel</td><td>$1,500 credit on Payroll, HR or IT plans</td></tr>
+<tr><td>Deepgram</td><td>$15,000 in credits over 12 months (higher allocations available based on usage)</td></tr>
+<tr><td>DeepSeek AI</td><td>$1,000 in model credits for 3 months (with credit renewal based on usage)</td></tr>
+<tr><td>DepositPhotos</td><td>20% off all plans for 1 year</td></tr>
+<tr><td>Descript</td><td>35% off annual plans</td></tr>
+<tr><td>DevRev</td><td>12 months free on the Pro plan</td></tr>
+<tr><td>Dext</td><td>90% off for 3 months on all Business plans</td></tr>
+<tr><td>Dify</td><td>20% off monthly Professional and Team plans for 6 months</td></tr>
+<tr><td>Distrobird</td><td>90% off all plans for 1 year</td></tr>
+<tr><td>DNA FI</td><td>50% off premium reports</td></tr>
+<tr><td>DocHub</td><td>20% off Pro and Basic plans for 1 year</td></tr>
+<tr><td>DocSend</td><td>90% off your annual DocSend plan</td></tr>
+<tr><td>Document360</td><td>6 months free + Wow site</td></tr>
+<tr><td>Docusign</td><td>First month free and 40% off annual plans</td></tr>
+<tr><td>DogQ</td><td>70% off for 1 year</td></tr>
+<tr><td>DoneDone</td><td>$500 in credits (up to 3 months)</td></tr>
+<tr><td>Doodle</td><td>20% off the monthly Pro plan</td></tr>
+<tr><td>doola</td><td>20% off your first purchase</td></tr>
+<tr><td>Dotcom-Monitor</td><td>50% off for 1 year</td></tr>
+<tr><td>Dougs</td><td>First month free</td></tr>
+<tr><td>Drag’n Survey</td><td>50% off annual plans</td></tr>
+<tr><td>Drata</td><td>30% off for 1 year</td></tr>
+<tr><td>Durable</td><td>20% off all monthly and annual plans for 12 months</td></tr>
+<tr><td>Elementor: Website Builder</td><td>17% off the annual One Agency plan</td></tr>
+<tr><td>ElevenLabs</td><td>12 months free (33 million characters of free access)</td></tr>
+<tr><td>ElevenLabs</td><td>50% off the Creator plan for 1 month</td></tr>
+<tr><td>Emergent</td><td>20% off your first month on the Pro plan</td></tr>
+<tr><td>Empuls</td><td>95% off for 1 year</td></tr>
+<tr><td>Encharge</td><td>50% off for 1 year</td></tr>
+<tr><td>Engine</td><td>4% back in Engine Rewards</td></tr>
+<tr><td>Epidemic Sound</td><td>First month free</td></tr>
+<tr><td>ESET PROTECT Advanced</td><td>30% off Protection Tiers</td></tr>
+<tr><td>Evaboot</td><td>20% off all plans lifetime</td></tr>
+<tr><td>Every</td><td>9 months free on the HR plan</td></tr>
+<tr><td>Expandi</td><td>30% off for 1 year</td></tr>
+<tr><td>Expensify</td><td>50% off annual subscriptions for 6 months</td></tr>
+<tr><td>ExpressVPN</td><td>Additional 25% off across all plans</td></tr>
+<tr><td>Faaaster (ex. Themecloud)</td><td>50% off across all hosting plans</td></tr>
+<tr><td>Factorial</td><td>30% off all plans for 1 year</td></tr>
+<tr><td>Fastmail</td><td>First month free + additional 10% off for 1 year</td></tr>
+<tr><td>Fathom AI</td><td>First month free on the Premium plan</td></tr>
+<tr><td>Fellow.app</td><td>First month free on the Business plan</td></tr>
+<tr><td>FileForms</td><td>50% off all plans for 1 year</td></tr>
+<tr><td>FileSplash</td><td>20% off all plans lifetime</td></tr>
+<tr><td>FileSplash</td><td>50% off all plans lifetime</td></tr>
+<tr><td>Fin (ex. Intercom)</td><td>$6,500 in Fin AI Agent credits + Intercom helpdesk free for 1 year</td></tr>
+<tr><td>Findcustomer</td><td>50% off for 6 months</td></tr>
+<tr><td>Firstbase</td><td>10% off for 1 year</td></tr>
+<tr><td>Fiverr</td><td>10% off your first purchase</td></tr>
+<tr><td>Fiverr Workspace</td><td>20% off your first Fiverr Pro order</td></tr>
+<tr><td>FlexOffers</td><td>40% off for 1 year</td></tr>
+<tr><td>Fliki</td><td>50% off monthly plans for 3 months</td></tr>
+<tr><td>Flipsnack</td><td>30% off yearly plans</td></tr>
+<tr><td>Flutin</td><td>50% off for the first year</td></tr>
+<tr><td>folk CRM</td><td>14 days free + 20% off annual plans</td></tr>
+<tr><td>Forbes</td><td>10% off an annual/biennial membership</td></tr>
+<tr><td>Forecastr</td><td>25% off the annual subscription + $0 onboarding fees</td></tr>
+<tr><td>forms.app</td><td>30% off annual plans</td></tr>
+<tr><td>Framer</td><td>1 year free on the Pro Plan</td></tr>
+<tr><td>Framer</td><td>25% off annual plans</td></tr>
+<tr><td>Fraud Blocker</td><td>25% off the Starter and Pro plans for 1 year</td></tr>
+<tr><td>Freebe</td><td>50% off on annual plan</td></tr>
+<tr><td>FreshBooks</td><td>90% off for 3 months</td></tr>
+<tr><td>Freshchat</td><td>14 days free</td></tr>
+<tr><td>Freshdesk</td><td>14 days free</td></tr>
+<tr><td>Freshservice</td><td>14 days free</td></tr>
+<tr><td>Freshworks</td><td>14 days free on Freshdesk</td></tr>
+<tr><td>FullEnrich</td><td>2,000 free credits</td></tr>
+<tr><td>FutureLearn</td><td>30% off Unlimited for Teams annual subscriptions</td></tr>
+<tr><td>G-P (Globalization Partners)</td><td>First month free on Gia + 20% off EOR and Contractor plans</td></tr>
+<tr><td>Galaxy (ex. Meteor Cloud)</td><td>$600 in credits for 1 year</td></tr>
+<tr><td>Gamma</td><td>400 credits + 25% off annual plans for Individuals</td></tr>
+<tr><td>GanttPRO</td><td>Up to $3,000 in credits</td></tr>
+<tr><td>Gelato</td><td>30% off your first order</td></tr>
+<tr><td>GetResponse</td><td>Additional 15% off on all purchases</td></tr>
+<tr><td>GitLab</td><td>12 months free on the Ultimate license</td></tr>
+<tr><td>Glide</td><td>30% off the Maker and Business plans for 1 year</td></tr>
+<tr><td>Gmelius</td><td>50% off for 1 year</td></tr>
+<tr><td>GoCardless</td><td>Waived fees for the first 90 days</td></tr>
+<tr><td>GoDaddy</td><td>1st year .com domain purchase for $11.99</td></tr>
+<tr><td>Google Ads</td><td>Spend $500, get $500; Spend $1,000, get $750; Spend $1,500, get $1,000 in FREE ad credit</td></tr>
+<tr><td>Google Calendar</td><td>20% off Plus plans for 1 year</td></tr>
+<tr><td>Google Calendar</td><td>20% off Standard plans for 1 year</td></tr>
+<tr><td>Google Cloud (GCP)</td><td>$2,000 in credits for 1 year if you never raised funds; $350,000 in credits for 2 years if you did</td></tr>
+<tr><td>Google Docs</td><td>20% off Plus plans for 1 year</td></tr>
+<tr><td>Google Docs</td><td>20% off Standard plans for 1 year</td></tr>
+<tr><td>Google Drive</td><td>20% off Plus plans for 1 year</td></tr>
+<tr><td>Google Drive</td><td>20% off Standard plans for 1 year</td></tr>
+<tr><td>Google Gemini</td><td>20% off Google Workspace Plus plans for 1 year (Gemini access included)</td></tr>
+<tr><td>Google Gemini</td><td>20% off Google Workspace Standard plans for 1 year (Gemini access included)</td></tr>
+<tr><td>Google Meet</td><td>20% off Plus plans for 1 year</td></tr>
+<tr><td>Google Meet</td><td>20% off Standard plans for 1 year</td></tr>
+<tr><td>Google Sheets</td><td>20% off Plus plans for 1 year</td></tr>
+<tr><td>Google Sheets</td><td>20% off Standard plans for 1 year</td></tr>
+<tr><td>Google Slides</td><td>20% off Plus plans for 1 year</td></tr>
+<tr><td>Google Slides</td><td>20% off Standard plans for 1 year</td></tr>
+<tr><td>Google Workspace</td><td>20% off Plus plans for 1 year</td></tr>
+<tr><td>Google Workspace</td><td>20% off Standard plans for 1 year</td></tr>
+<tr><td>Gorgias</td><td>7 days free + 10% off annual plans</td></tr>
+<tr><td>Grammarly</td><td>20% off monthly or annual plans for 1 year</td></tr>
+<tr><td>Granola</td><td>First month free</td></tr>
+<tr><td>GrowSurf</td><td>40% off for the first 12 months</td></tr>
+<tr><td>Guideline Retirement</td><td>3 months free</td></tr>
+<tr><td>Gusto</td><td>First month free</td></tr>
+<tr><td>Happierleads</td><td>20% off for the first year</td></tr>
+<tr><td>Harvestr</td><td>50% off on the &quot;Rise&quot; plan</td></tr>
+<tr><td>Headway</td><td>51% off Personal plans for 1 year</td></tr>
+<tr><td>Healthie</td><td>20% off Plus and Group plans for 6 months</td></tr>
+<tr><td>heyData</td><td>3 months free on all plans</td></tr>
+<tr><td>HeyReach</td><td>25% off the monthly Growth plan for 1 year</td></tr>
+<tr><td>hide.me VPN</td><td>76% off for 39 months</td></tr>
+<tr><td>HighLevel</td><td>First month free</td></tr>
+<tr><td>Hive</td><td>30% off monthly or annual plans</td></tr>
+<tr><td>Hiver Gmail Extension</td><td>20% off annual plans</td></tr>
+<tr><td>Hootsuite</td><td>First month free + 50% off the annual Standard plan</td></tr>
+<tr><td>Hostinger</td><td>Additional 10% off on all 12/24/48-monthly plan purchases</td></tr>
+<tr><td>Hostinger Horizons</td><td>Additional 10% off monthly or annual plans</td></tr>
+<tr><td>Hotjar</td><td>40% off all annual plans</td></tr>
+<tr><td>Howuku</td><td>50% off for 12 months</td></tr>
+<tr><td>HubSpot</td><td>30% off Professional and Enterprise plans for 1 year across all Hubspot products</td></tr>
+<tr><td>HubSpot CRM</td><td>30% off Professional and Enterprise plans for 1 year across all HubSpot products</td></tr>
+<tr><td>HubSpot Customer Platform</td><td>40% off the Starter plan for 1 year</td></tr>
+<tr><td>HubSpot Marketing</td><td>30% off Professional and Enterprise plans for 1 year across all HubSpot products</td></tr>
+<tr><td>Hubspot Sales Hub</td><td>30% off Sales Hub Professional and Enterprise plans for 1 year</td></tr>
+<tr><td>Hubspot Service Hub</td><td>30% off Service Hub Professional and Enterprise plans for 1 year</td></tr>
+<tr><td>Hugging Face</td><td>2 months free on the Pro plan</td></tr>
+<tr><td>Hunter</td><td>30% off for the first 3 months</td></tr>
+<tr><td>Hygraph (ex. GraphCMS)</td><td>50% off for up to 1 year</td></tr>
+<tr><td>Hypervault</td><td>50% off all plans for 1 year</td></tr>
+<tr><td>Iconosquare</td><td>14 days free + 15% off annual plans</td></tr>
+<tr><td>iContact</td><td>10% off monthly and annual plans for 1 year</td></tr>
+<tr><td>IFTTT</td><td>40% off the Pro+ plan for 1 year</td></tr>
+<tr><td>impact.com</td><td>10% off for 1 year across all plans</td></tr>
+<tr><td>Incisio AI</td><td>6 months free on the DIY plan</td></tr>
+<tr><td>Indeed</td><td>€100 credits</td></tr>
+<tr><td>InDesign</td><td>7 days free (available through Adobe Creative Cloud)</td></tr>
+<tr><td>Indy</td><td>1 month free</td></tr>
+<tr><td>InfluenceKit</td><td>30% off for 1 year</td></tr>
+<tr><td>Infogram</td><td>3 months free on the Business and Teams plans</td></tr>
+<tr><td>Instapage</td><td>Additional 20% off annual plans</td></tr>
+<tr><td>Instatus</td><td>1 year free on Pro Plan</td></tr>
+<tr><td>Interceptly (ex. Outreachly)</td><td>30% off all monthly plans for 3 months</td></tr>
+<tr><td>Internxt</td><td>87% off lifetime plans</td></tr>
+<tr><td>InVideo</td><td>50 free AI minutes on all AI plans</td></tr>
+<tr><td>InvoiceBerry</td><td>30% off annual plans</td></tr>
+<tr><td>iPaidThat</td><td>3 months free on any plan</td></tr>
+<tr><td>IPRoyal</td><td>50% off residential proxies for 9 months</td></tr>
+<tr><td>IPVanish</td><td>74% off for 12 months</td></tr>
+<tr><td>Jelly</td><td>50% off annual plans</td></tr>
+<tr><td>Jenni AI</td><td>Additional 20% off the annual Unlimited plan</td></tr>
+<tr><td>Jepto</td><td>6 months free on Basic Plan</td></tr>
+<tr><td>JetBrains</td><td>6 months free + 50% off all JetBrains tools (up to 10 licences)</td></tr>
+<tr><td>Jibble</td><td>30% off Premium and Ultimate Plans for 1 year</td></tr>
+<tr><td>Jimdo</td><td>50% off for 1 year</td></tr>
+<tr><td>Jira</td><td>Free forever for up to 10 users</td></tr>
+<tr><td>Joonbot</td><td>3 months free on all monthly plans</td></tr>
+<tr><td>Jotform</td><td>50% off annual plans for 1 year</td></tr>
+<tr><td>June Analytics</td><td>$450  in credits for the Growth plan (3 months)</td></tr>
+<tr><td>Kajabi</td><td>First month free</td></tr>
+<tr><td>Kakiyo</td><td>20% off all plans for 12 months</td></tr>
+<tr><td>Kalent</td><td>30% off all plans for 12 months</td></tr>
+<tr><td>Kandbaz</td><td>3 months free on your fiscal residency in Paris</td></tr>
+<tr><td>Karmen</td><td>Zero commission on the first €10,000 financed</td></tr>
+<tr><td>Kaspr</td><td>20% off monthly and annual plans for 1 year</td></tr>
+<tr><td>Keeper Security</td><td>50% off personal and 30% off Business Starter for 1 year</td></tr>
+<tr><td>Kit (ex. ConvertKit)</td><td>20% off the annual Creator plan for the first year</td></tr>
+<tr><td>Kittl</td><td>25% off the annual plan for 1 year</td></tr>
+<tr><td>Klap</td><td>50% off monthly and annual plans for 1 year</td></tr>
+<tr><td>Klaviyo</td><td>Forever Free Plan with 500 monthly email sends</td></tr>
+<tr><td>KrispCall</td><td>20% off monthly or annual plans</td></tr>
+<tr><td>Lawpath</td><td>3 months free on the Essentials plan</td></tr>
+<tr><td>Lawpath</td><td>40% off Legal Plans for 1 year</td></tr>
+<tr><td>LeadGen App</td><td>50% off the monthly Pro plan for life</td></tr>
+<tr><td>Leadpages</td><td>30% off all monthly and annual plans</td></tr>
+<tr><td>LeadSquared</td><td>50% off all plans for 1 year</td></tr>
+<tr><td>LearnWorlds</td><td>First month free + 20% off annual plans</td></tr>
+<tr><td>Ledgy</td><td>25% off your first year</td></tr>
+<tr><td>LegalPlace</td><td>15% off business creation plans for 1 year</td></tr>
+<tr><td>LegalZoom</td><td>15% off your first purchase</td></tr>
+<tr><td>lemlist</td><td>First month free</td></tr>
+<tr><td>LetsEnhance</td><td>50% off 100 and 300 image monthly subscriptions for 1 year</td></tr>
+<tr><td>LetterBucket</td><td>50% off for 3 months</td></tr>
+<tr><td>LightPDF</td><td>Additional 20% off all plans</td></tr>
+<tr><td>LimeCall</td><td>50% off for 1 year</td></tr>
+<tr><td>LinkedIn</td><td>Spend $250, get $250 FREE ad credit</td></tr>
+<tr><td>LiveAgent</td><td>$120 credits on any plan</td></tr>
+<tr><td>LiveChat</td><td>$150 credits (Team, Business and Enterprise Plans)</td></tr>
+<tr><td>LiveChatAI</td><td>50% off monthly and annual plans for 1 year</td></tr>
+<tr><td>LiveSession</td><td>50% off the Pro plan for 6 months</td></tr>
+<tr><td>Livestorm</td><td>Forever Free Plan with 25 live attendees per event</td></tr>
+<tr><td>LLM API</td><td>Deposit $1,000 get $1,000 in free credits across 200+ LLM models (Claude, OpenAI, Gemini, and more)</td></tr>
+<tr><td>LogicBalls</td><td>50% off the Premium plan for 1 year</td></tr>
+<tr><td>Loom</td><td>Free forever for up to 10 users</td></tr>
+<tr><td>Lovable</td><td>15% off annual Pro and Business plans</td></tr>
+<tr><td>Lusha</td><td>15% off monthly plans and 35% off annual plans</td></tr>
+<tr><td>MacKeeper</td><td>Additional 30% off 12-month plans</td></tr>
+<tr><td>Magnific (ex. Freepik)</td><td>Additional 20% off Premium and Premium+ annual plans for 1 year</td></tr>
+<tr><td>Magnific (ex. Freepik)</td><td>Additional 38% off the annual Business plan for 1 year</td></tr>
+<tr><td>Mailchimp</td><td>30% off all plans for 12 months</td></tr>
+<tr><td>MailerSend</td><td>25% off the annual Starter plan for 1 year</td></tr>
+<tr><td>Mailmodo</td><td>20% off the Pro or Max plan for 6 months</td></tr>
+<tr><td>MailTag</td><td>50% off any plans (monthly and annual) lifetime</td></tr>
+<tr><td>Mainstreet</td><td>$500 in credits</td></tr>
+<tr><td>Make</td><td>3 months free on the Teams plan (240k credits included)</td></tr>
+<tr><td>Make</td><td>First month free on Pro plan (10,000 credits) + 40% off Pro or Teams annual plans</td></tr>
+<tr><td>Manychat</td><td>First month free on Pro plan</td></tr>
+<tr><td>Mashup Web Social</td><td>20% off annual plans</td></tr>
+<tr><td>MasterClass</td><td>15% off annual plans</td></tr>
+<tr><td>McAfee</td><td>$100 off your yearly subscription</td></tr>
+<tr><td>Melio</td><td>Get a $200 gift card on your first payment of $500</td></tr>
+<tr><td>Memberstack</td><td>50% off for 6 months</td></tr>
+<tr><td>MerciApp</td><td>30% off for 1 year</td></tr>
+<tr><td>Mercury</td><td>$250 credit when you deposit $10k within your first 90 days</td></tr>
+<tr><td>Merge</td><td>$5,000 in credits on the Professional or Enterprise plans</td></tr>
+<tr><td>Mergify</td><td>50% off the Premium or Essential plan for 1 year</td></tr>
+<tr><td>Microsoft Azure</td><td>$5,000 in credits for 6 months if you didn&#x27;t raise funds; Up to $150,000 in credits for 2 years if you did</td></tr>
+<tr><td>Microsoft for Startups</td><td>$5,000 credit for 6 months</td></tr>
+<tr><td>Miro</td><td>$1,000 in credits (lifetime validity)</td></tr>
+<tr><td>Miro</td><td>14 days free on the Business plan</td></tr>
+<tr><td>Missive</td><td>First month free</td></tr>
+<tr><td>Mixpanel</td><td>1 year free</td></tr>
+<tr><td>Mobbin</td><td>20% off for 1 year on the Pro plan</td></tr>
+<tr><td>Mobiroller</td><td>50% off up to 1 year</td></tr>
+<tr><td>MoEngage</td><td>50% off for the first year</td></tr>
+<tr><td>Moesif</td><td>50% off for 3 months for the plan Grow</td></tr>
+<tr><td>Mollie</td><td>Waived fees on your next €25,000 in payment processing</td></tr>
+<tr><td>Monday</td><td>First month free</td></tr>
+<tr><td>Monday CRM</td><td>14 days free + 18% off annual plans</td></tr>
+<tr><td>Monday Dev</td><td>14 days free + 18% off annual plans</td></tr>
+<tr><td>mongoDB</td><td>$500 in credits for 1 year</td></tr>
+<tr><td>MonsterONE</td><td>30% off for 1 year</td></tr>
+<tr><td>Moosend</td><td>75% off monthly plans for 1 year</td></tr>
+<tr><td>Moosend</td><td>First month free + 20% off annual plans</td></tr>
+<tr><td>Moz</td><td>25% off annual plans for 1 year</td></tr>
+<tr><td>Multiplier</td><td>$600 in credits</td></tr>
+<tr><td>Mux</td><td>$500 credits on Mux</td></tr>
+<tr><td>MyOperator</td><td>30% off for 1 year</td></tr>
+<tr><td>myPresences</td><td>$200 Credit on any plan.</td></tr>
+<tr><td>n8n</td><td>14 days free + 17% off annual plans</td></tr>
+<tr><td>n8n</td><td>50% off the monthly and annual Business plan for 1 year</td></tr>
+<tr><td>Namecheap</td><td>Additional 10% off domain registration / 65% off Shared hosting packages for 1 year</td></tr>
+<tr><td>Nano Banana Pro</td><td>$300 Gemini API credit</td></tr>
+<tr><td>NanoCorp</td><td>$20 off your first month on the Founder plan</td></tr>
+<tr><td>Narrato</td><td>35% off all plans for 1 year</td></tr>
+<tr><td>Navan</td><td>Spend $500, Get $500 in Credit for your next booking</td></tr>
+<tr><td>Netcore Cloud</td><td>$30,000 in credits</td></tr>
+<tr><td>NinjaOne</td><td>14 days free</td></tr>
+<tr><td>No Limits</td><td>2 months free</td></tr>
+<tr><td>NordVPN</td><td>60% off for 1 year or 74% off for 2 years</td></tr>
+<tr><td>Norton AntiVirus</td><td>58% off Norton 360 and 50% off AntiVirus Plus plans for 1 year</td></tr>
+<tr><td>Norton Small Business</td><td>50% off Norton Small Business plans</td></tr>
+<tr><td>NotebookLM</td><td>20% off Google Workspace Plus plans for 1 year (NotebookLM access included)</td></tr>
+<tr><td>NotebookLM</td><td>20% off Google Workspace Standard plans for 1 year (NotebookLM access included)</td></tr>
+<tr><td>Notion</td><td>3 months free on the Business plan with Unlimited AI</td></tr>
+<tr><td>Notta.ai</td><td>20% off monthly or annual plans</td></tr>
+<tr><td>Nova</td><td>3 months free</td></tr>
+<tr><td>nTask</td><td>25% off all plans for 1 year</td></tr>
+<tr><td>Omio</td><td>10% off your first order</td></tr>
+<tr><td>Omnisend</td><td>30% off all plans for 1 year</td></tr>
+<tr><td>OnPay</td><td>First month free</td></tr>
+<tr><td>OpenAI - ChatGPT</td><td>$1,000 in free credits across OpenAI&#x27;s models through LLM API</td></tr>
+<tr><td>OpenArt</td><td>15% off monthly plans for 1 year</td></tr>
+<tr><td>OpenClaw</td><td>Additional 10% off for OpenClaw&#x27;s hosting on Hostinger</td></tr>
+<tr><td>OpeninApp</td><td>50% off all plans for 1 year</td></tr>
+<tr><td>OpenRouter</td><td>$1,000 in credits across 300+ LLM models (Claude, OpenAI, Gemini, etc.)</td></tr>
+<tr><td>OpenVC</td><td>20% off for 1 year</td></tr>
+<tr><td>Optery</td><td>20% off monthly plans for 1 year</td></tr>
+<tr><td>Otter.ai</td><td>51% off annual Pro plan or 33% annual Business plan</td></tr>
+<tr><td>Outgrow</td><td>3 months free on the Essentials plan or 6 months free on Freelancer Pro</td></tr>
+<tr><td>Outplay</td><td>40% off for 12 months (up to 2 users)</td></tr>
+<tr><td>Outsite</td><td>$75 off your membership</td></tr>
+<tr><td>OVHcloud</td><td>€10,000 in credits for 1 year</td></tr>
+<tr><td>Ownr</td><td>15% off your first purchase</td></tr>
+<tr><td>Oyster HR</td><td>30% off all plans for 1 year</td></tr>
+<tr><td>Pagemaker</td><td>30% off for 1 year</td></tr>
+<tr><td>Pagerly</td><td>20% off the monthly Starter plan for 1 year</td></tr>
+<tr><td>PandaDoc</td><td>20% off monthly Starter and Business plans for 12 months</td></tr>
+<tr><td>PandaSuite</td><td>50% off for 1 year</td></tr>
+<tr><td>Paperform</td><td>50% off monthly plans for 1 year</td></tr>
+<tr><td>Papermark</td><td>25% off all monthly and annual plans for 12 months</td></tr>
+<tr><td>PartnerStack</td><td>15% off for 1 year</td></tr>
+<tr><td>PayFit</td><td>1 month free</td></tr>
+<tr><td>Payoneer Workforce Management</td><td>20% off monthly and annual Employer of Record (EOR) plans lifetime</td></tr>
+<tr><td>PayPlug</td><td>3 months off on Pro or Premium plans (except Shopify plugin)</td></tr>
+<tr><td>pdfFiller</td><td>First month free</td></tr>
+<tr><td>Perdoo</td><td>20% off Premium plan for 12 months</td></tr>
+<tr><td>PhantomBuster</td><td>25% off any plan for 12 months</td></tr>
+<tr><td>Picsart</td><td>10% off monthly or annual plans</td></tr>
+<tr><td>PicWish</td><td>20% off the monthly and annual Pro plan</td></tr>
+<tr><td>Piktochart</td><td>50% off the annual Business plan</td></tr>
+<tr><td>Pipedrive</td><td>30% off for 12 months</td></tr>
+<tr><td>Pippit AI</td><td>20% off annual plans</td></tr>
+<tr><td>Pitch</td><td>30% off for 6 months on monthly plans and 15% off annual plans</td></tr>
+<tr><td>PitchBob</td><td>50% off the Super Pro plan</td></tr>
+<tr><td>Pivony</td><td>6 months free on the Basic plan</td></tr>
+<tr><td>Pixpa</td><td>40% off yearly plans or 55% off biyearly plans</td></tr>
+<tr><td>Planable</td><td>$150 off initial purchases</td></tr>
+<tr><td>Plane</td><td>10% off Employer of Record and Contractor services for 1 year</td></tr>
+<tr><td>PopAi</td><td>20% off all plans</td></tr>
+<tr><td>Post Affiliate Pro</td><td>$200 credits on any plan</td></tr>
+<tr><td>PostHog</td><td>$50,000 in credits for 1 year</td></tr>
+<tr><td>Powr</td><td>10% off annual plans</td></tr>
+<tr><td>Powtoon</td><td>68% off the Business plan for 1 year</td></tr>
+<tr><td>Predis.ai</td><td>50% off annual plans</td></tr>
+<tr><td>Prelo</td><td>50% off all plans for 1 year</td></tr>
+<tr><td>Preply</td><td>50% off your first purchase</td></tr>
+<tr><td>Prezi</td><td>40% off for 1 year</td></tr>
+<tr><td>Prisma</td><td>$300 in credits</td></tr>
+<tr><td>Process Street</td><td>6 months free on the Startup plan</td></tr>
+<tr><td>ProdCamp</td><td>1 year free subscription on any plan</td></tr>
+<tr><td>Producter</td><td>6 months free</td></tr>
+<tr><td>Promo.com</td><td>40% off annual plans and 20% of monthly plans</td></tr>
+<tr><td>ProofHub</td><td>34% off the Ultimate Control plan lifetime</td></tr>
+<tr><td>Proton Drive</td><td>25% off the Professional plan for 1 year</td></tr>
+<tr><td>Proton Mail</td><td>16% off all plans for 1 year</td></tr>
+<tr><td>Proton Pass</td><td>60% off the Pass Professional plan for 1 year</td></tr>
+<tr><td>Proton VPN</td><td>22% off VPN Essentials for 1 year</td></tr>
+<tr><td>PureVPN</td><td>70% off annual plans for 1 year</td></tr>
+<tr><td>Qonto</td><td>2 months free on the Basic and Smart plans</td></tr>
+<tr><td>QuickBooks</td><td>30% off for 6 months</td></tr>
+<tr><td>Quickbooks Online</td><td>50% off for 3 months (US-based companies)</td></tr>
+<tr><td>Quickbooks Online</td><td>90% off for 7 months (UK-based companies)</td></tr>
+<tr><td>QuickNode</td><td>$600 in credits for 12 months</td></tr>
+<tr><td>QuillBot</td><td>30% off the annual Premium plan</td></tr>
+<tr><td>Quo (ex. OpenPhone)</td><td>20% off your first 12 months</td></tr>
+<tr><td>Qwen AI</td><td>$5,000 in credits for 1 year (2 billion free tokens)</td></tr>
+<tr><td>Railcard</td><td>20% off</td></tr>
+<tr><td>Railway</td><td>$240 credit on Hobby plan for 1 year</td></tr>
+<tr><td>Ramp</td><td>$500 bonus on your first $1,000 balance payment</td></tr>
+<tr><td>RanksPro.io</td><td>50% off for 6 months</td></tr>
+<tr><td>Razorpay</td><td>25% off Source to Pay and Payroll plans</td></tr>
+<tr><td>Razorpay</td><td>First $50,000 in transactions free</td></tr>
+<tr><td>Reddit Ads</td><td>Spend $1000, get $1000 FREE ad credit</td></tr>
+<tr><td>Referly</td><td>30% off monthly plans or 50% off annual plans for 12 months</td></tr>
+<tr><td>Remote</td><td>15% off for 1 year</td></tr>
+<tr><td>RemotePass</td><td>20% off for contractors and 10% off for EOR for 1 year</td></tr>
+<tr><td>Remotive</td><td>Get 20% off any remote job posting</td></tr>
+<tr><td>Reply io</td><td>14 days free</td></tr>
+<tr><td>Retool</td><td>1 year free on the monthly Team or Business plan</td></tr>
+<tr><td>Reusely</td><td>50% off for 3 months</td></tr>
+<tr><td>Revolut Business</td><td>€80 signup bonus</td></tr>
+<tr><td>Rippling</td><td>3 months free</td></tr>
+<tr><td>Riverside.fm</td><td>20% off your first payment for any monthly or yearly plan</td></tr>
+<tr><td>Rocket Lawyer</td><td>25% off the Premium membership for 1 year</td></tr>
+<tr><td>RocketDevs</td><td>$1,000 in credits</td></tr>
+<tr><td>Rollbar</td><td>6 months free on the Advanced plan</td></tr>
+<tr><td>Routine</td><td>20% off all annual plans</td></tr>
+<tr><td>Runware</td><td>$500 in API credits per month for 3 months (up to $30k based on your project)</td></tr>
+<tr><td>Sage Accounting</td><td>90% off Accounting plans for 6 months</td></tr>
+<tr><td>Salesforce</td><td>45% off the Starter Suite plan for 1 year</td></tr>
+<tr><td>Salesforge</td><td>20% off monthly and annual plans</td></tr>
+<tr><td>SaneBox</td><td>6 months free</td></tr>
+<tr><td>Saral</td><td>50% off for 1 year</td></tr>
+<tr><td>Scalingo</td><td>€1,000 in credits for 6 months</td></tr>
+<tr><td>Seamless.AI</td><td>30% off your first annual license</td></tr>
+<tr><td>Search Ads</td><td>3 months free</td></tr>
+<tr><td>Seedance</td><td>$1,000 in model credits for 3 months (with credit renewal based on usage)</td></tr>
+<tr><td>Seeqle</td><td>30% off for 1 year</td></tr>
+<tr><td>Sellfy</td><td>50% off the first year</td></tr>
+<tr><td>Semrush</td><td>14 days free on Semrush One</td></tr>
+<tr><td>Semrush</td><td>14 days free on the Pro and Guru plans</td></tr>
+<tr><td>Sender.net</td><td>30% off annual plans</td></tr>
+<tr><td>Sentry</td><td>6 months free on the Teams plan</td></tr>
+<tr><td>SerpApi</td><td>50% off for 12 months</td></tr>
+<tr><td>Shine</td><td>3 months free on Premium plan</td></tr>
+<tr><td>ShipAccel</td><td>First month free</td></tr>
+<tr><td>ShipBob</td><td>$1,000 in shipping credits</td></tr>
+<tr><td>Shopify</td><td>$1/month for the first 3 months + 25% off annual plans</td></tr>
+<tr><td>Shutterstock</td><td>20% off all packs and plans</td></tr>
+<tr><td>Shutterstock</td><td>25% off all packs and plans</td></tr>
+<tr><td>Sider</td><td>Additional 20% off annual Basic and Ultra plans</td></tr>
+<tr><td>Signaturit</td><td>50% off on Business, Business + and API plans</td></tr>
+<tr><td>SignerX</td><td>100% off the Business plan for 12 months</td></tr>
+<tr><td>Signitic</td><td>30% off for 1 year</td></tr>
+<tr><td>signNow</td><td>60% off annual plans</td></tr>
+<tr><td>Similarweb</td><td>20% off monthly and annual plans for 1 year</td></tr>
+<tr><td>Simplified</td><td>30% off for 1 year</td></tr>
+<tr><td>Simplitoo</td><td>€50 credit on your business registration</td></tr>
+<tr><td>simplyblock</td><td>$10,000 in credits for 12 months</td></tr>
+<tr><td>Sintra</td><td>75% off all plans</td></tr>
+<tr><td>Sirdata</td><td>6 months free</td></tr>
+<tr><td>Skillshare</td><td>First month free</td></tr>
+<tr><td>Skool</td><td>14 days free</td></tr>
+<tr><td>Slab</td><td>40% off the Startup and Business plans for 12 months</td></tr>
+<tr><td>Slack</td><td>25% off new plan purchases</td></tr>
+<tr><td>Snagit</td><td>50% off for 1 year</td></tr>
+<tr><td>SnapCall</td><td>6 months free on Growth plan</td></tr>
+<tr><td>Snapchat Ads</td><td>Spend $350, get $375 FREE ad credit</td></tr>
+<tr><td>Snov.io</td><td>25% off annual plans</td></tr>
+<tr><td>SnowcatCloud</td><td>1 month free + 3 months free on the Startup plan</td></tr>
+<tr><td>Snowflake</td><td>$1,250 in credits</td></tr>
+<tr><td>SocialBee</td><td>14 days free</td></tr>
+<tr><td>Softr</td><td>20% off monthly or annual Professional plan</td></tr>
+<tr><td>Somewhere (ex. Support Shepherd)</td><td>$500 off your next hire</td></tr>
+<tr><td>Sourcer</td><td>$1,150 off your first engagement</td></tr>
+<tr><td>Spocket</td><td>25% off for 3 months</td></tr>
+<tr><td>Sprinto</td><td>25% off for 1 year</td></tr>
+<tr><td>Sprout Social</td><td>1 month free on all plans</td></tr>
+<tr><td>Squarespace</td><td>Additional 10% off across all plans</td></tr>
+<tr><td>Stackby</td><td>20% off monthly or annual plans for 1 year</td></tr>
+<tr><td>Starter Story</td><td>20% off</td></tr>
+<tr><td>Storylane</td><td>20% off annual plans</td></tr>
+<tr><td>Streak</td><td>20% off annual plans</td></tr>
+<tr><td>Stripe</td><td>$500 in credits</td></tr>
+<tr><td>Stripe Atlas</td><td>$50 off for the incorporation of your company</td></tr>
+<tr><td>SubOps</td><td>Get 50% off for any annual plan</td></tr>
+<tr><td>SumUp</td><td>10% off 1st purchase</td></tr>
+<tr><td>Superhuman Mail</td><td>First month free on the Starter or Business plan</td></tr>
+<tr><td>SuperProfile</td><td>30% off the Creator plan for 3 months</td></tr>
+<tr><td>Surfer</td><td>Additional 10% off annual plans</td></tr>
+<tr><td>Surfshark</td><td>79% off and 2 months free on 2 year plans</td></tr>
+<tr><td>SurveyMonkey</td><td>Additional 20% off annual Team plans</td></tr>
+<tr><td>SurveySparrow</td><td>14 days free</td></tr>
+<tr><td>Sweet Show</td><td>6 months free</td></tr>
+<tr><td>Swipe Pages</td><td>30% off monthly plans for 1 year</td></tr>
+<tr><td>Swipe Pages</td><td>45% off annual plans for 2 years</td></tr>
+<tr><td>Synder</td><td>40% off annual plans</td></tr>
+<tr><td>Synthesia</td><td>35% off the annual Starter plan and 30% off the annual Creator plan</td></tr>
+<tr><td>Tailor Brands</td><td>35% off all LLC package plans</td></tr>
+<tr><td>Talent Sam</td><td>$1,000 in credit across 3 months</td></tr>
+<tr><td>Talkroute</td><td>30% off all monthly plans for 1 year</td></tr>
+<tr><td>Tally</td><td>50% off for 1 year</td></tr>
+<tr><td>tawk.to</td><td>15% off on all paid add-ons</td></tr>
+<tr><td>Teachable</td><td>First month free on Builder and Growth plans</td></tr>
+<tr><td>Tella (ex. Tella.tv)</td><td>30% off monthly or annual plans</td></tr>
+<tr><td>TESS AI</td><td>20% off all plans for 12 months</td></tr>
+<tr><td>TestMu AI (formerly LambdaTest)</td><td>30% off any annual subscription plan</td></tr>
+<tr><td>Thankz</td><td>20% off for any plan</td></tr>
+<tr><td>The SaaSy People</td><td>50% off on the annual plan plus an exclusive zero onboarding</td></tr>
+<tr><td>Thinkific</td><td>30-day free trial on all plans</td></tr>
+<tr><td>Tide</td><td>£200 cashback when you open a current account and an Instant Saver account</td></tr>
+<tr><td>Tidio</td><td>25% off all monthly and annual plans</td></tr>
+<tr><td>TikTok Ads</td><td>$6,000 Ad Credit* for 1 month</td></tr>
+<tr><td>Todoist</td><td>20% off annual plans</td></tr>
+<tr><td>Todoist</td><td>3 months free on the Pro plan</td></tr>
+<tr><td>Tomorro (ex. Leeway)</td><td>€1,000 in credits for the Standard, Pro or Enterprise plan</td></tr>
+<tr><td>Topic</td><td>40% off for 3 months</td></tr>
+<tr><td>Toplyne</td><td>50% off the annual Monetize and Enterprise plans</td></tr>
+<tr><td>Trainn</td><td>50% off up to 1 year.</td></tr>
+<tr><td>TrainPal</td><td>5% off your trip</td></tr>
+<tr><td>Trainual</td><td>10% off for 1 year</td></tr>
+<tr><td>Transkriptor</td><td>25% off all plans for 12 months</td></tr>
+<tr><td>Trello</td><td>Free forever for up to 10 users</td></tr>
+<tr><td>Truzta</td><td>50% off for 1 year</td></tr>
+<tr><td>Twingate</td><td>1 year free of the Enterprise for Startups plan</td></tr>
+<tr><td>Typeform</td><td>40% off all annual plans</td></tr>
+<tr><td>Uber for Business</td><td>Up to 10% off your first 5 rides (only available to US customers)</td></tr>
+<tr><td>Unbounce</td><td>20% off for 3 months or 35% off for 1 year</td></tr>
+<tr><td>Upfluence</td><td>25% off per module for 1 year</td></tr>
+<tr><td>Upwork</td><td>$50 gift card on your first hire</td></tr>
+<tr><td>US Global Mail</td><td>20% off Scale and Team plans for 6 months</td></tr>
+<tr><td>UseCSV</td><td>6 months free on the Scale plan</td></tr>
+<tr><td>Userback</td><td>25% off monthly or annual plans</td></tr>
+<tr><td>Vanta</td><td>25% off any annual plan</td></tr>
+<tr><td>VEED.IO</td><td>30% off all annual and monthly plans</td></tr>
+<tr><td>VEO Google</td><td>$300 Gemini API credit</td></tr>
+<tr><td>Vepaar</td><td>50% off for 1 year</td></tr>
+<tr><td>Viktor</td><td>$50 off your first purchase</td></tr>
+<tr><td>Vinci AI</td><td>$1,000 in credits (higher allocations depending on revenue)</td></tr>
+<tr><td>Visible.vc</td><td>20% off any plan for 12 months</td></tr>
+<tr><td>Visme</td><td>30% off the Pro plan for 1 year</td></tr>
+<tr><td>Vista Social</td><td>20% off monthly plans or additional 20% off annual plans</td></tr>
+<tr><td>VistaPrint</td><td>Free economy shipping on orders $100+</td></tr>
+<tr><td>Vmaker</td><td>30% off monthly plans or 20% off yearly plans</td></tr>
+<tr><td>Waalaxy (ex. ProspectIn)</td><td>14 days free + 50% off annual plans</td></tr>
+<tr><td>Warmbox</td><td>30% discount for 1 year on any plan</td></tr>
+<tr><td>Webflow</td><td>40% off annual plans</td></tr>
+<tr><td>Weblium</td><td>20% off annual Pro plan</td></tr>
+<tr><td>Wegic.ai</td><td>Additional 20% off annual plans</td></tr>
+<tr><td>Weglot</td><td>14 days free + 15% off annual plans</td></tr>
+<tr><td>WeTransact</td><td>1 year free listing on Microsoft Marketplace</td></tr>
+<tr><td>Whereby</td><td>20% off Meetings plans for 3 months</td></tr>
+<tr><td>Whereby</td><td>20% off the first month of the Embedded Build plan</td></tr>
+<tr><td>Wilco</td><td>25% off the first year of an annual plan</td></tr>
+<tr><td>Willo</td><td>50% off for 6 months</td></tr>
+<tr><td>Willow</td><td>3 months free on the Pro plan (up to 20 seats)</td></tr>
+<tr><td>Wing Assistant</td><td>$1,000 in credits for Full-Time Services ($500 in credits for Part-Time)</td></tr>
+<tr><td>Winston AI</td><td>30% off monthly or annual plans for 1 year</td></tr>
+<tr><td>Wispr Flow</td><td>20% off annual plans</td></tr>
+<tr><td>WordPress.com</td><td>30% off all monthly plans</td></tr>
+<tr><td>Workleap</td><td>10% off monthly or annual plans</td></tr>
+<tr><td>WorldFirst</td><td>$100 sign-up bonus when you open a multi-currency account</td></tr>
+<tr><td>WP Engine</td><td>3 months free on annual plans</td></tr>
+<tr><td>Xero</td><td>80% off for 6 months</td></tr>
+<tr><td>Xoxoday</td><td>95% off for 1 year</td></tr>
+<tr><td>xTiles</td><td>20% off monthly or annual plans</td></tr>
+<tr><td>Yodel</td><td>50% off for 5 months</td></tr>
+<tr><td>Z.ai</td><td>$500 in API credits</td></tr>
+<tr><td>Zapier</td><td>14 days free + 33% off annual plans</td></tr>
+<tr><td>Zendesk</td><td>6 months free (with AI Agents and Copilot)</td></tr>
+<tr><td>Zenduty</td><td>$3,500 in credits</td></tr>
+<tr><td>Zenzap</td><td>50% off for 3 months</td></tr>
+<tr><td>Zinance</td><td>50% off Bookkeeping, CFO and Tax services for 1 year</td></tr>
+<tr><td>Zoho</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoho</td><td>$3,000 in credits for 1 year</td></tr>
+<tr><td>Zoho Bookings</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoho Books</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoho Campaigns</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoho Creator</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoho Forms</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoho Projects</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoho SalesIQ</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoho Sprints</td><td>$100 in Zoho Wallet credits</td></tr>
+<tr><td>Zoom Meetings</td><td>$20 off per user on the annual Workplace Pro plan</td></tr>
+<tr><td>Zoom Phone</td><td>16% off annual Pro+Global Select and Business Plus plans</td></tr>
+<tr><td>Zoom Video Webinars</td><td>$20 off per user on the annual Workplace Pro plan</td></tr>
+<tr><td>ZoomInfo</td><td>14 days free</td></tr>
+<tr><td>Zoviz</td><td>30% off your plan</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="also"><b>Also in the pack:</b> OpenAI, Claude, Alibaba Cloud, Auth0, Make, Perplexity.</p>
       </div>
-    </div>
+    </details>
   </div>
 </section>
 
@@ -680,7 +1363,11 @@ footer nav a:hover{color:var(--ink)}
       </details>
       <details>
         <summary>What exactly does the pass include?</summary>
-        <p>Access to every session, Q&amp;A with speakers, executive lunch, high tea, dinner and networking, and the $320K+ credits pack. There's no separate registration for individual sessions.</p>
+        <p>Access to every session, Q&amp;A with speakers, executive lunch, high tea, dinner and networking, and 634 delegate deals worth $320K+ in credits. There's no separate registration for individual sessions.</p>
+      </details>
+      <details>
+        <summary>Is the $320K+ in credits real money off my bills?</summary>
+        <p>They're provider credits and free plans, not cash. The cloud, AI and data credits listed on this page add up to $420,750 at each provider's lower tier and about $1.25M at higher tiers, which usually apply to funded companies. Each provider sets its own eligibility and terms.</p>
       </details>
       <details>
         <summary>Is this a CIO event?</summary>
@@ -741,5 +1428,18 @@ footer nav a:hover{color:var(--ink)}
   <div><b class="mono">₹8,999 + GST</b>30 Sep · Bengaluru · full refund if not approved</div>
   <a class="btn btn-primary" href="https://events.inc42.com/cto-summit/checkout/?add-to-cart=12380">Book pass</a>
 </div>
+<script>
+(function(){
+  var input=document.getElementById('deal-search');
+  if(!input) return;
+  var rows=[].slice.call(document.querySelectorAll('#deal-table tbody tr'));
+  var count=document.getElementById('deal-count');
+  input.addEventListener('input',function(){
+    var q=input.value.trim().toLowerCase(), n=0;
+    rows.forEach(function(r){var hit=!q||r.textContent.toLowerCase().indexOf(q)>-1;r.hidden=!hit;if(hit)n++;});
+    count.textContent=n+(n===1?' deal':' deals')+(q?' match "'+input.value.trim()+'"':'');
+  });
+})();
+</script>
 </body>
 </html>
