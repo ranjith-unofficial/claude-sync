@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inc42 CTO Summit 2026</title>
+<meta name="description" content="A one-day, invite-only summit on running AI in production at India's scale. 30 Sep 2026, JW Marriott Bengaluru. 175 tech, product, data and AI leaders.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F7F8FA;
+  --surface:#FFFFFF;
+  --ink:#10131A;
+  --muted:#586071;
+  --faint:#8A91A0;
+  --rule:#E1E4EA;
+  --accent:#2B42D9;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#ECEFFD;
+  --tbc:#A15C00;
+  --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --w:1120px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C0E13;--surface:#141720;--ink:#E8EBF1;--muted:#A0A7B5;--faint:#6F7686;
+    --rule:#252935;--accent:#8193FF;--accent-ink:#0C0E13;--accent-soft:#191E33;--tbc:#E0A04A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C0E13;--surface:#141720;--ink:#E8EBF1;--muted:#A0A7B5;--faint:#6F7686;
+  --rule:#252935;--accent:#8193FF;--accent-ink:#0C0E13;--accent-soft:#191E33;--tbc:#E0A04A;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-inline:20px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:600;letter-spacing:-0.02em}
+p{margin:0}
+.wrap{max-width:var(--w);margin-inline:auto}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px/1 var(--sans);padding:14px 20px;border-radius:8px;text-decoration:none;border:1px solid transparent;white-space:nowrap}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{border-color:var(--rule);color:var(--ink);background:transparent}
+.btn-ghost:hover{border-color:var(--muted)}
+.tbc{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--tbc);border:1px dashed var(--tbc);border-radius:4px;padding:1px 6px;white-space:nowrap}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);margin-inline:-20px;padding-inline:20px}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-weight:600;font-size:15px;text-decoration:none;display:flex;gap:10px;align-items:baseline}
+.brand span{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:var(--ink)}
+.nav .btn{padding:10px 16px;font-size:14px}
+@media (max-width:860px){.nav-links{display:none}.brand span{display:none}}
+
+/* sections */
+section{padding-block:96px;border-bottom:1px solid var(--rule)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:24px 64px;margin-bottom:48px;align-items:end}
+.sec-head h2{font-size:clamp(28px,3.6vw,40px);line-height:1.12}
+.sec-head p{color:var(--muted);font-size:17px;max-width:58ch}
+.sec-head .label{grid-column:1/-1;margin-bottom:-8px}
+@media (max-width:860px){section{padding-block:64px}.sec-head{grid-template-columns:1fr;margin-bottom:32px}}
+
+/* hero */
+.hero{padding-block:72px 88px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:start}
+.hero-kicker{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-bottom:28px}
+.hero-kicker .pill{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:5px 10px;border-radius:999px}
+.hero h1{font-size:clamp(40px,6.2vw,72px);line-height:1.02;letter-spacing:-0.035em;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:19px;color:var(--muted);max-width:54ch;margin-bottom:32px}
+.hero-sub strong{color:var(--ink);font-weight:500}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.hero-note{font-size:14px;color:var(--muted);max-width:52ch}
+@media (max-width:960px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+
+/* the pass */
+.pass{background:var(--surface);border:1px solid var(--rule);border-radius:16px;box-shadow:0 1px 0 var(--rule),0 24px 48px -28px color-mix(in srgb,var(--ink) 30%,transparent);position:relative}
+.pass-top{padding:24px 24px 20px}
+.pass-top .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.pass-name{font-size:20px;font-weight:600;margin-top:6px}
+.pass dl{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin:20px 0 0;font-size:14px}
+.pass dt{font-family:var(--mono);font-size:12px;color:var(--faint);text-transform:uppercase;letter-spacing:0.06em;padding-top:2px}
+.pass dd{margin:0}
+.perf{position:relative;height:0;border-top:1.5px dashed var(--rule);margin-inline:18px}
+.perf::before,.perf::after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:1px solid var(--rule)}
+.perf::before{left:-30px;clip-path:inset(0 0 0 50%)}
+.perf::after{right:-30px;clip-path:inset(0 50% 0 0)}
+.pass-bottom{padding:20px 24px 24px}
+.price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price b{font-size:36px;font-weight:600;letter-spacing:-0.02em}
+.price s{color:var(--faint);font-size:15px}
+.price small{color:var(--muted);font-size:14px}
+.price-math{font-size:13px;color:var(--muted);margin:4px 0 16px}
+.pass .btn{width:100%;justify-content:center}
+.pass-incl{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.pass-incl li{display:flex;gap:10px}
+.pass-incl li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:9px}
+
+/* proof strip */
+.proof{padding-block:28px;border-bottom:1px solid var(--rule)}
+.proof .wrap{display:flex;gap:12px 28px;align-items:baseline;flex-wrap:wrap}
+.proof ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 22px;font-size:15px;font-weight:500}
+
+/* outcomes */
+.outcomes{border-top:1px solid var(--ink)}
+.outcome{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,0.9fr);gap:16px 40px;padding-block:26px;border-bottom:1px solid var(--rule)}
+.outcome h3{font-size:20px;line-height:1.3}
+.outcome p{color:var(--muted)}
+.outcome .from{font-size:14px;color:var(--muted)}
+.outcome .from b{display:block;color:var(--ink);font-weight:500}
+@media (max-width:860px){.outcome{grid-template-columns:1fr;gap:8px}}
+
+.format{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-top:48px}
+.format div{background:var(--surface);padding:20px}
+.format b{display:block;font-weight:600;margin-bottom:4px}
+.format span{color:var(--muted);font-size:14px}
+@media (max-width:860px){.format{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.format{grid-template-columns:1fr}}
+
+/* agenda */
+.agenda{border-top:1px solid var(--ink)}
+.slot{display:grid;grid-template-columns:132px minmax(0,1fr);gap:8px 32px;padding-block:28px;border-bottom:1px solid var(--rule)}
+.slot time{font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums;padding-top:3px}
+.slot .kind{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.slot h3{font-size:22px;line-height:1.28;margin-bottom:10px;max-width:40ch}
+.slot .who{display:flex;flex-wrap:wrap;gap:4px 24px;font-size:15px}
+.slot .who span{color:var(--muted)}
+.slot details{margin-top:14px}
+.slot summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--accent);list-style:none;display:inline-flex;align-items:center;gap:6px}
+.slot summary::-webkit-details-marker{display:none}
+.slot summary::before{content:"+";font-family:var(--mono);width:14px}
+.slot details[open] summary::before{content:"\2212"}
+.slot ol{margin:14px 0 0;padding-left:20px;color:var(--muted);display:grid;gap:8px;max-width:72ch}
+.slot ol li::marker{font-family:var(--mono);font-size:13px;color:var(--faint)}
+.slot.quiet h3{font-size:18px;color:var(--muted);font-weight:500;margin:0}
+.slot.quiet .kind{color:var(--faint)}
+.slot.break{background:color-mix(in srgb,var(--rule) 35%,transparent)}
+.slot.break,.slot.close{margin-inline:-16px;padding-inline:16px}
+@media (max-width:640px){.slot{grid-template-columns:1fr}.slot h3{font-size:19px}}
+
+/* speakers */
+.speakers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--ink)}
+.spk{padding:22px 20px 22px 0;border-bottom:1px solid var(--rule)}
+.spk b{display:block;font-weight:600;font-size:17px}
+.spk .role{color:var(--muted);font-size:14px}
+.spk .co{font-size:15px;font-weight:500;margin-top:2px}
+.spk .on{display:block;margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--accent)}
+.spk.more b{color:var(--muted);font-weight:500}
+@media (max-width:860px){.speakers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.speakers{grid-template-columns:1fr}}
+
+/* room */
+.room{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:56px}
+.bar{display:flex;height:44px;border-radius:8px;overflow:hidden;gap:2px;margin-bottom:24px}
+.bar i{display:block;height:100%}
+.legend{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.legend li{display:grid;grid-template-columns:14px 56px 1fr;gap:12px;align-items:center;padding-block:12px;border-bottom:1px solid var(--rule);font-size:15px}
+.legend .sw{width:14px;height:14px;border-radius:3px}
+.legend .pct{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.c1{background:var(--accent)}
+.c2{background:color-mix(in srgb,var(--accent) 68%,var(--bg))}
+.c3{background:color-mix(in srgb,var(--accent) 45%,var(--bg))}
+.c4{background:color-mix(in srgb,var(--accent) 28%,var(--bg))}
+.c5{background:color-mix(in srgb,var(--accent) 15%,var(--bg))}
+.fit h3{font-size:17px;margin-bottom:10px}
+.fit ul{margin:0 0 28px;padding-left:18px;color:var(--muted);display:grid;gap:6px}
+@media (max-width:860px){.room{grid-template-columns:1fr;gap:40px}}
+
+/* includes + credits */
+.includes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;border-top:1px solid var(--ink);padding-top:28px;margin-bottom:72px}
+.includes b{display:block;font-size:17px;font-weight:600;margin-bottom:6px}
+.includes p{color:var(--muted);font-size:15px}
+@media (max-width:860px){.includes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.includes{grid-template-columns:1fr}}
+
+.credits{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:48px}
+.credits h3{font-size:clamp(26px,3vw,34px);line-height:1.15;margin-bottom:16px}
+.credits h3 em{font-style:normal;color:var(--accent)}
+.credits .lede{color:var(--muted);margin-bottom:24px;max-width:46ch}
+.compare{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:15px;margin-bottom:24px}
+.compare dt{color:var(--muted)}
+.compare dd{margin:0;font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+.compare .big dd{color:var(--accent);font-weight:500}
+.claim{font-size:14px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;display:grid;gap:8px}
+.claim b{color:var(--ink);font-weight:500}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--faint);padding:0 0 10px;border-bottom:1px solid var(--ink)}
+td{padding:12px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td:first-child{font-weight:500;padding-right:16px;white-space:nowrap}
+td:last-child{color:var(--muted)}
+.also{margin-top:16px;font-size:14px;color:var(--muted)}
+.also b{color:var(--ink);font-weight:500}
+@media (max-width:860px){.credits{grid-template-columns:1fr;padding:24px;gap:32px}}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s;border-top:1px solid var(--ink)}
+.steps li{counter-increment:s;padding:24px 28px 8px 0;position:relative}
+.steps li::before{content:counter(s,decimal-leading-zero);display:block;font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:14px}
+.steps b{display:block;font-size:18px;font-weight:600;margin-bottom:8px;line-height:1.3}
+.steps p{color:var(--muted);font-size:15px}
+.policies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-top:40px}
+.policies div{background:var(--surface);padding:18px 20px;font-size:15px}
+.policies b{display:block;font-weight:600;margin-bottom:2px}
+.policies span{color:var(--muted)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}.policies{grid-template-columns:1fr}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* faq */
+.faq{border-top:1px solid var(--ink);max-width:860px}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:24px;padding-block:20px;font-size:18px;font-weight:500}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--muted);flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{color:var(--muted);padding-bottom:22px;max-width:66ch}
+
+/* close */
+.closing{padding-block:104px;text-align:left}
+.closing .wrap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:end}
+.closing h2{font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:-0.03em}
+.closing p{color:var(--muted);margin-top:16px;font-size:17px;max-width:50ch}
+.closing .acts{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.closing .contact{font-size:14px;color:var(--muted)}
+.closing .contact a{color:var(--ink)}
+@media (max-width:860px){.closing .wrap{grid-template-columns:1fr}}
+
+footer{padding-block:40px 120px;font-size:14px;color:var(--muted)}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px}
+footer .stats{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:10px}
+footer .stats b{color:var(--ink);font-weight:500}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:flex-end;align-content:start}
+footer nav a{text-decoration:none}
+footer nav a:hover{color:var(--ink)}
+@media (max-width:860px){footer .wrap{grid-template-columns:1fr}footer nav{justify-content:flex-start}}
+
+/* mobile sticky */
+.mbar{display:none}
+@media (max-width:760px){
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--rule)}
+  .mbar div{font-size:13px;color:var(--muted);line-height:1.3}
+  .mbar b{display:block;color:var(--ink);font-size:16px}
+  .mbar .btn{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Inc42 CTO Summit 2026 <span>30.09 · Bengaluru</span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#outcomes">What you get</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#speakers">Speakers</a>
+      <a href="#pass">Pass &amp; credits</a>
+      <a href="#booking">How booking works</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary" href="https://events.inc42.com/cto-summit/checkout/?add-to-cart=12380">Book your pass</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="hero-kicker">
+        <span class="pill">The AI leadership summit</span>
+        <span class="label">Co-presented by Oracle</span>
+      </div>
+      <h1>AI in production, <em>at India's scale.</em></h1>
+      <p class="hero-sub">One day with the technology, product and data leaders of <strong>Rapido, Razorpay, ShareChat &amp; Moj, Meesho, INDmoney</strong> and more. They'll show what's running, what it costs and what they're changing. No predictions. No vendor pitches.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://events.inc42.com/cto-summit/checkout/?add-to-cart=12380">Book your pass</a>
+        <a class="btn btn-ghost" href="#agenda">See the full agenda</a>
+      </div>
+      <p class="hero-note">Invite-only. You pay when you apply, and our editorial team reviews every application. Not approved? You get a full refund within 7 working days.</p>
+    </div>
+
+    <aside class="pass" aria-label="Pass summary">
+      <div class="pass-top">
+        <div class="row"><span class="label">Delegate pass</span><span class="label">Invite-only</span></div>
+        <p class="pass-name">Inc42 CTO Summit 2026</p>
+        <dl>
+          <dt>Date</dt><dd>Wednesday, 30 September 2026</dd>
+          <dt>Venue</dt><dd>JW Marriott, Bengaluru</dd>
+          <dt>Day</dt><dd><span class="mono">10:00</span> first session · <span class="mono">18:00</span> dinner &amp; networking</dd>
+          <dt>Room</dt><dd>175 leaders, VP and above</dd>
+        </dl>
+      </div>
+      <div class="perf" aria-hidden="true"></div>
+      <div class="pass-bottom">
+        <div class="price"><b class="mono">₹8,999</b><s class="mono">₹19,999</s><small>+ GST</small></div>
+        <p class="price-math mono">₹8,999 + ₹1,620 GST = ₹10,619 total</p>
+        <a class="btn btn-primary" href="https://events.inc42.com/cto-summit/checkout/?add-to-cart=12380">Book your pass</a>
+        <ul class="pass-incl">
+          <li>All 10+ sessions with 20+ speakers</li>
+          <li>Executive lunch, high tea and dinner</li>
+          <li>$320K+ in cloud and AI credits</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div class="proof">
+  <div class="wrap">
+    <span class="label">Speaking from</span>
+    <ul>
+      <li>Rapido</li><li>Razorpay</li><li>ShareChat &amp; Moj</li><li>Meesho</li><li>Cashfree Payments</li><li>INDmoney</li><li>Shadowfax</li><li>InsuranceDekho</li><li>Fibe</li><li>Eightfold</li><li>IDfy</li><li>Netradyne</li><li>Kuku</li><li>OnFinance AI</li>
+    </ul>
+  </div>
+</div>
+
+<section id="outcomes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">What you'll walk away with</span>
+      <h2>Six things to take back to your team on 1 October.</h2>
+      <p>Every session is built around a decision you're already facing. Here's what each one gives you, and where it comes from on the agenda.</p>
+    </div>
+
+    <div class="outcomes">
+      <div class="outcome">
+        <h3>A cost model for AI in production</h3>
+        <p>How teams set cost per query and per completed action, route between frontier, distilled and on-device models, and decide what to cache, batch or precompute.</p>
+        <p class="from"><b>Building AI Systems For Indian Scale</b>Nitin Jain, ShareChat &amp; Moj · 10:30</p>
+      </div>
+      <div class="outcome">
+        <h3>A plan for your peak day</h3>
+        <p>What scaled Indian companies deliberately slow down, switch off or simplify when festive sales, the 9:15 AM market open, IPL or UPI spikes break capacity assumptions.</p>
+        <p class="from"><b>The Architecture Of 10X</b>Kuku, InsuranceDekho, Shadowfax · 10:00</p>
+      </div>
+      <div class="outcome">
+        <h3>Metrics that show whether AI coding is working</h3>
+        <p>Release frequency, rework, defects, rollback rates and time-to-production, instead of lines of code or PR counts. Plus the review and testing changes teams made after AI-caused incidents.</p>
+        <p class="from"><b>Why Verification Is The New Engineering Bottleneck</b>Panel · 11:30</p>
+      </div>
+      <div class="outcome">
+        <h3>A view of your 2027 team</h3>
+        <p>Which roles are shrinking or growing, what the fresher bar tests now, how senior, staff and EM tracks differ, and where CTOs would still add headcount.</p>
+        <p class="from"><b>The Great Engineering Reset</b>Kausal Malladi, INDmoney · 12:00</p>
+      </div>
+      <div class="outcome">
+        <h3>Your first data fixes for AI readiness</h3>
+        <p>The few critical datasets, owners and lineage fixes to make first, and where real-time data actually pays off, instead of another multi-year transformation.</p>
+        <p class="from"><b>Building The Data Foundation For AI At Scale</b>Fibe, Eightfold · 13:00</p>
+      </div>
+      <div class="outcome">
+        <h3>A peer group facing the same problems</h3>
+        <p>175 people who run engineering, platform, product, data or AI. Small, seated conversations over lunch, high tea and dinner, for the discussions that rarely happen on stage.</p>
+        <p class="from"><b>Lunch · high tea · dinner</b>13:30 onwards, dinner from 18:00</p>
+      </div>
+    </div>
+
+    <div class="format">
+      <div><b>Real systems on stage</b><span>Architecture diagrams, operating numbers and live breakdowns from the people who built them.</span></div>
+      <div><b>No vendor pitches</b><span>Operators only. No futurism for its own sake.</span></div>
+      <div><b>Q&amp;A after every session</b><span>Put your question to the speakers directly.</span></div>
+      <div><b>One pass, every session</b><span>No separate registration for individual sessions.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="agenda">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Agenda · Wed 30 Sep · IST</span>
+      <h2>The day, session by session.</h2>
+      <p>Morning sessions are confirmed. Two firesides and the afternoon block are being finalised and will be added here. Open any session to see what it covers.</p>
+    </div>
+
+    <div class="agenda">
+      <article class="slot">
+        <time>10:00–10:30</time>
+        <div>
+          <p class="kind">Panel · 30 min</p>
+          <h3>The Architecture Of 10X: Engineering For India's Next Scale Curve</h3>
+          <p class="who"><b>Vikas Goyal <span>Cofounder &amp; CTO, Kuku</span></b><b>Ish Babbar <span>Cofounder &amp; CTO, InsuranceDekho</span></b><b>Vaibhav Khandelwal <span>Cofounder &amp; CTO, Shadowfax</span></b></p>
+          <details open>
+            <summary>5 talking points</summary>
+            <ol>
+              <li>Engineering for Indian peaks: festive sales, 9:15 AM trading, IPL traffic, UPI spikes, and the moments when carefully designed capacity assumptions collapse</li>
+              <li>Architecture lessons from scaling across patchy networks, low-end devices, tier-2/3 markets and millions of concurrent users</li>
+              <li>Using AI for demand forecasting, capacity planning, anomaly detection and incident response, with real examples of where it prevented failure and where it added complexity</li>
+              <li>The Indian playbook for graceful degradation: what companies deliberately slow, switch off or simplify when keeping everything live is no longer possible</li>
+              <li>Architecture decisions scaled Indian companies are now reversing as AI workloads, inference traffic and the next 10X hit stacks built in a very different era</li>
+            </ol>
+          </details>
+        </div>
+      </article>
+
+      <article class="slot">
+        <time>10:30–11:00</time>
+        <div>
+          <p class="kind">Panel · 30 min</p>
+          <h3>Building AI Systems For Indian Scale</h3>
+          <p class="who"><b>Nitin Jain <span>CTO, ShareChat &amp; Moj</span></b></p>
+          <details>
+            <summary>6 talking points</summary>
+            <ol>
+              <li>From demo to daily traffic: what changes in architecture and cost when an AI feature goes from an impressive pilot to tens of millions of Indian users</li>
+              <li>The inference bill as a design constraint: cost per query and per completed action; model routing (frontier vs distilled vs on-device), caching and batching, and who decides when to swap models</li>
+              <li>Latency on Indian networks and devices: patchy 4G, low-end Androids, voice-first users; what runs on-device, what round-trips, what gets precomputed</li>
+              <li>Hinglish, vernacular and noisy input at scale: input pipelines and evals built around real Indian customer journeys rather than generic global benchmarks</li>
+              <li>When the model misbehaves in production: drift, vendor updates, regressions and cost spikes; the monitoring and fallback architecture designed before launch</li>
+              <li>Build vs rent for the AI serving layer: gateways, eval infra, routing; what a scaled Indian company must own and what it should never build</li>
+            </ol>
+          </details>
+        </div>
+      </article>
+
+      <article class="slot quiet">
+        <time>11:00–11:25</time>
+        <div>
+          <p class="kind">Fireside · 25 min</p>
+          <h3>Announcing soon</h3>
+        </div>
+      </article>
+
+      <article class="slot">
+        <time>11:30–12:00</time>
+        <div>
+          <p class="kind">Panel · 30 min</p>
+          <h3>Why Verification Is Becoming The New Engineering Bottleneck</h3>
+          <p class="who"><span>Speakers announcing soon</span></p>
+          <details>
+            <summary>5 talking points</summary>
+            <ol>
+              <li>What changes when AI coding moves from a few developers experimenting to 30%, 50% or more of production code being AI-assisted</li>
+              <li>The new bottleneck: code is generated faster, while senior review, testing, security and architecture capacity struggle to keep pace</li>
+              <li>Measuring the real productivity gain through release frequency, rework, defects, rollback rates and time-to-production rather than lines of code or PR counts</li>
+              <li>Production incidents and near misses caused by AI-generated code, and the verification, approval or testing processes companies changed afterwards</li>
+              <li>The skills verification now demands: debugging, architecture judgement, system context and recognising when the machine is confidently wrong</li>
+            </ol>
+          </details>
+        </div>
+      </article>
+
+      <article class="slot">
+        <time>12:00–12:30</time>
+        <div>
+          <p class="kind">Panel · 30 min</p>
+          <h3>The Great Engineering Reset: Teams, Talent &amp; Leadership After AI</h3>
+          <p class="who"><b>Kausal Malladi <span>CTO, Investments, INDmoney</span></b></p>
+          <details>
+            <summary>6 talking points</summary>
+            <ol>
+              <li>The AI-era org chart: which roles are shrinking, growing or being redesigned as AI absorbs routine coding, QA and coordination</li>
+              <li>The smaller-team question: where lean creates speed, and where it quietly creates fragility through on-call pressure, key-person risk and lost institutional knowledge</li>
+              <li>The missing middle: junior output rises while the mid-senior layer that mentors, reviews and owns architecture thins out; who trains the next generation</li>
+              <li>Hiring in 2026: what the fresher bar now tests when every candidate has AI in the room</li>
+              <li>The new career ladder: what differentiates senior, staff and EM when writing code gets easier, and which skills compound</li>
+              <li>The 2027 talent mix: where CTOs would add headcount, where they'd stay lean, and which human capabilities they'd protect</li>
+            </ol>
+          </details>
+        </div>
+      </article>
+
+      <article class="slot quiet">
+        <time>12:30–12:55</time>
+        <div>
+          <p class="kind">Fireside · 25 min</p>
+          <h3>Announcing soon</h3>
+        </div>
+      </article>
+
+      <article class="slot">
+        <time>13:00–13:30</time>
+        <div>
+          <p class="kind">Panel · 30 min</p>
+          <h3>Building The Data Foundation For AI At Scale</h3>
+          <p class="who"><b>Anil Sinha <span>CTO, Fibe</span></b><b>Thiyagaraj T <span>Director, Engineering, Eightfold</span></b></p>
+          <details>
+            <summary>6 talking points</summary>
+            <ol>
+              <li>The moment companies discover that data stacks built for dashboards and reporting are not clean, fast or contextual enough for production AI</li>
+              <li>Real data problems derailing AI projects: fragmented customer IDs, messy catalogues, duplicate records, stale inventory, inconsistent payments data and unclear ownership</li>
+              <li>Where real-time data genuinely matters across payments, commerce, mobility, logistics and fraud, versus expensive pipelines with no measurable business impact</li>
+              <li>Data-access design for the AI era: which datasets models and agents may read, who owns them, and the lineage and context that make outputs dependable</li>
+              <li>Multi-tenant AI: keeping per-customer data isolated when models and agents want context across everything</li>
+              <li>The first fixes CTOs can make to become AI-ready: cleaning critical datasets, assigning ownership, fixing lineage and prioritising a few high-value data flows</li>
+            </ol>
+          </details>
+        </div>
+      </article>
+
+      <article class="slot break">
+        <time>13:30–15:00</time>
+        <div>
+          <p class="kind">Break · 90 min</p>
+          <h3>Executive lunch</h3>
+        </div>
+      </article>
+
+      <article class="slot quiet">
+        <time>15:00–18:00</time>
+        <div>
+          <p class="kind">Panels &amp; firesides</p>
+          <h3>Afternoon sessions announcing soon</h3>
+        </div>
+      </article>
+
+      <article class="slot break close">
+        <time>18:00</time>
+        <div>
+          <p class="kind">Evening</p>
+          <h3>Dinner and networking</h3>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="speakers">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Speakers</span>
+      <h2>People who run the systems they'll talk about.</h2>
+      <p>CTOs, founders and product leaders from companies that handle India's largest traffic, payments and data loads. More names are being added.</p>
+    </div>
+    <div class="speakers">
+      <div class="spk"><b>Nitin Jain</b><span class="role">CTO</span><p class="co">ShareChat &amp; Moj</p><span class="on">10:30 · AI Systems For Indian Scale</span></div>
+      <div class="spk"><b>Rishikesh SR</b><span class="role">Cofounder</span><p class="co">Rapido</p></div>
+      <div class="spk"><b>Khilan Haria</b><span class="role">CPO</span><p class="co">Razorpay</p></div>
+      <div class="spk"><b>Kiran Kumar</b><span class="role">Head, Platform Engineering &amp; Agentic AI</span><p class="co">Meesho</p></div>
+      <div class="spk"><b>Kausal Malladi</b><span class="role">CTO, Investments</span><p class="co">INDmoney</p><span class="on">12:00 · The Great Engineering Reset</span></div>
+      <div class="spk"><b>Ramkumar Venkatesan</b><span class="role">CTO</span><p class="co">Cashfree Payments</p></div>
+      <div class="spk"><b>Vikas Goyal</b><span class="role">Cofounder &amp; CTO</span><p class="co">Kuku</p><span class="on">10:00 · The Architecture Of 10X</span></div>
+      <div class="spk"><b>Ish Babbar</b><span class="role">Cofounder &amp; CTO</span><p class="co">InsuranceDekho</p><span class="on">10:00 · The Architecture Of 10X</span></div>
+      <div class="spk"><b>Vaibhav Khandelwal</b><span class="role">Cofounder &amp; CTO</span><p class="co">Shadowfax</p><span class="on">10:00 · The Architecture Of 10X</span></div>
+      <div class="spk"><b>Anil Sinha</b><span class="role">CTO</span><p class="co">Fibe</p><span class="on">13:00 · The Data Foundation For AI</span></div>
+      <div class="spk"><b>Thiyagaraj T</b><span class="role">Director, Engineering</span><p class="co">Eightfold</p><span class="on">13:00 · The Data Foundation For AI</span></div>
+      <div class="spk"><b>Ashok Hariharan</b><span class="role">CEO</span><p class="co">IDfy</p></div>
+      <div class="spk"><b>Vinay Rai</b><span class="role">Executive VP, Technology</span><p class="co">Netradyne</p></div>
+      <div class="spk"><b>Anuj Srivastava</b><span class="role">Cofounder &amp; CEO</span><p class="co">OnFinance AI</p></div>
+      <div class="spk more"><b>More speakers</b><span class="role">Announcing soon</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="room">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Who's in the room</span>
+      <h2>The name says CTO. The room is five functions wide.</h2>
+      <p>175 leaders, VP and above, who run engineering, platform, product, data or AI inside India's growth and late-stage tech companies.</p>
+    </div>
+    <div class="room">
+      <div>
+        <div class="bar" role="img" aria-label="Room mix: 50% engineering leaders, 15% product, 15% data and AI, 10% founder-CTOs, 10% CEO or CPO">
+          <i class="c1" style="width:50%"></i><i class="c2" style="width:15%"></i><i class="c3" style="width:15%"></i><i class="c4" style="width:10%"></i><i class="c5" style="width:10%"></i>
+        </div>
+        <ul class="legend">
+          <li><span class="sw c1"></span><span class="pct">50%</span>CTO, VP Engineering, Head of Engineering</li>
+          <li><span class="sw c2"></span><span class="pct">15%</span>CPO, Head of Product</li>
+          <li><span class="sw c3"></span><span class="pct">15%</span>Chief Data Officer, Head of AI</li>
+          <li><span class="sw c4"></span><span class="pct">10%</span>Founder-CTOs</li>
+          <li><span class="sw c5"></span><span class="pct">10%</span>CEO, CPO</li>
+        </ul>
+      </div>
+      <div class="fit">
+        <h3>This room is for you if you own</h3>
+        <ul>
+          <li>An engineering or platform organisation</li>
+          <li>A product, and the AI features going into it</li>
+          <li>A data function or an AI roadmap</li>
+        </ul>
+        <h3>It's not a CIO event</h3>
+        <ul>
+          <li>We don't cover IT governance, digital transformation or IT strategy</li>
+          <li>If internal IT is your remit, this agenda won't fit your role</li>
+        </ul>
+        <a class="btn btn-ghost" href="#booking">See how approval works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pass">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Your pass</span>
+      <h2>One pass. Everything included.</h2>
+      <p>₹8,999 + GST (₹10,619 total). There is one pass type and it covers the full day.</p>
+    </div>
+
+    <div class="includes">
+      <div><b>Every session</b><p>10+ panels and firesides with 20+ speakers, with Q&amp;A after each one.</p></div>
+      <div><b>The room</b><p>A seat among 175 tech, product, data and AI leaders, VP and above.</p></div>
+      <div><b>Food and networking</b><p>Executive lunch, high tea, and dinner with networking from 18:00.</p></div>
+      <div><b>Credits pack</b><p>$320K+ in cloud, data and AI tool credits from 13 providers. Details below.</p></div>
+    </div>
+
+    <div class="credits">
+      <div>
+        <span class="label">The credits pack</span>
+        <h3 style="margin-top:12px">Your pass also unlocks <em>$320K+</em> in cloud and AI credits.</h3>
+        <p class="lede">Every confirmed delegate gets access to credits and free plans across the infrastructure most scaling teams already pay for: cloud, data streaming, observability, DevOps and AI models.</p>
+        <dl class="compare">
+          <dt>Your pass</dt><dd>₹10,619</dd>
+          <dt class="big">Total credits pack</dt><dd class="big">$320,000+</dd>
+        </dl>
+        <div class="claim">
+          <p><b>Who gets it:</b> confirmed delegates.</p>
+          <p><b>How you claim it:</b> <span class="tbc">To confirm</span></p>
+          <p>Credit values are as listed by each provider. Provider eligibility and terms apply.</p>
+        </div>
+      </div>
+      <div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Provider</th><th>What you get</th></tr></thead>
+            <tbody>
+              <tr><td>AWS Activate</td><td>Up to $100,000 in credits</td></tr>
+              <tr><td>Databricks</td><td>$21,000 in credits for 1 year</td></tr>
+              <tr><td>Microsoft Azure</td><td>$5,000 in credits for 6 months</td></tr>
+              <tr><td>Google Cloud</td><td>$2,000 in credits for 1 year</td></tr>
+              <tr><td>Datadog</td><td>1 year free on the Pro plan</td></tr>
+              <tr><td>GitLab</td><td>1 year free on the Ultimate licence</td></tr>
+              <tr><td>Confluent</td><td>12 months free</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="also"><b>Also in the pack:</b> OpenAI, Claude, Alibaba Cloud, Auth0, Make, Perplexity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">How booking works</span>
+      <h2>From booking to your seat, in four steps.</h2>
+      <p>This is a curated room, so every application is reviewed. Payment happens when you book, before the review. If you're not approved, your money comes back in full.</p>
+    </div>
+    <ol class="steps">
+      <li><b>Book and pay</b><p>Enter your name, work email, phone, designation and company. Pay ₹10,619 by card, UPI or netbanking. Add your company's GST number if you have one.</p></li>
+      <li><b>Tell us about your role</b><p>Pick what describes you best (engineering, platform, product, data, AI or security), your company's stage, and add your LinkedIn profile.</p></li>
+      <li><b>Editorial review</b><p>Our editorial team reviews every application individually.</p></li>
+      <li><b>Seat confirmed, or full refund</b><p>If you're shortlisted, our team contacts you to confirm your seat. If not, you get a full refund within 7 working days.</p></li>
+    </ol>
+    <div class="policies">
+      <div><b>Passes are personal</b><span>Once confirmed, a pass can't be shared or transferred.</span></div>
+      <div><b>Seats are limited to 175</b><span>Attendance is curated, so we recommend booking early.</span></div>
+      <div><b>Questions before you book?</b><span>Call Vishvani Sharma, Delegate Team: <a href="tel:+919650694242">+91 96506 94242</a></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">FAQ</span>
+      <h2>Before you book.</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>I lead product, data or AI, not engineering. Is this for me?</summary>
+        <p>Yes. Product leaders are 15% of the room and data and AI leaders another 15%. The name says CTO. The room is five functions wide.</p>
+      </details>
+      <details>
+        <summary>What happens if my application isn't approved?</summary>
+        <p>You get a full refund within 7 working days. If you're a fit for the room but applied under the wrong category, our team will contact you and guide you on next steps.</p>
+      </details>
+      <details>
+        <summary>What exactly does the pass include?</summary>
+        <p>Access to every session, Q&amp;A with speakers, executive lunch, high tea, dinner and networking, and the $320K+ credits pack. There's no separate registration for individual sessions.</p>
+      </details>
+      <details>
+        <summary>Is this a CIO event?</summary>
+        <p>No. CIO conferences cover governance, digital transformation and IT strategy. We don't. If you own a platform, a product, a data function or an AI roadmap, this is your room.</p>
+      </details>
+      <details>
+        <summary>Is the agenda final?</summary>
+        <p>The morning panels from 10:00 to 13:30 are confirmed. Two 25-minute firesides and the afternoon sessions from 15:00 to 18:00 are being finalised and will be published on this page.</p>
+      </details>
+      <details>
+        <summary>Can I transfer my pass to a colleague?</summary>
+        <p>No. Once confirmed, a pass can't be shared or transferred to another person.</p>
+      </details>
+      <details>
+        <summary>Can my company's GST number go on the booking?</summary>
+        <p>Yes. Add your GST number, country and state at checkout.</p>
+      </details>
+      <details>
+        <summary>I want to speak or sponsor.</summary>
+        <p>To sponsor, <a href="https://tally.so/r/44YONk?source=website">fill in the sponsorship form</a>. For speaking opportunities, <a href="https://inc42.com/contact/">contact the team</a> and choose "Speakership Opportunity".</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <div>
+      <h2>175 seats. One day. The people running AI at India's scale.</h2>
+      <p>Wednesday, 30 September 2026 at JW Marriott, Bengaluru. ₹8,999 + GST, with a full refund if your application isn't approved.</p>
+    </div>
+    <div class="acts">
+      <a class="btn btn-primary" href="https://events.inc42.com/cto-summit/checkout/?add-to-cart=12380">Book your pass</a>
+      <p class="contact">Talk to the Delegate Team: <a href="tel:+919650694242">+91 96506 94242</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p><b style="color:var(--ink);font-weight:600">Convened by Inc42</b> · Co-presented by Oracle</p>
+      <div class="stats"><span><b>12+ years</b> covering India's tech ecosystem</span><span><b>125+</b> events convened</span><span><b>75,000+</b> startups tracked by Inc42 DataLabs</span></div>
+    </div>
+    <nav aria-label="Footer">
+      <a href="https://tally.so/r/44YONk?source=website">Become a sponsor</a>
+      <a href="https://inc42.com/contact/">Contact</a>
+      <a href="https://events.inc42.com/cto-summit/terms-and-conditions/">Terms</a>
+      <a href="https://events.inc42.com/cto-summit/privacy-policy/">Privacy</a>
+      <a href="https://events.inc42.com/cto-summit/refund-policy/">Refund policy</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="mbar">
+  <div><b class="mono">₹8,999 + GST</b>30 Sep · Bengaluru · full refund if not approved</div>
+  <a class="btn btn-primary" href="https://events.inc42.com/cto-summit/checkout/?add-to-cart=12380">Book pass</a>
+</div>
+</body>
+</html>

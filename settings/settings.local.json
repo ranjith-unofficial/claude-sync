@@ -258,7 +258,11 @@
       "Bash(echo \"  -> exit $?\")",
       "Bash(git ls-tree *)",
       "Bash(git ls-remote *)",
-      "Bash(grep -iE \"RT-2026|fficr|apollo\\\\.io|[0-9]{6,}|account|ifsc|@gmail|@ranjith\")"
+      "Bash(grep -iE \"RT-2026|fficr|apollo\\\\.io|[0-9]{6,}|account|ifsc|@gmail|@ranjith\")",
+      "Bash(curl -sL -A \"Mozilla/5.0\" https://events.inc42.com/cto-summit/ -o cto.html)",
+      "Bash(curl -sL -A \"Mozilla/5.0\" -c jar \"https://events.inc42.com/cto-summit/checkout/?add-to-cart=12380\" -o co.html)",
+      "Bash(qlmanage -t -s 600 -o . logo01.svg)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=4000 --window-size=1440,9800 --screenshot=/private/tmp/claude-501/-Users-cepl/0b51f4ec-d252-45ec-a401-6e5ee259c1f2/scratchpad/shot.png file:///Users/cepl/ClaudeDocs/inc42/cto-summit-2026-landing.html)"
     ],
     "additionalDirectories": [
       "/var/folders/1d/1fbd11l94c14fbckhmynl9nm0000gn/T/TemporaryItems/NSIRD_screencaptureui_Xm101F",
