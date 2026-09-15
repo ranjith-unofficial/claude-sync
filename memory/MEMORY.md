@@ -107,6 +107,7 @@
 - [App story card redesign (30 Aug)](project-inc42-app-story-card-redesign.md) — V28 set; "Rate" heart dead
 - [Feedback & rating system (30 Aug)](project-inc42-app-feedback-rating-system.md) — two decoupled systems
 - [Attribution layers (12 Sep)](project-inc42-attribution-layers.md) — install/session/nav split
+- [Article/Company events FINAL (15 Sep)](project-inc42-article-company-events-15sep.md) — section_viewed/section_page_viewed; no `source`; Test sheet tab
 - [Figma event coverage audit (12 Sep)](project-inc42-figma-event-coverage.md) — 23 gaps → 12 events
 
 ## INC42 data warehouse
